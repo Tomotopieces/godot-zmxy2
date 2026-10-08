@@ -1,0 +1,95 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/rig/rig.gd" id="1_4yd0w"]
+[ext_resource type="Shader" path="res://src/rig/flash_filter.gdshader" id="2_i1b52"]
+[ext_resource type="Texture2D" path="res://assets/rigs/hero_tomb/tex/Common_v7_147.png" id="3_ejbnr"]
+[ext_resource type="Texture2D" path="res://assets/rigs/hero_tomb/tex/Common_v7_148.png" id="4_651p3"]
+[ext_resource type="Texture2D" path="res://assets/rigs/hero_tomb/tex/Common_v7_151.png" id="5_rjgal"]
+[ext_resource type="Texture2D" path="res://assets/rigs/hero_tomb/tex/Common_v7_165.png" id="6_ml8v7"]
+[ext_resource type="AnimationLibrary" path="res://assets/rigs/hero_tomb/anims.res" id="7_bigua"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_41ler"]
+shader = ExtResource("2_i1b52")
+shader_parameter/blur = null
+shader_parameter/glow_on = true
+shader_parameter/glow_color = Color(0.4, 0.2, 0.4, 1)
+shader_parameter/glow_blur = Vector2(11, 11)
+shader_parameter/glow_strength = 2.75
+shader_parameter/glow_inner = false
+shader_parameter/glow_knockout = false
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hoqia"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ihqwv"]
+resource_local_to_scene = true
+
+[node name="HeroTomb" type="Node2D" unique_id=551073591]
+script = ExtResource("1_4yd0w")
+actions = PackedStringArray("default")
+
+[node name="Parts" type="Node2D" parent="." unique_id=1978153478]
+
+[node name="default" type="Node2D" parent="Parts" unique_id=878381815]
+visible = false
+
+[node name="g1_f0" type="CanvasGroup" parent="Parts/default" unique_id=2039516024]
+material = SubResource("ShaderMaterial_41ler")
+fit_margin = 15.0
+clear_margin = 15.0
+
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default/g1_f0" unique_id=881632691]
+position = Vector2(-32.2704, -259.1828)
+scale = Vector2(0.3735, 0.3735)
+texture = ExtResource("3_ejbnr")
+centered = false
+
+[node name="g1_f1" type="CanvasGroup" parent="Parts/default" unique_id=461008665]
+fit_margin = 19.0
+clear_margin = 19.0
+
+[node name="p1_2_1_f1" type="Sprite2D" parent="Parts/default/g1_f1" unique_id=34469710]
+position = Vector2(-14.3026495, -244.05515)
+scale = Vector2(0.3735, 0.3735)
+texture = ExtResource("4_651p3")
+centered = false
+
+[node name="p4_1" type="Sprite2D" parent="Parts/default" unique_id=600885256]
+position = Vector2(-26.064602, 60.00255)
+rotation = -1.6655818
+scale = Vector2(0.1426403, 0.23458154)
+skew = -0.0012776852
+texture = ExtResource("5_rjgal")
+centered = false
+
+[node name="p6_3" type="Sprite2D" parent="Parts/default" unique_id=1935658820]
+modulate = Color(1, 1, 1, 0.172)
+position = Vector2(-31.45, -32.649998)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_ml8v7")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1356708835]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=92765472]
+shape = SubResource("RectangleShape2D_hoqia")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=153640722]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1278591134]
+shape = SubResource("RectangleShape2D_ihqwv")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1293426693]
+callback_mode_process = 0
+libraries/ = ExtResource("7_bigua")

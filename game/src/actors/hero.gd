@@ -592,5 +592,13 @@ func _die() -> void:
 	end_attack()
 	velocity = Vector2.ZERO
 	Snd.sfx("Role1_dead")
-	rig.play(&"hurt", true)
+	rig.visible = false
+	_drop_tomb()
 	died.emit(self)
+## Original heroDead: the hero disappears and a gravestone falls where they stood (deadmb, 10 px above).
+func _drop_tomb() -> void:
+	var tomb := Rig.create("hero_tomb")
+	tomb.position = global_position + Vector2(0, -10)
+	tomb.z_index = Layers.Z_HERO
+	world.add_object(tomb)
+	tomb.play(tomb.actions[0])   # stays on its last frame

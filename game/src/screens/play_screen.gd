@@ -77,7 +77,7 @@ func _on_hero_died() -> void:
 	await get_tree().create_timer(RESULT_DELAY).timeout
 	if not is_inside_tree():
 		return
-	Snd.music("over")
+	Snd.music("over", false)
 	var r := ResultScreen.fail(stage)
 	r.retry.connect(func(): play.emit(stage))
 	r.back.connect(func(): to_map.emit())

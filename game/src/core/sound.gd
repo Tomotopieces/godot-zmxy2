@@ -65,12 +65,13 @@ func sfx(sound: String, pitch := 1.0) -> void:
 	p.pitch_scale = pitch
 	p.play()
 
-func music(sound: String) -> void:
+## loop: false for jingles (the game-over tune plays once).
+func music(sound: String, loop := true) -> void:
 	var s := _stream(sound)
 	if s == null or _music.stream == s and _music.playing:
 		return
 	if s is AudioStreamMP3:
-		s.loop = true
+		s.loop = loop
 	_music.stream = s
 	_music.play()
 

@@ -19,4 +19,4 @@ Godot 4.7 remake of the Flash game (single hero: 孙悟空). The original's numb
 - Saves: `user://slot_N.json` (`core/save_game.gd`: versioned, atomic write, `.bak`, validated load). Items are `Item` objects (`items/item.gd`). Gameplay randomness goes through `Rng`. F11 toggles fullscreen; gamepad defaults in `core/controls.gd`.
 
 ## Branches
-`main` — original-faithful remake (LXGW font). `remake` — original font substitutes (源柔黑体 / 思源黑体 / 思源宋体), icon, release export (tag `remake-v1.0`).
+`main` — original-faithful remake (LXGW font). `remake` — original font substitutes (源柔黑体 / 思源黑体 / 思源宋体), icon, release export (tags `remake-v1.0`, `remake-v1.0.1`).
