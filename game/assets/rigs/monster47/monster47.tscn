@@ -1,0 +1,116 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/rig/rig.gd" id="1_4443h"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster47/tex/3_770.png" id="2_jy7uf"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster47/tex/3_775.png" id="3_pm0cq"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster47/tex/3_782.png" id="4_vyfxp"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster47/tex/3_785.png" id="5_mu023"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster47/tex/3_792.png" id="6_5pltl"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster47/tex/3_797.png" id="7_adiyv"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster47/tex/3_799.png" id="8_tqkrw"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster47/tex/3_805.png" id="9_0pk0x"]
+[ext_resource type="AnimationLibrary" path="res://assets/rigs/monster47/anims.res" id="10_lu71e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0rflu"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h53se"]
+resource_local_to_scene = true
+
+[node name="Monster47" type="Node2D" unique_id=677935923]
+script = ExtResource("1_4443h")
+actions = PackedStringArray("walk", "hit1", "hurt", "wait", "hit2", "hit3", "dead")
+
+[node name="Parts" type="Node2D" parent="." unique_id=2116686311]
+
+[node name="walk" type="Node2D" parent="Parts" unique_id=499102476]
+visible = false
+
+[node name="p1_21" type="Sprite2D" parent="Parts/walk" unique_id=1716611855]
+position = Vector2(-82.15, -99.9)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_jy7uf")
+centered = false
+
+[node name="hit1" type="Node2D" parent="Parts" unique_id=2003981289]
+visible = false
+
+[node name="p1_21" type="Sprite2D" parent="Parts/hit1" unique_id=1217309503]
+position = Vector2(-53.85, -100.2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_pm0cq")
+centered = false
+
+[node name="hurt" type="Node2D" parent="Parts" unique_id=1277601074]
+visible = false
+
+[node name="p1_23" type="Sprite2D" parent="Parts/hurt" unique_id=173276536]
+position = Vector2(-58.15, -89.95)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_vyfxp")
+centered = false
+
+[node name="wait" type="Node2D" parent="Parts" unique_id=864461403]
+visible = false
+
+[node name="p1_21" type="Sprite2D" parent="Parts/wait" unique_id=1940883941]
+position = Vector2(-64.15, -100.2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_mu023")
+centered = false
+
+[node name="hit2" type="Node2D" parent="Parts" unique_id=1735260607]
+visible = false
+
+[node name="p1_21" type="Sprite2D" parent="Parts/hit2" unique_id=457042768]
+position = Vector2(-85.35, -100.25)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_5pltl")
+centered = false
+
+[node name="hit3" type="Node2D" parent="Parts" unique_id=756541352]
+visible = false
+
+[node name="p1_21" type="Sprite2D" parent="Parts/hit3" unique_id=2079287079]
+position = Vector2(-49.699997, -101.7)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_adiyv")
+centered = false
+
+[node name="p1_22_1" type="Sprite2D" parent="Parts/hit3" unique_id=583718035]
+position = Vector2(-221.15176, -184.08374)
+rotation = -0.7853982
+scale = Vector2(0.4999245, 0.4999245)
+texture = ExtResource("8_tqkrw")
+centered = false
+
+[node name="dead" type="Node2D" parent="Parts" unique_id=253551736]
+visible = false
+
+[node name="p1_23" type="Sprite2D" parent="Parts/dead" unique_id=231201330]
+position = Vector2(-61.75, -91.25)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_0pk0x")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=449436205]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=995802931]
+shape = SubResource("RectangleShape2D_0rflu")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1879191173]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=628444456]
+shape = SubResource("RectangleShape2D_h53se")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=520517961]
+callback_mode_process = 0
+libraries/ = ExtResource("10_lu71e")

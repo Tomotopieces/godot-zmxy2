@@ -1,0 +1,65 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3]
+
+[ext_resource type="Script" path="res://src/data/attack_data.gd" id="1_ncfrd"]
+[ext_resource type="Script" path="res://src/data/monster_data.gd" id="2_7gvrr"]
+
+[sub_resource type="Resource" id="Resource_mmgm1"]
+script = ExtResource("1_ncfrd")
+power_mul = 0.0
+flat = 400
+knockback = Vector2(144, -120)
+rehit_interval = 0.16666666666666666
+max_hits = 10
+
+[sub_resource type="Resource" id="Resource_f6w5k"]
+script = ExtResource("1_ncfrd")
+power_mul = 0.0
+flat = 200
+knockback = Vector2(360, -240)
+max_hits = 50
+
+[sub_resource type="Resource" id="Resource_wx4iy"]
+script = ExtResource("1_ncfrd")
+power_mul = 0.0
+flat = 200
+knockback = Vector2(120, -192)
+max_hits = 40
+
+[resource]
+script = ExtResource("2_7gvrr")
+id = 69
+display_name = "卞城王"
+rig = "monster69"
+is_boss = true
+speed = 120.0
+hp = 350000
+def = 300
+mdef = 0.3
+exp = 1000
+souls = 30
+attack_range = 150.0
+walk_times = PackedFloat32Array(3, 4)
+wander_rest = 1.25
+knockback_decay = 0.004722366482869657
+gravity = 864.0
+equip_chance = 0.15000000000000002
+equip_drops = PackedStringArray("xzyj")
+attacks = {
+&"hit1": SubResource("Resource_mmgm1"),
+&"hit2": SubResource("Resource_f6w5k"),
+&"hit3": SubResource("Resource_wx4iy")
+}
+brain = {
+"check": 1.0,
+"clone_life": 20.0,
+"invuln_fenshen": 1.4166666666666667,
+"invuln_hit1": 0.4166666666666667,
+"invuln_hit2": 0.4166666666666667,
+"invuln_hit3": 2.2916666666666665,
+"max_monsters": 5.0,
+"quake_cd": 10.833333333333334,
+"reach_y": 300.0,
+"split_hits": 20.0,
+"split_reset": [10.0, 20.0],
+"volley_cd": 7.5
+}

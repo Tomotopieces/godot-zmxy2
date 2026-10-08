@@ -1,0 +1,48 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/rig/rig.gd" id="1_w2q1q"]
+[ext_resource type="Texture2D" path="res://assets/rigs/fabao_cucurbit_fire/tex/Common_v7_351.png" id="2_3cye4"]
+[ext_resource type="AnimationLibrary" path="res://assets/rigs/fabao_cucurbit_fire/anims.res" id="3_melaf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_egk2q"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tt8ym"]
+resource_local_to_scene = true
+
+[node name="FabaoCucurbitFire" type="Node2D" unique_id=1446666323]
+script = ExtResource("1_w2q1q")
+actions = PackedStringArray("default")
+
+[node name="Parts" type="Node2D" parent="." unique_id=2044020367]
+
+[node name="default" type="Node2D" parent="Parts" unique_id=1930285480]
+visible = false
+
+[node name="p1" type="Sprite2D" parent="Parts/default" unique_id=913090628]
+position = Vector2(-44.4, -32)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_3cye4")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=489040382]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=514000010]
+shape = SubResource("RectangleShape2D_egk2q")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1319402205]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=176774644]
+shape = SubResource("RectangleShape2D_tt8ym")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1576651215]
+callback_mode_process = 0
+libraries/ = ExtResource("3_melaf")

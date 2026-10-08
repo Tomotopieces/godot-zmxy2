@@ -1,0 +1,67 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/rig/rig.gd" id="1_cmb1f"]
+[ext_resource type="Texture2D" path="res://assets/rigs/xingtian_door_open/tex/zmxy2_game_225.png" id="2_hp1c3"]
+[ext_resource type="Texture2D" path="res://assets/rigs/xingtian_door_open/tex/zmxy2_game_235.png" id="3_s03sj"]
+[ext_resource type="AnimationLibrary" path="res://assets/rigs/xingtian_door_open/anims.res" id="4_eec2j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_td56p"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h0ktg"]
+resource_local_to_scene = true
+
+[node name="XingtianDoorOpen" type="Node2D" unique_id=1949723560]
+script = ExtResource("1_cmb1f")
+actions = PackedStringArray("default")
+markers = {
+"enter": Vector2(-6.75, -57.55),
+"isXingtianDoor": Vector2(35, -96)
+}
+
+[node name="Parts" type="Node2D" parent="." unique_id=165951569]
+
+[node name="default" type="Node2D" parent="Parts" unique_id=599193181]
+visible = false
+
+[node name="p1" type="Sprite2D" parent="Parts/default" unique_id=432005227]
+position = Vector2(-286.5, -210.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_hp1c3")
+centered = false
+
+[node name="p2_1_2" type="Sprite2D" parent="Parts/default" unique_id=1936938050]
+position = Vector2(-84.25403, -146.17699)
+scale = Vector2(0.428, 0.452)
+texture = ExtResource("3_s03sj")
+centered = false
+region_enabled = true
+
+[node name="p2_5_2" type="Sprite2D" parent="Parts/default" unique_id=1128939306]
+position = Vector2(-741.508, -146.17699)
+scale = Vector2(0.428, 0.452)
+texture = ExtResource("3_s03sj")
+centered = false
+region_enabled = true
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1354103673]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=145205736]
+shape = SubResource("RectangleShape2D_td56p")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=2063616875]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=85367361]
+shape = SubResource("RectangleShape2D_h0ktg")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=215540346]
+callback_mode_process = 0
+libraries/ = ExtResource("4_eec2j")

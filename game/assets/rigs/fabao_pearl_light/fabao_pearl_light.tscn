@@ -1,0 +1,48 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/rig/rig.gd" id="1_iva7r"]
+[ext_resource type="Texture2D" path="res://assets/rigs/fabao_pearl_light/tex/Common_v7_435.png" id="2_15nvi"]
+[ext_resource type="AnimationLibrary" path="res://assets/rigs/fabao_pearl_light/anims.res" id="3_iukps"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8kxd0"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t2wox"]
+resource_local_to_scene = true
+
+[node name="FabaoPearlLight" type="Node2D" unique_id=1191233112]
+script = ExtResource("1_iva7r")
+actions = PackedStringArray("default")
+
+[node name="Parts" type="Node2D" parent="." unique_id=77166155]
+
+[node name="default" type="Node2D" parent="Parts" unique_id=445064812]
+visible = false
+
+[node name="p1" type="Sprite2D" parent="Parts/default" unique_id=1006719734]
+position = Vector2(-523.15, -2.75)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_15nvi")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1761345484]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1321290196]
+shape = SubResource("RectangleShape2D_8kxd0")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1475727080]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=30530708]
+shape = SubResource("RectangleShape2D_t2wox")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=107592269]
+callback_mode_process = 0
+libraries/ = ExtResource("3_iukps")

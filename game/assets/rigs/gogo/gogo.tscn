@@ -1,0 +1,55 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/rig/rig.gd" id="1_ma1dy"]
+[ext_resource type="Texture2D" path="res://assets/rigs/gogo/tex/zmxy2_game_341.png" id="2_6x0cu"]
+[ext_resource type="Texture2D" path="res://assets/rigs/gogo/tex/zmxy2_game_343.png" id="3_2yvrf"]
+[ext_resource type="AnimationLibrary" path="res://assets/rigs/gogo/anims.res" id="4_tar1m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yvf05"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d1ccg"]
+resource_local_to_scene = true
+
+[node name="Gogo" type="Node2D" unique_id=1571222180]
+script = ExtResource("1_ma1dy")
+actions = PackedStringArray("default")
+
+[node name="Parts" type="Node2D" parent="." unique_id=1381543195]
+
+[node name="default" type="Node2D" parent="Parts" unique_id=298943374]
+visible = false
+
+[node name="p2" type="Sprite2D" parent="Parts/default" unique_id=139616507]
+position = Vector2(-106.2, -45.85)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_6x0cu")
+centered = false
+
+[node name="p3_1" type="Sprite2D" parent="Parts/default" unique_id=932595975]
+position = Vector2(-43.35, -9.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_2yvrf")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1991577872]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1769745081]
+shape = SubResource("RectangleShape2D_yvf05")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=396192299]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=826659164]
+shape = SubResource("RectangleShape2D_d1ccg")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1644380367]
+callback_mode_process = 0
+libraries/ = ExtResource("4_tar1m")

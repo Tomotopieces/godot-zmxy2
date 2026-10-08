@@ -1,0 +1,47 @@
+[gd_scene format=3]
+
+[ext_resource type="Shader" path="res://src/rig/flash_filter.gdshader" id="1_lcgn8"]
+[ext_resource type="Texture2D" path="res://assets/rigs/bag_wukong/tex/backpack_v5_155.png" id="2_01avs"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_01ulx"]
+shader = ExtResource("1_lcgn8")
+shader_parameter/blur = null
+shader_parameter/glow_on = true
+shader_parameter/glow_color = Color(1, 0.8, 0, 1)
+shader_parameter/glow_blur = Vector2(13, 13)
+shader_parameter/glow_strength = 2.6679688
+shader_parameter/glow_inner = false
+shader_parameter/glow_knockout = false
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+
+[node name="Slot158_3" type="Node2D" unique_id=413032244]
+
+[node name="g1_1_f0" type="CanvasGroup" parent="." unique_id=1726093430]
+material = SubResource("ShaderMaterial_01ulx")
+fit_margin = 17.0
+clear_margin = 17.0
+use_mipmaps = true
+
+[node name="p1_1_1_f0" type="Sprite2D" parent="g1_1_f0" unique_id=1179595924]
+position = Vector2(-20.72, 27.698)
+rotation = -0.40097558
+scale = Vector2(0.38558426, 0.40016025)
+skew = 0.0005135536
+texture = ExtResource("2_01avs")
+centered = false
+
+[node name="g1_3_f0" type="CanvasGroup" parent="." unique_id=1770265845]
+material = SubResource("ShaderMaterial_01ulx")
+fit_margin = 17.0
+clear_margin = 17.0
+use_mipmaps = true
+
+[node name="p1_3_1_f0" type="Sprite2D" parent="g1_3_f0" unique_id=1034156380]
+position = Vector2(18.861, 12.811)
+rotation = -0.004656544
+scale = Vector2(0.42950466, 0.400005)
+skew = -0.00034344196
+texture = ExtResource("2_01avs")
+centered = false

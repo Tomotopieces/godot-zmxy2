@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3]
+
+[ext_resource type="Script" path="res://src/data/attack_data.gd" id="1_t1j6b"]
+[ext_resource type="Script" path="res://src/data/monster_data.gd" id="2_1lk5r"]
+
+[sub_resource type="Resource" id="Resource_ilg1v"]
+script = ExtResource("1_t1j6b")
+power_mul = 0.0
+flat = 200
+knockback = Vector2(120, -120)
+max_hits = 99
+
+[sub_resource type="Resource" id="Resource_esu1x"]
+script = ExtResource("1_t1j6b")
+power_mul = 0.0
+flat = 400
+kind = 1
+knockback = Vector2(120, -120)
+max_hits = 99
+
+[resource]
+script = ExtResource("2_1lk5r")
+id = 59
+display_name = "转轮王"
+rig = "monster59"
+is_boss = true
+speed = 72.0
+hp = 100000
+def = 200
+mdef = 0.15
+exp = 200
+souls = 200
+sight = 400.0
+attack_range = 450.0
+walk_times = PackedFloat32Array(3, 4)
+wander_rest = 1.25
+knockback_decay = 0.004722366482869657
+gravity = 864.0
+equip_chance = 0.22499999999999998
+stone_rate = 0.1
+attacks = {
+&"hit1": SubResource("Resource_ilg1v"),
+&"hit2": SubResource("Resource_esu1x")
+}

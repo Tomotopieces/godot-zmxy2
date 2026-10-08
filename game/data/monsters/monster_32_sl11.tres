@@ -1,0 +1,58 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3]
+
+[ext_resource type="Script" path="res://src/data/attack_data.gd" id="1_jvb4n"]
+[ext_resource type="Script" path="res://src/data/monster_data.gd" id="2_yd2bf"]
+
+[sub_resource type="Resource" id="Resource_dnxqf"]
+script = ExtResource("1_jvb4n")
+power_mul = 0.0
+flat = 16
+knockback = Vector2(240, -48)
+rehit_interval = 0.16666666666666666
+max_hits = 20
+projectile = "monster32bullet2"
+spawn_offset = Vector2(20, 0)
+
+[sub_resource type="Resource" id="Resource_70k27"]
+script = ExtResource("1_jvb4n")
+power_mul = 0.0
+flat = 30
+kind = 1
+knockback = Vector2(48, -48)
+max_hits = 20
+projectile = "monster32bullet1"
+spawn_offset = Vector2(20, 0)
+speed = 240.0
+distance = 600.0
+spin_deg = 1024.0
+spin_time = 5.0
+
+[resource]
+script = ExtResource("2_yd2bf")
+id = 32
+display_name = "守夜人"
+rig = "monster32"
+is_boss = true
+speed = 72.0
+hp = 700
+def = 6
+exp = 7
+souls = 4
+attack_range = 150.0
+walk_times = PackedFloat32Array(3, 4)
+wander_rest = 1.25
+knockback_decay = 0.004722366482869657
+gravity = 864.0
+equip_chance = 0.75
+equip_drops = PackedStringArray("lzp")
+attacks = {
+&"hit1": SubResource("Resource_dnxqf"),
+&"hit2": SubResource("Resource_70k27")
+}
+brain_type = "boss_b"
+brain = {
+"check": 1.0,
+"near_cd": 4.0,
+"near_skill": "hit2",
+"range_y_mul": 2.0
+}

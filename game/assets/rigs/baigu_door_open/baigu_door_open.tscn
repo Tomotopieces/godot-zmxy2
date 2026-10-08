@@ -1,0 +1,75 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/rig/rig.gd" id="1_qacfx"]
+[ext_resource type="Texture2D" path="res://assets/rigs/baigu_door_open/tex/zmxy2_game_324.png" id="2_733pj"]
+[ext_resource type="Texture2D" path="res://assets/rigs/baigu_door_open/tex/zmxy2_game_325.png" id="3_ln1ou"]
+[ext_resource type="Texture2D" path="res://assets/rigs/baigu_door_open/tex/zmxy2_game_332.png" id="4_lqrmg"]
+[ext_resource type="Texture2D" path="res://assets/rigs/baigu_door_open/tex/zmxy2_game_323.png" id="5_ncdhu"]
+[ext_resource type="AnimationLibrary" path="res://assets/rigs/baigu_door_open/anims.res" id="6_hmrok"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7sqb2"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gaudd"]
+resource_local_to_scene = true
+
+[node name="BaiguDoorOpen" type="Node2D" unique_id=83446617]
+script = ExtResource("1_qacfx")
+actions = PackedStringArray("default")
+markers = {
+"enter": Vector2(-19, 42.4),
+"isBaiguDoor": Vector2(-32.05, 14)
+}
+
+[node name="Parts" type="Node2D" parent="." unique_id=848621004]
+
+[node name="default" type="Node2D" parent="Parts" unique_id=1517828095]
+visible = false
+
+[node name="p2_1" type="Sprite2D" parent="Parts/default" unique_id=441361215]
+position = Vector2(-533, -173.1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_733pj")
+centered = false
+region_enabled = true
+
+[node name="p2_5" type="Sprite2D" parent="Parts/default" unique_id=205838181]
+position = Vector2(-508.95, -156.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_ln1ou")
+centered = false
+region_enabled = true
+
+[node name="p9_1" type="Sprite2D" parent="Parts/default" unique_id=2047383100]
+position = Vector2(-106, -8.099998)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_lqrmg")
+centered = false
+
+[node name="p15" type="Sprite2D" parent="Parts/default" unique_id=1629462160]
+position = Vector2(-599, 19.25)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_ncdhu")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=651337369]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=160487608]
+shape = SubResource("RectangleShape2D_7sqb2")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1173911049]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1772691735]
+shape = SubResource("RectangleShape2D_gaudd")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1427266519]
+callback_mode_process = 0
+libraries/ = ExtResource("6_hmrok")

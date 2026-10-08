@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3]
+
+[ext_resource type="Script" path="res://src/data/monster_data.gd" id="1_tbo71"]
+
+[resource]
+script = ExtResource("1_tbo71")
+id = 52
+display_name = "秦广王傀儡"
+rig = "monster52"
+is_boss = true
+speed = 120.0
+hp = 3000
+walk_times = PackedFloat32Array(3, 4)
+wander_rest = 1.25
+knockback_decay = 0.004722366482869657
+gravity = 864.0
+equip_chance = 0.5249999999999999
+equip_drops = PackedStringArray("dslj", "lcgy")
+brain = {
+"first_swap": 3.0,
+"position": [3915.0, 300.0],
+"swap": [2.0, 5.0]
+}
+behind = true
+immovable = true

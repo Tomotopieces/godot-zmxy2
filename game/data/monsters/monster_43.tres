@@ -1,0 +1,47 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3]
+
+[ext_resource type="Script" path="res://src/data/attack_data.gd" id="1_rgk7q"]
+[ext_resource type="Script" path="res://src/data/monster_data.gd" id="2_v3tiv"]
+
+[sub_resource type="Resource" id="Resource_tupn4"]
+script = ExtResource("1_rgk7q")
+power_mul = 0.0
+flat = 110
+knockback = Vector2(120, -120)
+
+[resource]
+script = ExtResource("2_v3tiv")
+id = 43
+rig = "monster43"
+speed = 72.0
+hp = 3300
+def = 50
+mdef = 0.15
+exp = 57
+souls = 30
+sight = 400.0
+attack_range = 450.0
+walk_times = PackedFloat32Array(3, 4)
+wander_rest = 1.25
+knockback_decay = 0.004722366482869657
+gravity = 864.0
+equip_chance = 0.12
+equip_drops = PackedStringArray("hshb", "yinzfw")
+attacks = {
+&"hit1": SubResource("Resource_tupn4")
+}
+brain = {
+"back_time": 3.0,
+"climb": 72.0,
+"climb_top": 150.0,
+"hover": 200.0,
+"hover_accel": 288.0,
+"hover_max": 96.0,
+"near_x": 180.0,
+"near_y": 200.0,
+"shot_distance": 1000.0,
+"shot_gravity": 345.59999999999997,
+"shot_vx": 144.0,
+"shot_vy": 96.0,
+"turn_every": [1.0, 3.0]
+}

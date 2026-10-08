@@ -1,0 +1,71 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/rig/rig.gd" id="1_dxn1y"]
+[ext_resource type="Shader" path="res://src/rig/flash_filter.gdshader" id="2_el75e"]
+[ext_resource type="Texture2D" path="res://assets/rigs/bag_glow/tex/backpack_v5_135.png" id="3_uybme"]
+[ext_resource type="AnimationLibrary" path="res://assets/rigs/bag_glow/anims.res" id="4_n1okd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kahdv"]
+shader = ExtResource("2_el75e")
+shader_parameter/blur = null
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow_inner = null
+shader_parameter/glow_knockout = null
+shader_parameter/matrix_on = true
+shader_parameter/color_matrix = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+shader_parameter/color_offset = Vector4(0, 0, 0, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_30k3b"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ltnsp"]
+resource_local_to_scene = true
+
+[node name="BagGlow" type="Node2D" unique_id=655091513]
+script = ExtResource("1_dxn1y")
+actions = PackedStringArray("default")
+
+[node name="Parts" type="Node2D" parent="." unique_id=1343908532]
+
+[node name="default" type="Node2D" parent="Parts" unique_id=966813832]
+visible = false
+
+[node name="g1_f0" type="CanvasGroup" parent="Parts/default" unique_id=677807692]
+material = SubResource("ShaderMaterial_kahdv")
+fit_margin = 4.0
+clear_margin = 4.0
+use_mipmaps = true
+
+[node name="p1_2_f0" type="Sprite2D" parent="Parts/default/g1_f0" unique_id=309003900]
+modulate = Color(1, 1, 1, 0.461)
+position = Vector2(1047.907, 64.592)
+rotation = 3.1415927
+scale = Vector2(0.6065, 0.3365)
+texture = ExtResource("3_uybme")
+centered = false
+region_enabled = true
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1206526562]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=460539217]
+shape = SubResource("RectangleShape2D_30k3b")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=368000504]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1699784143]
+shape = SubResource("RectangleShape2D_ltnsp")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=107838182]
+callback_mode_process = 0
+libraries/ = ExtResource("4_n1okd")

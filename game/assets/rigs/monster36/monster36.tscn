@@ -1,0 +1,109 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/rig/rig.gd" id="1_pcgvu"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster36/tex/2_452.png" id="2_wbrn5"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster36/tex/2_461.png" id="3_mehm6"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster36/tex/2_473.png" id="4_l8wug"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster36/tex/2_474.png" id="5_i57qu"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster36/tex/2_485.png" id="6_d0ju2"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster36/tex/2_487.png" id="7_3r8d7"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster36/tex/2_490.png" id="8_7a5ak"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster36/tex/2_505.png" id="9_5h1an"]
+[ext_resource type="AnimationLibrary" path="res://assets/rigs/monster36/anims.res" id="10_nwcx0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_87geq"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tr288"]
+resource_local_to_scene = true
+
+[node name="Monster36" type="Node2D" unique_id=1692646345]
+script = ExtResource("1_pcgvu")
+actions = PackedStringArray("walk", "hit1", "hurt", "dead", "wait")
+
+[node name="Parts" type="Node2D" parent="." unique_id=228203336]
+
+[node name="walk" type="Node2D" parent="Parts" unique_id=526275696]
+visible = false
+
+[node name="p1_1" type="Sprite2D" parent="Parts/walk" unique_id=112662123]
+position = Vector2(-85.3, -59.3)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_wbrn5")
+centered = false
+
+[node name="hit1" type="Node2D" parent="Parts" unique_id=164177479]
+visible = false
+
+[node name="p1_1" type="Sprite2D" parent="Parts/hit1" unique_id=1620129147]
+position = Vector2(-123.3, -96.2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_mehm6")
+centered = false
+
+[node name="p1_2_1" type="Sprite2D" parent="Parts/hit1" unique_id=1285163612]
+position = Vector2(-142.4474, -92.61559)
+scale = Vector2(0.627, 0.627)
+texture = ExtResource("4_l8wug")
+centered = false
+
+[node name="p1_2_2" type="Sprite2D" parent="Parts/hit1" unique_id=291271837]
+position = Vector2(-38.6789, -12.861198)
+scale = Vector2(0.627, 0.627)
+texture = ExtResource("5_i57qu")
+centered = false
+
+[node name="hurt" type="Node2D" parent="Parts" unique_id=1529647616]
+visible = false
+
+[node name="p1" type="Sprite2D" parent="Parts/hurt" unique_id=750443044]
+position = Vector2(8.5, 20)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_d0ju2")
+centered = false
+
+[node name="p2_1" type="Sprite2D" parent="Parts/hurt" unique_id=784482452]
+position = Vector2(-49.45, -78.45)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_3r8d7")
+centered = false
+
+[node name="dead" type="Node2D" parent="Parts" unique_id=1069863897]
+visible = false
+
+[node name="p1_1" type="Sprite2D" parent="Parts/dead" unique_id=893027086]
+position = Vector2(-101.1, -70.35)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_7a5ak")
+centered = false
+
+[node name="wait" type="Node2D" parent="Parts" unique_id=558006317]
+visible = false
+
+[node name="p1_1" type="Sprite2D" parent="Parts/wait" unique_id=974748841]
+position = Vector2(-57.65, -54.100002)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_5h1an")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1498289267]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1871885096]
+shape = SubResource("RectangleShape2D_87geq")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=847356393]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=233410721]
+shape = SubResource("RectangleShape2D_tr288")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=674672227]
+callback_mode_process = 0
+libraries/ = ExtResource("10_nwcx0")

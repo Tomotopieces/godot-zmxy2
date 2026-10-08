@@ -1,0 +1,48 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/rig/rig.gd" id="1_vi0a5"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster41_jump/tex/3_932.png" id="2_5lmnk"]
+[ext_resource type="AnimationLibrary" path="res://assets/rigs/monster41_jump/anims.res" id="3_gh41m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ducj"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0de6i"]
+resource_local_to_scene = true
+
+[node name="Monster41Jump" type="Node2D" unique_id=293776628]
+script = ExtResource("1_vi0a5")
+actions = PackedStringArray("default")
+
+[node name="Parts" type="Node2D" parent="." unique_id=347038204]
+
+[node name="default" type="Node2D" parent="Parts" unique_id=1056959013]
+visible = false
+
+[node name="p1_11" type="Sprite2D" parent="Parts/default" unique_id=1260318322]
+position = Vector2(-36, -46.399998)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_5lmnk")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1728396862]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1814598757]
+shape = SubResource("RectangleShape2D_8ducj")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1127392530]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=397282613]
+shape = SubResource("RectangleShape2D_0de6i")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1955717507]
+callback_mode_process = 0
+libraries/ = ExtResource("3_gh41m")

@@ -1,0 +1,60 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3]
+
+[ext_resource type="Script" path="res://src/data/attack_data.gd" id="1_x8mam"]
+[ext_resource type="Script" path="res://src/data/monster_data.gd" id="2_3kd48"]
+
+[sub_resource type="Resource" id="Resource_io46g"]
+script = ExtResource("1_x8mam")
+power_mul = 0.0
+flat = 120
+knockback = Vector2(48, -120)
+
+[sub_resource type="Resource" id="Resource_rtei8"]
+script = ExtResource("1_x8mam")
+power_mul = 0.0
+flat = 135
+knockback = Vector2(48, -120)
+max_hits = 99
+
+[sub_resource type="Resource" id="Resource_5ec30"]
+script = ExtResource("1_x8mam")
+power_mul = 0.0
+flat = 125
+kind = 1
+knockback = Vector2(48, -120)
+max_hits = 99
+
+[resource]
+script = ExtResource("2_3kd48")
+id = 56
+display_name = "夜叉"
+rig = "monster56"
+is_boss = true
+speed = 72.0
+hp = 40000
+def = 83
+exp = 225
+souls = 60
+attack_range = 250.0
+walk_times = PackedFloat32Array(3, 4)
+wander_rest = 1.25
+knockback_decay = 0.004722366482869657
+gravity = 864.0
+equip_chance = 0.30000000000000004
+equip_drops = PackedStringArray("xhyk", "xhmj")
+attacks = {
+&"hit1": SubResource("Resource_io46g"),
+&"hit3": SubResource("Resource_5ec30"),
+&"run": SubResource("Resource_rtei8")
+}
+brain = {
+"leap_cd": [6.0, 9.0],
+"leap_range": 200.0,
+"phase2_alpha": 0.0,
+"run_rehit": 2.0,
+"run_speed": 240.0,
+"slam_heal": 0.05,
+"transform_at": 0.8,
+"transform_invuln": 2.0833333333333335,
+"turn_every": [1.0, 3.0]
+}

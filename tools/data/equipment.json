@@ -1,0 +1,2267 @@
+{
+ "_doc": "From my/AllEquipment.as. stats: value or [min,max] roll. show = appearance frame on the rig. Frame counts are converted by game/tools/bake_data.gd.",
+ "rules": {
+  "regen_frames": 24,
+  "bag_size": 25,
+  "ground_frames": 240,
+  "boss_loot": [
+   "tpzy",
+   "jcdp",
+   "wpqhs1",
+   "dslj",
+   "dsyj",
+   "dsqz",
+   "tsgl",
+   "tsyp",
+   "tsyj",
+   "xhyk",
+   "xhxh",
+   "xhmj",
+   "qxsh",
+   "jhcz",
+   "ryjgb",
+   "zljs",
+   "dszk",
+   "bhz"
+  ],
+  "buff_frames": 86400,
+  "use": {
+   "sbbl": {
+    "buff": "drop"
+   },
+   "xique": {
+    "buff": "drop"
+   },
+   "jxbuff": {
+    "buff": "hp"
+   },
+   "hhbuff": {
+    "buff": "mp_regen"
+   },
+   "wdd": {
+    "special": "wds_power"
+   }
+  },
+  "buffs": {
+   "drop": {
+    "drop_mul": 2,
+    "icon": "sbbl_buff",
+    "icon_scale": 0.3
+   },
+   "hp": {
+    "hp_mul": 1.5,
+    "icon": "hn_buff",
+    "icon_scale": 0.3
+   },
+   "mp_regen": {
+    "mp_regen": 10,
+    "icon": "hh_guoqing_buff",
+    "icon_scale": 1
+   }
+  },
+  "drop_bonus": {
+   "wkwdg": 0.1,
+   "wkbsz": 0.18,
+   "wkzyf": 0.2
+  },
+  "stone_drop": {
+   "item": "wpqhs1",
+   "level_caps": {
+    "sl11": 4,
+    "sl12": 7,
+    "sl13": 10,
+    "sl21": 13,
+    "sl22": 16,
+    "sl23": 19,
+    "sl31": 22,
+    "sl32": 25,
+    "sl33": 28,
+    "sl41": -1,
+    "sl51": 27,
+    "sl61": 27,
+    "sl71": -1,
+    "sl111": -1
+   }
+  },
+  "tabs": {
+   "equip": [
+    "weapon",
+    "cloth",
+    "accessory",
+    "treasure"
+   ],
+   "item": [
+    "item"
+   ],
+   "look": [
+    "fashion",
+    "wing"
+   ]
+  },
+  "unique": [
+   "csgs"
+  ],
+  "strengthen": {
+   "types": [
+    "weapon",
+    "cloth",
+    "accessory",
+    "wing"
+   ],
+   "chance": {
+    "1": [
+     0.375,
+     0.0937,
+     0.0234,
+     0.0058,
+     0,
+     0,
+     0
+    ],
+    "2": [
+     1,
+     0.375,
+     0.0937,
+     0.0234,
+     0.0058,
+     0,
+     0
+    ],
+    "3": [
+     1,
+     1,
+     0.375,
+     0.0937,
+     0.0234,
+     0.0058,
+     0
+    ],
+    "4": [
+     1,
+     1,
+     1,
+     0.375,
+     0.0937,
+     0.0234,
+     0.0058
+    ]
+   },
+   "luck_mul": 1.25,
+   "drop_from": 3
+  },
+  "fusion": {
+   "cost": 1000,
+   "stone_chance": 0.75,
+   "recipes": [
+    {
+     "out": "dshl",
+     "mats": [
+      "dslj",
+      "dsyj",
+      "dsqz"
+     ],
+     "kind": "treasure"
+    },
+    {
+     "out": "tsgj",
+     "mats": [
+      "tsgl",
+      "tsyp",
+      "tsyj"
+     ],
+     "kind": "treasure"
+    },
+    {
+     "out": "bsj",
+     "mats": [
+      "bsxj",
+      "bszj",
+      "bsyz"
+     ],
+     "kind": "treasure"
+    },
+    {
+     "out": "lsys",
+     "mats": [
+      "lcgy",
+      "lcld",
+      "lczh"
+     ],
+     "kind": "treasure"
+    },
+    {
+     "out": "xhmt",
+     "mats": [
+      "xhyk",
+      "xhxh",
+      "xhmj"
+     ],
+     "kind": "treasure"
+    },
+    {
+     "out": "ssc",
+     "mats": [
+      "qssp",
+      "jssp",
+      "lssp"
+     ],
+     "kind": "fresh"
+    },
+    {
+     "out": "gwj",
+     "mats": [
+      "fygwj",
+      "yzfw",
+      "yinzfw"
+     ],
+     "kind": "fresh"
+    },
+    {
+     "out": "dzjj",
+     "mats": [
+      "dzj",
+      "t",
+      "t"
+     ],
+     "kind": "sum"
+    },
+    {
+     "out": "dzjj",
+     "mats": [
+      "dzj",
+      "c",
+      "c"
+     ],
+     "kind": "sum"
+    },
+    {
+     "out": "dzjj",
+     "mats": [
+      "dzj",
+      "ch",
+      "ch"
+     ],
+     "kind": "sum"
+    },
+    {
+     "out": "dzjj",
+     "mats": [
+      "dzj",
+      "t",
+      "c"
+     ],
+     "kind": "sum"
+    },
+    {
+     "out": "dzjj",
+     "mats": [
+      "dzj",
+      "t",
+      "ch"
+     ],
+     "kind": "sum"
+    },
+    {
+     "out": "dzjj",
+     "mats": [
+      "dzj",
+      "c",
+      "ch"
+     ],
+     "kind": "sum"
+    },
+    {
+     "out": "qcp",
+     "mats": [
+      "hshb",
+      "lshb",
+      "zshb"
+     ],
+     "kind": "fresh"
+    },
+    {
+     "out": "bszj",
+     "mats": [
+      "bsxj",
+      "bsxj",
+      "bsxj"
+     ],
+     "kind": "average"
+    },
+    {
+     "out": "bsyz",
+     "mats": [
+      "bszj",
+      "bszj",
+      "bszj"
+     ],
+     "kind": "average"
+    },
+    {
+     "out": "bsxj",
+     "mats": [
+      "bsyz",
+      "bsyz",
+      "bsyz"
+     ],
+     "kind": "average"
+    },
+    {
+     "out": "wpqhs2",
+     "mats": [
+      "wpqhs1",
+      "wpqhs1",
+      "wpqhs1"
+     ],
+     "kind": "stone"
+    },
+    {
+     "out": "wpqhs3",
+     "mats": [
+      "wpqhs2",
+      "wpqhs2",
+      "wpqhs2"
+     ],
+     "kind": "stone"
+    },
+    {
+     "out": "wpqhs4",
+     "mats": [
+      "wpqhs3",
+      "wpqhs3",
+      "wpqhs3"
+     ],
+     "kind": "stone"
+    },
+    {
+     "out": "dcyj",
+     "mats": [
+      "xzyj",
+      "zzyj",
+      "gzyj"
+     ],
+     "kind": "average"
+    },
+    {
+     "out": "wds",
+     "mats": [
+      "mzyj",
+      "szyj",
+      "dcyj"
+     ],
+     "kind": "treasure"
+    }
+   ]
+  },
+  "treasures": {
+   "max_level": 10,
+   "cost_mul": 1000,
+   "mp_base": 30,
+   "mp_per_level": 10,
+   "elements": [
+    "jin",
+    "mu",
+    "shui",
+    "huo",
+    "tu"
+   ],
+   "double_chance": 0.09,
+   "element_stat": {
+    "jin": "atk",
+    "shui": "mp",
+    "huo": "hp",
+    "tu": "def"
+   },
+   "defs": {
+    "dshl": {
+     "growth": [
+      0.5,
+      1
+     ],
+     "up": {
+      "hp": 20,
+      "mp": 20,
+      "atk": 4,
+      "def": 2
+     }
+    },
+    "tsgj": {
+     "growth": [
+      0.6,
+      1.2
+     ],
+     "up": {
+      "hp": 30,
+      "mp": 30,
+      "atk": 5,
+      "def": 2
+     }
+    },
+    "bsj": {
+     "growth": [
+      0.7,
+      1.4
+     ],
+     "up": {
+      "hp": 30,
+      "mp": 50,
+      "atk": 5,
+      "def": 2
+     }
+    },
+    "lsys": {
+     "growth": [
+      0.8,
+      1.6
+     ],
+     "up": {
+      "hp": 50,
+      "mp": 30,
+      "atk": 5,
+      "def": 4
+     }
+    },
+    "xhmt": {
+     "growth": [
+      1,
+      1.8
+     ],
+     "up": {
+      "hp": 30,
+      "mp": 30,
+      "atk": 9,
+      "def": 2
+     }
+    },
+    "wds": {
+     "growth": [
+      1.2,
+      2
+     ],
+     "up": {
+      "hp": 50,
+      "mp": 50,
+      "atk": 10,
+      "def": 5
+     },
+     "fixed": {
+      "hp": 250,
+      "mp": 250,
+      "atk": 50,
+      "def": 25
+     },
+     "passives": [
+      [
+       "crit",
+       0.02,
+       0.01,
+       3
+      ],
+      [
+       "lifesteal",
+       0.02,
+       0.01,
+       3
+      ],
+      [
+       "mdef",
+       0.02,
+       0.01,
+       3
+      ],
+      [
+       "hp_regen",
+       2,
+       1,
+       3
+      ],
+      [
+       "mp_regen",
+       2,
+       1,
+       3
+      ]
+     ]
+    }
+   }
+  },
+  "shop": {
+   "pages": {
+    "item": [
+     "hhbuff",
+     "wdd",
+     "wpqhs4",
+     "wpqhs1",
+     "wpqhs3",
+     "sbbl",
+     "wpxyf",
+     "wpbdf"
+    ],
+    "look": [
+     "ttzy",
+     "wkmrz",
+     "wkbsz",
+     "wkzyf",
+     "wkwdg"
+    ]
+   },
+   "prices": {
+    "hhbuff": 250,
+    "wdd": 500,
+    "wpqhs4": 700,
+    "wpqhs1": 30,
+    "wpqhs3": 270,
+    "sbbl": 600,
+    "wpxyf": 300,
+    "wpbdf": 500,
+    "ttzy": 800,
+    "wkmrz": 800,
+    "wkbsz": 870,
+    "wkzyf": 900,
+    "wkwdg": 800
+   },
+   "per_page": 6,
+   "merit": {
+    "monster": 60,
+    "amount": 50,
+    "per_day": 1
+   }
+  },
+  "revive": {
+   "item": "csgs",
+   "invincible_frames": 24,
+   "ratio": 0.5,
+   "max_y": 1200
+  }
+ },
+ "items": {
+  "ptxzf": {
+   "name": "普通的行者袍",
+   "show": 3,
+   "type": "cloth",
+   "user": "悟空",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {
+    "hp": [
+     20,
+     75
+    ],
+    "mp": [
+     12,
+     38
+    ],
+    "def": [
+     2,
+     4
+    ]
+   },
+   "strengthen": {},
+   "desc": "",
+   "value": 20
+  },
+  "ptxzg": {
+   "name": "普通的行者棍",
+   "show": 3,
+   "type": "weapon",
+   "user": "悟空",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {
+    "atk": [
+     2,
+     8
+    ]
+   },
+   "strengthen": {},
+   "desc": "",
+   "value": 20
+  },
+  "ptjs": {
+   "name": "普通的袈裟",
+   "show": 2,
+   "type": "cloth",
+   "user": "唐僧",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {
+    "hp": [
+     12,
+     38
+    ],
+    "mp": [
+     25,
+     75
+    ],
+    "def": [
+     1,
+     3
+    ]
+   },
+   "strengthen": {},
+   "desc": "",
+   "value": 20
+  },
+  "ptsmz": {
+   "name": "普通的松木杖",
+   "show": 3,
+   "type": "weapon",
+   "user": "唐僧",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {
+    "atk": [
+     2,
+     11
+    ]
+   },
+   "strengthen": {},
+   "desc": "",
+   "value": 20
+  },
+  "ptsf": {
+   "name": "普通的石斧",
+   "show": 1,
+   "type": "weapon",
+   "user": "八戒",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {
+    "atk": [
+     2,
+     10
+    ]
+   },
+   "strengthen": {},
+   "desc": "",
+   "value": 20
+  },
+  "ptmlf": {
+   "name": "普通的墨兰服",
+   "show": 2,
+   "type": "cloth",
+   "user": "八戒",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {
+    "hp": [
+     25,
+     100
+    ],
+    "mp": [
+     9,
+     25
+    ],
+    "def": [
+     2,
+     5
+    ]
+   },
+   "strengthen": {},
+   "desc": "",
+   "value": 20
+  },
+  "dslj": {
+   "name": "地煞灵戒",
+   "show": 1,
+   "type": "accessory",
+   "user": "",
+   "quality": "优秀",
+   "color": "#00FF00",
+   "stats": {
+    "atk": [
+     10,
+     15
+    ],
+    "def": 4
+   },
+   "strengthen": {
+    "att": 2
+   },
+   "desc": "聚万物之灵气，佩戴后来去通风，聆其音，知其前后，万物皆明",
+   "value": 40
+  },
+  "dsyj": {
+   "name": "地煞猿甲",
+   "show": 4,
+   "type": "cloth",
+   "user": "悟空",
+   "quality": "优秀",
+   "color": "#00FF00",
+   "stats": {
+    "hp": [
+     80,
+     130
+    ],
+    "mp": [
+     50,
+     70
+    ],
+    "def": 4
+   },
+   "strengthen": {
+    "hp": 15,
+    "def": 1
+   },
+   "desc": "据说是通臂猿猴的战甲，染上了无法褪去的血迹和被遗忘的记忆",
+   "value": 40
+  },
+  "dsqz": {
+   "name": "地煞权杖",
+   "show": 4,
+   "type": "weapon",
+   "user": "唐僧",
+   "quality": "优秀",
+   "color": "#00FF00",
+   "stats": {
+    "mp": [
+     100,
+     140
+    ],
+    "atk": 20
+   },
+   "strengthen": {
+    "att": 3,
+    "mp": 18
+   },
+   "desc": "权杖捆绑着上古遗骸，蕴藏驱神之力，挥舞间，兴云起雾，电闪雷鸣",
+   "value": 40
+  },
+  "tsgl": {
+   "name": "天煞骨链",
+   "show": 1,
+   "type": "accessory",
+   "user": "",
+   "quality": "精良",
+   "color": "#0000FF",
+   "stats": {
+    "atk": [
+     30,
+     35
+    ],
+    "def": [
+     10,
+     12
+    ],
+    "crit": 0.03
+   },
+   "strengthen": {
+    "att": 5,
+    "crit": 0.01
+   },
+   "desc": "用无数妖怪的骸骨熔炼的项链，月圆时会发出百兽的悲鸣",
+   "value": 80
+  },
+  "tsyp": {
+   "name": "天煞羽袍",
+   "show": 5,
+   "type": "cloth",
+   "user": "唐僧",
+   "quality": "精良",
+   "color": "#0000FF",
+   "stats": {
+    "hp": [
+     130,
+     150
+    ],
+    "mp": [
+     260,
+     300
+    ],
+    "def": 4
+   },
+   "strengthen": {
+    "emp": 1,
+    "mp": 40
+   },
+   "desc": "传说由鲲鹏羽毛编织成的法袍，藏有无限的法力，穿上后腾云驾雾，翱翔云端",
+   "value": 80
+  },
+  "tsyj": {
+   "name": "天煞月戟",
+   "show": 4,
+   "type": "weapon",
+   "user": "悟空",
+   "quality": "精良",
+   "color": "#0000FF",
+   "stats": {
+    "atk": [
+     30,
+     40
+    ],
+    "crit": 0.03
+   },
+   "strengthen": {
+    "att": 6,
+    "crit": 0.01
+   },
+   "desc": "由月石经三味真火精炼而成，闪耀着黄金般的光芒，此光堪比皓月之明",
+   "value": 80
+  },
+  "xhyk": {
+   "name": "血海妖壳",
+   "show": 1,
+   "type": "accessory",
+   "user": "",
+   "quality": "精良",
+   "color": "#0000FF",
+   "stats": {
+    "hp": [
+     580,
+     680
+    ],
+    "def": 20,
+    "hp_regen": 2
+   },
+   "strengthen": {
+    "hp": 90,
+    "def": 4,
+    "ehp": 1
+   },
+   "desc": "在血池里浸泡数载而出，坚如磐石，固若金汤",
+   "value": 80
+  },
+  "xhxh": {
+   "name": "血海邪皇",
+   "show": 6,
+   "type": "weapon",
+   "user": "唐僧",
+   "quality": "史诗",
+   "color": "#660099",
+   "stats": {
+    "mp": [
+     500,
+     580
+    ],
+    "atk": [
+     92,
+     108
+    ],
+    "mp_regen": 2
+   },
+   "strengthen": {
+    "mp": 90,
+    "att": 15
+   },
+   "desc": "吸取了血海里无数鲜血和冤魂妖化而成，诡异的妖杖散发着死亡的气息",
+   "value": 160
+  },
+  "xhmj": {
+   "name": "血海魔甲",
+   "show": 6,
+   "type": "cloth",
+   "user": "悟空",
+   "quality": "史诗",
+   "color": "#660099",
+   "stats": {
+    "atk": [
+     60,
+     74
+    ],
+    "def": -10,
+    "crit": 0.05,
+    "miss": 0.05,
+    "hp_regen": -2
+   },
+   "strengthen": {
+    "att": 10,
+    "def": -10,
+    "crit": 0.02
+   },
+   "desc": "聚集了无数怨魂的怨气，闪烁着胆寒的光芒，给人撕心裂肺的绝望",
+   "value": 160
+  },
+  "zljs": {
+   "name": "锦阑袈裟",
+   "show": 6,
+   "type": "cloth",
+   "user": "唐僧",
+   "quality": "传说",
+   "color": "#FF6600",
+   "stats": {
+    "hp": 500,
+    "mp": 1000,
+    "def": 20,
+    "mp_regen": 5
+   },
+   "strengthen": {
+    "hp": 75,
+    "mp": 150,
+    "emp": 1
+   },
+   "desc": "观音菩萨交给取经人的袈裟，镶嵌七宝，水火不侵，蕴藏无尽的法力",
+   "value": 320
+  },
+  "jhcz": {
+   "name": "轮回杖",
+   "show": 7,
+   "type": "weapon",
+   "user": "唐僧",
+   "quality": "传说",
+   "color": "#FF6600",
+   "stats": {
+    "mp": 900,
+    "atk": 180,
+    "mp_regen": 5
+   },
+   "strengthen": {
+    "att": 25,
+    "mp": 135,
+    "emp": 1
+   },
+   "desc": "禁锢刑天于十八层地狱之中，六道轮回，生生世世，永无止境",
+   "value": 320
+  },
+  "dszk": {
+   "name": "大圣战铠",
+   "show": 2,
+   "type": "cloth",
+   "user": "悟空",
+   "quality": "传说",
+   "color": "#FF6600",
+   "stats": {
+    "hp": 1200,
+    "mp": 500,
+    "def": 45,
+    "miss": 0.1
+   },
+   "strengthen": {
+    "hp": 180,
+    "mp": 75,
+    "miss": 0.02
+   },
+   "desc": "龙王为齐天大圣定制的战铠，斩妖除魔所向披靡",
+   "value": 320
+  },
+  "ryjgb": {
+   "name": "擎天柱",
+   "show": 6,
+   "type": "weapon",
+   "user": "悟空",
+   "quality": "传说",
+   "color": "#FF6600",
+   "stats": {
+    "atk": 130,
+    "crit": 0.15,
+    "lifesteal": 0.02
+   },
+   "strengthen": {
+    "att": 18,
+    "crit": 0.02,
+    "ebol": 0.02
+   },
+   "desc": "撑天之柱，刑天与帝争神，大闹天庭时，坠入地狱",
+   "value": 320
+  },
+  "qssp": {
+   "name": "前生碎片",
+   "show": 1,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "传说三生石裂成三块碎片，凑齐了就能释放出三生石的力量",
+   "value": 20
+  },
+  "jssp": {
+   "name": "今生碎片",
+   "show": 1,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "传说三生石裂成三块碎片，凑齐了就能释放出三生石的力量",
+   "value": 20
+  },
+  "lssp": {
+   "name": "来生碎片",
+   "show": 1,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "传说三生石裂成三块碎片，凑齐了就能释放出三生石的力量",
+   "value": 20
+  },
+  "ssc": {
+   "name": "三生锤",
+   "show": 4,
+   "type": "weapon",
+   "user": "八戒",
+   "quality": "史诗",
+   "color": "#660099",
+   "stats": {
+    "atk": [
+     70,
+     92
+    ],
+    "deephit": 0.05
+   },
+   "strengthen": {
+    "att": 13,
+    "dhit": 0.02
+   },
+   "desc": "前世的因，今生的果，宿命轮回，缘起缘灭，三生锤下，瓦解冰消",
+   "value": 160
+  },
+  "fygwj": {
+   "name": "封印鬼王剑",
+   "show": 1,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {
+    "atk": 10,
+    "crit": 0.1
+   },
+   "strengthen": {},
+   "desc": "要解开阎罗王的封印，需要冥界的阴阳符文",
+   "value": 20
+  },
+  "yzfw": {
+   "name": "阳之符文",
+   "show": 1,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "解开封印的鬼王剑所需的冥界鬼符",
+   "value": 20
+  },
+  "yinzfw": {
+   "name": "阴之符文",
+   "show": 1,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "解开封印的鬼王剑所需的冥界鬼符",
+   "value": 20
+  },
+  "gwj": {
+   "name": "鬼王剑",
+   "show": 5,
+   "type": "weapon",
+   "user": "悟空",
+   "quality": "史诗",
+   "color": "#660099",
+   "stats": {
+    "atk": [
+     60,
+     74
+    ],
+    "lifesteal": 0.05
+   },
+   "strengthen": {
+    "att": 10,
+    "ebol": 0.02
+   },
+   "desc": "解封后的鬼王剑，斩妖除魔，也只是一念之间",
+   "value": 160
+  },
+  "hshb": {
+   "name": "红色花瓣",
+   "show": 1,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "据说彼岸花散落三片花瓣，集齐了才能释放出彼岸花的魔力",
+   "value": 20
+  },
+  "lshb": {
+   "name": "绿色花瓣",
+   "show": 1,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "据说彼岸花散落三片花瓣，集齐了才能释放出彼岸花的魔力",
+   "value": 20
+  },
+  "zshb": {
+   "name": "紫色花瓣",
+   "show": 1,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "据说彼岸花散落三片花瓣，集齐了才能释放出彼岸花的魔力",
+   "value": 20
+  },
+  "qcp": {
+   "name": "七彩袍",
+   "show": 4,
+   "type": "cloth",
+   "user": "唐僧",
+   "quality": "史诗",
+   "color": "#660099",
+   "stats": {
+    "hp": [
+     250,
+     290
+    ],
+    "mp": [
+     500,
+     580
+    ],
+    "def": [
+     10,
+     12
+    ],
+    "mdef": 0.1
+   },
+   "strengthen": {
+    "mp": 80,
+    "mdef": 0.02
+   },
+   "desc": "彼岸花，有花无叶，生生世世，永不相见。幻七彩，无生无死，无苦无悲，无欲无求",
+   "value": 160
+  },
+  "jgj": {
+   "name": "金刚甲",
+   "show": 5,
+   "type": "cloth",
+   "user": "八戒",
+   "quality": "史诗",
+   "color": "#660099",
+   "stats": {
+    "hp": [
+     800,
+     940
+    ],
+    "mp": [
+     185,
+     251
+    ],
+    "def": [
+     14,
+     18
+    ],
+    "mdef": 0.1
+   },
+   "strengthen": {
+    "hp": 135,
+    "mdef": 0.02
+   },
+   "desc": "地狱炎岩经三味真火灼烧四十九日而成的战甲，故金刚不灭",
+   "value": 160
+  },
+  "lcgy": {
+   "name": "罗刹鬼衣",
+   "show": 3,
+   "type": "cloth",
+   "user": "八戒",
+   "quality": "优秀",
+   "color": "#00FF00",
+   "stats": {
+    "hp": [
+     100,
+     170
+    ],
+    "mp": [
+     35,
+     50
+    ],
+    "def": 5
+   },
+   "strengthen": {
+    "hp": 20,
+    "mp": 5
+   },
+   "desc": "恶鬼之衣，怨气重重",
+   "value": 40
+  },
+  "gtq": {
+   "name": "古藤枪",
+   "show": 2,
+   "type": "weapon",
+   "user": "悟空",
+   "quality": "优秀",
+   "color": "#00FF00",
+   "stats": {
+    "atk": [
+     10,
+     19
+    ]
+   },
+   "strengthen": {
+    "att": 2
+   },
+   "desc": "马面的古藤枪，坚韧无比，破巨岩，轻而易举",
+   "value": 40
+  },
+  "lzp": {
+   "name": "老者袍",
+   "show": 3,
+   "type": "cloth",
+   "user": "唐僧",
+   "quality": "优秀",
+   "color": "#00FF00",
+   "stats": {
+    "hp": 50,
+    "mp": 100
+   },
+   "strengthen": {
+    "hp": 2,
+    "mp": 15
+   },
+   "desc": "窃以暮景残光，步履蹒跚，能余几日，魂聚长袍，方今生不朽",
+   "value": 40
+  },
+  "gtb": {
+   "name": "古藤棒",
+   "show": 2,
+   "type": "weapon",
+   "user": "八戒",
+   "quality": "优秀",
+   "color": "#00FF00",
+   "stats": {
+    "atk": [
+     10,
+     26
+    ]
+   },
+   "strengthen": {
+    "att": 3
+   },
+   "desc": "牛头的古藤棒，重达千斤，碎大石，易如反掌",
+   "value": 40
+  },
+  "lcld": {
+   "name": "罗刹镰刀",
+   "show": 3,
+   "type": "weapon",
+   "user": "八戒",
+   "quality": "精良",
+   "color": "#0000FF",
+   "stats": {
+    "atk": [
+     34,
+     50
+    ]
+   },
+   "strengthen": {
+    "att": 7,
+    "ehp": 1
+   },
+   "desc": "死神遗落的镰刀，一但被砍伤，将留下永远无法愈合的伤口",
+   "value": 80
+  },
+  "bsxj": {
+   "name": "白霜胸甲",
+   "show": 5,
+   "type": "cloth",
+   "user": "悟空",
+   "quality": "精良",
+   "color": "#0000FF",
+   "stats": {
+    "hp": [
+     280,
+     330
+    ],
+    "mp": [
+     130,
+     150
+    ],
+    "def": [
+     10,
+     12
+    ],
+    "hp_regen": 2
+   },
+   "strengthen": {
+    "hp": 45,
+    "def": 2
+   },
+   "desc": "极寒之地的千年冰魄，锻造的胸甲，散发出无法靠近的寒气",
+   "value": 80
+  },
+  "bszj": {
+   "name": "白霜重甲",
+   "show": 4,
+   "type": "cloth",
+   "user": "八戒",
+   "quality": "精良",
+   "color": "#0000FF",
+   "stats": {
+    "hp": [
+     380,
+     450
+    ],
+    "mp": [
+     95,
+     110
+    ],
+    "def": [
+     8,
+     9
+    ],
+    "hp_regen": 2
+   },
+   "strengthen": {
+    "hp": 60,
+    "mp": 15
+   },
+   "desc": "极寒之地的千年冰魄，锻造的重铠，犹如千年寒冰那般坚固",
+   "value": 80
+  },
+  "bsyz": {
+   "name": "白霜妖杖",
+   "show": 5,
+   "type": "weapon",
+   "user": "唐僧",
+   "quality": "精良",
+   "color": "#0000FF",
+   "stats": {
+    "mp": [
+     260,
+     300
+    ],
+    "atk": [
+     44,
+     52
+    ],
+    "mp_regen": 2
+   },
+   "strengthen": {
+    "att": 7,
+    "mp": 40
+   },
+   "desc": "寒气逼人，毛骨俱悚，狂飙刮地，人马俱惊",
+   "value": 80
+  },
+  "csgs": {
+   "name": "苍生挂饰",
+   "show": 1,
+   "type": "accessory",
+   "user": "",
+   "quality": "史诗",
+   "color": "#660099",
+   "stats": {},
+   "strengthen": {},
+   "desc": "苍天之下，至于酆都蔫蔫然枯草木，独挂饰盎然，万劫亦重生",
+   "value": 160
+  },
+  "lczh": {
+   "name": "罗刹指环",
+   "show": 1,
+   "type": "accessory",
+   "user": "",
+   "quality": "史诗",
+   "color": "#660099",
+   "stats": {
+    "atk": 60,
+    "def": 15,
+    "crit": 0.05,
+    "miss": 0.05
+   },
+   "strengthen": {
+    "att": 9,
+    "crit": 0.01
+   },
+   "desc": "传说阿修罗的指环，横行于六道之间，却留下一抹黯然",
+   "value": 160
+  },
+  "jcdp": {
+   "name": "九齿钉耙",
+   "show": 5,
+   "type": "weapon",
+   "user": "八戒",
+   "quality": "传说",
+   "color": "#FF6600",
+   "stats": {
+    "atk": 150,
+    "hp_regen": 5,
+    "deephit": 0.05
+   },
+   "strengthen": {
+    "att": 22,
+    "dhit": 0.02
+   },
+   "desc": "太上老君用神冰铁亲自锤炼，借五方五帝、六丁六甲之力锻造而成，重量有一藏之数，连柄五千零四十八斤",
+   "value": 320
+  },
+  "tpzy": {
+   "name": "天蓬战衣",
+   "show": 6,
+   "type": "cloth",
+   "user": "八戒",
+   "quality": "传说",
+   "color": "#FF6600",
+   "stats": {
+    "hp": 1600,
+    "mp": 360,
+    "def": 27,
+    "hp_regen": 5,
+    "mdef": 0.15
+   },
+   "strengthen": {
+    "hp": 240,
+    "ehp": 1,
+    "mdef": 0.02
+   },
+   "desc": "泥丸九宫中的天蓬战衣，在妖邪之间散发一股仙气",
+   "value": 320
+  },
+  "yll": {
+   "name": "阎罗令",
+   "show": 1,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "通往刑天副本的令牌",
+   "value": 20
+  },
+  "t": {
+   "name": "贪",
+   "show": 1,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {
+    "hp": [
+     100,
+     300
+    ],
+    "hp_regen": [
+     1,
+     4
+    ],
+    "mdef": [
+     0,
+     0.05
+    ]
+   },
+   "strengthen": {},
+   "desc": "",
+   "value": 20
+  },
+  "c": {
+   "name": "嗔",
+   "show": 1,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {
+    "atk": [
+     10,
+     30
+    ],
+    "crit": [
+     0.01,
+     0.05
+    ],
+    "miss": [
+     0.01,
+     0.05
+    ],
+    "mdef": [
+     0,
+     0.05
+    ]
+   },
+   "strengthen": {},
+   "desc": "",
+   "value": 20
+  },
+  "ch": {
+   "name": "痴",
+   "show": 1,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {
+    "mp": [
+     100,
+     300
+    ],
+    "mp_regen": [
+     1,
+     4
+    ],
+    "mdef": [
+     0,
+     0.05
+    ]
+   },
+   "strengthen": {},
+   "desc": "",
+   "value": 20
+  },
+  "dzj": {
+   "name": "地藏戒",
+   "show": 1,
+   "type": "accessory",
+   "user": "",
+   "quality": "史诗",
+   "color": "#660099",
+   "stats": {
+    "hp": 300,
+    "mp": 300,
+    "atk": 30,
+    "def": 20,
+    "hp_regen": 2,
+    "mp_regen": 2
+   },
+   "strengthen": {
+    "hp": 50,
+    "mp": 50,
+    "att": 10
+   },
+   "desc": "",
+   "value": 160
+  },
+  "dzjj": {
+   "name": "地藏金戒",
+   "show": 1,
+   "type": "accessory",
+   "user": "",
+   "quality": "传说",
+   "color": "#FF6600",
+   "stats": {},
+   "strengthen": {
+    "hp": 50,
+    "mp": 50,
+    "att": 10
+   },
+   "desc": "",
+   "value": 320
+  },
+  "bsz": {
+   "name": "避水珠",
+   "show": 1,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "进入忘川河底活大地狱的必备之物",
+   "value": 20
+  },
+  "jxbuff": {
+   "name": "顽固的水牛",
+   "show": 2,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "提高自身50%的生命上限,持续一小时",
+   "value": 20
+  },
+  "xique": {
+   "name": "幸运的喜鹊",
+   "show": 2,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "获得装备和强化石的概率加倍,持续一小时",
+   "value": 20
+  },
+  "szyj": {
+   "name": "蛇之印记",
+   "show": 2,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "五毒印记，能封印住邪恶的力量",
+   "value": 20
+  },
+  "xzyj": {
+   "name": "蝎之印记",
+   "show": 2,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "五毒印记，能封印住邪恶的力量",
+   "value": 20
+  },
+  "zzyj": {
+   "name": "蛛之印记",
+   "show": 2,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "五毒印记，能封印住邪恶的力量",
+   "value": 20
+  },
+  "mzyj": {
+   "name": "蟾之印记",
+   "show": 2,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "五毒印记，能封印住邪恶的力量",
+   "value": 20
+  },
+  "gzyj": {
+   "name": "蚣之印记",
+   "show": 2,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "五毒印记，能封印住邪恶的力量",
+   "value": 20
+  },
+  "dcyj": {
+   "name": "毒虫印记",
+   "show": 2,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "五毒印记，能封印住邪恶的力量",
+   "value": 20
+  },
+  "xyb": {
+   "name": "小月饼",
+   "show": 2,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "收集10个小月饼兑换1个大月饼，收集100个小月饼兑换中秋绝版传说武器",
+   "value": 20
+  },
+  "jxdyb": {
+   "name": "玫瑰月饼",
+   "show": 2,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "生命上限增加600，持续一小时",
+   "value": 20
+  },
+  "jmdyb": {
+   "name": "蓝莓月饼",
+   "show": 2,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "魔法上限增加600，持续一小时",
+   "value": 20
+  },
+  "jgjdyb": {
+   "name": "绿橘月饼",
+   "show": 2,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "攻击力增加100，持续一小时",
+   "value": 20
+  },
+  "jfydyb": {
+   "name": "坚果月饼",
+   "show": 2,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "防御力增加50，持续一小时",
+   "value": 20
+  },
+  "jbldyb": {
+   "name": "芒果月饼",
+   "show": 2,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "装备掉落率增加50%，持续一小时",
+   "value": 20
+  },
+  "myz": {
+   "name": "明月杖",
+   "show": 8,
+   "type": "weapon",
+   "user": "唐僧",
+   "quality": "传说",
+   "color": "#FF6600",
+   "stats": {
+    "mp": [
+     800,
+     1000
+    ],
+    "atk": [
+     140,
+     200
+    ],
+    "crit": 0.05,
+    "mp_regen": [
+     3,
+     7
+    ]
+   },
+   "strengthen": {
+    "att": 30
+   },
+   "desc": "",
+   "value": 320
+  },
+  "nyd": {
+   "name": "凝月刀",
+   "show": 8,
+   "type": "weapon",
+   "user": "悟空",
+   "quality": "传说",
+   "color": "#FF6600",
+   "stats": {
+    "atk": [
+     100,
+     150
+    ],
+    "crit": 0.2
+   },
+   "strengthen": {
+    "att": 20
+   },
+   "desc": "",
+   "value": 320
+  },
+  "syc": {
+   "name": "殇月锤",
+   "show": 6,
+   "type": "weapon",
+   "user": "八戒",
+   "quality": "传说",
+   "color": "#FF6600",
+   "stats": {
+    "atk": [
+     120,
+     180
+    ],
+    "crit": 0.05,
+    "hp_regen": [
+     3,
+     7
+    ]
+   },
+   "strengthen": {
+    "att": 25
+   },
+   "desc": "",
+   "value": 320
+  },
+  "xtzy": {
+   "name": "刑天之翼",
+   "show": 2,
+   "type": "wing",
+   "user": "",
+   "quality": "传说",
+   "color": "#FF6600",
+   "stats": {
+    "crit": 0.01,
+    "miss": 0.01,
+    "hp_regen": 1
+   },
+   "strengthen": {
+    "crit": 0.01,
+    "miss": 0.01,
+    "ehp": 1
+   },
+   "desc": "",
+   "value": 320
+  },
+  "dshl": {
+   "name": "地煞葫芦",
+   "show": 1,
+   "type": "treasure",
+   "user": "",
+   "quality": "精良",
+   "color": "#0000FF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "拥有【烈火咒】技能，对前方怪物造成伤害",
+   "value": 80
+  },
+  "tsgj": {
+   "name": "天煞古剑",
+   "show": 1,
+   "type": "treasure",
+   "user": "",
+   "quality": "史诗",
+   "color": "#660099",
+   "stats": {},
+   "strengthen": {},
+   "desc": "拥有【御剑飞行】技能，对前方怪物造成伤害，可以站在剑上",
+   "value": 160
+  },
+  "bsj": {
+   "name": "白霜镜",
+   "show": 1,
+   "type": "treasure",
+   "user": "",
+   "quality": "史诗",
+   "color": "#660099",
+   "stats": {},
+   "strengthen": {},
+   "desc": "拥有【邪灵寄生】技能，向最近的怪物吸取少许生命，15秒后返回所吸取的生命",
+   "value": 160
+  },
+  "lsys": {
+   "name": "罗刹妖伞",
+   "show": 1,
+   "type": "treasure",
+   "user": "",
+   "quality": "史诗",
+   "color": "#660099",
+   "stats": {},
+   "strengthen": {},
+   "desc": "拥有【暴雨梨花】技能，对周围怪物造成中毒效果，并减缓其移动速度",
+   "value": 160
+  },
+  "xhmt": {
+   "name": "血海魔童",
+   "show": 1,
+   "type": "treasure",
+   "user": "",
+   "quality": "史诗",
+   "color": "#660099",
+   "stats": {},
+   "strengthen": {},
+   "desc": "拥有【魔童连击】技能，对随机怪物造成多次伤害",
+   "value": 160
+  },
+  "wds": {
+   "name": "五毒兽",
+   "show": 1,
+   "type": "treasure",
+   "user": "",
+   "quality": "传说",
+   "color": "#FF6600",
+   "stats": {
+    "hp": 250,
+    "mp": 250,
+    "atk": 50,
+    "def": 25
+   },
+   "strengthen": {},
+   "desc": "",
+   "value": 320
+  },
+  "wpqhs1": {
+   "name": "1级强化石",
+   "show": 1,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "用来强化装备提高装备属性",
+   "value": 20,
+   "stone": 1
+  },
+  "wpqhs2": {
+   "name": "2级强化石",
+   "show": 2,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "",
+   "value": 20,
+   "stone": 2
+  },
+  "wpqhs3": {
+   "name": "3级强化石",
+   "show": 3,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "",
+   "value": 20,
+   "stone": 3
+  },
+  "wpqhs4": {
+   "name": "4级强化石",
+   "show": 4,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "",
+   "value": 20,
+   "stone": 4
+  },
+  "wpqhs5": {
+   "name": "5级强化石",
+   "show": 5,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "",
+   "value": 20,
+   "stone": 5
+  },
+  "wpxyf": {
+   "name": "幸运符",
+   "show": 2,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "可以提升装备强化25%的成功率",
+   "value": 20,
+   "charm": "luck"
+  },
+  "wpbdf": {
+   "name": "保底符",
+   "show": 2,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "使装备在强化失败后不会降级",
+   "value": 20,
+   "charm": "keep"
+  },
+  "sbbl": {
+   "name": "双倍爆率",
+   "show": 2,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "提高物品的掉落概率,持续一小时",
+   "value": 20
+  },
+  "wdd": {
+   "name": "五毒丹",
+   "show": 2,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "可以强化五毒兽的主动技能",
+   "value": 20
+  },
+  "wkmrz": {
+   "name": "悟空黄头装",
+   "show": 7,
+   "type": "fashion",
+   "user": "悟空",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "",
+   "value": 20
+  },
+  "tsmrz": {
+   "name": "唐僧黄头装",
+   "show": 7,
+   "type": "fashion",
+   "user": "唐僧",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "",
+   "value": 20
+  },
+  "bjmrz": {
+   "name": "八戒黄头装",
+   "show": 7,
+   "type": "fashion",
+   "user": "八戒",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "",
+   "value": 20
+  },
+  "wkbsz": {
+   "name": "悟空红头装",
+   "show": 9,
+   "type": "fashion",
+   "user": "悟空",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "少许提高装备的掉落率",
+   "value": 20
+  },
+  "tsbsz": {
+   "name": "唐僧红头装",
+   "show": 9,
+   "type": "fashion",
+   "user": "唐僧",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "少许提高装备的掉落率",
+   "value": 20
+  },
+  "bjbsz": {
+   "name": "八戒红头装",
+   "show": 9,
+   "type": "fashion",
+   "user": "八戒",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "少许提高装备的掉落率",
+   "value": 20
+  },
+  "jwkzyf": {
+   "name": "绝·悟空状元服",
+   "show": 12,
+   "type": "fashion",
+   "user": "悟空",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "金榜题名时，独占鳌头。少许提高装备的掉落率",
+   "value": 20
+  },
+  "jtszyf": {
+   "name": "绝·唐僧状元服",
+   "show": 12,
+   "type": "fashion",
+   "user": "唐僧",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "金榜题名时，独占鳌头。少许提高装备的掉落率",
+   "value": 20
+  },
+  "jbjzyf": {
+   "name": "绝·八戒状元服",
+   "show": 12,
+   "type": "fashion",
+   "user": "八戒",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "金榜题名时，独占鳌头。少许提高装备的掉落率",
+   "value": 20
+  },
+  "jwkwdg": {
+   "name": "绝·悟空西装",
+   "show": 11,
+   "type": "fashion",
+   "user": "悟空",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "略微提高装备的掉落率",
+   "value": 20
+  },
+  "jtswdg": {
+   "name": "绝·唐僧西装",
+   "show": 11,
+   "type": "fashion",
+   "user": "唐僧",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "略微提高装备的掉落率",
+   "value": 20
+  },
+  "jbjwdg": {
+   "name": "绝·八戒西装",
+   "show": 11,
+   "type": "fashion",
+   "user": "八戒",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "略微提高装备的掉落率",
+   "value": 20
+  },
+  "wkwdg": {
+   "name": "悟空西装",
+   "show": 8,
+   "type": "fashion",
+   "user": "悟空",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "略微提高装备的掉落率",
+   "value": 20
+  },
+  "tswdg": {
+   "name": "唐僧西装",
+   "show": 8,
+   "type": "fashion",
+   "user": "唐僧",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "略微提高装备的掉落率",
+   "value": 20
+  },
+  "bjwdg": {
+   "name": "八戒西装",
+   "show": 8,
+   "type": "fashion",
+   "user": "八戒",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "略微提高装备的掉落率",
+   "value": 20
+  },
+  "wkzyf": {
+   "name": "悟空状元服",
+   "show": 10,
+   "type": "fashion",
+   "user": "悟空",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "金榜题名时，独占鳌头。少许提高装备的掉落率",
+   "value": 20
+  },
+  "tszyf": {
+   "name": "唐僧状元服",
+   "show": 10,
+   "type": "fashion",
+   "user": "唐僧",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "金榜题名时，独占鳌头。少许提高装备的掉落率",
+   "value": 20
+  },
+  "bjzyf": {
+   "name": "八戒状元服",
+   "show": 10,
+   "type": "fashion",
+   "user": "八戒",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "金榜题名时，独占鳌头。少许提高装备的掉落率",
+   "value": 20
+  },
+  "hhbuff": {
+   "name": "辉煌",
+   "show": 10,
+   "type": "item",
+   "user": "",
+   "quality": "普通",
+   "color": "#FFFFFF",
+   "stats": {},
+   "strengthen": {},
+   "desc": "回蓝增加10,持续一小时",
+   "value": 20
+  },
+  "ttzy": {
+   "name": "天庭之翼",
+   "show": 3,
+   "type": "wing",
+   "user": "",
+   "quality": "传说",
+   "color": "#FF6600",
+   "stats": {
+    "crit": 0.01,
+    "miss": 0.01,
+    "mp_regen": 1
+   },
+   "strengthen": {
+    "crit": 0.01,
+    "miss": 0.01,
+    "emp": 1
+   },
+   "desc": "",
+   "value": 320
+  }
+ }
+}

@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3]
+
+[ext_resource type="Script" path="res://src/data/monster_data.gd" id="1_n3yj3"]
+
+[resource]
+script = ExtResource("1_n3yj3")
+id = 54
+rig = "monster54"
+speed = 120.0
+hp = 3000
+def = 10
+exp = 30
+souls = 30
+walk_times = PackedFloat32Array(3, 4)
+wander_rest = 1.25
+knockback_decay = 0.004722366482869657
+gravity = 864.0
+equip_chance = 0.75
+equip_drops = PackedStringArray("yll")
+brain_type = "totem"
+brain = {
+"amount": 50.0,
+"effect": "heal",
+"every": 1.0
+}
+behind = true
+immovable = true

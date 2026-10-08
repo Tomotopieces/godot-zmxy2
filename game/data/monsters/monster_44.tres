@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3]
+
+[ext_resource type="Script" path="res://src/data/attack_data.gd" id="1_6psy8"]
+[ext_resource type="Script" path="res://src/data/monster_data.gd" id="2_u2l5v"]
+
+[sub_resource type="Resource" id="Resource_3n44b"]
+script = ExtResource("1_6psy8")
+power_mul = 0.0
+flat = 120
+knockback = Vector2(144, -120)
+projectile = "monster44bullet1"
+spawn_offset = Vector2(20, 0)
+
+[resource]
+script = ExtResource("2_u2l5v")
+id = 44
+rig = "monster44"
+speed = 72.0
+hp = 3100
+def = 17
+mdef = 0.8
+exp = 75
+souls = 33
+sight = 600.0
+attack_range = 150.0
+attack_chance = 70
+walk_times = PackedFloat32Array(3, 4)
+wander_rest = 1.25
+knockback_decay = 0.004722366482869657
+gravity = 864.0
+equip_chance = 0.03
+equip_drops = PackedStringArray("zshb", "jssp")
+attacks = {
+&"hit1": SubResource("Resource_3n44b")
+}

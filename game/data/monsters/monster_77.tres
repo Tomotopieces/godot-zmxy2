@@ -1,0 +1,108 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3]
+
+[ext_resource type="Script" path="res://src/data/attack_data.gd" id="1_yaqc4"]
+[ext_resource type="Script" path="res://src/data/monster_data.gd" id="2_82rco"]
+
+[sub_resource type="Resource" id="Resource_323s3"]
+script = ExtResource("1_yaqc4")
+power_mul = 0.0
+flat = 400
+knockback = Vector2(144, -120)
+max_hits = 30
+
+[sub_resource type="Resource" id="Resource_7psx4"]
+script = ExtResource("1_yaqc4")
+power_mul = 0.0
+flat = 800
+knockback = Vector2(48, -168)
+max_hits = 30
+
+[sub_resource type="Resource" id="Resource_6gucp"]
+script = ExtResource("1_yaqc4")
+power_mul = 0.0
+flat = 800
+kind = 1
+knockback = Vector2(48, -168)
+max_hits = 30
+
+[sub_resource type="Resource" id="Resource_r311t"]
+script = ExtResource("1_yaqc4")
+power_mul = 0.0
+flat = 300
+knockback = Vector2(48, -168)
+max_hits = 30
+
+[sub_resource type="Resource" id="Resource_h7vdj"]
+script = ExtResource("1_yaqc4")
+power_mul = 0.0
+flat = 1000
+kind = 1
+knockback = Vector2(48, -168)
+max_hits = 30
+
+[sub_resource type="Resource" id="Resource_lbb4w"]
+script = ExtResource("1_yaqc4")
+power_mul = 0.0
+flat = 1000
+kind = 1
+knockback = Vector2(48, -96)
+max_hits = 40
+
+[sub_resource type="Resource" id="Resource_4fx15"]
+script = ExtResource("1_yaqc4")
+power_mul = 0.0
+flat = 100
+kind = 1
+knockback = Vector2(192, -48)
+max_hits = 30
+
+[resource]
+script = ExtResource("2_82rco")
+id = 77
+display_name = "平等王"
+rig = "monster77"
+is_boss = true
+speed = 120.0
+hp = 500000
+def = 400
+mdef = 0.3
+exp = 10000
+souls = 2000
+sight = 500.0
+attack_range = 120.0
+walk_times = PackedFloat32Array(3, 4)
+wander_rest = 1.25
+knockback_decay = 0.004722366482869657
+gravity = 864.0
+equip_chance = 0.15000000000000002
+attacks = {
+&"hit1": SubResource("Resource_323s3"),
+&"hit2-1": SubResource("Resource_7psx4"),
+&"hit2-2": SubResource("Resource_6gucp"),
+&"hit2-3": SubResource("Resource_r311t"),
+&"hit2-4": SubResource("Resource_h7vdj"),
+&"hit3": SubResource("Resource_lbb4w"),
+&"hit4": SubResource("Resource_4fx15")
+}
+brain = {
+"cd1": 10.0,
+"cd2": 10.0,
+"cd3": 15.0,
+"cd4": 60.0,
+"check": 1.0,
+"far_band": 800.0,
+"far_cd_rand": 4.166666666666667,
+"invuln_hit2": 1.0833333333333333,
+"invuln_hit3": 2.9166666666666665,
+"invuln_hit4": 0.625,
+"invuln_hit5": 0.625,
+"mid_band": 300.0,
+"near_band": 150.0,
+"skill1": "hit2",
+"skill2": "hit3",
+"skill3": "",
+"swap_at": 0.1,
+"swap_hero_hp": 0.1,
+"tomb_x": 470.0,
+"variant_invuln": 0.625
+}

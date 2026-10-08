@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3]
+
+[ext_resource type="Script" path="res://src/data/monster_data.gd" id="1_nt2hu"]
+
+[resource]
+script = ExtResource("1_nt2hu")
+id = 78
+rig = "monster78"
+speed = 120.0
+hp = 20000
+exp = 5000
+souls = 1000
+walk_times = PackedFloat32Array(3, 4)
+wander_rest = 1.25
+knockback_decay = 0.004722366482869657
+gravity = 864.0
+equip_chance = 0.22499999999999998
+brain = {
+"drain_hp": 200.0,
+"drain_mp": 50.0,
+"every": 1.0,
+"spawn_invuln": 1.0
+}
+immovable = true

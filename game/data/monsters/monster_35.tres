@@ -1,0 +1,73 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3]
+
+[ext_resource type="Script" path="res://src/data/attack_data.gd" id="1_qqf6e"]
+[ext_resource type="Script" path="res://src/data/monster_data.gd" id="2_37oem"]
+
+[sub_resource type="Resource" id="Resource_ne13w"]
+script = ExtResource("1_qqf6e")
+power_mul = 0.0
+flat = 30
+knockback = Vector2(144, -120)
+rehit_interval = 0.16666666666666666
+max_hits = 2
+
+[sub_resource type="Resource" id="Resource_nekjg"]
+script = ExtResource("1_qqf6e")
+power_mul = 0.0
+flat = 30
+kind = 1
+knockback = Vector2(360, 0)
+rehit_interval = 0.041666666666666664
+max_hits = 50
+
+[sub_resource type="Resource" id="Resource_if8w7"]
+script = ExtResource("1_qqf6e")
+power_mul = 0.0
+flat = 30
+kind = 1
+knockback = Vector2(-360, 0)
+rehit_interval = 0.041666666666666664
+max_hits = 50
+
+[sub_resource type="Resource" id="Resource_52gvj"]
+script = ExtResource("1_qqf6e")
+power_mul = 0.0
+flat = 50
+kind = 1
+knockback = Vector2(360, 0)
+max_hits = 40
+
+[resource]
+script = ExtResource("2_37oem")
+id = 35
+rig = "monster35"
+speed = 72.0
+hp = 30000
+def = 10
+exp = 35
+souls = 10
+attack_range = 150.0
+walk_times = PackedFloat32Array(3, 4)
+wander_rest = 1.25
+knockback_decay = 0.004722366482869657
+gravity = 864.0
+equip_chance = 0.6000000000000001
+attacks = {
+&"hit1": SubResource("Resource_ne13w"),
+&"hit2-1": SubResource("Resource_nekjg"),
+&"hit2-2": SubResource("Resource_if8w7"),
+&"hit3": SubResource("Resource_52gvj")
+}
+brain = {
+"check": 1.0,
+"far_cd": 7.5,
+"far_skill": "hit3",
+"grab_invuln": 1.4583333333333333,
+"near_cd": 10.833333333333334,
+"near_skill": "hit2-1",
+"stab_jerk": 691.2,
+"stab_life": 10.0,
+"stab_spacing": 50.0,
+"stab_speed": 24.0,
+"stab_turn": 1.0
+}

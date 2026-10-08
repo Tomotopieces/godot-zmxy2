@@ -1,0 +1,92 @@
+class_name SkillShop
+extends CanvasLayer
+## Skill learning panel (export.shop.SkillControl): active page buys Wukong's five skills with souls,
+## passive page levels the five passive skills. Opened from the map (showBuySkill) or in a stage (V / btn_study).
+
+const ACTIVE := ["instrmc/skill1", "instrmc/skill2", "instrmc/skill3", "instrmc/skill4", "instrmc/skill5"]
+const PASSIVE := ["instrmc/pskill1", "instrmc/pskill2", "instrmc/pskill3", "instrmc/pskill4", "instrmc/pskill5"]
+const PASSIVE_FRAME := 3              ## instrmc frame of the passive page
+const STAT_FORMAT := {"hp": "生命上限 +%d", "mp": "魔法上限 +%d", "crit": "暴击 +%d%%", "hp_regen": "每秒回血 +%d", "mp_regen": "每秒回魔 +%d"}
+
+var _ui: UiLayout
+var _active_hits: Array[Control] = []
+var _passive_rows: Array[UiLayout] = []
+
+func _ready() -> void:
+	layer = 12
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	var paused_before := get_tree().paused
+	get_tree().paused = true
+	tree_exiting.connect(func(): get_tree().paused = paused_before)
+	var dim := ColorRect.new()
+	dim.color = Color(0, 0, 0, 0.5)
+	dim.size = Level.VIEW
+	add_child(dim)
+	# the panel sits inside BuySkill (background, character tabs, back button)
+	var back := UiLayout.create("buy_skill")
+	for p in ["player2", "player3"]:
+		back.set_visible_piece(p, false)
+	back.button_pressed.connect(func(b): if b == "btnback": queue_free())
+	add_child(back)
+	_ui = UiLayout.create("skill_control")
+	add_child(_ui)
+	for p in ACTIVE:
+		_active_hits.append(_ui.make_clickable(p))
+	# passive rows: the nested PassiveSkill clip shows the art of its type (frame = index); a PassiveSkill
+	# layout without its art on top provides the texts and the upgrade button
+	for i in PASSIVE.size():
+		_ui.show_frame(PASSIVE[i], i)
+		var row := UiLayout.create("passive_skill")
+		row.hide_unnamed()
+		row.position = _ui.piece_position(PASSIVE[i]) - _ui.piece_position("instrmc")
+		row.button_pressed.connect(func(_b): _upgrade(i))
+		_ui.get_piece("instrmc").get_child(PASSIVE_FRAME).add_child(row)
+		_passive_rows.append(row)
+	_ui.button_pressed.connect(_on_button)
+	_show_page(false)
+
+func _show_page(passive: bool) -> void:
+	_ui.show_frame("bgmc", 1 if passive else 0)
+	_ui.show_frame("instrmc", PASSIVE_FRAME if passive else 0)
+	for h in _active_hits:
+		h.visible = not passive
+	_refresh()
+
+func _refresh() -> void:
+	_ui.set_text("txtlh", str(GameState.souls))
+	for i in ACTIVE.size():
+		var learned := GameState.has_skill(StringName(GameState.hero_data.learn_active[i]))
+		_ui.show_frame(ACTIVE[i], 1 if learned else 0)
+	for i in _passive_rows.size():
+		var row := _passive_rows[i]
+		var lv: int = GameState.passives[i]
+		var stat := GameState.hero_data.learn_passive[i]
+		var fmt: String = STAT_FORMAT[stat]
+		var scale := 100.0 if stat == "crit" else 1.0
+		row.set_text("curslevel", "%d级" % lv)
+		row.set_text("lastvalue", fmt % roundi(GameState.hero_data.passive_value(stat, lv) * scale) if lv > 0 else "-")
+		var maxed := lv >= GameState.hero_data.passive_max
+		row.set_text("attvalue", "已满级" if maxed else fmt % roundi(GameState.hero_data.passive_value(stat, lv + 1) * scale))
+		row.set_text("wantlh", "" if maxed else str(GameState.passive_cost(i)))
+		row.set_visible_piece("btn", not maxed)
+
+func _on_button(b: String) -> void:
+	match b:
+		"activebtn":
+			_show_page(false)
+		"passivebtn":
+			_show_page(true)
+	var i := ACTIVE.find(b)
+	if i >= 0 and GameState.learn(i):
+		Snd.sfx("SD_xz")
+		_refresh()
+
+func _upgrade(i: int) -> void:
+	if GameState.upgrade_passive(i):
+		Snd.sfx("SD_xz")
+		_refresh()
+
+func _unhandled_input(e: InputEvent) -> void:
+	if e.is_action_pressed("pause") or e.is_action_pressed("open_skills"):
+		get_viewport().set_input_as_handled()
+		queue_free()

@@ -1,0 +1,89 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3]
+
+[ext_resource type="Script" path="res://src/data/attack_data.gd" id="1_mpv5x"]
+[ext_resource type="Script" path="res://src/data/monster_data.gd" id="2_att7d"]
+
+[sub_resource type="Resource" id="Resource_kr6ce"]
+script = ExtResource("1_mpv5x")
+power_mul = 0.0
+flat = 180
+knockback = Vector2(144, -120)
+rehit_interval = 0.16666666666666666
+max_hits = 30
+
+[sub_resource type="Resource" id="Resource_aojmp"]
+script = ExtResource("1_mpv5x")
+power_mul = 0.0
+flat = 150
+kind = 1
+knockback = Vector2(48, -168)
+rehit_interval = 0.16666666666666666
+max_hits = 30
+
+[sub_resource type="Resource" id="Resource_s1hor"]
+script = ExtResource("1_mpv5x")
+power_mul = 0.0
+flat = 300
+kind = 1
+knockback = Vector2(48, -96)
+max_hits = 40
+
+[sub_resource type="Resource" id="Resource_7ulav"]
+script = ExtResource("1_mpv5x")
+power_mul = 0.0
+flat = 100
+kind = 1
+knockback = Vector2(192, -48)
+rehit_interval = 0.16666666666666666
+max_hits = 30
+
+[resource]
+script = ExtResource("2_att7d")
+id = 58
+display_name = "刑天"
+rig = "monster58"
+is_boss = true
+speed = 96.0
+hp = 100000
+def = 200
+mdef = 0.3
+exp = 500
+souls = 150
+attack_range = 200.0
+walk_times = PackedFloat32Array(3, 4)
+wander_rest = 1.25
+knockback_decay = 0.004722366482869657
+gravity = 864.0
+equip_chance = 0.22499999999999998
+stone_rate = 0.1
+equip_drops = PackedStringArray("zljs", "jhcz", "ryjgb", "jcdp", "tpzy", "dszk")
+attacks = {
+&"hit1": SubResource("Resource_kr6ce"),
+&"hit2-2": SubResource("Resource_aojmp"),
+&"hit3": SubResource("Resource_s1hor"),
+&"hit4": SubResource("Resource_7ulav")
+}
+brain = {
+"cd1": 5.833333333333333,
+"cd2": 10.0,
+"cd3": 15.0,
+"check": 1.0,
+"fall": [2.0, 4.0],
+"far_band": 800.0,
+"far_cd_rand": 4.166666666666667,
+"first_fall": 2.0,
+"hover_speed": 120.0,
+"invuln_hit1": 0.8333333333333334,
+"invuln_hit2-1": 2.1666666666666665,
+"invuln_hit3": 1.6666666666666667,
+"invuln_hit4": 1.625,
+"mid_band": 300.0,
+"near_band": 150.0,
+"next_delay": 5.0,
+"next_pos": [500.0, 300.0],
+"pull_time": 0.6,
+"shadow_y": 510.0,
+"skill1": "hit2-1",
+"skill2": "hit3",
+"skill3": "hit4"
+}

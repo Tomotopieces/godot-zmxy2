@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3]
+
+[ext_resource type="Script" path="res://src/data/attack_data.gd" id="1_djmv6"]
+[ext_resource type="Script" path="res://src/data/monster_data.gd" id="2_drqos"]
+
+[sub_resource type="Resource" id="Resource_gv4s2"]
+script = ExtResource("1_djmv6")
+power_mul = 0.0
+flat = 50
+knockback = Vector2(144, -120)
+
+[resource]
+script = ExtResource("2_drqos")
+id = 33
+display_name = "黑无常"
+rig = "monster33"
+is_boss = true
+speed = 72.0
+hp = 1000
+def = 8
+exp = 25
+souls = 12
+sight = 600.0
+attack_range = 240.0
+attack_chance = 60
+walk_times = PackedFloat32Array(3, 4)
+wander_rest = 1.25
+knockback_decay = 0.004722366482869657
+gravity = 864.0
+equip_chance = 0.675
+equip_drops = PackedStringArray("dsyj", "dsqz")
+attacks = {
+&"hit1": SubResource("Resource_gv4s2")
+}

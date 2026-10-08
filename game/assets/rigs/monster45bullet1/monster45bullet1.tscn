@@ -1,0 +1,116 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/rig/rig.gd" id="1_8b81j"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45bullet1/tex/5_16.png" id="2_xx463"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45bullet1/tex/5_18.png" id="3_mlr6r"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45bullet1/tex/5_20.png" id="4_5al8n"]
+[ext_resource type="AnimationLibrary" path="res://assets/rigs/monster45bullet1/anims.res" id="5_rxnyu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5tel2"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2vxv3"]
+resource_local_to_scene = true
+
+[node name="Monster45Bullet1" type="Node2D" unique_id=1252025847]
+script = ExtResource("1_8b81j")
+actions = PackedStringArray("default")
+
+[node name="Parts" type="Node2D" parent="." unique_id=225637991]
+
+[node name="default" type="Node2D" parent="Parts" unique_id=1878477272]
+visible = false
+
+[node name="p1_1" type="Sprite2D" parent="Parts/default" unique_id=1050832322]
+position = Vector2(-113.75, -80.524796)
+scale = Vector2(0.5, 0.2895)
+texture = ExtResource("2_xx463")
+centered = false
+
+[node name="p1_6" type="Sprite2D" parent="Parts/default" unique_id=957498098]
+position = Vector2(-115.75, -87.55965)
+scale = Vector2(0.5, 0.2895)
+texture = ExtResource("3_mlr6r")
+centered = false
+
+[node name="p1_8" type="Sprite2D" parent="Parts/default" unique_id=1291014798]
+position = Vector2(-118.25, -109.6485)
+scale = Vector2(0.5, 0.2895)
+texture = ExtResource("4_5al8n")
+centered = false
+
+[node name="p10_1" type="Sprite2D" parent="Parts/default" unique_id=1279909541]
+position = Vector2(-201.75, -80.524796)
+scale = Vector2(0.5, 0.2895)
+texture = ExtResource("2_xx463")
+centered = false
+
+[node name="p10_6" type="Sprite2D" parent="Parts/default" unique_id=1814142959]
+position = Vector2(-203.75, -87.55965)
+scale = Vector2(0.5, 0.2895)
+texture = ExtResource("3_mlr6r")
+centered = false
+
+[node name="p10_8" type="Sprite2D" parent="Parts/default" unique_id=756484659]
+position = Vector2(-206.25, -109.6485)
+scale = Vector2(0.5, 0.2895)
+texture = ExtResource("4_5al8n")
+centered = false
+
+[node name="p19_1" type="Sprite2D" parent="Parts/default" unique_id=291789520]
+position = Vector2(-292.3, -80.524796)
+scale = Vector2(0.5, 0.2895)
+texture = ExtResource("2_xx463")
+centered = false
+
+[node name="p19_6" type="Sprite2D" parent="Parts/default" unique_id=755653563]
+position = Vector2(-294.3, -87.55965)
+scale = Vector2(0.5, 0.2895)
+texture = ExtResource("3_mlr6r")
+centered = false
+
+[node name="p19_8" type="Sprite2D" parent="Parts/default" unique_id=1373249173]
+position = Vector2(-296.8, -109.6485)
+scale = Vector2(0.5, 0.2895)
+texture = ExtResource("4_5al8n")
+centered = false
+
+[node name="p28_1" type="Sprite2D" parent="Parts/default" unique_id=874154822]
+position = Vector2(-385.35, -80.524796)
+scale = Vector2(0.5, 0.2895)
+texture = ExtResource("2_xx463")
+centered = false
+
+[node name="p28_6" type="Sprite2D" parent="Parts/default" unique_id=783628500]
+position = Vector2(-387.35, -87.55965)
+scale = Vector2(0.5, 0.2895)
+texture = ExtResource("3_mlr6r")
+centered = false
+
+[node name="p28_8" type="Sprite2D" parent="Parts/default" unique_id=1333654887]
+position = Vector2(-389.85, -109.6485)
+scale = Vector2(0.5, 0.2895)
+texture = ExtResource("4_5al8n")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=992738802]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1582022349]
+shape = SubResource("RectangleShape2D_5tel2")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=803741074]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1220833806]
+shape = SubResource("RectangleShape2D_2vxv3")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=79747514]
+callback_mode_process = 0
+libraries/ = ExtResource("5_rxnyu")

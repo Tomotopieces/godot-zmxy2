@@ -1,0 +1,1060 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/rig/rig.gd" id="1_gkh2g"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_31.png" id="2_gwloi"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_36.png" id="3_6jv2l"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_38.png" id="4_xbbul"]
+[ext_resource type="Script" path="res://src/rig/equip_slot.gd" id="5_1ot5a"]
+[ext_resource type="PackedScene" path="res://assets/rigs/monster45/slots/slot34_2.tscn" id="6_l73sj"]
+[ext_resource type="PackedScene" path="res://assets/rigs/monster45/slots/slot34_3.tscn" id="7_6gctw"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_39.png" id="8_7yxne"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_37.png" id="9_pjr7d"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_35.png" id="10_8vtge"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_44.png" id="11_vmo0o"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_45.png" id="12_86i0l"]
+[ext_resource type="Shader" path="res://src/rig/flash_filter.gdshader" id="13_dcsak"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_51.png" id="14_f8pl2"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_88.png" id="15_qeumb"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_91.png" id="16_u04vo"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_98.png" id="17_vyvxm"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_99.png" id="18_por3a"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_106.png" id="19_4e2rk"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_107.png" id="20_6tkv8"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_110.png" id="21_e2l01"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_112.png" id="22_lmudp"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_121.png" id="23_c7msb"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_117.png" id="24_3oixo"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_32.png" id="25_khma3"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_119.png" id="26_bhsnm"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_33.png" id="27_m855d"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_128.png" id="28_3yt24"]
+[ext_resource type="AnimationLibrary" path="res://assets/rigs/monster45/anims.res" id="29_i731v"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_amg0m"]
+shader = ExtResource("13_dcsak")
+shader_parameter/blur = null
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow_inner = null
+shader_parameter/glow_knockout = null
+shader_parameter/matrix_on = true
+shader_parameter/color_matrix = Projection(0.08343069, 0.33295208, -0.5919533, 0, -0.07082099, 0.8840236, 1.3513453, 0, 0.9873902, -0.21697575, 0.24060795, 0, 0, 0, 0, 1)
+shader_parameter/color_offset = Vector4(0, 0, 0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_880nh"]
+shader = ExtResource("13_dcsak")
+shader_parameter/blur = Vector2(0, 0)
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow_inner = null
+shader_parameter/glow_knockout = null
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_apta0"]
+shader = ExtResource("13_dcsak")
+shader_parameter/blur = Vector2(1.25, 1.25)
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow_inner = null
+shader_parameter/glow_knockout = null
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jallo"]
+shader = ExtResource("13_dcsak")
+shader_parameter/blur = Vector2(2.5, 2.5)
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow_inner = null
+shader_parameter/glow_knockout = null
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_naq7t"]
+shader = ExtResource("13_dcsak")
+shader_parameter/blur = Vector2(3.75, 3.75)
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow_inner = null
+shader_parameter/glow_knockout = null
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3ocni"]
+shader = ExtResource("13_dcsak")
+shader_parameter/blur = Vector2(5, 5)
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow_inner = null
+shader_parameter/glow_knockout = null
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0sfcr"]
+shader = ExtResource("13_dcsak")
+shader_parameter/blur = Vector2(4.400009, 4.400009)
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow_inner = null
+shader_parameter/glow_knockout = null
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s36j8"]
+shader = ExtResource("13_dcsak")
+shader_parameter/blur = Vector2(3.8000183, 3.8000183)
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow_inner = null
+shader_parameter/glow_knockout = null
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w5ckt"]
+shader = ExtResource("13_dcsak")
+shader_parameter/blur = Vector2(3.1999817, 3.1999817)
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow_inner = null
+shader_parameter/glow_knockout = null
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tcgfx"]
+shader = ExtResource("13_dcsak")
+shader_parameter/blur = Vector2(2.5999908, 2.5999908)
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow_inner = null
+shader_parameter/glow_knockout = null
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ljehj"]
+shader = ExtResource("13_dcsak")
+shader_parameter/blur = Vector2(2, 2)
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow_inner = null
+shader_parameter/glow_knockout = null
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f1a5k"]
+shader = ExtResource("13_dcsak")
+shader_parameter/blur = Vector2(2.75, 2.75)
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow_inner = null
+shader_parameter/glow_knockout = null
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3blhv"]
+shader = ExtResource("13_dcsak")
+shader_parameter/blur = Vector2(3.5, 3.5)
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow_inner = null
+shader_parameter/glow_knockout = null
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vyicb"]
+shader = ExtResource("13_dcsak")
+shader_parameter/blur = Vector2(4.25, 4.25)
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow_inner = null
+shader_parameter/glow_knockout = null
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l46ce"]
+shader = ExtResource("13_dcsak")
+shader_parameter/blur = Vector2(4.0000153, 4.0000153)
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow_inner = null
+shader_parameter/glow_knockout = null
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kvdix"]
+shader = ExtResource("13_dcsak")
+shader_parameter/blur = Vector2(3.0000305, 3.0000305)
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow_inner = null
+shader_parameter/glow_knockout = null
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gbibu"]
+shader = ExtResource("13_dcsak")
+shader_parameter/blur = Vector2(1.9999695, 1.9999695)
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow_inner = null
+shader_parameter/glow_knockout = null
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b4vij"]
+shader = ExtResource("13_dcsak")
+shader_parameter/blur = Vector2(0.99998474, 0.99998474)
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow_inner = null
+shader_parameter/glow_knockout = null
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jekhj"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1c8hf"]
+resource_local_to_scene = true
+
+[node name="Monster45" type="Node2D" unique_id=935712760]
+script = ExtResource("1_gkh2g")
+actions = PackedStringArray("walk", "hit1", "hurt", "wait", "hit2", "hit3", "dead", "reburn")
+
+[node name="Parts" type="Node2D" parent="." unique_id=1129247162]
+
+[node name="walk" type="Node2D" parent="Parts" unique_id=584206998]
+visible = false
+
+[node name="p1_1" type="Sprite2D" parent="Parts/walk" unique_id=1725198665]
+position = Vector2(-27.45, -0.4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_gwloi")
+centered = false
+
+[node name="p1_4" type="Sprite2D" parent="Parts/walk" unique_id=242128085]
+position = Vector2(-14.9, -7.7)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_6jv2l")
+centered = false
+
+[node name="p1_8" type="Sprite2D" parent="Parts/walk" unique_id=1345193199]
+position = Vector2(-81.75, -10.7)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_xbbul")
+centered = false
+
+[node name="p1_9_s34" type="Node2D" parent="Parts/walk" unique_id=500022571]
+position = Vector2(43.9, -9.85)
+script = ExtResource("5_1ot5a")
+kind = "form"
+variants = {
+2: ExtResource("6_l73sj"),
+3: ExtResource("7_6gctw")
+}
+
+[node name="p1_19" type="Sprite2D" parent="Parts/walk" unique_id=1092552341]
+position = Vector2(-32.25, -70.65)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_7yxne")
+centered = false
+
+[node name="p1_23" type="Sprite2D" parent="Parts/walk" unique_id=1716927411]
+position = Vector2(-56.25, -70.25)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_pjr7d")
+centered = false
+
+[node name="p1_26" type="Sprite2D" parent="Parts/walk" unique_id=449539265]
+position = Vector2(-37.6, -70.65)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("10_8vtge")
+centered = false
+
+[node name="hit1" type="Node2D" parent="Parts" unique_id=1426223785]
+visible = false
+
+[node name="p1_1" type="Sprite2D" parent="Parts/hit1" unique_id=1978724642]
+position = Vector2(-13.7, -4.05)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_vmo0o")
+centered = false
+
+[node name="p1_2_s34" type="Node2D" parent="Parts/hit1" unique_id=148980033]
+position = Vector2(45.45, -9.5)
+script = ExtResource("5_1ot5a")
+kind = "form"
+variants = {
+2: ExtResource("6_l73sj"),
+3: ExtResource("7_6gctw")
+}
+
+[node name="p1_19" type="Sprite2D" parent="Parts/hit1" unique_id=619323538]
+position = Vector2(-37.5, -70.25)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("12_86i0l")
+centered = false
+
+[node name="g1_20_f0" type="CanvasGroup" parent="Parts/hit1" unique_id=96061815]
+material = SubResource("ShaderMaterial_amg0m")
+fit_margin = 4.0
+clear_margin = 28.0
+use_mipmaps = true
+
+[node name="p1_20_1_f0" type="Sprite2D" parent="Parts/hit1/g1_20_f0" unique_id=384979678]
+position = Vector2(-156.3516, 77.648796)
+rotation = -1.5527983
+scale = Vector2(0.500081, 0.500081)
+texture = ExtResource("14_f8pl2")
+centered = false
+
+[node name="hurt" type="Node2D" parent="Parts" unique_id=230405142]
+visible = false
+
+[node name="p1_1_s34" type="Node2D" parent="Parts/hurt" unique_id=1873371910]
+position = Vector2(44.7, 2.35)
+rotation = 0.34040156
+scale = Vector2(1.0004025, 1.0004025)
+script = ExtResource("5_1ot5a")
+kind = "form"
+variants = {
+2: ExtResource("6_l73sj"),
+3: ExtResource("7_6gctw")
+}
+
+[node name="p1_20" type="Sprite2D" parent="Parts/hurt" unique_id=931999924]
+position = Vector2(-37.65, -67.35)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("15_qeumb")
+centered = false
+
+[node name="wait" type="Node2D" parent="Parts" unique_id=1053853970]
+visible = false
+
+[node name="p1_1" type="Sprite2D" parent="Parts/wait" unique_id=75819085]
+position = Vector2(-13.9, -5.9)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_vmo0o")
+centered = false
+
+[node name="p1_2_s34" type="Node2D" parent="Parts/wait" unique_id=851015738]
+position = Vector2(42.5, -9.65)
+rotation = 0.0009999997
+scale = Vector2(1.0000005, 1.0000005)
+script = ExtResource("5_1ot5a")
+kind = "form"
+variants = {
+2: ExtResource("6_l73sj"),
+3: ExtResource("7_6gctw")
+}
+
+[node name="p1_19" type="Sprite2D" parent="Parts/wait" unique_id=270988651]
+position = Vector2(-55.25, -70.25)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("16_u04vo")
+centered = false
+
+[node name="hit2" type="Node2D" parent="Parts" unique_id=1024922273]
+visible = false
+
+[node name="p1_1" type="Sprite2D" parent="Parts/hit2" unique_id=1567363513]
+position = Vector2(-30.05, -22.7)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("17_vyvxm")
+centered = false
+
+[node name="p1_2_s34" type="Node2D" parent="Parts/hit2" unique_id=2063748518]
+position = Vector2(44.15, -10.15)
+rotation = 0.0009999997
+scale = Vector2(1.0000005, 1.0000005)
+script = ExtResource("5_1ot5a")
+kind = "form"
+variants = {
+2: ExtResource("6_l73sj"),
+3: ExtResource("7_6gctw")
+}
+
+[node name="p1_19" type="Sprite2D" parent="Parts/hit2" unique_id=160566514]
+position = Vector2(-65.15, -70.35)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("18_por3a")
+centered = false
+
+[node name="hit3" type="Node2D" parent="Parts" unique_id=971372301]
+visible = false
+
+[node name="p1_1" type="Sprite2D" parent="Parts/hit3" unique_id=1939600514]
+position = Vector2(-29.199999, -3.75)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("19_4e2rk")
+centered = false
+
+[node name="p1_2_s34" type="Node2D" parent="Parts/hit3" unique_id=1573188223]
+position = Vector2(44.5, -12.65)
+rotation = 0.0009999997
+scale = Vector2(1.0000005, 1.0000005)
+script = ExtResource("5_1ot5a")
+kind = "form"
+variants = {
+2: ExtResource("6_l73sj"),
+3: ExtResource("7_6gctw")
+}
+
+[node name="p1_19" type="Sprite2D" parent="Parts/hit3" unique_id=686936410]
+position = Vector2(-31.999998, -71.7)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("20_6tkv8")
+centered = false
+
+[node name="p1_21" type="Sprite2D" parent="Parts/hit3" unique_id=192333586]
+position = Vector2(-42.5, -61.85)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("21_e2l01")
+centered = false
+
+[node name="p1_22_1_2" type="Sprite2D" parent="Parts/hit3" unique_id=1635838600]
+position = Vector2(-31.6, 5.1000004)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("22_lmudp")
+centered = false
+
+[node name="dead" type="Node2D" parent="Parts" unique_id=883987053]
+visible = false
+
+[node name="p1_40" type="Sprite2D" parent="Parts/dead" unique_id=1620982234]
+position = Vector2(-30.250002, -41.35)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("23_c7msb")
+centered = false
+
+[node name="g1_41_f1" type="CanvasGroup" parent="Parts/dead" unique_id=87595627]
+material = SubResource("ShaderMaterial_880nh")
+fit_margin = 4.0
+clear_margin = 28.0
+use_mipmaps = true
+
+[node name="p1_41_1_f1" type="Sprite2D" parent="Parts/dead/g1_41_f1" unique_id=1409272711]
+position = Vector2(-4.6000004, -8.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_3oixo")
+centered = false
+
+[node name="p1_41_2_2_f1" type="Sprite2D" parent="Parts/dead/g1_41_f1" unique_id=353146825]
+position = Vector2(1.390152, -48.636353)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("25_khma3")
+centered = false
+
+[node name="p1_41_19_f1" type="Sprite2D" parent="Parts/dead/g1_41_f1" unique_id=235863535]
+position = Vector2(-92.1, -65.950005)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("26_bhsnm")
+centered = false
+
+[node name="g1_41_f2" type="CanvasGroup" parent="Parts/dead" unique_id=544962087]
+material = SubResource("ShaderMaterial_apta0")
+fit_margin = 5.25
+clear_margin = 31.75
+use_mipmaps = true
+
+[node name="p1_41_1_f2" type="Sprite2D" parent="Parts/dead/g1_41_f2" unique_id=1679077202]
+modulate = Color(1.0009804, 1.0009804, 1.0009804, 1)
+position = Vector2(-4.6000004, -8.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_3oixo")
+centered = false
+
+[node name="p1_41_2_2_f2" type="Sprite2D" parent="Parts/dead/g1_41_f2" unique_id=1583792414]
+modulate = Color(1.0009804, 1.0009804, 1.0009804, 1)
+position = Vector2(-4.17865, -79.84194)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("27_m855d")
+centered = false
+
+[node name="p1_41_19_f2" type="Sprite2D" parent="Parts/dead/g1_41_f2" unique_id=951244808]
+modulate = Color(1.0009804, 1.0009804, 1.0009804, 1)
+position = Vector2(-92.1, -65.950005)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("26_bhsnm")
+centered = false
+
+[node name="g1_41_f3" type="CanvasGroup" parent="Parts/dead" unique_id=536020640]
+material = SubResource("ShaderMaterial_jallo")
+fit_margin = 6.5
+clear_margin = 35.5
+use_mipmaps = true
+
+[node name="p1_41_1_f3" type="Sprite2D" parent="Parts/dead/g1_41_f3" unique_id=24915205]
+modulate = Color(1.0019608, 1.0019608, 1.0019608, 1)
+position = Vector2(-4.6000004, -8.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_3oixo")
+centered = false
+
+[node name="p1_41_2_2_f3" type="Sprite2D" parent="Parts/dead/g1_41_f3" unique_id=449126721]
+modulate = Color(1.0019608, 1.0019608, 1.0019608, 1)
+position = Vector2(1.390152, -48.636353)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("25_khma3")
+centered = false
+
+[node name="p1_41_19_f3" type="Sprite2D" parent="Parts/dead/g1_41_f3" unique_id=426587959]
+modulate = Color(1.0019608, 1.0019608, 1.0019608, 1)
+position = Vector2(-92.1, -65.950005)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("26_bhsnm")
+centered = false
+
+[node name="g1_41_f4" type="CanvasGroup" parent="Parts/dead" unique_id=631118918]
+material = SubResource("ShaderMaterial_naq7t")
+fit_margin = 7.75
+clear_margin = 39.25
+use_mipmaps = true
+
+[node name="p1_41_1_f4" type="Sprite2D" parent="Parts/dead/g1_41_f4" unique_id=345820155]
+modulate = Color(0.9990196, 0.9990196, 0.9990196, 1)
+position = Vector2(-4.6000004, -8.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_3oixo")
+centered = false
+
+[node name="p1_41_2_2_f4" type="Sprite2D" parent="Parts/dead/g1_41_f4" unique_id=612333443]
+modulate = Color(0.9990196, 0.9990196, 0.9990196, 1)
+position = Vector2(-4.17865, -79.84194)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("27_m855d")
+centered = false
+
+[node name="p1_41_19_f4" type="Sprite2D" parent="Parts/dead/g1_41_f4" unique_id=75947390]
+modulate = Color(0.9990196, 0.9990196, 0.9990196, 1)
+position = Vector2(-92.1, -65.950005)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("26_bhsnm")
+centered = false
+
+[node name="g1_41_f5" type="CanvasGroup" parent="Parts/dead" unique_id=59282362]
+material = SubResource("ShaderMaterial_3ocni")
+fit_margin = 9.0
+clear_margin = 43.0
+use_mipmaps = true
+
+[node name="p1_41_1_f5" type="Sprite2D" parent="Parts/dead/g1_41_f5" unique_id=634862170]
+position = Vector2(-4.6000004, -8.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_3oixo")
+centered = false
+
+[node name="p1_41_2_2_f5" type="Sprite2D" parent="Parts/dead/g1_41_f5" unique_id=1183523997]
+position = Vector2(1.390152, -48.636353)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("25_khma3")
+centered = false
+
+[node name="p1_41_19_f5" type="Sprite2D" parent="Parts/dead/g1_41_f5" unique_id=54876751]
+position = Vector2(-92.1, -65.950005)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("26_bhsnm")
+centered = false
+
+[node name="g1_41_f6" type="CanvasGroup" parent="Parts/dead" unique_id=948840148]
+material = SubResource("ShaderMaterial_0sfcr")
+fit_margin = 8.400009
+clear_margin = 41.200027
+use_mipmaps = true
+
+[node name="p1_41_1_f6" type="Sprite2D" parent="Parts/dead/g1_41_f6" unique_id=1763019023]
+modulate = Color(0.999, 0.999, 0.999, 0.852)
+position = Vector2(-4.6000004, -8.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_3oixo")
+centered = false
+
+[node name="p1_41_2_2_f6" type="Sprite2D" parent="Parts/dead/g1_41_f6" unique_id=2116705844]
+modulate = Color(0.999, 0.999, 0.999, 0.852)
+position = Vector2(-4.17865, -79.84194)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("27_m855d")
+centered = false
+
+[node name="p1_41_19_f6" type="Sprite2D" parent="Parts/dead/g1_41_f6" unique_id=2146841120]
+modulate = Color(0.999, 0.999, 0.999, 0.852)
+position = Vector2(-92.1, -65.950005)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("26_bhsnm")
+centered = false
+
+[node name="g1_41_f7" type="CanvasGroup" parent="Parts/dead" unique_id=1947077418]
+material = SubResource("ShaderMaterial_s36j8")
+fit_margin = 7.8000183
+clear_margin = 39.400055
+use_mipmaps = true
+
+[node name="p1_41_1_f7" type="Sprite2D" parent="Parts/dead/g1_41_f7" unique_id=1979355906]
+modulate = Color(0.998, 0.998, 0.998, 0.699)
+position = Vector2(-4.6000004, -8.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_3oixo")
+centered = false
+
+[node name="p1_41_2_2_f7" type="Sprite2D" parent="Parts/dead/g1_41_f7" unique_id=957005711]
+modulate = Color(0.998, 0.998, 0.998, 0.699)
+position = Vector2(1.390152, -48.636353)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("25_khma3")
+centered = false
+
+[node name="p1_41_19_f7" type="Sprite2D" parent="Parts/dead/g1_41_f7" unique_id=353432638]
+modulate = Color(0.998, 0.998, 0.998, 0.699)
+position = Vector2(-92.1, -65.950005)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("26_bhsnm")
+centered = false
+
+[node name="g1_41_f8" type="CanvasGroup" parent="Parts/dead" unique_id=1013780299]
+material = SubResource("ShaderMaterial_w5ckt")
+fit_margin = 7.1999817
+clear_margin = 37.599945
+use_mipmaps = true
+
+[node name="p1_41_1_f8" type="Sprite2D" parent="Parts/dead/g1_41_f8" unique_id=1029800605]
+modulate = Color(1.002, 1.002, 1.002, 0.551)
+position = Vector2(-4.6000004, -8.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_3oixo")
+centered = false
+
+[node name="p1_41_2_2_f8" type="Sprite2D" parent="Parts/dead/g1_41_f8" unique_id=889445569]
+modulate = Color(1.002, 1.002, 1.002, 0.551)
+position = Vector2(-4.17865, -79.84194)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("27_m855d")
+centered = false
+
+[node name="p1_41_19_f8" type="Sprite2D" parent="Parts/dead/g1_41_f8" unique_id=632082242]
+modulate = Color(1.002, 1.002, 1.002, 0.551)
+position = Vector2(-92.1, -65.950005)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("26_bhsnm")
+centered = false
+
+[node name="g1_41_f9" type="CanvasGroup" parent="Parts/dead" unique_id=91985536]
+material = SubResource("ShaderMaterial_tcgfx")
+fit_margin = 6.599991
+clear_margin = 35.799973
+use_mipmaps = true
+
+[node name="p1_41_1_f9" type="Sprite2D" parent="Parts/dead/g1_41_f9" unique_id=1860637716]
+modulate = Color(1.001, 1.001, 1.001, 0.398)
+position = Vector2(-4.6000004, -8.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_3oixo")
+centered = false
+
+[node name="p1_41_2_2_f9" type="Sprite2D" parent="Parts/dead/g1_41_f9" unique_id=1897500258]
+modulate = Color(1.001, 1.001, 1.001, 0.398)
+position = Vector2(1.390152, -48.636353)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("25_khma3")
+centered = false
+
+[node name="p1_41_19_f9" type="Sprite2D" parent="Parts/dead/g1_41_f9" unique_id=841074201]
+modulate = Color(1.001, 1.001, 1.001, 0.398)
+position = Vector2(-92.1, -65.950005)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("26_bhsnm")
+centered = false
+
+[node name="g1_41_f10" type="CanvasGroup" parent="Parts/dead" unique_id=90927816]
+material = SubResource("ShaderMaterial_ljehj")
+fit_margin = 6.0
+clear_margin = 34.0
+use_mipmaps = true
+
+[node name="p1_41_1_f10" type="Sprite2D" parent="Parts/dead/g1_41_f10" unique_id=15277913]
+modulate = Color(1, 1, 1, 0.25)
+position = Vector2(-4.6000004, -8.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_3oixo")
+centered = false
+
+[node name="p1_41_2_2_f10" type="Sprite2D" parent="Parts/dead/g1_41_f10" unique_id=685193793]
+modulate = Color(1, 1, 1, 0.25)
+position = Vector2(-4.17865, -79.84194)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("27_m855d")
+centered = false
+
+[node name="p1_41_19_f10" type="Sprite2D" parent="Parts/dead/g1_41_f10" unique_id=846073932]
+modulate = Color(1, 1, 1, 0.25)
+position = Vector2(-92.1, -65.950005)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("26_bhsnm")
+centered = false
+
+[node name="reburn" type="Node2D" parent="Parts" unique_id=1111056192]
+visible = false
+
+[node name="p1_40" type="Sprite2D" parent="Parts/reburn" unique_id=1016997746]
+position = Vector2(-35.35, 25.6)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("28_3yt24")
+centered = false
+
+[node name="g1_41_f10" type="CanvasGroup" parent="Parts/reburn" unique_id=477321127]
+material = SubResource("ShaderMaterial_ljehj")
+fit_margin = 6.0
+clear_margin = 34.0
+use_mipmaps = true
+
+[node name="p1_41_1_f10" type="Sprite2D" parent="Parts/reburn/g1_41_f10" unique_id=425427504]
+modulate = Color(1, 1, 1, 0.25)
+position = Vector2(-0.6499996, -4.4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_3oixo")
+centered = false
+
+[node name="p1_41_2_2_f10" type="Sprite2D" parent="Parts/reburn/g1_41_f10" unique_id=852868747]
+modulate = Color(1, 1, 1, 0.25)
+position = Vector2(5.3401527, -44.48635)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("25_khma3")
+centered = false
+
+[node name="p1_41_19_f10" type="Sprite2D" parent="Parts/reburn/g1_41_f10" unique_id=1819724418]
+modulate = Color(1, 1, 1, 0.25)
+position = Vector2(-88.15, -61.800003)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("26_bhsnm")
+centered = false
+
+[node name="g1_41_f11" type="CanvasGroup" parent="Parts/reburn" unique_id=863993817]
+material = SubResource("ShaderMaterial_f1a5k")
+fit_margin = 6.75
+clear_margin = 36.25
+use_mipmaps = true
+
+[node name="p1_41_1_f11" type="Sprite2D" parent="Parts/reburn/g1_41_f11" unique_id=689850111]
+modulate = Color(1.0009804, 1.0009804, 1.0009804, 0.438)
+position = Vector2(-0.6499996, -4.4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_3oixo")
+centered = false
+
+[node name="p1_41_2_2_f11" type="Sprite2D" parent="Parts/reburn/g1_41_f11" unique_id=726760302]
+modulate = Color(1.0009804, 1.0009804, 1.0009804, 0.438)
+position = Vector2(-0.22864914, -75.69195)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("27_m855d")
+centered = false
+
+[node name="p1_41_19_f11" type="Sprite2D" parent="Parts/reburn/g1_41_f11" unique_id=387189316]
+modulate = Color(1.0009804, 1.0009804, 1.0009804, 0.438)
+position = Vector2(-88.15, -61.800003)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("26_bhsnm")
+centered = false
+
+[node name="g1_41_f12" type="CanvasGroup" parent="Parts/reburn" unique_id=1555422191]
+material = SubResource("ShaderMaterial_3blhv")
+fit_margin = 7.5
+clear_margin = 38.5
+use_mipmaps = true
+
+[node name="p1_41_1_f12" type="Sprite2D" parent="Parts/reburn/g1_41_f12" unique_id=1442341734]
+modulate = Color(1.0019608, 1.0019608, 1.0019608, 0.625)
+position = Vector2(-0.6499996, -4.4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_3oixo")
+centered = false
+
+[node name="p1_41_2_2_f12" type="Sprite2D" parent="Parts/reburn/g1_41_f12" unique_id=759703014]
+modulate = Color(1.0019608, 1.0019608, 1.0019608, 0.625)
+position = Vector2(5.3401527, -44.48635)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("25_khma3")
+centered = false
+
+[node name="p1_41_19_f12" type="Sprite2D" parent="Parts/reburn/g1_41_f12" unique_id=315291912]
+modulate = Color(1.0019608, 1.0019608, 1.0019608, 0.625)
+position = Vector2(-88.15, -61.800003)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("26_bhsnm")
+centered = false
+
+[node name="g1_41_f13" type="CanvasGroup" parent="Parts/reburn" unique_id=1058353481]
+material = SubResource("ShaderMaterial_vyicb")
+fit_margin = 8.25
+clear_margin = 40.75
+use_mipmaps = true
+
+[node name="p1_41_1_f13" type="Sprite2D" parent="Parts/reburn/g1_41_f13" unique_id=659548052]
+modulate = Color(0.9990196, 0.9990196, 0.9990196, 0.813)
+position = Vector2(-0.6499996, -4.4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_3oixo")
+centered = false
+
+[node name="p1_41_2_2_f13" type="Sprite2D" parent="Parts/reburn/g1_41_f13" unique_id=2071901924]
+modulate = Color(0.9990196, 0.9990196, 0.9990196, 0.813)
+position = Vector2(-0.22864914, -75.69195)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("27_m855d")
+centered = false
+
+[node name="p1_41_19_f13" type="Sprite2D" parent="Parts/reburn/g1_41_f13" unique_id=99415391]
+modulate = Color(0.9990196, 0.9990196, 0.9990196, 0.813)
+position = Vector2(-88.15, -61.800003)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("26_bhsnm")
+centered = false
+
+[node name="g1_41_f5" type="CanvasGroup" parent="Parts/reburn" unique_id=530137155]
+material = SubResource("ShaderMaterial_3ocni")
+fit_margin = 9.0
+clear_margin = 43.0
+use_mipmaps = true
+
+[node name="p1_41_1_f5" type="Sprite2D" parent="Parts/reburn/g1_41_f5" unique_id=1655904]
+position = Vector2(-0.6499996, -4.4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_3oixo")
+centered = false
+
+[node name="p1_41_2_2_f5" type="Sprite2D" parent="Parts/reburn/g1_41_f5" unique_id=375017859]
+position = Vector2(5.3401527, -44.48635)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("25_khma3")
+centered = false
+
+[node name="p1_41_19_f5" type="Sprite2D" parent="Parts/reburn/g1_41_f5" unique_id=891986380]
+position = Vector2(-88.15, -61.800003)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("26_bhsnm")
+centered = false
+
+[node name="g1_41_f14" type="CanvasGroup" parent="Parts/reburn" unique_id=595044434]
+material = SubResource("ShaderMaterial_l46ce")
+fit_margin = 8.000015
+clear_margin = 40.000046
+use_mipmaps = true
+
+[node name="p1_41_1_f14" type="Sprite2D" parent="Parts/reburn/g1_41_f14" unique_id=2028962475]
+modulate = Color(0.999, 0.999, 0.999, 1)
+position = Vector2(-0.6499996, -4.4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_3oixo")
+centered = false
+
+[node name="p1_41_2_2_f14" type="Sprite2D" parent="Parts/reburn/g1_41_f14" unique_id=177965112]
+modulate = Color(0.999, 0.999, 0.999, 1)
+position = Vector2(-0.22864914, -75.69195)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("27_m855d")
+centered = false
+
+[node name="p1_41_19_f14" type="Sprite2D" parent="Parts/reburn/g1_41_f14" unique_id=612233726]
+modulate = Color(0.999, 0.999, 0.999, 1)
+position = Vector2(-88.15, -61.800003)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("26_bhsnm")
+centered = false
+
+[node name="g1_41_f15" type="CanvasGroup" parent="Parts/reburn" unique_id=883697857]
+material = SubResource("ShaderMaterial_kvdix")
+fit_margin = 7.0000305
+clear_margin = 37.00009
+use_mipmaps = true
+
+[node name="p1_41_1_f15" type="Sprite2D" parent="Parts/reburn/g1_41_f15" unique_id=1533049163]
+modulate = Color(0.998, 0.998, 0.998, 1)
+position = Vector2(-0.6499996, -4.4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_3oixo")
+centered = false
+
+[node name="p1_41_2_2_f15" type="Sprite2D" parent="Parts/reburn/g1_41_f15" unique_id=1403937886]
+modulate = Color(0.998, 0.998, 0.998, 1)
+position = Vector2(5.3401527, -44.48635)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("25_khma3")
+centered = false
+
+[node name="p1_41_19_f15" type="Sprite2D" parent="Parts/reburn/g1_41_f15" unique_id=2094887456]
+modulate = Color(0.998, 0.998, 0.998, 1)
+position = Vector2(-88.15, -61.800003)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("26_bhsnm")
+centered = false
+
+[node name="g1_41_f16" type="CanvasGroup" parent="Parts/reburn" unique_id=1190798812]
+material = SubResource("ShaderMaterial_gbibu")
+fit_margin = 5.9999695
+clear_margin = 33.99991
+use_mipmaps = true
+
+[node name="p1_41_1_f16" type="Sprite2D" parent="Parts/reburn/g1_41_f16" unique_id=1653241306]
+modulate = Color(1.002, 1.002, 1.002, 1)
+position = Vector2(-0.6499996, -4.4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_3oixo")
+centered = false
+
+[node name="p1_41_2_2_f16" type="Sprite2D" parent="Parts/reburn/g1_41_f16" unique_id=1881875115]
+modulate = Color(1.002, 1.002, 1.002, 1)
+position = Vector2(-0.22864914, -75.69195)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("27_m855d")
+centered = false
+
+[node name="p1_41_19_f16" type="Sprite2D" parent="Parts/reburn/g1_41_f16" unique_id=1893878093]
+modulate = Color(1.002, 1.002, 1.002, 1)
+position = Vector2(-88.15, -61.800003)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("26_bhsnm")
+centered = false
+
+[node name="g1_41_f17" type="CanvasGroup" parent="Parts/reburn" unique_id=229265022]
+material = SubResource("ShaderMaterial_b4vij")
+fit_margin = 4.9999847
+clear_margin = 30.999954
+use_mipmaps = true
+
+[node name="p1_41_1_f17" type="Sprite2D" parent="Parts/reburn/g1_41_f17" unique_id=1933684858]
+modulate = Color(1.001, 1.001, 1.001, 1)
+position = Vector2(-0.6499996, -4.4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_3oixo")
+centered = false
+
+[node name="p1_41_2_2_f17" type="Sprite2D" parent="Parts/reburn/g1_41_f17" unique_id=1571670264]
+modulate = Color(1.001, 1.001, 1.001, 1)
+position = Vector2(5.3401527, -44.48635)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("25_khma3")
+centered = false
+
+[node name="p1_41_19_f17" type="Sprite2D" parent="Parts/reburn/g1_41_f17" unique_id=280087770]
+modulate = Color(1.001, 1.001, 1.001, 1)
+position = Vector2(-88.15, -61.800003)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("26_bhsnm")
+centered = false
+
+[node name="g1_41_f1" type="CanvasGroup" parent="Parts/reburn" unique_id=1259193915]
+material = SubResource("ShaderMaterial_880nh")
+fit_margin = 4.0
+clear_margin = 28.0
+use_mipmaps = true
+
+[node name="p1_41_1_f1" type="Sprite2D" parent="Parts/reburn/g1_41_f1" unique_id=93054609]
+position = Vector2(-0.6499996, -4.4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_3oixo")
+centered = false
+
+[node name="p1_41_2_2_f1" type="Sprite2D" parent="Parts/reburn/g1_41_f1" unique_id=1738562741]
+position = Vector2(-0.22864914, -75.69195)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("27_m855d")
+centered = false
+
+[node name="p1_41_19_f1" type="Sprite2D" parent="Parts/reburn/g1_41_f1" unique_id=1093750892]
+position = Vector2(-88.15, -61.800003)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("26_bhsnm")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=63116463]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1372173116]
+shape = SubResource("RectangleShape2D_jekhj")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1079972561]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1633981246]
+shape = SubResource("RectangleShape2D_1c8hf")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1561493153]
+callback_mode_process = 0
+libraries/ = ExtResource("29_i731v")

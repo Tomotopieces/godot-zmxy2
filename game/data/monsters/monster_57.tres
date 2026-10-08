@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3]
+
+[ext_resource type="Script" path="res://src/data/attack_data.gd" id="1_jr6el"]
+[ext_resource type="Script" path="res://src/data/monster_data.gd" id="2_2mxop"]
+
+[sub_resource type="Resource" id="Resource_mvliv"]
+script = ExtResource("1_jr6el")
+power_mul = 0.0
+flat = 90
+knockback = Vector2(240, -48)
+max_hits = 99
+
+[resource]
+script = ExtResource("2_2mxop")
+id = 57
+rig = "monster57"
+speed = 120.0
+hp = 50
+def = 2
+exp = 5
+souls = 1
+walk_times = PackedFloat32Array(3, 4)
+wander_rest = 1.25
+knockback_decay = 0.004722366482869657
+gravity = 864.0
+equip_chance = 0.22499999999999998
+attacks = {
+&"fish": SubResource("Resource_mvliv")
+}

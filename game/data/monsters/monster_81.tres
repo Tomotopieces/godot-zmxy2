@@ -1,0 +1,81 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3]
+
+[ext_resource type="Script" path="res://src/data/attack_data.gd" id="1_yd5gg"]
+[ext_resource type="Script" path="res://src/data/monster_data.gd" id="2_y67xk"]
+
+[sub_resource type="Resource" id="Resource_2822o"]
+script = ExtResource("1_yd5gg")
+power_mul = 0.0
+knockback = Vector2(144, -120)
+rehit_interval = 0.16666666666666666
+max_hits = 30
+
+[sub_resource type="Resource" id="Resource_nu8wn"]
+script = ExtResource("1_yd5gg")
+power_mul = 0.0
+flat = 250
+kind = 1
+knockback = Vector2(48, -168)
+rehit_interval = 0.16666666666666666
+max_hits = 30
+
+[sub_resource type="Resource" id="Resource_tlbg1"]
+script = ExtResource("1_yd5gg")
+power_mul = 0.0
+kind = 1
+knockback = Vector2(48, -96)
+max_hits = 40
+
+[sub_resource type="Resource" id="Resource_klj0v"]
+script = ExtResource("1_yd5gg")
+power_mul = 0.0
+flat = 500
+knockback = Vector2(192, -48)
+rehit_interval = 0.16666666666666666
+max_hits = 30
+
+[resource]
+script = ExtResource("2_y67xk")
+id = 81
+display_name = "战神刑天"
+rig = "monster81"
+is_boss = true
+speed = 120.0
+hp = 1000
+mdef = 0.5
+exp = 2000
+souls = 2000
+attack_range = 180.0
+walk_times = PackedFloat32Array(3, 4)
+wander_rest = 1.25
+knockback_decay = 0.004722366482869657
+gravity = 864.0
+equip_chance = 0.15000000000000002
+equip_drops = PackedStringArray("xtzy")
+attacks = {
+&"hit1": SubResource("Resource_2822o"),
+&"hit2": SubResource("Resource_nu8wn"),
+&"hit3": SubResource("Resource_tlbg1"),
+&"hit4": SubResource("Resource_klj0v")
+}
+brain = {
+"arena_x": [-100.0, 1050.0],
+"cd1": 5.833333333333333,
+"cd2": 20.0,
+"cd3": 15.0,
+"check": 1.0,
+"dash_invuln": 1.0416666666666667,
+"far_band": 800.0,
+"far_cd_rand": 4.166666666666667,
+"hp_base": 500000.0,
+"hp_per_hero_hp": 50.0,
+"invuln_hit2": 2.0,
+"invuln_hit3": 1.4583333333333333,
+"invuln_hit4": 2.0833333333333335,
+"mid_band": 500.0,
+"near_band": 150.0,
+"pull_time": 0.6,
+"skill1": "hit2",
+"skill2": "hit3",
+"skill3": "hit4"
+}

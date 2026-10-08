@@ -1,0 +1,80 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3]
+
+[ext_resource type="Script" path="res://src/data/attack_data.gd" id="1_la1xv"]
+[ext_resource type="Script" path="res://src/data/monster_data.gd" id="2_v8nm3"]
+
+[sub_resource type="Resource" id="Resource_xpfxw"]
+script = ExtResource("1_la1xv")
+power_mul = 0.0
+flat = 45
+knockback = Vector2(240, -48)
+rehit_interval = 0.16666666666666666
+
+[sub_resource type="Resource" id="Resource_ajoju"]
+script = ExtResource("1_la1xv")
+power_mul = 0.0
+flat = 60
+kind = 1
+knockback = Vector2(48, -48)
+max_hits = 20
+
+[sub_resource type="Resource" id="Resource_6mxne"]
+script = ExtResource("1_la1xv")
+power_mul = 0.0
+flat = 60
+kind = 1
+knockback = Vector2(48, -48)
+rehit_interval = 1.0
+max_hits = 20
+
+[sub_resource type="Resource" id="Resource_iw3c1"]
+script = ExtResource("1_la1xv")
+power_mul = 0.0
+flat = 100
+kind = 1
+knockback = Vector2(48, -48)
+
+[resource]
+script = ExtResource("2_v8nm3")
+id = 38
+display_name = "秦广王"
+rig = "monster38"
+is_boss = true
+speed = 72.0
+hp = 5000
+def = 25
+exp = 50
+souls = 12
+attack_range = 150.0
+walk_times = PackedFloat32Array(3, 4)
+wander_rest = 1.25
+knockback_decay = 0.004722366482869657
+gravity = 864.0
+equip_chance = 0.5249999999999999
+equip_drops = PackedStringArray("tsyj", "tsyp")
+attacks = {
+&"hit1": SubResource("Resource_xpfxw"),
+&"hit2-1": SubResource("Resource_ajoju"),
+&"hit2-2": SubResource("Resource_6mxne"),
+&"hit2-3": SubResource("Resource_iw3c1")
+}
+brain = {
+"bolt_distance": 1500.0,
+"bolt_speed": 360.0,
+"bomb_distance": 9999.0,
+"bomb_speed": 240.0,
+"check": 1.0,
+"link_every": 15.0,
+"link_first": 10.0,
+"link_time": 5.0,
+"orb_arm": 2.0,
+"orb_cap": 10.0,
+"orb_cd": 5.25,
+"orb_drop_dx": 50.0,
+"orb_life": 10.0,
+"orb_speed": 120.0,
+"orb_turn": 1.0,
+"orb_wobble": 0.5,
+"orb_wobble_speed": 60.0,
+"reach_y": 300.0
+}

@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3]
+
+[ext_resource type="Script" path="res://src/data/attack_data.gd" id="1_k148e"]
+[ext_resource type="Script" path="res://src/data/monster_data.gd" id="2_4p7q0"]
+
+[sub_resource type="Resource" id="Resource_gd48e"]
+script = ExtResource("1_k148e")
+power_mul = 0.0
+flat = 1000
+kind = 1
+knockback = Vector2(144, -120)
+rehit_interval = 1.5
+max_hits = 9999
+
+[resource]
+script = ExtResource("2_4p7q0")
+id = 60
+display_name = "转轮王"
+rig = "monster60"
+is_boss = true
+hp = 500000
+def = 400
+mdef = 0.4
+exp = 400
+souls = 400
+attack_range = 800.0
+walk_times = PackedFloat32Array(3, 4)
+wander_rest = 1.25
+knockback_decay = 0.004722366482869657
+gravity = 864.0
+equip_chance = 0.22499999999999998
+attacks = {
+&"hit1": SubResource("Resource_gd48e")
+}
+behind = true

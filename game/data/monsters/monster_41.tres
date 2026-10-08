@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3]
+
+[ext_resource type="Script" path="res://src/data/attack_data.gd" id="1_fuxsy"]
+[ext_resource type="Script" path="res://src/data/monster_data.gd" id="2_6osvl"]
+
+[sub_resource type="Resource" id="Resource_43icb"]
+script = ExtResource("1_fuxsy")
+power_mul = 0.0
+flat = 80
+knockback = Vector2(144, -120)
+
+[resource]
+script = ExtResource("2_6osvl")
+id = 41
+rig = "monster41"
+speed = 72.0
+hp = 2500
+def = 39
+mdef = 0.1
+exp = 48
+souls = 24
+sight = 600.0
+attack_range = 150.0
+attack_chance = 60
+walk_times = PackedFloat32Array(3, 4)
+wander_rest = 1.25
+knockback_decay = 0.004722366482869657
+gravity = 864.0
+equip_chance = 0.15000000000000002
+equip_drops = PackedStringArray("qssp", "yzfw")
+attacks = {
+&"hit1": SubResource("Resource_43icb")
+}

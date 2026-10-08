@@ -1,0 +1,64 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3]
+
+[ext_resource type="Script" path="res://src/data/attack_data.gd" id="1_ka6mv"]
+[ext_resource type="Script" path="res://src/data/monster_data.gd" id="2_sui4d"]
+
+[sub_resource type="Resource" id="Resource_g0dm8"]
+script = ExtResource("1_ka6mv")
+power_mul = 0.0
+flat = 70
+knockback = Vector2(144, -120)
+rehit_interval = 0.16666666666666666
+max_hits = 2
+
+[sub_resource type="Resource" id="Resource_5qtr2"]
+script = ExtResource("1_ka6mv")
+power_mul = 0.0
+flat = 60
+kind = 1
+knockback = Vector2(0, -360)
+max_hits = 50
+
+[sub_resource type="Resource" id="Resource_eskdd"]
+script = ExtResource("1_ka6mv")
+power_mul = 0.0
+flat = 300
+kind = 1
+knockback = Vector2(360, 0)
+max_hits = 40
+
+[resource]
+script = ExtResource("2_sui4d")
+id = 64
+display_name = "宋帝王"
+rig = "monster64"
+is_boss = true
+speed = 72.0
+hp = 10000
+def = 30
+exp = 1000
+souls = 30
+attack_range = 150.0
+walk_times = PackedFloat32Array(3, 4)
+wander_rest = 1.25
+knockback_decay = 0.004722366482869657
+gravity = 864.0
+equip_chance = 0.22499999999999998
+attacks = {
+&"hit1": SubResource("Resource_g0dm8"),
+&"hit2": SubResource("Resource_5qtr2"),
+&"hit3": SubResource("Resource_eskdd")
+}
+brain = {
+"check": 1.0,
+"far_cd": 7.5,
+"far_skill": "hit3",
+"floor_y": 480.0,
+"invuln_hit2": 0.625,
+"invuln_hit3": 0.8333333333333334,
+"loot_delay": 2.0,
+"loot_pos": [1450.0, 310.0],
+"near_cd": 10.833333333333334,
+"near_skill": "hit2",
+"range_y_mul": 2.0
+}

@@ -1,0 +1,238 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/rig/rig.gd" id="1_nvwrg"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster49bullet3/tex/3_626.png" id="2_ggfmk"]
+[ext_resource type="Shader" path="res://src/rig/flash_filter.gdshader" id="3_afahr"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster49bullet3/tex/3_627.png" id="4_gcypb"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster49bullet3/tex/3_629.png" id="5_0fg5a"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster49bullet3/tex/3_631.png" id="6_r5lod"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster49bullet3/tex/3_639.png" id="7_t7imo"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster49bullet3/tex/3_647.png" id="8_sgx5x"]
+[ext_resource type="AnimationLibrary" path="res://assets/rigs/monster49bullet3/anims.res" id="9_camna"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_poan0"]
+shader = ExtResource("3_afahr")
+shader_parameter/blur = null
+shader_parameter/glow_on = true
+shader_parameter/glow_color = Color(1, 1, 1, 1)
+shader_parameter/glow_blur = Vector2(31, 31)
+shader_parameter/glow_strength = 1.0
+shader_parameter/glow_inner = false
+shader_parameter/glow_knockout = false
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1uvgj"]
+shader = ExtResource("3_afahr")
+shader_parameter/blur = null
+shader_parameter/glow_on = true
+shader_parameter/glow_color = Color(1, 1, 1, 1)
+shader_parameter/glow_blur = Vector2(17, 17)
+shader_parameter/glow_strength = 2.1875
+shader_parameter/glow_inner = false
+shader_parameter/glow_knockout = false
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rxreb"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2v2rg"]
+resource_local_to_scene = true
+
+[node name="Monster49Bullet3" type="Node2D" unique_id=418075881]
+script = ExtResource("1_nvwrg")
+actions = PackedStringArray("default")
+
+[node name="Parts" type="Node2D" parent="." unique_id=425343387]
+
+[node name="default" type="Node2D" parent="Parts" unique_id=1280198702]
+visible = false
+
+[node name="p1_1" type="Sprite2D" parent="Parts/default" unique_id=1565443088]
+position = Vector2(-130.95, -62.95)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_ggfmk")
+centered = false
+
+[node name="g1_1_f0" type="CanvasGroup" parent="Parts/default" unique_id=1896684834]
+material = SubResource("ShaderMaterial_poan0")
+fit_margin = 35.0
+clear_margin = 35.0
+use_mipmaps = true
+
+[node name="p1_1_1_f0" type="Sprite2D" parent="Parts/default/g1_1_f0" unique_id=1773963349]
+modulate = Color(0.9984118, 0.9984118, 0.9984118, 1)
+position = Vector2(-132.25, -59.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_gcypb")
+centered = false
+
+[node name="g1_1_f1" type="CanvasGroup" parent="Parts/default" unique_id=885407687]
+material = SubResource("ShaderMaterial_1uvgj")
+fit_margin = 21.0
+clear_margin = 21.0
+use_mipmaps = true
+
+[node name="p1_1_1_f1" type="Sprite2D" parent="Parts/default/g1_1_f1" unique_id=1226847491]
+modulate = Color(0.99837255, 0.99837255, 0.99837255, 1)
+position = Vector2(-133.9, -59.1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_0fg5a")
+centered = false
+
+[node name="p1_3_1" type="Sprite2D" parent="Parts/default" unique_id=755705923]
+position = Vector2(-135.35, -53.65)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_r5lod")
+centered = false
+
+[node name="p5_1" type="Sprite2D" parent="Parts/default" unique_id=1555511143]
+position = Vector2(15.850002, -59.95)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_ggfmk")
+centered = false
+
+[node name="g5_1_f0" type="CanvasGroup" parent="Parts/default" unique_id=1075534370]
+material = SubResource("ShaderMaterial_poan0")
+fit_margin = 35.0
+clear_margin = 35.0
+use_mipmaps = true
+
+[node name="p5_1_1_f0" type="Sprite2D" parent="Parts/default/g5_1_f0" unique_id=556161882]
+modulate = Color(0.9984118, 0.9984118, 0.9984118, 1)
+position = Vector2(14.550003, -56.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_gcypb")
+centered = false
+
+[node name="g5_1_f1" type="CanvasGroup" parent="Parts/default" unique_id=789624856]
+material = SubResource("ShaderMaterial_1uvgj")
+fit_margin = 21.0
+clear_margin = 21.0
+use_mipmaps = true
+
+[node name="p5_1_1_f1" type="Sprite2D" parent="Parts/default/g5_1_f1" unique_id=555299972]
+modulate = Color(0.99837255, 0.99837255, 0.99837255, 1)
+position = Vector2(12.900002, -56.1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_0fg5a")
+centered = false
+
+[node name="p5_3_1" type="Sprite2D" parent="Parts/default" unique_id=1954480418]
+position = Vector2(11.449997, -50.65)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_r5lod")
+centered = false
+
+[node name="p9" type="Sprite2D" parent="Parts/default" unique_id=850364791]
+position = Vector2(-68.15, -38.9)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_t7imo")
+centered = false
+
+[node name="p9_1" type="Sprite2D" parent="Parts/default" unique_id=2126169798]
+position = Vector2(-207.40001, -59.95)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_ggfmk")
+centered = false
+
+[node name="g9_1_f0" type="CanvasGroup" parent="Parts/default" unique_id=1384693470]
+material = SubResource("ShaderMaterial_poan0")
+fit_margin = 35.0
+clear_margin = 35.0
+use_mipmaps = true
+
+[node name="p9_1_1_f0" type="Sprite2D" parent="Parts/default/g9_1_f0" unique_id=830586463]
+modulate = Color(0.9984118, 0.9984118, 0.9984118, 1)
+position = Vector2(-208.70001, -56.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_gcypb")
+centered = false
+
+[node name="g9_1_f1" type="CanvasGroup" parent="Parts/default" unique_id=60478542]
+material = SubResource("ShaderMaterial_1uvgj")
+fit_margin = 21.0
+clear_margin = 21.0
+use_mipmaps = true
+
+[node name="p9_1_1_f1" type="Sprite2D" parent="Parts/default/g9_1_f1" unique_id=1130407807]
+modulate = Color(0.99837255, 0.99837255, 0.99837255, 1)
+position = Vector2(-210.35, -56.1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_0fg5a")
+centered = false
+
+[node name="p9_3_1" type="Sprite2D" parent="Parts/default" unique_id=329164341]
+position = Vector2(-211.79999, -50.65)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_r5lod")
+centered = false
+
+[node name="p13" type="Sprite2D" parent="Parts/default" unique_id=135847452]
+position = Vector2(-59.25, -27.3)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_sgx5x")
+centered = false
+
+[node name="p13_1" type="Sprite2D" parent="Parts/default" unique_id=1198478130]
+position = Vector2(99.899994, -59.95)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_ggfmk")
+centered = false
+
+[node name="g13_1_f0" type="CanvasGroup" parent="Parts/default" unique_id=1561417809]
+material = SubResource("ShaderMaterial_poan0")
+fit_margin = 35.0
+clear_margin = 35.0
+use_mipmaps = true
+
+[node name="p13_1_1_f0" type="Sprite2D" parent="Parts/default/g13_1_f0" unique_id=918209427]
+modulate = Color(0.9984118, 0.9984118, 0.9984118, 1)
+position = Vector2(98.6, -56.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_gcypb")
+centered = false
+
+[node name="g13_1_f1" type="CanvasGroup" parent="Parts/default" unique_id=1988388018]
+material = SubResource("ShaderMaterial_1uvgj")
+fit_margin = 21.0
+clear_margin = 21.0
+use_mipmaps = true
+
+[node name="p13_1_1_f1" type="Sprite2D" parent="Parts/default/g13_1_f1" unique_id=1638024306]
+modulate = Color(0.99837255, 0.99837255, 0.99837255, 1)
+position = Vector2(96.95, -56.1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_0fg5a")
+centered = false
+
+[node name="p13_3_1" type="Sprite2D" parent="Parts/default" unique_id=1556440936]
+position = Vector2(95.49999, -50.65)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_r5lod")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=360720413]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=565941763]
+shape = SubResource("RectangleShape2D_rxreb")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=500635859]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1036370982]
+shape = SubResource("RectangleShape2D_2v2rg")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1250743045]
+callback_mode_process = 0
+libraries/ = ExtResource("9_camna")

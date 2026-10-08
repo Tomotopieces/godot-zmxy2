@@ -1,0 +1,30 @@
+class_name AttackData
+extends Resource
+## One attack (melee swing, skill or projectile). All units are px / seconds.
+
+enum Kind { PHYSICS, MAGIC, TRUE }
+
+@export var power_mul := 1.0          ## damage = attacker attack * power_mul (+ flat)
+@export var flat := 0                 ## fixed damage (monsters, hit7)
+@export var kind := Kind.PHYSICS
+@export var knockback := Vector2.ZERO ## px/s, x is "away from attacker"
+@export var push_from_center := false ## knockback direction from hitbox center instead of facing
+@export var rehit_interval := 0.0     ## projectiles: seconds until the same target can be hit again (0 = never)
+@export var max_hits := 1             ## projectiles: total hits before it is spent
+
+@export_group("Skill")
+@export var mp_cost := 0
+@export var cooldown := 0.0           ## seconds before the next attack input is accepted
+@export var dash_speed := 0.0
+@export var rage_dash_speed := 0.0
+@export var invincible := 0.0
+@export var extra := {}               ## skill specific numbers (already converted)
+@export var effects: Array = []       ## status effects put on the target: {name, time (s), power, tick (s)}
+
+@export_group("Projectile")
+@export var projectile := ""          ## rig name spawned by the attack
+@export var spawn_offset := Vector2.ZERO
+@export var speed := 0.0
+@export var distance := 0.0
+@export var spin_deg := 0.0
+@export var spin_time := 0.0

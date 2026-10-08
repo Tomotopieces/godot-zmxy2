@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3]
+
+[ext_resource type="Script" path="res://src/data/attack_data.gd" id="1_xbcxw"]
+[ext_resource type="Script" path="res://src/data/monster_data.gd" id="2_3xatu"]
+
+[sub_resource type="Resource" id="Resource_p0ec0"]
+script = ExtResource("1_xbcxw")
+power_mul = 0.0
+flat = 40
+knockback = Vector2(144, -120)
+rehit_interval = 0.16666666666666666
+max_hits = 2
+
+[resource]
+script = ExtResource("2_3xatu")
+id = 36
+rig = "monster36"
+speed = 72.0
+hp = 1400
+def = 16
+exp = 22
+souls = 20
+attack_range = 150.0
+walk_times = PackedFloat32Array(3, 4)
+wander_rest = 1.25
+knockback_decay = 0.004722366482869657
+gravity = 864.0
+equip_chance = 0.045
+equip_drops = PackedStringArray("gtb")
+attacks = {
+&"hit1": SubResource("Resource_p0ec0")
+}

@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="MonsterData" format=3]
+
+[ext_resource type="Script" path="res://src/data/monster_data.gd" id="1_2r83s"]
+
+[resource]
+script = ExtResource("1_2r83s")
+id = 70
+rig = "monster70"
+hp = 1000000
+def = 2
+exp = 5
+souls = 1
+walk_times = PackedFloat32Array(3, 4)
+wander_rest = 1.25
+knockback_decay = 0.004722366482869657
+gravity = 864.0
+equip_chance = 0.22499999999999998
+brain_type = "hub_prop"
+brain = {
+"hit_invuln": 1.0,
+"pointer": true
+}
+is_prop = true
+immovable = true
