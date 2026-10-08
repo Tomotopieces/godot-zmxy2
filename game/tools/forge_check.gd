@@ -22,7 +22,7 @@ func _ready() -> void:
 	sword.plus = 7
 	_check("no chance at +7", Forge.success_chance(sword, [s4, s4, s4], true) == 0.0)
 	sword.plus = 3
-	seed(1)
+	Rng.seed_with(1)
 	var lost := 0
 	for i in 50:
 		var e := sword.copy()

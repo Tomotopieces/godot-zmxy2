@@ -32,7 +32,7 @@ static func spawn(k: Kind, pos: Vector2, hero: Hero, value: int, t: DropTable) -
 
 func _ready() -> void:
 	_wait = table.orb_delay
-	_speed = randf_range(table.orb_speed.x, table.orb_speed.y)
+	_speed = Rng.randf_range(table.orb_speed.x, table.orb_speed.y)
 
 func _physics_process(delta: float) -> void:
 	_life += delta
@@ -43,7 +43,7 @@ func _physics_process(delta: float) -> void:
 		_wait -= delta
 		if _wait <= 0.0:
 			var tw := create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
-			tw.tween_property(self, "position:y", position.y - randf_range(table.orb_rise.x, table.orb_rise.y), table.orb_rise_time)
+			tw.tween_property(self, "position:y", position.y - Rng.randf_range(table.orb_rise.x, table.orb_rise.y), table.orb_rise_time)
 			tw.tween_callback(func(): _homing = true)
 		return
 	if not _homing:

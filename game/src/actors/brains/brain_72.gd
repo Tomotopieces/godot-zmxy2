@@ -15,7 +15,7 @@ func think(delta: float) -> void:
 		return
 	if _up_left <= 0:
 		var r: Array = param("up_reset", [5, 10])
-		_up_left = randi_range(r[0], r[1])
+		_up_left = Rng.randi_range(r[0], r[1])
 		m.face_target()
 		act(&"hit3")
 		return
@@ -60,7 +60,7 @@ func on_call(n: String, _args: Array) -> bool:
 			if m.target:
 				m.global_position = Vector2(m.target.global_position.x, float(param("land_y", 430)))
 				m.velocity = Vector2.ZERO
-			act(&"hit3-1" if randf() < 0.5 else &"hit3-2")
+			act(&"hit3-1" if Rng.randf() < 0.5 else &"hit3-2")
 		"do_hit2":
 			_net = m.shoot("monster72bullet1", &"hit2", Vector2(150, 0))
 			_net.life = float(param("net_life", 8.0))

@@ -6,7 +6,7 @@ var _mark := Vector2.INF
 
 func attack(_action: StringName = &"hit1") -> void:
 	m.face_target()
-	m.attack_with(&"hit1" if randf() < 0.5 else &"hit4")
+	m.attack_with(&"hit1" if Rng.randf() < 0.5 else &"hit4")
 
 func on_call(n: String, _args: Array) -> bool:
 	match n:

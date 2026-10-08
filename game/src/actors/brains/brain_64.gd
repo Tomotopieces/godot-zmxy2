@@ -27,7 +27,7 @@ func on_destroy() -> void:
 	var pos: Array = param("loot_pos", [1450, 310])
 	m.get_tree().create_timer(float(param("loot_delay", 2.0)), false).timeout.connect(func():
 		if is_instance_valid(lv):
-			var md := lv.monster_data(65 + (randi() % 2))
+			var md := lv.monster_data(65 + (Rng.randi() % 2))
 			if md:
 				var o := Monster.create(md)
 				o.position = Vector2(pos[0], pos[1])

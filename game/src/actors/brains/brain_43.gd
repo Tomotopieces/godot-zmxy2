@@ -12,7 +12,7 @@ func setup() -> void:
 	m.fly = true
 	m.velocity = Vector2.ZERO
 	var r: Array = param("turn_every", [1.0, 3.0])
-	_turn_every = randf_range(r[0], r[1])
+	_turn_every = Rng.randf_range(r[0], r[1])
 
 func think(delta: float) -> void:
 	_turn = maxf(_turn - delta, 0.0)
@@ -36,7 +36,7 @@ func think(delta: float) -> void:
 		_attack_t -= delta
 		if _attack_t <= 0.0:
 			_attack_t = m.data.attack_check
-			if randi() % 100 < m.data.attack_chance:
+			if Rng.randi() % 100 < m.data.attack_chance:
 				m.velocity = Vector2.ZERO
 				attack()
 				_back = float(param("back_time", 3.0))

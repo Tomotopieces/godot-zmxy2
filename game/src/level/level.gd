@@ -103,6 +103,7 @@ func _ready() -> void:
 func _exit_tree() -> void:
 	if current == self:
 		current = null
+		DamageNumber.clear_pool()
 
 ## Spawned objects start where they were placed (no interpolation from a stale transform).
 func add_object(n: Node) -> void:

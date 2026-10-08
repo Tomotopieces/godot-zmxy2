@@ -14,7 +14,7 @@ var _check := 0.0
 func setup() -> void:
 	m.fly = true
 	var r: Array = param("turn_every", [1.0, 3.0])
-	_turn_every = randf_range(r[0], r[1])
+	_turn_every = Rng.randf_range(r[0], r[1])
 
 func think(delta: float) -> void:
 	_turn = maxf(_turn - delta, 0.0)
@@ -38,7 +38,7 @@ func think(delta: float) -> void:
 			m.set_cd("rain", float(param("rain_cd", 15.0)))
 			_stop_and_face()
 			m.attack_with(&"hit2")
-		elif randf() < 0.5:
+		elif Rng.randf() < 0.5:
 			_stop_and_face()
 			m.attack_with(&"hit1")
 
@@ -50,7 +50,7 @@ func _hover(delta: float) -> void:
 	if _turn <= 0.0:
 		_turn = _turn_every
 		follow()
-		_offset = Vector2(160.0 + randf_range(-40, 40), 140.0 + randf_range(-60, 60))
+		_offset = Vector2(160.0 + Rng.randf_range(-40, 40), 140.0 + Rng.randf_range(-60, 60))
 	var want_y := m.target.global_position.y - _offset.y
 	var a := float(param("hover_accel", 288)) * (1.0 if m.global_position.y < want_y else -1.0)
 	var cap := float(param("hover_max", 96))
@@ -66,7 +66,7 @@ func on_call(n: String, _args: Array) -> bool:
 				s.distance_left = to.length() + 40.0
 				s.rig.scale *= 0.5
 		"do_hit2":
-			var v := Vector2(randf_range(param("bomb_vx", [120, 1056])[0], param("bomb_vx", [120, 1056])[1]), randf_range(72, 168))
+			var v := Vector2(Rng.randf_range(param("bomb_vx", [120, 1056])[0], param("bomb_vx", [120, 1056])[1]), Rng.randf_range(72, 168))
 			var b := m.shoot(SHOT, &"hit2", Vector2.ZERO, v, 9999.0)
 			b.accel = Vector2(float(param("bomb_ax", 576)) * m.facing, float(param("bomb_ay", 1152)))
 			var floor_y := float(param("floor_y", 472))

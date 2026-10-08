@@ -27,7 +27,7 @@ func think(delta: float) -> void:
 		return
 	if _split_left <= 0:
 		var r: Array = param("split_reset", [10, 20])
-		_split_left = randi_range(r[0], r[1])
+		_split_left = Rng.randi_range(r[0], r[1])
 		act(&"fenshen")
 		return
 	if m.target == null:
@@ -67,7 +67,7 @@ func on_call(n: String, _args: Array) -> bool:
 				if c:
 					clones.append(c)
 		"do_hit2":
-			var b := m.shoot("monster69bullet1", &"hit2", Vector2(0, -20 + randf_range(-40, 40)))
+			var b := m.shoot("monster69bullet1", &"hit2", Vector2(0, -20 + Rng.randf_range(-40, 40)))
 			b.rig.scale.x = absf(b.rig.scale.x) * -m.facing
 		_:
 			return false

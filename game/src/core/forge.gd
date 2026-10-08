@@ -32,7 +32,7 @@ static func success_chance(equip: Item, stones: Array, luck: bool) -> float:
 ## One attempt (the stones and charms are used up by the caller). Returns true on success.
 static func strengthen(equip: Item, stones: Array, luck: bool, keep: bool) -> bool:
 	var plus := equip.plus
-	if randf() < success_chance(equip, stones, luck):
+	if Rng.randf() < success_chance(equip, stones, luck):
 		equip.plus = plus + 1
 		return true
 	if plus >= int(_cat().strengthen.drop_from) and not keep:
@@ -67,7 +67,7 @@ static func _total(item: Item, stat: String) -> float:
 
 ## The product of a recipe from its materials (null when the roll fails). Does not touch the bag or the souls.
 static func produce(recipe: Dictionary, mats: Array) -> Item:
-	if randf() >= fusion_chance(recipe):
+	if Rng.randf() >= fusion_chance(recipe):
 		return null
 	var out := EquipmentCatalog.find(recipe.out).roll()
 	match recipe.kind:
@@ -111,20 +111,20 @@ static func _init_treasure(item: Item, tdef: Dictionary) -> void:
 	var t: Dictionary = _cat().treasures
 	item.lv = 1
 	var g: Array = tdef.growth
-	item.growth = snappedf(randf_range(g[0], g[1]), 0.1)
+	item.growth = snappedf(Rng.randf_range(g[0], g[1]), 0.1)
 	# the original picks with round(rand * 4): the first and last elements are half as likely
 	var names: Array = t.elements
-	var first := roundi(randf() * (names.size() - 1))
+	var first := roundi(Rng.randf() * (names.size() - 1))
 	var elems := [names[first]]
-	if randf() < float(t.double_chance):
+	if Rng.randf() < float(t.double_chance):
 		var rest: Array = names.duplicate()
 		rest.remove_at(first)
-		elems.append(rest[roundi(randf() * (rest.size() - 1))])
+		elems.append(rest[roundi(Rng.randf() * (rest.size() - 1))])
 	item.elem = elems
 	if tdef.has("passives"):
-		var p: Array = tdef.passives[randi() % tdef.passives.size()]
-		item.stats[p[0]] = float(p[1]) + float(p[2]) * roundi(randf() * float(p[3]))
-		item.spell = randi() % 2
+		var p: Array = tdef.passives[Rng.randi() % tdef.passives.size()]
+		item.stats[p[0]] = float(p[1]) + float(p[2]) * roundi(Rng.randf() * float(p[3]))
+		item.spell = Rng.randi() % 2
 		item.strong = false
 
 # ------------------------------------------------------------------ treasures

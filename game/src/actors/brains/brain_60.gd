@@ -18,7 +18,7 @@ func setup() -> void:
 	m.fly = true
 	m.velocity = Vector2.ZERO
 	_orbs.resize(SLOTS_X.size())
-	_pattern = PATTERNS[randi() % PATTERNS.size()]
+	_pattern = PATTERNS[Rng.randi() % PATTERNS.size()]
 	_t = float(param("first_throw", 4.0))
 	m.world.start_final_platforms()
 
@@ -36,7 +36,7 @@ func think(delta: float) -> void:
 	if _phase == 0:
 		_throw()
 		var r: Array = param("throw_every", [2.0, 5.0])
-		_t = randf_range(r[0], r[1])
+		_t = Rng.randf_range(r[0], r[1])
 		if _launched.size() >= SLOTS_X.size():
 			_phase = 1
 			_recall_wave = 0
@@ -66,7 +66,7 @@ func _throw() -> void:
 			free.append(i)
 	if free.is_empty():
 		return
-	var slot: int = free[randi() % free.size()]
+	var slot: int = free[Rng.randi() % free.size()]
 	var o := m.shoot(ORB, &"hit1")
 	o.global_position = m.center()
 	var target := Vector2(m.world.view_rect().position.x + SLOTS_X[slot], float(param("slot_y", 460)))

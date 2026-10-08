@@ -8,7 +8,7 @@ const MELEE := [&"hit1", &"hit5", &"hit6", &"hit7"]
 
 func attack(_action: StringName = &"hit1") -> void:
 	m.face_target()
-	m.attack_with(MELEE[randi() % MELEE.size()])
+	m.attack_with(MELEE[Rng.randi() % MELEE.size()])
 
 func use_skill(action: StringName) -> void:
 	m.invuln = maxf(m.invuln, float(param("invuln_" + String(action), 0.0)))

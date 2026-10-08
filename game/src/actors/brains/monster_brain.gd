@@ -126,7 +126,7 @@ func base_ai(delta: float) -> void:
 		_attack_t -= delta
 		if _attack_t <= 0.0:
 			_attack_t = m.data.attack_check
-			if randi() % 100 < m.data.attack_chance:
+			if Rng.randi() % 100 < m.data.attack_chance:
 				attack()
 			else:
 				m.dir = 0
@@ -148,12 +148,12 @@ func wander(delta: float) -> void:
 	_cycle += delta
 	if prev < m.data.think_walk_at and _cycle >= m.data.think_walk_at:
 		var off := m.global_position.x - m.world.view_rect().get_center().x
-		m.dir = 1 if off < -400.0 else (-1 if off > 400.0 else (1 if randf() < 0.5 else -1))
-		_stop_at = m.data.walk_times[randi() % m.data.walk_times.size()]
+		m.dir = 1 if off < -400.0 else (-1 if off > 400.0 else (1 if Rng.randf() < 0.5 else -1))
+		_stop_at = m.data.walk_times[Rng.randi() % m.data.walk_times.size()]
 	if _cycle >= _stop_at:
-		if randf() < 0.5:
+		if Rng.randf() < 0.5:
 			m.dir = 0
-		if _cycle >= _stop_at + randf() * m.data.wander_rest:
+		if _cycle >= _stop_at + Rng.randf() * m.data.wander_rest:
 			_cycle = 0.0
 			m.dir = 0
 

@@ -29,7 +29,7 @@ func _next_target() -> void:
 	if _attacks >= _max_attacks() or all.is_empty():
 		finish()
 		return
-	var m: Monster = all[randi() % all.size()]
+	var m: Monster = all[Rng.randi() % all.size()]
 	facing = 1 if global_position.x < m.global_position.x else -1
 	rig.play(&"back", true)
 	_attacks += 1

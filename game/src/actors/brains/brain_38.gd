@@ -69,8 +69,8 @@ func _cast_orbs() -> void:
 	_orbs = _orbs.filter(func(o): return is_instance_valid(o))
 	if _orbs.size() >= int(param("orb_cap", 10)):
 		return
-	for i in 3 + ceili(randf() * 4.0):
-		var pos := m.global_position + Vector2((randf() - 0.5) * 100.0, -200.0)
+	for i in 3 + ceili(Rng.randf() * 4.0):
+		var pos := m.global_position + Vector2((Rng.randf() - 0.5) * 100.0, -200.0)
 		var fx := Fx.spawn(ORB_SPAWNER, pos)
 		fx.tree_exiting.connect(_spawn_orb.bind(pos), CONNECT_DEFERRED)
 
@@ -95,7 +95,7 @@ func _spawn_orb(pos: Vector2) -> void:
 				st.vx = signf(target.global_position.x - p.global_position.x) * float(param("orb_speed", 120))
 			if st.ty >= t_dy:
 				st.ty = 0.0
-				st.vy = randf_range(-1.0, 1.0) * float(param("orb_wobble_speed", 60))
+				st.vy = Rng.randf_range(-1.0, 1.0) * float(param("orb_wobble_speed", 60))
 			# drop a bomb once it hovers over the target
 			if p.age >= arm and absf(target.global_position.x - p.global_position.x) < float(param("orb_drop_dx", 50)):
 				_drop_bomb(p.global_position)

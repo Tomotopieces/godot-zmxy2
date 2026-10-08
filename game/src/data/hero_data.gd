@@ -75,7 +75,7 @@ func max_mp(level: int) -> int:
 	return mp_base + mp_per_level * (level - 1)
 
 func attack_power(level: int) -> int:
-	return atk_base + randi_range(0, atk_rand) + atk_per_level * (level - 1)
+	return atk_base + Rng.randi_range(0, atk_rand) + atk_per_level * (level - 1)
 
 func defense(level: int) -> int:
 	if level < def_cap_level:

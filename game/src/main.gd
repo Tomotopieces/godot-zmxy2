@@ -5,11 +5,16 @@ var _screen: Node
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	Controls.add_gamepad_defaults()
 	get_viewport().size_changed.connect(_update_filter_scale)
 	_update_filter_scale()
 	if OS.is_debug_build():   # debug aids are not part of exported (release) builds
 		add_child(DebugConsole.new())   # ~ lists every item
 	show_menu()
+
+func _unhandled_key_input(e: InputEvent) -> void:
+	if e is InputEventKey and e.pressed and not e.echo and e.keycode == KEY_F11:
+		Controls.toggle_fullscreen()
 
 ## Filter sizes (blur / glow) are authored in game pixels; the shader needs screen pixels.
 func _update_filter_scale() -> void:

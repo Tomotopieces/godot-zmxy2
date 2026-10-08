@@ -10,8 +10,6 @@ signal leveled_up(level: int)
 signal equipment_changed
 signal buffs_changed
 
-const SLOT_FILE := "user://slot_%d.json"
-const SAVE_VERSION := 1
 const SLOTS := 6
 const HERO_DATA := "res://data/wukong.tres"
 const CHARACTER := "悟空"
@@ -370,39 +368,13 @@ func on_stage_cleared(s: Vector2i) -> void:
 static func next_stage(s: Vector2i) -> Vector2i:
 	return Vector2i(s.x + 1, 1) if s.y >= 3 else Vector2i(s.x, s.y + 1)
 
-# ------------------------------------------------------------------ save slots
+# ------------------------------------------------------------------ save slots (SaveGame)
 
 func _to_dict() -> Dictionary:
-	var w := {}
-	for k in worn:
-		w[String(k)] = worn[k].to_dict() if worn[k] else {}
-	return {
-		"level": level, "exp": exp, "souls": souls, "attack": attack,
-		"skills": skills.keys().filter(func(k): return skills[k]).map(func(k): return String(k)),
-		"passives": passives,
-		"bag": bag.map(func(it: Item): return it.to_dict()), "worn": w, "stage": [stage.x, stage.y], "progress": [progress.x, progress.y],
-		"opening_seen": opening_seen, "hhe_seen": hhe_seen, "buffs": buffs, "merit": merit, "merit_day": merit_day, "merit_times": merit_times,
-		"title": "Lv.%d  悟空  %d-%d" % [level, progress.x, progress.y],
-		"datetime": Time.get_datetime_string_from_system(false, true),
-	}
+	return SaveGame.to_dict(self)
 
-## Saves are written to a temporary file and renamed over the slot (a crash mid-write cannot truncate it); the previous
-## slot is kept as <slot>.bak, which loading falls back to when the slot cannot be read.
 func save_to(i: int) -> bool:
-	var path: String = SLOT_FILE % i
-	var d := _to_dict()
-	d["version"] = SAVE_VERSION
-	var tmp := path + ".tmp"
-	var f := FileAccess.open(tmp, FileAccess.WRITE)
-	if f == null:
-		push_error("save: cannot write %s (%s)" % [tmp, error_string(FileAccess.get_open_error())])
-		return false
-	f.store_string(JSON.stringify(d))
-	f.close()
-	if FileAccess.file_exists(path):
-		DirAccess.copy_absolute(path, path + ".bak")
-	if DirAccess.rename_absolute(tmp, path) != OK:
-		push_error("save: cannot replace %s" % path)
+	if not SaveGame.write(i, SaveGame.to_dict(self)):
 		return false
 	slot = i
 	return true
@@ -411,68 +383,16 @@ func save_to(i: int) -> bool:
 func autosave() -> bool:
 	return slot >= 0 and save_to(slot)
 
-## The parsed save of a slot (falling back to its backup), {} when empty or unreadable.
-func _read_slot(i: int) -> Dictionary:
-	for path in [SLOT_FILE % i, (SLOT_FILE % i) + ".bak"]:
-		if not FileAccess.file_exists(path):
-			continue
-		var json := JSON.new()
-		if json.parse(FileAccess.get_file_as_string(path)) == OK and json.data is Dictionary:
-			return _migrate(json.data)
-		push_warning("save: %s is not readable" % path)
-	return {}
-
-## Brings an older save up to SAVE_VERSION (version 0 = saves written before the field existed; same layout).
-func _migrate(d: Dictionary) -> Dictionary:
-	d["version"] = SAVE_VERSION
-	return d
-
-## {title, datetime} of a slot, or {} when empty.
 func slot_info(i: int) -> Dictionary:
-	var d := _read_slot(i)
-	return {"title": str(d.get("title", "")), "datetime": str(d.get("datetime", ""))} if not d.is_empty() else {}
+	return SaveGame.info(i)
 
-static func _pair(v: Variant, fallback: Vector2i) -> Vector2i:
-	return Vector2i(int(v[0]), int(v[1])) if v is Array and v.size() >= 2 else fallback
-
-## Loads a slot. The current profile is only replaced once the save has been read and checked.
 func load_from(i: int) -> bool:
-	var d := _read_slot(i)
+	var d := SaveGame.read(i)
 	if d.is_empty():
 		return false
 	new_game()
 	slot = i
-	level = clampi(int(d.get("level", 1)), 1, hero_data.level_max)
-	exp = maxi(int(d.get("exp", 0)), 0)
-	souls = maxi(int(d.get("souls", 0)), 0)
-	attack = maxi(int(d.get("attack", hero_data.attack_power(level))), 0)
-	for s in d.get("skills", []):
-		if s is String:
-			skills[StringName(s)] = true
-	var pv = d.get("passives", [])
-	if pv is Array:
-		for n in mini(pv.size(), passives.size()):
-			passives[n] = clampi(int(pv[n]), 0, hero_data.passive_max)
-	bag.clear()
-	for it in d.get("bag", []) if d.get("bag") is Array else []:
-		var clean := Item.from_dict(it)
-		if clean:
-			bag.append(clean)
-	var w = d.get("worn", {})
-	for k in worn:
-		worn[k] = Item.from_dict(w.get(String(k))) if w is Dictionary else null
-	stage = _pair(d.get("stage"), Vector2i(1, 1))
-	progress = _pair(d.get("progress"), Vector2i(1, 1))
-	opening_seen = d.get("opening_seen", true) == true
-	hhe_seen = d.get("hhe_seen", false) == true
-	merit = maxi(int(d.get("merit", 0)), 0)
-	merit_day = str(d.get("merit_day", ""))
-	merit_times = maxi(int(d.get("merit_times", 0)), 0)
-	var bf = d.get("buffs", {})
-	if bf is Dictionary:
-		for b in bf:
-			if EquipmentCatalog.get_catalog().buffs.has(b) and (bf[b] is float or bf[b] is int):
-				buffs[b] = float(bf[b])
+	SaveGame.apply(self, d)
 	equipment_changed.emit()
 	profile_changed.emit()
 	return true

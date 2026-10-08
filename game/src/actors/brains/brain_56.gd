@@ -30,7 +30,7 @@ func think(delta: float) -> void:
 		m.dealer.new_serial()
 	if _turn <= 0.0:
 		var r: Array = param("turn_every", [1.0, 3.0])
-		_turn = randf_range(r[0], r[1])
+		_turn = Rng.randf_range(r[0], r[1])
 		var h: Hero = m.world.hero
 		if h:
 			m.face(h.global_position)
@@ -40,7 +40,7 @@ func think(delta: float) -> void:
 			near = true
 	if near and m.cd("leap") <= 0.0:
 		var r2: Array = param("leap_cd", [6.0, 10.0])
-		m.set_cd("leap", randf_range(r2[0], r2[1]))
+		m.set_cd("leap", Rng.randf_range(r2[0], r2[1]))
 		m.attack_with(&"hit3")
 		return
 	# running is itself the attack: keep the run hitbox live

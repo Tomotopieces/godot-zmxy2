@@ -31,7 +31,7 @@ func begin() -> void:
 		rig.play(&"hit2-2", true)
 		return
 	var all := candidates()
-	var m: Monster = all[randi() % all.size()]
+	var m: Monster = all[Rng.randi() % all.size()]
 	var c := m.center()
 	var tx: float = c.x - p.side if global_position.x < c.x else c.x + p.side
 	facing = 1 if global_position.x < tx else -1
@@ -57,7 +57,7 @@ func _spit() -> void:
 	var all := candidates()
 	if all.is_empty():
 		return
-	var m: Monster = all[randi() % all.size()]
+	var m: Monster = all[Rng.randi() % all.size()]
 	var dir := (m.center() - global_position).normalized()
 	facing = 1 if dir.x >= 0.0 else -1
 	var pr := shoot("fabao_wudu_bullet1", &"fabao_wudu_hit1", global_position, facing, func() -> int: return GameState.attack_power())

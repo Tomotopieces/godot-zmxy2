@@ -35,9 +35,9 @@ func think(delta: float) -> void:
 
 func _try_skill(skill: String, cd_key: String, chance: float, rand_extra := 0.0) -> bool:
 	var action: String = param(skill, "")
-	if action == "" or m.cd(cd_key) > 0.0 or randf() >= chance:
+	if action == "" or m.cd(cd_key) > 0.0 or Rng.randf() >= chance:
 		return false
-	m.set_cd(cd_key, float(param(cd_key, 4.0)) + randf() * rand_extra)
+	m.set_cd(cd_key, float(param(cd_key, 4.0)) + Rng.randf() * rand_extra)
 	m.face_target()
 	use_skill(StringName(action))
 	return true
@@ -48,7 +48,7 @@ func _melee_or_walk(delta: float) -> void:
 		wander(delta)
 		return
 	_check = float(param("check", 1.0))
-	if randf() < 0.7:
+	if Rng.randf() < 0.7:
 		attack()
 	else:
 		wander(delta)

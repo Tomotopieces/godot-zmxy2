@@ -39,7 +39,7 @@ var _lock_count := 0
 var _last_hurt_at := -100.0
 var _rage_t := 0.0
 var _drop_t := 0.0
-var debuffs := {}          ## name -> seconds left (deadlink, net, magiclost ...), set by monsters
+var debuffs := HeroDebuffs.new()   ## status effects set by monsters
 var _poison := [0.0, 1.0, 0.0]   ## power, tick (s), elapsed
 var held_by: Node = null   ## grabbed (setStatic + setLostKeyboard by a monster): no input, no own movement
 var _lock_glow := 0.0   ## anti-lock protection time left (the only invincibility the original shows)
@@ -52,6 +52,7 @@ func _ready() -> void:
 	collision_layer = LAYER_HERO
 	collision_mask = LAYER_WORLD | LAYER_ONEWAY
 	setup_rig(data.rig)
+	add_child(debuffs)
 	_apply_appearance()
 	facing = 1
 	refill()
@@ -106,11 +107,7 @@ func _physics_process(delta: float) -> void:
 	invincible = maxf(invincible - delta, 0.0)
 	_update_rage(delta)
 	_update_regen(delta)
-	for k in debuffs.keys():
-		debuffs[k] -= delta
-		if debuffs[k] <= 0.0:
-			debuffs.erase(k)
-	_sync_debuff_icons()
+	debuffs.tick(delta)
 	if has_debuff(&"magiclost"):
 		_drain_mp_by_moving()
 	if has_debuff(&"poison"):
@@ -414,7 +411,7 @@ func outgoing_damage(a: AttackData) -> int:
 	var dmg := a.flat if a.flat > 0 else roundi(GameState.attack_power() * a.power_mul)
 	if transformed:
 		dmg = roundi(dmg * 1.5)
-	last_crit = randf() < GameState.crit()
+	last_crit = Rng.randf() < GameState.crit()
 	if last_crit:
 		dmg *= 2
 	return dmg
@@ -435,10 +432,10 @@ func _update_regen(delta: float) -> void:
 func take_hit(h: Hit) -> bool:
 	if not can_be_hit():
 		return false
-	if randf() < GameState.miss():
+	if Rng.randf() < GameState.miss():
 		DamageNumber.spawn_miss(global_position + Vector2(-20, -60))
 		return true
-	var dmg := h.mitigated(GameState.defense(), GameState.bonus("mdef")) + randi_range(-5, 5)
+	var dmg := h.mitigated(GameState.defense(), GameState.bonus("mdef")) + Rng.randi_range(-5, 5)
 	dmg = maxi(1, dmg)
 	hp = maxi(hp - dmg, 0)
 	DamageNumber.spawn("pnum", dmg, global_position + Vector2(-20, -60))
@@ -486,31 +483,11 @@ func _drain_mp_by_moving() -> void:
 		mp = maxi(mp - n, 0)
 
 ## Status icons shown on the hero (BaseAddEffect.showXxx): debuff -> [rig, offset].
-const DEBUFF_ICONS := {
-	&"deadlink": ["fx_deadlink", Vector2(0, -40)], &"magiclost": ["fx_magiclost", Vector2.ZERO],
-	&"eyefix": ["fx_eyefix", Vector2(0, -20)], &"poison": ["fx_poison", Vector2(0, -70)],
-}
-var _debuff_icons := {}
-
-func _sync_debuff_icons() -> void:
-	for k in DEBUFF_ICONS:
-		var on: bool = debuffs.has(k)
-		if on and not _debuff_icons.has(k):
-			var r := Rig.create(DEBUFF_ICONS[k][0])
-			r.position = DEBUFF_ICONS[k][1]
-			add_child(r)
-			r.play(r.actions[0])
-			r.action_finished.connect(func(a): r.play(a, true))
-			_debuff_icons[k] = r
-		elif not on and _debuff_icons.has(k):
-			_debuff_icons[k].queue_free()
-			_debuff_icons.erase(k)
-
 func add_debuff(n: StringName, seconds: float) -> void:
-	debuffs[n] = maxf(debuffs.get(n, 0.0), seconds)
+	debuffs.add(n, seconds)
 
 func clear_debuff(n: StringName) -> void:
-	debuffs.erase(n)
+	debuffs.clear(n)
 
 ## Status effects from a monster attack (poison damages every tick).
 func _apply_effects(effects: Array) -> void:

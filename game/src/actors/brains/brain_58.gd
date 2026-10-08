@@ -40,7 +40,7 @@ func on_call(n: String, _args: Array) -> bool:
 				_fall = float(param("first_fall", 2.0))
 			else:
 				var r: Array = param("fall", [2.0, 4.0])
-				_fall = randf_range(r[0], r[1])
+				_fall = Rng.randf_range(r[0], r[1])
 		"do_hit3":
 			pull_heroes(float(param("pull_time", 0.6)))
 		_:

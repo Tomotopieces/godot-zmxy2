@@ -33,7 +33,7 @@ func setup() -> void:
 		_fish_on = _sailing
 		_fish_t = float(fish.get("first", 3.0)))
 	var at: Array = param("aurora", {}).get("at", [5.0, 15.0])
-	get_tree().create_timer(randf_range(at[0], at[1]), false).timeout.connect(_show_aurora)
+	get_tree().create_timer(Rng.randf_range(at[0], at[1]), false).timeout.connect(_show_aurora)
 
 func _physics_process(delta: float) -> void:
 	if _boat == null:
@@ -69,8 +69,8 @@ func _jumpers(delta: float) -> void:
 	if _jump_t > 0.0 or level.monsters().size() >= Layers.MAX_MONSTERS:
 		return
 	var r: Array = cfg.get("every", [3.0, 7.0])
-	_jump_t = randf_range(r[0], r[1])
-	var x := _boat.position.x + float(cfg.get("dx", 100)) * (1.0 if randf() < 0.5 else -1.0)
+	_jump_t = Rng.randf_range(r[0], r[1])
+	var x := _boat.position.x + float(cfg.get("dx", 100)) * (1.0 if Rng.randf() < 0.5 else -1.0)
 	var fx := place_rig("monster41_jump", Vector2(x, _boat.position.y + float(cfg.get("from_dy", 150))), Layers.Z_MONSTER)
 	var tw := fx.create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 	tw.tween_property(fx, "position:y", _boat.position.y + float(cfg.get("to_dy", -60)), float(cfg.get("rise", 1.5)))
@@ -88,7 +88,7 @@ func _fish(delta: float) -> void:
 	if _fish_t > 0.0:
 		return
 	var r: Array = cfg.get("every", [1.0, 4.0])
-	_fish_t = randf_range(r[0], r[1])
+	_fish_t = Rng.randf_range(r[0], r[1])
 	if _emitter == null:
 		# the invisible fish thrower (Monster57): owns the fish's attack, takes no part in the fight
 		var md := level.monster_data(57)
@@ -101,13 +101,13 @@ func _fish(delta: float) -> void:
 		level.add_object(_emitter)
 	var half := ((_boat.get_child(0) as CollisionShape2D).shape as RectangleShape2D).size.x / 2.0
 	var n: Array = cfg.get("count", [2, 4])
-	for i in randi_range(n[0], n[1]):
-		var side := 1.0 if randf() < 0.5 else -1.0
-		var pos := Vector2(_boat.position.x + side * half + randf_range(-1, 1) * float(cfg.get("spread", 50)),
-			_boat.position.y + randf() * float(cfg.get("depth", 50)))
+	for i in Rng.randi_range(n[0], n[1]):
+		var side := 1.0 if Rng.randf() < 0.5 else -1.0
+		var pos := Vector2(_boat.position.x + side * half + Rng.randf_range(-1, 1) * float(cfg.get("spread", 50)),
+			_boat.position.y + Rng.randf() * float(cfg.get("depth", 50)))
 		var speeds: Array = cfg.get("speeds", [[240, -480]])
 		var odds: Array = cfg.get("speed_odds", [1.0])
-		var roll := randf()
+		var roll := Rng.randf()
 		var pick: Array = speeds[speeds.size() - 1]
 		for k in odds.size():
 			roll -= float(odds[k])

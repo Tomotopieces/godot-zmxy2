@@ -34,7 +34,7 @@ func roll() -> Item:
 	var s := {}
 	for k in stats:
 		var r: Vector2 = stats[k]
-		var v := randf_range(r.x, r.y)
+		var v := Rng.randf_range(r.x, r.y)
 		s[String(k)] = v if r.x != roundf(r.x) or r.y != roundf(r.y) else float(roundi(v))
 	var it := Item.new(String(id))
 	it.stats = s

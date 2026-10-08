@@ -76,7 +76,7 @@ func _sped_up(delta: float) -> void:
 	_move_t -= delta
 	_hop_t -= delta
 	if _strike_t <= 0.0:
-		_strike_t = float(param("fast_strike", 1.0)) * ceili(randf() * 3.0)
+		_strike_t = float(param("fast_strike", 1.0)) * ceili(Rng.randf() * 3.0)
 		attack()
 		return
 	if _move_t <= 0.0:

@@ -57,19 +57,19 @@ func mul_range(normal := "") -> Array:
 
 func element_mul(normal := "") -> float:
 	var r := mul_range(normal)
-	return randf_range(r[0], r[1])
+	return Rng.randf_range(r[0], r[1])
 
 ## Damage roll base + per_level x level +- spread / 2, times the element range. Built from plain values so the
 ## effects keep working after the treasure is taken off.
 func flat_roll(base: float, per_level: float, spread: float, normal := "") -> Callable:
 	var v := base + per_level * level()
 	var r := mul_range(normal)
-	return func() -> int: return int((v + (randf() - 0.5) * spread) * randf_range(r[0], r[1]))
+	return func() -> int: return int((v + (Rng.randf() - 0.5) * spread) * Rng.randf_range(r[0], r[1]))
 
 ## Damage roll k x hero attack, times the element range.
 func power_roll(k: float, normal := "") -> Callable:
 	var r := mul_range(normal)
-	return func() -> int: return int(k * GameState.attack_power() * randf_range(r[0], r[1]))
+	return func() -> int: return int(k * GameState.attack_power() * Rng.randf_range(r[0], r[1]))
 
 ## Resting place: behind the hero (setPosition).
 func home() -> Vector2:
