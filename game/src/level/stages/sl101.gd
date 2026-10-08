@@ -19,7 +19,7 @@ func setup() -> void:
 	var y := float(_cfg.get("doors_y", 5))
 	for x in _cfg.get("doors_x", []):
 		_doors.append(place_rig("hub_door", Vector2(x, y), BEHIND_ART))
-	_statue = place_rig("hub_statue", Vector2(float(_cfg.get("statue_x", 220)), float(_cfg.get("statue_y", 5))), Level.Z_SCENERY)
+	_statue = place_rig("hub_statue", Vector2(float(_cfg.get("statue_x", 220)), float(_cfg.get("statue_y", 5))), Level.Z_MECHANISM)
 	var sel: Array = _cfg.get("selector", [70, 450, 423])
 	_selector = _prop(sel)
 	for st in _cfg.get("stones", []):
@@ -62,7 +62,7 @@ func _open_statue() -> void:
 		_selector.queue_free()
 	var pos := _statue.position
 	_statue.queue_free()
-	_statue = place_rig("hub_statue_open", pos, Level.Z_SCENERY)
+	_statue = place_rig("hub_statue_open", pos, Level.Z_MECHANISM)
 	get_tree().create_timer(float(_cfg.get("statue_open", 1.0)), false).timeout.connect(func(): _statue_ready = true)
 
 func on_up(_hero: Hero) -> bool:

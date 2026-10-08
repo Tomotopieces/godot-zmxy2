@@ -123,7 +123,7 @@ func _fish(delta: float) -> void:
 func _show_aurora() -> void:
 	var cfg: Dictionary = param("aurora", {})
 	_aurora = Rig.create("aurora")
-	_aurora.z_index = Level.Z_SCENERY
+	_aurora.z_index = Level.Z_MECHANISM
 	# placed once at (1000, 600) of the scene (StageListener31: a screen point converted into the scene's
 	# parent, which does not scroll) and left there
 	var at: Array = cfg.get("pos", [1000, 600])

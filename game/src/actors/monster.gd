@@ -30,7 +30,7 @@ static func create(d: MonsterData) -> Monster:
 func _ready() -> void:
 	gravity = data.gravity
 	collision_layer = LAYER_MONSTER
-	z_index = Level.Z_BEHIND if data.behind else Level.Z_MONSTER
+	z_index = Level.Z_MECHANISM if data.behind else Level.Z_MONSTER
 	collision_mask = LAYER_WORLD | LAYER_ONEWAY
 	brain = MonsterBrain.create(self)   # before the rig: its first action already emits events
 	setup_rig(data.rig)
