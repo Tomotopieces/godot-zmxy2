@@ -10,7 +10,6 @@ signal to_menu
 const MAIN_STAGES := ["s1_1", "s1_2", "s1_3", "s2_1", "s2_2", "s2_3", "s3_1", "s3_2", "s3_3", "s4_1"]
 const SIDE_STAGES := {"btnnmg": Vector2i(6, 1), "lxdy": Vector2i(10, 1)}
 const HIDDEN := ["s4_2", "s4_3", "arena", "submitbtn", "huodongbtn"]
-const SAVE_COOLDOWN := 30.0
 ## the next stage's pulse: GlowFilter 0x9900CC, blur 0 -> 12 -> 0, strength 0 -> 1.82, over 19 frames
 const NEXT_GLOW_COLOR := Color8(153, 0, 204)
 const NEXT_GLOW_BLUR := Vector2(0.0, 12.0)
@@ -22,7 +21,6 @@ const BOTTOM_SHIFT_FROM := "submitbtn"   ## the first hidden slot: the row moves
 const BOTTOM_SHIFT_TO := "btnback"
 
 var _ui: UiLayout
-var _save_cd := 0.0
 var _popup: Node
 
 func _ready() -> void:
@@ -41,7 +39,7 @@ func _ready() -> void:
 	for p in SIDE_STAGES:
 		_ui.make_clickable(p, 2, 0)
 	_close_up_buttons()
-	_ui.set_text("saveInterval", "")
+	_ui.set_visible_piece("saveInterval", false)   # the original counted down 30 s between saves (a web-game guard)
 	_ui.button_pressed.connect(_on_button)
 	Snd.music("begin")
 
@@ -50,15 +48,9 @@ func _close_up_buttons() -> void:
 	var shift := slot * 2.0
 	for p in BOTTOM_ROW:
 		_ui.get_piece(p).position.x += shift
-	_ui.get_piece("saveInterval").position.x += shift
 
 static func _stage_of(piece: String) -> Vector2i:
 	return Vector2i(int(piece[1]), int(piece[3]))
-
-func _process(delta: float) -> void:
-	if _save_cd > 0.0:
-		_save_cd = maxf(_save_cd - delta, 0.0)
-		_ui.set_text("saveInterval", str(ceili(_save_cd)) if _save_cd > 0.0 else "")
 
 func _on_button(b: String) -> void:
 	if _popup:
@@ -80,9 +72,7 @@ func _on_button(b: String) -> void:
 		"btnback":
 			to_menu.emit()
 		"savebtn":
-			if _save_cd > 0.0:
-				Toast.show_on(self, "请稍后再保存")
-			elif GameState.slot >= 0:
+			if GameState.slot >= 0:
 				# a game that already has a slot saves straight into it
 				GameState.save_to(GameState.slot)
 				_saved(GameState.slot)
@@ -102,7 +92,6 @@ func _on_button(b: String) -> void:
 			_open(ShopScreen.new())
 
 func _saved(slot: int) -> void:
-	_save_cd = SAVE_COOLDOWN
 	Toast.show_on(self, "存档成功")
 
 func _open(n: Node) -> void:

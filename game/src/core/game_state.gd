@@ -279,7 +279,9 @@ func add_to_bag(item: Dictionary, force := false) -> bool:
 ## A fresh copy of a catalogue item (rolled stats).
 func make_item(id: String) -> Dictionary:
 	var d := EquipmentCatalog.find(id)
-	return d.roll() if d else {}
+	if d == null:
+		return {}
+	return Forge.new_treasure(id) if d.type == &"treasure" else d.roll()
 
 ## Take one out of bag[index] (a single copy when it is a stack).
 func take_at(index: int) -> Dictionary:

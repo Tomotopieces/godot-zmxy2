@@ -8,7 +8,7 @@ static func spawn(rig_name: String, pos: Vector2, facing := -1, scale_mul := 1.0
 	fx.add_child(r)
 	r.scale = Vector2(-facing * scale_mul, scale_mul)
 	r.action_finished.connect(func(_a): fx.queue_free())
-	r.event.connect(func(n, _a): if n == &"destroy": fx.queue_free())
+	r.event.connect(func(n, a): if n == &"destroy" or n == &"finished" or (n == &"call" and not a.is_empty() and a[0] == "destroy"): fx.queue_free())
 	fx.position = pos
 	fx.z_index = Level.Z_EFFECT
 	Level.current.add_object(fx)

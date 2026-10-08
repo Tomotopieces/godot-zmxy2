@@ -285,7 +285,7 @@ function simulateRange(lib, selId, f, start) {
 
 // named child clips the game handles itself: effects played on demand (level-up glow), and the other
 // characters' layers of shared effects (WsEffect hides Role2Mc / Role3Mc for Wukong)
-const SEPARATE_CLIPS = new Set(['levelupmc', 'Role2Mc', 'Role3Mc']);
+const SEPARATE_CLIPS = new Set(['levelupmc', 'Role2Mc', 'Role3Mc', 'pointMc']);   // pointMc: the hub selector's pointer is its own rig (hub_pointer)
 
 // rootFilters: filters of the placement this symbol normally has (e.g. levelupmc's hue shift inside the hero)
 function extract(libName, cls, outName, rootFilters = []) {
@@ -322,7 +322,9 @@ function extract(libName, cls, outName, rootFilters = []) {
   const fmtR = (r) => r && [r.x, r.y, r.w, r.h].map((v) => Math.round(v * 10) / 10);
 
   const labels = Object.entries(root.labels).sort((a, b) => a[1] - b[1]);
-  const actions = labels.length ? labels.map(([l, f]) => ({ label: l, f, plays: false })) : [{ label: 'default', f: startFrame, plays: true }];
+  // FRAME_ACTIONS=1: a clip whose every frame holds still (stop()) becomes one single-frame action "f0", "f1" ... per frame
+  const actions = process.env.FRAME_ACTIONS ? Array.from({ length: root.n }, (_, f) => ({ label: 'f' + f, f, plays: false }))
+    : labels.length ? labels.map(([l, f]) => ({ label: l, f, plays: false })) : [{ label: 'default', f: startFrame, plays: !process.env.ROOT_STOPPED }];   // ROOT_STOPPED=1: the root holds its frame (gotoAndStop), only nested clips run
 
   for (const act of actions) {
     const sim = new Sim(lib, rootId, act.f, act.plays);
@@ -377,7 +379,7 @@ function extract(libName, cls, outName, rootFilters = []) {
     const compactR = (arr) => arr.filter((k, i) => i === 0 || JSON.stringify(k[1]) !== JSON.stringify(arr[i - 1][1]));
     out.actions[act.label] = {
       frames,
-      loop: (sim.ended < 0 && sim.held < 0) || (!!process.env.HOLD_FRAMES && !process.env.LOOP_FROM),
+      loop: !process.env.LOOP_FROM && ((sim.ended < 0 && sim.held < 0) || !!process.env.HOLD_FRAMES),
       // LOOP_FROM=f: play once, then keep looping frames f.. (an opening followed by a nested clip's loop)
       loop_from: process.env.LOOP_FROM ? +process.env.LOOP_FROM : undefined,
       tracks: trackList,

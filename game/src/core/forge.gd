@@ -69,7 +69,7 @@ static func _total(item: Dictionary, stat: String) -> float:
 static func produce(recipe: Dictionary, mats: Array) -> Dictionary:
 	if randf() >= fusion_chance(recipe):
 		return {}
-	var out := GameState.make_item(recipe.out)
+	var out := EquipmentCatalog.find(recipe.out).roll()
 	match recipe.kind:
 		"sum":
 			# the materials' own (freshly rolled) stats added up
@@ -94,6 +94,16 @@ static func produce(recipe: Dictionary, mats: Array) -> Dictionary:
 					out.stats[k] = float(int(sum / 3.0))
 			if recipe.kind == "treasure":
 				_init_treasure(out, tdef)
+	return out
+
+## A bare treasure as the console / tests hand out (no materials): level 1, rolled growth and elements, a 五毒兽 with its
+## fixed stats; the others start with no stats (a fused one carries its materials' average).
+static func new_treasure(id: String) -> Dictionary:
+	var out := EquipmentCatalog.find(id).roll()
+	var tdef: Dictionary = _cat().treasures.defs.get(id, {})
+	for k in tdef.get("fixed", {}):
+		out.stats[k] = float(tdef.fixed[k])
+	_init_treasure(out, tdef)
 	return out
 
 ## A new 法宝: level 1, random growth rate (one decimal) and elements; 五毒兽 also rolls a passive and its spell.

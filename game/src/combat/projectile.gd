@@ -85,7 +85,8 @@ func _deliver(target: Actor) -> bool:
 	return landed
 
 func _on_event(n: StringName, _args: Array) -> void:
-	if n == &"destroy":
+	# an effect that ends itself: "finished" (its script removes the clip) or a call to destroy()
+	if n == &"destroy" or n == &"finished" or (n == &"call" and not _args.is_empty() and _args[0] == "destroy"):
 		queue_free()
 	elif n == &"new_hit":
 		dealer.new_serial()

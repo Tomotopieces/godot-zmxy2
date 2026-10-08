@@ -4,6 +4,7 @@ extends Label
 ## It starts at y 270, glides up for 1.5 s (to y 170; 240 for the save notices), stays 0.5 s and fades out in
 ## 0.5 s. One notice per screen: a new one replaces the current one.
 
+const FONT_SIZE := 22
 const START_Y := 270.0
 const END_Y := 170.0
 const SAVE_END_Y := 240.0
@@ -25,12 +26,12 @@ static func show_on(parent: Node, text: String, end_y := -1.0) -> void:
 	t._show(text, end_y if end_y >= 0.0 else (SAVE_END_Y if text in SAVE_TEXTS else END_Y))
 
 func _init() -> void:
-	add_theme_font_size_override("font_size", 32)
+	add_theme_font_size_override("font_size", FONT_SIZE)
 	add_theme_color_override("font_color", Color.BLACK)
 	add_theme_color_override("font_outline_color", Color.WHITE)
-	add_theme_constant_override("outline_size", 6)
+	add_theme_constant_override("outline_size", 5)
 	horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	size = Vector2(Level.VIEW.x, 40)
+	size = Vector2(Level.VIEW.x, 30)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	z_index = 50
 	process_mode = Node.PROCESS_MODE_ALWAYS   # notices also show over paused screens

@@ -16,7 +16,7 @@ func _strong() -> bool:
 
 func step(delta: float) -> void:
 	_auto_t = maxf(_auto_t - delta, 0.0)
-	if _auto_t <= 0.0 and not using and not Level.current.monsters().is_empty() and hero.mp >= Forge.skill_cost(item):
+	if _auto_t <= 0.0 and not using and not candidates().is_empty() and hero.mp >= Forge.skill_cost(item):
 		if _move:
 			_move.kill()
 		using = true
@@ -24,13 +24,13 @@ func step(delta: float) -> void:
 		_auto_t = p.auto
 
 func can_use() -> bool:
-	return _strong() or not Level.current.monsters().is_empty()
+	return _strong() or not candidates().is_empty()
 
 func begin() -> void:
 	if _strong():
 		rig.play(&"hit2-2", true)
 		return
-	var all: Array = Level.current.monsters()
+	var all := candidates()
 	var m: Monster = all[randi() % all.size()]
 	var c := m.center()
 	var tx: float = c.x - p.side if global_position.x < c.x else c.x + p.side
@@ -54,12 +54,10 @@ func on_call(method: String) -> void:
 			finish()
 
 func _spit() -> void:
-	var all: Array = Level.current.monsters()
+	var all := candidates()
 	if all.is_empty():
 		return
 	var m: Monster = all[randi() % all.size()]
-	if m.data.id in p.skip_monsters:
-		return
 	var dir := (m.center() - global_position).normalized()
 	facing = 1 if dir.x >= 0.0 else -1
 	var pr := shoot("fabao_wudu_bullet1", &"fabao_wudu_hit1", global_position, facing, func() -> int: return GameState.attack_power())

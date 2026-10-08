@@ -119,10 +119,15 @@ func shoot(rig_name: String, attack_key: StringName, pos: Vector2, face: int, da
 	Level.current.add_object(pr)
 	return pr
 
-## Monsters a treasure may pick (not invulnerable, not in the skip list).
+## Everything a treasure may go for: monsters and hittable scene props (the 10-1 stones: 血海魔童 helps to open the
+## doors that way; the original keeps them in the monster list too).
+func targets() -> Array:
+	return Level.current.monsters() + get_tree().get_nodes_in_group(&"props")
+
+## Targets that can be hit now and are not in the skip list.
 func candidates(skip_key := "skip_monsters") -> Array:
 	var skip: Array = p.get(skip_key, [])
-	return Level.current.monsters().filter(func(m): return m.can_be_hit() and not (m.data.id in skip))
+	return targets().filter(func(m): return m.can_be_hit() and not (m.data.id in skip))
 
 # ------------------------------------------------------------------ hooks
 
