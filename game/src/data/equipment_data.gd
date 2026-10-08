@@ -21,9 +21,6 @@ const SLOTS := [&"weapon", &"cloth", &"accessory", &"treasure", &"fashion", &"wi
 @export var icon: Texture2D
 @export var ground_icon: Texture2D
 
-## Fashion and wings cannot be sold.
-func sellable() -> bool:
-	return type != &"fashion" and type != &"wing"
 
 ## Items (道具) stack in the bag.
 func stacks() -> bool:

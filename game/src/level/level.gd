@@ -398,6 +398,8 @@ func _physics_process(delta: float) -> void:
 		_debug.queue_redraw()
 
 func _unhandled_input(e: InputEvent) -> void:
+	if not OS.is_debug_build():
+		return
 	if e.is_action_pressed("debug_toggle_boxes"):
 		debug_boxes = not debug_boxes
 		_debug.queue_redraw()

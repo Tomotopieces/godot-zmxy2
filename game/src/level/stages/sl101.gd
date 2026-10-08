@@ -71,7 +71,7 @@ func on_up(_hero: Hero) -> bool:
 		if _ready_doors.get(i, false) and hero_in(_doors[i].hit_rect()):
 			level.go_to(Vector2i(10, int(levels[i])))
 			return true
-	if _statue_ready and hero_in(_statue.hit_rect()):
+	if _statue_ready and hero_in(_statue.hurt_rect()):   # its "colipse" box is the central slot
 		level.go_to(Vector2i(10, int(_cfg.get("statue_level", 6))))
 		return true
 	return false

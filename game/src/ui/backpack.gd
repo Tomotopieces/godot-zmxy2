@@ -193,7 +193,7 @@ func _on_bag_click(icon: Control, index: int) -> void:
 	_menu_index = index
 	var item: Dictionary = GameState.bag[index]
 	var d := GameState.item_data(item)
-	var enabled := {"bzb": GameState.can_wear(item), "bgy": false, "bmd": d.sellable()}   # 赠送 is 2P only
+	var enabled := {"bzb": GameState.can_wear(item), "bgy": false, "bmd": true}   # 赠送 is 2P only
 	if TABS[_tab] == "item":
 		enabled = {"buse": GameState.usable(item), "bthrow": true}
 	_menu = UiLayout.create("item_menu" if TABS[_tab] == "item" else "pack_menu")

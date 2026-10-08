@@ -346,7 +346,7 @@ func take_item(id: String) -> bool:
 ## Sell bag[index] for souls.
 func sell(index: int) -> bool:
 	var d := item_data(bag[index])
-	if d == null or not d.sellable():
+	if d == null:
 		return false
 	bag.remove_at(index)
 	souls += d.value

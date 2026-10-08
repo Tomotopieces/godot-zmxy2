@@ -337,6 +337,8 @@ function extract(libName, cls, outName, rootFilters = []) {
     }
     // HOLD_FRAMES=n: keep simulating a stopped timeline whose nested clips still loop (held poses)
     if (process.env.HOLD_FRAMES) bodyN = Math.max(bodyN, +process.env.HOLD_FRAMES);
+    // DEAD_FRAMES=n: the dead pose is a nested clip (blink + BossDead script) on a single frame of the root: run it for n frames
+    if (process.env.DEAD_FRAMES && act.label === 'dead') bodyN = Math.max(bodyN, +process.env.DEAD_FRAMES);
     const tracks = new Map();   // pathKey -> track
     const hit = [], hurt = [], art = [], markers = {};
     let frames = 0;

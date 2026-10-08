@@ -1,7 +1,7 @@
 class_name PlayScreen
 extends Node
 ## One stage being played: Level + HUD, backpack, pause menu, win / fail screens.
-## Keys: C bag, Esc pause menu, F5 restart, F1 refill HP/MP/rage, F2 hit boxes, F3 test gear, F8 kill all monsters.
+## Keys: C bag, Esc pause menu, F5 restart, F1 refill HP/MP/rage, F2 hit boxes, F3 test gear, F4 kill all monsters.
 
 signal to_map
 signal to_menu
@@ -154,11 +154,11 @@ func _unhandled_input(e: InputEvent) -> void:
 		_open_pause()
 	elif e.is_action_pressed("open_skills"):
 		_open_skills()
-	elif e.is_action_pressed("debug_give_items"):
+	elif OS.is_debug_build() and e.is_action_pressed("debug_give_items"):
 		for id in TEST_GEAR:
 			GameState.add_to_bag(EquipmentCatalog.find(id).roll())
 		GameState.add_souls(TEST_SOULS)
 		GameState.merit += TEST_MERIT
 		hud.toast("测试装备、灵魂和功勋已放入背包")
-	elif e.is_action_pressed("debug_restart"):
+	elif OS.is_debug_build() and e.is_action_pressed("debug_restart"):
 		play.emit(stage)
