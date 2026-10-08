@@ -201,34 +201,7 @@ func _sprite(lf: Array) -> Sprite2D:
 	if lf.size() > 2 and lf[2] != null:
 		var ct: Array = lf[2]
 		sp.modulate = Color(ct[0] + ct[4] / 255.0, ct[1] + ct[5] / 255.0, ct[2] + ct[6] / 255.0, clampf(ct[3] + ct[7] / 255.0, 0, 1))
-	if info.has("label"):
-		sp.add_child(_lettering(info.label))
 	return sp
-
-## Real text in place of lettering that the original draws as a bitmap (tools/rig/ui_text.js). Lives in the texture's
-## own pixel space, so it scales, hides and tints with the sprite.
-func _lettering(d: Dictionary) -> Label:
-	var l := Label.new()
-	var box: Array = d.box
-	l.text = d.text
-	l.position = Vector2(box[0], box[1])
-	l.size = Vector2(box[2], box[3])
-	l.horizontal_alignment = {"left": HORIZONTAL_ALIGNMENT_LEFT, "right": HORIZONTAL_ALIGNMENT_RIGHT}.get(d.align, HORIZONTAL_ALIGNMENT_CENTER)
-	l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	var sz := int(d.size)
-	if sz <= 0:
-		var font := l.get_theme_default_font()
-		sz = int(box[3] * 0.9)
-		while sz > 6 and font.get_string_size(d.text, HORIZONTAL_ALIGNMENT_LEFT, -1, sz).x > box[2]:
-			sz -= 1
-	l.add_theme_font_size_override("font_size", sz)
-	l.add_theme_color_override("font_color", Color(d.color))
-	l.add_theme_color_override("font_outline_color", Color(d.outline))
-	l.add_theme_constant_override("outline_size", int(d.outline_size))
-	if d.bold:
-		l.add_theme_font_override("font", preload("res://assets/fonts/LXGWWenKai-Medium.ttf"))
-	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	return l
 
 ## Flash mask layer: the mask sprite clips its children (content re-expressed in the mask's space).
 func _masked(mask: Array, content: Array) -> Node2D:
