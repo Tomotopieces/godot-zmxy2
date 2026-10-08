@@ -5,7 +5,7 @@ extends "res://src/actors/brains/boss_b.gd"
 func on_call(n: String, _args: Array) -> bool:
 	match n:
 		"do_hit3":
-			if Level.current.monsters().size() < int(param("max_monsters", 4)):
+			if m.world.monsters().size() < int(param("max_monsters", 4)):
 				m.summon(68, m.global_position + Vector2(float(param("turret_dx", 70)) * m.facing, -30))
 		"do_hit2_pre":
 			for dx in param("pillars_x", [138, 100, 72]):

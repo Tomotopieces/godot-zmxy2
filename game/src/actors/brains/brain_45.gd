@@ -50,12 +50,12 @@ func on_call(n: String, _args: Array) -> bool:
 				return true   # final death: the normal boss death takes over
 			_form += 1
 			Loot.drop(m)
-			Level.current.open_door()
+			m.world.open_door()
 			m.play_action(&"reburn")
 		"set_info":
 			_apply_form()
 			_reviving = false
-			Level.current.close_door()
+			m.world.close_door()
 			m.state = Monster.State.MOVE
 		"do_hit2":
 			var b := m.shoot("monster45bullet1", &"hit2", Vector2(0, 80))
@@ -69,7 +69,7 @@ func on_call(n: String, _args: Array) -> bool:
 ## Heroes in front of her and facing her are petrified (eyefix): no input for a while.
 func _gaze() -> void:
 	var t := float(param("gaze_time", 5.0)) + float(param("gaze_per_form", 0.08)) * (_form - 1)
-	for h: Hero in Level.current.heroes():
+	for h: Hero in m.world.heroes():
 		if not h.can_be_hit():
 			continue
 		var in_front := signf(h.global_position.x - m.global_position.x) == float(m.facing)

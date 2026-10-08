@@ -33,7 +33,7 @@ func on_call(n: String, _args: Array) -> bool:
 	return true
 
 func _open_door() -> void:
-	var hero: Hero = Level.current.hero
+	var hero: Hero = m.world.hero
 	if hero == null or _doors >= 3:
 		return
 	var pos := Vector2(hero.global_position.x, m.global_position.y + 80)

@@ -46,7 +46,7 @@ func moves_while_attacking() -> bool:
 func on_call(n: String, _args: Array) -> bool:
 	match n:
 		"do_hit1":
-			for h: Hero in Level.current.heroes():
+			for h: Hero in m.world.heroes():
 				if h.can_be_hit() and h.center().distance_to(m.center()) < float(param("latch_range", 100)):
 					_host = h
 					_ticks = 0

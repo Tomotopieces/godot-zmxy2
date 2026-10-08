@@ -15,7 +15,7 @@ func think(delta: float) -> void:
 
 func _hover(delta: float) -> void:
 	m.velocity.y = 0.0
-	var h: Hero = Level.current.hero
+	var h: Hero = m.world.hero
 	if h:
 		m.velocity.x = signf(h.global_position.x - m.global_position.x) * float(param("hover_speed", 120))
 	_fall -= delta
@@ -53,9 +53,9 @@ func on_action_finished(action: StringName) -> void:
 		m.rig.play(&"wait")
 
 func on_destroy() -> void:
-	Level.current.open_door()
+	m.world.open_door()
 	var t := m.get_tree().create_timer(float(param("next_delay", 5.0)), false)
-	var lv := Level.current
+	var lv := m.world
 	var pos: Array = param("next_pos", [500, 300])
 	t.timeout.connect(func():
 		if is_instance_valid(lv):

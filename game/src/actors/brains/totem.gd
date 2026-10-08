@@ -24,16 +24,16 @@ func think(delta: float) -> void:
 	_t = float(param("every", 1.0))
 	match String(param("effect", "")):
 		"summon":
-			if Level.current.monsters().size() < Layers.MAX_MONSTERS:
+			if m.world.monsters().size() < Layers.MAX_MONSTERS:
 				var cycle: Array = param("cycle", [])
 				m.summon(int(cycle[_next % cycle.size()]), m.global_position)
 				_next += 1
 		"heal":
-			for o: Monster in Level.current.monsters():
+			for o: Monster in m.world.monsters():
 				if o.state != Monster.State.DEAD:
 					o.heal(int(param("amount", 50)))
 		"drain":
-			for h: Hero in Level.current.heroes():
+			for h: Hero in m.world.heroes():
 				h.lose_hp(int(param("amount", 20)))
 
 func ignores_hit(_h: Hit) -> bool:

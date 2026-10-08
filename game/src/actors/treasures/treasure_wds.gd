@@ -48,7 +48,7 @@ func on_call(method: String) -> void:
 		"do_hit2_2":
 			var s := _spell()
 			var sc: Array = s.big_screen
-			var v := Level.current.view_rect()
+			var v := world.view_rect()
 			shoot(s.big, StringName(s.big_attack), Vector2(v.position.x + sc[0], sc[1]), -1, power_roll(float(s.big_power) * level()))
 		"hit1_over":
 			finish()

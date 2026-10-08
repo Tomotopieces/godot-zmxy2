@@ -20,7 +20,7 @@ func setup() -> void:
 	_orbs.resize(SLOTS_X.size())
 	_pattern = PATTERNS[randi() % PATTERNS.size()]
 	_t = float(param("first_throw", 4.0))
-	Level.current.start_final_platforms()
+	m.world.start_final_platforms()
 
 func custom_animation() -> bool:
 	m.rig.play(&"wait")
@@ -69,7 +69,7 @@ func _throw() -> void:
 	var slot: int = free[randi() % free.size()]
 	var o := m.shoot(ORB, &"hit1")
 	o.global_position = m.center()
-	var target := Vector2(Level.current.view_rect().position.x + SLOTS_X[slot], float(param("slot_y", 460)))
+	var target := Vector2(m.world.view_rect().position.x + SLOTS_X[slot], float(param("slot_y", 460)))
 	o.create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS) \
 		.tween_property(o, "global_position", target, float(param("throw_time", 2.0)))
 	_orbs[slot] = o
@@ -94,4 +94,4 @@ func on_destroy() -> void:
 	for o in _orbs:
 		if is_instance_valid(o):
 			o.queue_free()
-	Level.current.final_victory()
+	m.world.final_victory()

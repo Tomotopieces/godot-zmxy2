@@ -17,7 +17,7 @@ func on_call(n: String, _args: Array) -> bool:
 		"do_hit2":
 			m.shoot("monster49bullet3", &"hit2")
 		"do_hit3_1":
-			var h: Hero = Level.current.hero
+			var h: Hero = m.world.hero
 			if h:
 				_mark = Vector2(h.global_position.x, m.global_position.y - float(param("mark_up", 300)))
 				Fx.spawn("monster49mc1", _mark)

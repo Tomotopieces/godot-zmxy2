@@ -20,7 +20,7 @@ func think(delta: float) -> void:
 	_link -= delta
 	if _link <= 0.0:
 		_link = float(param("link_every", 15.0))
-		for h: Hero in Level.current.heroes():
+		for h: Hero in m.world.heroes():
 			if h.is_alive():
 				h.add_debuff(&"deadlink", float(param("link_time", 5.0)))
 	if m.state != Monster.State.MOVE:

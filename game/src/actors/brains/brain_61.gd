@@ -41,7 +41,7 @@ func revive_at(pos: Vector2) -> void:
 	m.rig.visible = true
 	m.hp = m.max_hp
 	m.state = Monster.State.MOVE
-	Level.current.boss_spawned.emit(m)
+	m.world.boss_spawned.emit(m)
 
 func on_call(n: String, _args: Array) -> bool:
 	match n:

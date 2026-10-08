@@ -31,11 +31,11 @@ func think(delta: float) -> void:
 	if _turn <= 0.0:
 		var r: Array = param("turn_every", [1.0, 3.0])
 		_turn = randf_range(r[0], r[1])
-		var h: Hero = Level.current.hero
+		var h: Hero = m.world.hero
 		if h:
 			m.face(h.global_position)
 	var near := false
-	for h: Hero in Level.current.heroes():
+	for h: Hero in m.world.heroes():
 		if h.global_position.distance_to(m.global_position) < float(param("leap_range", 200)):
 			near = true
 	if near and m.cd("leap") <= 0.0:

@@ -65,7 +65,7 @@ func on_call(n: String, _args: Array) -> bool:
 			_net = m.shoot("monster72bullet1", &"hit2", Vector2(150, 0))
 			_net.life = float(param("net_life", 8.0))
 			_net.tree_exiting.connect(func():
-				for h: Hero in Level.current.heroes():
+				for h: Hero in m.world.heroes():
 					h.clear_debuff(&"net"))
 		_:
 			return false

@@ -62,7 +62,7 @@ func on_hurt_start() -> void:
 func on_call(n: String, _args: Array) -> bool:
 	match n:
 		"do_fenshen":
-			if Level.current.monsters().size() < int(param("max_monsters", 5)):
+			if m.world.monsters().size() < int(param("max_monsters", 5)):
 				var c := m.summon(69, m.global_position + Vector2(20.0 * m.facing, 0))
 				if c:
 					clones.append(c)

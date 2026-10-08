@@ -82,9 +82,9 @@ func _sync_treasure() -> void:
 	if is_instance_valid(treasure):
 		treasure.queue_free()
 	treasure = null
-	if not it.is_empty() and is_inside_tree() and Level.current:
+	if not it.is_empty() and is_inside_tree() and world:
 		treasure = Treasure.create(self, it)
-		Level.current.add_object(treasure)
+		world.add_object(treasure)
 
 func refill() -> void:
 	max_hp = GameState.max_hp()
@@ -139,7 +139,7 @@ func _physics_process(delta: float) -> void:
 	_after_move()
 	_clamp_to_view()
 	if state == State.ATTACK:
-		scan_hits(Level.current.enemies_of(self))
+		scan_hits(world.enemies_of(self))
 	_update_tint(delta)
 	if global_position.y > FALL_DEATH_Y and state != State.DEAD:
 		hp = 0
@@ -304,9 +304,9 @@ func _pick_move_anim() -> void:
 		rig.play(&"jump3")
 
 func _clamp_to_view() -> void:
-	var v := Level.current.view_rect()
-	global_position.x = clampf(global_position.x, v.position.x + Level.current.edge_margin,
-		v.end.x - Level.current.edge_margin)
+	var v := world.view_rect()
+	global_position.x = clampf(global_position.x, v.position.x + world.edge_margin,
+		v.end.x - world.edge_margin)
 
 # ------------------------------------------------------------------ animation events
 
@@ -353,14 +353,14 @@ func _on_rig_event(n: StringName, args: Array) -> void:
 func _skill_projectile(rig_name: String, action: StringName, pos: Vector2) -> Projectile:
 	var p := Projectile.create(rig_name, self, data.attacks[action], action)
 	p.position = pos
-	Level.current.add_object(p)
+	world.add_object(p)
 	return p
 
 ## hit10 frame 7: teleport onto the nearest on-screen enemy and combo it, else skip to the dive.
 func _hit10_seek() -> void:
 	var ex: Dictionary = data.attacks[&"hit10"].extra
-	var v := Level.current.view_rect()
-	for m in Level.current.monsters():
+	var v := world.view_rect()
+	for m in world.monsters():
 		if not m.can_be_hit():
 			continue
 		var r: Rect2 = m.hurt_rect()
@@ -569,7 +569,7 @@ func _try_transform() -> void:
 		return
 	transformed = true
 	gravity = data.rage_gravity
-	Level.current.rage_transform(data.rage_freeze)
+	world.rage_transform(data.rage_freeze)
 
 func _end_transform() -> void:
 	transformed = false
@@ -581,7 +581,7 @@ func _spawn_afterimage() -> void:
 	var ghost := rig.make_ghost()
 	if ghost == null:
 		return
-	Level.current.add_object(ghost)
+	world.add_object(ghost)
 	ghost.z_index = z_index - 1
 	var tw := ghost.create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 	tw.tween_property(ghost, "modulate:a", 0.0, AFTERIMAGE_FADE)

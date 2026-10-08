@@ -10,6 +10,9 @@ var hero: Hero
 var item: Dictionary       ## the worn item (lv, growth, elem ...)
 var id := ""
 var p: Dictionary          ## this treasure's numbers
+var world: Level:
+	get:
+		return Level.current
 var rig: Rig
 var using := false
 var facing := -1:
@@ -116,13 +119,13 @@ func shoot(rig_name: String, attack_key: StringName, pos: Vector2, face: int, da
 	pr.position = pos
 	pr.facing = face
 	pr.damage_fn = damage
-	Level.current.add_object(pr)
+	world.add_object(pr)
 	return pr
 
 ## Everything a treasure may go for: monsters and hittable scene props (the 10-1 stones: 血海魔童 helps to open the
 ## doors that way; the original keeps them in the monster list too).
 func targets() -> Array:
-	return Level.current.monsters() + get_tree().get_nodes_in_group(&"props")
+	return world.monsters() + get_tree().get_nodes_in_group(&"props")
 
 ## Targets that can be hit now and are not in the skip list.
 func candidates(skip_key := "skip_monsters") -> Array:

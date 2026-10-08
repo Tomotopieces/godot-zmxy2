@@ -23,7 +23,7 @@ func think(delta: float) -> void:
 	_t -= delta
 	if _t <= 0.0:
 		_t = float(param("every", 1.0))
-		for h: Hero in Level.current.heroes():
+		for h: Hero in m.world.heroes():
 			if h.is_alive():
 				h.lose_hp(int(param("drain_hp", 200)))
 				h.mp = maxi(h.mp - int(param("drain_mp", 50)), 0)

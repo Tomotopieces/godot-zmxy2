@@ -67,7 +67,7 @@ func _physics_process(delta: float) -> void:
 		apply_gravity(delta)
 	move_and_slide()
 	if state == State.ATTACK:
-		scan_hits(Level.current.heroes())
+		scan_hits(world.heroes())
 	if state == State.MOVE and not brain.custom_animation():
 		rig.play(&"walk" if dir != 0 and rig.actions.has("walk") else &"wait")
 	if global_position.y > Hero.FALL_DEATH_Y:
@@ -143,19 +143,19 @@ func shoot(rig_name: String, key: StringName, offset := Vector2.ZERO, vel := Vec
 	p.facing = facing
 	p.velocity = Vector2(vel.x * facing, vel.y)
 	p.distance_left = distance
-	Level.current.add_object(p)
+	world.add_object(p)
 	return p
 
 ## Create another monster (summons, form changes). Returns null when the data is missing.
 func summon(id: int, pos: Vector2) -> Monster:
-	var md := Level.current.monster_data(id)
+	var md := world.monster_data(id)
 	if md == null:
 		push_warning("monster %d: no data" % id)
 		return null
 	var m := Monster.create(md)
 	m.position = pos
 	m.summoner = self
-	Level.current.add_monster(m)
+	world.add_monster(m)
 	return m
 
 ## Poison (BaseAddEffect POISON, 罗刹妖伞): `power` damage every `tick` for `seconds`; icon over the head.
@@ -293,7 +293,7 @@ func take_hit(h: Hit) -> bool:
 	hp = maxi(hp - dmg, 0)
 	if h.source is Hero:
 		target = h.source
-		Level.current.add_combo_hit()
+		world.add_combo_hit()
 		h.source.add_rage(roundi(dmg * GameState.hero_data.rage_hit_gain / maxf(GameState.attack_power(), 1.0)))
 		if h.attack.kind == AttackData.Kind.PHYSICS and GameState.bonus("lifesteal") > 0.0:
 			h.source.heal(int(dmg * GameState.bonus("lifesteal")), false)

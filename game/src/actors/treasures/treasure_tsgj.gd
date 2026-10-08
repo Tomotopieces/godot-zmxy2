@@ -35,7 +35,7 @@ func begin() -> void:
 	cs.one_way_collision = true
 	_body.add_child(cs)
 	_body.global_position = hero.global_position
-	Level.current.add_object(_body)
+	world.add_object(_body)
 	_art.play(_art.actions[0])
 	_blade = shoot("fabao_sword_effect", &"fabao_sword", _body.global_position, -_dir, flat_roll(p.damage, p.per_level, p.spread))
 

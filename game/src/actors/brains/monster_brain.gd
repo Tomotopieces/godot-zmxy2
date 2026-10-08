@@ -92,7 +92,7 @@ func intercept_death() -> bool:
 ## Removed from the level (after the death animation). Bosses open the exit by default.
 func on_destroy() -> void:
 	if m.data.is_boss:
-		Level.current.boss_destroyed(m)
+		m.world.boss_destroyed(m)
 
 func moves_while_attacking() -> bool:
 	return false
@@ -133,7 +133,7 @@ func base_ai(delta: float) -> void:
 
 ## selectTarget: the hero within sight horizontally and within attack range vertically.
 func select_target() -> void:
-	var h: Hero = Level.current.hero
+	var h: Hero = m.world.hero
 	if h and h.is_alive() and absf(h.global_position.y - m.global_position.y) <= m.data.attack_range \
 			and absf(h.global_position.x - m.global_position.x) < m.data.sight:
 		m.target = h
@@ -147,7 +147,7 @@ func wander(delta: float) -> void:
 	var prev := _cycle
 	_cycle += delta
 	if prev < m.data.think_walk_at and _cycle >= m.data.think_walk_at:
-		var off := m.global_position.x - Level.current.view_rect().get_center().x
+		var off := m.global_position.x - m.world.view_rect().get_center().x
 		m.dir = 1 if off < -400.0 else (-1 if off > 400.0 else (1 if randf() < 0.5 else -1))
 		_stop_at = m.data.walk_times[randi() % m.data.walk_times.size()]
 	if _cycle >= _stop_at:
@@ -174,7 +174,7 @@ func act(action: StringName) -> bool:
 
 ## Every hero is pulled to the monster over `time` (no damage).
 func pull_heroes(time: float) -> void:
-	for h: Hero in Level.current.heroes():
+	for h: Hero in m.world.heroes():
 		if h.is_alive():
 			var tw := h.create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 			tw.tween_property(h, "global_position", m.global_position, time)

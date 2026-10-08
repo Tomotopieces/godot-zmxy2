@@ -10,6 +10,11 @@ const LAYER_ONEWAY := 2
 const LAYER_HERO := 4
 const LAYER_MONSTER := 8
 
+## The stage this actor lives in (one place that reads the Level.current locator; everything else asks the actor).
+var world: Level:
+	get:
+		return Level.current
+
 var rig: Rig
 var hp := 1
 var max_hp := 1
@@ -91,7 +96,7 @@ func fire_projectile(data: AttackData, action: StringName) -> Projectile:
 	p.facing = facing
 	p.velocity = Vector2(data.speed * facing, 0)
 	p.distance_left = data.distance
-	Level.current.add_object(p)
+	world.add_object(p)
 	if data.spin_deg != 0.0:
 		p.create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS).tween_property(p.rig, "rotation_degrees", data.spin_deg * -facing, data.spin_time)
 	return p
