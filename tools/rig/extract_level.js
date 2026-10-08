@@ -12,6 +12,7 @@
 const fs = require('fs');
 const path = require('path');
 const fixSeams = require('./fix_seams');
+const { tag } = require('./tag_ground');
 const { FlashLib, ROOT, I, mul, rectXf, union, CT_ID, ctMul } = require('./flash_data');
 
 const MARKERS = {
@@ -142,7 +143,7 @@ function main(stage, level, outDir) {
     }
     out.textures[k] = { res: resDir + '/' + fn, ox: t.ox, oy: t.oy, scale: t.scale };
   }
-  fs.writeFileSync(path.join(outDir, 'level.json'), JSON.stringify(out, null, 1));
+  fs.writeFileSync(path.join(outDir, 'level.json'), JSON.stringify(tag(out), null, 1));
   console.log(out.name, 'size', out.size, 'art', out.art.length, 'walls', out.walls.length, 'markers', out.markers.length, 'doors', out.doors.map((d) => d.kind + '#' + d.sym).join(','), 'stops', out.stops.length, 'spawners', out.spawners.length);
 }
 

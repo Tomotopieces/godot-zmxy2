@@ -18,12 +18,13 @@ signal transfer(to: Vector2i)    ## hidden stage entrance used: go straight ther
 const VIEW := Vector2(940, 590)
 
 ## Draw order of the scene (z_index), back to front. It follows the child order of the original gameSence:
-## monsters are inserted under the hero (MainGame.createMonster; 秦广王's wall pieces and 4-1's boss sit further
-## back), pickups / effects / bullets are added on top.
-const Z_BEHIND_ART := -12   ## shows through holes of the stage art (10-1 doors and statue)
-const Z_ART := -10          ## stage art
-const Z_SCENERY := -6       ## stage objects: exit portal, doors, fires, boat, platforms, aurora
-const Z_BEHIND := -5        ## monsters flagged "behind" (秦广王傀儡's walls)
+## monsters are inserted under the hero (MainGame.createMonster), pickups / effects / bullets are added on top.
+## Everything that is part of the stage's machinery (the 机关 layer: exit portal, entrances, doors, statue, boss walls,
+## fires, boat, platforms) sits above the background art and below the ground, so the ground's edge covers their feet.
+const Z_BEHIND_ART := -12   ## shows through holes of the stage art (10-1 doors)
+const Z_ART := -10          ## background art, with the decoration standing on the ground
+const Z_MECHANISM := -8     ## 机关
+const Z_GROUND := -7        ## the floor strip (and anything else the scene lists above the mechanisms)
 const Z_MONSTER := -1
 const Z_HERO := 0
 const Z_PICKUP := 1         ## dropped items, potions, soul orbs
@@ -246,6 +247,10 @@ func _build(d: Dictionary) -> void:
 	art.name = "Art"
 	art.z_index = Z_ART
 	world.add_child(art)
+	var ground := Node2D.new()
+	ground.name = "Ground"
+	ground.z_index = Z_GROUND
+	world.add_child(ground)
 	for leaf in d.art:
 		var info: Dictionary = d.textures[leaf[0]]
 		var sp := Sprite2D.new()
@@ -255,11 +260,11 @@ func _build(d: Dictionary) -> void:
 		if leaf[2] != null:
 			var ct: Array = leaf[2]
 			sp.modulate = Color(ct[0] + ct[4] / 255.0, ct[1] + ct[5] / 255.0, ct[2] + ct[6] / 255.0, clampf(ct[3] + ct[7] / 255.0, 0, 1))
-		art.add_child(sp)
+		(ground if leaf.size() > 3 and leaf[3] == 1 else art).add_child(sp)
 
 	for w in d.walls:
 		var body := AnimatableBody2D.new()   # static unless a stage script moves it
-		body.z_index = Z_SCENERY             # art a stage script hangs on it (boat, platforms)
+		body.z_index = Z_MECHANISM            # art a stage script hangs on it (boat, platforms)
 		body.sync_to_physics = false         # scripts move it directly in the physics step
 		body.set_meta(&"wall", w)
 		walls.append(body)
@@ -283,6 +288,7 @@ func _build(d: Dictionary) -> void:
 		stops.append({"x": float(s.x), "back": float(s.back), "spawners": [], "done": false})
 	_end_x = minf(size.x, float(stops[-1].x)) if not stops.is_empty() else size.x
 	_close_edge_slivers(art)
+	_close_edge_slivers(ground)
 	for sp in d.spawners:
 		var md := monster_data(int(sp.enemy))
 		if md == null:
@@ -300,7 +306,7 @@ func _build(d: Dictionary) -> void:
 			features.append(dd)
 			continue
 		door = Rig.create("exit_door")
-		door.z_index = Z_SCENERY
+		door.z_index = Z_MECHANISM
 		door.position = Vector2(dd.pos[0], dd.pos[1])
 		door.visible = false
 		world.add_child(door)
