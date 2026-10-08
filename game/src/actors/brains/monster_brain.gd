@@ -14,11 +14,19 @@ var _stop_at := 3.0
 var _attack_t := 0.0
 var _pause := 0.0
 
+static var _scripts := {}   ## monster id -> brain script (or null = the base brain)
+
+static func _script_for(data: MonsterData) -> Script:
+	if not _scripts.has(data.id):
+		var path := DIR + "brain_%d.gd" % data.id
+		if not ResourceLoader.exists(path) and data.brain_type != "":
+			path = DIR + "%s.gd" % data.brain_type
+		_scripts[data.id] = load(path) if ResourceLoader.exists(path) else null
+	return _scripts[data.id]
+
 static func create(monster: Monster) -> MonsterBrain:
-	var path := DIR + "brain_%d.gd" % monster.data.id
-	if not ResourceLoader.exists(path) and monster.data.brain_type != "":
-		path = DIR + "%s.gd" % monster.data.brain_type
-	var b: MonsterBrain = load(path).new() if ResourceLoader.exists(path) else MonsterBrain.new()
+	var script := _script_for(monster.data)
+	var b: MonsterBrain = script.new() if script else MonsterBrain.new()
 	b.m = monster
 	b.p = monster.data.brain
 	return b

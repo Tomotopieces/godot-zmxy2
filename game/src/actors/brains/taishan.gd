@@ -56,7 +56,7 @@ func _become(id: int) -> void:
 	if nx:
 		nx.hp = mini(m.hp, nx.max_hp)
 	m.invuln = 9999.0
-	m._vanish()
+	m.vanish()
 
 func moves_while_attacking() -> bool:
 	return m.attack_action == &"hit2"

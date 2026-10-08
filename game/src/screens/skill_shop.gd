@@ -20,7 +20,7 @@ func _ready() -> void:
 	tree_exiting.connect(func(): get_tree().paused = paused_before)
 	var dim := ColorRect.new()
 	dim.color = Color(0, 0, 0, 0.5)
-	dim.size = Level.VIEW
+	dim.size = Layers.VIEW
 	add_child(dim)
 	# the panel sits inside BuySkill (background, character tabs, back button)
 	var back := UiLayout.create("buy_skill")

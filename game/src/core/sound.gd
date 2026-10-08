@@ -98,10 +98,13 @@ func _apply() -> void:
 func _load_settings() -> void:
 	var cf := ConfigFile.new()
 	if cf.load(SETTINGS) == OK:
-		master = cf.get_value("audio", "master", master)
-		music_volume = cf.get_value("audio", "music", music_volume)
-		sfx_volume = cf.get_value("audio", "sfx", sfx_volume)
-		muted = cf.get_value("audio", "muted", muted)
+		master = _volume(cf.get_value("audio", "master", master), master)
+		music_volume = _volume(cf.get_value("audio", "music", music_volume), music_volume)
+		sfx_volume = _volume(cf.get_value("audio", "sfx", sfx_volume), sfx_volume)
+		muted = cf.get_value("audio", "muted", muted) == true
+
+static func _volume(v: Variant, fallback: float) -> float:
+	return clampf(float(v), 0.0, 1.0) if v is float or v is int else fallback
 
 func _save_settings() -> void:
 	var cf := ConfigFile.new()
@@ -110,4 +113,5 @@ func _save_settings() -> void:
 	cf.set_value("audio", "music", music_volume)
 	cf.set_value("audio", "sfx", sfx_volume)
 	cf.set_value("audio", "muted", muted)
-	cf.save(SETTINGS)
+	if cf.save(SETTINGS) != OK:
+		push_warning("settings could not be saved")

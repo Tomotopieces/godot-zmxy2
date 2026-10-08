@@ -42,5 +42,5 @@ func think(delta: float) -> void:
 
 func on_destroy() -> void:
 	if is_instance_valid(_puppet) and _puppet.state != Monster.State.DEAD:
-		_puppet._vanish()
+		_puppet.vanish()
 	super()

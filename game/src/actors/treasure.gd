@@ -31,7 +31,7 @@ static func create(h: Hero, it: Dictionary) -> Treasure:
 	return t
 
 func _ready() -> void:
-	z_index = Level.Z_TREASURE
+	z_index = Layers.Z_TREASURE
 	rig = Rig.create("fabao_" + id)
 	add_child(rig)
 	rig.event.connect(_on_rig_event)

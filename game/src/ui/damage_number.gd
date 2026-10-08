@@ -6,6 +6,7 @@ extends Node2D
 const RISE_SPEED := 75.0   ## px/s
 const LIFE := 1.0          ## s
 
+const MISS := preload("res://assets/ui/digits/miss.png")
 static var _tex := {}
 
 static func spawn(style: String, value: int, pos: Vector2, spacing := 20.0) -> void:
@@ -21,15 +22,15 @@ static func spawn(style: String, value: int, pos: Vector2, spacing := 20.0) -> v
 		sp.position.x = i * spacing
 		n.add_child(sp)
 	n.position = pos
-	n.z_index = Level.Z_NUMBER
+	n.z_index = Layers.Z_NUMBER
 	n.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF   # moved in _process
 	Level.current.add_object(n)
 
 static func spawn_miss(pos: Vector2) -> void:
 	var sp := Sprite2D.new()
-	sp.texture = load("res://assets/ui/digits/miss.png")
+	sp.texture = MISS
 	sp.position = pos
-	sp.z_index = Level.Z_NUMBER
+	sp.z_index = Layers.Z_NUMBER
 	sp.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
 	Level.current.add_object(sp)
 	var tw := sp.create_tween().set_parallel()

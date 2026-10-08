@@ -22,7 +22,7 @@ func _fade_out() -> void:
 	add_child(layer)
 	var black := ColorRect.new()
 	black.color = Color(0, 0, 0, 0)
-	black.size = Level.VIEW
+	black.size = Layers.VIEW
 	black.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	layer.add_child(black)
 	var tw := create_tween()
@@ -75,6 +75,8 @@ func _on_hero_died() -> void:
 	_over = true
 	Snd.stop_music()
 	await get_tree().create_timer(RESULT_DELAY).timeout
+	if not is_inside_tree():
+		return
 	Snd.music("over")
 	var r := ResultScreen.fail(stage)
 	r.retry.connect(func(): play.emit(stage))
@@ -93,6 +95,8 @@ func _on_cleared() -> void:
 		"combo": level.best_combo,
 	}
 	await _fade_out()
+	if not is_inside_tree():
+		return
 	var r := ResultScreen.win(stage, stats)
 	r.next.connect(func(): play.emit(GameState.next_stage(stage)))
 	r.back.connect(func(): to_map.emit())
@@ -109,6 +113,8 @@ func _on_ending() -> void:
 	GameState.on_stage_cleared(stage)
 	GameState.autosave()
 	await get_tree().create_timer(RESULT_DELAY).timeout
+	if not is_inside_tree():
+		return
 	var c := Cartoon.create("通关")
 	c.finished.connect(func(): to_map.emit())
 	add_child(c)

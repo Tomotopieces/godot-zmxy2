@@ -11,6 +11,7 @@ signal equipment_changed
 signal buffs_changed
 
 const SLOT_FILE := "user://slot_%d.json"
+const SAVE_VERSION := 1
 const SLOTS := 6
 const HERO_DATA := "res://data/wukong.tres"
 const CHARACTER := "悟空"
@@ -387,61 +388,115 @@ func _to_dict() -> Dictionary:
 		"datetime": Time.get_datetime_string_from_system(false, true),
 	}
 
-func save_to(i: int) -> void:
+## Saves are written to a temporary file and renamed over the slot (a crash mid-write cannot truncate it); the previous
+## slot is kept as <slot>.bak, which loading falls back to when the slot cannot be read.
+func save_to(i: int) -> bool:
+	var path: String = SLOT_FILE % i
+	var d := _to_dict()
+	d["version"] = SAVE_VERSION
+	var tmp := path + ".tmp"
+	var f := FileAccess.open(tmp, FileAccess.WRITE)
+	if f == null:
+		push_error("save: cannot write %s (%s)" % [tmp, error_string(FileAccess.get_open_error())])
+		return false
+	f.store_string(JSON.stringify(d))
+	f.close()
+	if FileAccess.file_exists(path):
+		DirAccess.copy_absolute(path, path + ".bak")
+	if DirAccess.rename_absolute(tmp, path) != OK:
+		push_error("save: cannot replace %s" % path)
+		return false
 	slot = i
-	var f := FileAccess.open(SLOT_FILE % i, FileAccess.WRITE)
-	if f:
-		f.store_string(JSON.stringify(_to_dict()))
+	return true
 
 ## Autosave after a level clear (only once the game has a slot).
 func autosave() -> bool:
-	if slot < 0:
-		return false
-	save_to(slot)
-	return true
+	return slot >= 0 and save_to(slot)
+
+## The parsed save of a slot (falling back to its backup), {} when empty or unreadable.
+func _read_slot(i: int) -> Dictionary:
+	for path in [SLOT_FILE % i, (SLOT_FILE % i) + ".bak"]:
+		if not FileAccess.file_exists(path):
+			continue
+		var json := JSON.new()
+		if json.parse(FileAccess.get_file_as_string(path)) == OK and json.data is Dictionary:
+			return _migrate(json.data)
+		push_warning("save: %s is not readable" % path)
+	return {}
+
+## Brings an older save up to SAVE_VERSION (version 0 = saves written before the field existed; same layout).
+func _migrate(d: Dictionary) -> Dictionary:
+	d["version"] = SAVE_VERSION
+	return d
 
 ## {title, datetime} of a slot, or {} when empty.
 func slot_info(i: int) -> Dictionary:
-	if not FileAccess.file_exists(SLOT_FILE % i):
-		return {}
-	var d = JSON.parse_string(FileAccess.get_file_as_string(SLOT_FILE % i))
-	return {"title": d.get("title", ""), "datetime": d.get("datetime", "")} if d is Dictionary else {}
+	var d := _read_slot(i)
+	return {"title": str(d.get("title", "")), "datetime": str(d.get("datetime", ""))} if not d.is_empty() else {}
 
+## An item dictionary of a save reduced to known keys of the right types, {} when it is not a valid item.
+func _sanitize_item(it: Variant) -> Dictionary:
+	if not it is Dictionary or not it.get("id") is String or EquipmentCatalog.find(it.id) == null:
+		return {}
+	var out := {"id": it.id}
+	var stats = it.get("stats", {})
+	if stats is Dictionary:
+		var s := {}
+		for k in stats:
+			if stats[k] is float or stats[k] is int:
+				s[str(k)] = float(stats[k])
+		out["stats"] = s
+	for k in ["plus", "n", "lv", "spell"]:
+		if it.get(k) is float or it.get(k) is int:
+			out[k] = maxi(int(it[k]), 0)
+	if it.get("growth") is float or it.get("growth") is int:
+		out["growth"] = float(it.growth)
+	if it.get("strong") is bool:
+		out["strong"] = it.strong
+	if it.get("elem") is Array:
+		out["elem"] = (it.elem as Array).filter(func(e): return e is String)
+	return out
+
+static func _pair(v: Variant, fallback: Vector2i) -> Vector2i:
+	return Vector2i(int(v[0]), int(v[1])) if v is Array and v.size() >= 2 else fallback
+
+## Loads a slot. The current profile is only replaced once the save has been read and checked.
 func load_from(i: int) -> bool:
-	if not FileAccess.file_exists(SLOT_FILE % i):
-		return false
-	var d = JSON.parse_string(FileAccess.get_file_as_string(SLOT_FILE % i))
-	if not d is Dictionary:
+	var d := _read_slot(i)
+	if d.is_empty():
 		return false
 	new_game()
 	slot = i
-	level = int(d.get("level", 1))
-	exp = int(d.get("exp", 0))
-	souls = int(d.get("souls", 0))
-	attack = int(d.get("attack", hero_data.attack_power(level)))
+	level = clampi(int(d.get("level", 1)), 1, hero_data.level_max)
+	exp = maxi(int(d.get("exp", 0)), 0)
+	souls = maxi(int(d.get("souls", 0)), 0)
+	attack = maxi(int(d.get("attack", hero_data.attack_power(level))), 0)
 	for s in d.get("skills", []):
-		skills[StringName(s)] = true
-	var pv: Array = d.get("passives", [0, 0, 0, 0, 0])
-	for n in mini(pv.size(), passives.size()):
-		passives[n] = int(pv[n])
-	bag = (d.get("bag", []) as Array).filter(func(it): return it is Dictionary and EquipmentCatalog.find(it.get("id", "")) != null)
-	var w: Dictionary = d.get("worn", {})
+		if s is String:
+			skills[StringName(s)] = true
+	var pv = d.get("passives", [])
+	if pv is Array:
+		for n in mini(pv.size(), passives.size()):
+			passives[n] = clampi(int(pv[n]), 0, hero_data.passive_max)
+	bag.clear()
+	for it in d.get("bag", []) if d.get("bag") is Array else []:
+		var clean := _sanitize_item(it)
+		if not clean.is_empty():
+			bag.append(clean)
+	var w = d.get("worn", {})
 	for k in worn:
-		var it = w.get(String(k), {})
-		worn[k] = it if it is Dictionary and EquipmentCatalog.find(it.get("id", "")) != null else {}
-	var st: Array = d.get("stage", [1, 1])
-	stage = Vector2i(st[0], st[1])
-	var pr: Array = d.get("progress", [1, 1])
-	progress = Vector2i(pr[0], pr[1])
-	opening_seen = d.get("opening_seen", true)
-	hhe_seen = d.get("hhe_seen", false)
-	merit = int(d.get("merit", 0))
-	merit_day = d.get("merit_day", "")
-	merit_times = int(d.get("merit_times", 0))
+		worn[k] = _sanitize_item(w.get(String(k))) if w is Dictionary else {}
+	stage = _pair(d.get("stage"), Vector2i(1, 1))
+	progress = _pair(d.get("progress"), Vector2i(1, 1))
+	opening_seen = d.get("opening_seen", true) == true
+	hhe_seen = d.get("hhe_seen", false) == true
+	merit = maxi(int(d.get("merit", 0)), 0)
+	merit_day = str(d.get("merit_day", ""))
+	merit_times = maxi(int(d.get("merit_times", 0)), 0)
 	var bf = d.get("buffs", {})
 	if bf is Dictionary:
 		for b in bf:
-			if EquipmentCatalog.get_catalog().buffs.has(b):
+			if EquipmentCatalog.get_catalog().buffs.has(b) and (bf[b] is float or bf[b] is int):
 				buffs[b] = float(bf[b])
 	equipment_changed.emit()
 	profile_changed.emit()

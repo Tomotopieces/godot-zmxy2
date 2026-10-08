@@ -25,7 +25,7 @@ static func spawn(k: Kind, pos: Vector2, hero: Hero, value: int, t: DropTable) -
 	o.table = t
 	var r := Rig.create(RIGS[k])
 	o.add_child(r)
-	o.z_index = Level.Z_PICKUP
+	o.z_index = Layers.Z_PICKUP
 	Level.current.add_object(o)
 	r.play(r.actions[0])
 	return o

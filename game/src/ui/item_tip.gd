@@ -29,7 +29,7 @@ var _w := 0.0
 
 func _init() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	z_index = 10
+	z_index = Layers.Z_TIP
 	_box = Panel.new()
 	var sb := StyleBoxFlat.new()
 	sb.bg_color = Color(0, 0, 0, 0.7)
@@ -50,7 +50,7 @@ func show_for(item: Dictionary, at: Control, _cell_w := 50.0) -> void:
 	_build(item)
 	visible = true
 	var p := at.global_position + OFFSET
-	position = p.clamp(Vector2.ZERO, Level.VIEW - _box.size)
+	position = p.clamp(Vector2.ZERO, Layers.VIEW - _box.size)
 
 func _build(item: Dictionary) -> void:
 	for c in _rows.get_children():

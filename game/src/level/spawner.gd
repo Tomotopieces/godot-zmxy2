@@ -1,7 +1,7 @@
 class_name Spawner
 extends RefCounted
 ## Monster appear point (MonsterAppearPoint): after `delay` s, one monster every `interval` s until `total`,
-## while fewer than Level.MAX_MONSTERS are alive.
+## while fewer than Layers.MAX_MONSTERS are alive.
 
 var data: MonsterData
 var pos: Vector2
@@ -26,7 +26,7 @@ func tick(delta: float, level: Level) -> void:
 		return
 	_t += delta
 	var due := delay + interval * spawned
-	if _t < due or level.monsters().size() >= Level.MAX_MONSTERS:
+	if _t < due or level.monsters().size() >= Layers.MAX_MONSTERS:
 		return
 	var m := Monster.create(data)
 	m.position = pos

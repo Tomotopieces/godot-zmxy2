@@ -24,7 +24,7 @@ var facing := -1:
 
 static func create(rig_name: String, owner_actor: Actor, data: AttackData, act: StringName) -> Projectile:
 	var p := Projectile.new()
-	p.z_index = Level.Z_EFFECT
+	p.z_index = Layers.Z_EFFECT
 	p.rig = Rig.create(rig_name)
 	p.add_child(p.rig)
 	p.source = owner_actor

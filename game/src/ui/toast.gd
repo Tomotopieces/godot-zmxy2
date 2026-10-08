@@ -29,9 +29,9 @@ func _init() -> void:
 	add_theme_color_override("font_outline_color", Color.WHITE)
 	add_theme_constant_override("outline_size", 5)
 	horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	size = Vector2(Level.VIEW.x, 30)
+	size = Vector2(Layers.VIEW.x, 30)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	z_index = 50
+	z_index = Layers.Z_TOAST
 	process_mode = Node.PROCESS_MODE_ALWAYS   # notices also show over paused screens
 
 func _show(t: String, end_y: float) -> void:

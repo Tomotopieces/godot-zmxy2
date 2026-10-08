@@ -21,12 +21,12 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_root = Control.new()
 	_root.mouse_filter = Control.MOUSE_FILTER_STOP
-	_root.size = Level.VIEW
+	_root.size = Layers.VIEW
 	_root.visible = false
 	add_child(_root)
 	var dim := ColorRect.new()
 	dim.color = Color(0, 0, 0, 0.55)
-	dim.size = Level.VIEW
+	dim.size = Layers.VIEW
 	_root.add_child(dim)
 	var panel := PanelContainer.new()
 	panel.position = PANEL.position

@@ -9,7 +9,7 @@ func setup() -> void:
 func think(delta: float) -> void:
 	_life -= delta
 	if _life <= 0.0:
-		m._vanish()
+		m.vanish()
 		return
 	super(delta)
 	m.velocity.x = 0.0

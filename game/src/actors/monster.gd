@@ -30,7 +30,7 @@ static func create(d: MonsterData) -> Monster:
 func _ready() -> void:
 	gravity = data.gravity
 	collision_layer = LAYER_MONSTER
-	z_index = Level.Z_MECHANISM if data.behind else Level.Z_MONSTER
+	z_index = Layers.Z_MECHANISM if data.behind else Layers.Z_MONSTER
 	collision_mask = LAYER_WORLD | LAYER_ONEWAY
 	brain = MonsterBrain.create(self)   # before the rig: its first action already emits events
 	setup_rig(data.rig)
@@ -71,7 +71,7 @@ func _physics_process(delta: float) -> void:
 	if state == State.MOVE and not brain.custom_animation():
 		rig.play(&"walk" if dir != 0 and rig.actions.has("walk") else &"wait")
 	if global_position.y > Hero.FALL_DEATH_Y:
-		_vanish()
+		vanish()
 
 func _apply_motion(delta: float) -> void:
 	match state:
@@ -243,7 +243,7 @@ func _on_rig_event(n: StringName, args: Array) -> void:
 				"drop_aura":
 					Loot.drop(self)
 				"destroy":
-					_vanish()
+					vanish()
 		&"raw":
 			_raw_event(String(args[0]))
 
@@ -263,7 +263,11 @@ func _boss_dead_sequence() -> void:
 	fx.tree_exited.connect(func():
 		if is_instance_valid(self) and not _vanishing:
 			Loot.drop(self)
-			_vanish(), CONNECT_DEFERRED)
+			vanish(), CONNECT_DEFERRED)
+
+## An action ends as if its clip had finished (brains whose action is cut short by their own logic).
+func finish_action(action: StringName) -> void:
+	_on_action_finished(action)
 
 func _on_action_finished(action: StringName) -> void:
 	if action != rig.action:
@@ -277,7 +281,7 @@ func _on_action_finished(action: StringName) -> void:
 			velocity.x = 0.0
 			state = State.MOVE
 		State.DEAD:
-			_vanish()
+			vanish()
 
 # ------------------------------------------------------------------ damage
 
@@ -332,10 +336,11 @@ func _die() -> void:
 		rig.play(&"dead", true)
 	else:
 		Loot.drop(self)
-		_vanish()
+		vanish()
 	died.emit(self)
 
-func _vanish() -> void:
+## Fade out and free (no death animation, no loot).
+func vanish() -> void:
 	if _vanishing:
 		return
 	_vanishing = true

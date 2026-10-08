@@ -23,7 +23,7 @@ func _ready() -> void:
 	tree_exiting.connect(func(): get_tree().paused = paused_before)
 	var dim := ColorRect.new()
 	dim.color = Color(0, 0, 0, 0.45)
-	dim.size = Level.VIEW
+	dim.size = Layers.VIEW
 	add_child(dim)
 	_ui = UiLayout.create("sutra")
 	_ui.button_pressed.connect(_on_button)

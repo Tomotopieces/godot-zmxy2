@@ -15,29 +15,11 @@ signal ending                    ## final boss destroyed: the game is cleared
 signal failed                    ## a stage rule lost the stage (2-2 fire timer)
 signal transfer(to: Vector2i)    ## hidden stage entrance used: go straight there (MainGame "fbfbfbfb")
 
-const VIEW := Vector2(940, 590)
-
-## Draw order of the scene (z_index), back to front. It follows the child order of the original gameSence:
-## monsters are inserted under the hero (MainGame.createMonster), pickups / effects / bullets are added on top.
-## Everything that is part of the stage's machinery (the 机关 layer: exit portal, entrances, doors, statue, boss walls,
-## fires, boat, platforms) sits above the background art and below the ground, so the ground's edge covers their feet.
-const Z_BEHIND_ART := -12   ## shows through holes of the stage art (10-1 doors)
-const Z_ART := -10          ## background art, with the decoration standing on the ground
-const Z_MECHANISM := -8     ## 机关
-const Z_GROUND := -7        ## the floor strip (and anything else the scene lists above the mechanisms)
-const Z_MONSTER := -1
-const Z_HERO := 0
-const Z_PICKUP := 1         ## dropped items, potions, soul orbs
-const Z_TREASURE := 2       ## the hero's magic treasure
-const Z_EFFECT := 3         ## projectiles and effects
-const Z_NUMBER := 100       ## damage numbers
-const MAX_MONSTERS := 6
-
 static var current: Level
 
 @export var stage := Vector2i(1, 1)
 var level_name := "sl11"
-@export var scroll_trigger := VIEW.x * 2.0 / 3.0   ## hero screen x that pushes the camera
+@export var scroll_trigger := Layers.VIEW.x * 2.0 / 3.0   ## hero screen x that pushes the camera
 @export var back_trigger := 188.0
 @export var back_speed := 240.0          ## px/s
 @export var auto_trigger := 450.0
@@ -100,7 +82,7 @@ func _ready() -> void:
 	world.add_child(hero)
 	_last_hero_x = hero.position.x
 	_debug = Node2D.new()
-	_debug.z_index = 200
+	_debug.z_index = Layers.Z_DEBUG
 	_debug.draw.connect(_draw_debug)
 	world.add_child(_debug)
 	Snd.music(music_for(stage))
@@ -143,7 +125,7 @@ func add_prop(m: Monster) -> void:
 	add_object(m)
 
 func view_rect() -> Rect2:
-	return Rect2(Vector2(view_x, 0), VIEW)
+	return Rect2(Vector2(view_x, 0), Layers.VIEW)
 
 ## Short notice for the HUD (item picked up, bag full...).
 func toast(text: String) -> void:
@@ -219,8 +201,9 @@ func rage_transform(seconds: float) -> void:
 func freeze(seconds: float) -> void:
 	_freeze_t = seconds
 	get_tree().paused = true
-	await get_tree().create_timer(seconds, true, false, true).timeout
-	get_tree().paused = false
+	var tree := get_tree()
+	await tree.create_timer(seconds, true, false, true).timeout
+	tree.paused = false
 
 # ------------------------------------------------------------------ build
 
@@ -245,11 +228,11 @@ func _build(d: Dictionary) -> void:
 	add_child(world)
 	var art := Node2D.new()
 	art.name = "Art"
-	art.z_index = Z_ART
+	art.z_index = Layers.Z_ART
 	world.add_child(art)
 	var ground := Node2D.new()
 	ground.name = "Ground"
-	ground.z_index = Z_GROUND
+	ground.z_index = Layers.Z_GROUND
 	world.add_child(ground)
 	for leaf in d.art:
 		var info: Dictionary = d.textures[leaf[0]]
@@ -264,7 +247,7 @@ func _build(d: Dictionary) -> void:
 
 	for w in d.walls:
 		var body := AnimatableBody2D.new()   # static unless a stage script moves it
-		body.z_index = Z_MECHANISM            # art a stage script hangs on it (boat, platforms)
+		body.z_index = Layers.Z_MECHANISM            # art a stage script hangs on it (boat, platforms)
 		body.sync_to_physics = false         # scripts move it directly in the physics step
 		body.set_meta(&"wall", w)
 		walls.append(body)
@@ -306,7 +289,7 @@ func _build(d: Dictionary) -> void:
 			features.append(dd)
 			continue
 		door = Rig.create("exit_door")
-		door.z_index = Z_MECHANISM
+		door.z_index = Layers.Z_MECHANISM
 		door.position = Vector2(dd.pos[0], dd.pos[1])
 		door.visible = false
 		world.add_child(door)
@@ -350,15 +333,15 @@ const EDGE_SLIVER := 6.0
 func _close_edge_slivers(art: Node2D) -> void:
 	for sp: Sprite2D in art.get_children():
 		var r: Rect2 = sp.transform * Rect2(Vector2.ZERO, sp.texture.get_size())
-		if r.size.x < VIEW.x:
+		if r.size.x < Layers.VIEW.x:
 			continue
 		var grow := Rect2(r)
 		if r.position.x > 0.0 and r.position.x <= EDGE_SLIVER:
 			grow = grow.expand(Vector2(0.0, r.position.y))
 		if r.end.x < _end_x and r.end.x >= _end_x - EDGE_SLIVER:
 			grow = grow.expand(Vector2(_end_x, r.position.y))
-		if r.end.y < VIEW.y and r.end.y >= VIEW.y - EDGE_SLIVER:
-			grow = grow.expand(Vector2(r.position.x, VIEW.y))
+		if r.end.y < Layers.VIEW.y and r.end.y >= Layers.VIEW.y - EDGE_SLIVER:
+			grow = grow.expand(Vector2(r.position.x, Layers.VIEW.y))
 		if grow != r:
 			# map the old rect onto the grown one (a tiny stretch, invisible on art this size)
 			var k := grow.size / r.size
@@ -417,11 +400,11 @@ func _update_stops(delta: float) -> void:
 		return
 	var s: Dictionary = stops[stop_index]
 	if not locked:
-		if not fixed_camera and view_x + VIEW.x >= s.x:
+		if not fixed_camera and view_x + Layers.VIEW.x >= s.x:
 			locked = true
 			auto_scroll = false
-			view_x = s.x - VIEW.x
-			_min_view = maxf(0.0, view_x - (s.back - VIEW.x))
+			view_x = s.x - Layers.VIEW.x
+			_min_view = maxf(0.0, view_x - (s.back - Layers.VIEW.x))
 		return
 	var busy := false
 	var fb: bool = params.get("fb", false)   # dungeon (9-1): spawners only fill an empty screen
@@ -478,9 +461,9 @@ func _update_camera(delta: float) -> void:
 	var dx := hero.global_position.x - _last_hero_x
 	_last_hero_x = hero.global_position.x
 	var hx := hero.global_position.x - view_x
-	var max_view := _end_x - VIEW.x
+	var max_view := _end_x - Layers.VIEW.x
 	if locked:
-		max_view = minf(max_view, stops[stop_index].x - VIEW.x)
+		max_view = minf(max_view, stops[stop_index].x - Layers.VIEW.x)
 	if hx >= scroll_trigger and dx > 0.0:
 		view_x += dx
 	elif hx <= back_trigger and dx < 0.0 and view_x > _min_view:
@@ -490,13 +473,13 @@ func _update_camera(delta: float) -> void:
 		var speed := minf(absf(hero.velocity.x) + auto_speed_add, auto_speed_max)
 		view_x += minf(speed * delta, hx - auto_trigger)
 	if stop_index < stops.size() and not locked:
-		max_view = minf(max_view, stops[stop_index].x - VIEW.x)
+		max_view = minf(max_view, stops[stop_index].x - Layers.VIEW.x)
 	view_x = clampf(view_x, 0.0, maxf(max_view, 0.0))
 	camera.position = Vector2(view_x, 0)
 	camera.offset.x = _shake
 	_shake = 0.0
-	if _end_x > VIEW.x:
-		_far.position.x = -view_x * (_far_width - VIEW.x) / (_end_x - VIEW.x)
+	if _end_x > Layers.VIEW.x:
+		_far.position.x = -view_x * (_far_width - Layers.VIEW.x) / (_end_x - Layers.VIEW.x)
 
 func _draw_debug() -> void:
 	if not debug_boxes:

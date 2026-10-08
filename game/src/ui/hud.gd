@@ -39,6 +39,13 @@ func _ready() -> void:
 const BUFF_POS := Vector2(0, 80)
 const BUFF_ROW := 30.0
 
+static var _buff_icons := {}
+
+static func _buff_icon(name: String) -> Texture2D:
+	if not _buff_icons.has(name):
+		_buff_icons[name] = load("res://assets/ui/buffs/%s.png" % name)
+	return _buff_icons[name]
+
 func _rebuild_buffs() -> void:
 	for c in _buffs.get_children():
 		c.queue_free()
@@ -48,7 +55,7 @@ func _rebuild_buffs() -> void:
 	for b in GameState.buffs:
 		var icon := Sprite2D.new()
 		icon.centered = false
-		icon.texture = load("res://assets/ui/buffs/%s.png" % defs[b].icon)
+		icon.texture = _buff_icon(defs[b].icon)
 		icon.scale = Vector2.ONE * float(defs[b].icon_scale)
 		icon.position = Vector2(30, row * BUFF_ROW)
 		_buffs.add_child(icon)
@@ -92,7 +99,7 @@ func toast(text: String) -> void:
 ## Full-screen 无双 transform animation (WsEffect), centred on screen; plays through the freeze.
 func play_rage_transform() -> void:
 	var r := Rig.create("fx_rage_transform")
-	r.position = Level.VIEW / 2.0
+	r.position = Layers.VIEW / 2.0
 	add_child(r)
 	r.play(r.actions[0])
 	get_tree().create_timer(r.anim.current_animation_length, true).timeout.connect(r.queue_free)
