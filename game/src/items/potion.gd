@@ -30,6 +30,7 @@ static func spawn(k: Kind, pos: Vector2, t: DropTable) -> Potion:
 	p.collision_layer = 0
 	p.collision_mask = Actor.LAYER_WORLD | Actor.LAYER_ONEWAY
 	p.position = pos - Vector2(0, shape.size.y)
+	p.z_index = Level.Z_PICKUP
 	Level.current.add_object(p)
 	p.rig.play(p.rig.actions[0])
 	return p

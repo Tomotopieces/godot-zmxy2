@@ -11,6 +11,7 @@
 'use strict';
 const fs = require('fs');
 const path = require('path');
+const fixSeams = require('./fix_seams');
 const { FlashLib, ROOT, I, mul, rectXf, union, CT_ID, ctMul } = require('./flash_data');
 
 const MARKERS = {
@@ -132,7 +133,13 @@ function main(stage, level, outDir) {
     if (!t) { delete out.textures[k]; continue; }
     const fn = k.replace(':', '_') + path.extname(t.file);
     const dst = path.join(texDir, fn);
-    if (!fs.existsSync(dst) || fs.statSync(dst).size !== fs.statSync(t.file).size) fs.copyFileSync(t.file, dst);
+    // shape textures get their rasterisation seams repaired (the result differs in size from the source,
+    // so those are always recopied)
+    const repaired = t.scale === 2 && fn.endsWith('.png');
+    if (repaired || !fs.existsSync(dst) || fs.statSync(dst).size !== fs.statSync(t.file).size) {
+      fs.copyFileSync(t.file, dst);
+      if (repaired) fixSeams.fix(dst);
+    }
     out.textures[k] = { res: resDir + '/' + fn, ox: t.ox, oy: t.oy, scale: t.scale };
   }
   fs.writeFileSync(path.join(outDir, 'level.json'), JSON.stringify(out, null, 1));

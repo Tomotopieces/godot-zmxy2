@@ -12,7 +12,6 @@ const GRID_ROWS := 5
 const CELL := 50.0
 const CELL_GAP := 7.0
 const ICON_OFFSET := Vector2(0, -2)
-const MENU_ROW := Vector2(77, 31)
 const MENU_OFFSET := Vector2(25, 25)
 const SLOT_PIECES := {&"weapon": "zbwq", &"cloth": "zbfj", &"accessory": "zbsp", &"treasure": "zbfb", &"fashion": "zbsz", &"wing": "zbcb"}
 const TABS := {"btn_zb": "equip", "btn_dj": "item", "btn_rw": "look"}   ## page button -> bag page
@@ -200,24 +199,16 @@ func _on_bag_click(icon: Control, index: int) -> void:
 	_menu = UiLayout.create("item_menu" if TABS[_tab] == "item" else "pack_menu")
 	_menu.position = icon.position + _grid.position + MENU_OFFSET
 	add_child(_menu)
+	_menu.button_pressed.connect(_menu_action)
 	for p in enabled:
 		_menu.show_frame(p, 0 if enabled[p] else 1)
 		if enabled[p]:
-			_menu.add_child(_menu_button(p))
+			_highlight_on_hover(_menu.make_clickable(p), _menu.get_piece(p))
 
-## Hit area over an enabled menu row.
-func _menu_button(piece: String) -> Control:
-	var art: Node2D = _menu.get_piece(piece)
-	var b := Control.new()
-	b.position = art.position
-	b.size = MENU_ROW
-	b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-	b.mouse_entered.connect(func(): art.modulate = Color(1.25, 1.25, 1.25))
-	b.mouse_exited.connect(func(): art.modulate = Color.WHITE)
-	b.gui_input.connect(func(e: InputEvent):
-		if e is InputEventMouseButton and e.pressed and e.button_index == MOUSE_BUTTON_LEFT:
-			_menu_action(piece))
-	return b
+## Rows light up under the mouse. (The click area is the art's own bounds: the rows' origins are their centres.)
+func _highlight_on_hover(hit: Control, art: Node2D) -> void:
+	hit.mouse_entered.connect(func(): art.modulate = Color(1.25, 1.25, 1.25))
+	hit.mouse_exited.connect(func(): art.modulate = Color.WHITE)
 
 func _menu_action(piece: String) -> void:
 	var idx := _menu_index

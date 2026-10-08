@@ -377,7 +377,9 @@ function extract(libName, cls, outName, rootFilters = []) {
     const compactR = (arr) => arr.filter((k, i) => i === 0 || JSON.stringify(k[1]) !== JSON.stringify(arr[i - 1][1]));
     out.actions[act.label] = {
       frames,
-      loop: (sim.ended < 0 && sim.held < 0) || !!process.env.HOLD_FRAMES,
+      loop: (sim.ended < 0 && sim.held < 0) || (!!process.env.HOLD_FRAMES && !process.env.LOOP_FROM),
+      // LOOP_FROM=f: play once, then keep looping frames f.. (an opening followed by a nested clip's loop)
+      loop_from: process.env.LOOP_FROM ? +process.env.LOOP_FROM : undefined,
       tracks: trackList,
       hit: compactR(hit), hurt: compactR(hurt), art: compactR(art),
       markers,

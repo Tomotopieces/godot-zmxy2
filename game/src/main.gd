@@ -7,6 +7,7 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	get_viewport().size_changed.connect(_update_filter_scale)
 	_update_filter_scale()
+	add_child(DebugConsole.new())   # ~ lists every item
 	show_menu()
 
 ## Filter sizes (blur / glow) are authored in game pixels; the shader needs screen pixels.

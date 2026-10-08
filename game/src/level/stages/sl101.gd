@@ -4,7 +4,7 @@ extends StageScript
 ## 10-2 .. 10-5, the fifth position opens the statue to 10-6. Press up in an open door to go.
 
 ## The doors and the statue sit behind the hall art and show through its arches (added under the scene in the original).
-const BEHIND_ART := -12
+const BEHIND_ART := Level.Z_BEHIND_ART
 
 var _doors: Array[Rig] = []      ## closed or open door rigs
 var _ready_doors := {}           ## door index -> true once it can be entered

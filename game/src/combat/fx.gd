@@ -10,6 +10,7 @@ static func spawn(rig_name: String, pos: Vector2, facing := -1, scale_mul := 1.0
 	r.action_finished.connect(func(_a): fx.queue_free())
 	r.event.connect(func(n, _a): if n == &"destroy": fx.queue_free())
 	fx.position = pos
+	fx.z_index = Level.Z_EFFECT
 	Level.current.add_object(fx)
 	r.play(r.actions[0])
 	# looping clips (stop()-gated in the original) play once

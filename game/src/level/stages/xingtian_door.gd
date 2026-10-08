@@ -30,8 +30,8 @@ func _physics_process(delta: float) -> void:
 				_door.queue_free()
 				_door = stage.place_rig("xingtian_door_open", pos)
 		return
-	if _door.is_playing():
-		return   # the doorway opens at the end of the animation
+	if not _door.settled():
+		return   # the doorway opens once the door has swung open (the vortex then keeps turning)
 	var e: Array = cfg.enter_rect
 	if stage.hero_in(Rect2(_door.position + Vector2(e[0], e[1]), Vector2(e[2], e[3]))):
 		if GameState.take_item(String(cfg.key)):

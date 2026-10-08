@@ -16,6 +16,20 @@ signal failed                    ## a stage rule lost the stage (2-2 fire timer)
 signal transfer(to: Vector2i)    ## hidden stage entrance used: go straight there (MainGame "fbfbfbfb")
 
 const VIEW := Vector2(940, 590)
+
+## Draw order of the scene (z_index), back to front. It follows the child order of the original gameSence:
+## monsters are inserted under the hero (MainGame.createMonster; 秦广王's wall pieces and 4-1's boss sit further
+## back), pickups / effects / bullets are added on top.
+const Z_BEHIND_ART := -12   ## shows through holes of the stage art (10-1 doors and statue)
+const Z_ART := -10          ## stage art
+const Z_SCENERY := -6       ## stage objects: exit portal, doors, fires, boat, platforms, aurora
+const Z_BEHIND := -5        ## monsters flagged "behind" (秦广王傀儡's walls)
+const Z_MONSTER := -1
+const Z_HERO := 0
+const Z_PICKUP := 1         ## dropped items, potions, soul orbs
+const Z_TREASURE := 2       ## the hero's magic treasure
+const Z_EFFECT := 3         ## projectiles and effects
+const Z_NUMBER := 100       ## damage numbers
 const MAX_MONSTERS := 6
 
 static var current: Level
@@ -230,7 +244,7 @@ func _build(d: Dictionary) -> void:
 	add_child(world)
 	var art := Node2D.new()
 	art.name = "Art"
-	art.z_index = -10
+	art.z_index = Z_ART
 	world.add_child(art)
 	for leaf in d.art:
 		var info: Dictionary = d.textures[leaf[0]]
@@ -245,6 +259,7 @@ func _build(d: Dictionary) -> void:
 
 	for w in d.walls:
 		var body := AnimatableBody2D.new()   # static unless a stage script moves it
+		body.z_index = Z_SCENERY             # art a stage script hangs on it (boat, platforms)
 		body.sync_to_physics = false         # scripts move it directly in the physics step
 		body.set_meta(&"wall", w)
 		walls.append(body)
@@ -267,6 +282,7 @@ func _build(d: Dictionary) -> void:
 	for s in sorted:
 		stops.append({"x": float(s.x), "back": float(s.back), "spawners": [], "done": false})
 	_end_x = minf(size.x, float(stops[-1].x)) if not stops.is_empty() else size.x
+	_close_edge_slivers(art)
 	for sp in d.spawners:
 		var md := monster_data(int(sp.enemy))
 		if md == null:
@@ -284,6 +300,7 @@ func _build(d: Dictionary) -> void:
 			features.append(dd)
 			continue
 		door = Rig.create("exit_door")
+		door.z_index = Z_SCENERY
 		door.position = Vector2(dd.pos[0], dd.pos[1])
 		door.visible = false
 		world.add_child(door)
@@ -318,6 +335,28 @@ func _warm_rigs(d: Dictionary) -> void:
 			if r == b or r.begins_with(b):
 				names.append(r)
 	Rig.warm(names)
+
+## Some stages' art stops a few pixels short of the playable view (5-3: 4 px at the left, 1 px under the floor),
+## letting the far background show as a thin line. Pieces spanning the view whose edge falls just inside it are
+## stretched by those few pixels to reach the edge.
+const EDGE_SLIVER := 6.0
+
+func _close_edge_slivers(art: Node2D) -> void:
+	for sp: Sprite2D in art.get_children():
+		var r: Rect2 = sp.transform * Rect2(Vector2.ZERO, sp.texture.get_size())
+		if r.size.x < VIEW.x:
+			continue
+		var grow := Rect2(r)
+		if r.position.x > 0.0 and r.position.x <= EDGE_SLIVER:
+			grow = grow.expand(Vector2(0.0, r.position.y))
+		if r.end.x < _end_x and r.end.x >= _end_x - EDGE_SLIVER:
+			grow = grow.expand(Vector2(_end_x, r.position.y))
+		if r.end.y < VIEW.y and r.end.y >= VIEW.y - EDGE_SLIVER:
+			grow = grow.expand(Vector2(r.position.x, VIEW.y))
+		if grow != r:
+			# map the old rect onto the grown one (a tiny stretch, invisible on art this size)
+			var k := grow.size / r.size
+			sp.transform = Transform2D(0.0, k, 0.0, grow.position - r.position * k) * sp.transform
 
 ## Monster numbers for this scene (a scene may make a monster its boss with different stats).
 func monster_data(id: int) -> MonsterData:

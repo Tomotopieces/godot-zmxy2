@@ -27,6 +27,7 @@ static func spawn(id: String, pos: Vector2) -> GroundItem:
 	g.collision_layer = 0
 	g.collision_mask = Actor.LAYER_WORLD | Actor.LAYER_ONEWAY
 	g.position = pos
+	g.z_index = Level.Z_PICKUP
 	Level.current.add_object(g)
 	return g
 

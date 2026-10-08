@@ -88,12 +88,8 @@ func _build(item: Dictionary) -> void:
 			_label(txt, Vector2(0, _y), STAT_COLOR, 16, true)
 			_y += ROW
 	if d.desc != "":
-		var l := _label(d.desc, Vector2(0, _y), Color.WHITE, 14)
-		l.autowrap_mode = TextServer.AUTOWRAP_ARBITRARY
-		l.custom_minimum_size.x = DESC_WIDTH
-		l.size = Vector2(DESC_WIDTH, 0)
-		_w = maxf(_w, DESC_WIDTH)
-		_y += maxf(ROW, roundf(l.get_minimum_size().y / ROW) * ROW)
+		var l := _label(d.desc, Vector2(0, _y), Color.WHITE, 14, false, DESC_WIDTH)
+		_y += maxf(ROW, roundf((l.get_minimum_size().y + 10.0) / ROW) * ROW)
 	_label("价值 : %d 灵魂" % d.value, Vector2(0, _y), VALUE_COLOR, 14)
 	_y += ROW
 	_box.size = Vector2(_w + 35, _y + PAD.y + 10)
@@ -117,9 +113,13 @@ func _pair(label: String, value: String, color: Color) -> void:
 	_w = maxf(_w, lw + maxf(v.get_minimum_size().x, UNDERLINE))
 	_y += ROW
 
-func _label(text: String, pos: Vector2, color: Color, size: int, bold := false) -> Label:
+## wrap > 0: wrapped at that width (the description).
+func _label(text: String, pos: Vector2, color: Color, size: int, bold := false, wrap := 0.0) -> Label:
 	var l := Label.new()
 	l.text = text
+	if wrap > 0.0:
+		l.autowrap_mode = TextServer.AUTOWRAP_ARBITRARY
+		l.custom_minimum_size.x = wrap
 	l.position = pos
 	l.add_theme_font_size_override("font_size", size)
 	l.add_theme_color_override("font_color", color)
@@ -130,14 +130,10 @@ func _label(text: String, pos: Vector2, color: Color, size: int, bold := false) 
 	_w = maxf(_w, pos.x + l.get_minimum_size().x)
 	return l
 
-static var _bold: FontVariation
+const BOLD_FONT := preload("res://assets/fonts/LXGWWenKai-Medium.ttf")
 
 static func _bold_font() -> Font:
-	if _bold == null:
-		_bold = FontVariation.new()
-		_bold.base_font = ThemeDB.fallback_font
-		_bold.variation_embolden = 0.8
-	return _bold
+	return BOLD_FONT
 
 ## "传说" -> "传 说" (the original quality strings are spaced).
 static func _spaced(q: String) -> String:

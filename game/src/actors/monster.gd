@@ -7,7 +7,6 @@ signal destroyed(monster: Monster)
 
 enum State { MOVE, ATTACK, HURT, DEAD }
 
-const BEHIND_Z := -5   ## level art is at -10
 
 var data: MonsterData
 var brain: MonsterBrain
@@ -31,8 +30,7 @@ static func create(d: MonsterData) -> Monster:
 func _ready() -> void:
 	gravity = data.gravity
 	collision_layer = LAYER_MONSTER
-	if data.behind:
-		z_index = BEHIND_Z
+	z_index = Level.Z_BEHIND if data.behind else Level.Z_MONSTER
 	collision_mask = LAYER_WORLD | LAYER_ONEWAY
 	brain = MonsterBrain.create(self)   # before the rig: its first action already emits events
 	setup_rig(data.rig)

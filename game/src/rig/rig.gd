@@ -33,7 +33,16 @@ func _ready() -> void:
 	for g: CanvasGroup in find_children("*", "CanvasGroup", true, false):
 		g.use_mipmaps = false   # see flash_filter.gdshader
 		g.clear_margin = maxf(g.clear_margin, filter_clear_margin(g.fit_margin))
-	anim.animation_finished.connect(func(n): action_finished.emit(n))
+	anim.animation_finished.connect(_on_anim_finished)
+
+## An action with a loop tail (an opening, then a looping part) keeps looping instead of finishing.
+func _on_anim_finished(n: StringName) -> void:
+	var an := anim.get_animation(n)
+	if an and an.has_meta(&"loop_from") and n == action:
+		anim.play(n)
+		anim.seek(float(an.get_meta(&"loop_from")), true)
+		return
+	action_finished.emit(n)
 
 ## Play an action from its start (restart=false keeps playing when already in it).
 func play(a: StringName, restart := false) -> void:
@@ -63,6 +72,13 @@ func resume() -> void:
 
 func is_playing() -> bool:
 	return anim.is_playing()
+
+## The action's one-shot part is over (finished, or looping its tail).
+func settled() -> bool:
+	if not anim.is_playing():
+		return true
+	var an := anim.get_animation(action)
+	return an != null and an.has_meta(&"loop_from") and anim.current_animation_position >= float(an.get_meta(&"loop_from"))
 
 ## Normalized progress of the current action (0..1).
 func progress() -> float:

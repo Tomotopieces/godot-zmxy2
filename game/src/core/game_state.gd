@@ -198,16 +198,19 @@ func consume_revive() -> bool:
 
 # ------------------------------------------------------------------ progression
 
-## Level up resets exp to 0; overflow is lost, as in the original.
+## Exp beyond a level carries over (the original dropped it), possibly through several levels at once;
+## the top level gains no more exp.
 func add_exp(amount: int) -> void:
 	if level >= hero_data.level_max:
-		return   # the top level gains no more exp
+		return
 	exp += amount
-	if exp >= exp_to_next():
-		exp = 0
+	while level < hero_data.level_max and exp >= exp_to_next():
+		exp -= exp_to_next()
 		level += 1
 		attack = hero_data.attack_power(level)
 		leveled_up.emit(level)
+	if level >= hero_data.level_max:
+		exp = 0
 	profile_changed.emit()
 
 func add_souls(amount: int) -> void:

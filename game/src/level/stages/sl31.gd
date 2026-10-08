@@ -71,7 +71,7 @@ func _jumpers(delta: float) -> void:
 	var r: Array = cfg.get("every", [3.0, 7.0])
 	_jump_t = randf_range(r[0], r[1])
 	var x := _boat.position.x + float(cfg.get("dx", 100)) * (1.0 if randf() < 0.5 else -1.0)
-	var fx := place_rig("monster41_jump", Vector2(x, _boat.position.y + float(cfg.get("from_dy", 150))), 0)
+	var fx := place_rig("monster41_jump", Vector2(x, _boat.position.y + float(cfg.get("from_dy", 150))), Level.Z_MONSTER)
 	var tw := fx.create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 	tw.tween_property(fx, "position:y", _boat.position.y + float(cfg.get("to_dy", -60)), float(cfg.get("rise", 1.5)))
 	tw.tween_callback(func():
@@ -123,7 +123,7 @@ func _fish(delta: float) -> void:
 func _show_aurora() -> void:
 	var cfg: Dictionary = param("aurora", {})
 	_aurora = Rig.create("aurora")
-	_aurora.z_index = -5
+	_aurora.z_index = Level.Z_SCENERY
 	# placed once at (1000, 600) of the scene (StageListener31: a screen point converted into the scene's
 	# parent, which does not scroll) and left there
 	var at: Array = cfg.get("pos", [1000, 600])

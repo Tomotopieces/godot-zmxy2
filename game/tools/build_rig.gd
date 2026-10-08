@@ -265,6 +265,8 @@ func _build(json_path: String) -> void:
 		var an := Animation.new()
 		an.length = act.frames / _fps
 		an.loop_mode = Animation.LOOP_LINEAR if act.loop else Animation.LOOP_NONE
+		if act.has("loop_from"):
+			an.set_meta(&"loop_from", float(act.loop_from) / _fps)   # Rig keeps looping the tail
 
 		for tr in _split_slot_tracks(act.tracks):
 			if tr.kind != "tex" and tr.kind != "slot":

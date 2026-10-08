@@ -3,9 +3,12 @@
 cd /c/Users/Administrator/Projects/vibe/godot-zmxy2
 GD="/c/Program Files/Godot/Godot_v4.7.2-stable_win64_console.exe"
 args=()
-while read -r lib cls name filters_from; do
+#   a trailing " # VAR=value ..." sets extractor environment options (HOLD_FRAMES, LOOP_FROM, AUTO_BODY)
+while read -r line; do
+  spec="${line%% # *}"; envs=""; [ "$spec" != "$line" ] && envs="${line#* # }"
+  read -r lib cls name filters_from <<< "$spec"
   [ -z "$lib" ] || [ "${lib:0:1}" = "#" ] && continue
-  timeout 120 node tools/rig/extract_rig.js "$lib" "$cls" "$name" "game/assets/rigs/$name/rig.json" $filters_from > "tools/dl/rig_$name.log" 2>&1 || echo "EXTRACT FAIL $name"
+  env $envs timeout 120 node tools/rig/extract_rig.js "$lib" "$cls" "$name" "game/assets/rigs/$name/rig.json" $filters_from > "tools/dl/rig_$name.log" 2>&1 || echo "EXTRACT FAIL $name"
   grep -q UNKNOWN "tools/dl/rig_$name.log" && echo "unknown scripts in $name (see tools/dl/rig_$name.log)"
   args+=("res://assets/rigs/$name/rig.json")
 done < "$1"
