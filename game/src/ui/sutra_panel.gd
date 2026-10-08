@@ -8,7 +8,7 @@ var _spell: Label
 var _passive: Label
 
 static func open_on(parent: Node) -> SutraPanel:
-	if GameState.worn[&"treasure"].is_empty():
+	if GameState.worn[&"treasure"] == null:
 		Toast.show_on(parent, "请先装备法宝")
 		return null
 	var s := SutraPanel.new()
@@ -47,7 +47,7 @@ func _note(pos: Vector2) -> Label:
 	add_child(l)
 	return l
 
-func _item() -> Dictionary:
+func _item() -> Item:
 	return GameState.worn[&"treasure"]
 
 func _unhandled_input(e: InputEvent) -> void:
@@ -78,9 +78,9 @@ func _refresh() -> void:
 	var cost := Forge.upgrade_cost(it)
 	_ui.set_text("txt_fbname", d.display_name)
 	_ui.set_text("txt_fbdj", str(int(it.lv)))
-	_ui.set_text("txt_fbczl", "%.1f" % float(it.get("growth", 0.0)))
+	_ui.set_text("txt_fbczl", "%.1f" % it.growth)
 	_ui.set_text("txt_fbwx", Forge.element_text(it))
-	var st: Dictionary = it.stats
+	var st := it.stats
 	_ui.set_text("txt_fbatk", str(int(st.get("atk", 0))))
 	_ui.set_text("txt_fbdef", str(int(st.get("def", 0))))
 	_ui.set_text("txt_fbhx", str(int(st.get("hp", 0))))
@@ -89,9 +89,9 @@ func _refresh() -> void:
 	_ui.set_bar("lhmc", 1.0 if cost == 0 else float(GameState.souls) / (cost + 1))
 	_spell.text = ""
 	_passive.text = ""
-	if it.has("spell"):
-		var strong := "全屏" if it.get("strong", false) else "初级"
-		_spell.text = "%s%s咒" % [strong, "雷" if int(it.spell) == 0 else "火"]
+	if it.id == "wds":
+		var strong := "全屏" if it.strong else "初级"
+		_spell.text = "%s%s咒" % [strong, "雷" if it.spell == 0 else "火"]
 	for k in PASSIVE_NAMES:
 		if it.id == "wds" and st.has(k):
 			var v: float = st[k]

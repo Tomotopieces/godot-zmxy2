@@ -10,18 +10,18 @@ static func _cat() -> EquipmentCatalog:
 
 # ------------------------------------------------------------------ strengthening
 
-static func can_strengthen(item: Dictionary) -> bool:
+static func can_strengthen(item: Item) -> bool:
 	var d := GameState.item_data(item)
 	return d != null and String(d.type) in _cat().strengthen.types
 
 ## Chance one stone adds for this equipment at its current level.
-static func stone_chance(stone: Dictionary, equip: Dictionary) -> float:
+static func stone_chance(stone: Item, equip: Item) -> float:
 	var d := GameState.item_data(stone)
 	var row: Array = _cat().strengthen.chance.get(str(d.stone if d else 0), [])
-	var plus := int(equip.get("plus", 0))
+	var plus := equip.plus
 	return float(row[plus]) if plus < row.size() else 0.0
 
-static func success_chance(equip: Dictionary, stones: Array, luck: bool) -> float:
+static func success_chance(equip: Item, stones: Array, luck: bool) -> float:
 	var p := 0.0
 	for s in stones:
 		p = minf(p + stone_chance(s, equip), 1.0)
@@ -30,13 +30,13 @@ static func success_chance(equip: Dictionary, stones: Array, luck: bool) -> floa
 	return p
 
 ## One attempt (the stones and charms are used up by the caller). Returns true on success.
-static func strengthen(equip: Dictionary, stones: Array, luck: bool, keep: bool) -> bool:
-	var plus := int(equip.get("plus", 0))
+static func strengthen(equip: Item, stones: Array, luck: bool, keep: bool) -> bool:
+	var plus := equip.plus
 	if randf() < success_chance(equip, stones, luck):
-		equip["plus"] = plus + 1
+		equip.plus = plus + 1
 		return true
 	if plus >= int(_cat().strengthen.drop_from) and not keep:
-		equip["plus"] = plus - 1
+		equip.plus = plus - 1
 	return false
 
 # ------------------------------------------------------------------ fusion
@@ -45,7 +45,7 @@ static func strengthen(equip: Dictionary, stones: Array, luck: bool, keep: bool)
 static func recipe_for(mats: Array) -> Dictionary:
 	if mats.size() != 3:
 		return {}
-	var ids: Array = mats.map(func(m): return m.get("id", ""))
+	var ids: Array = mats.map(func(m: Item): return m.id)
 	ids.sort()
 	for r in _cat().fusion.recipes:
 		var want: Array = (r.mats as Array).duplicate()
@@ -61,14 +61,14 @@ static func fusion_chance(recipe: Dictionary) -> float:
 	return float(_cat().fusion.stone_chance) if recipe.get("kind", "") == "stone" else 1.0
 
 ## Stat of an item including its strengthening.
-static func _total(item: Dictionary, stat: String) -> float:
+static func _total(item: Item, stat: String) -> float:
 	var d := GameState.item_data(item)
-	return float(item.get("stats", {}).get(stat, 0.0)) + int(item.get("plus", 0)) * float(d.strengthen.get(stat, 0.0) if d else 0.0)
+	return float(item.stats.get(stat, 0.0)) + item.plus * float(d.strengthen.get(stat, 0.0) if d else 0.0)
 
-## The product of a recipe from its materials ({} when the roll fails). Does not touch the bag or the souls.
-static func produce(recipe: Dictionary, mats: Array) -> Dictionary:
+## The product of a recipe from its materials (null when the roll fails). Does not touch the bag or the souls.
+static func produce(recipe: Dictionary, mats: Array) -> Item:
 	if randf() >= fusion_chance(recipe):
-		return {}
+		return null
 	var out := EquipmentCatalog.find(recipe.out).roll()
 	match recipe.kind:
 		"sum":
@@ -98,7 +98,7 @@ static func produce(recipe: Dictionary, mats: Array) -> Dictionary:
 
 ## A bare treasure as the console / tests hand out (no materials): level 1, rolled growth and elements, a 五毒兽 with its
 ## fixed stats; the others start with no stats (a fused one carries its materials' average).
-static func new_treasure(id: String) -> Dictionary:
+static func new_treasure(id: String) -> Item:
 	var out := EquipmentCatalog.find(id).roll()
 	var tdef: Dictionary = _cat().treasures.defs.get(id, {})
 	for k in tdef.get("fixed", {}):
@@ -107,11 +107,11 @@ static func new_treasure(id: String) -> Dictionary:
 	return out
 
 ## A new 法宝: level 1, random growth rate (one decimal) and elements; 五毒兽 also rolls a passive and its spell.
-static func _init_treasure(item: Dictionary, tdef: Dictionary) -> void:
+static func _init_treasure(item: Item, tdef: Dictionary) -> void:
 	var t: Dictionary = _cat().treasures
-	item["lv"] = 1
+	item.lv = 1
 	var g: Array = tdef.growth
-	item["growth"] = snappedf(randf_range(g[0], g[1]), 0.1)
+	item.growth = snappedf(randf_range(g[0], g[1]), 0.1)
 	# the original picks with round(rand * 4): the first and last elements are half as likely
 	var names: Array = t.elements
 	var first := roundi(randf() * (names.size() - 1))
@@ -120,43 +120,43 @@ static func _init_treasure(item: Dictionary, tdef: Dictionary) -> void:
 		var rest: Array = names.duplicate()
 		rest.remove_at(first)
 		elems.append(rest[roundi(randf() * (rest.size() - 1))])
-	item["elem"] = elems
+	item.elem = elems
 	if tdef.has("passives"):
 		var p: Array = tdef.passives[randi() % tdef.passives.size()]
 		item.stats[p[0]] = float(p[1]) + float(p[2]) * roundi(randf() * float(p[3]))
-		item["spell"] = randi() % 2
-		item["strong"] = false
+		item.spell = randi() % 2
+		item.strong = false
 
 # ------------------------------------------------------------------ treasures
 
-static func is_treasure(item: Dictionary) -> bool:
-	return item.has("lv")
+static func is_treasure(item: Item) -> bool:
+	return item.is_treasure()
 
-static func element_text(item: Dictionary) -> String:
-	return " ".join((item.get("elem", []) as Array).map(func(e): return ELEMENT_NAMES.get(e, e)))
+static func element_text(item: Item) -> String:
+	return " ".join(item.elem.map(func(e): return ELEMENT_NAMES.get(e, e)))
 
-static func has_element(item: Dictionary, e: String) -> bool:
-	return e in item.get("elem", [])
+static func has_element(item: Item, e: String) -> bool:
+	return e in item.elem
 
 ## Souls to go from the current level to the next (0 at the top level).
-static func upgrade_cost(item: Dictionary) -> int:
+static func upgrade_cost(item: Item) -> int:
 	var t: Dictionary = _cat().treasures
-	var lv := int(item.get("lv", 1))
+	var lv := item.lv
 	return 0 if lv >= int(t.max_level) else lv * lv * int(t.cost_mul)
 
 ## MP one use of the treasure's skill costs.
-static func skill_cost(item: Dictionary) -> int:
+static func skill_cost(item: Item) -> int:
 	var t: Dictionary = _cat().treasures
-	return int(t.mp_base) + int(t.mp_per_level) * int(item.get("lv", 1))
+	return int(t.mp_base) + int(t.mp_per_level) * item.lv
 
 ## Level up (the caller pays): each stat grows by floor(up x growth), plus the full value for its element.
-static func upgrade(item: Dictionary) -> void:
+static func upgrade(item: Item) -> void:
 	var t: Dictionary = _cat().treasures
 	var up: Dictionary = t.defs[item.id].up
-	item["lv"] = int(item.get("lv", 1)) + 1
+	item.lv += 1
 	for e in t.element_stat:
 		var stat: String = t.element_stat[e]
-		var add := floorf(float(up[stat]) * float(item.get("growth", 0.0)))
+		var add := floorf(float(up[stat]) * item.growth)
 		if has_element(item, e):
 			add += float(up[stat])
 		item.stats[stat] = float(item.stats.get(stat, 0.0)) + add
@@ -177,9 +177,7 @@ static func buy(id: String, n: int) -> String:
 	if not GameState.item_data(item).stacks() and n > 1:
 		n = 1
 		cost = price(id)
-	item["n"] = n
-	if not GameState.item_data(item).stacks():
-		item.erase("n")
+	item.n = n
 	if not GameState.add_to_bag(item):
 		return "背包已满"
 	GameState.merit -= cost

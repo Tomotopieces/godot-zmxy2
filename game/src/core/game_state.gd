@@ -2,7 +2,7 @@ extends Node
 ## Persistent player profile (survives level changes): level, exp, souls, skills, bag and worn equipment.
 ## Live HP/MP/rage belong to the Hero node; this only stores what carries between stages.
 ##
-## Items are plain dictionaries {"id", "stats"} (rolled copies of an EquipmentData) so they save as JSON.
+## Items are Item objects (rolled copies of an EquipmentData); they save as JSON through Item.to_dict().
 ## Optional keys: "n" stack size (道具), "plus" strengthening level.
 
 signal profile_changed
@@ -23,8 +23,8 @@ var souls := 0
 var attack := 0          ## rolled once per level (original: 10 + rand(0..4) + 5(L-1))
 var skills := {}                     ## learned active skills (action -> true), bought in the skill shop
 var passives := [0, 0, 0, 0, 0]      ## passive skill levels (hp, mp, crit, hp_regen, mp_regen)
-var bag: Array = []                                           ## carried items
-var worn := {&"weapon": {}, &"cloth": {}, &"accessory": {}, &"treasure": {}, &"fashion": {}, &"wing": {}}   ## slot -> item ({} = empty)
+var bag: Array[Item] = []                                        ## carried items
+var worn := {&"weapon": null, &"cloth": null, &"accessory": null, &"treasure": null, &"fashion": null, &"wing": null}   ## slot -> Item (null = empty)
 var buffs := {}                      ## timed buff -> seconds of stage time left (used items)
 var merit := 0                       ## 功勋: shop currency
 var merit_day := ""                  ## date of the last 功勋 reward (it is limited per day)
@@ -47,13 +47,12 @@ func _ready() -> void:
 func bonus(stat: String) -> float:
 	var t := 0.0
 	for k in worn:
-		var it: Dictionary = worn[k]
-		if it.is_empty():
+		var it: Item = worn[k]
+		if it == null:
 			continue
-		t += float(it.get("stats", {}).get(stat, 0.0))
-		var plus := int(it.get("plus", 0))
-		if plus > 0:
-			t += plus * float(item_data(it).strengthen.get(stat, 0.0))
+		t += float(it.stats.get(stat, 0.0))
+		if it.plus > 0:
+			t += it.plus * float(item_data(it).strengthen.get(stat, 0.0))
 	var i := hero_data.learn_passive.find(stat)
 	if i >= 0:
 		t += hero_data.passive_value(stat, passives[i])
@@ -112,7 +111,7 @@ func mp_regen() -> int:
 ## Equipment / stone drop rate multiplier: 双倍爆率 buff and the worn fashion.
 func drop_mul() -> float:
 	var cat := EquipmentCatalog.get_catalog()
-	return buff_value("drop_mul", 1.0) * (1.0 + float(cat.drop_bonus.get(worn[&"fashion"].get("id", ""), 0.0)))
+	return buff_value("drop_mul", 1.0) * (1.0 + float(cat.drop_bonus.get(Item.id_of(worn[&"fashion"]), 0.0)))
 
 func exp_to_next() -> int:
 	return hero_data.exp_to_next(level)
@@ -158,12 +157,12 @@ func add_buff(b: String) -> void:
 	equipment_changed.emit()
 	buffs_changed.emit()
 
-func usable(item: Dictionary) -> bool:
-	return EquipmentCatalog.get_catalog().use.has(item.get("id", ""))
+func usable(item: Item) -> bool:
+	return EquipmentCatalog.get_catalog().use.has(item.id)
 
 ## Use bag[index] (道具 page). Returns the notice to show.
 func use_item(index: int) -> String:
-	var u: Dictionary = EquipmentCatalog.get_catalog().use.get(bag[index].get("id", ""), {})
+	var u: Dictionary = EquipmentCatalog.get_catalog().use.get(bag[index].id, {})
 	if u.is_empty():
 		return ""
 	if u.has("special"):
@@ -180,19 +179,19 @@ func use_item(index: int) -> String:
 ## 五毒丹: permanently strengthens the worn 五毒兽's active skill. Returns the refusal notice, "" when used.
 func _use_special(kind: String) -> String:
 	if kind == "wds_power":
-		var t: Dictionary = worn[&"treasure"]
-		if t.get("id", "") != "wds":
+		var t: Item = worn[&"treasure"]
+		if Item.id_of(t) != "wds":
 			return "您没有装备五毒兽"
-		if t.get("strong", false):
+		if t.strong:
 			return "五毒兽技能已经强化"
-		t["strong"] = true
+		t.strong = true
 	return ""
 
 ## One revive from the worn 苍生挂饰; the charm is used up.
 func consume_revive() -> bool:
-	if worn[&"accessory"].get("id", "") != EquipmentCatalog.get_catalog().revive.get("item", "-"):
+	if Item.id_of(worn[&"accessory"]) != EquipmentCatalog.get_catalog().revive.get("item", "-"):
 		return false
-	worn[&"accessory"] = {}
+	worn[&"accessory"] = null
 	equipment_changed.emit()
 	profile_changed.emit()
 	return true
@@ -220,10 +219,10 @@ func add_souls(amount: int) -> void:
 
 # ------------------------------------------------------------------ items
 
-func item_data(item: Dictionary) -> EquipmentData:
-	return EquipmentCatalog.find(item.get("id", "")) if not item.is_empty() else null
+func item_data(item: Item) -> EquipmentData:
+	return EquipmentCatalog.find(item.id) if item else null
 
-func tab_of(item: Dictionary) -> String:
+func tab_of(item: Item) -> String:
 	var d := item_data(item)
 	return EquipmentCatalog.get_catalog().tab_of(d.type) if d else "equip"
 
@@ -242,35 +241,35 @@ func tab_full(tab: String) -> bool:
 func count_of(id: String) -> int:
 	var n := 0
 	for it in bag:
-		if it.get("id", "") == id:
-			n += int(it.get("n", 1))
+		if it.id == id:
+			n += it.n
 	return n
 
 func is_worn(id: String) -> bool:
 	for k in worn:
-		if worn[k].get("id", "") == id:
+		if Item.id_of(worn[k]) == id:
 			return true
 	return false
 
 ## Whether the item would fit (page not full, or it stacks on an existing entry; unique items only once).
-func can_add(item: Dictionary) -> bool:
+func can_add(item: Item) -> bool:
 	var d := item_data(item)
 	if d == null:
 		return false
-	var id: String = item.id
+	var id := item.id
 	if id in EquipmentCatalog.get_catalog().unique and (has_item(id) or is_worn(id)):
 		return false
 	return (d.stacks() and has_item(id)) or not tab_full(tab_of(item))
 
 ## force: no capacity check (items coming back from a forge slot).
-func add_to_bag(item: Dictionary, force := false) -> bool:
+func add_to_bag(item: Item, force := false) -> bool:
 	if not force and not can_add(item):
 		return false
 	var d := item_data(item)
 	if d.stacks():
 		for it in bag:
-			if it.get("id", "") == item.id:
-				it["n"] = int(it.get("n", 1)) + int(item.get("n", 1))
+			if it.id == item.id:
+				it.n += item.n
 				profile_changed.emit()
 				return true
 	bag.append(item)
@@ -278,25 +277,24 @@ func add_to_bag(item: Dictionary, force := false) -> bool:
 	return true
 
 ## A fresh copy of a catalogue item (rolled stats).
-func make_item(id: String) -> Dictionary:
+func make_item(id: String) -> Item:
 	var d := EquipmentCatalog.find(id)
 	if d == null:
-		return {}
+		return null
 	return Forge.new_treasure(id) if d.type == &"treasure" else d.roll()
 
 ## Take one out of bag[index] (a single copy when it is a stack).
-func take_at(index: int) -> Dictionary:
-	var one: Dictionary = bag[index].duplicate(true)
-	one.erase("n")
+func take_at(index: int) -> Item:
+	var one := bag[index].copy()
+	one.n = 1
 	_remove_one(index)
 	profile_changed.emit()
 	return one
 
 ## Take one off the stack at bag[index].
 func _remove_one(index: int) -> void:
-	var n := int(bag[index].get("n", 1))
-	if n > 1:
-		bag[index]["n"] = n - 1
+	if bag[index].n > 1:
+		bag[index].n -= 1
 	else:
 		bag.remove_at(index)
 
@@ -305,18 +303,18 @@ func discard(index: int) -> void:
 	bag.remove_at(index)
 	profile_changed.emit()
 
-func can_wear(item: Dictionary) -> bool:
+func can_wear(item: Item) -> bool:
 	var d := item_data(item)
 	return d != null and d.wearable_by(CHARACTER)
 
 ## Wear bag[index]; whatever was in that slot goes back to the bag.
 func wear(index: int) -> bool:
-	var item: Dictionary = bag[index]
+	var item := bag[index]
 	if not can_wear(item):
 		return false
 	var slot := item_data(item).type
 	bag.remove_at(index)
-	if not worn[slot].is_empty():
+	if worn[slot] != null:
 		bag.insert(index, worn[slot])
 	worn[slot] = item
 	equipment_changed.emit()
@@ -324,21 +322,21 @@ func wear(index: int) -> bool:
 	return true
 
 func take_off(slot: StringName) -> bool:
-	if worn[slot].is_empty() or tab_full(tab_of(worn[slot])):
+	if worn[slot] == null or tab_full(tab_of(worn[slot])):
 		return false
 	bag.append(worn[slot])
-	worn[slot] = {}
+	worn[slot] = null
 	equipment_changed.emit()
 	profile_changed.emit()
 	return true
 
 func has_item(id: String) -> bool:
-	return bag.any(func(it): return it.get("id", "") == id)
+	return bag.any(func(it: Item): return it.id == id)
 
 ## Use up one item from the bag (keys of hidden stages). Returns false when there is none.
 func take_item(id: String) -> bool:
 	for i in bag.size():
-		if bag[i].get("id", "") == id:
+		if bag[i].id == id:
 			_remove_one(i)
 			profile_changed.emit()
 			return true
@@ -377,12 +375,12 @@ static func next_stage(s: Vector2i) -> Vector2i:
 func _to_dict() -> Dictionary:
 	var w := {}
 	for k in worn:
-		w[String(k)] = worn[k]
+		w[String(k)] = worn[k].to_dict() if worn[k] else {}
 	return {
 		"level": level, "exp": exp, "souls": souls, "attack": attack,
 		"skills": skills.keys().filter(func(k): return skills[k]).map(func(k): return String(k)),
 		"passives": passives,
-		"bag": bag, "worn": w, "stage": [stage.x, stage.y], "progress": [progress.x, progress.y],
+		"bag": bag.map(func(it: Item): return it.to_dict()), "worn": w, "stage": [stage.x, stage.y], "progress": [progress.x, progress.y],
 		"opening_seen": opening_seen, "hhe_seen": hhe_seen, "buffs": buffs, "merit": merit, "merit_day": merit_day, "merit_times": merit_times,
 		"title": "Lv.%d  悟空  %d-%d" % [level, progress.x, progress.y],
 		"datetime": Time.get_datetime_string_from_system(false, true),
@@ -434,29 +432,6 @@ func slot_info(i: int) -> Dictionary:
 	var d := _read_slot(i)
 	return {"title": str(d.get("title", "")), "datetime": str(d.get("datetime", ""))} if not d.is_empty() else {}
 
-## An item dictionary of a save reduced to known keys of the right types, {} when it is not a valid item.
-func _sanitize_item(it: Variant) -> Dictionary:
-	if not it is Dictionary or not it.get("id") is String or EquipmentCatalog.find(it.id) == null:
-		return {}
-	var out := {"id": it.id}
-	var stats = it.get("stats", {})
-	if stats is Dictionary:
-		var s := {}
-		for k in stats:
-			if stats[k] is float or stats[k] is int:
-				s[str(k)] = float(stats[k])
-		out["stats"] = s
-	for k in ["plus", "n", "lv", "spell"]:
-		if it.get(k) is float or it.get(k) is int:
-			out[k] = maxi(int(it[k]), 0)
-	if it.get("growth") is float or it.get("growth") is int:
-		out["growth"] = float(it.growth)
-	if it.get("strong") is bool:
-		out["strong"] = it.strong
-	if it.get("elem") is Array:
-		out["elem"] = (it.elem as Array).filter(func(e): return e is String)
-	return out
-
 static func _pair(v: Variant, fallback: Vector2i) -> Vector2i:
 	return Vector2i(int(v[0]), int(v[1])) if v is Array and v.size() >= 2 else fallback
 
@@ -480,12 +455,12 @@ func load_from(i: int) -> bool:
 			passives[n] = clampi(int(pv[n]), 0, hero_data.passive_max)
 	bag.clear()
 	for it in d.get("bag", []) if d.get("bag") is Array else []:
-		var clean := _sanitize_item(it)
-		if not clean.is_empty():
+		var clean := Item.from_dict(it)
+		if clean:
 			bag.append(clean)
 	var w = d.get("worn", {})
 	for k in worn:
-		worn[k] = _sanitize_item(w.get(String(k))) if w is Dictionary else {}
+		worn[k] = Item.from_dict(w.get(String(k))) if w is Dictionary else null
 	stage = _pair(d.get("stage"), Vector2i(1, 1))
 	progress = _pair(d.get("progress"), Vector2i(1, 1))
 	opening_seen = d.get("opening_seen", true) == true
@@ -511,7 +486,7 @@ func new_game() -> void:
 	passives = [0, 0, 0, 0, 0]
 	bag.clear()
 	for k in worn:
-		worn[k] = {}
+		worn[k] = null
 	stage = Vector2i(1, 1)
 	progress = Vector2i(1, 1)
 	opening_seen = false

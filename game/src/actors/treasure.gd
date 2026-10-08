@@ -7,7 +7,7 @@ extends Node2D
 const DIR := "res://src/actors/treasures/"
 
 var hero: Hero
-var item: Dictionary       ## the worn item (lv, growth, elem ...)
+var item: Item             ## the worn item (lv, growth, elem ...)
 var id := ""
 var p: Dictionary          ## this treasure's numbers
 var world: Level:
@@ -24,7 +24,7 @@ var facing := -1:
 var _follow_t := 0.0
 var _move: Tween
 
-static func create(h: Hero, it: Dictionary) -> Treasure:
+static func create(h: Hero, it: Item) -> Treasure:
 	var path := DIR + "treasure_%s.gd" % it.id
 	var t: Treasure = load(path).new() if ResourceLoader.exists(path) else Treasure.new()
 	t.hero = h
@@ -46,7 +46,7 @@ func _ready() -> void:
 	setup()
 
 func level() -> int:
-	return int(item.get("lv", 1))
+	return item.lv
 
 func wood() -> bool:
 	return Forge.has_element(item, "mu")

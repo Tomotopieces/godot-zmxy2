@@ -3,7 +3,7 @@ extends CharacterBody2D
 ## Dropped equipment (my/FallEquipObj): falls to the floor and goes into the bag on touch.
 ## Expires after a while unless it is boss loot; stays on the ground while the bag is full.
 
-var item: Dictionary
+var item: Item
 var _life := 0.0
 var _keep := false
 var _taken := false

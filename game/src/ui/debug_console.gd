@@ -137,7 +137,7 @@ func _row(d: EquipmentData) -> Button:
 
 func _give(id: String) -> void:
 	var item := GameState.make_item(id)
-	if item.is_empty():
+	if item == null:
 		return
 	GameState.add_to_bag(item, true)
 	Toast.show_on(self, "已添加 %s" % GameState.item_data(item).display_name)

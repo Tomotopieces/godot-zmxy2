@@ -42,7 +42,7 @@ func _ready() -> void:
 	# revive
 	var h: Hero = main.level.hero
 	h.lose_hp(999999)
-	_check("revived", h.is_alive() and h.hp == int(h.max_hp * 0.5) and GameState.worn[&"accessory"].is_empty())
+	_check("revived", h.is_alive() and h.hp == int(h.max_hp * 0.5) and GameState.worn[&"accessory"] == null)
 	h.lose_hp(999999)
 	_check("dies without charm", not h.is_alive())
 	main._over = false

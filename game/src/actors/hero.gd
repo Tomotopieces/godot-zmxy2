@@ -76,13 +76,13 @@ func _on_equipment_changed() -> void:
 
 ## The treasure companion matches the worn treasure (a new one when it changes or levels up).
 func _sync_treasure() -> void:
-	var it: Dictionary = GameState.worn[&"treasure"]
-	if is_instance_valid(treasure) and treasure.item == it and not it.is_empty():
+	var it: Item = GameState.worn[&"treasure"]
+	if is_instance_valid(treasure) and treasure.item == it and it != null:
 		return
 	if is_instance_valid(treasure):
 		treasure.queue_free()
 	treasure = null
-	if not it.is_empty() and is_inside_tree() and world:
+	if it != null and is_inside_tree() and world:
 		treasure = Treasure.create(self, it)
 		world.add_object(treasure)
 

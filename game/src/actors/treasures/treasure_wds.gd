@@ -9,10 +9,10 @@ func setup() -> void:
 	_auto_t = p.first_auto
 
 func _spell() -> Dictionary:
-	return p.spells[int(item.get("spell", 0))]
+	return p.spells[item.spell]
 
 func _strong() -> bool:
-	return item.get("strong", false)
+	return item.strong
 
 func step(delta: float) -> void:
 	_auto_t = maxf(_auto_t - delta, 0.0)

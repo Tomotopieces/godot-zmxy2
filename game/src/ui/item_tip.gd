@@ -46,19 +46,19 @@ func _init() -> void:
 	visible = false
 
 ## Show for the icon `at`, kept on screen.
-func show_for(item: Dictionary, at: Control, _cell_w := 50.0) -> void:
+func show_for(item: Item, at: Control, _cell_w := 50.0) -> void:
 	_build(item)
 	visible = true
 	var p := at.global_position + OFFSET
 	position = p.clamp(Vector2.ZERO, Layers.VIEW - _box.size)
 
-func _build(item: Dictionary) -> void:
+func _build(item: Item) -> void:
 	for c in _rows.get_children():
 		c.queue_free()
 	_y = 0.0
 	_w = 0.0
 	var d := GameState.item_data(item)
-	var plus := int(item.get("plus", 0))
+	var plus := item.plus
 	_label(d.display_name + ("(+%d)" % plus if plus > 0 else ""), Vector2(0, _y), d.color, 16)
 	_y += ROW
 	if d.quality != "":
@@ -72,11 +72,11 @@ func _build(item: Dictionary) -> void:
 		type_name = "神恩符"
 	_pair("类型", type_name + ("·" + d.user if d.user != "" else ""), Color.WHITE)
 	if Forge.is_treasure(item):
-		_pair("等级", "Lv.%d" % int(item.lv), Color.WHITE)
-		_pair("成长率", "%.1f" % float(item.get("growth", 0.0)), Color.WHITE)
+		_pair("等级", "Lv.%d" % item.lv, Color.WHITE)
+		_pair("成长率", "%.1f" % item.growth, Color.WHITE)
 		_pair("五行", Forge.element_text(item), Color.WHITE)
-	if not item.get("id", "") in NO_STATS:
-		var stats: Dictionary = item.get("stats", {})
+	if not item.id in NO_STATS:
+		var stats := item.stats
 		for s in STATS:
 			var v := float(stats.get(s[0], 0.0))
 			var extra := plus * float(d.strengthen.get(s[0], 0.0))

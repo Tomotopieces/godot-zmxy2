@@ -125,14 +125,14 @@ func _refresh() -> void:
 		if k < shown.size():
 			var idx: int = shown[k]
 			_grid.add_child(_icon(GameState.bag[idx], pos, _on_bag_click.bind(idx)))
-			var n := int(GameState.bag[idx].get("n", 1))
+			var n := GameState.bag[idx].n
 			if n > 1:
 				_grid.add_child(_count_label(n, pos))
 	# worn gear on the slot frames
 	for slot in SLOT_PIECES:
-		var item: Dictionary = GameState.worn[slot]
+		var item: Item = GameState.worn[slot]
 		var piece: Node2D = _ui.get_piece(SLOT_PIECES[slot])
-		if item.is_empty() or piece == null:
+		if item == null or piece == null:
 			continue
 		_worn.add_child(_icon(item, piece.position, _on_worn_click.bind(slot)))
 
@@ -149,7 +149,7 @@ func _count_label(n: int, pos: Vector2) -> Label:
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return l
 
-func _icon(item: Dictionary, pos: Vector2, on_click: Callable) -> TextureRect:
+func _icon(item: Item, pos: Vector2, on_click: Callable) -> TextureRect:
 	var d := GameState.item_data(item)
 	var t := TextureRect.new()
 	t.texture = d.icon
@@ -191,7 +191,7 @@ func _on_bag_click(icon: Control, index: int) -> void:
 	_close_menu()
 	_hide_tip()
 	_menu_index = index
-	var item: Dictionary = GameState.bag[index]
+	var item := GameState.bag[index]
 	var d := GameState.item_data(item)
 	var enabled := {"bzb": GameState.can_wear(item), "bgy": false, "bmd": true}   # 赠送 is 2P only
 	if TABS[_tab] == "item":
@@ -237,7 +237,7 @@ func _close_menu() -> void:
 
 # ------------------------------------------------------------------ tooltip
 
-func _show_tip(item: Dictionary, at: Control) -> void:
+func _show_tip(item: Item, at: Control) -> void:
 	_tip.show_for(item, at, CELL)
 
 func _hide_tip() -> void:

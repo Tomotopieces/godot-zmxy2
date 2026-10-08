@@ -29,11 +29,13 @@ func stacks() -> bool:
 func wearable_by(character: String) -> bool:
 	return type in SLOTS and (user == "" or user == character)
 
-## A dropped copy with rolled stats, as stored in the profile.
-func roll() -> Dictionary:
+## A dropped copy with rolled stats.
+func roll() -> Item:
 	var s := {}
 	for k in stats:
 		var r: Vector2 = stats[k]
 		var v := randf_range(r.x, r.y)
 		s[String(k)] = v if r.x != roundf(r.x) or r.y != roundf(r.y) else float(roundi(v))
-	return {"id": String(id), "stats": s}
+	var it := Item.new(String(id))
+	it.stats = s
+	return it

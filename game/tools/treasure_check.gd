@@ -59,7 +59,7 @@ func _ready() -> void:
 				m.queue_free()
 		await get_tree().create_timer(0.3).timeout
 	# level up
-	var w: Dictionary = GameState.worn[&"treasure"]
+	var w: Item = GameState.worn[&"treasure"]
 	var atk0 := float(w.stats.atk)
 	Forge.upgrade(w)
 	_check("wds level 2", w.lv == 2 and w.stats.atk >= atk0 + 10)

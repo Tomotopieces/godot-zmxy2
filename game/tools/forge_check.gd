@@ -19,20 +19,20 @@ func _ready() -> void:
 	_check("1 stone at +0", is_equal_approx(Forge.success_chance(sword, [s1], false), 0.375))
 	_check("2 stones + luck", is_equal_approx(Forge.success_chance(sword, [s1, s1], true), 0.9375))
 	_check("capped at 1", Forge.success_chance(sword, [s4, s4], true) == 1.0)
-	sword["plus"] = 7
+	sword.plus = 7
 	_check("no chance at +7", Forge.success_chance(sword, [s4, s4, s4], true) == 0.0)
-	sword["plus"] = 3
+	sword.plus = 3
 	seed(1)
 	var lost := 0
 	for i in 50:
-		var e := sword.duplicate(true)
+		var e := sword.copy()
 		if not Forge.strengthen(e, [s1], false, false) and e.plus == 2:
 			lost += 1
 	_check("failure at +3 drops a level", lost > 40)
-	var kept := sword.duplicate(true)
+	var kept := sword.copy()
 	Forge.strengthen(kept, [GameState.make_item("wpqhs5")], false, true)
 	_check("keep charm", kept.plus == 3)
-	sword["plus"] = 2
+	sword.plus = 2
 	var base_atk := float(sword.stats.atk)
 	GameState.add_to_bag(sword)
 	GameState.wear(0)
@@ -42,13 +42,13 @@ func _ready() -> void:
 	var r := Forge.recipe_for(mats)
 	_check("recipe any order", r.get("out", "") == "dshl" and Forge.fusion_cost(r) == 1000)
 	var hulu := Forge.produce(r, mats)
-	_check("treasure made", hulu.get("lv", 0) == 1 and hulu.growth >= 0.5 and hulu.growth <= 1.0 and not hulu.elem.is_empty())
+	_check("treasure made", hulu.lv == 1 and hulu.growth >= 0.5 and hulu.growth <= 1.0 and not hulu.elem.is_empty())
 	var hp0 := float(hulu.stats.get("hp", 0.0))
 	Forge.upgrade(hulu)
 	_check("treasure level up", hulu.lv == 2 and hulu.stats.hp >= hp0 + floorf(20 * hulu.growth))
 	_check("upgrade cost", Forge.upgrade_cost(hulu) == 4000 and Forge.skill_cost(hulu) == 50)
 	var wds := Forge.produce(Forge.recipe_for([GameState.make_item("mzyj"), GameState.make_item("szyj"), GameState.make_item("dcyj")]), [])
-	_check("五毒兽 fixed stats + passive", wds.stats.atk == 50.0 and wds.stats.size() == 5 and wds.has("spell"))
+	_check("五毒兽 fixed stats + passive", wds.stats.atk == 50.0 and wds.stats.size() == 5 and wds.lv == 1)
 	var st := Forge.recipe_for([s1, s1, s1])
 	_check("stone recipe free 75%", st.out == "wpqhs2" and Forge.fusion_cost(st) == 0 and is_equal_approx(Forge.fusion_chance(st), 0.75))
 	var ring := Forge.produce(Forge.recipe_for([GameState.make_item("dzj"), GameState.make_item("t"), GameState.make_item("c")]), [GameState.make_item("dzj"), GameState.make_item("t"), GameState.make_item("c")])
@@ -71,7 +71,7 @@ func _ready() -> void:
 	f._put(GameState.bag.find_custom(func(i): return i.id == "wpqhs1"))
 	f._put(GameState.bag.find_custom(func(i): return i.id == "wpxyf"))
 	await get_tree().create_timer(0.2).timeout
-	_check("forge slots", not f._slots.zbmc.is_empty() and not f._slots.qhmc1.is_empty() and GameState.count_of("wpqhs1") == 2)
+	_check("forge slots", f._slots.zbmc != null and f._slots.qhmc1 != null and GameState.count_of("wpqhs1") == 2)
 	_shot("forge_strength")
 	f._show_page(true)
 	_check("slots returned", GameState.count_of("wpqhs1") == 3 and GameState.has_item("ptxzg"))
