@@ -2,19 +2,24 @@ class_name Controls
 extends RefCounted
 ## Default gamepad bindings (the keyboard ones live in project.godot) and the F11 fullscreen toggle.
 
+## Gamepad: X attack, A jump, B treasure, RB 烈焰闪, RT 火魔斩, Y 烈焰风暴, LB run (hold), LT unused;
+## D-pad / left stick move, R3 rage, Back bag, Start pause.
 const PAD_BUTTONS := {
-	&"attack": [JOY_BUTTON_X], &"jump": [JOY_BUTTON_A], &"skill_u": [JOY_BUTTON_Y], &"skill_i": [JOY_BUTTON_B],
-	&"skill_o": [JOY_BUTTON_RIGHT_SHOULDER], &"rage": [JOY_BUTTON_LEFT_SHOULDER], &"treasure": [JOY_BUTTON_RIGHT_STICK],
-	&"open_bag": [JOY_BUTTON_BACK], &"pause": [JOY_BUTTON_START],
+	&"attack": [JOY_BUTTON_X], &"jump": [JOY_BUTTON_A], &"treasure": [JOY_BUTTON_B],
+	&"skill_u": [JOY_BUTTON_RIGHT_SHOULDER], &"skill_i": [JOY_BUTTON_Y], &"run": [JOY_BUTTON_LEFT_SHOULDER],
+	&"rage": [JOY_BUTTON_RIGHT_STICK], &"open_bag": [JOY_BUTTON_BACK], &"pause": [JOY_BUTTON_START],
 	&"move_left": [JOY_BUTTON_DPAD_LEFT], &"move_right": [JOY_BUTTON_DPAD_RIGHT],
 	&"move_up": [JOY_BUTTON_DPAD_UP], &"move_down": [JOY_BUTTON_DPAD_DOWN],
 }
 const PAD_AXES := {
 	&"move_left": [JOY_AXIS_LEFT_X, -1.0], &"move_right": [JOY_AXIS_LEFT_X, 1.0],
 	&"move_up": [JOY_AXIS_LEFT_Y, -1.0], &"move_down": [JOY_AXIS_LEFT_Y, 1.0],
+	&"skill_o": [JOY_AXIS_TRIGGER_RIGHT, 1.0],
 }
 
 static func add_gamepad_defaults() -> void:
+	if not InputMap.has_action(&"run"):
+		InputMap.add_action(&"run")
 	for action in PAD_BUTTONS:
 		if not InputMap.has_action(action):
 			continue
