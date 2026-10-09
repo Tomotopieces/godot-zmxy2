@@ -3,6 +3,7 @@
 'use strict';
 const fs = require('fs');
 const path = require('path');
+const cp = require('child_process');
 const png = require('./rig/png');
 const root = path.join(__dirname, '..');
 const d = JSON.parse(fs.readFileSync(path.join(root, 'game/assets/ui/role_info/ui.json'), 'utf8'));
@@ -27,12 +28,7 @@ for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
   out.data[o + 3] = Math.round(acc[3] * 255);
 }
 png.encode(out, path.join(root, 'game/icon.png'));
-const pngBytes = fs.readFileSync(path.join(root, 'game/icon.png'));
-const hdr = Buffer.alloc(22);
-hdr.writeUInt16LE(1, 2); hdr.writeUInt16LE(1, 4);          // ICO, one image
-hdr[6] = 0; hdr[7] = 0;                                    // 256 x 256
-hdr.writeUInt16LE(1, 10); hdr.writeUInt16LE(32, 12);
-hdr.writeUInt32LE(pngBytes.length, 14); hdr.writeUInt32LE(22, 18);
+// the exe icon holds 16..256 px (Explorer picks its size): built by ImageMagick from the 256 px png
 fs.mkdirSync(path.join(root, 'build'), { recursive: true });
-fs.writeFileSync(path.join(root, 'game/icon.ico'), Buffer.concat([hdr, pngBytes]));
+cp.execFileSync('magick', [path.join(root, 'game/icon.png'), '-define', 'icon:auto-resize=256,128,64,48,32,16', path.join(root, 'game/icon.ico')]);
 console.log('icon', w, h);

@@ -13,20 +13,21 @@ const TEST_GEAR := ["ptxzg", "gtq", "tsyj", "gwj", "ryjgb", "ptxzf", "dsyj", "bs
 	"dslj", "dsqz", "dsyj"]
 const TEST_SOULS := 50000
 const TEST_MERIT := 5000
-const RESULT_DELAY := 1.0   ## fade before the result screen (original: 1 s fade of gameInfo / gameSence)
+const RESULT_DELAY := 1.0   ## wait before the fail / ending screens (original: 1 s)
+const CLEAR_FADE := 0.5     ## stage clear: fade to white (the original fades to white for 1 s)
 
-## The whole screen (scene and HUD) fades to black (Role1 enters the exit: gameInfo / gameSence alpha -> 0).
+## The whole screen (scene and HUD) fades to white (the original fades to white: Role1 enters the exit, gameInfo / gameSence alpha -> 0).
 func _fade_out() -> void:
 	var layer := CanvasLayer.new()
 	layer.layer = 9
 	add_child(layer)
-	var black := ColorRect.new()
-	black.color = Color(0, 0, 0, 0)
-	black.size = Layers.VIEW
-	black.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	layer.add_child(black)
+	var white := ColorRect.new()
+	white.color = Color(1, 1, 1, 0)
+	white.size = Layers.VIEW
+	white.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	layer.add_child(white)
 	var tw := create_tween()
-	tw.tween_property(black, "color:a", 1.0, RESULT_DELAY)
+	tw.tween_property(white, "color:a", 1.0, CLEAR_FADE)
 	await tw.finished
 
 var stage := Vector2i(1, 1)
