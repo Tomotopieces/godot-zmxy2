@@ -43,9 +43,16 @@ func _on_button(b: String) -> void:
 		"btnquit":
 			get_tree().quit()
 
+func _unhandled_input(e: InputEvent) -> void:
+	if e.is_action_pressed("pause") and _popup is UiLayout:   # B / Esc closes help and about
+		get_viewport().set_input_as_handled()
+		_popup.queue_free()
+		_popup = null
+
 func _show_panel(ui_name: String) -> void:
 	var h := UiLayout.create(ui_name)
 	_popup = h
+	PadNav.modal(h)
 	h.button_pressed.connect(func(_b):
 		h.queue_free()
 		_popup = null)

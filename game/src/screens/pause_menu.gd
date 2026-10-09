@@ -47,6 +47,7 @@ func _show_help() -> void:
 		return
 	var h := UiLayout.create("help")
 	_help = h
+	PadNav.modal(h)
 	h.button_pressed.connect(func(b): if b == "btnback":
 		h.queue_free()
 		_help = null)

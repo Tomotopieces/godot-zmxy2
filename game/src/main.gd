@@ -6,6 +6,7 @@ var _screen: Node
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	Controls.add_gamepad_defaults()
+	add_child(PadNav.new())
 	get_viewport().size_changed.connect(_update_filter_scale)
 	_update_filter_scale()
 	if OS.is_debug_build():   # debug aids are not part of exported (release) builds

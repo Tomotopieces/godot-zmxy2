@@ -162,6 +162,7 @@ func _icon(item: Item, pos: Vector2, on_click: Callable) -> TextureRect:
 	t.gui_input.connect(func(e: InputEvent):
 		if e is InputEventMouseButton and e.pressed and e.button_index == MOUSE_BUTTON_LEFT:
 			on_click.call(t))
+	PadNav.mark(t)
 	return t
 
 func _fill_stats() -> void:
@@ -199,6 +200,7 @@ func _on_bag_click(icon: Control, index: int) -> void:
 	_menu = UiLayout.create("item_menu" if TABS[_tab] == "item" else "pack_menu")
 	_menu.position = icon.position + _grid.position + MENU_OFFSET
 	add_child(_menu)
+	PadNav.modal(_menu)
 	_menu.button_pressed.connect(_menu_action)
 	for p in enabled:
 		_menu.show_frame(p, 0 if enabled[p] else 1)

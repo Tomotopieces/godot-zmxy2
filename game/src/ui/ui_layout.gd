@@ -74,6 +74,7 @@ func make_clickable(piece: String, hover_frame := -1, rest_frame := 0) -> Contro
 	b.position = r.position
 	b.size = r.size
 	b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	PadNav.mark(b)
 	add_child(b)
 	if hover_frame >= 0:
 		b.mouse_entered.connect(func(): show_frame(piece, hover_frame))
@@ -243,6 +244,7 @@ func _button(n: Dictionary) -> Control:
 	b.position = xf.origin + Vector2(hit[0], hit[1])
 	b.size = Vector2(hit[2], hit[3])
 	b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	PadNav.mark(b)
 	var states := {}
 	# a button whose states reuse one texture (only nudged down in the original) is brightened instead of jumping
 	var same: bool = n.get("up", []).map(func(l): return [l[0], l[2] if l.size() > 2 else null]) == n.get("over", []).map(func(l): return [l[0], l[2] if l.size() > 2 else null])

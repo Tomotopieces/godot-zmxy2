@@ -233,6 +233,7 @@ func _icon(item: Item, pos: Vector2, on_click: Callable) -> TextureRect:
 	t.gui_input.connect(func(e: InputEvent):
 		if e is InputEventMouseButton and e.pressed and e.button_index == MOUSE_BUTTON_LEFT:
 			on_click.call())
+	PadNav.mark(t)
 	return t
 
 func _count(n: int, pos: Vector2) -> Label:
@@ -250,6 +251,7 @@ func _count(n: int, pos: Vector2) -> Label:
 func _show_help() -> void:
 	var h := UiLayout.create("forge_help")
 	h.position = Vector2(102, 40)
+	PadNav.modal(h)
 	h.button_pressed.connect(func(_b): h.queue_free())
 	add_child(h)
 
