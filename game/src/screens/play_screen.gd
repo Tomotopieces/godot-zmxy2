@@ -71,12 +71,19 @@ func _ready() -> void:
 func _exit_tree() -> void:
 	get_tree().paused = false
 
+## The fight is over: nothing in the stage moves any more (a boss that revives, a timer, a monster that still attacks),
+## whatever the player does on the result screen.
+func _freeze_level() -> void:
+	if is_instance_valid(level):
+		level.process_mode = Node.PROCESS_MODE_DISABLED
+
 func _on_hero_died() -> void:
 	_over = true
 	Snd.stop_music()
 	await get_tree().create_timer(RESULT_DELAY).timeout
 	if not is_inside_tree():
 		return
+	_freeze_level()
 	Snd.music("over", false)
 	var r := ResultScreen.fail(stage)
 	r.retry.connect(func(): play.emit(stage))
@@ -85,6 +92,7 @@ func _on_hero_died() -> void:
 
 func _on_cleared() -> void:
 	_over = true
+	_freeze_level()
 	var is_main := stage.x <= 4
 	if is_main:
 		GameState.on_stage_cleared(stage)
@@ -112,6 +120,7 @@ func _on_cleared() -> void:
 ## Final boss (4-1): progress, autosave, the ending comic, then the map.
 func _on_ending() -> void:
 	_over = true
+	_freeze_level()
 	GameState.on_stage_cleared(stage)
 	GameState.autosave()
 	await get_tree().create_timer(RESULT_DELAY).timeout

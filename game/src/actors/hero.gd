@@ -304,9 +304,7 @@ func _attack_motion() -> void:
 		# hit10 is rooted once it lands (its dive speed must not carry into a slide)
 		if attack_action == &"hit10" and is_on_floor() and not _no_gravity:
 			velocity.x = 0.0
-	elif attack_action == &"hit8":
-		velocity.x = 0.0   # 升龙斩 roots the hero sideways, in the air as well
-	elif attack_action == &"hit3" and not is_on_floor():
+	elif attack_action == &"hit8" or (attack_action == &"hit3" and not is_on_floor()):
 		velocity.x = _dir * data.walk_speed * (data.rage_speed_mul if transformed else 1.0)
 	elif is_on_floor():
 		velocity.x = 0.0
@@ -407,7 +405,7 @@ func _hit10_seek() -> void:
 		if r.position.x > v.position.x + 20 and r.position.x < v.end.x - 20 \
 				and m.global_position.distance_to(global_position) <= ex.seek_radius:
 			Snd.sfx("Role1_hit10_2")
-			_skill_projectile("wukong_hit10_1", &"hit10_1", m.global_position)
+			_skill_projectile("wukong_hit10_1", &"hit10_1", m.global_position).push_dir = facing   # the combo drives the target the way he faces
 			global_position = m.global_position + Vector2(0, -2)
 			reset_physics_interpolation()
 			cooldown = ex.seek_cooldown

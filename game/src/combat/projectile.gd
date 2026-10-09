@@ -16,6 +16,7 @@ var on_hit: Callable          ## on_hit.call(target) after a hit lands
 var damage_fn: Callable       ## fixed damage roll (magic treasures): no crit or rage bonus
 var new_hit_limit := -1       ## >= 0: only this many "new hit" animation events count (a skill whose last rounds only exist in rage)
 var _new_hits := 0
+var push_dir := 0              ## != 0: always knock targets this way (±1) instead of away from the bullet
 var age := 0.0
 var dealer := HitDealer.new()
 var facing := -1:
@@ -77,8 +78,14 @@ func _deliver(target: Actor) -> bool:
 	# moving bullets push along their flight, static effects push away from their centre
 	if velocity.x != 0.0:
 		h.direction = 1 if velocity.x > 0.0 else -1
+	elif push_dir != 0:
+		h.direction = push_dir
 	else:
-		h.direction = 1 if target.global_position.x >= global_position.x else -1
+		var dx := target.global_position.x - global_position.x
+		if absf(dx) < 2.0 and source is Actor:   # on the same spot (an effect placed on its target): the way the owner faces
+			h.direction = (source as Actor).facing
+		else:
+			h.direction = 1 if dx >= 0.0 else -1
 	var landed: bool = target.take_hit(h)
 	if landed and on_hit.is_valid():
 		on_hit.call(target)
