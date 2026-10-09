@@ -34,8 +34,9 @@ func roll() -> Item:
 	var s := {}
 	for k in stats:
 		var r: Vector2 = stats[k]
-		var v := Rng.randf_range(r.x, r.y)
-		s[String(k)] = v if r.x != roundf(r.x) or r.y != roundf(r.y) else float(roundi(v))
+		# whole numbers, or whole percents for the fractional stats; every value of the range equally likely
+		var whole := r.x == roundf(r.x) and r.y == roundf(r.y)
+		s[String(k)] = Rng.stepped(r.x, r.y, 1.0 if whole else 0.01)
 	var it := Item.new(String(id))
 	it.stats = s
 	return it

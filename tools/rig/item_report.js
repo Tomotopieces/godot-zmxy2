@@ -184,3 +184,48 @@ lines.push('');
 fs.writeFileSync(path.join(ROOT, 'docs/items.md'), lines.join('\n'));
 console.log('docs/items.md written;', total, 'items,', problems.length, 'implemented without a source');
 for (const p of problems) console.log('  no source:', p.id, p.it.name, '-', p.how || '(none)');
+
+// ------------------------------------------------------------------ docs/drops.md: what each monster drops
+{
+  const ITEM_NAME = (id) => (eq.items[id] ? eq.items[id].name : id);
+  const stageOrder = (s) => { const [a, b] = SCENE_NAME(s).split('-').map(Number); return a * 100 + b; };
+  const stoneRate = (id, scene) => {
+    const d = (auto[id] && ((auto[id].per_scene && auto[id].per_scene[scene]) || auto[id].base)) || {};
+    const o = (ovr[id] || {});
+    const boss = !!(d.boss || (o.boss));
+    const rate = o.stone_rate !== undefined ? o.stone_rate : d.stone_rate;
+    return { boss, rate };
+  };
+  const rows = [];
+  for (const [id, set] of Object.entries(scenes)) {
+    const bySig = new Map();   // identical drops over several stages are one row
+    for (const sc of [...set].sort((a, b) => stageOrder(a) - stageOrder(b))) {
+      const list = drops(id, sc);
+      const d = (auto[id] && ((auto[id].per_scene && auto[id].per_scene[sc]) || auto[id].base)) || {};
+      const st = stoneRate(id, sc);
+      const cap = eq.rules.stone_drop.level_caps[sc];
+      const stone = st.boss && cap !== undefined && cap !== 0 && st.rate ? `${pct(st.rate)}（主角 ${cap < 0 ? '任意等级' : '≤' + cap + ' 级'}）` : '';
+      const sig = JSON.stringify([list.map((x) => [x.item, x.p, x.note]), stone]);
+      if (!bySig.has(sig)) bySig.set(sig, { id, scenes: [], list, stone, boss: d.boss });
+      bySig.get(sig).scenes.push(STAGE_NAMES[SCENE_NAME(sc)] || SCENE_NAME(sc));
+    }
+    for (const r of bySig.values()) rows.push(r);
+  }
+  rows.sort((a, b) => stageOrder([...scenes[a.id]].sort((x, y) => stageOrder(x) - stageOrder(y))[0]) - stageOrder([...scenes[b.id]].sort((x, y) => stageOrder(x) - stageOrder(y))[0]) || +a.id - +b.id);
+  const out = [];
+  out.push('# 怪物掉落表', '',
+    `由 \`node tools/rig/item_report.js\` 与 docs/items.md 一起生成，不要手改。`, '',
+    '- 装备：先按怪的“装备掉率”（原版数值 ×1.5）判定掉不掉，掉的话在该怪的装备表里**等概率**选一件，所以每件的概率 = 总掉率 ÷ 件数。表里列的是每件的概率；之后还会乘双倍爆率 buff 和时装加成。',
+    '- 强化石（1 级）：只有关底 BOSS 才有，单独判定，不占装备的概率；只有主角等级不超过该关上限才会掉。',
+    '- 药品和经验球所有怪都一样，各自独立判定：血瓶共约 5%（小红约 3.75%、大红约 1.25%），蓝瓶约 5%；红球每怪 2~4 个，绿 / 蓝 / 白球各有 4% 概率出 3 个、4% 出 2 个、4% 出 1 个。',
+    '- 红孩儿的金刚甲只在主角等级大于 15 时掉落。活动关卡 9-1 / 11-1 本作没有入口。', '',
+    '| 怪物 | 出现关卡 | 装备（每件概率） | 关底强化石 |', '|---|---|---|---|');
+  for (const r of rows) {
+    const items = r.list.length ? r.list.map((x) => `${ITEM_NAME(x.item)}(${x.item}) ${pct(x.p)}${x.note ? '·' + x.note : ''}`).join('<br>') : '—';
+    const total = r.list.length && r.id !== '45' ? `<br>（总掉率 ${pct(Math.min(1, r.list.reduce((s, x) => s + x.p, 0)))}）` : '';
+    out.push(`| ${MONSTER_LABEL(r.id)}${r.boss ? ' ★' : ''} | ${[...new Set(r.scenes)].join('、')} | ${items}${r.list.length && r.id !== '45' ? total : ''} | ${r.stone || '—'} |`);
+  }
+  out.push('', '★ = BOSS。');
+  fs.writeFileSync(path.join(ROOT, 'docs/drops.md'), out.join('\n') + '\n');
+  console.log('docs/drops.md written;', rows.length, 'rows');
+}

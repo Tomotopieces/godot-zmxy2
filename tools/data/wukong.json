@@ -25,13 +25,13 @@
   "spawn_invincible_frames": 48
  },
  "stats": {
-  "_doc": "level L: hp=80+50(L-1), mp=50+20(L-1), atk=10+rand(0..4)+5(L-1), def=2+2(L-1) (L<15) else 28+5(L-14)",
+  "_doc": "level L: hp=80+50(L-1), mp=50+20(L-1), atk=10+5(L-1)+0..1 (the original rolls 10+rand(0..4) in upGrade, but getPower() overwrites it with baselowerpower + baseadd*(L-1) + rand), def=2+2(L-1) (L<15) else 28+5(L-14)",
   "hp_base": 80,
   "hp_per_level": 50,
   "mp_base": 50,
   "mp_per_level": 20,
   "atk_base": 10,
-  "atk_rand": 4,
+  "atk_rand": 1,
   "atk_per_level": 5,
   "def_base": 2,
   "def_per_level": 2,

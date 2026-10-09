@@ -72,12 +72,12 @@ static func produce(recipe: Dictionary, mats: Array) -> Item:
 	var out := EquipmentCatalog.find(recipe.out).roll()
 	match recipe.kind:
 		"sum":
-			# the materials' own (freshly rolled) stats added up
+			# the materials' own stats (with their strengthening) added up. The original looked each material up by name
+			# and re-rolled it, so the product ignored what was actually put in: a bug, not kept.
 			var s := {}
 			for m in mats:
-				var fresh := GameState.make_item(m.id)
 				for k in ["hp", "mp", "atk", "def", "crit", "miss", "hp_regen", "mp_regen", "mdef"]:
-					var v := float(fresh.stats.get(k, 0.0))
+					var v := _total(m, k)
 					if v != 0.0:
 						s[k] = float(s.get(k, 0.0)) + v
 			out.stats = s
@@ -111,19 +111,18 @@ static func _init_treasure(item: Item, tdef: Dictionary) -> void:
 	var t: Dictionary = _cat().treasures
 	item.lv = 1
 	var g: Array = tdef.growth
-	item.growth = snappedf(Rng.randf_range(g[0], g[1]), 0.1)
-	# the original picks with round(rand * 4): the first and last elements are half as likely
+	item.growth = snappedf(Rng.stepped(g[0], g[1], 0.1), 0.1)   # one decimal, every step equally likely
 	var names: Array = t.elements
-	var first := roundi(Rng.randf() * (names.size() - 1))
+	var first := Rng.randi() % names.size()
 	var elems := [names[first]]
 	if Rng.randf() < float(t.double_chance):
 		var rest: Array = names.duplicate()
 		rest.remove_at(first)
-		elems.append(rest[roundi(Rng.randf() * (rest.size() - 1))])
+		elems.append(Rng.pick(rest))
 	item.elem = elems
 	if tdef.has("passives"):
-		var p: Array = tdef.passives[Rng.randi() % tdef.passives.size()]
-		item.stats[p[0]] = float(p[1]) + float(p[2]) * roundi(Rng.randf() * float(p[3]))
+		var p: Array = Rng.pick(tdef.passives)
+		item.stats[p[0]] = float(p[1]) + float(p[2]) * float(Rng.randi_range(0, int(p[3])))
 		item.spell = Rng.randi() % 2
 		item.strong = false
 

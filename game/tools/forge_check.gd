@@ -51,8 +51,20 @@ func _ready() -> void:
 	_check("五毒兽 fixed stats + passive", wds.stats.atk == 50.0 and wds.stats.size() == 5 and wds.lv == 1)
 	var st := Forge.recipe_for([s1, s1, s1])
 	_check("stone recipe free 75%", st.out == "wpqhs2" and Forge.fusion_cost(st) == 0 and is_equal_approx(Forge.fusion_chance(st), 0.75))
-	var ring := Forge.produce(Forge.recipe_for([GameState.make_item("dzj"), GameState.make_item("t"), GameState.make_item("c")]), [GameState.make_item("dzj"), GameState.make_item("t"), GameState.make_item("c")])
-	_check("dzjj sums materials", ring.id == "dzjj" and not ring.stats.is_empty())
+	var ring_mats := [GameState.make_item("dzj"), GameState.make_item("t"), GameState.make_item("c")]
+	var ring := Forge.produce(Forge.recipe_for(ring_mats), ring_mats)
+	var want := 0.0
+	for m in ring_mats:
+		want += float(m.stats.get("hp", 0.0)) + float(m.stats.get("atk", 0.0))
+	_check("dzjj sums the materials actually used", ring.id == "dzjj" and is_equal_approx(float(ring.stats.get("hp", 0.0)) + float(ring.stats.get("atk", 0.0)), want))
+	# equipment stat rolls cover the whole range, ends as often as the middle (the original's round(rand * k) halved the ends)
+	var counts := {}
+	for i in 6000:
+		var v := int(EquipmentCatalog.find("ptxzg").roll().stats.atk)
+		counts[v] = counts.get(v, 0) + 1
+	var lo: int = counts.keys().min()
+	var hi: int = counts.keys().max()
+	_check("stat roll ends as likely as the middle", counts[lo] > 0.7 * counts[(lo + hi) / 2] and counts[hi] > 0.7 * counts[(lo + hi) / 2])
 	# shop
 	GameState.merit = 1000
 	_check("buy stones", Forge.buy("wpqhs1", 3) == "购买成功" and GameState.count_of("wpqhs1") == 3 and GameState.merit == 910)
