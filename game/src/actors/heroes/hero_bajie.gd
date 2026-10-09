@@ -133,6 +133,11 @@ func _on_hero_call(n: String, _args: Array) -> void:
 		"create_stab":
 			_create_stabs()
 
+## 碎石破: every segment sounds again.
+func _on_new_hit() -> void:
+	if attack_action == &"hit4":
+		Snd.sfx("Role3_hit4")
+
 ## 聚怪: every monster is dragged to just above the hero over a second.
 func _pull_monsters() -> void:
 	var k: Dictionary = data.kit.pull
@@ -170,7 +175,9 @@ func _create_stabs() -> void:
 			tw.tween_property(s, "modulate:a", 1.0, float(k.turn))
 			tw.tween_property(s.rig, "rotation", heading.angle() - STAB_ART_ANGLE, float(k.turn)).from(ang)
 		else:
-			s.modulate.a = 1.0
+			var tw := s.create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS).set_parallel()   # no target: turn to point down
+			tw.tween_property(s, "modulate:a", 1.0, float(k.turn))
+			tw.tween_property(s.rig, "rotation", PI, float(k.turn)).from(ang)
 		var turn := float(k.turn)
 		s.mover = func(p: Projectile, delta: float) -> void:
 			if p.age < turn:

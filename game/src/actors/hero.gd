@@ -347,6 +347,7 @@ func _on_rig_event(n: StringName, args: Array) -> void:
 			velocity.x = 0.0
 		&"new_hit":
 			dealer.new_serial()
+			_on_new_hit()
 		&"call", &"grounded_call":
 			if n == &"grounded_call" and not is_on_floor():
 				return
@@ -372,6 +373,10 @@ func _on_rig_event(n: StringName, args: Array) -> void:
 					_hit10_slam()
 				_:
 					_on_hero_call(String(args[0]), args)
+
+## A new round of hits starts inside the current move (virtual).
+func _on_new_hit() -> void:
+	pass
 
 ## Frame-script calls the base class does not know (virtual): the extractor names them snake_case, e.g. "do_hit1".
 func _on_hero_call(_name: String, _args: Array) -> void:
