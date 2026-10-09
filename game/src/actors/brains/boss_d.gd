@@ -45,8 +45,7 @@ func _try_skill(skill: String, cd_key: String, chance: float, rand_extra := 0.0)
 func _melee_or_walk(delta: float) -> void:
 	_check -= delta
 	if _check > 0.0:
-		wander(delta)
-		return
+		return   # stands its ground between checks (the original only walks on the 30 % branch of a check)
 	_check = float(param("check", 1.0))
 	if Rng.randf() < 0.7:
 		attack()

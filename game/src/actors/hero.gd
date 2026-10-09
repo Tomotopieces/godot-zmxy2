@@ -476,7 +476,8 @@ func take_hit(h: Hit) -> bool:
 	if Rng.randf() < GameState.miss():
 		DamageNumber.spawn_miss(global_position + Vector2(-20, -60))
 		return true
-	var dmg := h.mitigated(GameState.defense(), GameState.bonus("mdef")) + Rng.randi_range(-5, 5)
+	h.damage += int((Rng.randf() - 0.5) * 10.0)   # BaseHero.beAttack: noise (-4..4, truncated) before defense
+	var dmg := h.mitigated(GameState.defense(), GameState.bonus("mdef"))
 	dmg = maxi(1, dmg)
 	if transformed and data.damage_taken_mul_in_rage != 1.0:
 		dmg = maxi(1, int(dmg * data.damage_taken_mul_in_rage))

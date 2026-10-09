@@ -39,14 +39,14 @@ func think(delta: float) -> void:
 			act(&"hit2")
 		elif _check <= 0.0:
 			_check = float(param("check", 1.0))
-			if Rng.randf() < 0.5:
+			if Rng.randi() % 100 < m.data.attack_chance:
 				attack()
 			else:
 				follow()
 	elif _check <= 0.0:
 		_check = float(param("check", 1.0))
 		m.dir = 0
-		if Rng.randf() < 0.5:
+		if Rng.randi() % 100 < m.data.attack_chance:
 			attack()
 
 ## Replace this form by another one with the same HP; the old one fades out.

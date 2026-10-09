@@ -28,7 +28,10 @@ func tick(delta: float, level: Level) -> void:
 	var due := delay + interval * spawned
 	if _t < due or level.monsters().size() >= Layers.MAX_MONSTERS:
 		return
-	var m := Monster.create(data)
+	var d := data
+	if d.id == 79:   # MainGame.createMonster: 劈天斧 79 or, half the time, 风神盾 80 (30000 HP)
+		d = level.monster_data(79 + Rng.randi() % 2)
+	var m := Monster.create(d)
 	m.position = pos
 	level.add_monster(m)
 	spawned += 1

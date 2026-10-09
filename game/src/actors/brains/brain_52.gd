@@ -16,6 +16,7 @@ func setup() -> void:
 	if pos.size() == 2:
 		m.global_position = Vector2(pos[0], pos[1])
 	_swap = float(param("first_swap", 3.0))
+	_head = HEADS[Rng.randi() % HEADS.size()]   # setRandomHead() in the constructor
 	m.rig.play(_head)
 
 func ignores_hit(_h: Hit) -> bool:

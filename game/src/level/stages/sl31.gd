@@ -70,7 +70,7 @@ func _jumpers(delta: float) -> void:
 		return
 	var r: Array = cfg.get("every", [3.0, 7.0])
 	_jump_t = Rng.randf_range(r[0], r[1])
-	var x := _boat.position.x + float(cfg.get("dx", 100)) * (1.0 if Rng.randf() < 0.5 else -1.0)
+	var x := _boat.position.x + float(cfg.get("dx", 100)) * Rng.randf_range(-1.0, 1.0)
 	var fx := place_rig("monster41_jump", Vector2(x, _boat.position.y + float(cfg.get("from_dy", 150))), Layers.Z_MONSTER)
 	var tw := fx.create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 	tw.tween_property(fx, "position:y", _boat.position.y + float(cfg.get("to_dy", -60)), float(cfg.get("rise", 1.5)))
@@ -101,7 +101,11 @@ func _fish(delta: float) -> void:
 		level.add_object(_emitter)
 	var half := ((_boat.get_child(0) as CollisionShape2D).shape as RectangleShape2D).size.x / 2.0
 	var n: Array = cfg.get("count", [2, 4])
-	for i in Rng.randi_range(n[0], n[1]):
+	# Monster57 re-rolls its loop condition `i < int(2 + random * 3)` every round: 2, 3 or 4 fish with chance 1/3, 4/9, 2/9
+	var fish: int = int(n[0])
+	while fish < int(n[1]) and Rng.randi() % 3 < (2 if fish == int(n[0]) else 1):
+		fish += 1
+	for i in fish:
 		var side := 1.0 if Rng.randf() < 0.5 else -1.0
 		var pos := Vector2(_boat.position.x + side * half + Rng.randf_range(-1, 1) * float(cfg.get("spread", 50)),
 			_boat.position.y + Rng.randf() * float(cfg.get("depth", 50)))

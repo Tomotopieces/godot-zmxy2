@@ -63,7 +63,7 @@ func on_call(n: String, _args: Array) -> bool:
 	match n:
 		"do_fenshen":
 			if m.world.monsters().size() < int(param("max_monsters", 5)):
-				var c := m.summon(69, m.global_position + Vector2(20.0 * m.facing, 0))
+				var c := m.summon(69, m.global_position + Vector2(Rng.randf_range(-20.0, 20.0), 0))
 				if c:
 					clones.append(c)
 		"do_hit2":
