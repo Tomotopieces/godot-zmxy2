@@ -40,7 +40,8 @@ static func drop(m: Monster) -> void:
 static func _drop_equipment(m: Monster) -> void:
 	var mul := GameState.drop_mul()
 	if not m.data.equip_drops.is_empty() and Rng.randf() <= m.data.equip_chance * mul:
-		_ground(m, m.data.equip_drops[Rng.randi() % m.data.equip_drops.size()])
+		# the original picks round(rand * (n - 1)): the first and last entries are half as likely as the others
+		_ground(m, m.data.equip_drops[roundi(Rng.randf() * (m.data.equip_drops.size() - 1))])
 	# bosses also drop a 1级强化石 while the hero is not over-levelled for the stage (BaseMonster.dropStone)
 	var st: Dictionary = EquipmentCatalog.get_catalog().stone_drop
 	var cap := int(st.get("level_caps", {}).get(Level.current.level_name, 0))

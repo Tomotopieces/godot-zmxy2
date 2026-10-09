@@ -24,7 +24,8 @@ var hit_sound := "BeattackByRole1"      ## played on the monster when this hero 
 var state := State.MOVE
 var mp := 0
 var max_mp := 0
-var rage := 0
+var rage := 0.0           ## fractional like the original (wsValue)
+var _last_attack_data: AttackData   ## the hero's own last move (original lastHit): its power scales the rage a hit gives
 var transformed := false
 var jump_count := 0
 var running := false
@@ -274,7 +275,10 @@ func _try_skill(action: StringName, cancel := false) -> bool:
 	return true
 
 func _begin(action: StringName) -> void:
+	if action == &"hit7" and transformed:
+		_spawn_afterimage()   # the one afterimage of the dash, in the pose it starts from
 	state = State.ATTACK
+	_last_attack_data = data.attacks.get(action)
 	start_attack(action, data.attacks.get(action))
 	Snd.sfx(sounds.get(action, ""))
 	match action:
@@ -482,7 +486,7 @@ func take_hit(h: Hit) -> bool:
 	_apply_effects(h.attack.effects)
 	Fx.spawn("fx_hero_hurt", center())
 	Snd.sfx(data.sound_prefix + "_beAttack")
-	add_rage(roundi(dmg * data.rage_hit_gain / maxf(GameState.attack_power(), 1.0)))
+	add_rage(rage_for_damage(dmg))
 	_count_lock()
 	if hp <= 0:
 		_die()
@@ -575,10 +579,22 @@ func heal(amount: int, show_number := true) -> void:
 func restore_mp(amount: int) -> void:
 	mp = mini(mp + amount, max_mp)
 
-func add_rage(amount: int) -> void:
+## RoleInfo.addWs: rage = round(damage / power of the last move * 2); when that rounds to 0, damage / 8.
+## (Treasure hits count too: the divisor is the hero's last move, not the treasure's own damage.)
+func rage_for_damage(dmg: int) -> float:
+	var a := _last_attack_data
+	var power := float(a.flat) if a != null and a.flat > 0 else float(GameState.attack_power()) * (a.power_mul if a != null and a.power_mul > 0.0 else 1.0)
+	if transformed:
+		power *= 1.5
+	if Rng.randf() < GameState.crit():
+		power *= 2.0
+	var r := roundi(float(dmg) / maxf(power, 1.0) * data.rage_hit_gain)
+	return float(r) if r != 0 else float(dmg) / 8.0
+
+func add_rage(amount: float) -> void:
 	if transformed:
 		return
-	rage = clampi(rage + amount, 0, data.rage_max)
+	rage = clampf(rage + amount, 0.0, float(data.rage_max))
 
 func _update_rage(delta: float) -> void:
 	_rage_t += delta
@@ -592,7 +608,7 @@ func _update_rage(delta: float) -> void:
 				_end_transform()
 	elif rage < data.rage_max and _rage_t >= data.rage_decay_interval:
 		_rage_t = 0.0
-		rage = maxi(rage - 1, 0)
+		rage = maxf(rage - 1.0, 0.0)
 
 func _try_transform() -> void:
 	if transformed or rage < data.rage_max or state == State.DEAD:
@@ -603,12 +619,13 @@ func _try_transform() -> void:
 
 func _end_transform() -> void:
 	transformed = false
-	rage = 0
+	rage = 0.0
 	gravity = data.gravity
 
 ## Whether the rage afterimage is drawn now (virtual).
 func _afterimage_allowed() -> bool:
-	return true
+	# 烈焰闪 leaves one afterimage, where it starts (the dash itself is a speed-streak drawing that must not be copied)
+	return not (state == State.ATTACK and attack_action == &"hit7")
 
 ## Afterimage of the current pose that fades out behind the hero.
 func _spawn_afterimage() -> void:
