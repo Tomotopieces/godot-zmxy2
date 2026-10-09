@@ -103,13 +103,19 @@ func _jump_velocity(jump_power: float, g_frame: float, g_sec: float) -> float:
 		vy += g_frame
 	return -sqrt(2.0 * g_sec * h)
 
+## Gravity (px / frame^2) of whoever is knocked up: every actor but a transformed hero (BaseObject.graity).
+const KNOCKBACK_GRAVITY := 1.5
+
 func _attack(a: Dictionary) -> AttackData:
 	var r := AttackData.new()
 	r.power_mul = float(a.get("power", 0.0 if a.has("flat") else 1.0))
 	r.flat = int(a.get("flat", 0))
 	r.kind = {"physics": AttackData.Kind.PHYSICS, "magic": AttackData.Kind.MAGIC}.get(a.get("kind", ""), AttackData.Kind.TRUE)
 	var kb: Array = a.get("knockback", [0, 0])
-	r.knockback = Vector2(_pps(kb[0]), _pps(kb[1]))
+	# the original integrates y += vy; vy += g once per frame, which rises higher than the continuous arc of the same
+	# launch speed: the upward speed is chosen so that the apex matches (as for the jumps)
+	var ky: float = kb[1]
+	r.knockback = Vector2(_pps(kb[0]), _jump_velocity(ky, KNOCKBACK_GRAVITY, _pps(_pps(KNOCKBACK_GRAVITY))) if ky < 0.0 else _pps(ky))
 	r.push_from_center = a.get("push_from_center", false)
 	var interval := int(a.get("interval", 0))
 	r.rehit_interval = 0.0 if interval >= 999 else _sec(interval)
