@@ -359,6 +359,8 @@ func _on_rig_event(n: StringName, args: Array) -> void:
 				return
 			match args[0]:
 				"add_fire_effect":
+					if attack == null:   # the move was cut short (hit, ...) in the same frame
+						return
 					Fx.spawn("fx_hit7_fire", global_position, facing)   # mirrors with the hero
 					velocity.x = facing * attack.dash_speed
 					invincible = maxf(invincible, attack.invincible)

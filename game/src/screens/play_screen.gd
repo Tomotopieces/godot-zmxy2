@@ -92,7 +92,6 @@ func _on_hero_died() -> void:
 
 func _on_cleared() -> void:
 	_over = true
-	_freeze_level()
 	var is_main := stage.x <= 4
 	if is_main:
 		GameState.on_stage_cleared(stage)
@@ -105,6 +104,7 @@ func _on_cleared() -> void:
 	await _fade_out()
 	if not is_inside_tree():
 		return
+	_freeze_level()   # the fight stops when the result appears, not during the fade
 	var r := ResultScreen.win(stage, stats)
 	r.next.connect(func(): play.emit(GameState.next_stage(stage)))
 	r.back.connect(func(): to_map.emit())
@@ -120,12 +120,12 @@ func _on_cleared() -> void:
 ## Final boss (4-1): progress, autosave, the ending comic, then the map.
 func _on_ending() -> void:
 	_over = true
-	_freeze_level()
 	GameState.on_stage_cleared(stage)
 	GameState.autosave()
 	await get_tree().create_timer(RESULT_DELAY).timeout
 	if not is_inside_tree():
 		return
+	_freeze_level()
 	var c := Cartoon.create("通关")
 	c.finished.connect(func(): to_map.emit())
 	add_child(c)

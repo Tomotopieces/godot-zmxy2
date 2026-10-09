@@ -470,6 +470,10 @@ func _update_camera(delta: float) -> void:
 	elif hx <= back_trigger and dx < 0.0 and view_x > _min_view:
 		view_x = maxf(_min_view, view_x - minf(-dx, back_speed * delta))
 	hx = hero.global_position.x - view_x
+	# ViewControllor: the auto camera (after a stop is cleared) ends for good the first time the hero is back at or
+	# left of the trigger; from then on the normal dead zone applies
+	if auto_scroll and hx <= auto_trigger:
+		auto_scroll = false
 	if auto_scroll and hx > auto_trigger:
 		var speed := minf(absf(hero.velocity.x) + auto_speed_add, auto_speed_max)
 		view_x += minf(speed * delta, hx - auto_trigger)
