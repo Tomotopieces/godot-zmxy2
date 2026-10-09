@@ -1,8 +1,7 @@
 class_name BossBar
 extends Node2D
-## Boss HP gauge at the top of the screen (GameInfo.addBossBlood / BossBlood): the lost part of the red fill is cut off
-## on the left and the rest slides left by the lost width, so the bar always starts at the gauge's left end;
-## namemc shows the boss name by label.
+## Boss HP gauge at the top of the screen (GameInfo.addBossBlood / BossBlood): the mask slides left as HP drops
+## while the red fill stays put, so the red never leaves the gauge; namemc shows the boss name by label.
 
 const EMPTY_SHIFT := -323.0   ## mask x offset at 0 HP relative to full (BossBlood frame 1 -> frame 100)
 
@@ -36,5 +35,6 @@ func _process(_dt: float) -> void:
 	if _mask == null:
 		return
 	var shift := EMPTY_SHIFT * (1.0 - clampf(float(boss.hp) / boss.max_hp, 0.0, 1.0))
+	_mask.position.x = _mask_x + shift
 	for c: Node2D in _fill_x:
-		c.position.x = _fill_x[c] + shift / _mask.scale.x   # the fill lives in the (scaled) mask's space; the mask (the gauge window) stays put
+		c.position.x = _fill_x[c] - shift / _mask.scale.x   # the fill lives in the (scaled) mask's space
