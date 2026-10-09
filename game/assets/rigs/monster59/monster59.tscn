@@ -1,25 +1,24 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://src/rig/rig.gd" id="1_mr2jw"]
-[ext_resource type="Shader" path="res://src/rig/flash_filter.gdshader" id="2_xspni"]
-[ext_resource type="Texture2D" path="res://assets/rigs/monster59/tex/4_66.png" id="3_fbs10"]
-[ext_resource type="Texture2D" path="res://assets/rigs/monster59/tex/4_230.png" id="4_l3052"]
-[ext_resource type="Texture2D" path="res://assets/rigs/monster59/tex/4_233.png" id="5_7oq3w"]
-[ext_resource type="Texture2D" path="res://assets/rigs/monster59/tex/4_236.png" id="6_bf7a2"]
-[ext_resource type="Texture2D" path="res://assets/rigs/monster59/tex/4_245.png" id="7_ufyls"]
-[ext_resource type="Texture2D" path="res://assets/rigs/monster59/tex/4_246.png" id="8_2wswy"]
-[ext_resource type="Texture2D" path="res://assets/rigs/monster59/tex/4_241.png" id="9_y3o3s"]
-[ext_resource type="Texture2D" path="res://assets/rigs/monster59/tex/4_247.png" id="10_wu7gx"]
-[ext_resource type="Texture2D" path="res://assets/rigs/monster59/tex/4_239.png" id="11_3pmqa"]
-[ext_resource type="Texture2D" path="res://assets/rigs/monster59/tex/4_244.png" id="12_36ane"]
-[ext_resource type="Texture2D" path="res://assets/rigs/monster59/tex/4_248.png" id="13_l4bjs"]
-[ext_resource type="Texture2D" path="res://assets/rigs/monster59/tex/4_240.png" id="14_bp4m1"]
-[ext_resource type="Texture2D" path="res://assets/rigs/monster59/tex/4_243.png" id="15_68qc1"]
-[ext_resource type="Texture2D" path="res://assets/rigs/monster59/tex/4_252.png" id="16_1i7vg"]
-[ext_resource type="AnimationLibrary" path="res://assets/rigs/monster59/anims.res" id="17_ubyit"]
+[ext_resource type="Script" path="res://src/rig/rig.gd" id="1_oamjr"]
+[ext_resource type="Shader" path="res://src/rig/flash_filter.gdshader" id="2_mr2jw"]
+[ext_resource type="Texture2D" path="res://assets/shared/6683d804f4c5b88470fe58269a1b9a21.png" id="3_xspni"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster59/tex/4_230.png" id="4_fbs10"]
+[ext_resource type="Texture2D" path="res://assets/shared/76377def257c49ba0efd48d8197eecf8.png" id="5_l3052"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster59/tex/4_236.png" id="6_7oq3w"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster59/tex/4_245.png" id="7_bf7a2"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster59/tex/4_246.png" id="8_ufyls"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster59/tex/4_241.png" id="9_2wswy"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster59/tex/4_247.png" id="10_y3o3s"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster59/tex/4_239.png" id="11_wu7gx"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster59/tex/4_244.png" id="12_3pmqa"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster59/tex/4_248.png" id="13_36ane"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster59/tex/4_240.png" id="14_l4bjs"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster59/tex/4_243.png" id="15_bp4m1"]
+[ext_resource type="AnimationLibrary" path="res://assets/rigs/monster59/anims.res" id="16_68qc1"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_sgvo4"]
-shader = ExtResource("2_xspni")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1i7vg"]
+shader = ExtResource("2_mr2jw")
 shader_parameter/blur = Vector2(3, 3)
 shader_parameter/glow_on = true
 shader_parameter/glow_color = Color(1, 0.4, 0, 1)
@@ -31,8 +30,8 @@ shader_parameter/matrix_on = null
 shader_parameter/color_matrix = null
 shader_parameter/color_offset = null
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_p4k4t"]
-shader = ExtResource("2_xspni")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ubyit"]
+shader = ExtResource("2_mr2jw")
 shader_parameter/blur = Vector2(2, 2)
 shader_parameter/glow_on = true
 shader_parameter/glow_color = Color(1, 0.4, 0, 1)
@@ -44,244 +43,236 @@ shader_parameter/matrix_on = null
 shader_parameter/color_matrix = null
 shader_parameter/color_offset = null
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pnhy4"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sgvo4"]
 resource_local_to_scene = true
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3n4nj"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p4k4t"]
 resource_local_to_scene = true
 
-[node name="Monster59" type="Node2D" unique_id=179703364]
-script = ExtResource("1_mr2jw")
+[node name="Monster59" type="Node2D" unique_id=1620121139]
+script = ExtResource("1_oamjr")
 actions = PackedStringArray("walk", "hurt", "hit1", "hit2", "wait", "dead")
 
-[node name="Parts" type="Node2D" parent="." unique_id=418354485]
+[node name="Parts" type="Node2D" parent="." unique_id=362415348]
 
-[node name="walk" type="Node2D" parent="Parts" unique_id=1765050512]
+[node name="walk" type="Node2D" parent="Parts" unique_id=172174217]
 visible = false
 
-[node name="g1_1_1_f0" type="CanvasGroup" parent="Parts/walk" unique_id=1769711833]
-material = SubResource("ShaderMaterial_sgvo4")
+[node name="g1_1_1_f0" type="CanvasGroup" parent="Parts/walk" unique_id=103329460]
+material = SubResource("ShaderMaterial_1i7vg")
 fit_margin = 17.0
 clear_margin = 17.0
-use_mipmaps = true
 
-[node name="p1_1_1_1_1_f0" type="Sprite2D" parent="Parts/walk/g1_1_1_f0" unique_id=125704315]
+[node name="p1_1_1_1_1_f0" type="Sprite2D" parent="Parts/walk/g1_1_1_f0" unique_id=2029135874]
 position = Vector2(45.2558, -75.9206)
 rotation = 3.1415927
 scale = Vector2(0.121, -0.197)
-texture = ExtResource("3_fbs10")
+texture = ExtResource("3_xspni")
 centered = false
 
-[node name="p1_1_15" type="Sprite2D" parent="Parts/walk" unique_id=1178750250]
+[node name="p1_1_15" type="Sprite2D" parent="Parts/walk" unique_id=1610333789]
 position = Vector2(-23.3, -43.75)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_l3052")
+texture = ExtResource("4_fbs10")
 centered = false
 
-[node name="hurt" type="Node2D" parent="Parts" unique_id=269428922]
+[node name="hurt" type="Node2D" parent="Parts" unique_id=1188993835]
 visible = false
 
-[node name="g1_1_f0" type="CanvasGroup" parent="Parts/hurt" unique_id=854690608]
-material = SubResource("ShaderMaterial_sgvo4")
+[node name="g1_1_f0" type="CanvasGroup" parent="Parts/hurt" unique_id=1645507292]
+material = SubResource("ShaderMaterial_1i7vg")
 fit_margin = 17.0
 clear_margin = 17.0
-use_mipmaps = true
 
-[node name="p1_1_1_1_f0" type="Sprite2D" parent="Parts/hurt/g1_1_f0" unique_id=1118125305]
+[node name="p1_1_1_1_f0" type="Sprite2D" parent="Parts/hurt/g1_1_f0" unique_id=355529165]
 position = Vector2(75.895905, -94.2378)
 rotation = 3.0136645
 scale = Vector2(0.121492796, -0.19709198)
 skew = 0.00074124336
-texture = ExtResource("3_fbs10")
+texture = ExtResource("3_xspni")
 centered = false
 
-[node name="p1_16" type="Sprite2D" parent="Parts/hurt" unique_id=1472221376]
+[node name="p1_16" type="Sprite2D" parent="Parts/hurt" unique_id=426465027]
 position = Vector2(-28.849998, -45.45)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_7oq3w")
+texture = ExtResource("5_l3052")
 centered = false
 
-[node name="hit1" type="Node2D" parent="Parts" unique_id=716886145]
+[node name="hit1" type="Node2D" parent="Parts" unique_id=1992423071]
 visible = false
 
-[node name="g1_1_f0" type="CanvasGroup" parent="Parts/hit1" unique_id=1303063916]
-material = SubResource("ShaderMaterial_sgvo4")
+[node name="g1_1_f0" type="CanvasGroup" parent="Parts/hit1" unique_id=1085728431]
+material = SubResource("ShaderMaterial_1i7vg")
 fit_margin = 17.0
 clear_margin = 17.0
-use_mipmaps = true
 
-[node name="p1_1_1_1_f0" type="Sprite2D" parent="Parts/hit1/g1_1_f0" unique_id=189297890]
+[node name="p1_1_1_1_f0" type="Sprite2D" parent="Parts/hit1/g1_1_f0" unique_id=235648566]
 position = Vector2(45.2558, -75.9206)
 rotation = 3.1415927
 scale = Vector2(0.121, -0.197)
-texture = ExtResource("3_fbs10")
+texture = ExtResource("3_xspni")
 centered = false
 
-[node name="p1_15" type="Sprite2D" parent="Parts/hit1" unique_id=309923733]
+[node name="p1_15" type="Sprite2D" parent="Parts/hit1" unique_id=849226257]
 position = Vector2(-23.3, -43.75)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_bf7a2")
+texture = ExtResource("6_7oq3w")
 centered = false
 
-[node name="hit2" type="Node2D" parent="Parts" unique_id=88282854]
+[node name="hit2" type="Node2D" parent="Parts" unique_id=1786601323]
 visible = false
 
-[node name="p1_5" type="Sprite2D" parent="Parts/hit2" unique_id=1968666638]
+[node name="p1_5" type="Sprite2D" parent="Parts/hit2" unique_id=1854363428]
 position = Vector2(-11.4, -6.2)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("7_ufyls")
+texture = ExtResource("7_bf7a2")
 centered = false
 
-[node name="g1_6_f0" type="CanvasGroup" parent="Parts/hit2" unique_id=599506690]
-material = SubResource("ShaderMaterial_sgvo4")
+[node name="g1_6_f0" type="CanvasGroup" parent="Parts/hit2" unique_id=1764920323]
+material = SubResource("ShaderMaterial_1i7vg")
 fit_margin = 17.0
 clear_margin = 17.0
-use_mipmaps = true
 
-[node name="p1_6_1_1_f0" type="Sprite2D" parent="Parts/hit2/g1_6_f0" unique_id=1888611148]
+[node name="p1_6_1_1_f0" type="Sprite2D" parent="Parts/hit2/g1_6_f0" unique_id=676732735]
 position = Vector2(44.2558, -76.9206)
 rotation = 3.1415927
 scale = Vector2(0.121, -0.197)
-texture = ExtResource("3_fbs10")
+texture = ExtResource("3_xspni")
 centered = false
 
-[node name="p1_12" type="Sprite2D" parent="Parts/hit2" unique_id=1122545294]
+[node name="p1_12" type="Sprite2D" parent="Parts/hit2" unique_id=343945437]
 position = Vector2(-28.95, -43.45)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("8_2wswy")
+texture = ExtResource("8_ufyls")
 centered = false
 
-[node name="g1_13_f1" type="CanvasGroup" parent="Parts/hit2" unique_id=132679982]
-material = SubResource("ShaderMaterial_p4k4t")
+[node name="g1_13_f1" type="CanvasGroup" parent="Parts/hit2" unique_id=935579666]
+material = SubResource("ShaderMaterial_ubyit")
 fit_margin = 16.0
 clear_margin = 16.0
-use_mipmaps = true
 
-[node name="p1_13_1_1_f1" type="Sprite2D" parent="Parts/hit2/g1_13_f1" unique_id=638507628]
+[node name="p1_13_1_1_f1" type="Sprite2D" parent="Parts/hit2/g1_13_f1" unique_id=397517906]
 position = Vector2(17.2244, -51.9949)
 rotation = 3.1415927
 scale = Vector2(0.078, -0.1005)
-texture = ExtResource("3_fbs10")
+texture = ExtResource("3_xspni")
 centered = false
 
-[node name="p1_15" type="Sprite2D" parent="Parts/hit2" unique_id=1483931014]
+[node name="p1_15" type="Sprite2D" parent="Parts/hit2" unique_id=1556560047]
 position = Vector2(-31.7, -15.55)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("9_y3o3s")
+texture = ExtResource("9_2wswy")
 centered = false
 
-[node name="p1_16" type="Sprite2D" parent="Parts/hit2" unique_id=1745661100]
+[node name="p1_16" type="Sprite2D" parent="Parts/hit2" unique_id=1839698197]
 position = Vector2(-3.25, -36.65)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("10_wu7gx")
+texture = ExtResource("10_y3o3s")
 centered = false
 
-[node name="p1_18" type="Sprite2D" parent="Parts/hit2" unique_id=1546024755]
+[node name="p1_18" type="Sprite2D" parent="Parts/hit2" unique_id=973249936]
 position = Vector2(-24.3, -44.75)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("11_3pmqa")
+texture = ExtResource("11_wu7gx")
 centered = false
 
-[node name="p1_19" type="Sprite2D" parent="Parts/hit2" unique_id=200374770]
+[node name="p1_19" type="Sprite2D" parent="Parts/hit2" unique_id=35803210]
 position = Vector2(-54.5, -44.75)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("12_36ane")
+texture = ExtResource("12_3pmqa")
 centered = false
 
-[node name="g1_19_f1" type="CanvasGroup" parent="Parts/hit2" unique_id=1094325059]
-material = SubResource("ShaderMaterial_p4k4t")
+[node name="g1_19_f1" type="CanvasGroup" parent="Parts/hit2" unique_id=1570649584]
+material = SubResource("ShaderMaterial_ubyit")
 fit_margin = 16.0
 clear_margin = 16.0
-use_mipmaps = true
 
-[node name="p1_19_1_1_f1" type="Sprite2D" parent="Parts/hit2/g1_19_f1" unique_id=1322193730]
+[node name="p1_19_1_1_f1" type="Sprite2D" parent="Parts/hit2/g1_19_f1" unique_id=1873450316]
 position = Vector2(17.8244, -47.144897)
 rotation = 3.1415927
 scale = Vector2(0.078, -0.1005)
-texture = ExtResource("3_fbs10")
+texture = ExtResource("3_xspni")
 centered = false
 
-[node name="p1_20" type="Sprite2D" parent="Parts/hit2" unique_id=959459507]
+[node name="p1_20" type="Sprite2D" parent="Parts/hit2" unique_id=1534556239]
 position = Vector2(-49.15, -43.45)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("13_l4bjs")
+texture = ExtResource("13_36ane")
 centered = false
 
-[node name="p1_22" type="Sprite2D" parent="Parts/hit2" unique_id=731721930]
+[node name="p1_22" type="Sprite2D" parent="Parts/hit2" unique_id=924153306]
 position = Vector2(-5.75, -29.15)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("14_bp4m1")
+texture = ExtResource("14_l4bjs")
 centered = false
 
-[node name="p1_25" type="Sprite2D" parent="Parts/hit2" unique_id=1014145492]
+[node name="p1_25" type="Sprite2D" parent="Parts/hit2" unique_id=13184460]
 position = Vector2(-49.15, -43.45)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("15_68qc1")
+texture = ExtResource("15_bp4m1")
 centered = false
 
-[node name="wait" type="Node2D" parent="Parts" unique_id=426759860]
+[node name="wait" type="Node2D" parent="Parts" unique_id=606734705]
 visible = false
 
-[node name="g1_1_1_f0" type="CanvasGroup" parent="Parts/wait" unique_id=1252122480]
-material = SubResource("ShaderMaterial_sgvo4")
+[node name="g1_1_1_f0" type="CanvasGroup" parent="Parts/wait" unique_id=1585269631]
+material = SubResource("ShaderMaterial_1i7vg")
 fit_margin = 17.0
 clear_margin = 17.0
-use_mipmaps = true
 
-[node name="p1_1_1_1_1_f0" type="Sprite2D" parent="Parts/wait/g1_1_1_f0" unique_id=637481245]
+[node name="p1_1_1_1_1_f0" type="Sprite2D" parent="Parts/wait/g1_1_1_f0" unique_id=1359276818]
 position = Vector2(43.6058, -73.9206)
 rotation = 3.1415927
 scale = Vector2(0.121, -0.197)
-texture = ExtResource("3_fbs10")
+texture = ExtResource("3_xspni")
 centered = false
 
-[node name="p1_1_15" type="Sprite2D" parent="Parts/wait" unique_id=1550578138]
+[node name="p1_1_15" type="Sprite2D" parent="Parts/wait" unique_id=328936189]
 position = Vector2(-24.949999, -41.75)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_l3052")
+texture = ExtResource("4_fbs10")
 centered = false
 
-[node name="dead" type="Node2D" parent="Parts" unique_id=1752798307]
+[node name="dead" type="Node2D" parent="Parts" unique_id=1733279187]
 visible = false
 
-[node name="g1_1_f0" type="CanvasGroup" parent="Parts/dead" unique_id=948508033]
-material = SubResource("ShaderMaterial_sgvo4")
+[node name="g1_1_f0" type="CanvasGroup" parent="Parts/dead" unique_id=522947868]
+material = SubResource("ShaderMaterial_1i7vg")
 fit_margin = 17.0
 clear_margin = 17.0
-use_mipmaps = true
 
-[node name="p1_1_1_1_f0" type="Sprite2D" parent="Parts/dead/g1_1_f0" unique_id=248743412]
+[node name="p1_1_1_1_f0" type="Sprite2D" parent="Parts/dead/g1_1_f0" unique_id=859073985]
 position = Vector2(73.0459, -91.937805)
 rotation = 3.0136645
 scale = Vector2(0.121492796, -0.19709198)
 skew = 0.00074124336
-texture = ExtResource("3_fbs10")
+texture = ExtResource("3_xspni")
 centered = false
 
-[node name="p1_16" type="Sprite2D" parent="Parts/dead" unique_id=1446482583]
+[node name="p1_16" type="Sprite2D" parent="Parts/dead" unique_id=1055286814]
 position = Vector2(-31.699999, -43.15)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("16_1i7vg")
+texture = ExtResource("5_l3052")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1495904201]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1553357199]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1265316494]
-shape = SubResource("RectangleShape2D_pnhy4")
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1743793244]
+shape = SubResource("RectangleShape2D_sgvo4")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=637148035]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1100904338]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=533409881]
-shape = SubResource("RectangleShape2D_3n4nj")
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=241154878]
+shape = SubResource("RectangleShape2D_p4k4t")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=1399681786]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=598373922]
 callback_mode_process = 0
-libraries/ = ExtResource("17_ubyit")
+libraries/ = ExtResource("16_68qc1")

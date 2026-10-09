@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://src/rig/rig.gd" id="1_7nsd3"]
 [ext_resource type="Shader" path="res://src/rig/flash_filter.gdshader" id="2_snnur"]
-[ext_resource type="Texture2D" path="res://assets/rigs/monster49bullet2/tex/3_480.png" id="3_6xj4s"]
-[ext_resource type="Texture2D" path="res://assets/rigs/monster49bullet2/tex/3_7.png" id="4_vf5d6"]
+[ext_resource type="Texture2D" path="res://assets/shared/c6c6415cca4d4b81f68fafe2e46617d7.png" id="3_6xj4s"]
+[ext_resource type="Texture2D" path="res://assets/shared/1a35804c8b43aba8f4813585f7542b19.png" id="4_vf5d6"]
 [ext_resource type="AnimationLibrary" path="res://assets/rigs/monster49bullet2/anims.res" id="5_1xyj0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_savu2"]
@@ -25,54 +25,53 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n2lal"]
 resource_local_to_scene = true
 
-[node name="Monster49Bullet2" type="Node2D" unique_id=113747370]
+[node name="Monster49Bullet2" type="Node2D" unique_id=1780884627]
 script = ExtResource("1_7nsd3")
 actions = PackedStringArray("default")
 markers = {
 "stick0": Vector2(0.15, 0.5)
 }
 
-[node name="Parts" type="Node2D" parent="." unique_id=2068712833]
+[node name="Parts" type="Node2D" parent="." unique_id=1591748058]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=1189678273]
+[node name="default" type="Node2D" parent="Parts" unique_id=1868146072]
 visible = false
 
-[node name="g1_f0" type="CanvasGroup" parent="Parts/default" unique_id=1586571944]
+[node name="g1_f0" type="CanvasGroup" parent="Parts/default" unique_id=1228576872]
 material = SubResource("ShaderMaterial_savu2")
 fit_margin = 4.0
 clear_margin = 4.0
-use_mipmaps = true
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default/g1_f0" unique_id=1252032731]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default/g1_f0" unique_id=1947253829]
 position = Vector2(-53.749996, -30.4)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_6xj4s")
 centered = false
 
-[node name="p3_1" type="Sprite2D" parent="Parts/default" unique_id=145752061]
+[node name="p3_1" type="Sprite2D" parent="Parts/default" unique_id=2061833446]
 position = Vector2(-44.85, -19.494999)
 scale = Vector2(0.45, 0.6665)
 texture = ExtResource("4_vf5d6")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1931911562]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1035397846]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=322176945]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1232086421]
 shape = SubResource("RectangleShape2D_dj8cs")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=669872914]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=976959063]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=798906704]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=154690160]
 shape = SubResource("RectangleShape2D_n2lal")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=543745946]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=14830748]
 callback_mode_process = 0
 libraries/ = ExtResource("5_1xyj0")

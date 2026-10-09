@@ -29,88 +29,87 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mygwe"]
 resource_local_to_scene = true
 
-[node name="Monster41" type="Node2D" unique_id=1522066771]
+[node name="Monster41" type="Node2D" unique_id=345666184]
 script = ExtResource("1_jucgu")
 actions = PackedStringArray("walk", "hit1", "hurt", "wait", "dead")
 
-[node name="Parts" type="Node2D" parent="." unique_id=1867352307]
+[node name="Parts" type="Node2D" parent="." unique_id=1406145072]
 
-[node name="walk" type="Node2D" parent="Parts" unique_id=1336917591]
+[node name="walk" type="Node2D" parent="Parts" unique_id=66013228]
 visible = false
 
-[node name="p1_1" type="Sprite2D" parent="Parts/walk" unique_id=1422895339]
+[node name="p1_1" type="Sprite2D" parent="Parts/walk" unique_id=1185309622]
 position = Vector2(-55.9, -48.1)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_jsy6j")
 centered = false
 
-[node name="hit1" type="Node2D" parent="Parts" unique_id=1328841310]
+[node name="hit1" type="Node2D" parent="Parts" unique_id=355257639]
 visible = false
 
-[node name="p1_1" type="Sprite2D" parent="Parts/hit1" unique_id=1420709870]
+[node name="p1_1" type="Sprite2D" parent="Parts/hit1" unique_id=927488822]
 position = Vector2(-62.9, -65.9)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_8ptd7")
 centered = false
 
-[node name="g1_2_1_f0" type="CanvasGroup" parent="Parts/hit1" unique_id=186953092]
+[node name="g1_2_1_f0" type="CanvasGroup" parent="Parts/hit1" unique_id=1680621720]
 material = SubResource("ShaderMaterial_g2o2n")
 fit_margin = 13.0
 clear_margin = 13.0
-use_mipmaps = true
 
-[node name="p1_2_1_1_f0" type="Sprite2D" parent="Parts/hit1/g1_2_1_f0" unique_id=1959799700]
+[node name="p1_2_1_1_f0" type="Sprite2D" parent="Parts/hit1/g1_2_1_f0" unique_id=243821283]
 modulate = Color(1, 1, 1, 0.32)
 position = Vector2(-113.450005, -55.8)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("5_xw7r1")
 centered = false
 
-[node name="hurt" type="Node2D" parent="Parts" unique_id=368198990]
+[node name="hurt" type="Node2D" parent="Parts" unique_id=812333266]
 visible = false
 
-[node name="p1_1" type="Sprite2D" parent="Parts/hurt" unique_id=1714350918]
+[node name="p1_1" type="Sprite2D" parent="Parts/hurt" unique_id=1310911228]
 position = Vector2(-62.25, -54.05)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_xlkii")
 centered = false
 
-[node name="wait" type="Node2D" parent="Parts" unique_id=1948306626]
+[node name="wait" type="Node2D" parent="Parts" unique_id=1003767220]
 visible = false
 
-[node name="p1_1" type="Sprite2D" parent="Parts/wait" unique_id=1527173852]
+[node name="p1_1" type="Sprite2D" parent="Parts/wait" unique_id=823261042]
 position = Vector2(-47, -48)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("7_jw5c4")
 centered = false
 
-[node name="dead" type="Node2D" parent="Parts" unique_id=1854235301]
+[node name="dead" type="Node2D" parent="Parts" unique_id=344210395]
 visible = false
 
-[node name="p1_1" type="Sprite2D" parent="Parts/dead" unique_id=1738774608]
+[node name="p1_1" type="Sprite2D" parent="Parts/dead" unique_id=460334569]
 position = Vector2(-50.05, -51.3)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("8_x5j1v")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1880752519]
+[node name="Hitbox" type="Area2D" parent="." unique_id=2022729065]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=556730135]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1953677232]
 shape = SubResource("RectangleShape2D_bou4f")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1490554604]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1974376531]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1104248278]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1613499434]
 shape = SubResource("RectangleShape2D_mygwe")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=241801328]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=739324530]
 callback_mode_process = 0
 libraries/ = ExtResource("9_6skw4")

@@ -14,12 +14,14 @@ const GAME = path.join(__dirname, '..', '..', 'game');
 const ASSETS = path.join(GAME, 'assets');
 const SHARED = path.join(ASSETS, 'shared');
 const dry = process.argv.includes('--dry');
+// loaded by name at run time (res://assets/items/<id>.png, ui/digits, ui/buffs): every name has to keep its own file
+const KEEP = ['items', 'ui/digits', 'ui/buffs'].map((d) => path.join(ASSETS, d));
 
 const pngs = [];
 (function walk(d) {
   for (const e of fs.readdirSync(d, { withFileTypes: true })) {
     const p = path.join(d, e.name);
-    if (e.isDirectory()) { if (p !== SHARED) walk(p); } else if (e.name.endsWith('.png')) pngs.push(p);
+    if (e.isDirectory()) { if (p !== SHARED && !KEEP.includes(p)) walk(p); } else if (e.name.endsWith('.png')) pngs.push(p);
   }
 })(ASSETS);
 

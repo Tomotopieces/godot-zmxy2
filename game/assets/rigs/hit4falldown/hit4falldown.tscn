@@ -24,45 +24,44 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fvtqg"]
 resource_local_to_scene = true
 
-[node name="Hit4Falldown" type="Node2D" unique_id=1121681332]
+[node name="Hit4Falldown" type="Node2D" unique_id=809637657]
 script = ExtResource("1_8ngde")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=689333967]
+[node name="Parts" type="Node2D" parent="." unique_id=1905094130]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=811583955]
+[node name="default" type="Node2D" parent="Parts" unique_id=1521371552]
 visible = false
 
-[node name="g1_f0" type="CanvasGroup" parent="Parts/default" unique_id=898043041]
+[node name="g1_f0" type="CanvasGroup" parent="Parts/default" unique_id=438338564]
 material = SubResource("ShaderMaterial_hl273")
 fit_margin = 4.0
 clear_margin = 4.0
-use_mipmaps = true
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default/g1_f0" unique_id=366221183]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default/g1_f0" unique_id=1743383809]
 position = Vector2(-34.800003, -62.350002)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_fx4vq")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1712704110]
+[node name="Hitbox" type="Area2D" parent="." unique_id=125528256]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=555755651]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=147324827]
 shape = SubResource("RectangleShape2D_tdboe")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=2078691903]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1951528258]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=681755116]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1110407614]
 shape = SubResource("RectangleShape2D_fvtqg")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=741611205]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=896695950]
 callback_mode_process = 0
 libraries/ = ExtResource("4_oxqdb")

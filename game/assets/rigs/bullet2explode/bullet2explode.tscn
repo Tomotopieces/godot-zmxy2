@@ -24,45 +24,44 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3p823"]
 resource_local_to_scene = true
 
-[node name="Bullet2Explode" type="Node2D" unique_id=909056646]
+[node name="Bullet2Explode" type="Node2D" unique_id=346850433]
 script = ExtResource("1_h8o4k")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=1979883885]
+[node name="Parts" type="Node2D" parent="." unique_id=1160991374]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=200603303]
+[node name="default" type="Node2D" parent="Parts" unique_id=1259705647]
 visible = false
 
-[node name="g1_f0" type="CanvasGroup" parent="Parts/default" unique_id=563994845]
+[node name="g1_f0" type="CanvasGroup" parent="Parts/default" unique_id=25386451]
 material = SubResource("ShaderMaterial_anlj4")
 fit_margin = 4.0
 clear_margin = 4.0
-use_mipmaps = true
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default/g1_f0" unique_id=1959164622]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default/g1_f0" unique_id=160276779]
 position = Vector2(-29, -30.05)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_fiojp")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1243599634]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1817758769]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=909011654]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1254681182]
 shape = SubResource("RectangleShape2D_7j1tv")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=821838097]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1827382931]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1049814984]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1125554236]
 shape = SubResource("RectangleShape2D_3p823")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=787507636]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=153867663]
 callback_mode_process = 0
 libraries/ = ExtResource("4_fguro")

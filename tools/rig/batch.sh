@@ -15,3 +15,5 @@ done < "$1"
 cd game
 timeout 900 "$GD" --headless --path "$(cygpath -w $PWD)" --import > ../tools/dl/import.log 2>&1
 timeout 1800 "$GD" --headless --path "$(cygpath -w $PWD)" -s res://tools/build_rig.gd -- "${args[@]}" 2>&1 | sed 's/\x1b\[[0-9;]*m//g' | grep -E '^built|ERROR|SCRIPT' | grep -vE 'leaked|still in use'
+# identical textures are stored once (assets/shared), then every rig scene is rebuilt against the shared paths
+cd .. && node tools/rig/dedupe.js && bash tools/rig/rebuild_all.sh

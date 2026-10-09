@@ -24,45 +24,44 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xi88r"]
 resource_local_to_scene = true
 
-[node name="WukongHit10Flush" type="Node2D" unique_id=305319698]
+[node name="WukongHit10Flush" type="Node2D" unique_id=1125620622]
 script = ExtResource("1_g4dnk")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=2138306686]
+[node name="Parts" type="Node2D" parent="." unique_id=815559236]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=1010806022]
+[node name="default" type="Node2D" parent="Parts" unique_id=483893458]
 visible = false
 
-[node name="g1_f0" type="CanvasGroup" parent="Parts/default" unique_id=471330399]
+[node name="g1_f0" type="CanvasGroup" parent="Parts/default" unique_id=586415683]
 material = SubResource("ShaderMaterial_jtrgn")
 fit_margin = 4.0
 clear_margin = 4.0
-use_mipmaps = true
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default/g1_f0" unique_id=895726520]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default/g1_f0" unique_id=1457420207]
 position = Vector2(-32, -67.55)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_h6a1n")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=786234771]
+[node name="Hitbox" type="Area2D" parent="." unique_id=941067789]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=2120272697]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1346705366]
 shape = SubResource("RectangleShape2D_2xkh2")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=195727733]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=679838386]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1188206559]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1247219960]
 shape = SubResource("RectangleShape2D_xi88r")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=476144926]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=574362765]
 callback_mode_process = 0
 libraries/ = ExtResource("4_ssctj")
