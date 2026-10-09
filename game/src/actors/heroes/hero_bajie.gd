@@ -179,7 +179,8 @@ func _create_stabs() -> void:
 				p.velocity.y += float(k.fall) * delta
 				p.position += p.velocity * delta
 			else:
-				var speed := float(k.speed) + float(k.accel) * floorf((p.age - turn) / float(k.accel_every))
-				p.position += heading * speed * delta
+				# accelerates without limit (the original adds more speed every frame than the one before)
+				var t := maxf(p.age - turn - float(k.quad_delay), 0.0)
+				p.position += heading * (float(k.speed) + float(k.quad) * t * t) * delta
 			if absf(p.position.y) > 1000.0:
 				p.queue_free()

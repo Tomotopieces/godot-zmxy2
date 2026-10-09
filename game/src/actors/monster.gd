@@ -225,6 +225,10 @@ func hurt_directly(amount: int) -> void:
 		return
 	DamageNumber.spawn("hurtnum", amount, Vector2(global_position.x - 20, hurt_rect().position.y), 20.0)
 	damage_directly(amount)
+	if not data.is_prop and not data.is_boss:
+		_hp_bar_t = data.hp_bar_time
+		_hp_bar.visible = true
+		_hp_bar.queue_redraw()
 
 func heal(amount: int) -> void:
 	hp = mini(hp + amount, max_hp)

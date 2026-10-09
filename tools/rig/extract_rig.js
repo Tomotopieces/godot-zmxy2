@@ -23,11 +23,15 @@ const { classifyEvents } = require('./events');
 
 // ------------------------------------------------------------------ script classification
 
-const SEL_RE = /getCurClothId\(\) > 2|gotoAndPlay\(BaseHero\(this\.to\.parent\)\.(getCurClothId|getCurWeaponId|getWingId)\(\)( - 2)?\)|getEquipNum\(\); this\.gotoAndPlay\(this\.obj\.(zbfj|zbwq|zbcb)\)|gotoAndStop\(Monster45\(this\.parent\.parent\)\.(getCurrentForm)\(\)\)/;
+const SEL_RE = /getCurClothId\(\) > 2|gotoAndPlay\(BaseHero\(this\.to\.parent\)\.(getCurClothId|getCurWeaponId|getWingId)\(\)( - 2)?\)|getEquipNum\(\); (?:if\([^)]*\) \{ )?this\.gotoAndPlay\(this\.obj\.(zbfj|zbwq|zbcb)\)|gotoAndStop\(Monster45\(this\.parent\.parent\)\.(getCurrentForm)\(\)\)/;
+
+// 唐僧's torso pieces sit in a clip named bodyEquip whose frame is the worn clothes id (Role2.setEquips); it is a cloth selector
+function selectorOf(lib, e) { return e.name === 'bodyEquip' ? 'cloth' : selectorKind(lib, e.c); }
 
 function selectorKind(lib, id) {
   const fsc = lib.frameScripts(id);
-  const s1 = fsc[1];
+  // the selector script is normally on frame 1; some bag portrait pieces only read the user's look on a later frame
+  const s1 = fsc[1] || Object.values(fsc).find((x) => SEL_RE.test(x));
   if (!s1) return null;
   const m = s1.match(SEL_RE);
   if (!m) return null;
@@ -40,7 +44,7 @@ function selectorKind(lib, id) {
 // nested (non-body) clip scripts: returns {op, arg} | null(no effect) | {op:'unknown'}
 function classifyNested(src) {
   const s = src.replace(/\s+/g, ' ').trim();
-  if (/^(this\.)?stop\(\);?$/.test(s)) return { op: 'stop' };
+  if (/^((this\.)?stop\(\);? ?)+$/.test(s)) return { op: 'stop' };
   let m = s.match(/^(this\.)?(gotoAndPlay|gotoAndStop)\((\d+|"[^"]*")\);?( stop\(\);)?$/);
   if (m) return { op: m[2], arg: m[3].startsWith('"') ? m[3].slice(1, -1) : +m[3] };
   if (/^(if\((this\.)?parent\) \{ )?(this\.)?parent\.removeChild\(this\);( \})?( stop\(\);)?$/.test(s)) return { op: 'remove' };
@@ -71,7 +75,7 @@ class Inst {
       if (k && k.iid === e.i) { k.e = e; continue; }
       if (this.removed.get(e.d) === e.i) continue;
       this.removed.delete(e.d);
-      const node = !e.clip && this.lib.sprite(e.c) && !selectorKind(this.lib, e.c) && e.name !== 'colipse'
+      const node = !e.clip && this.lib.sprite(e.c) && !selectorOf(this.lib, e) && e.name !== 'colipse'
         ? new Inst(this.sim, e.c, this) : null;
       this.kids.set(e.d, { iid: e.i, e, node });
     }
@@ -154,6 +158,8 @@ class Sim {
         const mm = mul(m, e.m);
         const cc = e.ct ? ctMul(ct, e.ct) : ct;
         const p = pathArr.concat(d);
+        // HIDE_AT=action:path:frame,...: a sub-tree that is gone from this frame on (a skill part replaced by the next one)
+        if (this.hideAt && this.hideAt.some(([pp, ff]) => (p.join('.') + '.').startsWith(pp + '.') && this.frameIndex >= ff)) continue;
         if (e.clip) {
           const b = boundsOf(this.lib, e.c);
           if (b) masks.push({ until: e.clip, r: rectXf(mm, b) });
@@ -180,7 +186,7 @@ class Sim {
           if (r) rects.hit = union(rects.hit, r);
           continue;
         }
-        const sk = selectorKind(this.lib, e.c);
+        const sk = selectorOf(this.lib, e);
         if (sk) { leaves.push({ path: p, kind: 'slot', ref: e.c, sel: sk, m: mm, ct: cc, fl: ef, fg: eg, cl: ec }); continue; }
         if (k.node) {
           if (e.name && e.name !== 'body') markers[e.name] = [mm[4], mm[5]];
@@ -329,6 +335,7 @@ function extract(libName, cls, outName, rootFilters = []) {
   for (const act of actions) {
     const sim = new Sim(lib, rootId, act.f, act.plays);
     sim.rootFilters = rootFilters;
+    sim.hideAt = (process.env.HIDE_AT || '').split(',').filter(Boolean).map((x) => x.split(':')).filter((x) => x[0] === act.label).map((x) => [x[1], +x[2]]);
     // END_FROM=action:frame,...: scripts that merely switch to another action before this frame do not end the action
     sim.endFrom = +(((process.env.END_FROM || '').split(',').map((x) => x.split(':')).find((x) => x[0] === act.label) || [])[1] || 0);
     let bodyN = sim.body && sim.body !== sim.root ? sim.body.n : (act.plays ? root.n - act.f : 1);
@@ -362,7 +369,11 @@ function extract(libName, cls, outName, rootFilters = []) {
         const last = tr.keys[tr.keys.length - 1];
         if (last[0] !== f && last[1] !== null) tr.keys.push([f, null, null, null]);  // hidden this frame
       }
-      hit.push([f, fmtR(snap.rects.hit)]);
+      // HIT_MAX_X=action:x,...: the attack box never reaches behind x (art faces left: x < 0 is the front)
+      let hr = fmtR(snap.rects.hit);
+      const cap = ((process.env.HIT_MAX_X || '').split(',').map((q) => q.split(':')).find((q) => q[0] === act.label) || [])[1];
+      if (hr && cap !== undefined && hr[0] + hr[2] > +cap) hr = hr[0] >= +cap ? null : [hr[0], hr[1], Math.round((+cap - hr[0]) * 10) / 10, hr[3]];
+      hit.push([f, hr]);
       art.push([f, fmtR(snap.art)]);
       hurt.push([f, fmtR(snap.rects.hurt)]);
       for (const [n, p] of Object.entries(snap.markers)) (markers[n] ||= []).push([f, r3(p[0]), r3(p[1])]);

@@ -12,7 +12,7 @@ func _ready() -> void:
 		st = Vector2i(int(p[0]), int(p[1]))
 	# the player's saves are set aside while the test runs with empty slots, and put back at the end
 	for i in GameState.SLOTS:
-		var f := ProjectSettings.globalize_path(SaveGame.SLOT_FILE % i)
+		var f := ProjectSettings.globalize_path(SaveGame.slot_path(i))
 		if FileAccess.file_exists(f):
 			DirAccess.rename_absolute(f, f + ".bak")
 	_main = load("res://scenes/main.tscn").instantiate()
@@ -58,7 +58,7 @@ func _ready() -> void:
 
 func _restore_saves() -> void:
 	for i in GameState.SLOTS:
-		var f := ProjectSettings.globalize_path(SaveGame.SLOT_FILE % i)
+		var f := ProjectSettings.globalize_path(SaveGame.slot_path(i))
 		if FileAccess.file_exists(f + ".bak"):
 			DirAccess.remove_absolute(f)
 			DirAccess.rename_absolute(f + ".bak", f)

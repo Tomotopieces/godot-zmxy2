@@ -19,11 +19,12 @@ func _ready() -> void:
 		lock.modulate = Color(0.3, 0.3, 0.3)
 		var l := Label.new()
 		l.text = "击败红孩儿后解锁"
+		l.add_theme_font_override("font", preload("res://assets/fonts/GenJyuuGothic-Bold.ttf"))
 		l.add_theme_font_size_override("font_size", 22)
 		l.add_theme_color_override("font_outline_color", Color.BLACK)
 		l.add_theme_constant_override("outline_size", 5)
-		l.position = Vector2(590, 330)
-		l.size = Vector2(230, 30)
+		l.position = Vector2(467, 330)   # centred on the third portrait
+		l.size = Vector2(234, 30)
 		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		add_child(l)

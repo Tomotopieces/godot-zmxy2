@@ -52,8 +52,10 @@ func do_hit3() -> void:
 ## O: heals the heroes near it when its animation ends.
 func do_hit5() -> void:
 	_busy = true
-	rig.play(&"hit5")
+	rig.visible = false
 	Snd.sfx("Role2_hit5")
+	hero.cure_at(global_position + Vector2(0, -60), false)
+	get_tree().create_timer(0.1, false).timeout.connect(queue_free)
 
 func _on_event(n: StringName, args: Array) -> void:
 	if n != &"call" or not is_instance_valid(hero):

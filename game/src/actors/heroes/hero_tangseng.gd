@@ -15,6 +15,7 @@ var _dropped := false   ## hit4: the pillar has been called down
 
 func _init() -> void:
 	hit_sound = "BeattackByRole2"
+	sounds = {}   # played by the moves themselves, when their effect appears
 
 func _ready() -> void:
 	super()
@@ -87,20 +88,25 @@ func _cast_cure() -> void:
 	mp -= data.attacks[&"hit5"].mp_cost
 	Snd.sfx("Role2_hit5")
 	_hover(&"hit5")
+	cure_at(global_position + Vector2(0, -60), true)
+	if is_instance_valid(_shadow):
+		_shadow.do_hit5()
+		_shadow = null
+
+## The healing light at `pos`: heals the hero when its animation ends (the shadow's never crits).
+func cure_at(pos: Vector2, can_crit: bool) -> void:
 	var fx := Rig.create("tangseng_cure")
-	fx.position = global_position + Vector2(0, -60)
+	fx.position = pos
 	if transformed:
 		fx.scale = Vector2.ONE * float(data.kit.cure.scale_rage)
 	fx.set_additive()
 	world.add_object(fx)
-	fx.action_finished.connect(func(_a):
-		if is_alive():
-			heal(_cure_amount(true))
-		fx.queue_free())
+	fx.event.connect(func(n, _a):
+		if n == &"finished":
+			if is_alive():
+				heal(_cure_amount(can_crit))
+			fx.queue_free())
 	fx.play(fx.actions[0])
-	if is_instance_valid(_shadow):
-		_shadow.do_hit5()
-		_shadow = null
 
 ## Healing of the cure skill: (max MP / 8 + 8), x1.5 transformed, x2 on a crit (the shadow's heal never crits).
 func _cure_amount(can_crit: bool) -> int:
@@ -123,7 +129,7 @@ func _cast_fall() -> void:
 			var p := _skill_projectile("hit4falldown", &"hit4_1",
 				global_position + Vector2(facing * -ball_x, float(f.ball_y) - float(f.drop_height)))
 			p.facing = facing
-			Snd.sfx("Role2_hit4")
+			get_tree().create_timer(float(f.sound_delay), false).timeout.connect(Snd.sfx.bind("Role2_hit4"))
 			rig.anim.seek(float(f.resume), false)
 		return
 	if not is_on_floor() or not _ready_to_cast(&"hit4", &"hit4"):
@@ -168,10 +174,11 @@ func _fire_charge() -> void:
 		mp -= int(data.kit.charge_mp)
 		_shoot(&"hit2")
 	else:
-		Snd.sfx("Role2_hit1")
 		_shoot(&"hit1")
 
 func _shoot(action: StringName) -> void:
+	if action == &"hit1":
+		Snd.sfx("Role2_hit1")
 	var a: AttackData = data.attacks[action]
 	var p := Projectile.create(a.projectile, self, a, action)
 	p.position = global_position + Vector2(a.spawn_offset.x * facing, a.spawn_offset.y)

@@ -1,24 +1,33 @@
 class_name SaveGame
 extends RefCounted
-## Save slots (user://slot_N.json) of the GameState profile: serialising, atomic writes with a .bak, versioning and
+## Save slots (<saves>/slot_N.json) of the GameState profile: serialising, atomic writes with a .bak, versioning and
 ## validated loading. GameState keeps the one-line entry points (save_to, load_from, slot_info, autosave).
 
-const SLOT_FILE := "user://slot_%d.json"
 const VERSION := 1
 
-const ACCOUNT_FILE := "user://account.json"
+## Saves live in a "saves" folder next to the exe (in the editor: user://saves).
+static func dir() -> String:
+	var d := "user://saves" if OS.has_feature("editor") else OS.get_executable_path().get_base_dir().path_join("saves")
+	DirAccess.make_dir_recursive_absolute(d)
+	return d
+
+static func slot_path(i: int) -> String:
+	return dir().path_join("slot_%d.json" % i)
+
+static func account_path() -> String:
+	return dir().path_join("account.json")
 
 ## Account-wide data that belongs to no slot: which heroes are unlocked.
 static func read_account(g: Node) -> void:
-	if not FileAccess.file_exists(ACCOUNT_FILE):
+	if not FileAccess.file_exists(account_path()):
 		return
-	var d = JSON.parse_string(FileAccess.get_file_as_string(ACCOUNT_FILE))
+	var d = JSON.parse_string(FileAccess.get_file_as_string(account_path()))
 	if d is Dictionary and d.get("unlocked") is Dictionary:
 		for r in g.unlocked:
 			g.unlocked[r] = g.unlocked[r] or d.unlocked.get(r, false) == true
 
 static func write_account(g: Node) -> void:
-	var f := FileAccess.open(ACCOUNT_FILE, FileAccess.WRITE)
+	var f := FileAccess.open(account_path(), FileAccess.WRITE)
 	if f:
 		f.store_string(JSON.stringify({"unlocked": g.unlocked}))
 
@@ -43,7 +52,7 @@ static func to_dict(g: Node) -> Dictionary:
 ## Written to a temporary file and renamed over the slot (a crash mid-write cannot truncate it); the previous slot is
 ## kept as <slot>.bak, which reading falls back to when the slot cannot be parsed.
 static func write(i: int, d: Dictionary) -> bool:
-	var path: String = SLOT_FILE % i
+	var path: String = slot_path(i)
 	var tmp := path + ".tmp"
 	var f := FileAccess.open(tmp, FileAccess.WRITE)
 	if f == null:
@@ -60,7 +69,7 @@ static func write(i: int, d: Dictionary) -> bool:
 
 ## The parsed save of a slot (falling back to its backup), {} when empty or unreadable.
 static func read(i: int) -> Dictionary:
-	for path in [SLOT_FILE % i, (SLOT_FILE % i) + ".bak"]:
+	for path in [slot_path(i), (slot_path(i)) + ".bak"]:
 		if not FileAccess.file_exists(path):
 			continue
 		var json := JSON.new()

@@ -22,7 +22,7 @@ func _ready() -> void:
 	_check("tangseng class", Hero.create() is HeroTangseng)
 	_check("hud icon frames", GameState.hero_data.hud_icon_base() == 6)
 	GameState.unlocked.bajie = keep_unlock
-	var f := ProjectSettings.globalize_path(SaveGame.SLOT_FILE % 5)
+	var f := ProjectSettings.globalize_path(SaveGame.slot_path(5))
 	OS.move_to_trash(f)
 	OS.move_to_trash(f + ".bak")
 	print("ROLE CHECK ", "FAILED (%d)" % _fails if _fails else "OK")
