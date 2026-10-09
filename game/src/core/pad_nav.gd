@@ -110,7 +110,8 @@ func _input(e: InputEvent) -> void:
 				_step({JOY_BUTTON_DPAD_UP: Vector2i.UP, JOY_BUTTON_DPAD_DOWN: Vector2i.DOWN,
 					JOY_BUTTON_DPAD_LEFT: Vector2i.LEFT, JOY_BUTTON_DPAD_RIGHT: Vector2i.RIGHT}[b.button_index], cands)
 		JOY_BUTTON_A:
-			if b.pressed:
+			# on release: the press must not still be held when the next screen (a stage) starts, or it would be a jump
+			if not b.pressed:
 				_activate(cands)
 		JOY_BUTTON_B:
 			if b.pressed:
