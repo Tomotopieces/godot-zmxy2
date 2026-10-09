@@ -17,3 +17,10 @@ func setup() -> void:
 	m.data = d
 	m.max_hp = int(hard.hp)
 	m.hp = m.max_hp
+
+## The first kill of 红孩儿 unlocks 猪八戒 for the account (Monster46.destroy: openPig).
+func on_died() -> void:
+	super()
+	if not GameState.unlocked.get("bajie", false):
+		GameState.unlock("bajie")
+		m.world.toast("解锁新角色：猪八戒")

@@ -16,6 +16,7 @@ var world: Level:
 		return Level.current
 
 var rig: Rig
+var body_shape: CollisionShape2D   ## the actor's body collider (sized from the idle hurt box)
 var hp := 1
 var max_hp := 1
 var gravity := 0.0
@@ -44,6 +45,7 @@ func setup_rig(rig_name: String) -> void:
 	body.shape = shape
 	body.position = Vector2(cs.position.x * rig.scale.x, cs.position.y)
 	add_child(body)
+	body_shape = body
 
 func is_alive() -> bool:
 	return hp > 0
@@ -87,7 +89,13 @@ func _deliver(target: Actor) -> bool:
 	var landed: bool = target.take_hit(h)
 	if landed and self is Monster and target is Hero:
 		(self as Monster).brain.on_hit_hero(target, attack_action)
+	if landed:
+		_on_landed(target)
 	return landed
+
+## A melee hit of this actor landed on `target` (virtual).
+func _on_landed(_target: Actor) -> void:
+	pass
 
 ## Spawn the attack's projectile (monster bullets) in front of the actor.
 func fire_projectile(data: AttackData, action: StringName) -> Projectile:

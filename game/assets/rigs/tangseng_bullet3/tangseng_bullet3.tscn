@@ -1,0 +1,230 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/rig/rig.gd" id="1_o184n"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng_bullet3/tex/Role_v6_783.png" id="2_k4p0k"]
+[ext_resource type="Shader" path="res://src/rig/flash_filter.gdshader" id="3_dejce"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng_bullet3/tex/Role_v6_784.png" id="4_61c4j"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng_bullet3/tex/Role_v6_786.png" id="5_4vfpg"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng_bullet3/tex/Role_v6_788.png" id="6_sr5qp"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng_bullet3/tex/Role_v6_796.png" id="7_ykh05"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng_bullet3/tex/Role_v6_804.png" id="8_gf1m0"]
+[ext_resource type="AnimationLibrary" path="res://assets/rigs/tangseng_bullet3/anims.res" id="9_1j05d"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lu5y5"]
+shader = ExtResource("3_dejce")
+shader_parameter/blur = null
+shader_parameter/glow_on = true
+shader_parameter/glow_color = Color(1, 1, 1, 1)
+shader_parameter/glow_blur = Vector2(31, 31)
+shader_parameter/glow_strength = 1.0
+shader_parameter/glow_inner = false
+shader_parameter/glow_knockout = false
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r0vhu"]
+shader = ExtResource("3_dejce")
+shader_parameter/blur = null
+shader_parameter/glow_on = true
+shader_parameter/glow_color = Color(1, 1, 1, 1)
+shader_parameter/glow_blur = Vector2(17, 17)
+shader_parameter/glow_strength = 2.1875
+shader_parameter/glow_inner = false
+shader_parameter/glow_knockout = false
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_34oak"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h3hg1"]
+resource_local_to_scene = true
+
+[node name="TangsengBullet3" type="Node2D" unique_id=1310804169]
+script = ExtResource("1_o184n")
+actions = PackedStringArray("default")
+
+[node name="Parts" type="Node2D" parent="." unique_id=337777065]
+
+[node name="default" type="Node2D" parent="Parts" unique_id=942188726]
+visible = false
+
+[node name="p1_1" type="Sprite2D" parent="Parts/default" unique_id=1976050289]
+position = Vector2(-130.95, -62.95)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_k4p0k")
+centered = false
+
+[node name="g1_1_f0" type="CanvasGroup" parent="Parts/default" unique_id=371833418]
+material = SubResource("ShaderMaterial_lu5y5")
+fit_margin = 35.0
+clear_margin = 35.0
+
+[node name="p1_1_1_f0" type="Sprite2D" parent="Parts/default/g1_1_f0" unique_id=343302230]
+modulate = Color(0.9984118, 0.9984118, 0.9984118, 1)
+position = Vector2(-132.25, -59.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_61c4j")
+centered = false
+
+[node name="g1_1_f1" type="CanvasGroup" parent="Parts/default" unique_id=1895008908]
+material = SubResource("ShaderMaterial_r0vhu")
+fit_margin = 21.0
+clear_margin = 21.0
+
+[node name="p1_1_1_f1" type="Sprite2D" parent="Parts/default/g1_1_f1" unique_id=535867776]
+modulate = Color(0.99837255, 0.99837255, 0.99837255, 1)
+position = Vector2(-133.9, -59.1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_4vfpg")
+centered = false
+
+[node name="p1_3_1" type="Sprite2D" parent="Parts/default" unique_id=1868059954]
+position = Vector2(-135.35, -53.65)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_sr5qp")
+centered = false
+
+[node name="p5_1" type="Sprite2D" parent="Parts/default" unique_id=1496748136]
+position = Vector2(15.850002, -59.95)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_k4p0k")
+centered = false
+
+[node name="g5_1_f0" type="CanvasGroup" parent="Parts/default" unique_id=212354650]
+material = SubResource("ShaderMaterial_lu5y5")
+fit_margin = 35.0
+clear_margin = 35.0
+
+[node name="p5_1_1_f0" type="Sprite2D" parent="Parts/default/g5_1_f0" unique_id=1838786560]
+modulate = Color(0.9984118, 0.9984118, 0.9984118, 1)
+position = Vector2(14.550003, -56.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_61c4j")
+centered = false
+
+[node name="g5_1_f1" type="CanvasGroup" parent="Parts/default" unique_id=578450007]
+material = SubResource("ShaderMaterial_r0vhu")
+fit_margin = 21.0
+clear_margin = 21.0
+
+[node name="p5_1_1_f1" type="Sprite2D" parent="Parts/default/g5_1_f1" unique_id=1049648384]
+modulate = Color(0.99837255, 0.99837255, 0.99837255, 1)
+position = Vector2(12.900002, -56.1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_4vfpg")
+centered = false
+
+[node name="p5_3_1" type="Sprite2D" parent="Parts/default" unique_id=1033187420]
+position = Vector2(11.449997, -50.65)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_sr5qp")
+centered = false
+
+[node name="p9" type="Sprite2D" parent="Parts/default" unique_id=765786443]
+position = Vector2(-68.15, -38.9)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_ykh05")
+centered = false
+
+[node name="p9_1" type="Sprite2D" parent="Parts/default" unique_id=1912833560]
+position = Vector2(-207.40001, -59.95)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_k4p0k")
+centered = false
+
+[node name="g9_1_f0" type="CanvasGroup" parent="Parts/default" unique_id=1239882525]
+material = SubResource("ShaderMaterial_lu5y5")
+fit_margin = 35.0
+clear_margin = 35.0
+
+[node name="p9_1_1_f0" type="Sprite2D" parent="Parts/default/g9_1_f0" unique_id=315172170]
+modulate = Color(0.9984118, 0.9984118, 0.9984118, 1)
+position = Vector2(-208.70001, -56.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_61c4j")
+centered = false
+
+[node name="g9_1_f1" type="CanvasGroup" parent="Parts/default" unique_id=948465487]
+material = SubResource("ShaderMaterial_r0vhu")
+fit_margin = 21.0
+clear_margin = 21.0
+
+[node name="p9_1_1_f1" type="Sprite2D" parent="Parts/default/g9_1_f1" unique_id=1397635213]
+modulate = Color(0.99837255, 0.99837255, 0.99837255, 1)
+position = Vector2(-210.35, -56.1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_4vfpg")
+centered = false
+
+[node name="p9_3_1" type="Sprite2D" parent="Parts/default" unique_id=682424945]
+position = Vector2(-211.79999, -50.65)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_sr5qp")
+centered = false
+
+[node name="p13" type="Sprite2D" parent="Parts/default" unique_id=96141007]
+position = Vector2(-59.25, -27.3)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_gf1m0")
+centered = false
+
+[node name="p13_1" type="Sprite2D" parent="Parts/default" unique_id=1659350340]
+position = Vector2(99.899994, -59.95)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_k4p0k")
+centered = false
+
+[node name="g13_1_f0" type="CanvasGroup" parent="Parts/default" unique_id=1803160531]
+material = SubResource("ShaderMaterial_lu5y5")
+fit_margin = 35.0
+clear_margin = 35.0
+
+[node name="p13_1_1_f0" type="Sprite2D" parent="Parts/default/g13_1_f0" unique_id=1471692172]
+modulate = Color(0.9984118, 0.9984118, 0.9984118, 1)
+position = Vector2(98.6, -56.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_61c4j")
+centered = false
+
+[node name="g13_1_f1" type="CanvasGroup" parent="Parts/default" unique_id=1162722385]
+material = SubResource("ShaderMaterial_r0vhu")
+fit_margin = 21.0
+clear_margin = 21.0
+
+[node name="p13_1_1_f1" type="Sprite2D" parent="Parts/default/g13_1_f1" unique_id=1043225928]
+modulate = Color(0.99837255, 0.99837255, 0.99837255, 1)
+position = Vector2(96.95, -56.1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_4vfpg")
+centered = false
+
+[node name="p13_3_1" type="Sprite2D" parent="Parts/default" unique_id=1616475095]
+position = Vector2(95.49999, -50.65)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_sr5qp")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=2038857229]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=226240666]
+shape = SubResource("RectangleShape2D_34oak")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1844784861]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=804948342]
+shape = SubResource("RectangleShape2D_h3hg1")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=397292953]
+callback_mode_process = 0
+libraries/ = ExtResource("9_1j05d")

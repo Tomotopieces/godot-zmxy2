@@ -69,7 +69,7 @@ func _build_portrait() -> void:
 	_ui.add_child(glow)
 	_ui.move_child(glow, _ui.get_piece("personmc").get_index())
 	glow.play(glow.actions[0])
-	_portrait = Rig.create("bag_wukong")
+	_portrait = Rig.create("bag_" + GameState.hero_data.role)
 	_portrait.position = (_ui.get_piece("personmc") as Node2D).position
 	_ui.add_child(_portrait)
 	_ui.move_child(_portrait, _ui.get_piece("personmc").get_index() + 1)
@@ -168,7 +168,7 @@ func _fill_stats() -> void:
 	var h: Hero = Level.current.hero if Level.current else null
 	var hp := h.hp if h else GameState.max_hp()
 	var mp := h.mp if h else GameState.max_mp()
-	_ui.set_text("txt_name", "孙悟空")
+	_ui.set_text("txt_name", GameState.hero_data.title)
 	_ui.set_text("txt_hp", "%d / %d" % [hp, GameState.max_hp()])
 	_ui.set_text("txt_mp", "%d / %d" % [mp, GameState.max_mp()])
 	_ui.set_text("txt_exp", "%d / %d" % [GameState.exp, GameState.exp_to_next()])

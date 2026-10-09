@@ -76,7 +76,7 @@ func _ready() -> void:
 	params = all.get(level_name, {}) if all is Dictionary else {}
 	process_physics_priority = 10   # after the actors moved
 	_build(JSON.parse_string(FileAccess.get_file_as_string("res://assets/levels/%s/level.json" % level_name)))
-	hero = Hero.new()
+	hero = Hero.create()
 	hero.position = Vector2(200, 200)
 	hero.died.connect(func(_h): hero_died.emit())
 	world.add_child(hero)

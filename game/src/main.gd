@@ -29,11 +29,18 @@ func _swap(n: Node) -> void:
 
 func show_menu() -> void:
 	var m := MainMenu.new()
-	m.new_game.connect(func():
-		GameState.new_game()
-		_after_new_game())
+	m.new_game.connect(show_select_role)
 	m.continued.connect(show_map)
 	_swap(m)
+
+## New game, step 1: choose the hero.
+func show_select_role() -> void:
+	var s := SelectRole.new()
+	s.chosen.connect(func(role: String):
+		GameState.new_game(role)
+		_after_new_game())
+	s.cancelled.connect(show_menu)
+	_swap(s)
 
 ## New game: the opening comic once, then the map.
 func _after_new_game() -> void:

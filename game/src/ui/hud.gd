@@ -16,7 +16,7 @@ var _buff_rows := {}   ## buff name -> Label
 func _ready() -> void:
 	_ui = UiLayout.create("role_info")
 	add_child(_ui)
-	_ui.show_frame("head", 0)
+	_ui.show_frame("head", GameState.hero_data.role_index)
 	_setup_rage_glow()
 	_ui.button_pressed.connect(_on_button)
 	_banner = Label.new()
@@ -171,7 +171,8 @@ func _process(_dt: float) -> void:
 	_ui.set_text("txtmp", "%d/%d" % [h.mp, h.max_mp])
 	_ui.set_text("txtexp", "%d/%d" % [GameState.exp, GameState.exp_to_next()])
 	_ui.set_text("txtlevel", str(GameState.level))
-	# Wukong's learned skill i shows icon frame i + 1 (frame 0 = locked)
-	var learned := [&"hit8", &"hit6", &"hit7", &"hit9", &"hit10"]
+	# the hero's learned skill i shows its icon frame (frame 0 = locked; 5 frames per hero)
+	var learned := GameState.hero_data.learn_active
+	var base := GameState.hero_data.hud_icon_base()
 	for i in learned.size():
-		_ui.show_frame("skill%d" % (i + 1), i + 1 if GameState.has_skill(learned[i]) else 0)
+		_ui.show_frame("skill%d" % (i + 1), base + i if GameState.has_skill(StringName(learned[i])) else 0)

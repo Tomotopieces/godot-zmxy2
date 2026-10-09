@@ -1,0 +1,321 @@
+[gd_resource type="Resource" script_class="HeroData" format=3]
+
+[ext_resource type="Script" path="res://src/data/attack_data.gd" id="1_hbkml"]
+[ext_resource type="Script" path="res://src/data/hero_data.gd" id="2_65cpp"]
+
+[sub_resource type="Resource" id="Resource_7p1ir"]
+script = ExtResource("1_hbkml")
+knockback = Vector2(12, -72)
+rehit_interval = 0.16666666666666666
+
+[sub_resource type="Resource" id="Resource_g1grt"]
+script = ExtResource("1_hbkml")
+knockback = Vector2(12, -72)
+rehit_interval = 0.16666666666666666
+
+[sub_resource type="Resource" id="Resource_72stj"]
+script = ExtResource("1_hbkml")
+knockback = Vector2(12, -72)
+rehit_interval = 0.16666666666666666
+
+[sub_resource type="Resource" id="Resource_nmg33"]
+script = ExtResource("1_hbkml")
+power_mul = 0.7
+kind = 1
+knockback = Vector2(192, -72)
+max_hits = 100
+mp_cost = 15
+cooldown = 0.625
+
+[sub_resource type="Resource" id="Resource_5yinn"]
+script = ExtResource("1_hbkml")
+kind = 1
+knockback = Vector2(360, -48)
+max_hits = 100
+mp_cost = 35
+cooldown = 1.25
+
+[sub_resource type="Resource" id="Resource_cy8jm"]
+script = ExtResource("1_hbkml")
+power_mul = 2.0
+knockback = Vector2(0, -48)
+rehit_interval = 0.20833333333333334
+max_hits = 99
+mp_cost = 10
+cooldown = 0.5833333333333334
+
+[sub_resource type="Resource" id="Resource_u5xd6"]
+script = ExtResource("1_hbkml")
+power_mul = 0.0
+kind = 1
+knockback = Vector2(0, -48)
+rehit_interval = 0.16666666666666666
+mp_cost = 30
+cooldown = 8.333333333333334
+
+[sub_resource type="Resource" id="Resource_3gil5"]
+script = ExtResource("1_hbkml")
+power_mul = 0.5
+kind = 1
+knockback = Vector2(0, -48)
+rehit_interval = 0.16666666666666666
+mp_cost = 30
+cooldown = 1.25
+
+[sub_resource type="Resource" id="Resource_avvhg"]
+script = ExtResource("1_hbkml")
+power_mul = 0.0
+kind = 1
+rehit_interval = 0.08333333333333333
+max_hits = 100
+mp_cost = 20
+cooldown = 1.6666666666666667
+
+[sub_resource type="Resource" id="Resource_yiiit"]
+script = ExtResource("1_hbkml")
+kind = 1
+knockback = Vector2(48, -48)
+
+[sub_resource type="Resource" id="Resource_4vxgb"]
+script = ExtResource("1_hbkml")
+kind = 1
+knockback = Vector2(48, -48)
+max_hits = 99
+
+[sub_resource type="Resource" id="Resource_dpyao"]
+script = ExtResource("1_hbkml")
+kind = 1
+knockback = Vector2(48, -48)
+max_hits = 99
+
+[sub_resource type="Resource" id="Resource_m0rhw"]
+script = ExtResource("1_hbkml")
+kind = 1
+knockback = Vector2(48, -48)
+
+[sub_resource type="Resource" id="Resource_e42en"]
+script = ExtResource("1_hbkml")
+kind = 1
+knockback = Vector2(48, -48)
+
+[sub_resource type="Resource" id="Resource_1ca7u"]
+script = ExtResource("1_hbkml")
+kind = 1
+knockback = Vector2(48, -48)
+max_hits = 99
+
+[sub_resource type="Resource" id="Resource_2v4ac"]
+script = ExtResource("1_hbkml")
+kind = 1
+knockback = Vector2(48, -48)
+max_hits = 99
+
+[sub_resource type="Resource" id="Resource_uv2dm"]
+script = ExtResource("1_hbkml")
+knockback = Vector2(48, -48)
+max_hits = 99
+
+[sub_resource type="Resource" id="Resource_x68l7"]
+script = ExtResource("1_hbkml")
+knockback = Vector2(48, -48)
+max_hits = 99
+
+[resource]
+script = ExtResource("2_65cpp")
+role = "bajie"
+role_index = 2
+title = "猪八戒"
+character = "八戒"
+sound_prefix = "Role3"
+rig = "bajie"
+damage_taken_mul_in_rage = 0.5
+lock_glow = Color(1, 0.8, 0.2, 1)
+kit = {
+"hit5": {
+"invincible": 1.0416666666666667
+},
+"hit6": {
+"min_damage": 1.0
+},
+"pull": {
+"exclude": [70.0, 78.0, 60.0, 71.0, 53.0, 54.0, 55.0, 52.0, 57.0],
+"move": 1.0,
+"offset_y": -100.0
+},
+"reflect": {
+"mul": 2.0,
+"recast_after": 1.6666666666666667
+},
+"stab": {
+"accel": 24.0,
+"accel_every": 0.8333333333333334,
+"count": 10.0,
+"fall": 288.0,
+"hp_ratio": 0.03,
+"life": 10.0,
+"radius": 100.0,
+"rage_count": 20.0,
+"speed": 24.0,
+"turn": 1.0
+},
+"stun": {
+"duration": 2.0,
+"items": ["ssc", "jcdp"]
+}
+}
+walk_speed = 144.0
+run_speed = 240.0
+gravity = 864.0
+jump_velocity = -497.9638541099143
+rage_gravity = 2160.0
+rage_jump_velocity = -763.6753236814714
+rage_speed_mul = 1.5
+double_tap_window = 0.25
+spawn_invincible = 2.0
+hp_base = 100
+hp_per_level = 70
+mp_base = 35
+mp_per_level = 15
+atk_rand = 0
+def_base = 4
+def_per_level = 1
+def_cap_level = 999
+def_per_level_after = 1
+exp_table = PackedInt32Array(135, 145, 155, 165, 175, 185, 625, 675, 725, 775, 825, 875, 1950, 2050, 2150, 2250, 2350, 2450, 5000)
+rage_drain_interval = 0.16666666666666666
+combo_cooldowns = PackedFloat32Array(0.5416667, 0.5416667, 0.5416667)
+air_cooldown = 0.625
+combo_reset = 1.5
+attacks = {
+&"fabao_cucurbit": SubResource("Resource_yiiit"),
+&"fabao_pearl": SubResource("Resource_dpyao"),
+&"fabao_sword": SubResource("Resource_4vxgb"),
+&"fabao_umbrella": SubResource("Resource_m0rhw"),
+&"fabao_wudu_hit1": SubResource("Resource_e42en"),
+&"fabao_wudu_hit2_1": SubResource("Resource_1ca7u"),
+&"fabao_wudu_hit2_2": SubResource("Resource_2v4ac"),
+&"fabao_wudu_hit2_3": SubResource("Resource_uv2dm"),
+&"fabao_wudu_hit2_4": SubResource("Resource_x68l7"),
+&"hit1": SubResource("Resource_7p1ir"),
+&"hit2": SubResource("Resource_g1grt"),
+&"hit3": SubResource("Resource_72stj"),
+&"hit4": SubResource("Resource_nmg33"),
+&"hit5": SubResource("Resource_5yinn"),
+&"hit6": SubResource("Resource_cy8jm"),
+&"hit7-1": SubResource("Resource_u5xd6"),
+&"hit7-2": SubResource("Resource_3gil5"),
+&"hit8": SubResource("Resource_avvhg")
+}
+treasures = {
+"_doc": "Magic treasures (export/magicWeapon, Role1.getRealPower). The treasure floats behind the hero and retargets every follow_frames with a tween of follow_tween_frames. Damage: base + per_level*L +- spread/2; 木 element multiplies by wood_mul range, otherwise by mul range.",
+"bsj": {
+"drain": 15.0,
+"max_speed": 360.0,
+"mul": [0.9, 1.1],
+"pct_base": 0.003,
+"pct_per_level": 0.002,
+"reach": 10.0,
+"search": 1000.0,
+"skip_monsters": [78.0, 52.0, 53.0, 54.0, 55.0, 57.0, 60.0],
+"speed_step": 576.0,
+"start_speed": 120.0,
+"tick": 1.0,
+"wood_mul": [1.5, 2.0],
+"y_offset": -30.0
+},
+"dshl": {
+"fire_damage": 300.0,
+"fire_per_level": 50.0,
+"fire_spread": 20.0,
+"wood_mul": [1.5, 2.0]
+},
+"follow": 0.5,
+"follow_offset": [-60.0, -50.0],
+"follow_tween": 1.0,
+"lsys": {
+"_stab": "stabs speed up as v = stab_speed + stab_jerk * t^2 (original: +0.05*n px/frame each frame n)",
+"damage": 10.0,
+"mul": [0.9, 1.1],
+"poison": 10.0,
+"poison_base": 50.0,
+"poison_per_level": 15.0,
+"poison_tick": 1.0,
+"rise": 300.0,
+"rise_time": 1.0,
+"stab_depth": 300.0,
+"stab_jerk": 345.6,
+"stab_life": 10.0,
+"stab_spacing": 25.0,
+"stab_speed": 24.0,
+"stab_spread": 80.0,
+"stab_turn": 0.09999999999999999,
+"stabs": 8.0,
+"wood_mul": [1.5, 2.0]
+},
+"tsgj": {
+"damage": 400.0,
+"decel": 288.0,
+"life": 8.0,
+"per_level": 60.0,
+"rise": 4.0,
+"rise_time": 0.5,
+"sink": 10.0,
+"sink_time": 0.5,
+"speed": 432.0,
+"spread": 20.0,
+"stand_life": 6.0,
+"wood_mul": [1.5, 2.0]
+},
+"wds": {
+"auto": 3.0,
+"bullet_accel": 576.0,
+"bullet_distance": 1500.0,
+"bullet_speed": 72.0,
+"first_auto": 3.0,
+"move_time": 0.5,
+"side": 40.0,
+"skip_monsters": [70.0],
+"spells": [{
+"big": "fabao_wudu_thunder_big",
+"big_attack": "fabao_wudu_hit2_2",
+"big_power": 0.3,
+"big_screen": [480.0, 235.0],
+"small": "fabao_wudu_thunder",
+"small_attack": "fabao_wudu_hit2_1",
+"small_offset": [20.0, 0.0],
+"small_power": 0.25
+}, {
+"big": "fabao_wudu_fire_big",
+"big_attack": "fabao_wudu_hit2_4",
+"big_power": 0.6,
+"big_screen": [480.0, 500.0],
+"small": "fabao_wudu_fire",
+"small_attack": "fabao_wudu_hit2_3",
+"small_offset": [40.0, -40.0],
+"small_power": 0.3
+}],
+"wood_mul": [1.2, 1.5]
+},
+"xhmt": {
+"attacks_base": 3.0,
+"attacks_per_levels": 3.0,
+"bullet_offsets": [[0.0, -15.0], [0.0, 0.0], [0.0, 10.0]],
+"move_time": 0.5,
+"mul": [0.9, 1.1],
+"power": 0.05,
+"side": 30.0,
+"skip_monsters": [57.0, 60.0, 70.0],
+"wood_bonus": 2.0,
+"wood_mul": [1.5, 2.0]
+}
+}
+learn_active = PackedStringArray("hit4", "hit6", "hit5", "hit8", "hit7")
+learn_active_cost = PackedInt32Array(100, 200, 500, 1000, 2000)
+learn_passive = PackedStringArray("hp", "mp", "crit", "hp_regen", "mp_regen")
+passive_bonus = {
+"crit": Vector2(0.01, 0.01),
+"hp": Vector2(100, 100),
+"hp_regen": Vector2(1, 1),
+"mp": Vector2(100, 100),
+"mp_regen": Vector2(1, 1)
+}

@@ -6,12 +6,29 @@ extends RefCounted
 const SLOT_FILE := "user://slot_%d.json"
 const VERSION := 1
 
+const ACCOUNT_FILE := "user://account.json"
+
+## Account-wide data that belongs to no slot: which heroes are unlocked.
+static func read_account(g: Node) -> void:
+	if not FileAccess.file_exists(ACCOUNT_FILE):
+		return
+	var d = JSON.parse_string(FileAccess.get_file_as_string(ACCOUNT_FILE))
+	if d is Dictionary and d.get("unlocked") is Dictionary:
+		for r in g.unlocked:
+			g.unlocked[r] = g.unlocked[r] or d.unlocked.get(r, false) == true
+
+static func write_account(g: Node) -> void:
+	var f := FileAccess.open(ACCOUNT_FILE, FileAccess.WRITE)
+	if f:
+		f.store_string(JSON.stringify({"unlocked": g.unlocked}))
+
 static func to_dict(g: Node) -> Dictionary:
 	var w := {}
 	for k in g.worn:
 		w[String(k)] = g.worn[k].to_dict() if g.worn[k] else {}
 	return {
 		"version": VERSION,
+		"role": g.role,
 		"level": g.level, "exp": g.exp, "souls": g.souls, "attack": g.attack,
 		"skills": g.skills.keys().filter(func(k): return g.skills[k]).map(func(k): return String(k)),
 		"passives": g.passives,
@@ -19,7 +36,7 @@ static func to_dict(g: Node) -> Dictionary:
 		"stage": [g.stage.x, g.stage.y], "progress": [g.progress.x, g.progress.y],
 		"opening_seen": g.opening_seen, "hhe_seen": g.hhe_seen, "buffs": g.buffs,
 		"merit": g.merit, "merit_day": g.merit_day, "merit_times": g.merit_times,
-		"title": "Lv.%d  悟空  %d-%d" % [g.level, g.progress.x, g.progress.y],
+		"title": "Lv.%d  %s  %d-%d" % [g.level, g.hero_data.character, g.progress.x, g.progress.y],
 		"datetime": Time.get_datetime_string_from_system(false, true),
 	}
 
@@ -67,7 +84,7 @@ static func _pair(v: Variant, fallback: Vector2i) -> Vector2i:
 
 ## Applies a read save to the profile `g` (already reset by the caller), validating and clamping every field.
 static func apply(g: Node, d: Dictionary) -> void:
-	var hero: HeroData = g.hero_data
+	var hero: HeroData = g.hero_data   # the caller has already started a new game as the saved role
 	g.level = clampi(int(d.get("level", 1)), 1, hero.level_max)
 	g.exp = maxi(int(d.get("exp", 0)), 0)
 	g.souls = maxi(int(d.get("souls", 0)), 0)

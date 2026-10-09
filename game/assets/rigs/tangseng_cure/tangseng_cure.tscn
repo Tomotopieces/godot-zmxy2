@@ -1,0 +1,48 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/rig/rig.gd" id="1_2a2bs"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng_cure/tex/Role_v6_724.png" id="2_q5qre"]
+[ext_resource type="AnimationLibrary" path="res://assets/rigs/tangseng_cure/anims.res" id="3_nb7x8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4lyfr"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hv8lv"]
+resource_local_to_scene = true
+
+[node name="TangsengCure" type="Node2D" unique_id=1926496871]
+script = ExtResource("1_2a2bs")
+actions = PackedStringArray("default")
+
+[node name="Parts" type="Node2D" parent="." unique_id=2058958078]
+
+[node name="default" type="Node2D" parent="Parts" unique_id=655237653]
+visible = false
+
+[node name="p1_1" type="Sprite2D" parent="Parts/default" unique_id=352920828]
+position = Vector2(-245.5, -163)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_q5qre")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1481518724]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=334399724]
+shape = SubResource("RectangleShape2D_4lyfr")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=569736941]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1403579421]
+shape = SubResource("RectangleShape2D_hv8lv")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=302007742]
+callback_mode_process = 0
+libraries/ = ExtResource("3_nb7x8")

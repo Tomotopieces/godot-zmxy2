@@ -14,6 +14,8 @@ var life := 0.0               ## > 0: removed after this many seconds
 var mover: Callable           ## custom motion: mover.call(projectile, delta); replaces velocity motion
 var on_hit: Callable          ## on_hit.call(target) after a hit lands
 var damage_fn: Callable       ## fixed damage roll (magic treasures): no crit or rage bonus
+var new_hit_limit := -1       ## >= 0: only this many "new hit" animation events count (a skill whose last rounds only exist in rage)
+var _new_hits := 0
 var age := 0.0
 var dealer := HitDealer.new()
 var facing := -1:
@@ -89,6 +91,8 @@ func _on_event(n: StringName, _args: Array) -> void:
 	if n == &"destroy" or n == &"finished" or (n == &"call" and not _args.is_empty() and _args[0] == "destroy"):
 		queue_free()
 	elif n == &"new_hit":
-		dealer.new_serial()
+		_new_hits += 1
+		if new_hit_limit < 0 or _new_hits <= new_hit_limit:
+			dealer.new_serial()
 	elif n == &"raw" and String(_args[0]).contains("shake"):
 		Level.current.shake(25)

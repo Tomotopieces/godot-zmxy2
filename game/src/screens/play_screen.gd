@@ -153,6 +153,19 @@ func _open_pause() -> void:
 	m.to_menu.connect(func(): to_menu.emit())
 	add_child(m)
 
+## F3 debug gear: the shared pieces plus every weapon / armour / fashion of this hero.
+func _test_gear() -> Array:
+	var out: Array = []
+	for id in TEST_GEAR:
+		var d := EquipmentCatalog.find(id)
+		if d and (d.user == "" or d.user == GameState.hero_data.character) and d.type != &"fashion":
+			out.append(id)
+	for id in EquipmentCatalog.get_catalog().items:
+		var d: EquipmentData = EquipmentCatalog.get_catalog().items[id]
+		if d.user == GameState.hero_data.character and d.type in [&"weapon", &"cloth", &"fashion"] and not id in out:
+			out.append(String(id))
+	return out
+
 func _unhandled_input(e: InputEvent) -> void:
 	if e.is_action_pressed("open_bag"):
 		_open_bag()
@@ -161,7 +174,7 @@ func _unhandled_input(e: InputEvent) -> void:
 	elif e.is_action_pressed("open_skills"):
 		_open_skills()
 	elif OS.is_debug_build() and e.is_action_pressed("debug_give_items"):
-		for id in TEST_GEAR:
+		for id in _test_gear():
 			GameState.add_to_bag(EquipmentCatalog.find(id).roll())
 		GameState.add_souls(TEST_SOULS)
 		GameState.merit += TEST_MERIT

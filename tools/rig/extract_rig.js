@@ -137,7 +137,7 @@ class Sim {
     this.events.push([this.frameIndex, src]);
     // action end: script changes curAction / plays another label / stops at top level
     const top = (() => { let s = src, p; do { p = s; s = s.replace(/\{[^{}]*\}/g, ''); } while (s !== p); return s; })();
-    if ((/\.curAction = /.test(src) || /\.gotoAndStop\("/.test(src) || /removeChild\(this\)/.test(src) || /\.destroy\(\)/.test(src)) && this.ended < 0) this.ended = this.frameIndex;
+    if ((/\.curAction = /.test(src) || /\.gotoAndStop\("/.test(src) || /removeChild\(this\)/.test(src) || /\.destroy\(\)/.test(src)) && this.ended < 0 && this.frameIndex >= (this.endFrom || 0)) this.ended = this.frameIndex;
     if (/(^|[;}\s])(this\.)?stop\(\);/.test(top)) { this.body.playing = false; if (this.held < 0) this.held = this.frameIndex; }
   }
   unknown(cls, f, src) { this.unknowns.push(`${cls} f${f}: ${src.slice(0, 160)}`); }
@@ -170,7 +170,7 @@ class Sim {
         }
         // stick = attack area. Skill sticks are the visible effect animation itself (hit tests are per pixel),
         // so it plays and draws like any clip; the hit rect follows its current frame.
-        if (e.name === 'stick') {
+        if (/^stick[0-9]*$/.test(e.name || '')) {
           const from = leaves.length;
           if (k.node) walk(k.node, mm, cc, p, inBody, ef, eg, ec);
           else if (this.lib.texture(e.c)) leaves.push({ path: p, kind: 'tex', ref: e.c, m: mm, ct: cc, fl: ef, fg: eg, cl: ec });
@@ -329,6 +329,8 @@ function extract(libName, cls, outName, rootFilters = []) {
   for (const act of actions) {
     const sim = new Sim(lib, rootId, act.f, act.plays);
     sim.rootFilters = rootFilters;
+    // END_FROM=action:frame,...: scripts that merely switch to another action before this frame do not end the action
+    sim.endFrom = +(((process.env.END_FROM || '').split(',').map((x) => x.split(':')).find((x) => x[0] === act.label) || [])[1] || 0);
     let bodyN = sim.body && sim.body !== sim.root ? sim.body.n : (act.plays ? root.n - act.f : 1);
     // a single-frame container whose children animate (e.g. portals): capture the longest child loop
     if (act.plays && root.n === 1) {
@@ -387,7 +389,7 @@ function extract(libName, cls, outName, rootFilters = []) {
       tracks: trackList,
       hit: compactR(hit), hurt: compactR(hurt), art: compactR(art),
       markers,
-      events: sim.events.filter(([f]) => f < frames).flatMap(([f, src]) => classifyEvents(src, lib.fps).map((e) => [f, ...e])),
+      events: sim.events.filter(([f]) => f < frames).flatMap(([f, src]) => classifyEvents(src, lib.fps).map((e) => [f, ...e])).filter((e) => !(e[1] === 'finished' && e[0] < (sim.endFrom || 0))),
     };
     out.unknownScripts.push(...sim.unknowns);
   }

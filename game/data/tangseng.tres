@@ -1,0 +1,307 @@
+[gd_resource type="Resource" script_class="HeroData" format=3]
+
+[ext_resource type="Script" path="res://src/data/attack_data.gd" id="1_a48e7"]
+[ext_resource type="Script" path="res://src/data/hero_data.gd" id="2_2ue17"]
+
+[sub_resource type="Resource" id="Resource_gwg82"]
+script = ExtResource("1_a48e7")
+knockback = Vector2(96, -168)
+rehit_interval = 0.16666666666666666
+projectile = "tangseng_bullet1"
+speed = 192.0
+distance = 300.0
+
+[sub_resource type="Resource" id="Resource_cdmwo"]
+script = ExtResource("1_a48e7")
+power_mul = 0.2
+kind = 1
+knockback = Vector2(480, -120)
+rehit_interval = 0.16666666666666666
+max_hits = 200
+mp_cost = 20
+projectile = "tangseng_bullet2"
+speed = 360.0
+distance = 600.0
+
+[sub_resource type="Resource" id="Resource_sd5ry"]
+script = ExtResource("1_a48e7")
+power_mul = 0.8
+kind = 1
+knockback = Vector2(144, -168)
+max_hits = 200
+mp_cost = 40
+
+[sub_resource type="Resource" id="Resource_j4lqd"]
+script = ExtResource("1_a48e7")
+power_mul = 0.0
+kind = 1
+mp_cost = 100
+
+[sub_resource type="Resource" id="Resource_xfwrr"]
+script = ExtResource("1_a48e7")
+power_mul = 8.0
+kind = 1
+knockback = Vector2(600, -120)
+max_hits = 200
+
+[sub_resource type="Resource" id="Resource_yr2f7"]
+script = ExtResource("1_a48e7")
+power_mul = 0.0
+kind = 1
+mp_cost = 60
+
+[sub_resource type="Resource" id="Resource_n8o8y"]
+script = ExtResource("1_a48e7")
+kind = 1
+knockback = Vector2(48, -48)
+
+[sub_resource type="Resource" id="Resource_wmucq"]
+script = ExtResource("1_a48e7")
+kind = 1
+knockback = Vector2(48, -48)
+max_hits = 99
+
+[sub_resource type="Resource" id="Resource_6nqyv"]
+script = ExtResource("1_a48e7")
+kind = 1
+knockback = Vector2(48, -48)
+max_hits = 99
+
+[sub_resource type="Resource" id="Resource_7sqke"]
+script = ExtResource("1_a48e7")
+kind = 1
+knockback = Vector2(48, -48)
+
+[sub_resource type="Resource" id="Resource_hx3qk"]
+script = ExtResource("1_a48e7")
+kind = 1
+knockback = Vector2(48, -48)
+
+[sub_resource type="Resource" id="Resource_8a1g3"]
+script = ExtResource("1_a48e7")
+kind = 1
+knockback = Vector2(48, -48)
+max_hits = 99
+
+[sub_resource type="Resource" id="Resource_qbqte"]
+script = ExtResource("1_a48e7")
+kind = 1
+knockback = Vector2(48, -48)
+max_hits = 99
+
+[sub_resource type="Resource" id="Resource_atsm1"]
+script = ExtResource("1_a48e7")
+knockback = Vector2(48, -48)
+max_hits = 99
+
+[sub_resource type="Resource" id="Resource_vcent"]
+script = ExtResource("1_a48e7")
+knockback = Vector2(48, -48)
+max_hits = 99
+
+[sub_resource type="Resource" id="Resource_vtdi2"]
+script = ExtResource("1_a48e7")
+kind = 2
+mp_cost = 30
+
+[resource]
+script = ExtResource("2_2ue17")
+role = "tangseng"
+role_index = 1
+title = "唐僧"
+character = "唐僧"
+sound_prefix = "Role2"
+rig = "tangseng"
+super_armor_in_rage = false
+lock_glow = Color(0, 0, 1, 1)
+kit = {
+"bullet1": {
+"scale_x": 0.6,
+"splash_radius": 60.0
+},
+"bullet2": {
+"scale_x": 0.8
+},
+"charge": 1.25,
+"charge_mp": 20.0,
+"cure": {
+"add": 8.0,
+"divisor": 8.0,
+"range": 200.0,
+"scale_rage": 1.6
+},
+"fall": {
+"ball_from": 0.375,
+"ball_speed": -327.6,
+"ball_start_x": -78.5,
+"ball_until": 1.7083333333333333,
+"ball_y": 51.0,
+"drop_height": 300.0,
+"resume": 1.75
+},
+"ice": {
+"rage_rounds": 7.0,
+"rage_scale": [1.26, 1.8],
+"rounds": 5.0
+},
+"shadow": {
+"life": 8.0,
+"power_mul": 0.8,
+"speed": 192.0
+}
+}
+walk_speed = 144.0
+run_speed = 240.0
+gravity = 864.0
+jump_velocity = -497.9638541099143
+rage_gravity = 2160.0
+rage_jump_velocity = -763.6753236814714
+rage_speed_mul = 1.5
+double_tap_window = 0.25
+spawn_invincible = 2.0
+hp_base = 50
+hp_per_level = 20
+mp_base = 100
+mp_per_level = 40
+atk_base = 12
+atk_rand = 1
+atk_per_level = 8
+def_base = 0
+def_per_level = 1
+def_cap_level = 999
+def_per_level_after = 1
+exp_table = PackedInt32Array(135, 145, 155, 165, 175, 185, 625, 675, 725, 775, 825, 875, 1950, 2050, 2150, 2250, 2350, 2450, 5000)
+rage_drain_interval = 0.16666666666666666
+combo_cooldowns = PackedFloat32Array(0.75, 0.75, 0.75, 0.75, 0.75)
+air_cooldown = 0.75
+attacks = {
+&"fabao_cucurbit": SubResource("Resource_n8o8y"),
+&"fabao_pearl": SubResource("Resource_6nqyv"),
+&"fabao_sword": SubResource("Resource_wmucq"),
+&"fabao_umbrella": SubResource("Resource_7sqke"),
+&"fabao_wudu_hit1": SubResource("Resource_hx3qk"),
+&"fabao_wudu_hit2_1": SubResource("Resource_8a1g3"),
+&"fabao_wudu_hit2_2": SubResource("Resource_qbqte"),
+&"fabao_wudu_hit2_3": SubResource("Resource_atsm1"),
+&"fabao_wudu_hit2_4": SubResource("Resource_vcent"),
+&"hit1": SubResource("Resource_gwg82"),
+&"hit2": SubResource("Resource_cdmwo"),
+&"hit3": SubResource("Resource_sd5ry"),
+&"hit4": SubResource("Resource_j4lqd"),
+&"hit4_1": SubResource("Resource_xfwrr"),
+&"hit5": SubResource("Resource_yr2f7"),
+&"shadow": SubResource("Resource_vtdi2")
+}
+treasures = {
+"_doc": "Magic treasures (export/magicWeapon, Role1.getRealPower). The treasure floats behind the hero and retargets every follow_frames with a tween of follow_tween_frames. Damage: base + per_level*L +- spread/2; 木 element multiplies by wood_mul range, otherwise by mul range.",
+"bsj": {
+"drain": 15.0,
+"max_speed": 360.0,
+"mul": [0.9, 1.1],
+"pct_base": 0.003,
+"pct_per_level": 0.002,
+"reach": 10.0,
+"search": 1000.0,
+"skip_monsters": [78.0, 52.0, 53.0, 54.0, 55.0, 57.0, 60.0],
+"speed_step": 576.0,
+"start_speed": 120.0,
+"tick": 1.0,
+"wood_mul": [1.5, 2.0],
+"y_offset": -30.0
+},
+"dshl": {
+"fire_damage": 300.0,
+"fire_per_level": 50.0,
+"fire_spread": 20.0,
+"wood_mul": [1.5, 2.0]
+},
+"follow": 0.5,
+"follow_offset": [-60.0, -50.0],
+"follow_tween": 1.0,
+"lsys": {
+"_stab": "stabs speed up as v = stab_speed + stab_jerk * t^2 (original: +0.05*n px/frame each frame n)",
+"damage": 10.0,
+"mul": [0.9, 1.1],
+"poison": 10.0,
+"poison_base": 50.0,
+"poison_per_level": 15.0,
+"poison_tick": 1.0,
+"rise": 300.0,
+"rise_time": 1.0,
+"stab_depth": 300.0,
+"stab_jerk": 345.6,
+"stab_life": 10.0,
+"stab_spacing": 25.0,
+"stab_speed": 24.0,
+"stab_spread": 80.0,
+"stab_turn": 0.09999999999999999,
+"stabs": 8.0,
+"wood_mul": [1.5, 2.0]
+},
+"tsgj": {
+"damage": 400.0,
+"decel": 288.0,
+"life": 8.0,
+"per_level": 60.0,
+"rise": 4.0,
+"rise_time": 0.5,
+"sink": 10.0,
+"sink_time": 0.5,
+"speed": 432.0,
+"spread": 20.0,
+"stand_life": 6.0,
+"wood_mul": [1.5, 2.0]
+},
+"wds": {
+"auto": 3.0,
+"bullet_accel": 576.0,
+"bullet_distance": 1500.0,
+"bullet_speed": 72.0,
+"first_auto": 3.0,
+"move_time": 0.5,
+"side": 40.0,
+"skip_monsters": [70.0],
+"spells": [{
+"big": "fabao_wudu_thunder_big",
+"big_attack": "fabao_wudu_hit2_2",
+"big_power": 0.3,
+"big_screen": [480.0, 235.0],
+"small": "fabao_wudu_thunder",
+"small_attack": "fabao_wudu_hit2_1",
+"small_offset": [20.0, 0.0],
+"small_power": 0.25
+}, {
+"big": "fabao_wudu_fire_big",
+"big_attack": "fabao_wudu_hit2_4",
+"big_power": 0.6,
+"big_screen": [480.0, 500.0],
+"small": "fabao_wudu_fire",
+"small_attack": "fabao_wudu_hit2_3",
+"small_offset": [40.0, -40.0],
+"small_power": 0.3
+}],
+"wood_mul": [1.2, 1.5]
+},
+"xhmt": {
+"attacks_base": 3.0,
+"attacks_per_levels": 3.0,
+"bullet_offsets": [[0.0, -15.0], [0.0, 0.0], [0.0, 10.0]],
+"move_time": 0.5,
+"mul": [0.9, 1.1],
+"power": 0.05,
+"side": 30.0,
+"skip_monsters": [57.0, 60.0, 70.0],
+"wood_bonus": 2.0,
+"wood_mul": [1.5, 2.0]
+}
+}
+learn_active = PackedStringArray("hit2", "hit3", "shadow", "hit5", "hit4")
+learn_active_cost = PackedInt32Array(100, 200, 500, 1000, 2000)
+learn_passive = PackedStringArray("hp", "mp", "crit", "hp_regen", "mp_regen")
+passive_bonus = {
+"crit": Vector2(0.01, 0.01),
+"hp": Vector2(100, 100),
+"hp_regen": Vector2(1, 1),
+"mp": Vector2(100, 100),
+"mp_regen": Vector2(1, 1)
+}

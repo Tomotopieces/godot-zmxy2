@@ -45,6 +45,26 @@ func _ready() -> void:
 		rig.play(&"walk")
 	brain.setup()
 
+var _stun_t := 0.0
+var _stun_fx: Rig
+
+## 眩晕 (BaseAddEffect "stun"): the monster stands still, no AI, no attacks.
+func stun(seconds: float) -> void:
+	if state == State.DEAD or data.is_prop:
+		return
+	_stun_t = maxf(_stun_t, seconds)
+	if state == State.ATTACK or state == State.HURT:
+		end_attack()
+		state = State.MOVE
+	dir = 0
+	if _stun_fx == null:
+		_stun_fx = Rig.create("fx_stun")
+		_stun_fx.position = Vector2(0, hurt_rect().position.y - global_position.y - 10.0)
+		_stun_fx.scale = Vector2(0.4, 0.4)
+		add_child(_stun_fx)
+		_stun_fx.play(_stun_fx.actions[0])
+		_stun_fx.action_finished.connect(func(a): _stun_fx.play(a, true))
+
 func can_be_hit() -> bool:
 	return state != State.DEAD and invuln <= 0.0 and brain.can_be_hit()
 
@@ -60,9 +80,16 @@ func _physics_process(delta: float) -> void:
 	if target and not target.is_alive():
 		target = null
 	_tick_poison(delta)
-	if state != State.DEAD:
+	if _stun_t > 0.0:
+		_stun_t -= delta
+		velocity.x = 0.0
+		if _stun_t <= 0.0 and _stun_fx:
+			_stun_fx.queue_free()
+			_stun_fx = null
+	elif state != State.DEAD:
 		brain.think(delta)
-	_apply_motion(delta)
+	if _stun_t <= 0.0:
+		_apply_motion(delta)
 	if not fly:
 		apply_gravity(delta)
 	move_and_slide()
@@ -297,7 +324,7 @@ func take_hit(h: Hit) -> bool:
 		h.source.add_rage(roundi(dmg * GameState.hero_data.rage_hit_gain / maxf(GameState.attack_power(), 1.0)))
 		if h.attack.kind == AttackData.Kind.PHYSICS and GameState.bonus("lifesteal") > 0.0:
 			h.source.heal(int(dmg * GameState.bonus("lifesteal")), false)
-	Snd.sfx("BeattackByRole1")
+	Snd.sfx(h.source.hit_sound if h.source is Hero else "BeattackByRole1")
 	Fx.spawn("fx_monster_hurt1" if Rng.randf() < 0.5 else "fx_monster_hurt2", center())
 	if not data.is_prop:
 		DamageNumber.spawn("bnum" if h.crit else "hurtnum", dmg,

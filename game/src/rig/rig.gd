@@ -80,6 +80,17 @@ func settled() -> bool:
 	var an := anim.get_animation(action)
 	return an != null and an.has_meta(&"loop_from") and anim.current_animation_position >= float(an.get_meta(&"loop_from"))
 
+## Draw the whole rig additively: effects authored as light on a black background (the original blends them with "add").
+func set_additive() -> void:
+	var mat := CanvasItemMaterial.new()
+	mat.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+	for sp: Sprite2D in find_children("*", "Sprite2D", true, false):
+		sp.material = mat
+
+## Seconds into the current action.
+func time() -> float:
+	return anim.current_animation_position
+
 ## Normalized progress of the current action (0..1).
 func progress() -> float:
 	if anim.current_animation == "":

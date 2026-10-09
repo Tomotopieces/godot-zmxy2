@@ -1,10 +1,12 @@
 class_name Hero
 extends Actor
-## Wukong: input, movement, 5-hit combo, skills (hit6-hit10), rage transform, getting hit.
+## A playable hero. This base class is Wukong: input, movement, 5-hit combo, skills (hit6-hit10), rage transform,
+## getting hit. 唐僧 and 八戒 extend it (src/actors/heroes/) and override the hooks marked "virtual".
 ## Numbers come from HeroData (baked from the original, px / seconds).
 
 enum State { MOVE, ATTACK, HURT, DEAD }
 
+const HERO_DIR := "res://src/actors/heroes/hero_%s.gd"
 const COMBO := [&"hit1", &"hit2", &"hit3", &"hit4", &"hit5"]
 const CANCEL_INTO_HIT8 := [&"hit1", &"hit2", &"hit3", &"hit4"]
 const SCRIPTED_MOTION := [&"hit6", &"hit7", &"hit10"]   ## velocity comes from animation events
@@ -16,6 +18,9 @@ const FALL_DEATH_Y := 1500.0
 const AFTERIMAGE_FADE := 1.0
 
 var data: HeroData
+var combo_actions: Array = COMBO       ## normal attack chain (virtual: 八戒 has three)
+var sounds: Dictionary = SOUNDS         ## action -> sound (virtual)
+var hit_sound := "BeattackByRole1"      ## played on the monster when this hero hits it
 var state := State.MOVE
 var mp := 0
 var max_mp := 0
@@ -45,6 +50,11 @@ var held_by: Node = null   ## grabbed (setStatic + setLostKeyboard by a monster)
 var _lock_glow := 0.0   ## anti-lock protection time left (the only invincibility the original shows)
 var treasure: Treasure  ## worn magic treasure following the hero (H)
 var controls_locked := false   ## stage over: no more input
+
+## The hero of the current game (GameState.role): its own script when it has one.
+static func create() -> Hero:
+	var path: String = HERO_DIR % GameState.role
+	return load(path).new() if ResourceLoader.exists(path) else Hero.new()
 
 func _ready() -> void:
 	data = GameState.hero_data
@@ -175,6 +185,14 @@ func _read_input() -> void:
 			_try_drop_through()
 		else:
 			_try_jump()
+	_read_attack_input()
+	if Input.is_action_just_pressed("rage"):
+		_try_transform()
+	if Input.is_action_just_pressed("treasure") and is_instance_valid(treasure):
+		treasure.use()
+
+## Attack and skill keys (virtual).
+func _read_attack_input() -> void:
 	if Input.is_action_just_pressed("attack"):
 		# up+attack: nothing until 升龙斩 is learned (Role1 "0101"); without MP it falls back to a normal hit
 		if Input.is_action_pressed("move_up"):
@@ -190,10 +208,6 @@ func _read_input() -> void:
 		_try_skill(&"hit9")
 	elif Input.is_action_just_pressed("skill_o"):
 		_try_skill(&"hit10")
-	if Input.is_action_just_pressed("rage"):
-		_try_transform()
-	if Input.is_action_just_pressed("treasure") and is_instance_valid(treasure):
-		treasure.use()
 
 func _try_jump() -> void:
 	if state != State.MOVE or jump_count >= 2:
@@ -217,9 +231,13 @@ func _try_drop_through() -> void:
 
 # ------------------------------------------------------------------ attacks
 
+## Actions a new normal attack may cut short (virtual).
+func _cancelable_actions() -> Array:
+	return combo_actions
+
 ## Input accepted while idle, or mid-combo once the cooldown is over (the original has no input buffer).
 func _can_act() -> bool:
-	return cooldown <= 0.0 and (state == State.MOVE or (state == State.ATTACK and attack_action in COMBO))
+	return cooldown <= 0.0 and (state == State.MOVE or (state == State.ATTACK and attack_action in _cancelable_actions()))
 
 func _normal_attack() -> void:
 	if not _can_act():
@@ -233,8 +251,8 @@ func _normal_attack() -> void:
 		combo_step = 0
 	_last_attack_at = _clock
 	cooldown = data.combo_cooldowns[combo_step]
-	var action: StringName = COMBO[combo_step]
-	combo_step = (combo_step + 1) % COMBO.size()
+	var action: StringName = combo_actions[combo_step]
+	combo_step = (combo_step + 1) % combo_actions.size()
 	_begin(action)
 
 func _try_skill(action: StringName, cancel := false) -> bool:
@@ -256,7 +274,7 @@ func _try_skill(action: StringName, cancel := false) -> bool:
 func _begin(action: StringName) -> void:
 	state = State.ATTACK
 	start_attack(action, data.attacks.get(action))
-	Snd.sfx(SOUNDS.get(action, ""))
+	Snd.sfx(sounds.get(action, ""))
 	match action:
 		&"hit6":
 			velocity.x = facing * (attack.rage_dash_speed if transformed else attack.dash_speed)
@@ -272,14 +290,18 @@ func _update_velocity() -> void:
 			if _dir != 0:
 				facing = _dir
 		State.ATTACK:
-			if attack_action in SCRIPTED_MOTION:
-				# hit10 is rooted once it lands (its dive speed must not carry into a slide)
-				if attack_action == &"hit10" and is_on_floor() and not _no_gravity:
-					velocity.x = 0.0
-			elif attack_action == &"hit8" or (attack_action == &"hit3" and not is_on_floor()):
-				velocity.x = _dir * data.walk_speed * (data.rage_speed_mul if transformed else 1.0)
-			elif is_on_floor():
-				velocity.x = 0.0
+			_attack_motion()
+
+## Horizontal motion while an attack plays (virtual).
+func _attack_motion() -> void:
+	if attack_action in SCRIPTED_MOTION:
+		# hit10 is rooted once it lands (its dive speed must not carry into a slide)
+		if attack_action == &"hit10" and is_on_floor() and not _no_gravity:
+			velocity.x = 0.0
+	elif attack_action == &"hit8" or (attack_action == &"hit3" and not is_on_floor()):
+		velocity.x = _dir * data.walk_speed * (data.rage_speed_mul if transformed else 1.0)
+	elif is_on_floor():
+		velocity.x = 0.0
 
 func _after_move() -> void:
 	if is_on_floor() and velocity.y >= 0.0:
@@ -348,6 +370,12 @@ func _on_rig_event(n: StringName, args: Array) -> void:
 					_hit10_down = true
 				"add_hit10_and2":
 					_hit10_slam()
+				_:
+					_on_hero_call(String(args[0]), args)
+
+## Frame-script calls the base class does not know (virtual): the extractor names them snake_case, e.g. "do_hit1".
+func _on_hero_call(_name: String, _args: Array) -> void:
+	pass
 
 func _skill_projectile(rig_name: String, action: StringName, pos: Vector2) -> Projectile:
 	var p := Projectile.create(rig_name, self, data.attacks[action], action)
@@ -439,17 +467,21 @@ func take_hit(h: Hit) -> bool:
 		return true
 	var dmg := h.mitigated(GameState.defense(), GameState.bonus("mdef")) + Rng.randi_range(-5, 5)
 	dmg = maxi(1, dmg)
+	if transformed and data.damage_taken_mul_in_rage != 1.0:
+		dmg = maxi(1, int(dmg * data.damage_taken_mul_in_rage))
+	dmg = _adjust_incoming(h, dmg)
 	hp = maxi(hp - dmg, 0)
 	DamageNumber.spawn("pnum", dmg, global_position + Vector2(-20, -60))
 	_apply_effects(h.attack.effects)
 	Fx.spawn("fx_hero_hurt", center())
-	Snd.sfx("Role1_beAttack")
+	Snd.sfx(data.sound_prefix + "_beAttack")
 	add_rage(roundi(dmg * data.rage_hit_gain / maxf(GameState.attack_power(), 1.0)))
 	_count_lock()
 	if hp <= 0:
 		_die()
 		return true
-	if transformed:
+	_after_damage(h, dmg)
+	if (transformed and data.super_armor_in_rage) or _super_armor():
 		return true   # super armor: damage only, no knockback or hit stun (Role1.beAttackDoing)
 	velocity = Vector2(h.attack.knockback.x * h.direction, h.attack.knockback.y)
 	if state == State.HURT:
@@ -461,6 +493,18 @@ func take_hit(h: Hit) -> bool:
 		_no_input = false
 		rig.play(&"hurt", true)
 	return true
+
+## Damage after defense, before it is applied (virtual: 八戒's spinning guard).
+func _adjust_incoming(_h: Hit, dmg: int) -> int:
+	return dmg
+
+## Called once the damage is taken (virtual: 八戒's reflecting stance).
+func _after_damage(_h: Hit, _dmg: int) -> void:
+	pass
+
+## No hit stun or knockback right now (virtual).
+func _super_armor() -> bool:
+	return false
 
 ## 5 hits within the window grant a short invincibility (the "father" buff).
 func _count_lock() -> void:
@@ -555,8 +599,14 @@ func _end_transform() -> void:
 	rage = 0
 	gravity = data.gravity
 
+## Whether the rage afterimage is drawn now (virtual).
+func _afterimage_allowed() -> bool:
+	return true
+
 ## Afterimage of the current pose that fades out behind the hero.
 func _spawn_afterimage() -> void:
+	if not _afterimage_allowed():
+		return
 	var ghost := rig.make_ghost()
 	if ghost == null:
 		return
@@ -591,7 +641,7 @@ func _die() -> void:
 	state = State.DEAD
 	end_attack()
 	velocity = Vector2.ZERO
-	Snd.sfx("Role1_dead")
+	Snd.sfx(data.sound_prefix + "_dead")
 	rig.visible = false
 	_drop_tomb()
 	died.emit(self)

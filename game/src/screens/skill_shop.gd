@@ -3,12 +3,12 @@ extends CanvasLayer
 ## Skill learning panel (export.shop.SkillControl): active page buys Wukong's five skills with souls,
 ## passive page levels the five passive skills. Opened from the map (showBuySkill) or in a stage (V / btn_study).
 
-const ACTIVE := ["instrmc/skill1", "instrmc/skill2", "instrmc/skill3", "instrmc/skill4", "instrmc/skill5"]
 const PASSIVE := ["instrmc/pskill1", "instrmc/pskill2", "instrmc/pskill3", "instrmc/pskill4", "instrmc/pskill5"]
 const PASSIVE_FRAME := 3              ## instrmc frame of the passive page
 const STAT_FORMAT := {"hp": "生命上限 +%d", "mp": "魔法上限 +%d", "crit": "暴击 +%d%%", "hp_regen": "每秒回血 +%d", "mp_regen": "每秒回魔 +%d"}
 
 var _ui: UiLayout
+var _active: Array[String] = []   ## the five skill icons of this hero's page
 var _active_hits: Array[Control] = []
 var _passive_rows: Array[UiLayout] = []
 
@@ -24,14 +24,16 @@ func _ready() -> void:
 	add_child(dim)
 	# the panel sits inside BuySkill (background, character tabs, back button)
 	var back := UiLayout.create("buy_skill")
-	for p in ["player2", "player3"]:
-		back.set_visible_piece(p, false)
+	var role := GameState.hero_data.role_index
+	for i in 3:
+		back.set_visible_piece("player%d" % (i + 1), i == role)
 	back.button_pressed.connect(func(b): if b == "btnback": queue_free())
 	add_child(back)
 	_ui = UiLayout.create("skill_control")
 	add_child(_ui)
-	for p in ACTIVE:
-		_active_hits.append(_ui.make_clickable(p))
+	for i in 5:
+		_active.append("instrmc/skill%d@%d" % [i + 1, role])
+		_active_hits.append(_ui.make_clickable(_active[i]))
 	# passive rows: the nested PassiveSkill clip shows the art of its type (frame = index); a PassiveSkill
 	# layout without its art on top provides the texts and the upgrade button
 	for i in PASSIVE.size():
@@ -47,16 +49,16 @@ func _ready() -> void:
 
 func _show_page(passive: bool) -> void:
 	_ui.show_frame("bgmc", 1 if passive else 0)
-	_ui.show_frame("instrmc", PASSIVE_FRAME if passive else 0)
+	_ui.show_frame("instrmc", PASSIVE_FRAME if passive else GameState.hero_data.role_index)
 	for h in _active_hits:
 		h.visible = not passive
 	_refresh()
 
 func _refresh() -> void:
 	_ui.set_text("txtlh", str(GameState.souls))
-	for i in ACTIVE.size():
+	for i in _active.size():
 		var learned := GameState.has_skill(StringName(GameState.hero_data.learn_active[i]))
-		_ui.show_frame(ACTIVE[i], 1 if learned else 0)
+		_ui.show_frame(_active[i], 1 if learned else 0)
 	for i in _passive_rows.size():
 		var row := _passive_rows[i]
 		var lv: int = GameState.passives[i]
@@ -76,7 +78,7 @@ func _on_button(b: String) -> void:
 			_show_page(false)
 		"passivebtn":
 			_show_page(true)
-	var i := ACTIVE.find(b)
+	var i := _active.find(b)
 	if i >= 0 and GameState.learn(i):
 		Snd.sfx("SD_xz")
 		_refresh()

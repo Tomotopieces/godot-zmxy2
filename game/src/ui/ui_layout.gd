@@ -32,6 +32,7 @@ func build(path: String) -> void:
 					var key: String = "%s/%s" % [n.name, q.name]
 					if not _named.has(key):
 						_named[key] = sub
+					_named["%s@%d" % [key, int(q.frame)]] = sub   # the same clip name differs per frame (a page per hero)
 			"bar":
 				node = _bar(n)
 			"text":

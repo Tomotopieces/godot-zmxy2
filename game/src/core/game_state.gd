@@ -11,8 +11,12 @@ signal equipment_changed
 signal buffs_changed
 
 const SLOTS := 6
-const HERO_DATA := "res://data/wukong.tres"
-const CHARACTER := "悟空"
+const ROLES := ["wukong", "tangseng", "bajie"]   ## HeroData files in res://data, in HUD / shop page order
+const HERO_DATA := "res://data/%s.tres"
+
+## Heroes the account has unlocked (all but 猪八戒 from the start; he comes with the first 红孩儿 kill). Not part of a save slot.
+var unlocked := {"wukong": true, "tangseng": true, "bajie": false}
+var role := "wukong"
 
 var hero_data: HeroData
 var level := 1
@@ -34,9 +38,9 @@ var hhe_seen := false                ## 红孩儿 comic shown (first visit to 6-
 var slot := -1                       ## save slot of this game (-1 = never saved)
 
 func _ready() -> void:
-	if not ResourceLoader.exists(HERO_DATA):
+	if not ResourceLoader.exists(HERO_DATA % "wukong"):
 		return   # running a bake tool before data exists
-	hero_data = load(HERO_DATA)
+	SaveGame.read_account(self)
 	new_game()
 
 # ------------------------------------------------------------------ stats
@@ -303,7 +307,7 @@ func discard(index: int) -> void:
 
 func can_wear(item: Item) -> bool:
 	var d := item_data(item)
-	return d != null and d.wearable_by(CHARACTER)
+	return d != null and d.wearable_by(hero_data.character)
 
 ## Wear bag[index]; whatever was in that slot goes back to the bag.
 func wear(index: int) -> bool:
@@ -390,14 +394,18 @@ func load_from(i: int) -> bool:
 	var d := SaveGame.read(i)
 	if d.is_empty():
 		return false
-	new_game()
+	var r: String = d.get("role", "wukong") if d.get("role") in ROLES else "wukong"
+	new_game(r)
 	slot = i
 	SaveGame.apply(self, d)
 	equipment_changed.emit()
 	profile_changed.emit()
 	return true
 
-func new_game() -> void:
+## A fresh game as hero r (a role id of ROLES).
+func new_game(r := "wukong") -> void:
+	role = r
+	hero_data = load(HERO_DATA % role)
 	level = 1
 	exp = 0
 	souls = 0
@@ -418,3 +426,9 @@ func new_game() -> void:
 	slot = -1
 	equipment_changed.emit()
 	profile_changed.emit()
+
+## 猪八戒 is unlocked for good by the first 红孩儿 kill (Monster46.destroy: openPig + setOtherStorage).
+func unlock(r: String) -> void:
+	if not unlocked.get(r, false):
+		unlocked[r] = true
+		SaveGame.write_account(self)

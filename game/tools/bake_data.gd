@@ -12,7 +12,8 @@ var _fps := 0.0
 func _init() -> void:
 	var src := ProjectSettings.globalize_path("res://").path_join("../tools/data")
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(OUT + "/monsters"))
-	_bake_hero(_json(src.path_join("wukong.json")), "wukong")
+	for role in ["wukong", "tangseng", "bajie"]:
+		_bake_hero(_json(src.path_join("%s.json" % role)), role)
 	_bake_monsters(_json(src.path_join("monsters.json")), _json(src.path_join("monsters_auto.json")))
 	_bake_equipment(_json(src.path_join("equipment.json")))
 	_bake_stages(_json(src.path_join("stages.json")))
@@ -136,6 +137,16 @@ func _bake_hero(d: Dictionary, rig: String) -> void:
 	var m: Dictionary = d.move
 	var h := HeroData.new()
 	h.rig = rig
+	var meta: Dictionary = d.meta
+	h.role = meta.role
+	h.role_index = int(meta.index)
+	h.title = meta.title
+	h.character = meta.character
+	h.sound_prefix = meta.sound_prefix
+	h.super_armor_in_rage = meta.super_armor_in_rage
+	h.damage_taken_mul_in_rage = float(meta.damage_taken_mul_in_rage)
+	h.lock_glow = Color(meta.lock_glow)
+	h.kit = _units(d.get("kit", {}))
 	h.walk_speed = _pps(m.walk_speed)
 	h.run_speed = _pps(m.run_speed)
 	h.gravity = _pps(_pps(m.gravity))

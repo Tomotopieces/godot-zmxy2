@@ -2,7 +2,7 @@ class_name Controls
 extends RefCounted
 ## Default gamepad bindings (the keyboard ones live in project.godot) and the F11 fullscreen toggle.
 
-## Gamepad: X attack, A jump, B treasure, RB 烈焰闪, RT 火魔斩, Y 烈焰风暴, LB run (hold), LT unused;
+## Gamepad: X attack, A jump, B treasure, RB 烈焰闪, RT 火魔斩, Y 烈焰风暴, LB run (hold), LT skill L (唐僧 / 八戒's fifth skill);
 ## D-pad / left stick move, R3 rage, Back bag, Start pause.
 const PAD_BUTTONS := {
 	&"attack": [JOY_BUTTON_X], &"jump": [JOY_BUTTON_A], &"treasure": [JOY_BUTTON_B],
@@ -14,7 +14,7 @@ const PAD_BUTTONS := {
 const PAD_AXES := {
 	&"move_left": [JOY_AXIS_LEFT_X, -1.0], &"move_right": [JOY_AXIS_LEFT_X, 1.0],
 	&"move_up": [JOY_AXIS_LEFT_Y, -1.0], &"move_down": [JOY_AXIS_LEFT_Y, 1.0],
-	&"skill_o": [JOY_AXIS_TRIGGER_RIGHT, 1.0],
+	&"skill_o": [JOY_AXIS_TRIGGER_RIGHT, 1.0], &"skill_l": [JOY_AXIS_TRIGGER_LEFT, 1.0],
 }
 
 static func add_gamepad_defaults() -> void:
