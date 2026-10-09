@@ -103,7 +103,14 @@ func _physics_process(delta: float) -> void:
 func _apply_motion(delta: float) -> void:
 	match state:
 		State.MOVE:
-			velocity.x = dir * brain.move_speed()
+			if not fly and dir == 0 and not is_on_floor():
+				# in the air with no walking intention (knocked up): the sideways speed carries on to the landing, an arc
+				if absf(velocity.x) > data.speed:
+					velocity.x *= pow(data.knockback_decay, delta)
+					if absf(velocity.x) < data.speed:
+						velocity.x = signf(velocity.x) * data.speed
+			else:
+				velocity.x = dir * brain.move_speed()
 			if dir != 0:
 				facing = dir
 		State.ATTACK:
@@ -309,7 +316,8 @@ func _on_action_finished(action: StringName) -> void:
 			state = State.MOVE
 			brain.on_action_finished(action)
 		State.HURT:
-			velocity.x = 0.0
+			if is_on_floor() or fly:
+				velocity.x = 0.0   # (in the air the knock-back carries on to the landing)
 			state = State.MOVE
 		State.DEAD:
 			vanish()
