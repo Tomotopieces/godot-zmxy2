@@ -103,7 +103,9 @@ func _on_cleared() -> void:
 	add_child(r)
 	Snd.music("begin")
 	Snd.sfx("Game_Victory")
-	if not GameState.autosave():
+	if GameState.autosave():
+		Toast.show_on(r, "存档成功")
+	else:
 		var panel := SavePanel.create(SavePanel.Mode.SAVE)
 		add_child(panel)
 

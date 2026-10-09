@@ -42,6 +42,7 @@ func _on_button(b: String) -> void:
 	if mode == Mode.LOAD:
 		if GameState.slot_info(i).is_empty():
 			return
+		Snd.sfx("SD_xz")
 		GameState.load_from(i)
 	else:
 		GameState.save_to(i)

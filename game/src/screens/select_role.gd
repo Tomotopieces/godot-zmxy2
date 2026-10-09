@@ -19,7 +19,7 @@ func _ready() -> void:
 		lock.modulate = Color(0.3, 0.3, 0.3)
 		var l := Label.new()
 		l.text = "击败红孩儿后解锁"
-		l.add_theme_font_override("font", preload("res://assets/fonts/GenJyuuGothic-Bold.ttf"))
+		l.add_theme_font_override("font", preload("res://assets/fonts/ResourceHanRoundedCN-Bold.ttf"))
 		l.add_theme_font_size_override("font_size", 22)
 		l.add_theme_color_override("font_outline_color", Color.BLACK)
 		l.add_theme_constant_override("outline_size", 5)

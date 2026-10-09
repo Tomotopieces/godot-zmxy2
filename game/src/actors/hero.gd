@@ -259,7 +259,9 @@ func _try_skill(action: StringName, cancel := false) -> bool:
 	var a: AttackData = data.attacks.get(action)
 	if a == null or not GameState.has_skill(action) or mp < a.mp_cost:
 		return false
-	var allowed := state == State.MOVE and cooldown <= 0.0
+	# skills only wait for the move to end: the original input lock (timers) only holds back the normal attack,
+	# so 升龙斩 flows straight into 火魔斩 etc. (the lock still starts, for the next normal hit)
+	var allowed := state == State.MOVE
 	if cancel and state == State.ATTACK and attack_action in CANCEL_INTO_HIT8 and rig.progress() >= data.cancel_progress:
 		allowed = true
 	if not allowed:
