@@ -54,9 +54,9 @@ function drops(id, scene) {
   if (id === '33' || id === '34') { if (scene !== 'sl12') list = []; }                // plain 无常 drop nothing
   if (o.equip_drops) list = o.equip_drops;
   if (id === '46') list = o.brain.hard.drops;                                          // only above the hard-mode level, see brain_46.gd
-  // the drop roll succeeds with `equip_chance` (x1.5); then one entry is picked with round(rand * (n - 1)): the first and last
-  // entries of a list are half as likely as the others (a list of two: 50 / 50; one: always)
-  const pick = (i, n) => (n === 1 ? 1 : (i === 0 || i === n - 1 ? 0.5 : 1) / (n - 1));
+  // the drop roll succeeds with `equip_chance` (x1.5); then one entry is picked, all equally likely (the original's
+  // round(rand * (n - 1)) favoured the middle entries; the remake does not)
+  const pick = (i, n) => 1 / n;
   if (id === '45') {                                                                // per-form drops, see brain_45.gd
     return o.brain.forms.flatMap((f, i) => f.drops.map((it, j) => ({ item: it, p: Math.min(1, f.equip_chance) * pick(j, f.drops.length), note: `第${i + 1}形态` })));
   }
@@ -151,7 +151,7 @@ const order = ['weapon', 'cloth', 'accessory', 'treasure', 'wing', 'fashion', 'i
 const lines = [];
 lines.push('# 物品清单与实装情况', '', '由 `node tools/rig/item_report.js` 生成（数据来自 `tools/data/equipment.json`、`monsters_auto.json`、`monsters.json`、关卡文件），不要手改。', '');
 lines.push('- ✓ 已实装　△ 部分/特殊　✗ 未做（原因见备注）　⚠ 已实装但目前没有任何获取渠道');
-lines.push('- 怪物掉率是已经乘过原版的 ×1.5 之后的值，之后还会乘双倍爆率 buff 和时装加成；"#数字"是怪物 ID。掉率是“该怪的某一件”的概率：先按怪的总掉率判定，再在掉落表里按 round(rand×(n-1)) 选一件（两件各半；三件及以上首尾各是中间的一半）。');
+lines.push('- 怪物掉率是已经乘过原版的 ×1.5 之后的值，之后还会乘双倍爆率 buff 和时装加成；"#数字"是怪物 ID。掉率是“该怪的某一件”的概率：先按怪的总掉率判定，掉落时再在掉落表里等概率选一件。药品、经验球、强化石各自单独判定，不和装备抢概率。');
 lines.push('- 红孩儿 #46 的金刚甲只在主角等级大于 15 时掉落。');
 lines.push('- 活动关卡 9-1 / 11-1 在原版只有活动入口，本作没有入口，所以只在这些关卡掉落的物品算"没有获取渠道"。', '');
 

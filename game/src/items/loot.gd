@@ -36,12 +36,14 @@ static func drop(m: Monster) -> void:
 		for i in _orb_count(t):
 			Orb.spawn(k[0], pos + _jitter(k[2]), hero, k[1], t)
 
+## Equipment: independent of the potions above and of the stone below, each with its own roll.
 ## One random item of the monster's drop list, pushed back on screen when it dies at the edge.
 static func _drop_equipment(m: Monster) -> void:
 	var mul := GameState.drop_mul()
 	if not m.data.equip_drops.is_empty() and Rng.randf() <= m.data.equip_chance * mul:
-		# the original picks round(rand * (n - 1)): the first and last entries are half as likely as the others
-		_ground(m, m.data.equip_drops[roundi(Rng.randf() * (m.data.equip_drops.size() - 1))])
+		# one roll decides whether anything drops, a second picks among the monster's items with equal chance
+		# (the original's round(rand * (n - 1)) made the first and last entry half as likely: a hidden weighting)
+		_ground(m, m.data.equip_drops[Rng.randi() % m.data.equip_drops.size()])
 	# bosses also drop a 1级强化石 while the hero is not over-levelled for the stage (BaseMonster.dropStone)
 	var st: Dictionary = EquipmentCatalog.get_catalog().stone_drop
 	var cap := int(st.get("level_caps", {}).get(Level.current.level_name, 0))
