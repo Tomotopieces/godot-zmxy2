@@ -12,6 +12,9 @@ static func table() -> DropTable:
 	return _table
 
 static func drop(m: Monster) -> void:
+	if m.has_meta(&"loot_dropped"):
+		return   # once per death (a clip that drops and then destroys itself)
+	m.set_meta(&"loot_dropped", true)
 	var t := table()
 	var pos := m.global_position
 	var roll := Rng.randf()
@@ -24,7 +27,9 @@ static func drop(m: Monster) -> void:
 
 	_drop_equipment(m)
 
-	var hero := m.target
+	# whoever killed it gets the orbs; a kill with no attacker on record (reflected damage, poison, the debug key) goes to
+	# the hero of the stage
+	var hero := m.target if is_instance_valid(m.target) and m.target.is_alive() else (m.world.hero if is_instance_valid(m.world.hero) else null)
 	if hero == null or not hero.is_alive():
 		return
 	for i in Rng.randi_range(t.red_orbs.x, t.red_orbs.y):

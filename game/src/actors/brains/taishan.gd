@@ -52,6 +52,7 @@ func think(delta: float) -> void:
 ## Replace this form by another one with the same HP; the old one fades out.
 func _become(id: int) -> void:
 	_handing_over = true
+	m.set_meta(&"handover", true)   # the HP bar moves to the new body instead of a second bar
 	var nx := m.summon(id, m.global_position + Vector2(0, -10))
 	if nx:
 		nx.hp = mini(m.hp, nx.max_hp)

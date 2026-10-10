@@ -87,6 +87,16 @@ func set_additive() -> void:
 	for sp: Sprite2D in find_children("*", "Sprite2D", true, false):
 		sp.material = mat
 
+## Whether an action carries frame events (a script that ends it, drops, destroys ...).
+func has_events(a: StringName) -> bool:
+	var an := anim.get_animation(a)
+	if an == null:
+		return false
+	for tr in an.get_track_count():
+		if an.track_get_type(tr) == Animation.TYPE_METHOD and an.track_get_key_count(tr) > 0:
+			return true
+	return false
+
 ## Seconds into the current action.
 func time() -> float:
 	return anim.current_animation_position

@@ -41,7 +41,7 @@ func revive_at(pos: Vector2) -> void:
 	m.rig.visible = true
 	m.hp = m.max_hp
 	m.state = Monster.State.MOVE
-	m.world.boss_spawned.emit(m)
+	# (its HP bar is still there: it never left)
 
 func on_call(n: String, _args: Array) -> bool:
 	match n:

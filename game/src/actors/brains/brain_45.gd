@@ -50,6 +50,7 @@ func on_call(n: String, _args: Array) -> bool:
 				return true   # final death: the normal boss death takes over
 			_form += 1
 			Loot.drop(m)
+			m.remove_meta(&"loot_dropped")   # she comes back: her next death drops again
 			m.world.open_door()
 			m.play_action(&"reburn")
 		"set_info":

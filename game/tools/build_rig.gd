@@ -14,6 +14,14 @@ var _d: Dictionary
 var _fps := 24.0
 var _dir := ""
 var _tex := {}
+var _add_mat: CanvasItemMaterial
+
+func _add_material() -> CanvasItemMaterial:
+	if _add_mat == null:
+		_add_mat = CanvasItemMaterial.new()
+		_add_mat.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+	return _add_mat
+
 var _materials := {}   ## filter id -> ShaderMaterial (shared within one rig)
 
 func _init() -> void:
@@ -286,6 +294,8 @@ func _build(json_path: String) -> void:
 				es.set_script(SlotScript)
 				node = es
 			node.name = nn
+			if int(tr.get("blend", 0)) == 8:   # Flash "add": light drawn on black
+				node.material = _add_material()
 			parent.add_child(node)
 			var np := "Parts/%s/%s" % [act_name, String(cont.get_path_to(node))]
 			var tv := _vtrack(an, np + ":visible")

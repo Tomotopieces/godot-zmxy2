@@ -418,7 +418,7 @@ func _update_stops(delta: float) -> void:
 	locked = false
 	s.done = true
 	stop_index += 1
-	if stop_index < stops.size():
+	if stop_index < stops.size() and not fixed_camera:   # a fixed-camera room has nowhere to go on to
 		auto_scroll = true
 		gogo.emit()
 	elif not _has_boss_spawner():

@@ -109,6 +109,11 @@ var _boss_bars: Array[BossBar] = []
 
 func add_boss_bar(m: Monster) -> void:
 	_boss_bars = _boss_bars.filter(func(b): return is_instance_valid(b))
+	for old in _boss_bars:   # a boss that changes form hands its bar over to the new body
+		if is_instance_valid(old.boss) and old.boss.has_meta(&"handover"):
+			old.boss.remove_meta(&"handover")
+			old.boss = m
+			return
 	var b := BossBar.create(m)
 	b.position = Vector2(465, 50 + 50 * _boss_bars.size())
 	add_child(b)

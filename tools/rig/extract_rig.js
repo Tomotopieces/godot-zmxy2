@@ -151,13 +151,14 @@ class Sim {
     const leaves = [], rects = { hit: null, hurt: null }, markers = {};
     // fl = Flash filters inherited from ancestors, fg = path of the outermost filtered ancestor (filter group)
     // cl = crop rect in rig space from Flash mask layers (rectangular masks: sprite sheets, gauges)
-    const walk = (inst, m, ct, pathArr, inBody, fl = [], fg = null, cl = null) => {
+    const walk = (inst, m, ct, pathArr, inBody, fl = [], fg = null, cl = null, bm = 0) => {
       const masks = [];
       for (const [d, k] of [...inst.kids].sort((a, b) => a[0] - b[0])) {
         const e = k.e;
         const mm = mul(m, e.m);
         const cc = e.ct ? ctMul(ct, e.ct) : ct;
         const p = pathArr.concat(d);
+        const eb = e.blend || bm;   // Flash blend mode (8 = add), inherited by the clip's children
         // HIDE_AT=action:path:frame,...: a sub-tree that is gone from this frame on (a skill part replaced by the next one)
         if (this.hideAt && this.hideAt.some(([pp, ff]) => (p.join('.') + '.').startsWith(pp + '.') && this.frameIndex >= ff)) continue;
         if (e.clip) {
@@ -178,8 +179,8 @@ class Sim {
         // so it plays and draws like any clip; the hit rect follows its current frame.
         if (/^stick[0-9]*$/.test(e.name || '')) {
           const from = leaves.length;
-          if (k.node) walk(k.node, mm, cc, p, inBody, ef, eg, ec);
-          else if (this.lib.texture(e.c)) leaves.push({ path: p, kind: 'tex', ref: e.c, m: mm, ct: cc, fl: ef, fg: eg, cl: ec });
+          if (k.node) walk(k.node, mm, cc, p, inBody, ef, eg, ec, eb);
+          else if (this.lib.texture(e.c)) leaves.push({ path: p, kind: 'tex', ref: e.c, m: mm, ct: cc, fl: ef, fg: eg, cl: ec, bm: eb });
           let r = null;
           for (const lf of leaves.slice(from)) { const b = lf.kind === 'tex' ? boundsOf(this.lib, lf.ref) : null; if (b) r = union(r, rectXf(lf.m, b)); }
           if (!r) { const b = boundsOf(this.lib, e.c); if (b) r = rectXf(mm, b); }
@@ -187,15 +188,15 @@ class Sim {
           continue;
         }
         const sk = selectorOf(this.lib, e);
-        if (sk) { leaves.push({ path: p, kind: 'slot', ref: e.c, sel: sk, m: mm, ct: cc, fl: ef, fg: eg, cl: ec }); continue; }
+        if (sk) { leaves.push({ path: p, kind: 'slot', ref: e.c, sel: sk, m: mm, ct: cc, fl: ef, fg: eg, cl: ec, bm: eb }); continue; }
         if (k.node) {
           if (e.name && e.name !== 'body') markers[e.name] = [mm[4], mm[5]];
           // anchors for effects the game plays on demand (level-up glow) are not part of the rig art
-          if (!SEPARATE_CLIPS.has(e.name)) walk(k.node, mm, cc, p, inBody || e.name === 'body', ef, eg, ec);
+          if (!SEPARATE_CLIPS.has(e.name)) walk(k.node, mm, cc, p, inBody || e.name === 'body', ef, eg, ec, eb);
           continue;
         }
-        if (this.lib.texture(e.c)) leaves.push({ path: p, kind: 'tex', ref: e.c, m: mm, ct: cc, fl: ef, fg: eg, cl: ec });
-        else if (this.lib.J.texts && this.lib.J.texts[e.c]) leaves.push({ path: p, kind: 'text', ref: e.c, m: mm, ct: cc, fl: ef, fg: eg, cl: ec });
+        if (this.lib.texture(e.c)) leaves.push({ path: p, kind: 'tex', ref: e.c, m: mm, ct: cc, fl: ef, fg: eg, cl: ec, bm: eb });
+        else if (this.lib.J.texts && this.lib.J.texts[e.c]) leaves.push({ path: p, kind: 'text', ref: e.c, m: mm, ct: cc, fl: ef, fg: eg, cl: ec, bm: eb });
       }
     };
     walk(this.root, I, CT_ID, [], false, this.rootFilters || [], this.rootFilters && this.rootFilters.length ? 'root' : null);
@@ -358,9 +359,9 @@ function extract(libName, cls, outName, rootFilters = []) {
       const snap = sim.snapshot();
       for (const lf of snap.leaves) {
         const fid = filterId(lf.fl);
-        const pk = lf.path.join('.') + ':' + lf.kind + (fid === null ? '' : '|f' + fid);
+        const pk = lf.path.join('.') + ':' + lf.kind + (fid === null ? '' : '|f' + fid) + (lf.bm ? '|b' + lf.bm : '');
         let tr = tracks.get(pk);
-        if (!tr) { tr = { path: lf.path, kind: lf.kind, keys: [], filter: fid, group: fid === null ? null : lf.fg }; tracks.set(pk, tr); }
+        if (!tr) { tr = { path: lf.path, kind: lf.kind, keys: [], filter: fid, group: fid === null ? null : lf.fg, blend: lf.bm || 0 }; tracks.set(pk, tr); }
         const ref = lf.kind === 'tex' ? texKey(lf.ref) : lf.kind === 'slot' ? lf.ref : libName + ':text:' + lf.ref;
         if (lf.kind === 'slot' && !out.slots[lf.ref]) out.slots[lf.ref] = { kind: lf.sel, variants: null };
         tr.keys.push(lf.cl ? [f, ref, fmtM(lf.m), fmtCt(lf.ct), fmtR(lf.cl)] : [f, ref, fmtM(lf.m), fmtCt(lf.ct)]);
@@ -389,7 +390,7 @@ function extract(libName, cls, outName, rootFilters = []) {
         if (p && JSON.stringify(p.slice(1)) === JSON.stringify(k.slice(1))) continue;
         keys.push(k);
       }
-      return { path: t.path.join('.'), kind: t.kind, keys, filter: t.filter, group: t.group };
+      return { path: t.path.join('.'), kind: t.kind, keys, filter: t.filter, group: t.group, blend: t.blend || undefined };
     });
     const compactR = (arr) => arr.filter((k, i) => i === 0 || JSON.stringify(k[1]) !== JSON.stringify(arr[i - 1][1]));
     out.actions[act.label] = {

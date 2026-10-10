@@ -15,6 +15,8 @@ func setup() -> void:
 		m.data = m.data.duplicate()
 		m.data.is_boss = false
 		m.data.exp = 0
+		m.data.equip_drops = PackedStringArray()   # only the real one drops the 蝎之印记
+		m.data.stone_rate = 0.0
 		_clone_life = float(param("clone_life", 20.0))
 
 func think(delta: float) -> void:

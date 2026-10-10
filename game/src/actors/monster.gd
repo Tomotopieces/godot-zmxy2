@@ -281,6 +281,8 @@ func _on_rig_event(n: StringName, args: Array) -> void:
 				"drop_aura":
 					Loot.drop(self)
 				"destroy":
+					if state == State.DEAD:
+						Loot.drop(self)   # a death clip that only destroys (楚江王): the loot comes with it
 					vanish()
 		&"raw":
 			_raw_event(String(args[0]))
@@ -373,20 +375,25 @@ func _die() -> void:
 	brain.on_died()
 	if rig.actions.has("dead"):
 		rig.play(&"dead", true)
+		# a death pose that never ends (a single looping frame, no script): it fades out quickly instead of staying
+		var an := rig.anim.get_animation(&"dead")
+		if an != null and an.loop_mode != Animation.LOOP_NONE and not an.has_meta(&"loop_from") and not rig.has_events(&"dead"):
+			Loot.drop(self)
+			vanish(0.4)
 	else:
 		Loot.drop(self)
 		vanish()
 	died.emit(self)
 
 ## Fade out and free (no death animation, no loot).
-func vanish() -> void:
+func vanish(fade := 0.3) -> void:
 	if _vanishing:
 		return
 	_vanishing = true
 	brain.on_destroy()
 	destroyed.emit(self)
 	var tw := create_tween()
-	tw.tween_property(self, "modulate:a", 0.0, 0.3)
+	tw.tween_property(self, "modulate:a", 0.0, fade)
 	tw.tween_callback(queue_free)
 
 func _draw_hp_bar() -> void:
