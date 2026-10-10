@@ -68,7 +68,6 @@ func _ready() -> void:
 	facing = 1
 	refill()
 	invincible = data.spawn_invincible
-	_quiet = data.spawn_invincible
 	GameState.leveled_up.connect(_on_level_up)
 	GameState.equipment_changed.connect(_on_equipment_changed)
 	_sync_treasure.call_deferred()
@@ -677,20 +676,18 @@ const GLOW_ALPHA_UP := 0.8
 const GLOW_PERIOD := 0.75   ## 18 frames at the original 24 fps
 
 var _glow_group: CanvasGroup   ## the halo: a silhouette of the pose behind the hero, blurred (knocked out under the body)
-var _glow_holder: Node2D
+var _glow_rig: Rig
 var _glow_mat: ShaderMaterial
 var _glow_t := 0.0
-var _quiet := 0.0   ## the birth protection (not in the original) shows no glow
 
-## BaseAddEffect.step: the glow exists while the rage form lasts or while a protection (setYourFather: anti-lock, the
-## invincible windows of skills, a revival) is on; both end it at once (cancelGlow).
+## BaseAddEffect.step: the glow exists while the rage form lasts or the anti-lock protection is on; both end it at once
+## (cancelGlow). The short invincible windows of skills show none.
 func _update_tint(delta: float) -> void:
-	_quiet = maxf(_quiet - delta, 0.0)
 	var color := Color.TRANSPARENT
 	if state != State.DEAD:
 		if transformed:
 			color = Color.WHITE
-		elif invincible > _quiet or _lock_glow > 0.0:
+		elif _lock_glow > 0.0:
 			color = GLOW_COLORS.get(data.sound_prefix, Color.WHITE)
 	if _lock_glow > 0.0:
 		_lock_glow -= delta
@@ -710,7 +707,7 @@ func _update_tint(delta: float) -> void:
 	color.a = 1.0 if down else GLOW_ALPHA_UP
 	_glow_mat.set_shader_parameter("glow_color", color)
 	_glow_mat.set_shader_parameter("glow_blur", Vector2(blur, blur))
-	rig.sync_silhouette(_glow_holder, self)
+	_glow_rig.mirror(rig)
 
 func _make_glow_group() -> void:
 	_glow_group = CanvasGroup.new()
@@ -724,10 +721,12 @@ func _make_glow_group() -> void:
 	_glow_mat.set_shader_parameter("glow_knockout", true)
 	_glow_mat.set_shader_parameter("glow_strength", GLOW_STRENGTH)
 	_glow_group.material = _glow_mat
-	_glow_holder = Node2D.new()
-	_glow_group.add_child(_glow_holder)
+	_glow_rig = Rig.create(data.rig)
+	_glow_group.add_child(_glow_rig)
 	add_child(_glow_group)
 	move_child(_glow_group, rig.get_index())   # behind the body
+	_glow_rig.play(rig.action, true)
+	_glow_rig.anim.pause()
 
 ## 苍生挂饰: come back once with half HP / MP and a short invincibility (not when falling out of the stage).
 func _try_revive() -> bool:

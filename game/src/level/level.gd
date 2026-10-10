@@ -256,12 +256,10 @@ func _build(d: Dictionary) -> void:
 		var oneway: bool = w.kind == "oneway"
 		body.collision_layer = Actor.LAYER_ONEWAY if oneway else Actor.LAYER_WORLD
 		body.collision_mask = 0
-		body.position = Vector2(w.pos[0], w.pos[1] + _slope_drop(w, d.walls))
+		body.position = Vector2(w.pos[0], w.pos[1])
 		body.rotation_degrees = w.rot
 		var cs := CollisionShape2D.new()
-		var rs := RectangleShape2D.new()
-		rs.size = Vector2(w.size[0], w.size[1])
-		cs.shape = rs
+		cs.shape = _wall_shape(w, d.walls, body.transform)
 		cs.one_way_collision = oneway
 		cs.disabled = w.kind == "hidden"
 		body.add_child(cs)
@@ -306,31 +304,48 @@ func _build(d: Dictionary) -> void:
 	camera.make_current()
 
 ## The original walks a hero over the joint of a slope and the flat ground above it; a physics body would be stopped by
-## the corner of the slope's end cap that pokes a pixel or two above that ground (奈何桥: no way back down). Such a slope
-## is lowered until its top corner is level with the ground.
+## the corner of the slope's end cap that pokes a pixel or two above that ground (奈何桥: no way back down). A slope
+## ending like that is cut flat at the ground's height: the slope's surface meets the ground exactly there.
 const SLOPE_BUMP := 6.0
 
-## How far a sloped wall `w` has to be lowered to be level with the ground it ends at (0 for everything else).
-func _slope_drop(w: Dictionary, all: Array) -> float:
-	var rot := absf(fmod(float(w.rot), 90.0))
-	if w.kind != "solid" or rot < 1.0 or rot > 89.0:
-		return 0.0
+func _wall_shape(w: Dictionary, all: Array, xf: Transform2D) -> Shape2D:
 	var half := Vector2(w.size[0], w.size[1]) / 2.0
-	var xf := Transform2D(deg_to_rad(float(w.rot)), Vector2(w.pos[0], w.pos[1]))
-	var top := Vector2.ZERO
-	var found := false
-	for c in [Vector2(-half.x, -half.y), Vector2(half.x, -half.y), Vector2(half.x, half.y), Vector2(-half.x, half.y)]:
-		var p: Vector2 = xf * c
-		if not found or p.y < top.y:
-			top = p
-			found = true
-	for o in all:
-		if o == w or o.kind != "solid" or absf(float(o.rot)) > 0.5:
-			continue
-		var r := Rect2(Vector2(o.pos[0] - o.size[0] / 2.0, o.pos[1] - o.size[1] / 2.0), Vector2(o.size[0], o.size[1]))
-		if top.x >= r.position.x and top.x <= r.end.x and r.position.y > top.y and r.position.y - top.y <= SLOPE_BUMP:
-			return r.position.y - top.y
-	return 0.0
+	var rot := absf(fmod(float(w.rot), 90.0))
+	if w.kind == "solid" and rot >= 1.0 and rot <= 89.0:
+		var pts: Array[Vector2] = []
+		var top := INF
+		for c in [Vector2(-half.x, -half.y), Vector2(half.x, -half.y), Vector2(half.x, half.y), Vector2(-half.x, half.y)]:
+			pts.append(xf * c)
+		var peak := pts[0]
+		for p in pts:
+			if p.y < peak.y:
+				peak = p
+		for o in all:
+			if o == w or o.kind != "solid" or absf(float(o.rot)) > 0.5:
+				continue
+			var r := Rect2(Vector2(o.pos[0] - o.size[0] / 2.0, o.pos[1] - o.size[1] / 2.0), Vector2(o.size[0], o.size[1]))
+			if peak.x >= r.position.x and peak.x <= r.end.x and r.position.y > peak.y and r.position.y - peak.y <= SLOPE_BUMP:
+				top = r.position.y
+		if top < INF:
+			# keep the part of the slope below that height
+			var kept: Array[Vector2] = []
+			for i in pts.size():
+				var p: Vector2 = pts[i]
+				var q: Vector2 = pts[(i + 1) % pts.size()]
+				if p.y >= top:
+					kept.append(p)
+				if (p.y >= top) != (q.y >= top):
+					kept.append(p + (q - p) * ((top - p.y) / (q.y - p.y)))
+			var local := PackedVector2Array()
+			var inv := xf.affine_inverse()
+			for p in kept:
+				local.append(inv * p)
+			var cp := ConvexPolygonShape2D.new()
+			cp.set_point_cloud(local)
+			return cp
+	var rs := RectangleShape2D.new()
+	rs.size = Vector2(w.size[0], w.size[1])
+	return rs
 
 ## Common effects plus every rig of this stage's monsters (body, projectiles, and rigs named after the body:
 ## bullets, effects, form clips) load in the background while the stage starts.

@@ -132,6 +132,35 @@ func _seek_in(a: StringName, t: float) -> void:
 	if action == a and anim.is_playing():
 		anim.seek(t, false)
 
+## Makes this rig show exactly what `src` shows now: same action and moment (also of the animated equipment), same
+## equipment, transform and tint. Filter groups are switched off. Used for a halo drawn behind the real rig (a filter group
+## nested in another one reads the wrong buffer, so the halo cannot simply wrap the rig).
+func mirror(src: Rig) -> void:
+	var changed := false
+	if src.action != action:
+		play(src.action, true)
+		anim.pause()
+		changed = true
+	for k in src.equipment:
+		if equipment.get(k) != src.equipment[k]:
+			set_equip(k, src.equipment[k])
+			changed = true
+	if changed:
+		for g: CanvasGroup in find_children("*", "CanvasGroup", true, false):
+			g.material = null
+	anim.seek(src.anim.current_animation_position, true)
+	var mine := find_children("*", "AnimationPlayer", true, false)
+	var theirs := src.find_children("*", "AnimationPlayer", true, false)
+	if mine.size() == theirs.size():
+		for i in mine.size():
+			var p: AnimationPlayer = mine[i]
+			var q: AnimationPlayer = theirs[i]
+			if p != anim and p.current_animation != "":
+				p.seek(q.current_animation_position, true)
+	transform = src.transform
+	visible = src.visible
+	modulate = src.modulate
+
 ## Frozen copy of the current pose in world space (afterimages). Filter groups are copied unfiltered.
 func make_ghost() -> Node2D:
 	if _current_parts == null:
@@ -144,35 +173,19 @@ func make_ghost() -> Node2D:
 		var g := Sprite2D.new()
 		g.texture = sp.texture
 		g.centered = sp.centered
+		g.region_enabled = sp.region_enabled   # a cropped part (Flash mask) draws only its region
+		g.region_rect = sp.region_rect
+		g.offset = sp.offset
 		g.transform = sp.global_transform
-		g.self_modulate = sp.modulate
+		var tint := Color.WHITE
+		var n: Node = sp
+		while n != null and n != get_parent():
+			if n is CanvasItem:
+				tint *= (n as CanvasItem).modulate
+			n = n.get_parent()
+		g.self_modulate = tint
 		ghost.add_child(g)
 	return ghost
-
-## Keeps `holder` (a Node2D under `base`) filled with a plain copy of the current pose: one sprite per visible part,
-## unfiltered. A halo drawn from it needs no CanvasGroup around the rig itself (a filter group nested inside another
-## one reads the wrong buffer and draws a white box).
-func sync_silhouette(holder: Node2D, base: Node2D) -> void:
-	var inv := base.global_transform.affine_inverse()
-	var n := 0
-	if _current_parts:
-		for sp: Sprite2D in _current_parts.find_children("*", "Sprite2D", true, false):
-			if sp.texture == null or not sp.is_visible_in_tree():
-				continue
-			var g: Sprite2D
-			if n < holder.get_child_count():
-				g = holder.get_child(n)
-			else:
-				g = Sprite2D.new()
-				holder.add_child(g)
-			g.visible = true
-			g.texture = sp.texture
-			g.centered = sp.centered
-			g.transform = inv * sp.global_transform
-			g.self_modulate = sp.modulate
-			n += 1
-	for i in range(n, holder.get_child_count()):
-		(holder.get_child(i) as CanvasItem).visible = false
 
 ## Called by the method track of every animation with all events of that frame, in source order.
 ## Stops early if a handler switched the action (e.g. "finished" followed by more events).
