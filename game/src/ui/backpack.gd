@@ -37,6 +37,11 @@ func _ready() -> void:
 	add_child(dim)
 	_ui = UiLayout.create("backpack")
 	add_child(_ui)
+	# the stat numbers sit about 4.5 px low in their boxes with this font (its glyphs ride low in the line)
+	for f in ["txt_hp", "txt_mp", "txt_att", "txt_def", "txt_baoji", "txt_sb", "txt_hx", "txt_hl", "txt_exp", "txt_name", "txt_lh", "txt_zg"]:
+		var l: Label = _ui.get_piece(f)
+		if l:
+			l.position.y -= 3.5
 	_build_portrait()
 	_ui.button_pressed.connect(_on_button)
 	_grid = Control.new()

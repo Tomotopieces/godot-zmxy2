@@ -29,6 +29,11 @@ func _ready() -> void:
 		var info: Dictionary = GameState.slot_info(i)
 		_ui.set_inner_text(SLOT_PIECES[i], "txt_name", info.get("title", "空存档"))
 		_ui.set_inner_text(SLOT_PIECES[i], "txt_time", info.get("datetime", ""))
+		if info.has("datetime"):
+			# two lines (title over time): the pair, not the title alone, is centred in the slot
+			for f in ["txt_name", "txt_time"]:
+				for l: Label in _ui.get_piece(SLOT_PIECES[i]).find_children(f, "Label", true, false):
+					l.position.y -= 12.0
 		_ui.make_clickable(SLOT_PIECES[i], 1, 0)
 	_ui.button_pressed.connect(_on_button)
 
