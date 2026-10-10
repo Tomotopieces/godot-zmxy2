@@ -250,6 +250,9 @@ func _text(n: Dictionary) -> Label:
 		var middle: float = top + (float(n.fit[0]) + float(n.fit[1])) / 2.0
 		l.position.y = middle - INK_MIDDLE * float(n.size)
 		l.size.y = float(n.size) * 1.6
+	if n.has("nudge"):
+		# a hand correction kept in the layout data (survives tools/fit_ui.gd): [dx, dy] px
+		l.position += Vector2(float(n.nudge[0]), float(n.nudge[1]))
 	l.add_theme_color_override("font_color", Color(n.color))
 	l.add_theme_color_override("font_outline_color", Color.BLACK)
 	l.add_theme_constant_override("outline_size", 2)
@@ -275,6 +278,7 @@ func _button(n: Dictionary) -> Control:
 		art.visible = st == "up"
 		b.add_child(art)
 		states[st] = art
+	@warning_ignore("shadowed_variable_base_class")
 	var show := func(st: String):
 		for k in states:
 			states[k].visible = k == st
