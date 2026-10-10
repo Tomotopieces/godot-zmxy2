@@ -26,7 +26,6 @@ func _ready() -> void:
 				await get_tree().physics_frame
 				for m in lv.monsters(): m.queue_free()
 				for s in lv.stops: for sp in s.spawners: sp.total = 0
-				lv._can_back = -99.0
 				if h.global_position.y > 1200.0:
 					ok = false
 					print("  fell at x ", snappedf(h.global_position.x, 1))

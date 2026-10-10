@@ -46,9 +46,10 @@ var debug_boxes := false
 
 var _far: Sprite2D
 var _far_width := 0.0
-var _can_back := 0.0         ## canBackward: how far the camera may still scroll back (-99: all the way)
-var _this_stop_set := false  ## thisStopX != 0: the camera is held at _this_stop_view (where the current room was locked)
-var _this_stop_view := 0.0
+var _room_view := 0.0        ## where the camera stood when the current room locked
+var _room_back := 0.0        ## how far back from there the hero may scroll
+var _drag_right := 0.0
+var _right_cap := 0.0        ## the right edge the camera may show now (it grows at CAMERA_MAX_SPEED at most)
 var _end_x := 0.0     ## right edge the camera may show: the last stop (the art may end before the scene bounds)
 var _shake := 0.0
 var _freeze_t := 0.0
@@ -80,6 +81,7 @@ func _ready() -> void:
 	hero.position = Vector2(200, 200)
 	hero.died.connect(func(_h): hero_died.emit())
 	world.add_child(hero)
+	_make_camera()
 	_debug = Node2D.new()
 	_debug.z_index = Layers.Z_DEBUG
 	_debug.draw.connect(_draw_debug)
@@ -164,11 +166,7 @@ func enable_hidden_walls() -> void:
 
 func _touch_stop() -> void:
 	if stop_index < stops.size() and not locked:
-		locked = true
-		auto_scroll = false
-		_this_stop_set = true
-		_this_stop_view = view_x
-		_can_back = float(stops[stop_index].back) - Layers.VIEW.x
+		_lock_room()
 
 ## The last boss is gone: no exit portal, the ending plays.
 func final_victory() -> void:
@@ -302,11 +300,6 @@ func _build(d: Dictionary) -> void:
 		door_rect = Rect2(dd.rect[0], dd.rect[1], dd.rect[2], dd.rect[3])
 
 	_warm_rigs(d)
-	camera = Camera2D.new()
-	camera.anchor_mode = Camera2D.ANCHOR_MODE_FIXED_TOP_LEFT
-	camera.process_callback = Camera2D.CAMERA2D_PROCESS_PHYSICS   # moved in physics, interpolated for display
-	world.add_child(camera)
-	camera.make_current()
 
 # ------------------------------------------------------------------ ground collision
 
@@ -465,7 +458,9 @@ func _update_stops(delta: float) -> void:
 		return
 	var s: Dictionary = stops[stop_index]
 	if not locked:
-		return   # the camera touches a stop (_update_camera) when the hero pushes it into the window
+		if not fixed_camera and view_x + Layers.VIEW.x >= s.x - 1.0:
+			_lock_room()   # the camera reached the stop: the room closes
+		return
 	var busy := false
 	var fb: bool = params.get("fb", false)   # dungeon (9-1): spawners only fill an empty screen
 	for sp: Spawner in s.spawners:
@@ -510,62 +505,76 @@ func boss_destroyed(m: Monster) -> void:
 			return
 	open_door()
 
-## ViewControllor.step, in px per tick (the original's speed.x is the hero's speed per frame):
-##  - the hero's left edge past 2/3 of the screen pushes the camera by the hero's speed; the first push that leaves
-##    the next stop in the touch window (900..980 from the left) locks the room there; with no stop left it goes on
-##    to the last stop + 70 px
-##  - the hero's left edge at or before 188 scrolls it back by the hero's speed, while canBackward allows
-##  - after a room is cleared the auto camera runs: hero speed + 10 px/frame (at most 30) until the hero is at 450,
-##    or the next stop is within 880..1000 of the screen's left
+# ------------------------------------------------------------------ camera
+## The camera is a Camera2D riding on the hero. What the original wants from it:
+##  - the hero walks freely in a dead zone: past 2/3 of the screen the camera follows right, near the left edge it follows
+##    back (Camera2D drag margins);
+##  - a room closes the screen on its stop: the camera cannot show anything right of the stop until the room is cleared
+##    (limit_right), and the hero can only go back a set distance from where the room closed (limit_left);
+##  - once a room is cleared the camera runs ahead on its own (hero speed + 240 px/s) until the hero is back at the
+##    auto line, so the way on opens by itself (limit_left rising);
+##  - the last room's right edge is the stage's end.
+
+func _make_camera() -> void:
+	camera = Camera2D.new()
+	camera.process_callback = Camera2D.CAMERA2D_PROCESS_PHYSICS
+	camera.drag_horizontal_enabled = true
+	camera.drag_vertical_enabled = false
+	var half := Layers.VIEW.x / 2.0
+	var hurt_half := 22.0   # the hero's origin is its middle; the lines are measured to its edges
+	_drag_right = (scroll_trigger + hurt_half - half) / half
+	camera.drag_right_margin = _drag_right
+	camera.drag_left_margin = (half - back_trigger - hurt_half) / half
+	camera.limit_top = 0
+	camera.limit_bottom = int(Layers.VIEW.y)
+	camera.limit_smoothed = false
+	hero.add_child(camera)
+	camera.make_current()
+	camera.reset_smoothing()
+
+func _lock_room() -> void:
+	locked = true
+	auto_scroll = false
+	_room_view = view_x
+	_room_back = float(stops[stop_index].back) - Layers.VIEW.x
+
+## The camera never moves faster than this (the original follows at the hero's own speed): when a room opens the
+## screen glides on instead of jumping to the hero.
+const CAMERA_MAX_SPEED := 720.0
+
 func _update_camera(delta: float) -> void:
 	if fixed_camera:
-		camera.position = Vector2(0, 0)
+		camera.limit_left = 0
+		camera.limit_right = int(Layers.VIEW.x)
 		camera.offset.x = _shake
 		_shake = 0.0
+		view_x = 0.0
 		return
-	var speed := hero.velocity.x * delta
-	var has_stop := stop_index < stops.size()
-	var stop: Dictionary = stops[stop_index] if has_stop else {}
-	var stop_sx: float = float(stop.x) - view_x if has_stop else 0.0   # its screen x before this tick's scrolling
-	var held := _this_stop_set
-	var held_view := _this_stop_view
-	if not has_stop:
-		held = true
-		held_view = float(stops[-1].x) - 870.0 if not stops.is_empty() else -870.0
-	var left := hero.hurt_rect().position.x - view_x
-	if left >= scroll_trigger:
-		var s := maxf(speed, 0.0)
-		if held and view_x < held_view:
-			view_x += s
-			if _can_back != -99.0:
-				_can_back += s
-		elif has_stop and not locked:
-			view_x += s
-			_can_back += s
-			if stop_sx >= 900.0 and stop_sx <= 980.0:
-				_can_back = float(stop.back) - Layers.VIEW.x
-				_this_stop_set = true
-				_this_stop_view = view_x
-				locked = true
-				auto_scroll = false
-			else:
-				_can_back = -99.0
-				_this_stop_set = false
-	elif left <= back_trigger and (_can_back > 0.0 or _can_back == -99.0):
-		var s := minf(speed, 0.0)
-		if view_x + s >= 0.0:
-			view_x += s
-			if _can_back > 0.0:
-				_can_back += s
-	if auto_scroll and has_stop:
-		if hero.global_position.x - view_x > auto_trigger:
-			view_x += minf(absf(hero.velocity.x) + auto_speed_add, auto_speed_max) * delta
+	view_x = camera.get_screen_center_position().x - Layers.VIEW.x / 2.0
+	var view_right := view_x + Layers.VIEW.x
+	var target_right := size.x
+	if stop_index < stops.size():
+		target_right = float(stops[stop_index].x)
+	elif not stops.is_empty():
+		target_right = float(stops[-1].x) + 70.0
+	target_right = minf(target_right, size.x)
+	var speed_cap := CAMERA_MAX_SPEED
+	var left_edge := 0.0
+	if locked:
+		left_edge = maxf(0.0, _room_view - _room_back)
+	if auto_scroll and not locked:
+		if hero.global_position.x - view_x > Layers.VIEW.x / 2.0 + 2.0:
+			# the auto camera: no dead zone to the right, so the screen runs on until the hero is in the middle,
+			# at hero speed + 240 px/s
+			speed_cap = minf(absf(hero.velocity.x) + auto_speed_add, auto_speed_max)
+			camera.drag_right_margin = 0.0
 		else:
-			auto_scroll = false
-		if stop_sx >= 880.0 and stop_sx <= 1000.0:
-			auto_scroll = false
-	view_x = clampf(view_x, 0.0, maxf(size.x - Layers.VIEW.x, 0.0))
-	camera.position = Vector2(view_x, 0)
+			auto_scroll = false   # the hero is level with the middle again: the auto camera is over for good
+	if not auto_scroll:
+		camera.drag_right_margin = _drag_right
+	_right_cap = minf(target_right, maxf(_right_cap, view_right) + speed_cap * delta)
+	camera.limit_right = ceili(_right_cap)
+	camera.limit_left = mini(floori(left_edge), camera.limit_right - int(Layers.VIEW.x))
 	camera.offset.x = _shake
 	_shake = 0.0
 	if _end_x > Layers.VIEW.x:
