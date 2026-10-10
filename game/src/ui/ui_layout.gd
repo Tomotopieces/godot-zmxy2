@@ -219,9 +219,10 @@ func _text(n: Dictionary) -> Label:
 	l.text = n.text
 	l.horizontal_alignment = {"left": HORIZONTAL_ALIGNMENT_LEFT, "right": HORIZONTAL_ALIGNMENT_RIGHT}.get(n.align, HORIZONTAL_ALIGNMENT_CENTER)
 	l.add_theme_font_size_override("font_size", int(n.size))
-	# a one-line field is centred in its box (the original's font sat differently in its line; with ours, top alignment reads low)
-	if n.b.h < float(n.size) * 2.2:
-		l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	# Text sits at the top of its field, but this font's glyphs ride lower in their line than the original's did (its line
+	# box is taller), so every field is lifted a little - found by measuring against the frames of the backpack, the HUD
+	# bars and the result screen: about 3.6 px at size 14, 4.3 px at size 32.
+	l.position.y -= 3.0 + 0.04 * float(n.size)
 	l.add_theme_color_override("font_color", Color(n.color))
 	l.add_theme_color_override("font_outline_color", Color.BLACK)
 	l.add_theme_constant_override("outline_size", 2)

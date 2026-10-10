@@ -33,7 +33,7 @@ func _ready() -> void:
 			# two lines (title over time): the pair, not the title alone, is centred in the slot
 			for f in ["txt_name", "txt_time"]:
 				for l: Label in _ui.get_piece(SLOT_PIECES[i]).find_children(f, "Label", true, false):
-					l.position.y -= 12.0
+					l.position.y -= 7.0
 		_ui.make_clickable(SLOT_PIECES[i], 1, 0)
 	_ui.button_pressed.connect(_on_button)
 
