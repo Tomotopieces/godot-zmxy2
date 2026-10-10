@@ -98,7 +98,8 @@ func on_call(n: String, _args: Array) -> bool:
 				p.velocity += p.accel * delta
 				p.position += p.velocity * delta
 				if p.global_position.y >= floor_y:
-					m.shoot(BLAST, &"hit2").global_position = Vector2(p.global_position.x, floor_y)
+					if is_instance_valid(m):   # (a bomb can outlive the boss that dropped it)
+						m.shoot(BLAST, &"hit2").global_position = Vector2(p.global_position.x, floor_y)
 					p.queue_free()
 		_:
 			return false

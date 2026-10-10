@@ -51,7 +51,7 @@ func _bounce_orb() -> void:
 	o.mover = func(p: Projectile, delta: float) -> void:
 		var v := p.velocity
 		var next := p.global_position + v * delta
-		var view := m.world.view_rect()
+		var view := Level.current.view_rect()   # (not the boss: it may be gone while its orb still flies)
 		if next.x < view.position.x or next.x > view.end.x:
 			v.x = -v.x
 		if next.y < 0.0 or next.y > floor_y:

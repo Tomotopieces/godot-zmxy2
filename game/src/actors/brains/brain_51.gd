@@ -50,6 +50,7 @@ func _ring() -> void:
 	r.velocity = to.normalized() * float(param("ring_speed", 240))
 	r.distance_left = to.length() + 40.0
 	# when its flight ends the ring stays as a trap
+	var trap_attack: AttackData = m.data.attacks.get(&"hit1-2", r.attack)
 	r.mover = func(p: Projectile, delta: float) -> void:
 		if p.distance_left <= 0.0:
 			return
@@ -57,7 +58,7 @@ func _ring() -> void:
 		p.position += step
 		p.distance_left -= step.length()
 		if p.distance_left <= 0.0:
-			p.attack = m.data.attacks.get(&"hit1-2", p.attack)
+			p.attack = trap_attack
 			p.dealer.reset()
 	_rings.append(r)
 	_show_rounds()
