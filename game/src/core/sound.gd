@@ -6,11 +6,7 @@ signal volume_changed(master: float, muted: bool)
 
 const SETTINGS := "user://settings.cfg"
 const SOUND_DIR := "res://assets/sounds/"
-const POOL := 12
 const STEP := 0.1
-## The same effect asked for again within this long counts as the same sound: one blow that lands on several enemies
-## plays its hit sound once, not once per enemy stacked into a roar (the original did stack them).
-const SAME_SOUND_MS := 60
 
 var master := 0.3        ## linear 0..1, low by default
 var music_volume := 0.6
@@ -18,10 +14,8 @@ var sfx_volume := 1.0
 var muted := false
 
 var _music: AudioStreamPlayer
-var _pool: Array[AudioStreamPlayer] = []
-var _next := 0
+var _players := {}   ## sound -> its AudioStreamPlayer
 var _cache := {}
-var _last_ms := {}   ## sound -> tick of its last start
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -34,11 +28,6 @@ func _ready() -> void:
 	_music = AudioStreamPlayer.new()
 	_music.bus = "Music"
 	add_child(_music)
-	for i in POOL:
-		var p := AudioStreamPlayer.new()
-		p.bus = "SFX"
-		add_child(p)
-		_pool.append(p)
 	_load_settings()
 	_apply()
 
@@ -63,13 +52,17 @@ func sfx(sound: String, pitch := 1.0) -> void:
 	var s := _stream(sound)
 	if s == null:
 		return
-	var now := Time.get_ticks_msec()
-	if now - int(_last_ms.get(sound, -SAME_SOUND_MS)) < SAME_SOUND_MS:
-		return
-	_last_ms[sound] = now
-	var p := _pool[_next]
-	_next = (_next + 1) % POOL
-	p.stream = s
+	# One player per sound with max_polyphony 1 (the engine's own limit): asking for the same effect again restarts it
+	# instead of stacking a second copy on top, so one blow landing on several enemies is not a roar (the original
+	# stacked them).
+	var p: AudioStreamPlayer = _players.get(sound)
+	if p == null:
+		p = AudioStreamPlayer.new()
+		p.bus = "SFX"
+		p.stream = s
+		p.max_polyphony = 1
+		add_child(p)
+		_players[sound] = p
 	p.pitch_scale = pitch
 	p.play()
 
