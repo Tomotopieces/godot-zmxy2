@@ -6,6 +6,8 @@ extends Control
 
 signal button_pressed(button_name: String)
 
+const INK_MIDDLE := 0.78   ## where the middle of this font's glyphs lies below the top of the line, in em
+
 var _d: Dictionary
 var _named := {}     ## name -> Node (art / frames holder / Label / button Control)
 var _bars := {}      ## name -> {clip, content, full: Vector2, empty: Vector2, glow}
@@ -16,8 +18,12 @@ static func create(ui_name: String) -> UiLayout:
 	return u
 
 func build(path: String) -> void:
-	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_d = JSON.parse_string(FileAccess.get_file_as_string(path))
+	build_from_data()
+
+## Builds the nodes from the layout data in `_d` (tools/fit_ui.gd hands in data of its own).
+func build_from_data() -> void:
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	for n in _d.nodes:
 		var node: Node
 		match n.type:
@@ -37,6 +43,7 @@ func build(path: String) -> void:
 				node = _bar(n)
 			"text":
 				node = _text(n)
+				node.set_meta(&"rec", n)   # (tools/fit_ui.gd writes the frame a field sits in back into its record)
 			"button":
 				node = _button(n)
 		if node == null:
@@ -175,6 +182,7 @@ func _leaves(leaves: Array, xf: Transform2D) -> Node2D:
 			holder.add_child(_masked(lf[1], lf[2]))
 		elif lf[0] == "text":
 			var l := _text({"m": lf[1], "name": lf[3] if lf.size() > 3 else null}.merged(lf[2]))
+			l.set_meta(&"rec", lf[2])
 			if lf.size() > 3 and lf[3] != null:
 				l.name = String(lf[3])
 			holder.add_child(l)
@@ -188,7 +196,14 @@ func _sprite(lf: Array) -> Sprite2D:
 	sp.centered = false
 	sp.texture = load(info.res)
 	var s := 1.0 / float(info.scale)
-	sp.transform = _m(lf[1]) * Transform2D(Vector2(s, 0), Vector2(0, s), Vector2(info.ox, info.oy))
+	var origin := Vector2(info.ox, info.oy)
+	if lf.size() > 3 and lf[3] is Array:
+		# one piece of the picture (a baked caption sheet cut into its captions by tools/fit_ui.gd)
+		var r: Array = lf[3]
+		sp.region_enabled = true
+		sp.region_rect = Rect2(r[0], r[1], r[2], r[3])
+		origin += Vector2(r[0], r[1]) * s
+	sp.transform = _m(lf[1]) * Transform2D(Vector2(s, 0), Vector2(0, s), origin)
 	if lf.size() > 2 and lf[2] != null:
 		var ct: Array = lf[2]
 		sp.modulate = Color(ct[0] + ct[4] / 255.0, ct[1] + ct[5] / 255.0, ct[2] + ct[6] / 255.0, clampf(ct[3] + ct[7] / 255.0, 0, 1))
@@ -212,6 +227,11 @@ func _masked(mask: Array, content: Array) -> Node2D:
 		holder.add_child(m)
 	return holder
 
+## How far a field's text is lifted from the top of its box: the middle of this font's glyphs is 0.78 em below the top
+## of its line, the original's was about 0.51 em.
+static func text_lift(font_size: float) -> float:
+	return 0.27 * font_size
+
 func _text(n: Dictionary) -> Label:
 	var l := Label.new()
 	l.position = _m(n.m).origin + Vector2(n.b.x, n.b.y)
@@ -219,10 +239,17 @@ func _text(n: Dictionary) -> Label:
 	l.text = n.text
 	l.horizontal_alignment = {"left": HORIZONTAL_ALIGNMENT_LEFT, "right": HORIZONTAL_ALIGNMENT_RIGHT}.get(n.align, HORIZONTAL_ALIGNMENT_CENTER)
 	l.add_theme_font_size_override("font_size", int(n.size))
-	# Text sits at the top of its field, but this font's glyphs ride lower in their line than the original's did (its line
-	# box is taller), so every field is lifted a little - found by measuring against the frames of the backpack, the HUD
-	# bars and the result screen: about 3.6 px at size 14, 4.3 px at size 32.
-	l.position.y -= 3.0 + 0.04 * float(n.size)
+	# A field's text sits at the top of its box. This font's glyphs ride lower in their line than the original's did (its
+	# line box is taller), so a field without a known frame is lifted by text_lift().
+	var top := l.position.y
+	l.position.y = top - text_lift(float(n.size))
+	if n.has("fit"):
+		# the frame this field sits in (found by tools/fit_ui.gd in the drawn art, fit = [top, bottom] relative to the
+		# top of the field box): the middle of the glyphs goes to the middle of the frame, whatever the Flash box was. The
+		# glyph middle of this font is INK_MIDDLE em below the top of its line (measured, at every size).
+		var middle: float = top + (float(n.fit[0]) + float(n.fit[1])) / 2.0
+		l.position.y = middle - INK_MIDDLE * float(n.size)
+		l.size.y = float(n.size) * 1.6
 	l.add_theme_color_override("font_color", Color(n.color))
 	l.add_theme_color_override("font_outline_color", Color.BLACK)
 	l.add_theme_constant_override("outline_size", 2)
