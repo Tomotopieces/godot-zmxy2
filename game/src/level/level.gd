@@ -568,7 +568,7 @@ func _update_camera(delta: float) -> void:
 	if stop_index < stops.size():
 		target_right = float(stops[stop_index].x)
 	elif not stops.is_empty():
-		target_right = float(stops[-1].x) + 70.0
+		target_right = float(stops[-1].x)
 	target_right = minf(target_right, size.x)
 	var speed_cap := CAMERA_MAX_SPEED
 	var left_edge := 0.0

@@ -24,40 +24,40 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_173j0"]
 resource_local_to_scene = true
 
-[node name="Monster60Bullet1" type="Node2D" unique_id=1515013493]
+[node name="Monster60Bullet1" type="Node2D" unique_id=723623482]
 script = ExtResource("1_oe5n1")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=1176472082]
+[node name="Parts" type="Node2D" parent="." unique_id=1967936437]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=883868530]
+[node name="default" type="Node2D" parent="Parts" unique_id=410635481]
 visible = false
 
-[node name="p1_1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=1982656568]
+[node name="p1_1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=473598853]
 material = SubResource("ShaderMaterial_kt8to")
 position = Vector2(-59.4033, -59.4033)
 scale = Vector2(0.2585, 0.2585)
 texture = ExtResource("3_bg63n")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=542390352]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1395032243]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=10323689]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1923571478]
 shape = SubResource("RectangleShape2D_dyblg")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1856044072]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=84760301]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=2132357690]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1466738660]
 shape = SubResource("RectangleShape2D_173j0")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=658609576]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1528847523]
 callback_mode_process = 0
 libraries/ = ExtResource("4_5t4dw")

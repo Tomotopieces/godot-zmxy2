@@ -24,16 +24,16 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wmwql"]
 resource_local_to_scene = true
 
-[node name="FabaoPearlBullet3" type="Node2D" unique_id=5992403]
+[node name="FabaoPearlBullet3" type="Node2D" unique_id=1120936174]
 script = ExtResource("1_1v5jb")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=1143106212]
+[node name="Parts" type="Node2D" parent="." unique_id=1723690858]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=2129753287]
+[node name="default" type="Node2D" parent="Parts" unique_id=2035183231]
 visible = false
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=576681586]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=1929407916]
 material = SubResource("ShaderMaterial_eme4m")
 position = Vector2(43.733448, 5.3876996)
 rotation = -3.0275595
@@ -42,24 +42,24 @@ skew = 1.226416
 texture = ExtResource("3_bxl7k")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1642715098]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1512934024]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=875835605]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=257163226]
 shape = SubResource("RectangleShape2D_0oxdk")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1401303293]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1048483904]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1737933356]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1072350777]
 shape = SubResource("RectangleShape2D_wmwql")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=756624248]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1809112993]
 callback_mode_process = 0
 libraries/ = ExtResource("4_ngemj")

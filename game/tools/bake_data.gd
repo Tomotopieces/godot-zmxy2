@@ -118,7 +118,9 @@ func _attack(a: Dictionary) -> AttackData:
 	r.knockback = Vector2(_pps(kb[0]), _jump_velocity(ky, KNOCKBACK_GRAVITY, _pps(_pps(KNOCKBACK_GRAVITY))) if ky < 0.0 else _pps(ky))
 	r.push_from_center = a.get("push_from_center", false)
 	var interval := int(a.get("interval", 0))
-	r.rehit_interval = 0.0 if interval >= 999 else _sec(interval)
+	# BaseBullet: a hit sets its counter to 1 and the same step raises it to 2; a new attack id comes when the counter
+	# equals `attackInterval`. So a bullet hits again after interval - 1 frames, and with an interval of 1 never.
+	r.rehit_interval = 0.0 if interval >= 999 or interval <= 1 else _sec(interval - 1)
 	r.max_hits = int(a.get("max_hits", 1))
 	r.mp_cost = int(a.get("mp", 0))
 	r.cooldown = _sec(a.get("cooldown", 0))

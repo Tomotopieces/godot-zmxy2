@@ -24,40 +24,40 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yjgay"]
 resource_local_to_scene = true
 
-[node name="Monster69Bullet1" type="Node2D" unique_id=1180302162]
+[node name="Monster69Bullet1" type="Node2D" unique_id=2129506481]
 script = ExtResource("1_rlj1q")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=88737536]
+[node name="Parts" type="Node2D" parent="." unique_id=1317264401]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=1350450453]
+[node name="default" type="Node2D" parent="Parts" unique_id=655818503]
 visible = false
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=22710770]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=137108928]
 material = SubResource("ShaderMaterial_jmjw3")
 position = Vector2(-110.95, -6.9)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_rljhm")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1182133445]
+[node name="Hitbox" type="Area2D" parent="." unique_id=388329814]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1775104225]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1928418032]
 shape = SubResource("RectangleShape2D_sq0qo")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1399624392]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=2056693464]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=2046023241]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1659478192]
 shape = SubResource("RectangleShape2D_yjgay")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=1868609626]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=568336189]
 callback_mode_process = 0
 libraries/ = ExtResource("4_5sfkb")

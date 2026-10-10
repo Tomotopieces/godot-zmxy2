@@ -29,31 +29,31 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mygwe"]
 resource_local_to_scene = true
 
-[node name="Monster41" type="Node2D" unique_id=506366453]
+[node name="Monster41" type="Node2D" unique_id=1765936848]
 script = ExtResource("1_jucgu")
 actions = PackedStringArray("walk", "hit1", "hurt", "wait", "dead")
 
-[node name="Parts" type="Node2D" parent="." unique_id=2047966668]
+[node name="Parts" type="Node2D" parent="." unique_id=1072423716]
 
-[node name="walk" type="Node2D" parent="Parts" unique_id=1795800160]
+[node name="walk" type="Node2D" parent="Parts" unique_id=1825643482]
 visible = false
 
-[node name="p1_1" type="Sprite2D" parent="Parts/walk" unique_id=797327538]
+[node name="p1_1" type="Sprite2D" parent="Parts/walk" unique_id=1446494258]
 position = Vector2(-55.9, -48.1)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_jsy6j")
 centered = false
 
-[node name="hit1" type="Node2D" parent="Parts" unique_id=321050481]
+[node name="hit1" type="Node2D" parent="Parts" unique_id=1705824228]
 visible = false
 
-[node name="p1_1" type="Sprite2D" parent="Parts/hit1" unique_id=1121473318]
+[node name="p1_1" type="Sprite2D" parent="Parts/hit1" unique_id=936492083]
 position = Vector2(-62.9, -65.9)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_8ptd7")
 centered = false
 
-[node name="p1_2_1_1_f0" type="Sprite2D" parent="Parts/hit1" unique_id=556078253]
+[node name="p1_2_1_1_f0" type="Sprite2D" parent="Parts/hit1" unique_id=2129729563]
 modulate = Color(1, 1, 1, 0.32)
 material = SubResource("ShaderMaterial_g2o2n")
 position = Vector2(-113.450005, -55.8)
@@ -61,51 +61,51 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("5_xw7r1")
 centered = false
 
-[node name="hurt" type="Node2D" parent="Parts" unique_id=602434018]
+[node name="hurt" type="Node2D" parent="Parts" unique_id=844980612]
 visible = false
 
-[node name="p1_1" type="Sprite2D" parent="Parts/hurt" unique_id=475515658]
+[node name="p1_1" type="Sprite2D" parent="Parts/hurt" unique_id=1824969105]
 position = Vector2(-62.25, -54.05)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_xlkii")
 centered = false
 
-[node name="wait" type="Node2D" parent="Parts" unique_id=1980166338]
+[node name="wait" type="Node2D" parent="Parts" unique_id=87358866]
 visible = false
 
-[node name="p1_1" type="Sprite2D" parent="Parts/wait" unique_id=1150280501]
+[node name="p1_1" type="Sprite2D" parent="Parts/wait" unique_id=1149127809]
 position = Vector2(-47, -48)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("7_jw5c4")
 centered = false
 
-[node name="dead" type="Node2D" parent="Parts" unique_id=2016247340]
+[node name="dead" type="Node2D" parent="Parts" unique_id=1142419084]
 visible = false
 
-[node name="p1_1" type="Sprite2D" parent="Parts/dead" unique_id=739953882]
+[node name="p1_1" type="Sprite2D" parent="Parts/dead" unique_id=1331775147]
 position = Vector2(-50.05, -51.3)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("8_x5j1v")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=487829288]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1400691881]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=916101592]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1771000067]
 shape = SubResource("RectangleShape2D_bou4f")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=211748983]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=373973657]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1487705153]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=331920344]
 shape = SubResource("RectangleShape2D_mygwe")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=834930064]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1147401309]
 callback_mode_process = 0
 libraries/ = ExtResource("9_6skw4")

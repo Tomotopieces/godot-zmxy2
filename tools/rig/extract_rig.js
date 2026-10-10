@@ -202,7 +202,9 @@ class Sim {
     };
     walk(this.root, I, CT_ID, [], false, this.rootFilters || [], this.rootFilters && this.rootFilters.length ? 'root' : null);
     let art = null;
-    for (const lf of leaves) { const b = lf.kind === 'tex' ? boundsOf(this.lib, lf.ref) : null; if (b) art = union(art, rectXf(lf.m, b)); }
+    // the art box (what an effect without hit sticks hits with) is where the picture is visible: the original tests
+    // against the drawn pixels, and a texture's transparent margin or soft glow must not count
+    for (const lf of leaves) { const b = lf.kind === 'tex' ? visibleBounds(this.lib, lf.ref) : null; if (b) { let r = rectXf(lf.m, b); if (lf.cl) r = intersectR(r, lf.cl); if (r.w > 0 && r.h > 0) art = union(art, r); } }
     return { leaves, rects, markers, art };
   }
 }
@@ -211,6 +213,26 @@ function intersectR(a, b) {
   const x = Math.max(a.x, b.x), y = Math.max(a.y, b.y);
   const r = Math.min(a.x + a.w, b.x + b.w), btm = Math.min(a.y + a.h, b.y + b.h);
   return { x, y, w: Math.max(0, r - x), h: Math.max(0, btm - y) };
+}
+
+const PNG = require('./png');
+const visCache = new Map();
+// bounds (local units) of the pixels of a leaf texture that are visibly opaque
+function visibleBounds(lib, c) {
+  const t = lib.texture(c);
+  if (!t) return boundsOf(lib, c);
+  const key = t.file;
+  if (!visCache.has(key)) {
+    let r = null;
+    try {
+      const im = PNG.decode(t.file);
+      let x0 = im.width, y0 = im.height, x1 = -1, y1 = -1;
+      for (let y = 0; y < im.height; y++) for (let x = 0; x < im.width; x++) if (im.data[(y * im.width + x) * 4 + 3] >= 48) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+      if (x1 >= 0) r = { x: t.ox + x0 / t.scale, y: t.oy + y0 / t.scale, w: (x1 + 1 - x0) / t.scale, h: (y1 + 1 - y0) / t.scale };
+    } catch (e) { r = null; }
+    visCache.set(key, r);
+  }
+  return visCache.get(key) || boundsOf(lib, c);
 }
 
 function boundsOf(lib, c, depth = 0) {
