@@ -102,5 +102,5 @@ func _on_event(n: StringName, _args: Array) -> void:
 		_new_hits += 1
 		if new_hit_limit < 0 or _new_hits <= new_hit_limit:
 			dealer.new_serial()
-	elif n == &"raw" and String(_args[0]).contains("shake"):
-		Level.current.shake(25)
+	elif n == &"shake":
+		Level.current.shake(float(_args[0]))

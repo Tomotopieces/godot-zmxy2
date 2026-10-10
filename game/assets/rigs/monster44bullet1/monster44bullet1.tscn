@@ -24,40 +24,40 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5ph1p"]
 resource_local_to_scene = true
 
-[node name="Monster44Bullet1" type="Node2D" unique_id=123043222]
+[node name="Monster44Bullet1" type="Node2D" unique_id=1240671376]
 script = ExtResource("1_jp34y")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=1461116871]
+[node name="Parts" type="Node2D" parent="." unique_id=1149280462]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=1289147875]
+[node name="default" type="Node2D" parent="Parts" unique_id=1952273001]
 visible = false
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=1982805033]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=1638133997]
 material = SubResource("ShaderMaterial_wet7g")
 position = Vector2(-28.35, -18.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_jle4l")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1874117632]
+[node name="Hitbox" type="Area2D" parent="." unique_id=168785477]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1262373668]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=351560546]
 shape = SubResource("RectangleShape2D_er6bw")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=604405995]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=2114153466]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=997154435]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1064161045]
 shape = SubResource("RectangleShape2D_5ph1p")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=1335182909]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1918701458]
 callback_mode_process = 0
 libraries/ = ExtResource("4_ln4ya")

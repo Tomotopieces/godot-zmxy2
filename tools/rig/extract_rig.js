@@ -402,6 +402,7 @@ function extract(libName, cls, outName, rootFilters = []) {
       return { path: t.path.join('.'), kind: t.kind, keys, filter: t.filter, group: t.group, blend: t.blend || undefined };
     });
     const compactR = (arr) => arr.filter((k, i) => i === 0 || JSON.stringify(k[1]) !== JSON.stringify(arr[i - 1][1]));
+    const evs = sim.events.filter(([f]) => f < frames).flatMap(([f, src]) => classifyEvents(src, lib.fps).map((e) => [f, ...e]));
     out.actions[act.label] = {
       frames,
       loop: !process.env.LOOP_FROM && ((sim.ended < 0 && sim.held < 0) || !!process.env.HOLD_FRAMES),
@@ -410,8 +411,11 @@ function extract(libName, cls, outName, rootFilters = []) {
       tracks: trackList,
       hit: compactR(hit), hurt: compactR(hurt), art: compactR(art),
       markers,
-      events: sim.events.filter(([f]) => f < frames).flatMap(([f, src]) => classifyEvents(src, lib.fps).map((e) => [f, ...e])).filter((e) => !(e[1] === 'finished' && e[0] < (sim.endFrom || 0))),
+      events: evs.filter((e) => e[1] !== 'vis' && e[1] !== 'unknown').filter((e) => !(e[1] === 'finished' && e[0] < (sim.endFrom || 0))),
+      // the body shown / hidden: becomes a visibility track of the parts, not an event
+      rootvis: evs.filter((e) => e[1] === 'vis').map((e) => [e[0], e[2]]),
     };
+    for (const e of evs) if (e[1] === 'unknown') out.unknownScripts.push(e[2]);
     out.unknownScripts.push(...sim.unknowns);
   }
   for (const sel of Object.keys(out.slots)) {

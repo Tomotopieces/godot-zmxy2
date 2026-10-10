@@ -351,6 +351,14 @@ func _build(json_path: String) -> void:
 			if f > 0:
 				an.track_insert_key(tev, f / _fps, {"method": &"_anim_events", "args": [by_frame[f]]})
 		an.set_meta(&"start_events", by_frame.get(0, []))
+		# the whole body hidden / shown on given frames (death blink ...)
+		var vis: Array = act.get("rootvis", [])
+		if not vis.is_empty():
+			var tvis := _vtrack(an, "Parts:visible")
+			if int(vis[0][0]) > 0:
+				an.track_insert_key(tvis, 0.0, true)
+			for v in vis:
+				an.track_insert_key(tvis, float(v[0]) / _fps, int(v[1]) == 1)
 		lib.add_animation(StringName(act_name), an)
 
 	var lib_path := _dir + "/anims.res"

@@ -11,7 +11,7 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h0ktg"]
 resource_local_to_scene = true
 
-[node name="XingtianDoorOpen" type="Node2D" unique_id=1803216482]
+[node name="XingtianDoorOpen" type="Node2D" unique_id=165056999]
 script = ExtResource("1_cmb1f")
 actions = PackedStringArray("default")
 markers = {
@@ -19,49 +19,49 @@ markers = {
 "isXingtianDoor": Vector2(35, -96)
 }
 
-[node name="Parts" type="Node2D" parent="." unique_id=361746185]
+[node name="Parts" type="Node2D" parent="." unique_id=668995402]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=312759430]
+[node name="default" type="Node2D" parent="Parts" unique_id=1651945026]
 visible = false
 
-[node name="p1" type="Sprite2D" parent="Parts/default" unique_id=1928713484]
+[node name="p1" type="Sprite2D" parent="Parts/default" unique_id=1876831361]
 position = Vector2(-286.5, -210.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_hp1c3")
 centered = false
 
-[node name="p2_1_2" type="Sprite2D" parent="Parts/default" unique_id=1661738203]
+[node name="p2_1_2" type="Sprite2D" parent="Parts/default" unique_id=641867168]
 position = Vector2(-84.25403, -146.17699)
 scale = Vector2(0.428, 0.452)
 texture = ExtResource("3_s03sj")
 centered = false
 region_enabled = true
 
-[node name="p2_5_2" type="Sprite2D" parent="Parts/default" unique_id=243829767]
+[node name="p2_5_2" type="Sprite2D" parent="Parts/default" unique_id=47656803]
 position = Vector2(-741.508, -146.17699)
 scale = Vector2(0.428, 0.452)
 texture = ExtResource("3_s03sj")
 centered = false
 region_enabled = true
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1050094170]
+[node name="Hitbox" type="Area2D" parent="." unique_id=774504564]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1141643674]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=2094206756]
 shape = SubResource("RectangleShape2D_td56p")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=770343604]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=431944326]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=319738285]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=656460049]
 shape = SubResource("RectangleShape2D_h0ktg")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=1837476882]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1523776110]
 callback_mode_process = 0
 libraries/ = ExtResource("4_eec2j")

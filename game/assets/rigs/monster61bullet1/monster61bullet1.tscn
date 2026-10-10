@@ -13,16 +13,16 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3rqvg"]
 resource_local_to_scene = true
 
-[node name="Monster61Bullet1" type="Node2D" unique_id=1679582271]
+[node name="Monster61Bullet1" type="Node2D" unique_id=1554802266]
 script = ExtResource("1_w4tip")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=1882111524]
+[node name="Parts" type="Node2D" parent="." unique_id=1469889211]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=1854312055]
+[node name="default" type="Node2D" parent="Parts" unique_id=1137490181]
 visible = false
 
-[node name="p1_2" type="Sprite2D" parent="Parts/default" unique_id=637487926]
+[node name="p1_2" type="Sprite2D" parent="Parts/default" unique_id=507192319]
 material = SubResource("CanvasItemMaterial_ssqt1")
 position = Vector2(-39.65, -358.65)
 scale = Vector2(0.5, 0.5)
@@ -30,24 +30,24 @@ texture = ExtResource("2_ulefm")
 centered = false
 region_enabled = true
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=2115653795]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1796206176]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=547151338]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=152401415]
 shape = SubResource("RectangleShape2D_swahs")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=594746716]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=971718885]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1476186896]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=154428583]
 shape = SubResource("RectangleShape2D_3rqvg")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=1244583442]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=645965289]
 callback_mode_process = 0
 libraries/ = ExtResource("3_shayq")

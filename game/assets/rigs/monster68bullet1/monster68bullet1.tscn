@@ -24,40 +24,40 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_il2k5"]
 resource_local_to_scene = true
 
-[node name="Monster68Bullet1" type="Node2D" unique_id=267021606]
+[node name="Monster68Bullet1" type="Node2D" unique_id=1364698658]
 script = ExtResource("1_r1823")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=1132816386]
+[node name="Parts" type="Node2D" parent="." unique_id=2143350188]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=1514309277]
+[node name="default" type="Node2D" parent="Parts" unique_id=1629851353]
 visible = false
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=669418441]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=23585367]
 material = SubResource("ShaderMaterial_x2pm8")
 position = Vector2(-21, -12)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_urgvn")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1746907450]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1792651294]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=322622043]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=2000580793]
 shape = SubResource("RectangleShape2D_tabtv")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1683314791]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1704116901]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=762241748]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=2040734129]
 shape = SubResource("RectangleShape2D_il2k5")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=1627682111]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=167256750]
 callback_mode_process = 0
 libraries/ = ExtResource("4_0p06c")

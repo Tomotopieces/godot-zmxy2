@@ -101,6 +101,8 @@ func has_events(a: StringName) -> bool:
 	for tr in an.get_track_count():
 		if an.track_get_type(tr) == Animation.TYPE_METHOD and an.track_get_key_count(tr) > 0:
 			return true
+		if String(an.track_get_path(tr)) == "Parts:visible":   # the body blinks / hides on its own
+			return true
 	return false
 
 ## Seconds into the current action.

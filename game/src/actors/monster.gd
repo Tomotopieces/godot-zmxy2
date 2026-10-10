@@ -284,17 +284,10 @@ func _on_rig_event(n: StringName, args: Array) -> void:
 					if state == State.DEAD:
 						Loot.drop(self)   # a death clip that only destroys (楚江王): the loot comes with it
 					vanish()
-		&"raw":
-			_raw_event(String(args[0]))
-
-## Frame scripts kept as source by the extractor: boss death blink and the BossDead sequence.
-func _raw_event(src: String) -> void:
-	if src.contains("P.visible = false"):
-		rig.visible = false
-	elif src.contains("P.visible = true"):
-		rig.visible = true
-	if src.contains("BossDead"):
-		_boss_dead_sequence()
+		&"boss_dead_fx":
+			_boss_dead_sequence()
+		&"shake":
+			world.shake(float(args[0]))
 
 ## BossDead (Common_v7): a full-screen swirl; at its end every dead boss drops loot and is removed.
 func _boss_dead_sequence() -> void:

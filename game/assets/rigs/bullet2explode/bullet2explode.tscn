@@ -24,40 +24,40 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3p823"]
 resource_local_to_scene = true
 
-[node name="Bullet2Explode" type="Node2D" unique_id=284975983]
+[node name="Bullet2Explode" type="Node2D" unique_id=1440229648]
 script = ExtResource("1_h8o4k")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=1266019788]
+[node name="Parts" type="Node2D" parent="." unique_id=1332136458]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=1199102358]
+[node name="default" type="Node2D" parent="Parts" unique_id=1281348770]
 visible = false
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=1542636015]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=1460071217]
 material = SubResource("ShaderMaterial_anlj4")
 position = Vector2(-29, -30.05)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_fiojp")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=662176335]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1029337957]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=516226308]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1001932433]
 shape = SubResource("RectangleShape2D_7j1tv")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1682393507]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=265571654]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1236264586]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=454623022]
 shape = SubResource("RectangleShape2D_3p823")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=1677141323]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1877907813]
 callback_mode_process = 0
 libraries/ = ExtResource("4_fguro")
