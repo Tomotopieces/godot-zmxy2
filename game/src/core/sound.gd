@@ -14,7 +14,8 @@ var sfx_volume := 1.0
 var muted := false
 
 var _music: AudioStreamPlayer
-var _players := {}   ## sound -> its AudioStreamPlayer
+var _players := {}   ## sound -> its AudioStreamPlayer (a few overlapping plays allowed: a new one never cuts the old)
+var _frame_of := {}  ## sound -> the engine frame it last started in
 var _cache := {}
 
 func _ready() -> void:
@@ -52,15 +53,18 @@ func sfx(sound: String, pitch := 1.0) -> void:
 	var s := _stream(sound)
 	if s == null:
 		return
-	# One player per sound with max_polyphony 1 (the engine's own limit): asking for the same effect again restarts it
-	# instead of stacking a second copy on top, so one blow landing on several enemies is not a roar (the original
-	# stacked them).
+	# The same effect asked for again in the same frame is one sound: a blow landing on several enemies asks once per
+	# enemy, and stacked copies were a roar (the original did stack them). Later requests overlap normally.
+	var frame := Engine.get_process_frames()
+	if _frame_of.get(sound, -1) == frame:
+		return
+	_frame_of[sound] = frame
 	var p: AudioStreamPlayer = _players.get(sound)
 	if p == null:
 		p = AudioStreamPlayer.new()
 		p.bus = "SFX"
 		p.stream = s
-		p.max_polyphony = 1
+		p.max_polyphony = 6   # the engine mixes overlapping plays of one player; none is cut until six are running
 		add_child(p)
 		_players[sound] = p
 	p.pitch_scale = pitch
