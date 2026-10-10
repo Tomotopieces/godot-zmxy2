@@ -120,24 +120,13 @@ func set_visible_piece(piece: String, v: bool) -> void:
 		p.visible = v
 
 ## Pulsing outer glow on a piece (or one frame of it): the original animates a GlowFilter's blur and strength
-## up and back down (lit 无双 logo, the next stage on the map). Rebuilt as a filter group with a looping tween.
+## up and back down (lit 无双 logo, the next stage on the map). Rebuilt as a halo material of the sprites, pulsed by a tween.
 func glow_pulse(target: Node2D, color: Color, blur: Vector2, strength: Vector2, half: float) -> void:
-	var group := CanvasGroup.new()
-	group.fit_margin = blur.y + 4.0
-	group.clear_margin = Rig.filter_clear_margin(group.fit_margin)
-	group.use_mipmaps = false
-	var mat := ShaderMaterial.new()
-	mat.shader = preload("res://src/rig/flash_filter.gdshader")
-	mat.set_shader_parameter("glow_on", true)
-	mat.set_shader_parameter("glow_color", color)
-	group.material = mat
-	for c in target.get_children():
-		c.reparent(group, false)
-	target.add_child(group)
+	var mat := SpriteFx.glow_material(color, blur.x, strength.x)
+	for sp: Sprite2D in target.find_children("*", "Sprite2D", true, false):
+		sp.material = mat
 	var pulse := func(t: float) -> void:
-		var b := lerpf(blur.x, blur.y, t)
-		mat.set_shader_parameter("glow_blur", Vector2(b, b))
-		mat.set_shader_parameter("glow_strength", lerpf(strength.x, strength.y, t))
+		SpriteFx.set_glow(mat, color, lerpf(blur.x, blur.y, t), lerpf(strength.x, strength.y, t))
 	var tw := create_tween().set_loops()
 	tw.tween_method(pulse, 0.0, 1.0, half)
 	tw.tween_method(pulse, 1.0, 0.0, half)

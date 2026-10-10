@@ -1,29 +1,25 @@
 [gd_scene format=3]
 
-[ext_resource type="Shader" path="res://src/rig/flash_filter.gdshader" id="1_j74jf"]
+[ext_resource type="Shader" path="res://src/rig/sprite_fx.gdshader" id="1_j74jf"]
 [ext_resource type="Texture2D" path="res://assets/shared/42aee39353c0aa9f91ec818da67a055e.png" id="2_1t57f"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qcvvc"]
 shader = ExtResource("1_j74jf")
-shader_parameter/blur = null
-shader_parameter/glow_on = true
-shader_parameter/glow_color = Color(1, 0.8, 0, 1)
-shader_parameter/glow_blur = Vector2(13, 13)
-shader_parameter/glow_strength = 2.6679688
-shader_parameter/glow_inner = false
-shader_parameter/glow_knockout = false
 shader_parameter/matrix_on = null
 shader_parameter/color_matrix = null
 shader_parameter/color_offset = null
+shader_parameter/blur = null
+shader_parameter/glow_on = true
+shader_parameter/glow_color = Color(1, 0.8, 0, 1)
+shader_parameter/glow_blur = 13.0
+shader_parameter/glow_strength = 2.6679688
+shader_parameter/solid = null
+shader_parameter/extend = 14.0
 
-[node name="Slot158_2" type="Node2D" unique_id=699352736]
+[node name="Slot158_2" type="Node2D" unique_id=67871676]
 
-[node name="g1_1_f0" type="CanvasGroup" parent="." unique_id=221835904]
+[node name="p1_1_1_f0" type="Sprite2D" parent="." unique_id=335916949]
 material = SubResource("ShaderMaterial_qcvvc")
-fit_margin = 17.0
-clear_margin = 17.0
-
-[node name="p1_1_1_f0" type="Sprite2D" parent="g1_1_f0" unique_id=87607592]
 position = Vector2(-20.8, 27.7)
 rotation = -0.3963857
 scale = Vector2(0.38592356, 0.40003905)
@@ -31,12 +27,8 @@ skew = -0.0001360178
 texture = ExtResource("2_1t57f")
 centered = false
 
-[node name="g1_3_f0" type="CanvasGroup" parent="." unique_id=2126547981]
+[node name="p1_3_1_f0" type="Sprite2D" parent="." unique_id=1284150077]
 material = SubResource("ShaderMaterial_qcvvc")
-fit_margin = 17.0
-clear_margin = 17.0
-
-[node name="p1_3_1_f0" type="Sprite2D" parent="g1_3_f0" unique_id=1695900309]
 position = Vector2(18.85, 13)
 scale = Vector2(0.4295, 0.4)
 texture = ExtResource("2_1t57f")

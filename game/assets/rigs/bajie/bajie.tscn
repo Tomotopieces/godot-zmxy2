@@ -145,7 +145,7 @@
 [ext_resource type="Texture2D" path="res://assets/rigs/bajie/tex/Pig9_241.png" id="143_1pqon"]
 [ext_resource type="Texture2D" path="res://assets/rigs/bajie/tex/Pig9_246.png" id="144_nikpm"]
 [ext_resource type="Texture2D" path="res://assets/rigs/bajie/tex/Pig9_268.png" id="145_1lx7b"]
-[ext_resource type="Shader" path="res://src/rig/flash_filter.gdshader" id="146_d0lsq"]
+[ext_resource type="Shader" path="res://src/rig/sprite_fx.gdshader" id="146_d0lsq"]
 [ext_resource type="Texture2D" path="res://assets/shared/51c079a5ff4cb8f19c2480753b4f74d7.png" id="147_mguhj"]
 [ext_resource type="Texture2D" path="res://assets/rigs/bajie/tex/Pig9_257.png" id="148_3hjom"]
 [ext_resource type="Texture2D" path="res://assets/rigs/bajie/tex/Pig9_261.png" id="149_tmicp"]
@@ -187,218 +187,205 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n1rid"]
 shader = ExtResource("146_d0lsq")
-shader_parameter/blur = null
-shader_parameter/glow_on = null
-shader_parameter/glow_color = null
-shader_parameter/glow_blur = null
-shader_parameter/glow_strength = null
-shader_parameter/glow_inner = null
-shader_parameter/glow_knockout = null
 shader_parameter/matrix_on = true
 shader_parameter/color_matrix = Projection(0.5417813, 0.20649621, -0.056891277, 0, 0.1499975, 0.8282527, 0.554991, 0, 0.30822116, -0.0347489, 0.50190014, 0, 0, 0, 0, 1)
 shader_parameter/color_offset = Vector4(0.15686275, 0.15686277, 0.15686274, 0)
+shader_parameter/blur = null
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8ivyp"]
 shader = ExtResource("146_d0lsq")
-shader_parameter/blur = null
-shader_parameter/glow_on = null
-shader_parameter/glow_color = null
-shader_parameter/glow_blur = null
-shader_parameter/glow_strength = null
-shader_parameter/glow_inner = null
-shader_parameter/glow_knockout = null
 shader_parameter/matrix_on = true
 shader_parameter/color_matrix = Projection(0.014984861, 0.36638433, 0.09966998, 0, 0.62272465, 0.6186273, 1.0328338, 0, 0.36229053, 0.014988303, -0.13250375, 0, 0, 0, 0, 1)
 shader_parameter/color_offset = Vector4(0, 0, 0, 0)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xui13"]
-shader = ExtResource("146_d0lsq")
-shader_parameter/blur = Vector2(22, 0)
-shader_parameter/glow_on = null
-shader_parameter/glow_color = null
-shader_parameter/glow_blur = null
-shader_parameter/glow_strength = null
-shader_parameter/glow_inner = null
-shader_parameter/glow_knockout = null
-shader_parameter/matrix_on = null
-shader_parameter/color_matrix = null
-shader_parameter/color_offset = null
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_al7jy"]
-shader = ExtResource("146_d0lsq")
-shader_parameter/blur = Vector2(18.333221, 0)
-shader_parameter/glow_on = null
-shader_parameter/glow_color = null
-shader_parameter/glow_blur = null
-shader_parameter/glow_strength = null
-shader_parameter/glow_inner = null
-shader_parameter/glow_knockout = null
-shader_parameter/matrix_on = null
-shader_parameter/color_matrix = null
-shader_parameter/color_offset = null
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_e5nhq"]
-shader = ExtResource("146_d0lsq")
-shader_parameter/blur = Vector2(14.666779, 0)
-shader_parameter/glow_on = null
-shader_parameter/glow_color = null
-shader_parameter/glow_blur = null
-shader_parameter/glow_strength = null
-shader_parameter/glow_inner = null
-shader_parameter/glow_knockout = null
-shader_parameter/matrix_on = null
-shader_parameter/color_matrix = null
-shader_parameter/color_offset = null
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_12vtr"]
-shader = ExtResource("146_d0lsq")
-shader_parameter/blur = Vector2(11, 0)
-shader_parameter/glow_on = null
-shader_parameter/glow_color = null
-shader_parameter/glow_blur = null
-shader_parameter/glow_strength = null
-shader_parameter/glow_inner = null
-shader_parameter/glow_knockout = null
-shader_parameter/matrix_on = null
-shader_parameter/color_matrix = null
-shader_parameter/color_offset = null
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gap8v"]
-shader = ExtResource("146_d0lsq")
-shader_parameter/blur = Vector2(7.3332214, 0)
-shader_parameter/glow_on = null
-shader_parameter/glow_color = null
-shader_parameter/glow_blur = null
-shader_parameter/glow_strength = null
-shader_parameter/glow_inner = null
-shader_parameter/glow_knockout = null
-shader_parameter/matrix_on = null
-shader_parameter/color_matrix = null
-shader_parameter/color_offset = null
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_g6pr6"]
-shader = ExtResource("146_d0lsq")
-shader_parameter/blur = Vector2(3.6667786, 0)
-shader_parameter/glow_on = null
-shader_parameter/glow_color = null
-shader_parameter/glow_blur = null
-shader_parameter/glow_strength = null
-shader_parameter/glow_inner = null
-shader_parameter/glow_knockout = null
-shader_parameter/matrix_on = null
-shader_parameter/color_matrix = null
-shader_parameter/color_offset = null
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6u5rl"]
-shader = ExtResource("146_d0lsq")
 shader_parameter/blur = null
 shader_parameter/glow_on = null
 shader_parameter/glow_color = null
 shader_parameter/glow_blur = null
 shader_parameter/glow_strength = null
-shader_parameter/glow_inner = null
-shader_parameter/glow_knockout = null
+shader_parameter/solid = null
+shader_parameter/extend = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xui13"]
+shader = ExtResource("146_d0lsq")
 shader_parameter/matrix_on = null
 shader_parameter/color_matrix = null
 shader_parameter/color_offset = null
+shader_parameter/blur = 22.0
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 23.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_al7jy"]
+shader = ExtResource("146_d0lsq")
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = 18.333221
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 19.333221
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e5nhq"]
+shader = ExtResource("146_d0lsq")
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = 14.666778564453123
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 15.666778564453123
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_12vtr"]
+shader = ExtResource("146_d0lsq")
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = 11.0
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 12.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gap8v"]
+shader = ExtResource("146_d0lsq")
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = 7.3332214
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 8.333221
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g6pr6"]
+shader = ExtResource("146_d0lsq")
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = 3.6667786
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 4.6667786
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6u5rl"]
+shader = ExtResource("146_d0lsq")
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = 3.1427612
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 4.142761
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ek51t"]
 shader = ExtResource("146_d0lsq")
-shader_parameter/blur = Vector2(3.1427612, 0)
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = 6.285858
 shader_parameter/glow_on = null
 shader_parameter/glow_color = null
 shader_parameter/glow_blur = null
 shader_parameter/glow_strength = null
-shader_parameter/glow_inner = null
-shader_parameter/glow_knockout = null
-shader_parameter/matrix_on = null
-shader_parameter/color_matrix = null
-shader_parameter/color_offset = null
+shader_parameter/solid = null
+shader_parameter/extend = 7.285858
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yfiy6"]
 shader = ExtResource("146_d0lsq")
-shader_parameter/blur = Vector2(6.285858, 0)
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = 9.428619384765623
 shader_parameter/glow_on = null
 shader_parameter/glow_color = null
 shader_parameter/glow_blur = null
 shader_parameter/glow_strength = null
-shader_parameter/glow_inner = null
-shader_parameter/glow_knockout = null
-shader_parameter/matrix_on = null
-shader_parameter/color_matrix = null
-shader_parameter/color_offset = null
+shader_parameter/solid = null
+shader_parameter/extend = 10.428619384765623
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rq2ua"]
 shader = ExtResource("146_d0lsq")
-shader_parameter/blur = Vector2(9.428619, 0)
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = 12.571380615234377
 shader_parameter/glow_on = null
 shader_parameter/glow_color = null
 shader_parameter/glow_blur = null
 shader_parameter/glow_strength = null
-shader_parameter/glow_inner = null
-shader_parameter/glow_knockout = null
-shader_parameter/matrix_on = null
-shader_parameter/color_matrix = null
-shader_parameter/color_offset = null
+shader_parameter/solid = null
+shader_parameter/extend = 13.571380615234377
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dvgx1"]
 shader = ExtResource("146_d0lsq")
-shader_parameter/blur = Vector2(12.571381, 0)
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = 15.714141845703123
 shader_parameter/glow_on = null
 shader_parameter/glow_color = null
 shader_parameter/glow_blur = null
 shader_parameter/glow_strength = null
-shader_parameter/glow_inner = null
-shader_parameter/glow_knockout = null
-shader_parameter/matrix_on = null
-shader_parameter/color_matrix = null
-shader_parameter/color_offset = null
+shader_parameter/solid = null
+shader_parameter/extend = 16.714142
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yrvtg"]
 shader = ExtResource("146_d0lsq")
-shader_parameter/blur = Vector2(15.714142, 0)
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = 18.857239
 shader_parameter/glow_on = null
 shader_parameter/glow_color = null
 shader_parameter/glow_blur = null
 shader_parameter/glow_strength = null
-shader_parameter/glow_inner = null
-shader_parameter/glow_knockout = null
-shader_parameter/matrix_on = null
-shader_parameter/color_matrix = null
-shader_parameter/color_offset = null
+shader_parameter/solid = null
+shader_parameter/extend = 19.857239
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_kikyg"]
-shader = ExtResource("146_d0lsq")
-shader_parameter/blur = Vector2(18.857239, 0)
-shader_parameter/glow_on = null
-shader_parameter/glow_color = null
-shader_parameter/glow_blur = null
-shader_parameter/glow_strength = null
-shader_parameter/glow_inner = null
-shader_parameter/glow_knockout = null
-shader_parameter/matrix_on = null
-shader_parameter/color_matrix = null
-shader_parameter/color_offset = null
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kikyg"]
+resource_local_to_scene = true
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bsnri"]
 resource_local_to_scene = true
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_u2ns1"]
-resource_local_to_scene = true
-
-[node name="Bajie" type="Node2D" unique_id=2088201982]
+[node name="Bajie" type="Node2D" unique_id=2026969861]
 script = ExtResource("1_hqa6j")
 actions = PackedStringArray("walk", "run", "hit1", "hit2", "hit3", "wait", "jump1", "jump2", "jump3", "hurt", "hit4", "hit5", "hit6", "hit7-1", "hit7-2", "hit8")
 markers = {
 "levelupmc": Vector2(5, 44.3)
 }
 
-[node name="Parts" type="Node2D" parent="." unique_id=696098541]
+[node name="Parts" type="Node2D" parent="." unique_id=341720186]
 
-[node name="walk" type="Node2D" parent="Parts" unique_id=701000065]
+[node name="walk" type="Node2D" parent="Parts" unique_id=812267839]
 visible = false
 
-[node name="p1_1_s14" type="Node2D" parent="Parts/walk" unique_id=327899458]
+[node name="p1_1_s14" type="Node2D" parent="Parts/walk" unique_id=875612718]
 position = Vector2(-18.15, -77.55)
 rotation = -0.100166164
 scale = Vector2(1.0000125, 1.0000125)
@@ -409,19 +396,19 @@ variants = {
 3: ExtResource("4_jeiuh")
 }
 
-[node name="p1_3" type="Sprite2D" parent="Parts/walk" unique_id=177863506]
+[node name="p1_3" type="Sprite2D" parent="Parts/walk" unique_id=2068069806]
 position = Vector2(-21.65, -0.75)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("5_fm5ng")
 centered = false
 
-[node name="p1_6" type="Sprite2D" parent="Parts/walk" unique_id=1627113104]
+[node name="p1_6" type="Sprite2D" parent="Parts/walk" unique_id=1086088430]
 position = Vector2(-22.45, -1.85)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_pljpu")
 centered = false
 
-[node name="p1_7_s22" type="Node2D" parent="Parts/walk" unique_id=154199118]
+[node name="p1_7_s22" type="Node2D" parent="Parts/walk" unique_id=927075059]
 position = Vector2(10.4, 13.15)
 rotation = 2.1778443
 scale = Vector2(0.75730306, 0.75730306)
@@ -435,25 +422,25 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_13" type="Sprite2D" parent="Parts/walk" unique_id=1983037866]
+[node name="p1_13" type="Sprite2D" parent="Parts/walk" unique_id=512613345]
 position = Vector2(-16.05, -11.35)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("13_6bawl")
 centered = false
 
-[node name="p1_14" type="Sprite2D" parent="Parts/walk" unique_id=1904055348]
+[node name="p1_14" type="Sprite2D" parent="Parts/walk" unique_id=810217607]
 position = Vector2(-16.05, -11.35)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("14_ws1fd")
 centered = false
 
-[node name="p1_16" type="Sprite2D" parent="Parts/walk" unique_id=1541005533]
+[node name="p1_16" type="Sprite2D" parent="Parts/walk" unique_id=1253849380]
 position = Vector2(-16.05, -10.95)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("15_ovegg")
 centered = false
 
-[node name="p1_17_s30" type="Node2D" parent="Parts/walk" unique_id=1410117340]
+[node name="p1_17_s30" type="Node2D" parent="Parts/walk" unique_id=1908699137]
 position = Vector2(3.05, -13.15)
 rotation = -0.016998364
 scale = Vector2(1.0001445, 1.0001445)
@@ -468,19 +455,19 @@ variants = {
 6: ExtResource("21_d7q8e")
 }
 
-[node name="p1_20" type="Sprite2D" parent="Parts/walk" unique_id=1347929069]
+[node name="p1_20" type="Sprite2D" parent="Parts/walk" unique_id=2012142246]
 position = Vector2(-8.6, -11.7)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("22_utcyt")
 centered = false
 
-[node name="p1_21" type="Sprite2D" parent="Parts/walk" unique_id=1060887239]
+[node name="p1_21" type="Sprite2D" parent="Parts/walk" unique_id=425805867]
 position = Vector2(-8.6, -12.1)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("23_lt7pe")
 centered = false
 
-[node name="p1_22_s40" type="Node2D" parent="Parts/walk" unique_id=1849275691]
+[node name="p1_22_s40" type="Node2D" parent="Parts/walk" unique_id=1893302959]
 position = Vector2(15.75, 34.6)
 scale = Vector2(1, 1.0145152)
 skew = -0.16936195
@@ -496,7 +483,7 @@ variants = {
 11: ExtResource("31_qxjku")
 }
 
-[node name="p1_25_s49" type="Node2D" parent="Parts/walk" unique_id=1687919434]
+[node name="p1_25_s49" type="Node2D" parent="Parts/walk" unique_id=849772723]
 position = Vector2(1.3, 30.5)
 rotation = -0.24603827
 scale = Vector2(0.91557246, 1.0272186)
@@ -513,7 +500,7 @@ variants = {
 11: ExtResource("39_6vw2d")
 }
 
-[node name="p1_28_s61" type="Node2D" parent="Parts/walk" unique_id=1837495494]
+[node name="p1_28_s61" type="Node2D" parent="Parts/walk" unique_id=2117290598]
 position = Vector2(3.5, 7.85)
 script = ExtResource("2_gxfcr")
 variants = {
@@ -530,13 +517,13 @@ variants = {
 12: ExtResource("50_47dgj")
 }
 
-[node name="p1_34" type="Sprite2D" parent="Parts/walk" unique_id=49895004]
+[node name="p1_34" type="Sprite2D" parent="Parts/walk" unique_id=1617435783]
 position = Vector2(18.3, 1.05)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("51_73c66")
 centered = false
 
-[node name="p1_34_s86" type="Node2D" parent="Parts/walk" unique_id=1796496468]
+[node name="p1_34_s86" type="Node2D" parent="Parts/walk" unique_id=2040855846]
 position = Vector2(4, 34.35)
 script = ExtResource("2_gxfcr")
 variants = {
@@ -550,13 +537,13 @@ variants = {
 12: ExtResource("59_omix8")
 }
 
-[node name="p1_38" type="Sprite2D" parent="Parts/walk" unique_id=470587160]
+[node name="p1_38" type="Sprite2D" parent="Parts/walk" unique_id=1523303618]
 position = Vector2(9.700001, 6.3500004)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("60_w1i3s")
 centered = false
 
-[node name="p1_39_s22" type="Node2D" parent="Parts/walk" unique_id=674332466]
+[node name="p1_39_s22" type="Node2D" parent="Parts/walk" unique_id=2141827262]
 position = Vector2(6.75, -2.3)
 rotation = -0.5272105
 scale = Vector2(0.99975246, 0.99975246)
@@ -570,13 +557,13 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_48" type="Sprite2D" parent="Parts/walk" unique_id=1606999905]
+[node name="p1_48" type="Sprite2D" parent="Parts/walk" unique_id=1801600137]
 position = Vector2(-30.05, -54.75)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("61_wukof")
 centered = false
 
-[node name="p1_49_s77" type="Node2D" parent="Parts/walk" unique_id=213942890]
+[node name="p1_49_s77" type="Node2D" parent="Parts/walk" unique_id=1696775223]
 position = Vector2(-1.3, -16.7)
 script = ExtResource("2_gxfcr")
 variants = {
@@ -588,7 +575,7 @@ variants = {
 12: ExtResource("67_ins6h")
 }
 
-[node name="p1_58_s69" type="Node2D" parent="Parts/walk" unique_id=1759704999]
+[node name="p1_58_s69" type="Node2D" parent="Parts/walk" unique_id=1332635829]
 position = Vector2(20.3, -3.5)
 rotation = -0.11319612
 scale = Vector2(1.0004025, 1.0004025)
@@ -602,13 +589,13 @@ variants = {
 7: ExtResource("73_l4gdx")
 }
 
-[node name="p1_69" type="Sprite2D" parent="Parts/walk" unique_id=1702623023]
+[node name="p1_69" type="Sprite2D" parent="Parts/walk" unique_id=76577974]
 position = Vector2(-30.05, -55.15)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("61_wukof")
 centered = false
 
-[node name="p1_70_s77" type="Node2D" parent="Parts/walk" unique_id=1005518838]
+[node name="p1_70_s77" type="Node2D" parent="Parts/walk" unique_id=2109582348]
 position = Vector2(-1.4, -17.2)
 script = ExtResource("2_gxfcr")
 variants = {
@@ -620,7 +607,7 @@ variants = {
 12: ExtResource("67_ins6h")
 }
 
-[node name="p1_79_s86" type="Node2D" parent="Parts/walk" unique_id=1908173263]
+[node name="p1_79_s86" type="Node2D" parent="Parts/walk" unique_id=2042647223]
 position = Vector2(3.35, 33.85)
 script = ExtResource("2_gxfcr")
 variants = {
@@ -634,10 +621,10 @@ variants = {
 12: ExtResource("59_omix8")
 }
 
-[node name="run" type="Node2D" parent="Parts" unique_id=777141896]
+[node name="run" type="Node2D" parent="Parts" unique_id=1857954507]
 visible = false
 
-[node name="p1_1_s14" type="Node2D" parent="Parts/run" unique_id=120345424]
+[node name="p1_1_s14" type="Node2D" parent="Parts/run" unique_id=721930956]
 position = Vector2(-25.2, -75.5)
 rotation = -0.21465552
 scale = Vector2(0.999949, 0.999949)
@@ -648,13 +635,13 @@ variants = {
 3: ExtResource("4_jeiuh")
 }
 
-[node name="p1_3" type="Sprite2D" parent="Parts/run" unique_id=967499475]
+[node name="p1_3" type="Sprite2D" parent="Parts/run" unique_id=1132755774]
 position = Vector2(19.4, 36.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("74_tjqsd")
 centered = false
 
-[node name="p1_4_s30" type="Node2D" parent="Parts/run" unique_id=1874607654]
+[node name="p1_4_s30" type="Node2D" parent="Parts/run" unique_id=1004875440]
 position = Vector2(30.7, 16.4)
 rotation = 0.47661066
 scale = Vector2(1.0005008, 1.0005008)
@@ -669,19 +656,19 @@ variants = {
 6: ExtResource("21_d7q8e")
 }
 
-[node name="p1_6" type="Sprite2D" parent="Parts/run" unique_id=1571276644]
+[node name="p1_6" type="Sprite2D" parent="Parts/run" unique_id=2131540962]
 position = Vector2(-17.45, -1)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("75_s4fcd")
 centered = false
 
-[node name="p1_13" type="Sprite2D" parent="Parts/run" unique_id=831234731]
+[node name="p1_13" type="Sprite2D" parent="Parts/run" unique_id=108396033]
 position = Vector2(-7.7, -10.2)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("76_td66g")
 centered = false
 
-[node name="p1_14_s40" type="Node2D" parent="Parts/run" unique_id=1183063962]
+[node name="p1_14_s40" type="Node2D" parent="Parts/run" unique_id=891399090]
 position = Vector2(22.85, 35.7)
 rotation = -0.6489402
 scale = Vector2(0.9928147, 1.2481042)
@@ -698,7 +685,7 @@ variants = {
 11: ExtResource("31_qxjku")
 }
 
-[node name="p1_17_s49" type="Node2D" parent="Parts/run" unique_id=1948781440]
+[node name="p1_17_s49" type="Node2D" parent="Parts/run" unique_id=20089952]
 position = Vector2(13.6, 37.2)
 rotation = -0.088953815
 scale = Vector2(1.1144061, 1.199148)
@@ -715,7 +702,7 @@ variants = {
 11: ExtResource("39_6vw2d")
 }
 
-[node name="p1_20_s61" type="Node2D" parent="Parts/run" unique_id=101216451]
+[node name="p1_20_s61" type="Node2D" parent="Parts/run" unique_id=643269624]
 position = Vector2(8.05, 11.5)
 scale = Vector2(1, 1.0412012)
 skew = -0.28225744
@@ -734,7 +721,7 @@ variants = {
 12: ExtResource("50_47dgj")
 }
 
-[node name="p1_26_s86" type="Node2D" parent="Parts/run" unique_id=1179175231]
+[node name="p1_26_s86" type="Node2D" parent="Parts/run" unique_id=914715860]
 position = Vector2(13.65, 36.65)
 scale = Vector2(1, 1.0038645)
 skew = -0.08777392
@@ -750,13 +737,13 @@ variants = {
 12: ExtResource("59_omix8")
 }
 
-[node name="p1_31" type="Sprite2D" parent="Parts/run" unique_id=1919046262]
+[node name="p1_31" type="Sprite2D" parent="Parts/run" unique_id=462769783]
 position = Vector2(7, -5.65)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("77_l5b6o")
 centered = false
 
-[node name="p1_32_s22" type="Node2D" parent="Parts/run" unique_id=854939960]
+[node name="p1_32_s22" type="Node2D" parent="Parts/run" unique_id=867337358]
 position = Vector2(4.65, -1.75)
 rotation = 0.94113606
 scale = Vector2(0.7658734, 0.7658734)
@@ -770,13 +757,13 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_35" type="Sprite2D" parent="Parts/run" unique_id=1467347453]
+[node name="p1_35" type="Sprite2D" parent="Parts/run" unique_id=868261946]
 position = Vector2(-7.7, 24.1)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("78_djhs7")
 centered = false
 
-[node name="p1_36_s30" type="Node2D" parent="Parts/run" unique_id=116011710]
+[node name="p1_36_s30" type="Node2D" parent="Parts/run" unique_id=375447809]
 position = Vector2(38.25, 16.4)
 rotation = 0.47661066
 scale = Vector2(1.0005008, 1.0005008)
@@ -791,19 +778,19 @@ variants = {
 6: ExtResource("21_d7q8e")
 }
 
-[node name="p1_41" type="Sprite2D" parent="Parts/run" unique_id=1833530717]
+[node name="p1_41" type="Sprite2D" parent="Parts/run" unique_id=216642992]
 position = Vector2(-30.65, -48.65)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("79_fowpa")
 centered = false
 
-[node name="p1_42" type="Sprite2D" parent="Parts/run" unique_id=1017266555]
+[node name="p1_42" type="Sprite2D" parent="Parts/run" unique_id=1475554750]
 position = Vector2(-7.7, -10.85)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("80_2ci4f")
 centered = false
 
-[node name="p1_43_s40" type="Node2D" parent="Parts/run" unique_id=785376159]
+[node name="p1_43_s40" type="Node2D" parent="Parts/run" unique_id=1310961041]
 position = Vector2(24.9, 37.35)
 rotation = -0.20628093
 scale = Vector2(1.0594611, 1.1775148)
@@ -820,13 +807,13 @@ variants = {
 11: ExtResource("31_qxjku")
 }
 
-[node name="p1_46" type="Sprite2D" parent="Parts/run" unique_id=620043058]
+[node name="p1_46" type="Sprite2D" parent="Parts/run" unique_id=191134042]
 position = Vector2(-8.35, -11.45)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("81_fbrty")
 centered = false
 
-[node name="p1_47_s40" type="Node2D" parent="Parts/run" unique_id=979659202]
+[node name="p1_47_s40" type="Node2D" parent="Parts/run" unique_id=978747501]
 position = Vector2(2.65, 36.85)
 scale = Vector2(1, 1.0125616)
 skew = 0.15768003
@@ -842,7 +829,7 @@ variants = {
 11: ExtResource("31_qxjku")
 }
 
-[node name="p1_50_s49" type="Node2D" parent="Parts/run" unique_id=549331404]
+[node name="p1_50_s49" type="Node2D" parent="Parts/run" unique_id=1489604375]
 position = Vector2(26.6, 37.8)
 rotation = -0.09152586
 scale = Vector2(0.94093835, 1.1569148)
@@ -859,7 +846,7 @@ variants = {
 11: ExtResource("39_6vw2d")
 }
 
-[node name="p1_53_s61" type="Node2D" parent="Parts/run" unique_id=17994816]
+[node name="p1_53_s61" type="Node2D" parent="Parts/run" unique_id=1601921850]
 position = Vector2(8.55, 10.05)
 scale = Vector2(1, 1.0293376)
 skew = -0.23932374
@@ -878,7 +865,7 @@ variants = {
 12: ExtResource("50_47dgj")
 }
 
-[node name="p1_59_s86" type="Node2D" parent="Parts/run" unique_id=1831939657]
+[node name="p1_59_s86" type="Node2D" parent="Parts/run" unique_id=513355686]
 position = Vector2(12.85, 35.25)
 script = ExtResource("2_gxfcr")
 variants = {
@@ -892,13 +879,13 @@ variants = {
 12: ExtResource("59_omix8")
 }
 
-[node name="p1_64" type="Sprite2D" parent="Parts/run" unique_id=1852054574]
+[node name="p1_64" type="Sprite2D" parent="Parts/run" unique_id=1326624121]
 position = Vector2(-10.9, -5.3)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("82_4322r")
 centered = false
 
-[node name="p1_65_s22" type="Node2D" parent="Parts/run" unique_id=1416563164]
+[node name="p1_65_s22" type="Node2D" parent="Parts/run" unique_id=1186686828]
 position = Vector2(14.6, -8.25)
 rotation = 0.9336938
 scale = Vector2(1.0002205, 1.0002205)
@@ -912,13 +899,13 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_74" type="Sprite2D" parent="Parts/run" unique_id=419260534]
+[node name="p1_74" type="Sprite2D" parent="Parts/run" unique_id=1156371568]
 position = Vector2(-30.65, -49.9)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("83_oo35a")
 centered = false
 
-[node name="p1_75_s77" type="Node2D" parent="Parts/run" unique_id=8054396]
+[node name="p1_75_s77" type="Node2D" parent="Parts/run" unique_id=1428908722]
 position = Vector2(-5.1, -12.95)
 rotation = 0.105243504
 scale = Vector2(0.99953043, 0.99953043)
@@ -932,7 +919,7 @@ variants = {
 12: ExtResource("67_ins6h")
 }
 
-[node name="p1_84_s69" type="Node2D" parent="Parts/run" unique_id=740808921]
+[node name="p1_84_s69" type="Node2D" parent="Parts/run" unique_id=1207198209]
 position = Vector2(16.3, 1.1)
 rotation = 0.7641849
 scale = Vector2(1.0000739, 1.0000739)
@@ -946,10 +933,10 @@ variants = {
 7: ExtResource("73_l4gdx")
 }
 
-[node name="hit1" type="Node2D" parent="Parts" unique_id=399849069]
+[node name="hit1" type="Node2D" parent="Parts" unique_id=115772975]
 visible = false
 
-[node name="p1_1_s14" type="Node2D" parent="Parts/hit1" unique_id=1664313306]
+[node name="p1_1_s14" type="Node2D" parent="Parts/hit1" unique_id=668107283]
 position = Vector2(-16.75, -76.95)
 rotation = 0.00799983
 scale = Vector2(1.000032, 1.000032)
@@ -960,13 +947,13 @@ variants = {
 3: ExtResource("4_jeiuh")
 }
 
-[node name="p1_3" type="Sprite2D" parent="Parts/hit1" unique_id=26056159]
+[node name="p1_3" type="Sprite2D" parent="Parts/hit1" unique_id=1941771986]
 position = Vector2(-39.85, 3.6)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("84_pvsyv")
 centered = false
 
-[node name="p1_4_s22" type="Node2D" parent="Parts/hit1" unique_id=1940130123]
+[node name="p1_4_s22" type="Node2D" parent="Parts/hit1" unique_id=1430649213]
 position = Vector2(-11.1, -0.35)
 rotation = 1.1705142
 scale = Vector2(0.8545514, 0.8545514)
@@ -980,19 +967,19 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_10" type="Sprite2D" parent="Parts/hit1" unique_id=339011075]
+[node name="p1_10" type="Sprite2D" parent="Parts/hit1" unique_id=2102998206]
 position = Vector2(-20.35, -9.7)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("85_0ny00")
 centered = false
 
-[node name="p1_14" type="Sprite2D" parent="Parts/hit1" unique_id=803692005]
+[node name="p1_14" type="Sprite2D" parent="Parts/hit1" unique_id=87515771]
 position = Vector2(-20.650002, -10.95)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("86_3ownm")
 centered = false
 
-[node name="p1_15_s30" type="Node2D" parent="Parts/hit1" unique_id=1621252197]
+[node name="p1_15_s30" type="Node2D" parent="Parts/hit1" unique_id=1092803851]
 position = Vector2(-37.1, 28.6)
 rotation = -2.680627
 scale = Vector2(1.0004205, 1.0004205)
@@ -1007,7 +994,7 @@ variants = {
 6: ExtResource("21_d7q8e")
 }
 
-[node name="p1_18_s40" type="Node2D" parent="Parts/hit1" unique_id=1481622442]
+[node name="p1_18_s40" type="Node2D" parent="Parts/hit1" unique_id=1248699134]
 position = Vector2(-8.65, 37.9)
 scale = Vector2(1, 1.000392)
 skew = -0.027992725
@@ -1023,7 +1010,7 @@ variants = {
 11: ExtResource("31_qxjku")
 }
 
-[node name="p1_21_s49" type="Node2D" parent="Parts/hit1" unique_id=158618050]
+[node name="p1_21_s49" type="Node2D" parent="Parts/hit1" unique_id=685687843]
 position = Vector2(11.6, 36.25)
 rotation = -0.09152586
 scale = Vector2(0.94093835, 1.1512715)
@@ -1040,7 +1027,7 @@ variants = {
 11: ExtResource("39_6vw2d")
 }
 
-[node name="p1_24_s61" type="Node2D" parent="Parts/hit1" unique_id=2095100413]
+[node name="p1_24_s61" type="Node2D" parent="Parts/hit1" unique_id=283713965]
 position = Vector2(0.8, 8.45)
 scale = Vector2(1, 1.000288)
 skew = 0.0239954
@@ -1059,7 +1046,7 @@ variants = {
 12: ExtResource("50_47dgj")
 }
 
-[node name="p1_30_s30" type="Node2D" parent="Parts/hit1" unique_id=1716099158]
+[node name="p1_30_s30" type="Node2D" parent="Parts/hit1" unique_id=1106976488]
 position = Vector2(-31.3, 28.6)
 rotation = -2.680627
 scale = Vector2(1.0004205, 1.0004205)
@@ -1074,7 +1061,7 @@ variants = {
 6: ExtResource("21_d7q8e")
 }
 
-[node name="p1_30_s86" type="Node2D" parent="Parts/hit1" unique_id=1568393215]
+[node name="p1_30_s86" type="Node2D" parent="Parts/hit1" unique_id=1963790084]
 position = Vector2(0.8, 36.45)
 scale = Vector2(1, 1.0007997)
 skew = 0.039978623
@@ -1090,19 +1077,19 @@ variants = {
 12: ExtResource("59_omix8")
 }
 
-[node name="p1_34" type="Sprite2D" parent="Parts/hit1" unique_id=1929668002]
+[node name="p1_34" type="Sprite2D" parent="Parts/hit1" unique_id=1726527416]
 position = Vector2(-12.1, -5.4)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("87_br3dl")
 centered = false
 
-[node name="p1_35" type="Sprite2D" parent="Parts/hit1" unique_id=2069403124]
+[node name="p1_35" type="Sprite2D" parent="Parts/hit1" unique_id=2039479406]
 position = Vector2(-18.45, -5.6)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("87_br3dl")
 centered = false
 
-[node name="p1_36_s22" type="Node2D" parent="Parts/hit1" unique_id=818604874]
+[node name="p1_36_s22" type="Node2D" parent="Parts/hit1" unique_id=876770864]
 position = Vector2(0.8, -11.05)
 rotation = 0.50166065
 scale = Vector2(1.000245, 1.000245)
@@ -1116,13 +1103,13 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_45" type="Sprite2D" parent="Parts/hit1" unique_id=1688947388]
+[node name="p1_45" type="Sprite2D" parent="Parts/hit1" unique_id=733596919]
 position = Vector2(-43.65, -49.2)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("88_t7bol")
 centered = false
 
-[node name="p1_46_s86" type="Node2D" parent="Parts/hit1" unique_id=1892331952]
+[node name="p1_46_s86" type="Node2D" parent="Parts/hit1" unique_id=660544414]
 position = Vector2(0.55, 36.15)
 scale = Vector2(1, 1.0007997)
 skew = 0.039978623
@@ -1138,13 +1125,13 @@ variants = {
 12: ExtResource("59_omix8")
 }
 
-[node name="p1_50" type="Sprite2D" parent="Parts/hit1" unique_id=1621163857]
+[node name="p1_50" type="Sprite2D" parent="Parts/hit1" unique_id=2140656982]
 position = Vector2(-16.15, -6.65)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("89_5mx0b")
 centered = false
 
-[node name="p1_51_s22" type="Node2D" parent="Parts/hit1" unique_id=79734837]
+[node name="p1_51_s22" type="Node2D" parent="Parts/hit1" unique_id=1568712915]
 position = Vector2(-6.75, -7)
 rotation = 2.852863
 scale = Vector2(0.8428903, -0.93560946)
@@ -1159,7 +1146,7 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_54_s30" type="Node2D" parent="Parts/hit1" unique_id=1579051237]
+[node name="p1_54_s30" type="Node2D" parent="Parts/hit1" unique_id=1823171296]
 position = Vector2(-11.4, 30.25)
 rotation = -2.680627
 scale = Vector2(1.0004205, 1.0004205)
@@ -1174,13 +1161,13 @@ variants = {
 6: ExtResource("21_d7q8e")
 }
 
-[node name="p1_58" type="Sprite2D" parent="Parts/hit1" unique_id=1907857676]
+[node name="p1_58" type="Sprite2D" parent="Parts/hit1" unique_id=199904520]
 position = Vector2(7.2999997, -7.4)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("90_qq7ee")
 centered = false
 
-[node name="p1_59_s22" type="Node2D" parent="Parts/hit1" unique_id=1784373122]
+[node name="p1_59_s22" type="Node2D" parent="Parts/hit1" unique_id=586331531]
 position = Vector2(4.85, -5.45)
 rotation = -0.21151227
 scale = Vector2(1.000292, 1.0005023)
@@ -1195,13 +1182,13 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_68" type="Sprite2D" parent="Parts/hit1" unique_id=129144845]
+[node name="p1_68" type="Sprite2D" parent="Parts/hit1" unique_id=696334026]
 position = Vector2(-20.95, -51.2)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("91_ooba0")
 centered = false
 
-[node name="p1_69_s77" type="Node2D" parent="Parts/hit1" unique_id=377800393]
+[node name="p1_69_s77" type="Node2D" parent="Parts/hit1" unique_id=1054131230]
 position = Vector2(0.75, -13.65)
 rotation = 0.26098892
 scale = Vector2(0.99986, 0.99986)
@@ -1215,7 +1202,7 @@ variants = {
 12: ExtResource("67_ins6h")
 }
 
-[node name="p1_78_s69" type="Node2D" parent="Parts/hit1" unique_id=1418192015]
+[node name="p1_78_s69" type="Node2D" parent="Parts/hit1" unique_id=961350990]
 position = Vector2(18.2, -0.15)
 rotation = -0.10315019
 scale = Vector2(1.000317, 1.0004205)
@@ -1230,35 +1217,35 @@ variants = {
 7: ExtResource("73_l4gdx")
 }
 
-[node name="p1_83_1" type="Sprite2D" parent="Parts/hit1" unique_id=213720395]
+[node name="p1_83_1" type="Sprite2D" parent="Parts/hit1" unique_id=1089701234]
 position = Vector2(-84.5, 7)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("92_ij6p0")
 centered = false
 
-[node name="p1_85_1" type="Sprite2D" parent="Parts/hit1" unique_id=583058332]
+[node name="p1_85_1" type="Sprite2D" parent="Parts/hit1" unique_id=1964198595]
 position = Vector2(-70.5, 15.75)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("93_kr6mg")
 centered = false
 
-[node name="p1_87_1" type="Sprite2D" parent="Parts/hit1" unique_id=570876858]
+[node name="p1_87_1" type="Sprite2D" parent="Parts/hit1" unique_id=2071613966]
 position = Vector2(-67.1, 24.150002)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("93_kr6mg")
 centered = false
 
-[node name="p1_89_1" type="Sprite2D" parent="Parts/hit1" unique_id=839086200]
+[node name="p1_89_1" type="Sprite2D" parent="Parts/hit1" unique_id=843662070]
 position = Vector2(-12.1310005, 12.3925)
 rotation = 1.5707964
 scale = Vector2(1.6675, 0.4155)
 texture = ExtResource("94_hks4e")
 centered = false
 
-[node name="hit2" type="Node2D" parent="Parts" unique_id=161808614]
+[node name="hit2" type="Node2D" parent="Parts" unique_id=1618688231]
 visible = false
 
-[node name="p1_1_s14" type="Node2D" parent="Parts/hit2" unique_id=77360828]
+[node name="p1_1_s14" type="Node2D" parent="Parts/hit2" unique_id=1102823464]
 position = Vector2(-6.9, -78.45)
 rotation = 0.05200512
 scale = Vector2(1.0003524, 1.0003524)
@@ -1269,13 +1256,13 @@ variants = {
 3: ExtResource("4_jeiuh")
 }
 
-[node name="p1_4" type="Sprite2D" parent="Parts/hit2" unique_id=1356565243]
+[node name="p1_4" type="Sprite2D" parent="Parts/hit2" unique_id=550286446]
 position = Vector2(-33.25, -8.200001)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("95_47wq3")
 centered = false
 
-[node name="p1_5_s22" type="Node2D" parent="Parts/hit2" unique_id=1609122302]
+[node name="p1_5_s22" type="Node2D" parent="Parts/hit2" unique_id=1833925548]
 position = Vector2(-9.8, -5.65)
 rotation = 0.9878828
 scale = Vector2(0.763, 0.763)
@@ -1289,19 +1276,19 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_12" type="Sprite2D" parent="Parts/hit2" unique_id=516313156]
+[node name="p1_12" type="Sprite2D" parent="Parts/hit2" unique_id=1443683975]
 position = Vector2(-24.900002, -28.2)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("96_d4soa")
 centered = false
 
-[node name="p1_15" type="Sprite2D" parent="Parts/hit2" unique_id=71608418]
+[node name="p1_15" type="Sprite2D" parent="Parts/hit2" unique_id=262780496]
 position = Vector2(-19.35, -9.7)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("97_c452m")
 centered = false
 
-[node name="p1_16_s40" type="Node2D" parent="Parts/hit2" unique_id=900643878]
+[node name="p1_16_s40" type="Node2D" parent="Parts/hit2" unique_id=378183861]
 position = Vector2(-7.2, 36.5)
 scale = Vector2(1, 1.000392)
 skew = -0.027992725
@@ -1317,7 +1304,7 @@ variants = {
 11: ExtResource("31_qxjku")
 }
 
-[node name="p1_19_s49" type="Node2D" parent="Parts/hit2" unique_id=1555503948]
+[node name="p1_19_s49" type="Node2D" parent="Parts/hit2" unique_id=173961772]
 position = Vector2(11.95, 36.5)
 rotation = -0.09152586
 scale = Vector2(0.94093835, 1.1512715)
@@ -1334,7 +1321,7 @@ variants = {
 11: ExtResource("39_6vw2d")
 }
 
-[node name="p1_22_s61" type="Node2D" parent="Parts/hit2" unique_id=1651148212]
+[node name="p1_22_s61" type="Node2D" parent="Parts/hit2" unique_id=1577806426]
 position = Vector2(4.25, 6.9)
 scale = Vector2(1, 1.0160708)
 skew = 0.17809296
@@ -1353,7 +1340,7 @@ variants = {
 12: ExtResource("50_47dgj")
 }
 
-[node name="p1_28_s86" type="Node2D" parent="Parts/hit2" unique_id=775582659]
+[node name="p1_28_s86" type="Node2D" parent="Parts/hit2" unique_id=271368845]
 position = Vector2(1.65, 34.45)
 scale = Vector2(1, 1.0007997)
 skew = 0.039978623
@@ -1369,7 +1356,7 @@ variants = {
 12: ExtResource("59_omix8")
 }
 
-[node name="p1_32_s30" type="Node2D" parent="Parts/hit2" unique_id=490125919]
+[node name="p1_32_s30" type="Node2D" parent="Parts/hit2" unique_id=1312895524]
 position = Vector2(-22.5, -33.75)
 rotation = -1.1304212
 scale = Vector2(0.9993458, 1.0002505)
@@ -1385,7 +1372,7 @@ variants = {
 6: ExtResource("21_d7q8e")
 }
 
-[node name="p1_35_s40" type="Node2D" parent="Parts/hit2" unique_id=333290751]
+[node name="p1_35_s40" type="Node2D" parent="Parts/hit2" unique_id=203914114]
 position = Vector2(-7.8, 37.3)
 scale = Vector2(1, 1.000392)
 skew = -0.027992725
@@ -1401,13 +1388,13 @@ variants = {
 11: ExtResource("31_qxjku")
 }
 
-[node name="p1_36" type="Sprite2D" parent="Parts/hit2" unique_id=228792021]
+[node name="p1_36" type="Sprite2D" parent="Parts/hit2" unique_id=1127148701]
 position = Vector2(-19.45, -10.15)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("98_33enm")
 centered = false
 
-[node name="p1_38_s49" type="Node2D" parent="Parts/hit2" unique_id=1291118144]
+[node name="p1_38_s49" type="Node2D" parent="Parts/hit2" unique_id=1835203409]
 position = Vector2(11.95, 36.5)
 rotation = -0.09152586
 scale = Vector2(0.94093835, 1.1512715)
@@ -1424,7 +1411,7 @@ variants = {
 11: ExtResource("39_6vw2d")
 }
 
-[node name="p1_41_s61" type="Node2D" parent="Parts/hit2" unique_id=431213101]
+[node name="p1_41_s61" type="Node2D" parent="Parts/hit2" unique_id=21536939]
 position = Vector2(2.3, 6.9)
 scale = Vector2(1, 1.0021757)
 skew = 0.06590438
@@ -1443,7 +1430,7 @@ variants = {
 12: ExtResource("50_47dgj")
 }
 
-[node name="p1_47_s30" type="Node2D" parent="Parts/hit2" unique_id=1701858191]
+[node name="p1_47_s30" type="Node2D" parent="Parts/hit2" unique_id=598834335]
 position = Vector2(-26.6, -22.5)
 rotation = -1.413207
 scale = Vector2(1.0003964, 1.0003964)
@@ -1458,7 +1445,7 @@ variants = {
 6: ExtResource("21_d7q8e")
 }
 
-[node name="p1_47_s86" type="Node2D" parent="Parts/hit2" unique_id=168394291]
+[node name="p1_47_s86" type="Node2D" parent="Parts/hit2" unique_id=275432204]
 position = Vector2(1.05, 34.45)
 scale = Vector2(1, 1.0007997)
 skew = 0.039978623
@@ -1474,19 +1461,19 @@ variants = {
 12: ExtResource("59_omix8")
 }
 
-[node name="p1_51" type="Sprite2D" parent="Parts/hit2" unique_id=4417386]
+[node name="p1_51" type="Sprite2D" parent="Parts/hit2" unique_id=1639369301]
 position = Vector2(-17.150002, -4.55)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("99_qp35d")
 centered = false
 
-[node name="p1_52" type="Sprite2D" parent="Parts/hit2" unique_id=1138856820]
+[node name="p1_52" type="Sprite2D" parent="Parts/hit2" unique_id=556517960]
 position = Vector2(-19.550001, -6.6)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("100_mg1ft")
 centered = false
 
-[node name="p1_53_s22" type="Node2D" parent="Parts/hit2" unique_id=507388976]
+[node name="p1_53_s22" type="Node2D" parent="Parts/hit2" unique_id=1083277976]
 position = Vector2(20.4, -4.2)
 rotation = 1.5497994
 scale = Vector2(1.0002204, 1.0002204)
@@ -1500,13 +1487,13 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_62" type="Sprite2D" parent="Parts/hit2" unique_id=645487491]
+[node name="p1_62" type="Sprite2D" parent="Parts/hit2" unique_id=1623342517]
 position = Vector2(-16.550001, -53.2)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("101_o65kp")
 centered = false
 
-[node name="p1_63_s86" type="Node2D" parent="Parts/hit2" unique_id=1039109320]
+[node name="p1_63_s86" type="Node2D" parent="Parts/hit2" unique_id=844937865]
 position = Vector2(1.05, 34.45)
 scale = Vector2(1, 1.0007997)
 skew = 0.039978623
@@ -1522,7 +1509,7 @@ variants = {
 12: ExtResource("59_omix8")
 }
 
-[node name="p1_67_s77" type="Node2D" parent="Parts/hit2" unique_id=605958225]
+[node name="p1_67_s77" type="Node2D" parent="Parts/hit2" unique_id=1692355560]
 position = Vector2(3.9, -15.8)
 rotation = 0.3087889
 scale = Vector2(1.0003124, 1.0003124)
@@ -1536,7 +1523,7 @@ variants = {
 12: ExtResource("67_ins6h")
 }
 
-[node name="p1_76_s69" type="Node2D" parent="Parts/hit2" unique_id=1980282212]
+[node name="p1_76_s69" type="Node2D" parent="Parts/hit2" unique_id=1555943700]
 position = Vector2(16.35, 0.85)
 rotation = 1.3918372
 scale = Vector2(0.99997, 0.99997)
@@ -1550,29 +1537,29 @@ variants = {
 7: ExtResource("73_l4gdx")
 }
 
-[node name="p1_81_1" type="Sprite2D" parent="Parts/hit2" unique_id=566431074]
+[node name="p1_81_1" type="Sprite2D" parent="Parts/hit2" unique_id=423377867]
 position = Vector2(-74.05, -79.35)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("102_grwfb")
 centered = false
 
-[node name="p1_83_1" type="Sprite2D" parent="Parts/hit2" unique_id=2089373515]
+[node name="p1_83_1" type="Sprite2D" parent="Parts/hit2" unique_id=1088118493]
 position = Vector2(-83.1, 42)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("103_meybe")
 centered = false
 
-[node name="p1_85_1" type="Sprite2D" parent="Parts/hit2" unique_id=498184694]
+[node name="p1_85_1" type="Sprite2D" parent="Parts/hit2" unique_id=400907833]
 position = Vector2(-6.4640007, -69.776)
 rotation = 1.5707964
 scale = Vector2(5.564, 0.357)
 texture = ExtResource("94_hks4e")
 centered = false
 
-[node name="hit3" type="Node2D" parent="Parts" unique_id=1043616407]
+[node name="hit3" type="Node2D" parent="Parts" unique_id=115614896]
 visible = false
 
-[node name="p1_1_s14" type="Node2D" parent="Parts/hit3" unique_id=2035067831]
+[node name="p1_1_s14" type="Node2D" parent="Parts/hit3" unique_id=849596571]
 position = Vector2(-8.75, -72.55)
 scale = Vector2(1, 1.0000005)
 skew = -0.0010000467
@@ -1583,19 +1570,19 @@ variants = {
 3: ExtResource("4_jeiuh")
 }
 
-[node name="p1_4" type="Sprite2D" parent="Parts/hit3" unique_id=1257713041]
+[node name="p1_4" type="Sprite2D" parent="Parts/hit3" unique_id=1294504498]
 position = Vector2(-34.7, -0.099999905)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("104_neecp")
 centered = false
 
-[node name="p1_9" type="Sprite2D" parent="Parts/hit3" unique_id=651109307]
+[node name="p1_9" type="Sprite2D" parent="Parts/hit3" unique_id=2132931528]
 position = Vector2(-19.3, -7.75)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("105_v6k7j")
 centered = false
 
-[node name="p1_10_s40" type="Node2D" parent="Parts/hit3" unique_id=794418463]
+[node name="p1_10_s40" type="Node2D" parent="Parts/hit3" unique_id=1613211654]
 position = Vector2(-6.6, 37.85)
 scale = Vector2(1, 0.85233796)
 skew = -0.028161645
@@ -1611,7 +1598,7 @@ variants = {
 11: ExtResource("31_qxjku")
 }
 
-[node name="p1_13_s49" type="Node2D" parent="Parts/hit3" unique_id=2058542455]
+[node name="p1_13_s49" type="Node2D" parent="Parts/hit3" unique_id=683574879]
 position = Vector2(13, 38.6)
 rotation = -0.09152586
 scale = Vector2(0.94093835, 0.9352139)
@@ -1628,7 +1615,7 @@ variants = {
 11: ExtResource("39_6vw2d")
 }
 
-[node name="p1_16_s61" type="Node2D" parent="Parts/hit3" unique_id=1911189436]
+[node name="p1_16_s61" type="Node2D" parent="Parts/hit3" unique_id=653689648]
 position = Vector2(0.5, 13.55)
 scale = Vector2(1, 1.011486)
 skew = -0.15084541
@@ -1647,7 +1634,7 @@ variants = {
 12: ExtResource("50_47dgj")
 }
 
-[node name="p1_22_s86" type="Node2D" parent="Parts/hit3" unique_id=347805687]
+[node name="p1_22_s86" type="Node2D" parent="Parts/hit3" unique_id=1578588723]
 position = Vector2(1.75, 37.9)
 scale = Vector2(1, 1.0007997)
 skew = 0.039978623
@@ -1663,7 +1650,7 @@ variants = {
 12: ExtResource("59_omix8")
 }
 
-[node name="p1_26_s30" type="Node2D" parent="Parts/hit3" unique_id=1975485362]
+[node name="p1_26_s30" type="Node2D" parent="Parts/hit3" unique_id=1969477517]
 position = Vector2(43.2, 27.65)
 rotation = 0.62269163
 scale = Vector2(0.99961644, 0.99961644)
@@ -1678,13 +1665,13 @@ variants = {
 6: ExtResource("21_d7q8e")
 }
 
-[node name="p1_33" type="Sprite2D" parent="Parts/hit3" unique_id=2087527771]
+[node name="p1_33" type="Sprite2D" parent="Parts/hit3" unique_id=1787512063]
 position = Vector2(-14.2, -7.3)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("106_5vbvc")
 centered = false
 
-[node name="p1_34_s22" type="Node2D" parent="Parts/hit3" unique_id=261787853]
+[node name="p1_34_s22" type="Node2D" parent="Parts/hit3" unique_id=1804404005]
 position = Vector2(-7.6, 1.15)
 rotation = 1.2980913
 scale = Vector2(0.7611268, 0.7611268)
@@ -1698,13 +1685,13 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_42" type="Sprite2D" parent="Parts/hit3" unique_id=1763379109]
+[node name="p1_42" type="Sprite2D" parent="Parts/hit3" unique_id=787430370]
 position = Vector2(-18.35, -8.95)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("107_df16n")
 centered = false
 
-[node name="p1_43_s30" type="Node2D" parent="Parts/hit3" unique_id=466848394]
+[node name="p1_43_s30" type="Node2D" parent="Parts/hit3" unique_id=2067248506]
 position = Vector2(0.5, 4.8)
 rotation = 0.3268106
 scale = Vector2(0.999925, 0.999925)
@@ -1719,19 +1706,19 @@ variants = {
 6: ExtResource("21_d7q8e")
 }
 
-[node name="p1_46" type="Sprite2D" parent="Parts/hit3" unique_id=1999050790]
+[node name="p1_46" type="Sprite2D" parent="Parts/hit3" unique_id=2061617151]
 position = Vector2(0.71529996, -0.5)
 scale = Vector2(0.577, 0.5)
 texture = ExtResource("108_mkc2a")
 centered = false
 
-[node name="p1_53" type="Sprite2D" parent="Parts/hit3" unique_id=1453462465]
+[node name="p1_53" type="Sprite2D" parent="Parts/hit3" unique_id=284650339]
 position = Vector2(-18.35, -8.95)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("109_mowlb")
 centered = false
 
-[node name="p1_54_s40" type="Node2D" parent="Parts/hit3" unique_id=1669659883]
+[node name="p1_54_s40" type="Node2D" parent="Parts/hit3" unique_id=523098567]
 position = Vector2(-6.35, 37.3)
 scale = Vector2(1, 1.000392)
 skew = -0.027992725
@@ -1747,7 +1734,7 @@ variants = {
 11: ExtResource("31_qxjku")
 }
 
-[node name="p1_57_s49" type="Node2D" parent="Parts/hit3" unique_id=28160897]
+[node name="p1_57_s49" type="Node2D" parent="Parts/hit3" unique_id=1734949633]
 position = Vector2(13.4, 36.9)
 rotation = -0.09152586
 scale = Vector2(0.94093835, 1.1512715)
@@ -1764,7 +1751,7 @@ variants = {
 11: ExtResource("39_6vw2d")
 }
 
-[node name="p1_60_s61" type="Node2D" parent="Parts/hit3" unique_id=1949218596]
+[node name="p1_60_s61" type="Node2D" parent="Parts/hit3" unique_id=297495227]
 position = Vector2(4.35, 7.3)
 scale = Vector2(1, 1.0084146)
 skew = 0.12927496
@@ -1783,7 +1770,7 @@ variants = {
 12: ExtResource("50_47dgj")
 }
 
-[node name="p1_66_s86" type="Node2D" parent="Parts/hit3" unique_id=724616391]
+[node name="p1_66_s86" type="Node2D" parent="Parts/hit3" unique_id=1372408377]
 position = Vector2(2.5, 34.85)
 scale = Vector2(1, 1.0007997)
 skew = 0.039978623
@@ -1799,19 +1786,19 @@ variants = {
 12: ExtResource("59_omix8")
 }
 
-[node name="p1_71" type="Sprite2D" parent="Parts/hit3" unique_id=1184515395]
+[node name="p1_71" type="Sprite2D" parent="Parts/hit3" unique_id=843826238]
 position = Vector2(-31.05, 2.65)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("110_rn25j")
 centered = false
 
-[node name="p1_72" type="Sprite2D" parent="Parts/hit3" unique_id=1090373276]
+[node name="p1_72" type="Sprite2D" parent="Parts/hit3" unique_id=428174256]
 position = Vector2(-17.05, -8.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("111_gipot")
 centered = false
 
-[node name="p1_73_s22" type="Node2D" parent="Parts/hit3" unique_id=1680577178]
+[node name="p1_73_s22" type="Node2D" parent="Parts/hit3" unique_id=413613210]
 position = Vector2(8.1, 2.5)
 rotation = 1.5697963
 scale = Vector2(1.0000005, 1.0000005)
@@ -1825,13 +1812,13 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_82" type="Sprite2D" parent="Parts/hit3" unique_id=54623080]
+[node name="p1_82" type="Sprite2D" parent="Parts/hit3" unique_id=1902431933]
 position = Vector2(-26.849998, -46.75)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("61_wukof")
 centered = false
 
-[node name="p1_83_s77" type="Node2D" parent="Parts/hit3" unique_id=1960400189]
+[node name="p1_83_s77" type="Node2D" parent="Parts/hit3" unique_id=1755961589]
 position = Vector2(1.75, -8.35)
 rotation = 0.020996913
 scale = Vector2(1.0002204, 1.0002204)
@@ -1845,7 +1832,7 @@ variants = {
 12: ExtResource("67_ins6h")
 }
 
-[node name="p1_92_s69" type="Node2D" parent="Parts/hit3" unique_id=1410193328]
+[node name="p1_92_s69" type="Node2D" parent="Parts/hit3" unique_id=1540054700]
 position = Vector2(2.5, 11.3)
 rotation = 1.5227852
 scale = Vector2(1.0001525, 1.0001525)
@@ -1859,22 +1846,22 @@ variants = {
 7: ExtResource("73_l4gdx")
 }
 
-[node name="p1_97_1" type="Sprite2D" parent="Parts/hit3" unique_id=558167397]
+[node name="p1_97_1" type="Sprite2D" parent="Parts/hit3" unique_id=2131159363]
 position = Vector2(-55.75, -8.750001)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("112_xsldh")
 centered = false
 
-[node name="p1_99_1_1" type="Sprite2D" parent="Parts/hit3" unique_id=1510048358]
+[node name="p1_99_1_1" type="Sprite2D" parent="Parts/hit3" unique_id=181960959]
 position = Vector2(-146.6, -49.35)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("113_clcnw")
 centered = false
 
-[node name="wait" type="Node2D" parent="Parts" unique_id=1900227177]
+[node name="wait" type="Node2D" parent="Parts" unique_id=2141084357]
 visible = false
 
-[node name="p1_1_s14" type="Node2D" parent="Parts/wait" unique_id=1502690302]
+[node name="p1_1_s14" type="Node2D" parent="Parts/wait" unique_id=1905417958]
 position = Vector2(-21.3, -70)
 rotation = -0.100166164
 scale = Vector2(1.0000125, 1.0000125)
@@ -1885,13 +1872,13 @@ variants = {
 3: ExtResource("4_jeiuh")
 }
 
-[node name="p1_4" type="Sprite2D" parent="Parts/wait" unique_id=1249372241]
+[node name="p1_4" type="Sprite2D" parent="Parts/wait" unique_id=340277074]
 position = Vector2(-24.2, 0.35)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("114_35057")
 centered = false
 
-[node name="p1_5_s22" type="Node2D" parent="Parts/wait" unique_id=224845127]
+[node name="p1_5_s22" type="Node2D" parent="Parts/wait" unique_id=593644452]
 position = Vector2(7.55, 18.5)
 rotation = 2.3552861
 scale = Vector2(0.77852494, 0.77852494)
@@ -1905,19 +1892,19 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_15" type="Sprite2D" parent="Parts/wait" unique_id=1421723168]
+[node name="p1_15" type="Sprite2D" parent="Parts/wait" unique_id=1830653846]
 position = Vector2(-19.35, -9.7)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("115_lrvcc")
 centered = false
 
-[node name="p1_16" type="Sprite2D" parent="Parts/wait" unique_id=801482096]
+[node name="p1_16" type="Sprite2D" parent="Parts/wait" unique_id=1526694722]
 position = Vector2(-19.35, -9.7)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("116_hr7l1")
 centered = false
 
-[node name="p1_17_s40" type="Node2D" parent="Parts/wait" unique_id=1474732161]
+[node name="p1_17_s40" type="Node2D" parent="Parts/wait" unique_id=1703970829]
 position = Vector2(-7.7, 38.3)
 scale = Vector2(1, 0.857336)
 skew = -0.027997375
@@ -1933,7 +1920,7 @@ variants = {
 11: ExtResource("31_qxjku")
 }
 
-[node name="p1_20_s49" type="Node2D" parent="Parts/wait" unique_id=1332182825]
+[node name="p1_20_s49" type="Node2D" parent="Parts/wait" unique_id=863239091]
 position = Vector2(13, 38.85)
 rotation = -0.09152586
 scale = Vector2(0.94093835, 0.97722566)
@@ -1950,7 +1937,7 @@ variants = {
 11: ExtResource("39_6vw2d")
 }
 
-[node name="p1_23_s61" type="Node2D" parent="Parts/wait" unique_id=248466415]
+[node name="p1_23_s61" type="Node2D" parent="Parts/wait" unique_id=1952685137]
 position = Vector2(0.35, 8.95)
 scale = Vector2(1, 1.0011997)
 skew = -0.048960924
@@ -1969,7 +1956,7 @@ variants = {
 12: ExtResource("50_47dgj")
 }
 
-[node name="p1_29_s86" type="Node2D" parent="Parts/wait" unique_id=640903699]
+[node name="p1_29_s86" type="Node2D" parent="Parts/wait" unique_id=1124146392]
 position = Vector2(1.05, 35.7)
 scale = Vector2(1, 1.0007997)
 skew = 0.039978623
@@ -1985,13 +1972,13 @@ variants = {
 12: ExtResource("59_omix8")
 }
 
-[node name="p1_33" type="Sprite2D" parent="Parts/wait" unique_id=649016740]
+[node name="p1_33" type="Sprite2D" parent="Parts/wait" unique_id=3967240]
 position = Vector2(12.85, 7.75)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("117_ryl4w")
 centered = false
 
-[node name="p1_34_s30" type="Node2D" parent="Parts/wait" unique_id=1194849143]
+[node name="p1_34_s30" type="Node2D" parent="Parts/wait" unique_id=1833677615]
 position = Vector2(-40.95, 0.5)
 rotation = -1.1863903
 scale = Vector2(0.999977, 0.999977)
@@ -2006,7 +1993,7 @@ variants = {
 6: ExtResource("21_d7q8e")
 }
 
-[node name="p1_37_s22" type="Node2D" parent="Parts/wait" unique_id=672326731]
+[node name="p1_37_s22" type="Node2D" parent="Parts/wait" unique_id=1155206644]
 position = Vector2(7.85, -4)
 rotation = -0.0009999997
 scale = Vector2(1.0000005, 1.0000005)
@@ -2020,13 +2007,13 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_37_2" type="Sprite2D" parent="Parts/wait" unique_id=633940294]
+[node name="p1_37_2" type="Sprite2D" parent="Parts/wait" unique_id=798183737]
 position = Vector2(0.3000002, -23.55)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("118_27g1u")
 centered = false
 
-[node name="p1_37_3_s69" type="Node2D" parent="Parts/wait" unique_id=831357577]
+[node name="p1_37_3_s69" type="Node2D" parent="Parts/wait" unique_id=850926360]
 position = Vector2(11.3, 6.8)
 rotation = -2.8492732
 scale = Vector2(0.9993963, 0.9993963)
@@ -2040,7 +2027,7 @@ variants = {
 7: ExtResource("73_l4gdx")
 }
 
-[node name="p1_37_8_s22" type="Node2D" parent="Parts/wait" unique_id=620489396]
+[node name="p1_37_8_s22" type="Node2D" parent="Parts/wait" unique_id=907601021]
 position = Vector2(10.8, 15.8)
 rotation = -0.442184
 scale = Vector2(1.0001999, -0.99929625)
@@ -2055,7 +2042,7 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_40_s30" type="Node2D" parent="Parts/wait" unique_id=218557029]
+[node name="p1_40_s30" type="Node2D" parent="Parts/wait" unique_id=802022039]
 position = Vector2(1.05, -11.95)
 rotation = -0.016998364
 scale = Vector2(1.0001445, 1.0001445)
@@ -2070,19 +2057,19 @@ variants = {
 6: ExtResource("21_d7q8e")
 }
 
-[node name="p1_46" type="Sprite2D" parent="Parts/wait" unique_id=1907538629]
+[node name="p1_46" type="Sprite2D" parent="Parts/wait" unique_id=915593]
 position = Vector2(-34.25, -51.75)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("61_wukof")
 centered = false
 
-[node name="p1_46_7" type="Sprite2D" parent="Parts/wait" unique_id=1318227022]
+[node name="p1_46_7" type="Sprite2D" parent="Parts/wait" unique_id=2032666926]
 position = Vector2(-36.3, -51.75)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("119_qoxgd")
 centered = false
 
-[node name="p1_46_8_s77" type="Node2D" parent="Parts/wait" unique_id=833551137]
+[node name="p1_46_8_s77" type="Node2D" parent="Parts/wait" unique_id=848757525]
 position = Vector2(-7.65, -13.35)
 rotation = 0.020996913
 scale = Vector2(1.0002204, 1.0002204)
@@ -2096,13 +2083,13 @@ variants = {
 12: ExtResource("67_ins6h")
 }
 
-[node name="p1_49" type="Sprite2D" parent="Parts/wait" unique_id=1818805394]
+[node name="p1_49" type="Sprite2D" parent="Parts/wait" unique_id=1975899614]
 position = Vector2(-19.35, -8.95)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("120_y8jy8")
 centered = false
 
-[node name="p1_50_s69" type="Node2D" parent="Parts/wait" unique_id=1594700533]
+[node name="p1_50_s69" type="Node2D" parent="Parts/wait" unique_id=865650502]
 position = Vector2(17.65, -0.25)
 rotation = 0.030990075
 scale = Vector2(1.0004804, 1.0004804)
@@ -2116,13 +2103,13 @@ variants = {
 7: ExtResource("73_l4gdx")
 }
 
-[node name="p1_51" type="Sprite2D" parent="Parts/wait" unique_id=792029718]
+[node name="p1_51" type="Sprite2D" parent="Parts/wait" unique_id=1369699085]
 position = Vector2(-19.35, -10.9)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("121_5mw1l")
 centered = false
 
-[node name="p1_52_s40" type="Node2D" parent="Parts/wait" unique_id=1038012035]
+[node name="p1_52_s40" type="Node2D" parent="Parts/wait" unique_id=417697139]
 position = Vector2(-7.7, 38)
 scale = Vector2(1, 0.857336)
 skew = -0.027997375
@@ -2138,7 +2125,7 @@ variants = {
 11: ExtResource("31_qxjku")
 }
 
-[node name="p1_55_s49" type="Node2D" parent="Parts/wait" unique_id=1957814894]
+[node name="p1_55_s49" type="Node2D" parent="Parts/wait" unique_id=1006692410]
 position = Vector2(12.7, 38.55)
 rotation = -0.09152586
 scale = Vector2(0.94093835, 0.97722566)
@@ -2155,13 +2142,13 @@ variants = {
 11: ExtResource("39_6vw2d")
 }
 
-[node name="p1_59" type="Sprite2D" parent="Parts/wait" unique_id=198963591]
+[node name="p1_59" type="Sprite2D" parent="Parts/wait" unique_id=1255968353]
 position = Vector2(-10.599999, -9.7)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("122_ear02")
 centered = false
 
-[node name="p1_60_s61" type="Node2D" parent="Parts/wait" unique_id=131567906]
+[node name="p1_60_s61" type="Node2D" parent="Parts/wait" unique_id=51811106]
 position = Vector2(1.1, 7.15)
 scale = Vector2(1, 1.0011997)
 skew = -0.048960924
@@ -2180,7 +2167,7 @@ variants = {
 12: ExtResource("50_47dgj")
 }
 
-[node name="p1_66_s86" type="Node2D" parent="Parts/wait" unique_id=1938095773]
+[node name="p1_66_s86" type="Node2D" parent="Parts/wait" unique_id=464262873]
 position = Vector2(1.8, 34.5)
 scale = Vector2(1, 1.0007997)
 skew = 0.039978623
@@ -2196,13 +2183,13 @@ variants = {
 12: ExtResource("59_omix8")
 }
 
-[node name="p1_70" type="Sprite2D" parent="Parts/wait" unique_id=2052717972]
+[node name="p1_70" type="Sprite2D" parent="Parts/wait" unique_id=1483208911]
 position = Vector2(12.85, 6.55)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("117_ryl4w")
 centered = false
 
-[node name="p1_71_s22" type="Node2D" parent="Parts/wait" unique_id=1333901662]
+[node name="p1_71_s22" type="Node2D" parent="Parts/wait" unique_id=129923594]
 position = Vector2(7.55, 18.5)
 rotation = 2.3552861
 scale = Vector2(0.77852494, 0.77852494)
@@ -2216,7 +2203,7 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_74_s30" type="Node2D" parent="Parts/wait" unique_id=1886823356]
+[node name="p1_74_s30" type="Node2D" parent="Parts/wait" unique_id=815133523]
 position = Vector2(1.05, -11.95)
 rotation = -0.016998364
 scale = Vector2(1.0001445, 1.0001445)
@@ -2231,31 +2218,31 @@ variants = {
 6: ExtResource("21_d7q8e")
 }
 
-[node name="p1_80" type="Sprite2D" parent="Parts/wait" unique_id=1707537378]
+[node name="p1_80" type="Sprite2D" parent="Parts/wait" unique_id=1696703289]
 position = Vector2(-32.05, -53.95)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("61_wukof")
 centered = false
 
-[node name="p1_82" type="Sprite2D" parent="Parts/wait" unique_id=2070798052]
+[node name="p1_82" type="Sprite2D" parent="Parts/wait" unique_id=929421958]
 position = Vector2(-19.35, -10.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("116_hr7l1")
 centered = false
 
-[node name="p1_83" type="Sprite2D" parent="Parts/wait" unique_id=1256976614]
+[node name="p1_83" type="Sprite2D" parent="Parts/wait" unique_id=1620381460]
 position = Vector2(-19.35, -8.95)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("120_y8jy8")
 centered = false
 
-[node name="p1_85" type="Sprite2D" parent="Parts/wait" unique_id=689082349]
+[node name="p1_85" type="Sprite2D" parent="Parts/wait" unique_id=413202275]
 position = Vector2(-19.35, -10.9)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("121_5mw1l")
 centered = false
 
-[node name="p1_86_s40" type="Node2D" parent="Parts/wait" unique_id=1219279103]
+[node name="p1_86_s40" type="Node2D" parent="Parts/wait" unique_id=818053583]
 position = Vector2(-7.7, 38)
 scale = Vector2(1, 0.857336)
 skew = -0.027997375
@@ -2271,7 +2258,7 @@ variants = {
 11: ExtResource("31_qxjku")
 }
 
-[node name="p1_89_s49" type="Node2D" parent="Parts/wait" unique_id=2145527205]
+[node name="p1_89_s49" type="Node2D" parent="Parts/wait" unique_id=751956587]
 position = Vector2(12.7, 38.55)
 rotation = -0.09152586
 scale = Vector2(0.94093835, 0.97722566)
@@ -2288,13 +2275,13 @@ variants = {
 11: ExtResource("39_6vw2d")
 }
 
-[node name="p1_93" type="Sprite2D" parent="Parts/wait" unique_id=1286668602]
+[node name="p1_93" type="Sprite2D" parent="Parts/wait" unique_id=1151250415]
 position = Vector2(-10.599999, -9.7)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("122_ear02")
 centered = false
 
-[node name="p1_94_s61" type="Node2D" parent="Parts/wait" unique_id=2117939418]
+[node name="p1_94_s61" type="Node2D" parent="Parts/wait" unique_id=1402826080]
 position = Vector2(1.1, 7.15)
 scale = Vector2(1, 1.0011997)
 skew = -0.048960924
@@ -2313,7 +2300,7 @@ variants = {
 12: ExtResource("50_47dgj")
 }
 
-[node name="p1_100_s86" type="Node2D" parent="Parts/wait" unique_id=1544718779]
+[node name="p1_100_s86" type="Node2D" parent="Parts/wait" unique_id=427775141]
 position = Vector2(1.8, 34.5)
 scale = Vector2(1, 1.0007997)
 skew = 0.039978623
@@ -2329,13 +2316,13 @@ variants = {
 12: ExtResource("59_omix8")
 }
 
-[node name="p1_104" type="Sprite2D" parent="Parts/wait" unique_id=1835532243]
+[node name="p1_104" type="Sprite2D" parent="Parts/wait" unique_id=446386501]
 position = Vector2(12.85, 6.55)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("117_ryl4w")
 centered = false
 
-[node name="p1_105_s22" type="Node2D" parent="Parts/wait" unique_id=1080622615]
+[node name="p1_105_s22" type="Node2D" parent="Parts/wait" unique_id=873700965]
 position = Vector2(7.55, 18.5)
 rotation = 2.3552861
 scale = Vector2(0.77852494, 0.77852494)
@@ -2349,7 +2336,7 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_108_s30" type="Node2D" parent="Parts/wait" unique_id=1982512043]
+[node name="p1_108_s30" type="Node2D" parent="Parts/wait" unique_id=604485708]
 position = Vector2(1.05, -11.95)
 rotation = -0.016998364
 scale = Vector2(1.0001445, 1.0001445)
@@ -2364,31 +2351,31 @@ variants = {
 6: ExtResource("21_d7q8e")
 }
 
-[node name="p1_114" type="Sprite2D" parent="Parts/wait" unique_id=33436878]
+[node name="p1_114" type="Sprite2D" parent="Parts/wait" unique_id=1936870854]
 position = Vector2(-32.05, -53.95)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("61_wukof")
 centered = false
 
-[node name="p1_116" type="Sprite2D" parent="Parts/wait" unique_id=791026871]
+[node name="p1_116" type="Sprite2D" parent="Parts/wait" unique_id=388064698]
 position = Vector2(-19.35, -10.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("116_hr7l1")
 centered = false
 
-[node name="p1_117" type="Sprite2D" parent="Parts/wait" unique_id=486322978]
+[node name="p1_117" type="Sprite2D" parent="Parts/wait" unique_id=1782831694]
 position = Vector2(-19.35, -8.95)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("120_y8jy8")
 centered = false
 
-[node name="p1_119" type="Sprite2D" parent="Parts/wait" unique_id=1454504454]
+[node name="p1_119" type="Sprite2D" parent="Parts/wait" unique_id=981195162]
 position = Vector2(-19.35, -10.9)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("121_5mw1l")
 centered = false
 
-[node name="p1_120_s40" type="Node2D" parent="Parts/wait" unique_id=1777283310]
+[node name="p1_120_s40" type="Node2D" parent="Parts/wait" unique_id=125276657]
 position = Vector2(-7.7, 38)
 scale = Vector2(1, 0.857336)
 skew = -0.027997375
@@ -2404,7 +2391,7 @@ variants = {
 11: ExtResource("31_qxjku")
 }
 
-[node name="p1_123_s49" type="Node2D" parent="Parts/wait" unique_id=208332315]
+[node name="p1_123_s49" type="Node2D" parent="Parts/wait" unique_id=2063712293]
 position = Vector2(12.7, 38.55)
 rotation = -0.09152586
 scale = Vector2(0.94093835, 0.97722566)
@@ -2421,13 +2408,13 @@ variants = {
 11: ExtResource("39_6vw2d")
 }
 
-[node name="p1_127" type="Sprite2D" parent="Parts/wait" unique_id=1021172445]
+[node name="p1_127" type="Sprite2D" parent="Parts/wait" unique_id=2057451355]
 position = Vector2(-10.599999, -9.7)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("122_ear02")
 centered = false
 
-[node name="p1_128_s61" type="Node2D" parent="Parts/wait" unique_id=1620060281]
+[node name="p1_128_s61" type="Node2D" parent="Parts/wait" unique_id=143765816]
 position = Vector2(1.1, 7.15)
 scale = Vector2(1, 1.0011997)
 skew = -0.048960924
@@ -2446,7 +2433,7 @@ variants = {
 12: ExtResource("50_47dgj")
 }
 
-[node name="p1_134_s86" type="Node2D" parent="Parts/wait" unique_id=1387154054]
+[node name="p1_134_s86" type="Node2D" parent="Parts/wait" unique_id=172481224]
 position = Vector2(1.8, 34.5)
 scale = Vector2(1, 1.0007997)
 skew = 0.039978623
@@ -2462,13 +2449,13 @@ variants = {
 12: ExtResource("59_omix8")
 }
 
-[node name="p1_138" type="Sprite2D" parent="Parts/wait" unique_id=373953592]
+[node name="p1_138" type="Sprite2D" parent="Parts/wait" unique_id=1355364694]
 position = Vector2(12.85, 6.55)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("117_ryl4w")
 centered = false
 
-[node name="p1_139_s22" type="Node2D" parent="Parts/wait" unique_id=1302907888]
+[node name="p1_139_s22" type="Node2D" parent="Parts/wait" unique_id=761263962]
 position = Vector2(7.55, 18.5)
 rotation = 2.3552861
 scale = Vector2(0.77852494, 0.77852494)
@@ -2482,7 +2469,7 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_142_s30" type="Node2D" parent="Parts/wait" unique_id=442440880]
+[node name="p1_142_s30" type="Node2D" parent="Parts/wait" unique_id=259890714]
 position = Vector2(1.05, -11.95)
 rotation = -0.016998364
 scale = Vector2(1.0001445, 1.0001445)
@@ -2497,31 +2484,31 @@ variants = {
 6: ExtResource("21_d7q8e")
 }
 
-[node name="p1_148" type="Sprite2D" parent="Parts/wait" unique_id=892811798]
+[node name="p1_148" type="Sprite2D" parent="Parts/wait" unique_id=208174721]
 position = Vector2(-32.05, -53.95)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("61_wukof")
 centered = false
 
-[node name="p1_150" type="Sprite2D" parent="Parts/wait" unique_id=968097043]
+[node name="p1_150" type="Sprite2D" parent="Parts/wait" unique_id=1384003162]
 position = Vector2(-19.35, -10.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("116_hr7l1")
 centered = false
 
-[node name="p1_151" type="Sprite2D" parent="Parts/wait" unique_id=1663106180]
+[node name="p1_151" type="Sprite2D" parent="Parts/wait" unique_id=1955669145]
 position = Vector2(-19.35, -8.95)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("120_y8jy8")
 centered = false
 
-[node name="p1_153" type="Sprite2D" parent="Parts/wait" unique_id=453238910]
+[node name="p1_153" type="Sprite2D" parent="Parts/wait" unique_id=925126641]
 position = Vector2(-19.35, -10.9)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("121_5mw1l")
 centered = false
 
-[node name="p1_154_s40" type="Node2D" parent="Parts/wait" unique_id=2034223535]
+[node name="p1_154_s40" type="Node2D" parent="Parts/wait" unique_id=670773304]
 position = Vector2(-7.7, 38)
 scale = Vector2(1, 0.857336)
 skew = -0.027997375
@@ -2537,7 +2524,7 @@ variants = {
 11: ExtResource("31_qxjku")
 }
 
-[node name="p1_157_s49" type="Node2D" parent="Parts/wait" unique_id=707899577]
+[node name="p1_157_s49" type="Node2D" parent="Parts/wait" unique_id=577246969]
 position = Vector2(12.7, 38.55)
 rotation = -0.09152586
 scale = Vector2(0.94093835, 0.97722566)
@@ -2554,13 +2541,13 @@ variants = {
 11: ExtResource("39_6vw2d")
 }
 
-[node name="p1_161" type="Sprite2D" parent="Parts/wait" unique_id=18157520]
+[node name="p1_161" type="Sprite2D" parent="Parts/wait" unique_id=498633618]
 position = Vector2(-10.599999, -9.7)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("122_ear02")
 centered = false
 
-[node name="p1_162_s61" type="Node2D" parent="Parts/wait" unique_id=1839459638]
+[node name="p1_162_s61" type="Node2D" parent="Parts/wait" unique_id=1852352184]
 position = Vector2(1.1, 7.15)
 scale = Vector2(1, 1.0011997)
 skew = -0.048960924
@@ -2579,7 +2566,7 @@ variants = {
 12: ExtResource("50_47dgj")
 }
 
-[node name="p1_168_s86" type="Node2D" parent="Parts/wait" unique_id=1700973655]
+[node name="p1_168_s86" type="Node2D" parent="Parts/wait" unique_id=1294971689]
 position = Vector2(1.8, 34.5)
 scale = Vector2(1, 1.0007997)
 skew = 0.039978623
@@ -2595,13 +2582,13 @@ variants = {
 12: ExtResource("59_omix8")
 }
 
-[node name="p1_172" type="Sprite2D" parent="Parts/wait" unique_id=1377200122]
+[node name="p1_172" type="Sprite2D" parent="Parts/wait" unique_id=719406657]
 position = Vector2(12.85, 6.55)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("117_ryl4w")
 centered = false
 
-[node name="p1_173_s22" type="Node2D" parent="Parts/wait" unique_id=1322653280]
+[node name="p1_173_s22" type="Node2D" parent="Parts/wait" unique_id=2054984729]
 position = Vector2(7.55, 19.7)
 rotation = 2.3552861
 scale = Vector2(0.77852494, 0.77852494)
@@ -2615,7 +2602,7 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_176_s30" type="Node2D" parent="Parts/wait" unique_id=161325918]
+[node name="p1_176_s30" type="Node2D" parent="Parts/wait" unique_id=861613274]
 position = Vector2(1.05, -11.15)
 rotation = -0.016998364
 scale = Vector2(1.0001445, 1.0001445)
@@ -2630,31 +2617,31 @@ variants = {
 6: ExtResource("21_d7q8e")
 }
 
-[node name="p1_182" type="Sprite2D" parent="Parts/wait" unique_id=1932762426]
+[node name="p1_182" type="Sprite2D" parent="Parts/wait" unique_id=135290601]
 position = Vector2(-32.05, -53.95)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("61_wukof")
 centered = false
 
-[node name="p1_184" type="Sprite2D" parent="Parts/wait" unique_id=279641942]
+[node name="p1_184" type="Sprite2D" parent="Parts/wait" unique_id=602874358]
 position = Vector2(-19.35, -10.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("116_hr7l1")
 centered = false
 
-[node name="p1_185" type="Sprite2D" parent="Parts/wait" unique_id=989522515]
+[node name="p1_185" type="Sprite2D" parent="Parts/wait" unique_id=1460777469]
 position = Vector2(-19.35, -8.95)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("120_y8jy8")
 centered = false
 
-[node name="p1_187" type="Sprite2D" parent="Parts/wait" unique_id=859566818]
+[node name="p1_187" type="Sprite2D" parent="Parts/wait" unique_id=1632969161]
 position = Vector2(-19.35, -10.099999)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("116_hr7l1")
 centered = false
 
-[node name="p1_188_s40" type="Node2D" parent="Parts/wait" unique_id=136603587]
+[node name="p1_188_s40" type="Node2D" parent="Parts/wait" unique_id=1587231300]
 position = Vector2(-7.7, 38)
 scale = Vector2(1, 0.857336)
 skew = -0.027997375
@@ -2670,7 +2657,7 @@ variants = {
 11: ExtResource("31_qxjku")
 }
 
-[node name="p1_191_s49" type="Node2D" parent="Parts/wait" unique_id=445779126]
+[node name="p1_191_s49" type="Node2D" parent="Parts/wait" unique_id=975908992]
 position = Vector2(12.7, 38.55)
 rotation = -0.09152586
 scale = Vector2(0.94093835, 0.97722566)
@@ -2687,13 +2674,13 @@ variants = {
 11: ExtResource("39_6vw2d")
 }
 
-[node name="p1_195" type="Sprite2D" parent="Parts/wait" unique_id=479794424]
+[node name="p1_195" type="Sprite2D" parent="Parts/wait" unique_id=930361636]
 position = Vector2(-10.599999, -9.7)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("122_ear02")
 centered = false
 
-[node name="p1_196_s61" type="Node2D" parent="Parts/wait" unique_id=825891260]
+[node name="p1_196_s61" type="Node2D" parent="Parts/wait" unique_id=1573667113]
 position = Vector2(1.1, 8.05)
 scale = Vector2(1, 1.0011997)
 skew = -0.048960924
@@ -2712,7 +2699,7 @@ variants = {
 12: ExtResource("50_47dgj")
 }
 
-[node name="p1_202_s86" type="Node2D" parent="Parts/wait" unique_id=470377709]
+[node name="p1_202_s86" type="Node2D" parent="Parts/wait" unique_id=1447562685]
 position = Vector2(1.8, 35.4)
 scale = Vector2(1, 1.0007997)
 skew = 0.039978623
@@ -2728,13 +2715,13 @@ variants = {
 12: ExtResource("59_omix8")
 }
 
-[node name="p1_206" type="Sprite2D" parent="Parts/wait" unique_id=1419811343]
+[node name="p1_206" type="Sprite2D" parent="Parts/wait" unique_id=1326905407]
 position = Vector2(12.85, 7.75)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("117_ryl4w")
 centered = false
 
-[node name="p1_207_s22" type="Node2D" parent="Parts/wait" unique_id=1204692840]
+[node name="p1_207_s22" type="Node2D" parent="Parts/wait" unique_id=1365259082]
 position = Vector2(8.45, -4)
 rotation = -0.0009999997
 scale = Vector2(1.0000005, 1.0000005)
@@ -2748,13 +2735,13 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_216" type="Sprite2D" parent="Parts/wait" unique_id=285978939]
+[node name="p1_216" type="Sprite2D" parent="Parts/wait" unique_id=785746797]
 position = Vector2(-32.05, -53.15)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("61_wukof")
 centered = false
 
-[node name="p1_217_s77" type="Node2D" parent="Parts/wait" unique_id=1257811235]
+[node name="p1_217_s77" type="Node2D" parent="Parts/wait" unique_id=912990678]
 position = Vector2(-3.35, -14.3)
 rotation = 0.020996913
 scale = Vector2(1.0002204, 1.0002204)
@@ -2768,7 +2755,7 @@ variants = {
 12: ExtResource("67_ins6h")
 }
 
-[node name="p1_226_s69" type="Node2D" parent="Parts/wait" unique_id=851730171]
+[node name="p1_226_s69" type="Node2D" parent="Parts/wait" unique_id=1461461675]
 position = Vector2(18.4, -0.55)
 rotation = 0.030990075
 scale = Vector2(1.0004804, 1.0004804)
@@ -2782,10 +2769,10 @@ variants = {
 7: ExtResource("73_l4gdx")
 }
 
-[node name="jump1" type="Node2D" parent="Parts" unique_id=78992532]
+[node name="jump1" type="Node2D" parent="Parts" unique_id=2115946883]
 visible = false
 
-[node name="p1_1_s14" type="Node2D" parent="Parts/jump1" unique_id=564856915]
+[node name="p1_1_s14" type="Node2D" parent="Parts/jump1" unique_id=1453872059]
 position = Vector2(-24.7, -80.85)
 rotation = -0.10513851
 scale = Vector2(1.0005249, 1.0005249)
@@ -2796,13 +2783,13 @@ variants = {
 3: ExtResource("4_jeiuh")
 }
 
-[node name="p1_7" type="Sprite2D" parent="Parts/jump1" unique_id=846595948]
+[node name="p1_7" type="Sprite2D" parent="Parts/jump1" unique_id=1693612744]
 position = Vector2(-18.400002, -16.65)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("123_1md5g")
 centered = false
 
-[node name="p1_8_s30" type="Node2D" parent="Parts/jump1" unique_id=684621197]
+[node name="p1_8_s30" type="Node2D" parent="Parts/jump1" unique_id=1180448753]
 position = Vector2(26.45, -0.15)
 rotation = 1.2386065
 scale = Vector2(0.9996504, 0.9996504)
@@ -2817,13 +2804,13 @@ variants = {
 6: ExtResource("21_d7q8e")
 }
 
-[node name="p1_14" type="Sprite2D" parent="Parts/jump1" unique_id=1556510160]
+[node name="p1_14" type="Sprite2D" parent="Parts/jump1" unique_id=1263594729]
 position = Vector2(-18.05, -17.4)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("124_84l5m")
 centered = false
 
-[node name="p1_15_s40" type="Node2D" parent="Parts/jump1" unique_id=217260240]
+[node name="p1_15_s40" type="Node2D" parent="Parts/jump1" unique_id=396492475]
 position = Vector2(-4.05, 31.45)
 scale = Vector2(1, 0.9264734)
 skew = -0.3897264
@@ -2839,7 +2826,7 @@ variants = {
 11: ExtResource("31_qxjku")
 }
 
-[node name="p1_18_s49" type="Node2D" parent="Parts/jump1" unique_id=519693592]
+[node name="p1_18_s49" type="Node2D" parent="Parts/jump1" unique_id=1604478599]
 position = Vector2(12.3, 29.1)
 rotation = -0.38465163
 scale = Vector2(0.94074064, 1.05825)
@@ -2856,7 +2843,7 @@ variants = {
 11: ExtResource("39_6vw2d")
 }
 
-[node name="p1_21_s61" type="Node2D" parent="Parts/jump1" unique_id=1156994697]
+[node name="p1_21_s61" type="Node2D" parent="Parts/jump1" unique_id=2080897665]
 position = Vector2(-1.2, 1.9)
 scale = Vector2(1, 1.0103148)
 skew = -0.14301693
@@ -2875,13 +2862,13 @@ variants = {
 12: ExtResource("50_47dgj")
 }
 
-[node name="p1_27" type="Sprite2D" parent="Parts/jump1" unique_id=474735420]
+[node name="p1_27" type="Sprite2D" parent="Parts/jump1" unique_id=771486048]
 position = Vector2(14.1, -2.6499996)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("125_blo45")
 centered = false
 
-[node name="p1_28_s22" type="Node2D" parent="Parts/jump1" unique_id=1374855692]
+[node name="p1_28_s22" type="Node2D" parent="Parts/jump1" unique_id=1389510540]
 position = Vector2(1.9, -7.35)
 rotation = -0.4368084
 scale = Vector2(0.9998825, 0.9998825)
@@ -2895,13 +2882,13 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_37" type="Sprite2D" parent="Parts/jump1" unique_id=330281442]
+[node name="p1_37" type="Sprite2D" parent="Parts/jump1" unique_id=1912101387]
 position = Vector2(-31.5, -58.449997)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("126_mu430")
 centered = false
 
-[node name="p1_38_s86" type="Node2D" parent="Parts/jump1" unique_id=2145179543]
+[node name="p1_38_s86" type="Node2D" parent="Parts/jump1" unique_id=1345684536]
 position = Vector2(3.25, 28)
 rotation = -0.059808824
 scale = Vector2(1.0037948, 1.0045198)
@@ -2918,7 +2905,7 @@ variants = {
 12: ExtResource("59_omix8")
 }
 
-[node name="p1_42_s77" type="Node2D" parent="Parts/jump1" unique_id=612477018]
+[node name="p1_42_s77" type="Node2D" parent="Parts/jump1" unique_id=1901431416]
 position = Vector2(-11.25, -21.9)
 rotation = 0.54556346
 scale = Vector2(1.000193, 1.000193)
@@ -2932,7 +2919,7 @@ variants = {
 12: ExtResource("67_ins6h")
 }
 
-[node name="p1_51_s69" type="Node2D" parent="Parts/jump1" unique_id=330071317]
+[node name="p1_51_s69" type="Node2D" parent="Parts/jump1" unique_id=230156139]
 position = Vector2(16.05, -5.1)
 rotation = 0.030990075
 scale = Vector2(1.0004804, 1.0004804)
@@ -2946,10 +2933,10 @@ variants = {
 7: ExtResource("73_l4gdx")
 }
 
-[node name="jump2" type="Node2D" parent="Parts" unique_id=1571651860]
+[node name="jump2" type="Node2D" parent="Parts" unique_id=263183126]
 visible = false
 
-[node name="p1_1_1_s14" type="Node2D" parent="Parts/jump2" unique_id=1994493029]
+[node name="p1_1_1_s14" type="Node2D" parent="Parts/jump2" unique_id=1351941426]
 position = Vector2(-9.45, -85.25)
 rotation = 0.034020904
 scale = Vector2(0.9995784, 0.9995784)
@@ -2960,7 +2947,7 @@ variants = {
 3: ExtResource("4_jeiuh")
 }
 
-[node name="p1_1_3_s30" type="Node2D" parent="Parts/jump2" unique_id=410315409]
+[node name="p1_1_3_s30" type="Node2D" parent="Parts/jump2" unique_id=1947980367]
 position = Vector2(2.05, -11.15)
 rotation = -0.1212552
 scale = Vector2(1.000345, 1.000345)
@@ -2975,13 +2962,13 @@ variants = {
 6: ExtResource("21_d7q8e")
 }
 
-[node name="p1_1_13" type="Sprite2D" parent="Parts/jump2" unique_id=1879894528]
+[node name="p1_1_13" type="Sprite2D" parent="Parts/jump2" unique_id=1105947657]
 position = Vector2(-19.5, -22.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("127_vg1af")
 centered = false
 
-[node name="p1_1_14_s40" type="Node2D" parent="Parts/jump2" unique_id=49658208]
+[node name="p1_1_14_s40" type="Node2D" parent="Parts/jump2" unique_id=851716761]
 position = Vector2(-7.35, 20.4)
 scale = Vector2(1, 0.8644177)
 skew = -0.1310991
@@ -2997,7 +2984,7 @@ variants = {
 11: ExtResource("31_qxjku")
 }
 
-[node name="p1_1_17_s49" type="Node2D" parent="Parts/jump2" unique_id=1192428419]
+[node name="p1_1_17_s49" type="Node2D" parent="Parts/jump2" unique_id=1379718946]
 position = Vector2(10.45, 19.1)
 rotation = -0.6181442
 scale = Vector2(1.104355, 0.97305965)
@@ -3014,13 +3001,13 @@ variants = {
 11: ExtResource("39_6vw2d")
 }
 
-[node name="p1_1_20" type="Sprite2D" parent="Parts/jump2" unique_id=1417901329]
+[node name="p1_1_20" type="Sprite2D" parent="Parts/jump2" unique_id=1107250177]
 position = Vector2(1.5, -17.15)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("108_mkc2a")
 centered = false
 
-[node name="p1_1_21_s61" type="Node2D" parent="Parts/jump2" unique_id=1770258760]
+[node name="p1_1_21_s61" type="Node2D" parent="Parts/jump2" unique_id=1666889029]
 position = Vector2(-2, -8.2)
 scale = Vector2(1, 1.0103148)
 skew = -0.14301693
@@ -3039,7 +3026,7 @@ variants = {
 12: ExtResource("50_47dgj")
 }
 
-[node name="p1_1_27_s86" type="Node2D" parent="Parts/jump2" unique_id=1214233225]
+[node name="p1_1_27_s86" type="Node2D" parent="Parts/jump2" unique_id=1893575465]
 position = Vector2(2.4, 17.4)
 rotation = -0.059808824
 scale = Vector2(1.0037948, 1.0045198)
@@ -3056,13 +3043,13 @@ variants = {
 12: ExtResource("59_omix8")
 }
 
-[node name="p1_1_32" type="Sprite2D" parent="Parts/jump2" unique_id=583631807]
+[node name="p1_1_32" type="Sprite2D" parent="Parts/jump2" unique_id=1566304894]
 position = Vector2(-16.650002, -10.1)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("128_6dp1n")
 centered = false
 
-[node name="p1_1_33_s22" type="Node2D" parent="Parts/jump2" unique_id=1778220971]
+[node name="p1_1_33_s22" type="Node2D" parent="Parts/jump2" unique_id=908927039]
 position = Vector2(12.2, -11.45)
 rotation = 1.0422177
 scale = Vector2(0.99939233, 0.99939233)
@@ -3076,13 +3063,13 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_1_42" type="Sprite2D" parent="Parts/jump2" unique_id=999602839]
+[node name="p1_1_42" type="Sprite2D" parent="Parts/jump2" unique_id=819586530]
 position = Vector2(-31.05, -52.75)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("61_wukof")
 centered = false
 
-[node name="p1_1_43_s77" type="Node2D" parent="Parts/jump2" unique_id=1748007221]
+[node name="p1_1_43_s77" type="Node2D" parent="Parts/jump2" unique_id=1060375122]
 position = Vector2(-2.55, -14.55)
 rotation = 0.0049999584
 scale = Vector2(1.0000125, 1.0000125)
@@ -3096,7 +3083,7 @@ variants = {
 12: ExtResource("67_ins6h")
 }
 
-[node name="p1_1_52_s69" type="Node2D" parent="Parts/jump2" unique_id=526123]
+[node name="p1_1_52_s69" type="Node2D" parent="Parts/jump2" unique_id=506239400]
 position = Vector2(10.8, -3.6)
 rotation = 0.8165055
 scale = Vector2(1.000333, 0.9996044)
@@ -3111,10 +3098,10 @@ variants = {
 7: ExtResource("73_l4gdx")
 }
 
-[node name="jump3" type="Node2D" parent="Parts" unique_id=2139690657]
+[node name="jump3" type="Node2D" parent="Parts" unique_id=1456489982]
 visible = false
 
-[node name="p1_1_s14" type="Node2D" parent="Parts/jump3" unique_id=1019661921]
+[node name="p1_1_s14" type="Node2D" parent="Parts/jump3" unique_id=1735927772]
 position = Vector2(0.7, -85.45)
 rotation = 0.2095566
 scale = Vector2(0.999874, 0.999874)
@@ -3125,13 +3112,13 @@ variants = {
 3: ExtResource("4_jeiuh")
 }
 
-[node name="p1_6" type="Sprite2D" parent="Parts/jump3" unique_id=1336244729]
+[node name="p1_6" type="Sprite2D" parent="Parts/jump3" unique_id=925351482]
 position = Vector2(-24.6, -19.399998)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("129_da7qm")
 centered = false
 
-[node name="p1_7_s30" type="Node2D" parent="Parts/jump3" unique_id=1231988901]
+[node name="p1_7_s30" type="Node2D" parent="Parts/jump3" unique_id=1226307373]
 position = Vector2(21.75, -1.85)
 rotation = 1.3478961
 scale = Vector2(0.999733, 0.999733)
@@ -3146,13 +3133,13 @@ variants = {
 6: ExtResource("21_d7q8e")
 }
 
-[node name="p1_12" type="Sprite2D" parent="Parts/jump3" unique_id=734042335]
+[node name="p1_12" type="Sprite2D" parent="Parts/jump3" unique_id=1614341868]
 position = Vector2(-24.800001, -20.149998)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("130_bfda1")
 centered = false
 
-[node name="p1_13_s40" type="Node2D" parent="Parts/jump3" unique_id=1163981791]
+[node name="p1_13_s40" type="Node2D" parent="Parts/jump3" unique_id=1108839213]
 position = Vector2(-12.15, 25.55)
 scale = Vector2(1, 0.9264734)
 skew = -0.3897264
@@ -3168,7 +3155,7 @@ variants = {
 11: ExtResource("31_qxjku")
 }
 
-[node name="p1_16_s49" type="Node2D" parent="Parts/jump3" unique_id=1250693397]
+[node name="p1_16_s49" type="Node2D" parent="Parts/jump3" unique_id=1496352343]
 position = Vector2(1.1, 27.95)
 rotation = -0.06064312
 scale = Vector2(1.0890019, 1.1688324)
@@ -3185,7 +3172,7 @@ variants = {
 11: ExtResource("39_6vw2d")
 }
 
-[node name="p1_19_s61" type="Node2D" parent="Parts/jump3" unique_id=1890703114]
+[node name="p1_19_s61" type="Node2D" parent="Parts/jump3" unique_id=885143188]
 position = Vector2(-1.75, -0.4)
 scale = Vector2(1, 1.0169685)
 skew = 0.18293178
@@ -3204,7 +3191,7 @@ variants = {
 12: ExtResource("50_47dgj")
 }
 
-[node name="p1_25_s86" type="Node2D" parent="Parts/jump3" unique_id=115519475]
+[node name="p1_25_s86" type="Node2D" parent="Parts/jump3" unique_id=1984503998]
 position = Vector2(-5.9, 25)
 rotation = 0.09751581
 scale = Vector2(1.0168308, 0.9843018)
@@ -3221,13 +3208,13 @@ variants = {
 12: ExtResource("59_omix8")
 }
 
-[node name="p1_30" type="Sprite2D" parent="Parts/jump3" unique_id=76303501]
+[node name="p1_30" type="Sprite2D" parent="Parts/jump3" unique_id=1979186357]
 position = Vector2(1.15, -13.849998)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("131_dgogq")
 centered = false
 
-[node name="p1_31_s22" type="Node2D" parent="Parts/jump3" unique_id=471835327]
+[node name="p1_31_s22" type="Node2D" parent="Parts/jump3" unique_id=1707128629]
 position = Vector2(-1.7, -10.15)
 rotation = -0.4368084
 scale = Vector2(0.9998825, 0.9998825)
@@ -3241,13 +3228,13 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_40" type="Sprite2D" parent="Parts/jump3" unique_id=1942334606]
+[node name="p1_40" type="Sprite2D" parent="Parts/jump3" unique_id=698059569]
 position = Vector2(-25.800001, -59.649998)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("132_of1vc")
 centered = false
 
-[node name="p1_41_s77" type="Node2D" parent="Parts/jump3" unique_id=20537500]
+[node name="p1_41_s77" type="Node2D" parent="Parts/jump3" unique_id=622996806]
 position = Vector2(0.55, -22.45)
 rotation = 0.09310354
 scale = Vector2(1.0003325, 1.0003325)
@@ -3261,7 +3248,7 @@ variants = {
 12: ExtResource("67_ins6h")
 }
 
-[node name="p1_50_s69" type="Node2D" parent="Parts/jump3" unique_id=554767456]
+[node name="p1_50_s69" type="Node2D" parent="Parts/jump3" unique_id=1973388322]
 position = Vector2(14.1, -8.1)
 rotation = 0.030990075
 scale = Vector2(1.0004804, 1.0004804)
@@ -3275,10 +3262,10 @@ variants = {
 7: ExtResource("73_l4gdx")
 }
 
-[node name="hurt" type="Node2D" parent="Parts" unique_id=137628096]
+[node name="hurt" type="Node2D" parent="Parts" unique_id=1042381952]
 visible = false
 
-[node name="p1_1_s14" type="Node2D" parent="Parts/hurt" unique_id=310527490]
+[node name="p1_1_s14" type="Node2D" parent="Parts/hurt" unique_id=1083285933]
 position = Vector2(16.35, -76.2)
 rotation = 0.4234009
 scale = Vector2(1.0003325, 1.0003325)
@@ -3289,13 +3276,13 @@ variants = {
 3: ExtResource("4_jeiuh")
 }
 
-[node name="p1_4" type="Sprite2D" parent="Parts/hurt" unique_id=839407349]
+[node name="p1_4" type="Sprite2D" parent="Parts/hurt" unique_id=1151920036]
 position = Vector2(-23.349998, -26.800001)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("133_rvmul")
 centered = false
 
-[node name="p1_5_s22" type="Node2D" parent="Parts/hurt" unique_id=1612467584]
+[node name="p1_5_s22" type="Node2D" parent="Parts/hurt" unique_id=363797040]
 position = Vector2(1.9, -1.85)
 rotation = 2.6358197
 scale = Vector2(0.7327387, 0.7327387)
@@ -3309,13 +3296,13 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_17" type="Sprite2D" parent="Parts/hurt" unique_id=1111804606]
+[node name="p1_17" type="Sprite2D" parent="Parts/hurt" unique_id=578175118]
 position = Vector2(-35.399998, -11.000001)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("134_tc3ed")
 centered = false
 
-[node name="p1_18_s40" type="Node2D" parent="Parts/hurt" unique_id=1138998570]
+[node name="p1_18_s40" type="Node2D" parent="Parts/hurt" unique_id=73017315]
 position = Vector2(-21.6, 27.2)
 rotation = 0.4454839
 scale = Vector2(1.0095276, 1.0090004)
@@ -3332,7 +3319,7 @@ variants = {
 11: ExtResource("31_qxjku")
 }
 
-[node name="p1_21_s49" type="Node2D" parent="Parts/hurt" unique_id=1404441130]
+[node name="p1_21_s49" type="Node2D" parent="Parts/hurt" unique_id=1504712775]
 position = Vector2(-3.85, 35.9)
 rotation = 0.14433223
 scale = Vector2(0.9872654, 1.05824)
@@ -3349,7 +3336,7 @@ variants = {
 11: ExtResource("39_6vw2d")
 }
 
-[node name="p1_24_s61" type="Node2D" parent="Parts/hurt" unique_id=438083207]
+[node name="p1_24_s61" type="Node2D" parent="Parts/hurt" unique_id=1908321189]
 position = Vector2(-1.95, 3.7)
 rotation = 0.35748354
 scale = Vector2(1.0002345, 1.001)
@@ -3369,7 +3356,7 @@ variants = {
 12: ExtResource("50_47dgj")
 }
 
-[node name="p1_30_s22" type="Node2D" parent="Parts/hurt" unique_id=1212187547]
+[node name="p1_30_s22" type="Node2D" parent="Parts/hurt" unique_id=1915772698]
 position = Vector2(6.15, -1.7)
 rotation = -0.14048263
 scale = Vector2(0.99985, 0.99985)
@@ -3383,7 +3370,7 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_33_s30" type="Node2D" parent="Parts/hurt" unique_id=463915170]
+[node name="p1_33_s30" type="Node2D" parent="Parts/hurt" unique_id=155062140]
 position = Vector2(8.7, -35.95)
 rotation = 0.81085235
 scale = Vector2(1.000173, 1.000173)
@@ -3398,7 +3385,7 @@ variants = {
 6: ExtResource("21_d7q8e")
 }
 
-[node name="p1_36_s22" type="Node2D" parent="Parts/hurt" unique_id=299491780]
+[node name="p1_36_s22" type="Node2D" parent="Parts/hurt" unique_id=1150578509]
 position = Vector2(6.15, -1.7)
 rotation = -0.14048263
 scale = Vector2(0.99985, 0.99985)
@@ -3412,19 +3399,19 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_41" type="Sprite2D" parent="Parts/hurt" unique_id=1666061842]
+[node name="p1_41" type="Sprite2D" parent="Parts/hurt" unique_id=1021951567]
 position = Vector2(-16.95, -55.4)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("135_ys600")
 centered = false
 
-[node name="p1_44" type="Sprite2D" parent="Parts/hurt" unique_id=2066364488]
+[node name="p1_44" type="Sprite2D" parent="Parts/hurt" unique_id=968512073]
 position = Vector2(-16.95, -56.9)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("135_ys600")
 centered = false
 
-[node name="p1_45_s77" type="Node2D" parent="Parts/hurt" unique_id=1310879964]
+[node name="p1_45_s77" type="Node2D" parent="Parts/hurt" unique_id=968582277]
 position = Vector2(2.7, -17.9)
 rotation = 0.43771425
 scale = Vector2(1.000306, 1.000306)
@@ -3438,7 +3425,7 @@ variants = {
 12: ExtResource("67_ins6h")
 }
 
-[node name="p1_54_s86" type="Node2D" parent="Parts/hurt" unique_id=988782018]
+[node name="p1_54_s86" type="Node2D" parent="Parts/hurt" unique_id=2068122368]
 position = Vector2(-11.4, 28.2)
 rotation = 0.4636476
 scale = Vector2(1.0039946, 1.0043784)
@@ -3455,7 +3442,7 @@ variants = {
 12: ExtResource("59_omix8")
 }
 
-[node name="p1_58_s69" type="Node2D" parent="Parts/hurt" unique_id=37906339]
+[node name="p1_58_s69" type="Node2D" parent="Parts/hurt" unique_id=907833716]
 position = Vector2(17.45, 1.8)
 rotation = 0.030990075
 scale = Vector2(1.0004804, 1.0004804)
@@ -3469,16 +3456,16 @@ variants = {
 7: ExtResource("73_l4gdx")
 }
 
-[node name="p1_64" type="Sprite2D" parent="Parts/hurt" unique_id=234975623]
+[node name="p1_64" type="Sprite2D" parent="Parts/hurt" unique_id=1170292807]
 position = Vector2(-8.650001, -21.95)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("136_jkluk")
 centered = false
 
-[node name="hit4" type="Node2D" parent="Parts" unique_id=2144617217]
+[node name="hit4" type="Node2D" parent="Parts" unique_id=1901129647]
 visible = false
 
-[node name="p1_1_s14" type="Node2D" parent="Parts/hit4" unique_id=613353346]
+[node name="p1_1_s14" type="Node2D" parent="Parts/hit4" unique_id=8914929]
 position = Vector2(-16.55, -69.85)
 rotation = -0.073089235
 scale = Vector2(0.99966896, 0.99966896)
@@ -3489,25 +3476,25 @@ variants = {
 3: ExtResource("4_jeiuh")
 }
 
-[node name="p1_7" type="Sprite2D" parent="Parts/hit4" unique_id=1248276273]
+[node name="p1_7" type="Sprite2D" parent="Parts/hit4" unique_id=1167058032]
 position = Vector2(-23.95, -7.3)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("137_4hnch")
 centered = false
 
-[node name="p1_8" type="Sprite2D" parent="Parts/hit4" unique_id=1977330949]
+[node name="p1_8" type="Sprite2D" parent="Parts/hit4" unique_id=1102052385]
 position = Vector2(-59.5, -19.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("138_ngk7m")
 centered = false
 
-[node name="p1_12" type="Sprite2D" parent="Parts/hit4" unique_id=824470993]
+[node name="p1_12" type="Sprite2D" parent="Parts/hit4" unique_id=1534857831]
 position = Vector2(-22.5, -25.95)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("139_4wr3b")
 centered = false
 
-[node name="p1_13_s40" type="Node2D" parent="Parts/hit4" unique_id=116478662]
+[node name="p1_13_s40" type="Node2D" parent="Parts/hit4" unique_id=1559427635]
 position = Vector2(-8.25, 38.95)
 scale = Vector2(1, 0.857)
 script = ExtResource("2_gxfcr")
@@ -3522,7 +3509,7 @@ variants = {
 11: ExtResource("31_qxjku")
 }
 
-[node name="p1_16_s49" type="Node2D" parent="Parts/hit4" unique_id=188463742]
+[node name="p1_16_s49" type="Node2D" parent="Parts/hit4" unique_id=1560555886]
 position = Vector2(11.65, 36.85)
 rotation = -0.04027513
 scale = Vector2(0.94376534, 1.05825)
@@ -3539,13 +3526,13 @@ variants = {
 11: ExtResource("39_6vw2d")
 }
 
-[node name="p1_21" type="Sprite2D" parent="Parts/hit4" unique_id=664878254]
+[node name="p1_21" type="Sprite2D" parent="Parts/hit4" unique_id=754655861]
 position = Vector2(-21.050001, -7.6)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("140_6mte8")
 centered = false
 
-[node name="p1_22_s61" type="Node2D" parent="Parts/hit4" unique_id=90181001]
+[node name="p1_22_s61" type="Node2D" parent="Parts/hit4" unique_id=1913140961]
 position = Vector2(0.45, 9.15)
 rotation = 0.04097705
 scale = Vector2(1.0008402, 1.0011444)
@@ -3565,13 +3552,13 @@ variants = {
 12: ExtResource("50_47dgj")
 }
 
-[node name="p1_29" type="Sprite2D" parent="Parts/hit4" unique_id=852920098]
+[node name="p1_29" type="Sprite2D" parent="Parts/hit4" unique_id=840818137]
 position = Vector2(-21.95, -9.7)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("141_7r3y1")
 centered = false
 
-[node name="p1_30_s86" type="Node2D" parent="Parts/hit4" unique_id=899747655]
+[node name="p1_30_s86" type="Node2D" parent="Parts/hit4" unique_id=662561515]
 position = Vector2(0.35, 39)
 rotation = -0.112746276
 scale = Vector2(1.004377, 0.996392)
@@ -3588,7 +3575,7 @@ variants = {
 12: ExtResource("59_omix8")
 }
 
-[node name="p1_34_s22" type="Node2D" parent="Parts/hit4" unique_id=1722827321]
+[node name="p1_34_s22" type="Node2D" parent="Parts/hit4" unique_id=619248551]
 position = Vector2(16.85, 4.3)
 rotation = 2.15769
 scale = Vector2(1.0004025, 1.0004025)
@@ -3602,7 +3589,7 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_37_s69" type="Node2D" parent="Parts/hit4" unique_id=1355818527]
+[node name="p1_37_s69" type="Node2D" parent="Parts/hit4" unique_id=1674681253]
 position = Vector2(16.5, 5.95)
 rotation = 1.2303947
 scale = Vector2(1.0004025, 0.99945986)
@@ -3617,25 +3604,25 @@ variants = {
 7: ExtResource("73_l4gdx")
 }
 
-[node name="p1_40" type="Sprite2D" parent="Parts/hit4" unique_id=1055215661]
+[node name="p1_40" type="Sprite2D" parent="Parts/hit4" unique_id=2141916634]
 position = Vector2(-51.15, -37.25)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("142_jx6vs")
 centered = false
 
-[node name="p1_43" type="Sprite2D" parent="Parts/hit4" unique_id=1177733487]
+[node name="p1_43" type="Sprite2D" parent="Parts/hit4" unique_id=195336639]
 position = Vector2(-18.650002, -53.85)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("143_1pqon")
 centered = false
 
-[node name="p1_48" type="Sprite2D" parent="Parts/hit4" unique_id=1011341201]
+[node name="p1_48" type="Sprite2D" parent="Parts/hit4" unique_id=195948770]
 position = Vector2(-47.3, -38.6)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("144_nikpm")
 centered = false
 
-[node name="p1_49_s77" type="Node2D" parent="Parts/hit4" unique_id=1119941644]
+[node name="p1_49_s77" type="Node2D" parent="Parts/hit4" unique_id=818887845]
 position = Vector2(0.85, -16.4)
 rotation = 0.3942525
 scale = Vector2(0.99969244, 0.99969244)
@@ -3649,7 +3636,7 @@ variants = {
 12: ExtResource("67_ins6h")
 }
 
-[node name="p1_58_s86" type="Node2D" parent="Parts/hit4" unique_id=1650636735]
+[node name="p1_58_s86" type="Node2D" parent="Parts/hit4" unique_id=834026280]
 position = Vector2(0.5, 35.4)
 rotation = 0.008963903
 scale = Vector2(1.0040402, 0.99635786)
@@ -3666,35 +3653,27 @@ variants = {
 12: ExtResource("59_omix8")
 }
 
-[node name="p1_58" type="Sprite2D" parent="Parts/hit4" unique_id=1328745598]
+[node name="p1_58" type="Sprite2D" parent="Parts/hit4" unique_id=746994398]
 position = Vector2(-51.15, -16.85)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("145_1lx7b")
 centered = false
 
-[node name="g1_59_f0" type="CanvasGroup" parent="Parts/hit4" unique_id=751116954]
+[node name="p1_59_1_f0" type="Sprite2D" parent="Parts/hit4" unique_id=2043499634]
 material = SubResource("ShaderMaterial_n1rid")
-fit_margin = 4.0
-clear_margin = 4.0
-
-[node name="p1_59_1_f0" type="Sprite2D" parent="Parts/hit4/g1_59_f0" unique_id=104945390]
 position = Vector2(-66.053, 12.213301)
 scale = Vector2(0.303, 0.303)
 texture = ExtResource("147_mguhj")
 centered = false
 
-[node name="g1_61_f0" type="CanvasGroup" parent="Parts/hit4" unique_id=1825660515]
+[node name="p1_61_1_f0" type="Sprite2D" parent="Parts/hit4" unique_id=1779589622]
 material = SubResource("ShaderMaterial_n1rid")
-fit_margin = 4.0
-clear_margin = 4.0
-
-[node name="p1_61_1_f0" type="Sprite2D" parent="Parts/hit4/g1_61_f0" unique_id=1496249643]
 position = Vector2(-49.553, 14.163298)
 scale = Vector2(0.303, 0.303)
 texture = ExtResource("147_mguhj")
 centered = false
 
-[node name="p1_62_s69" type="Node2D" parent="Parts/hit4" unique_id=1951734456]
+[node name="p1_62_s69" type="Node2D" parent="Parts/hit4" unique_id=877463192]
 position = Vector2(9.6, 9.6)
 rotation = 2.2029002
 scale = Vector2(1.000265, 1.000265)
@@ -3708,19 +3687,15 @@ variants = {
 7: ExtResource("73_l4gdx")
 }
 
-[node name="g1_63_1_1_f1" type="CanvasGroup" parent="Parts/hit4" unique_id=609859269]
-material = SubResource("ShaderMaterial_8ivyp")
-fit_margin = 4.0
-clear_margin = 4.0
-
-[node name="p1_63_1_1_1_f1" type="Sprite2D" parent="Parts/hit4/g1_63_1_1_f1" unique_id=929299223]
+[node name="p1_63_1_1_1_f1" type="Sprite2D" parent="Parts/hit4" unique_id=555703132]
 modulate = Color(1, 1, 1, 0.238)
+material = SubResource("ShaderMaterial_8ivyp")
 position = Vector2(-94.910995, 25.092)
 scale = Vector2(0.1545, 0.1995)
 texture = ExtResource("148_3hjom")
 centered = false
 
-[node name="p1_63_1_3_2" type="Sprite2D" parent="Parts/hit4" unique_id=1961278644]
+[node name="p1_63_1_3_2" type="Sprite2D" parent="Parts/hit4" unique_id=1926124254]
 modulate = Color(1, 1, 1, 0.539)
 position = Vector2(-122.573, -0.15)
 scale = Vector2(0.1985, 0.177)
@@ -3728,19 +3703,15 @@ texture = ExtResource("149_tmicp")
 centered = false
 region_enabled = true
 
-[node name="g1_63_5_1_f1" type="CanvasGroup" parent="Parts/hit4" unique_id=584333362]
-material = SubResource("ShaderMaterial_8ivyp")
-fit_margin = 4.0
-clear_margin = 4.0
-
-[node name="p1_63_5_1_1_f1" type="Sprite2D" parent="Parts/hit4/g1_63_5_1_f1" unique_id=1308764374]
+[node name="p1_63_5_1_1_f1" type="Sprite2D" parent="Parts/hit4" unique_id=904462299]
 modulate = Color(1, 1, 1, 0.238)
+material = SubResource("ShaderMaterial_8ivyp")
 position = Vector2(-189.511, 26.242)
 scale = Vector2(0.1545, 0.1995)
 texture = ExtResource("148_3hjom")
 centered = false
 
-[node name="p1_63_5_3_2" type="Sprite2D" parent="Parts/hit4" unique_id=1851796237]
+[node name="p1_63_5_3_2" type="Sprite2D" parent="Parts/hit4" unique_id=1440447743]
 modulate = Color(1, 1, 1, 0.539)
 position = Vector2(-217.173, 1)
 scale = Vector2(0.1985, 0.177)
@@ -3748,19 +3719,15 @@ texture = ExtResource("149_tmicp")
 centered = false
 region_enabled = true
 
-[node name="g1_63_9_1_f1" type="CanvasGroup" parent="Parts/hit4" unique_id=44923499]
-material = SubResource("ShaderMaterial_8ivyp")
-fit_margin = 4.0
-clear_margin = 4.0
-
-[node name="p1_63_9_1_1_f1" type="Sprite2D" parent="Parts/hit4/g1_63_9_1_f1" unique_id=1252637640]
+[node name="p1_63_9_1_1_f1" type="Sprite2D" parent="Parts/hit4" unique_id=233997594]
 modulate = Color(1, 1, 1, 0.238)
+material = SubResource("ShaderMaterial_8ivyp")
 position = Vector2(-287.911, 28.542)
 scale = Vector2(0.1545, 0.1995)
 texture = ExtResource("148_3hjom")
 centered = false
 
-[node name="p1_63_9_3_2" type="Sprite2D" parent="Parts/hit4" unique_id=153023128]
+[node name="p1_63_9_3_2" type="Sprite2D" parent="Parts/hit4" unique_id=1870592752]
 modulate = Color(1, 1, 1, 0.539)
 position = Vector2(-315.573, 3.3)
 scale = Vector2(0.1985, 0.177)
@@ -3768,10 +3735,10 @@ texture = ExtResource("149_tmicp")
 centered = false
 region_enabled = true
 
-[node name="hit5" type="Node2D" parent="Parts" unique_id=452207978]
+[node name="hit5" type="Node2D" parent="Parts" unique_id=617137310]
 visible = false
 
-[node name="p1_1_s14" type="Node2D" parent="Parts/hit5" unique_id=457484625]
+[node name="p1_1_s14" type="Node2D" parent="Parts/hit5" unique_id=526757020]
 position = Vector2(-7.55, -81.15)
 rotation = 0.048011124
 scale = Vector2(1.0001525, 1.0001525)
@@ -3782,25 +3749,25 @@ variants = {
 3: ExtResource("4_jeiuh")
 }
 
-[node name="p1_1_1" type="Sprite2D" parent="Parts/hit5" unique_id=1287806376]
+[node name="p1_1_1" type="Sprite2D" parent="Parts/hit5" unique_id=654529483]
 position = Vector2(-77.8, -61.75)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("150_f5gat")
 centered = false
 
-[node name="p1_4" type="Sprite2D" parent="Parts/hit5" unique_id=342474683]
+[node name="p1_4" type="Sprite2D" parent="Parts/hit5" unique_id=200894495]
 position = Vector2(-32.55, -14.049999)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("114_35057")
 centered = false
 
-[node name="p1_10" type="Sprite2D" parent="Parts/hit5" unique_id=494653846]
+[node name="p1_10" type="Sprite2D" parent="Parts/hit5" unique_id=1025006718]
 position = Vector2(-26.45, -23.8)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("151_75xea")
 centered = false
 
-[node name="p1_11_s22" type="Node2D" parent="Parts/hit5" unique_id=1801083063]
+[node name="p1_11_s22" type="Node2D" parent="Parts/hit5" unique_id=802280419]
 position = Vector2(1.3, 4.65)
 rotation = 2.309466
 scale = Vector2(0.787162, 0.787162)
@@ -3814,19 +3781,19 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_15" type="Sprite2D" parent="Parts/hit5" unique_id=820971617]
+[node name="p1_15" type="Sprite2D" parent="Parts/hit5" unique_id=728970727]
 position = Vector2(-11.599999, -9.7)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("152_agw4u")
 centered = false
 
-[node name="p1_21" type="Sprite2D" parent="Parts/hit5" unique_id=1455282119]
+[node name="p1_21" type="Sprite2D" parent="Parts/hit5" unique_id=1718007339]
 position = Vector2(-20.35, -9.7)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("115_lrvcc")
 centered = false
 
-[node name="p1_22_s40" type="Node2D" parent="Parts/hit5" unique_id=420519489]
+[node name="p1_22_s40" type="Node2D" parent="Parts/hit5" unique_id=2037354630]
 position = Vector2(-8.25, 38.95)
 scale = Vector2(1, 0.857)
 script = ExtResource("2_gxfcr")
@@ -3841,7 +3808,7 @@ variants = {
 11: ExtResource("31_qxjku")
 }
 
-[node name="p1_25_s49" type="Node2D" parent="Parts/hit5" unique_id=964299773]
+[node name="p1_25_s49" type="Node2D" parent="Parts/hit5" unique_id=1999619480]
 position = Vector2(11.65, 36.85)
 rotation = -0.04027513
 scale = Vector2(0.94376534, 1.05825)
@@ -3858,7 +3825,7 @@ variants = {
 11: ExtResource("39_6vw2d")
 }
 
-[node name="p1_28_s61" type="Node2D" parent="Parts/hit5" unique_id=560014492]
+[node name="p1_28_s61" type="Node2D" parent="Parts/hit5" unique_id=515235598]
 position = Vector2(0.25, 9.8)
 scale = Vector2(1, 1.0001445)
 skew = -0.01699841
@@ -3877,7 +3844,7 @@ variants = {
 12: ExtResource("50_47dgj")
 }
 
-[node name="p1_34_s86" type="Node2D" parent="Parts/hit5" unique_id=492222719]
+[node name="p1_34_s86" type="Node2D" parent="Parts/hit5" unique_id=1090511216]
 position = Vector2(0.5, 35.4)
 rotation = 0.008963903
 scale = Vector2(1.0040402, 0.99635786)
@@ -3894,13 +3861,13 @@ variants = {
 12: ExtResource("59_omix8")
 }
 
-[node name="p1_39" type="Sprite2D" parent="Parts/hit5" unique_id=987905182]
+[node name="p1_39" type="Sprite2D" parent="Parts/hit5" unique_id=1091921926]
 position = Vector2(-23.300001, 0.8)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("153_3wq3s")
 centered = false
 
-[node name="p1_40_s22" type="Node2D" parent="Parts/hit5" unique_id=782227698]
+[node name="p1_40_s22" type="Node2D" parent="Parts/hit5" unique_id=160136337]
 position = Vector2(13.5, 2.9)
 rotation = 1.7858694
 scale = Vector2(0.96523833, 0.96426135)
@@ -3915,7 +3882,7 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_43_s30" type="Node2D" parent="Parts/hit5" unique_id=904073182]
+[node name="p1_43_s30" type="Node2D" parent="Parts/hit5" unique_id=1951247684]
 position = Vector2(-19.65, -25.5)
 rotation = -0.54110557
 scale = Vector2(0.999837, 0.999837)
@@ -3930,7 +3897,7 @@ variants = {
 6: ExtResource("21_d7q8e")
 }
 
-[node name="p1_46_s22" type="Node2D" parent="Parts/hit5" unique_id=1876606333]
+[node name="p1_46_s22" type="Node2D" parent="Parts/hit5" unique_id=1879023134]
 position = Vector2(14.45, 0)
 rotation = 1.5241497
 scale = Vector2(0.96504974, 0.96504974)
@@ -3944,19 +3911,19 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_52" type="Sprite2D" parent="Parts/hit5" unique_id=530941767]
+[node name="p1_52" type="Sprite2D" parent="Parts/hit5" unique_id=1955334658]
 position = Vector2(-18.45, -51.7)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("154_5bhg3")
 centered = false
 
-[node name="p1_55" type="Sprite2D" parent="Parts/hit5" unique_id=933292194]
+[node name="p1_55" type="Sprite2D" parent="Parts/hit5" unique_id=1445397240]
 position = Vector2(-20.35, -51.1)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("155_s0043")
 centered = false
 
-[node name="p1_56_s77" type="Node2D" parent="Parts/hit5" unique_id=676411478]
+[node name="p1_56_s77" type="Node2D" parent="Parts/hit5" unique_id=540449395]
 position = Vector2(-0.2, -14.4)
 rotation = 0.551393
 scale = Vector2(1.00024, 1.00024)
@@ -3970,7 +3937,7 @@ variants = {
 12: ExtResource("67_ins6h")
 }
 
-[node name="p1_65_s69" type="Node2D" parent="Parts/hit5" unique_id=1262895210]
+[node name="p1_65_s69" type="Node2D" parent="Parts/hit5" unique_id=641624983]
 position = Vector2(10.4, 7.35)
 rotation = 1.4495411
 scale = Vector2(1.000345, 1.000345)
@@ -3984,10 +3951,10 @@ variants = {
 7: ExtResource("73_l4gdx")
 }
 
-[node name="hit6" type="Node2D" parent="Parts" unique_id=1297176725]
+[node name="hit6" type="Node2D" parent="Parts" unique_id=498736806]
 visible = false
 
-[node name="p1_1_s14" type="Node2D" parent="Parts/hit6" unique_id=40805935]
+[node name="p1_1_s14" type="Node2D" parent="Parts/hit6" unique_id=264268619]
 position = Vector2(-10.5, -77.5)
 rotation = -0.043016493
 scale = Vector2(0.999925, 0.999925)
@@ -3998,13 +3965,13 @@ variants = {
 3: ExtResource("4_jeiuh")
 }
 
-[node name="p1_8" type="Sprite2D" parent="Parts/hit6" unique_id=402204019]
+[node name="p1_8" type="Sprite2D" parent="Parts/hit6" unique_id=2112126698]
 position = Vector2(-27.5, -8.950001)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("156_ssl6s")
 centered = false
 
-[node name="p1_9_s40" type="Node2D" parent="Parts/hit6" unique_id=741100999]
+[node name="p1_9_s40" type="Node2D" parent="Parts/hit6" unique_id=1648404304]
 position = Vector2(-3.35, 38.35)
 scale = Vector2(1, 0.857)
 script = ExtResource("2_gxfcr")
@@ -4019,13 +3986,13 @@ variants = {
 11: ExtResource("31_qxjku")
 }
 
-[node name="p1_15" type="Sprite2D" parent="Parts/hit6" unique_id=1261962900]
+[node name="p1_15" type="Sprite2D" parent="Parts/hit6" unique_id=352445021]
 position = Vector2(-13.05, -7.65)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("157_2cvjg")
 centered = false
 
-[node name="p1_16_s49" type="Node2D" parent="Parts/hit6" unique_id=1007931413]
+[node name="p1_16_s49" type="Node2D" parent="Parts/hit6" unique_id=360946091]
 position = Vector2(17.3, 37.1)
 rotation = -0.04027513
 scale = Vector2(0.94376534, 1.05825)
@@ -4042,7 +4009,7 @@ variants = {
 11: ExtResource("39_6vw2d")
 }
 
-[node name="p1_19_s61" type="Node2D" parent="Parts/hit6" unique_id=853188738]
+[node name="p1_19_s61" type="Node2D" parent="Parts/hit6" unique_id=1280759595]
 position = Vector2(5.65, 8.9)
 scale = Vector2(1, 1.0009675)
 skew = -0.043971658
@@ -4061,13 +4028,13 @@ variants = {
 12: ExtResource("50_47dgj")
 }
 
-[node name="p1_31" type="Sprite2D" parent="Parts/hit6" unique_id=508196151]
+[node name="p1_31" type="Sprite2D" parent="Parts/hit6" unique_id=1487472502]
 position = Vector2(-30.3, -46.4)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("61_wukof")
 centered = false
 
-[node name="p1_32_s77" type="Node2D" parent="Parts/hit6" unique_id=1878950042]
+[node name="p1_32_s77" type="Node2D" parent="Parts/hit6" unique_id=540282321]
 position = Vector2(-1.6, -7.95)
 rotation = 0.018997714
 scale = Vector2(1.0001805, 1.0001805)
@@ -4081,13 +4048,13 @@ variants = {
 12: ExtResource("67_ins6h")
 }
 
-[node name="p1_42" type="Sprite2D" parent="Parts/hit6" unique_id=1416313035]
+[node name="p1_42" type="Sprite2D" parent="Parts/hit6" unique_id=1089762788]
 position = Vector2(-26.5, -1.5999999)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("158_cl246")
 centered = false
 
-[node name="p1_43_s86" type="Node2D" parent="Parts/hit6" unique_id=435132834]
+[node name="p1_43_s86" type="Node2D" parent="Parts/hit6" unique_id=1382655076]
 position = Vector2(5.9, 35.85)
 rotation = 0.008963903
 scale = Vector2(1.0040402, 0.99635786)
@@ -4104,7 +4071,7 @@ variants = {
 12: ExtResource("59_omix8")
 }
 
-[node name="p1_47_s22" type="Node2D" parent="Parts/hit6" unique_id=405126000]
+[node name="p1_47_s22" type="Node2D" parent="Parts/hit6" unique_id=235090929]
 position = Vector2(13.65, 10.6)
 rotation = 2.0478878
 scale = Vector2(0.96472687, 0.96472687)
@@ -4118,7 +4085,7 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_50_s69" type="Node2D" parent="Parts/hit6" unique_id=258900368]
+[node name="p1_50_s69" type="Node2D" parent="Parts/hit6" unique_id=1912425466]
 position = Vector2(6.25, 12.5)
 rotation = 1.7112789
 scale = Vector2(0.99985, 0.99985)
@@ -4132,173 +4099,120 @@ variants = {
 7: ExtResource("73_l4gdx")
 }
 
-[node name="p1_55_4_1_1" type="Sprite2D" parent="Parts/hit6" unique_id=13169113]
+[node name="p1_55_4_1_1" type="Sprite2D" parent="Parts/hit6" unique_id=36260124]
 modulate = Color(1, 1, 1, 0)
 position = Vector2(-48.2, -51.399998)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("159_60se8")
 centered = false
 
-[node name="p1_60_1" type="Sprite2D" parent="Parts/hit6" unique_id=832997607]
+[node name="p1_60_1" type="Sprite2D" parent="Parts/hit6" unique_id=2097285963]
 position = Vector2(-53.75, 40.75)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("160_eokq4")
 centered = false
 
-[node name="p1_60_1_1" type="Sprite2D" parent="Parts/hit6" unique_id=1837374537]
+[node name="p1_60_1_1" type="Sprite2D" parent="Parts/hit6" unique_id=1434574623]
 modulate = Color(1.0039607, 1.0039607, 1.0039607, 1)
 position = Vector2(-50.25, -23.750002)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("161_3u28x")
 centered = false
 
-[node name="g1_62_1_f2" type="CanvasGroup" parent="Parts/hit6" unique_id=1761987181]
+[node name="p1_62_1_1_f2" type="Sprite2D" parent="Parts/hit6" unique_id=1439144270]
 material = SubResource("ShaderMaterial_xui13")
-fit_margin = 26.0
-clear_margin = 26.0
-
-[node name="p1_62_1_1_f2" type="Sprite2D" parent="Parts/hit6/g1_62_1_f2" unique_id=1307386385]
 position = Vector2(-60.75, -18)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("162_2wrbs")
 centered = false
 
-[node name="g1_62_1_f3" type="CanvasGroup" parent="Parts/hit6" unique_id=1207831211]
+[node name="p1_62_1_1_f3" type="Sprite2D" parent="Parts/hit6" unique_id=1820645720]
 material = SubResource("ShaderMaterial_al7jy")
-fit_margin = 22.333221
-clear_margin = 22.333221
-
-[node name="p1_62_1_1_f3" type="Sprite2D" parent="Parts/hit6/g1_62_1_f3" unique_id=10267407]
 position = Vector2(-60.75, -18)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("162_2wrbs")
 centered = false
 
-[node name="g1_62_1_f4" type="CanvasGroup" parent="Parts/hit6" unique_id=497052132]
+[node name="p1_62_1_1_f4" type="Sprite2D" parent="Parts/hit6" unique_id=1930156313]
 material = SubResource("ShaderMaterial_e5nhq")
-fit_margin = 18.666779
-clear_margin = 18.666779
-
-[node name="p1_62_1_1_f4" type="Sprite2D" parent="Parts/hit6/g1_62_1_f4" unique_id=1170859218]
 position = Vector2(-96.75, -13.65)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("163_vuxo0")
 centered = false
 
-[node name="g1_62_1_f5" type="CanvasGroup" parent="Parts/hit6" unique_id=440032597]
+[node name="p1_62_1_1_f5" type="Sprite2D" parent="Parts/hit6" unique_id=1682320807]
 material = SubResource("ShaderMaterial_12vtr")
-fit_margin = 15.0
-clear_margin = 15.0
-
-[node name="p1_62_1_1_f5" type="Sprite2D" parent="Parts/hit6/g1_62_1_f5" unique_id=1966261139]
 position = Vector2(-96.75, -13.65)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("163_vuxo0")
 centered = false
 
-[node name="g1_62_1_f6" type="CanvasGroup" parent="Parts/hit6" unique_id=691368598]
+[node name="p1_62_1_1_f6" type="Sprite2D" parent="Parts/hit6" unique_id=85492233]
 material = SubResource("ShaderMaterial_gap8v")
-fit_margin = 11.333221
-clear_margin = 11.333221
-
-[node name="p1_62_1_1_f6" type="Sprite2D" parent="Parts/hit6/g1_62_1_f6" unique_id=251593271]
 position = Vector2(-74.55, -6.7999997)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("164_6ow6a")
 centered = false
 
-[node name="g1_62_1_f7" type="CanvasGroup" parent="Parts/hit6" unique_id=506988431]
+[node name="p1_62_1_1_f7" type="Sprite2D" parent="Parts/hit6" unique_id=655190763]
 material = SubResource("ShaderMaterial_g6pr6")
-fit_margin = 7.6667786
-clear_margin = 7.6667786
-
-[node name="p1_62_1_1_f7" type="Sprite2D" parent="Parts/hit6/g1_62_1_f7" unique_id=1665204609]
 position = Vector2(-74.55, -6.7999997)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("164_6ow6a")
 centered = false
 
-[node name="g1_62_1_f8" type="CanvasGroup" parent="Parts/hit6" unique_id=2070245672]
+[node name="p1_62_1_1_f8" type="Sprite2D" parent="Parts/hit6" unique_id=1351848505]
+position = Vector2(-29.85, -11.25)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("165_8chul")
+centered = false
+
+[node name="p1_62_1_1_f9" type="Sprite2D" parent="Parts/hit6" unique_id=1430679148]
 material = SubResource("ShaderMaterial_6u5rl")
-fit_margin = 4.0
-clear_margin = 4.0
-
-[node name="p1_62_1_1_f8" type="Sprite2D" parent="Parts/hit6/g1_62_1_f8" unique_id=1327170923]
 position = Vector2(-29.85, -11.25)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("165_8chul")
 centered = false
 
-[node name="g1_62_1_f9" type="CanvasGroup" parent="Parts/hit6" unique_id=14344463]
+[node name="p1_62_1_1_f10" type="Sprite2D" parent="Parts/hit6" unique_id=1972944927]
 material = SubResource("ShaderMaterial_ek51t")
-fit_margin = 7.142761
-clear_margin = 7.142761
-
-[node name="p1_62_1_1_f9" type="Sprite2D" parent="Parts/hit6/g1_62_1_f9" unique_id=1508077931]
-position = Vector2(-29.85, -11.25)
+position = Vector2(36.899998, -12.1)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("165_8chul")
+texture = ExtResource("166_cu5n6")
 centered = false
 
-[node name="g1_62_1_f10" type="CanvasGroup" parent="Parts/hit6" unique_id=394466810]
+[node name="p1_62_1_1_f11" type="Sprite2D" parent="Parts/hit6" unique_id=35507326]
 material = SubResource("ShaderMaterial_yfiy6")
-fit_margin = 10.285858
-clear_margin = 10.285858
-
-[node name="p1_62_1_1_f10" type="Sprite2D" parent="Parts/hit6/g1_62_1_f10" unique_id=624071528]
 position = Vector2(36.899998, -12.1)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("166_cu5n6")
 centered = false
 
-[node name="g1_62_1_f11" type="CanvasGroup" parent="Parts/hit6" unique_id=2042601558]
+[node name="p1_62_1_1_f12" type="Sprite2D" parent="Parts/hit6" unique_id=1143249640]
 material = SubResource("ShaderMaterial_rq2ua")
-fit_margin = 13.428619
-clear_margin = 13.428619
-
-[node name="p1_62_1_1_f11" type="Sprite2D" parent="Parts/hit6/g1_62_1_f11" unique_id=606580565]
-position = Vector2(36.899998, -12.1)
+position = Vector2(63.8, -21.800001)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("166_cu5n6")
+texture = ExtResource("167_673ax")
 centered = false
 
-[node name="g1_62_1_f12" type="CanvasGroup" parent="Parts/hit6" unique_id=1310527948]
+[node name="p1_62_1_1_f13" type="Sprite2D" parent="Parts/hit6" unique_id=557889746]
 material = SubResource("ShaderMaterial_dvgx1")
-fit_margin = 16.57138
-clear_margin = 16.57138
-
-[node name="p1_62_1_1_f12" type="Sprite2D" parent="Parts/hit6/g1_62_1_f12" unique_id=2075119764]
 position = Vector2(63.8, -21.800001)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("167_673ax")
 centered = false
 
-[node name="g1_62_1_f13" type="CanvasGroup" parent="Parts/hit6" unique_id=1903628064]
+[node name="p1_62_1_1_f14" type="Sprite2D" parent="Parts/hit6" unique_id=91214391]
 material = SubResource("ShaderMaterial_yrvtg")
-fit_margin = 19.714142
-clear_margin = 19.714142
-
-[node name="p1_62_1_1_f13" type="Sprite2D" parent="Parts/hit6/g1_62_1_f13" unique_id=75526705]
-position = Vector2(63.8, -21.800001)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("167_673ax")
-centered = false
-
-[node name="g1_62_1_f14" type="CanvasGroup" parent="Parts/hit6" unique_id=184210739]
-material = SubResource("ShaderMaterial_kikyg")
-fit_margin = 22.857239
-clear_margin = 22.857239
-
-[node name="p1_62_1_1_f14" type="Sprite2D" parent="Parts/hit6/g1_62_1_f14" unique_id=1275336126]
 position = Vector2(45.249996, -21.75)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("168_6x1vh")
 centered = false
 
-[node name="hit7-1" type="Node2D" parent="Parts" unique_id=1812554247]
+[node name="hit7-1" type="Node2D" parent="Parts" unique_id=971942716]
 visible = false
 
-[node name="p1_1_s14" type="Node2D" parent="Parts/hit7-1" unique_id=1721540774]
+[node name="p1_1_s14" type="Node2D" parent="Parts/hit7-1" unique_id=861378097]
 position = Vector2(-17, -71.55)
 rotation = -0.08206204
 scale = Vector2(1.0003664, 1.0003664)
@@ -4309,13 +4223,13 @@ variants = {
 3: ExtResource("4_jeiuh")
 }
 
-[node name="p1_4" type="Sprite2D" parent="Parts/hit7-1" unique_id=1229691724]
+[node name="p1_4" type="Sprite2D" parent="Parts/hit7-1" unique_id=565949923]
 position = Vector2(-23.2, 0.35)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("114_35057")
 centered = false
 
-[node name="p1_5_s22" type="Node2D" parent="Parts/hit7-1" unique_id=70375158]
+[node name="p1_5_s22" type="Node2D" parent="Parts/hit7-1" unique_id=865704836]
 position = Vector2(11.45, 15.75)
 rotation = 2.2057714
 scale = Vector2(0.82102984, 0.82102984)
@@ -4329,13 +4243,13 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_16" type="Sprite2D" parent="Parts/hit7-1" unique_id=673701242]
+[node name="p1_16" type="Sprite2D" parent="Parts/hit7-1" unique_id=1170792524]
 position = Vector2(-18.35, -9.7)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("116_hr7l1")
 centered = false
 
-[node name="p1_17_s49" type="Node2D" parent="Parts/hit7-1" unique_id=192893917]
+[node name="p1_17_s49" type="Node2D" parent="Parts/hit7-1" unique_id=1904985490]
 position = Vector2(13.65, 36.85)
 rotation = -0.04027513
 scale = Vector2(0.94376534, 1.05825)
@@ -4352,7 +4266,7 @@ variants = {
 11: ExtResource("39_6vw2d")
 }
 
-[node name="p1_20_s40" type="Node2D" parent="Parts/hit7-1" unique_id=1476788887]
+[node name="p1_20_s40" type="Node2D" parent="Parts/hit7-1" unique_id=1480632511]
 position = Vector2(-6.25, 38.95)
 scale = Vector2(1, 0.857)
 script = ExtResource("2_gxfcr")
@@ -4367,7 +4281,7 @@ variants = {
 11: ExtResource("31_qxjku")
 }
 
-[node name="p1_23_s61" type="Node2D" parent="Parts/hit7-1" unique_id=816504799]
+[node name="p1_23_s61" type="Node2D" parent="Parts/hit7-1" unique_id=433635468]
 position = Vector2(2.45, 9.8)
 scale = Vector2(1, 1.000018)
 skew = -0.0059999228
@@ -4386,7 +4300,7 @@ variants = {
 12: ExtResource("50_47dgj")
 }
 
-[node name="p1_29_s86" type="Node2D" parent="Parts/hit7-1" unique_id=1550729785]
+[node name="p1_29_s86" type="Node2D" parent="Parts/hit7-1" unique_id=630451629]
 position = Vector2(2.5, 35.4)
 rotation = 0.008963903
 scale = Vector2(1.0040402, 0.99635786)
@@ -4403,7 +4317,7 @@ variants = {
 12: ExtResource("59_omix8")
 }
 
-[node name="p1_33_s30" type="Node2D" parent="Parts/hit7-1" unique_id=1502215794]
+[node name="p1_33_s30" type="Node2D" parent="Parts/hit7-1" unique_id=667278481]
 position = Vector2(2.05, -11.15)
 rotation = -0.016998364
 scale = Vector2(1.0001445, 1.0001445)
@@ -4418,13 +4332,13 @@ variants = {
 6: ExtResource("21_d7q8e")
 }
 
-[node name="p1_36" type="Sprite2D" parent="Parts/hit7-1" unique_id=1239769682]
+[node name="p1_36" type="Sprite2D" parent="Parts/hit7-1" unique_id=1795189776]
 position = Vector2(13.85, 7.75)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("117_ryl4w")
 centered = false
 
-[node name="p1_37_s22" type="Node2D" parent="Parts/hit7-1" unique_id=609160292]
+[node name="p1_37_s22" type="Node2D" parent="Parts/hit7-1" unique_id=1103920383]
 position = Vector2(9.1, -3.5)
 rotation = -0.016578794
 scale = Vector2(0.9651326, 0.9651326)
@@ -4438,13 +4352,13 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_46" type="Sprite2D" parent="Parts/hit7-1" unique_id=840221796]
+[node name="p1_46" type="Sprite2D" parent="Parts/hit7-1" unique_id=1967685453]
 position = Vector2(-31.05, -52.75)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("61_wukof")
 centered = false
 
-[node name="p1_47_s77" type="Node2D" parent="Parts/hit7-1" unique_id=89731348]
+[node name="p1_47_s77" type="Node2D" parent="Parts/hit7-1" unique_id=385009923]
 position = Vector2(-2.45, -14.4)
 rotation = 0.018997714
 scale = Vector2(1.0001805, 1.0001805)
@@ -4458,7 +4372,7 @@ variants = {
 12: ExtResource("67_ins6h")
 }
 
-[node name="p1_56_s69" type="Node2D" parent="Parts/hit7-1" unique_id=985927485]
+[node name="p1_56_s69" type="Node2D" parent="Parts/hit7-1" unique_id=2046394073]
 position = Vector2(16.55, 1.15)
 rotation = -0.1212552
 scale = Vector2(1.000345, 1.000345)
@@ -4472,72 +4386,72 @@ variants = {
 7: ExtResource("73_l4gdx")
 }
 
-[node name="p1_61_1" type="Sprite2D" parent="Parts/hit7-1" unique_id=1660620831]
+[node name="p1_61_1" type="Sprite2D" parent="Parts/hit7-1" unique_id=433034028]
 position = Vector2(-50.35, 18.45)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("169_i7gsy")
 centered = false
 
-[node name="p1_61_10" type="Sprite2D" parent="Parts/hit7-1" unique_id=1877352850]
+[node name="p1_61_10" type="Sprite2D" parent="Parts/hit7-1" unique_id=1159389100]
 position = Vector2(-69.75, -58.95)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("170_8topr")
 centered = false
 
-[node name="p1_61_20" type="Sprite2D" parent="Parts/hit7-1" unique_id=630002569]
+[node name="p1_61_20" type="Sprite2D" parent="Parts/hit7-1" unique_id=545224443]
 position = Vector2(-79.1, -71.75)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("171_1jclj")
 centered = false
 
-[node name="p1_61_59" type="Sprite2D" parent="Parts/hit7-1" unique_id=438304399]
+[node name="p1_61_59" type="Sprite2D" parent="Parts/hit7-1" unique_id=1543437088]
 position = Vector2(-77.75, -74.4)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("172_ojuci")
 centered = false
 
-[node name="p1_61_63" type="Sprite2D" parent="Parts/hit7-1" unique_id=4471573]
+[node name="p1_61_63" type="Sprite2D" parent="Parts/hit7-1" unique_id=1082539636]
 position = Vector2(-50.25, -54.7)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("173_v7at2")
 centered = false
 
-[node name="p1_61_66" type="Sprite2D" parent="Parts/hit7-1" unique_id=68687793]
+[node name="p1_61_66" type="Sprite2D" parent="Parts/hit7-1" unique_id=1322450714]
 position = Vector2(-56.3, -54.7)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("174_tfwdp")
 centered = false
 
-[node name="p1_61_69" type="Sprite2D" parent="Parts/hit7-1" unique_id=913351054]
+[node name="p1_61_69" type="Sprite2D" parent="Parts/hit7-1" unique_id=1868315660]
 position = Vector2(-79.1, -71.75)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("175_ftrix")
 centered = false
 
-[node name="p1_61_80" type="Sprite2D" parent="Parts/hit7-1" unique_id=1774861425]
+[node name="p1_61_80" type="Sprite2D" parent="Parts/hit7-1" unique_id=758595431]
 position = Vector2(-61.65, -69.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("176_h62sc")
 centered = false
 
-[node name="hit7-2" type="Node2D" parent="Parts" unique_id=43698952]
+[node name="hit7-2" type="Node2D" parent="Parts" unique_id=2071915190]
 visible = false
 
-[node name="p1_1_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=1951210607]
+[node name="p1_1_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=22770561]
 position = Vector2(30.248049, -32.69325)
 rotation = -0.19285658
 scale = Vector2(0.6913165, 0.6913165)
 texture = ExtResource("177_4ns6c")
 centered = false
 
-[node name="p1_1_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=1144234628]
+[node name="p1_1_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=173809061]
 position = Vector2(20.192749, -27.321499)
 rotation = -0.46295732
 scale = Vector2(0.9717953, 0.9717953)
 texture = ExtResource("178_da6u8")
 centered = false
 
-[node name="p1_6_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=1624894254]
+[node name="p1_6_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=2065469813]
 position = Vector2(2.9657993, -40.00375)
 rotation = -1.0297565
 scale = Vector2(0.6912252, 0.6916538)
@@ -4545,98 +4459,98 @@ skew = -0.0003722906
 texture = ExtResource("177_4ns6c")
 centered = false
 
-[node name="p1_6_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=1519219468]
+[node name="p1_6_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=1116380086]
 position = Vector2(0.23925018, -28.924751)
 rotation = -1.300483
 scale = Vector2(0.97178835, 0.97178835)
 texture = ExtResource("178_da6u8")
 centered = false
 
-[node name="p1_11_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=566025855]
+[node name="p1_11_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=1636409084]
 position = Vector2(-25.4058, -34.59445)
 rotation = -1.5577819
 scale = Vector2(0.6915586, 0.6915586)
 texture = ExtResource("177_4ns6c")
 centered = false
 
-[node name="p1_11_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=514122192]
+[node name="p1_11_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=272276810]
 position = Vector2(-22.193748, -23.6535)
 rotation = -1.828251
 scale = Vector2(0.97203714, 0.97203714)
 texture = ExtResource("178_da6u8")
 centered = false
 
-[node name="p1_16_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=158034701]
+[node name="p1_16_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=1481107981]
 position = Vector2(-42.7567, -20.4303)
 rotation = -2.116672
 scale = Vector2(0.69149256, 0.69149256)
 texture = ExtResource("177_4ns6c")
 centered = false
 
-[node name="p1_16_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=1932819648]
+[node name="p1_16_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=617337355]
 position = Vector2(-34.2333, -12.861349)
 rotation = -2.3871274
 scale = Vector2(0.971676, 0.971676)
 texture = ExtResource("178_da6u8")
 centered = false
 
-[node name="p1_21_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=1607551392]
+[node name="p1_21_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=1546081323]
 position = Vector2(45.430798, -8.9302)
 rotation = 0.21270916
 scale = Vector2(0.69158655, 0.69158655)
 texture = ExtResource("177_4ns6c")
 centered = false
 
-[node name="p1_21_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=718296873]
+[node name="p1_21_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=1303124527]
 position = Vector2(34.06615, -7.94295)
 rotation = -0.058151774
 scale = Vector2(0.97214323, 0.97214323)
 texture = ExtResource("178_da6u8")
 centered = false
 
-[node name="p1_26_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=1045285523]
+[node name="p1_26_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=262302238]
 position = Vector2(42.99065, 9.21245)
 rotation = 0.74039274
 scale = Vector2(0.6915436, 0.6915436)
 texture = ExtResource("177_4ns6c")
 centered = false
 
-[node name="p1_26_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=120354141]
+[node name="p1_26_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=2143794387]
 position = Vector2(32.68285, 4.3416996)
 rotation = 0.46986014
 scale = Vector2(0.9718139, 0.9718139)
 texture = ExtResource("178_da6u8")
 centered = false
 
-[node name="p1_31_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=2076923648]
+[node name="p1_31_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=746788167]
 position = Vector2(36.0083, 23.145098)
 rotation = 1.071565
 scale = Vector2(0.69138265, 0.69138265)
 texture = ExtResource("177_4ns6c")
 centered = false
 
-[node name="p1_31_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=440212677]
+[node name="p1_31_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=166333762]
 position = Vector2(27.847448, 15.1779)
 rotation = 0.8010389
 scale = Vector2(0.9720372, 0.9720372)
 texture = ExtResource("178_da6u8")
 centered = false
 
-[node name="p1_36_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=1863934073]
+[node name="p1_36_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=2075214012]
 position = Vector2(-44.22955, 3.9564)
 rotation = -2.88276
 scale = Vector2(0.6915354, 0.6915354)
 texture = ExtResource("177_4ns6c")
 centered = false
 
-[node name="p1_36_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=1406346947]
+[node name="p1_36_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=608116227]
 position = Vector2(-32.8345, 3.4977498)
 rotation = 3.129762
 scale = Vector2(0.972068, 0.972068)
 texture = ExtResource("178_da6u8")
 centered = false
 
-[node name="p1_41_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=46538390]
+[node name="p1_41_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=103932024]
 position = Vector2(-40.3328, 22.9947)
 rotation = 2.9685962
 scale = Vector2(0.69131905, 0.69123316)
@@ -4644,176 +4558,176 @@ skew = 0.0007125139
 texture = ExtResource("177_4ns6c")
 centered = false
 
-[node name="p1_41_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=1408567478]
+[node name="p1_41_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=1199811134]
 position = Vector2(-30.162798, 17.8219)
 rotation = 2.6981907
 scale = Vector2(0.97199434, 0.97199434)
 texture = ExtResource("178_da6u8")
 centered = false
 
-[node name="p1_46_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=1064243421]
+[node name="p1_46_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=1231211970]
 position = Vector2(-24.501596, 40.46955)
 rotation = 2.7426844
 scale = Vector2(0.6912751, 0.6912751)
 texture = ExtResource("177_4ns6c")
 centered = false
 
-[node name="p1_46_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=2084007447]
+[node name="p1_46_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=1038350742]
 position = Vector2(-15.759199, 33.145103)
 rotation = 2.4721553
 scale = Vector2(0.9717268, 0.9717268)
 texture = ExtResource("178_da6u8")
 centered = false
 
-[node name="p1_69" type="Sprite2D" parent="Parts/hit7-2" unique_id=1712186153]
+[node name="p1_69" type="Sprite2D" parent="Parts/hit7-2" unique_id=1484058320]
 position = Vector2(-59.8, -57.550003)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("179_4qrcu")
 centered = false
 
-[node name="p1_70_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=1869175598]
+[node name="p1_70_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=288966755]
 position = Vector2(28.6, -18.6)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("177_4ns6c")
 centered = false
 
-[node name="p1_70_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=705831054]
+[node name="p1_70_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=387078193]
 position = Vector2(20.71215, -16.1737)
 rotation = -0.27068037
 scale = Vector2(0.70310044, 0.70310044)
 texture = ExtResource("178_da6u8")
 centered = false
 
-[node name="p1_75_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=946469726]
+[node name="p1_75_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=1144555353]
 position = Vector2(13.21075, -30.548399)
 rotation = -0.6013093
 scale = Vector2(0.50024515, 0.50024515)
 texture = ExtResource("177_4ns6c")
 centered = false
 
-[node name="p1_75_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=50632594]
+[node name="p1_75_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=1261154539]
 position = Vector2(8.08765, -24.0917)
 rotation = -0.8715048
 scale = Vector2(0.70299375, 0.70299375)
 texture = ExtResource("178_da6u8")
 centered = false
 
-[node name="p1_80_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=2045408383]
+[node name="p1_80_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=1325740601]
 position = Vector2(-7.30085, -32.594448)
 rotation = -1.3377017
 scale = Vector2(0.5000225, 0.5000225)
 texture = ExtResource("177_4ns6c")
 centered = false
 
-[node name="p1_80_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=339880872]
+[node name="p1_80_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=203722298]
 position = Vector2(-6.75735, -24.359951)
 rotation = -1.6085008
 scale = Vector2(0.70299965, 0.70299965)
 texture = ExtResource("178_da6u8")
 centered = false
 
-[node name="p1_85_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=1534533918]
+[node name="p1_85_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=1771798]
 position = Vector2(-24.147549, -23.981499)
 rotation = -2.0228217
 scale = Vector2(0.5002422, 0.5002422)
 texture = ExtResource("177_4ns6c")
 centered = false
 
-[node name="p1_85_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=741161640]
+[node name="p1_85_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=1548776580]
 position = Vector2(-18.523, -17.95075)
 rotation = -2.2933052
 scale = Vector2(0.7031936, 0.7031936)
 texture = ExtResource("178_da6u8")
 centered = false
 
-[node name="p1_90_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=303479704]
+[node name="p1_90_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=1874266639]
 position = Vector2(-32.94935, -6.156599)
 rotation = -2.4802864
 scale = Vector2(0.49987924, 0.49987924)
 texture = ExtResource("177_4ns6c")
 centered = false
 
-[node name="p1_90_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=1956321504]
+[node name="p1_90_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=1338741578]
 position = Vector2(-25.2305, -3.2297506)
 rotation = -2.751179
 scale = Vector2(0.70289135, 0.70289135)
 texture = ExtResource("178_da6u8")
 centered = false
 
-[node name="p1_95_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=460647822]
+[node name="p1_95_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=1841953574]
 position = Vector2(-32.75145, 10.009649)
 rotation = -3.0223227
 scale = Vector2(0.50005245, 0.50005245)
 texture = ExtResource("177_4ns6c")
 centered = false
 
-[node name="p1_95_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=1978925498]
+[node name="p1_95_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=51644462]
 position = Vector2(-24.6333, 8.5384)
 rotation = 2.990241
 scale = Vector2(0.70303696, 0.70303696)
 texture = ExtResource("178_da6u8")
 centered = false
 
-[node name="p1_100_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=450857106]
+[node name="p1_100_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=453676111]
 position = Vector2(-25.56035, 25.61145)
 rotation = 2.737489
 scale = Vector2(0.49975243, 0.49975243)
 texture = ExtResource("177_4ns6c")
 centered = false
 
-[node name="p1_100_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=571408823]
+[node name="p1_100_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=573641441]
 position = Vector2(-19.259298, 20.2789)
 rotation = 2.467074
 scale = Vector2(0.70293814, 0.70293814)
 texture = ExtResource("178_da6u8")
 centered = false
 
-[node name="p1_105_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=1847818586]
+[node name="p1_105_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=1729532294]
 position = Vector2(5.2367, 31.0965)
 rotation = 1.8152897
 scale = Vector2(0.49986598, 0.49986598)
 texture = ExtResource("177_4ns6c")
 centered = false
 
-[node name="p1_105_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=357862471]
+[node name="p1_105_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=899583929]
 position = Vector2(4.8006997, 22.86165)
 rotation = 1.5451791
 scale = Vector2(0.70273054, 0.70273054)
 texture = ExtResource("178_da6u8")
 centered = false
 
-[node name="p1_110_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=288864648]
+[node name="p1_110_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=1954364024]
 position = Vector2(28.795097, 20.2476)
 rotation = 0.934498
 scale = Vector2(0.49981296, 0.49981296)
 texture = ExtResource("177_4ns6c")
 centered = false
 
-[node name="p1_110_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=1499151111]
+[node name="p1_110_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=595685111]
 position = Vector2(22.15675, 15.346001)
 rotation = 0.66385126
 scale = Vector2(0.7027455, 0.7027455)
 texture = ExtResource("178_da6u8")
 centered = false
 
-[node name="p1_115_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=724816706]
+[node name="p1_115_1_2" type="Sprite2D" parent="Parts/hit7-2" unique_id=479715315]
 position = Vector2(31.899502, 2.5281496)
 rotation = 0.28475383
 scale = Vector2(0.50014025, 0.50014025)
 texture = ExtResource("177_4ns6c")
 centered = false
 
-[node name="p1_115_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=76742390]
+[node name="p1_115_4_1" type="Sprite2D" parent="Parts/hit7-2" unique_id=679154140]
 position = Vector2(23.652699, 2.6423998)
 rotation = 0.014223792
 scale = Vector2(0.7030711, 0.7030711)
 texture = ExtResource("178_da6u8")
 centered = false
 
-[node name="hit8" type="Node2D" parent="Parts" unique_id=1140790879]
+[node name="hit8" type="Node2D" parent="Parts" unique_id=925209382]
 visible = false
 
-[node name="p1_1_s14" type="Node2D" parent="Parts/hit8" unique_id=272049401]
+[node name="p1_1_s14" type="Node2D" parent="Parts/hit8" unique_id=1347135569]
 position = Vector2(5.05, -73.85)
 rotation = 0.16169645
 scale = Vector2(1.000045, 1.000045)
@@ -4824,13 +4738,13 @@ variants = {
 3: ExtResource("4_jeiuh")
 }
 
-[node name="p1_12" type="Sprite2D" parent="Parts/hit8" unique_id=1291137544]
+[node name="p1_12" type="Sprite2D" parent="Parts/hit8" unique_id=2092420232]
 position = Vector2(-27.2, -23.400002)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("180_djtkj")
 centered = false
 
-[node name="p1_13_s22" type="Node2D" parent="Parts/hit8" unique_id=1595405860]
+[node name="p1_13_s22" type="Node2D" parent="Parts/hit8" unique_id=1942697139]
 position = Vector2(-0.35, 4.75)
 rotation = 2.7200134
 scale = Vector2(0.7868977, 0.7868977)
@@ -4844,7 +4758,7 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_16_s40" type="Node2D" parent="Parts/hit8" unique_id=980255084]
+[node name="p1_16_s40" type="Node2D" parent="Parts/hit8" unique_id=1168658419]
 position = Vector2(-8.25, 38.95)
 scale = Vector2(1, 0.857)
 script = ExtResource("2_gxfcr")
@@ -4859,7 +4773,7 @@ variants = {
 11: ExtResource("31_qxjku")
 }
 
-[node name="p1_19_s49" type="Node2D" parent="Parts/hit8" unique_id=1997011964]
+[node name="p1_19_s49" type="Node2D" parent="Parts/hit8" unique_id=603936771]
 position = Vector2(11.65, 36.85)
 rotation = -0.04027513
 scale = Vector2(0.94376534, 1.05825)
@@ -4876,7 +4790,7 @@ variants = {
 11: ExtResource("39_6vw2d")
 }
 
-[node name="p1_22_s61" type="Node2D" parent="Parts/hit8" unique_id=1257892716]
+[node name="p1_22_s61" type="Node2D" parent="Parts/hit8" unique_id=103925956]
 position = Vector2(0.25, 9.8)
 scale = Vector2(1, 1.0001445)
 skew = -0.01699841
@@ -4895,7 +4809,7 @@ variants = {
 12: ExtResource("50_47dgj")
 }
 
-[node name="p1_28_s86" type="Node2D" parent="Parts/hit8" unique_id=1519700646]
+[node name="p1_28_s86" type="Node2D" parent="Parts/hit8" unique_id=2135200793]
 position = Vector2(0.5, 35.4)
 rotation = 0.008963903
 scale = Vector2(1.0040402, 0.99635786)
@@ -4912,7 +4826,7 @@ variants = {
 12: ExtResource("59_omix8")
 }
 
-[node name="p1_32_s30" type="Node2D" parent="Parts/hit8" unique_id=1518828251]
+[node name="p1_32_s30" type="Node2D" parent="Parts/hit8" unique_id=1966457515]
 position = Vector2(-12.7, -29.9)
 rotation = -0.24958692
 scale = Vector2(0.999985, 0.999985)
@@ -4927,13 +4841,13 @@ variants = {
 6: ExtResource("21_d7q8e")
 }
 
-[node name="p1_41" type="Sprite2D" parent="Parts/hit8" unique_id=1612346413]
+[node name="p1_41" type="Sprite2D" parent="Parts/hit8" unique_id=1566649667]
 position = Vector2(-20.35, -51.1)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("181_pi5kr")
 centered = false
 
-[node name="p1_42_s77" type="Node2D" parent="Parts/hit8" unique_id=391882629]
+[node name="p1_42_s77" type="Node2D" parent="Parts/hit8" unique_id=1192392410]
 position = Vector2(-0.2, -14.4)
 rotation = 0.551393
 scale = Vector2(1.00024, 1.00024)
@@ -4947,13 +4861,13 @@ variants = {
 12: ExtResource("67_ins6h")
 }
 
-[node name="p1_52" type="Sprite2D" parent="Parts/hit8" unique_id=99604428]
+[node name="p1_52" type="Sprite2D" parent="Parts/hit8" unique_id=189906022]
 position = Vector2(-20.35, -12.8)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("182_f3pmk")
 centered = false
 
-[node name="p1_53_s22" type="Node2D" parent="Parts/hit8" unique_id=1704539498]
+[node name="p1_53_s22" type="Node2D" parent="Parts/hit8" unique_id=685872334]
 position = Vector2(-0.35, 4.75)
 rotation = 2.7200134
 scale = Vector2(0.7868977, 0.7868977)
@@ -4967,7 +4881,7 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_56_s30" type="Node2D" parent="Parts/hit8" unique_id=1968779160]
+[node name="p1_56_s30" type="Node2D" parent="Parts/hit8" unique_id=1870962331]
 position = Vector2(-12.7, -29.9)
 rotation = -0.24958692
 scale = Vector2(0.999985, 0.999985)
@@ -4982,13 +4896,13 @@ variants = {
 6: ExtResource("21_d7q8e")
 }
 
-[node name="p1_65" type="Sprite2D" parent="Parts/hit8" unique_id=1104988694]
+[node name="p1_65" type="Sprite2D" parent="Parts/hit8" unique_id=1181373549]
 position = Vector2(-20.35, -51.1)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("181_pi5kr")
 centered = false
 
-[node name="p1_66_s77" type="Node2D" parent="Parts/hit8" unique_id=1689719981]
+[node name="p1_66_s77" type="Node2D" parent="Parts/hit8" unique_id=1011020384]
 position = Vector2(-0.2, -14.4)
 rotation = 0.551393
 scale = Vector2(1.00024, 1.00024)
@@ -5002,13 +4916,13 @@ variants = {
 12: ExtResource("67_ins6h")
 }
 
-[node name="p1_76" type="Sprite2D" parent="Parts/hit8" unique_id=1318562730]
+[node name="p1_76" type="Sprite2D" parent="Parts/hit8" unique_id=767226937]
 position = Vector2(-20.35, -12.8)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("182_f3pmk")
 centered = false
 
-[node name="p1_77_s22" type="Node2D" parent="Parts/hit8" unique_id=413183564]
+[node name="p1_77_s22" type="Node2D" parent="Parts/hit8" unique_id=154328519]
 position = Vector2(18.7, 7.45)
 rotation = 2.3092394
 scale = Vector2(0.96414214, 0.96414214)
@@ -5022,7 +4936,7 @@ variants = {
 12: ExtResource("12_b2tel")
 }
 
-[node name="p1_80_s69" type="Node2D" parent="Parts/hit8" unique_id=1877685620]
+[node name="p1_80_s69" type="Node2D" parent="Parts/hit8" unique_id=1901716910]
 position = Vector2(8.35, 11.55)
 rotation = 2.4752865
 scale = Vector2(0.99986, 0.99986)
@@ -5036,31 +4950,31 @@ variants = {
 7: ExtResource("73_l4gdx")
 }
 
-[node name="p1_85_1" type="Sprite2D" parent="Parts/hit8" unique_id=1169556096]
+[node name="p1_85_1" type="Sprite2D" parent="Parts/hit8" unique_id=332449470]
 position = Vector2(-34.315453, -36.07975)
 rotation = 0.44075084
 scale = Vector2(0.26370153, 0.26370153)
 texture = ExtResource("183_cgmhi")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1708240321]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1217869286]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1634897549]
-shape = SubResource("RectangleShape2D_bsnri")
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=230681279]
+shape = SubResource("RectangleShape2D_kikyg")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1362222000]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=993638733]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=196248806]
-shape = SubResource("RectangleShape2D_u2ns1")
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=346518356]
+shape = SubResource("RectangleShape2D_bsnri")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=1071554520]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=452776038]
 callback_mode_process = 0
 libraries/ = ExtResource("184_pq4kl")

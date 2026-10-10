@@ -30,9 +30,6 @@ func _ready() -> void:
 	_parts = $Parts
 	for c in _parts.get_children():
 		c.visible = false
-	for g: CanvasGroup in find_children("*", "CanvasGroup", true, false):
-		g.use_mipmaps = false   # see flash_filter.gdshader
-		g.clear_margin = maxf(g.clear_margin, filter_clear_margin(g.fit_margin))
 	anim.animation_finished.connect(_on_anim_finished)
 
 ## An action with a loop tail (an opening, then a looping part) keeps looping instead of finishing.
@@ -85,7 +82,12 @@ func set_additive() -> void:
 	var mat := CanvasItemMaterial.new()
 	mat.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
 	for sp: Sprite2D in find_children("*", "Sprite2D", true, false):
-		sp.material = mat
+		if sp.material is ShaderMaterial:
+			var m := (sp.material as ShaderMaterial).duplicate() as ShaderMaterial
+			m.shader = SpriteFx.SHADER_ADD
+			sp.material = m
+		else:
+			sp.material = mat
 
 ## Whether an action carries frame events (a script that ends it, drops, destroys ...).
 func has_events(a: StringName) -> bool:
@@ -133,21 +135,14 @@ func _seek_in(a: StringName, t: float) -> void:
 		anim.seek(t, false)
 
 ## Makes this rig show exactly what `src` shows now: same action and moment (also of the animated equipment), same
-## equipment, transform and tint. Filter groups are switched off. Used for a halo drawn behind the real rig (a filter group
-## nested in another one reads the wrong buffer, so the halo cannot simply wrap the rig).
+## equipment, transform and tint. Used for a halo drawn behind the real rig.
 func mirror(src: Rig) -> void:
-	var changed := false
 	if src.action != action:
 		play(src.action, true)
 		anim.pause()
-		changed = true
 	for k in src.equipment:
 		if equipment.get(k) != src.equipment[k]:
 			set_equip(k, src.equipment[k])
-			changed = true
-	if changed:
-		for g: CanvasGroup in find_children("*", "CanvasGroup", true, false):
-			g.material = null
 	anim.seek(src.anim.current_animation_position, true)
 	var mine := find_children("*", "AnimationPlayer", true, false)
 	var theirs := src.find_children("*", "AnimationPlayer", true, false)
@@ -161,7 +156,7 @@ func mirror(src: Rig) -> void:
 	visible = src.visible
 	modulate = src.modulate
 
-## Frozen copy of the current pose in world space (afterimages). Filter groups are copied unfiltered.
+## Frozen copy of the current pose in world space (afterimages), without effects.
 func make_ghost() -> Node2D:
 	if _current_parts == null:
 		return null
@@ -209,10 +204,6 @@ func hit_rect() -> Rect2:
 
 func hurt_rect() -> Rect2:
 	return box_rect(hurtbox)
-
-## Back buffer area a filter group clears around its drawn rect.
-static func filter_clear_margin(fit_margin: float) -> float:
-	return fit_margin
 
 static var _scenes := {}
 static var _loading := {}   ## rig name -> path being loaded in the background

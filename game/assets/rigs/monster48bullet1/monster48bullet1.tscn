@@ -1,7 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://src/rig/rig.gd" id="1_wbad0"]
-[ext_resource type="Shader" path="res://src/rig/flash_filter.gdshader" id="2_crsu2"]
+[ext_resource type="Shader" path="res://src/rig/sprite_fx.gdshader" id="2_crsu2"]
 [ext_resource type="Texture2D" path="res://assets/shared/b1d4002a5a916a7bac43e6e9e2643156.png" id="3_66ry3"]
 [ext_resource type="Texture2D" path="res://assets/shared/3e51dcfc8a54064d41c387191abc4ab1.png" id="4_bmi2u"]
 [ext_resource type="Texture2D" path="res://assets/rigs/monster48bullet1/tex/3_465.png" id="5_fhs48"]
@@ -10,42 +10,42 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uofv4"]
 shader = ExtResource("2_crsu2")
-shader_parameter/blur = Vector2(2, 2)
-shader_parameter/glow_on = true
-shader_parameter/glow_color = Color(1, 0.2, 0, 1)
-shader_parameter/glow_blur = Vector2(11, 11)
-shader_parameter/glow_strength = 2.796875
-shader_parameter/glow_inner = false
-shader_parameter/glow_knockout = false
 shader_parameter/matrix_on = null
 shader_parameter/color_matrix = null
 shader_parameter/color_offset = null
+shader_parameter/blur = 2.0
+shader_parameter/glow_on = true
+shader_parameter/glow_color = Color(1, 0.2, 0, 1)
+shader_parameter/glow_blur = 11.0
+shader_parameter/glow_strength = 2.796875
+shader_parameter/solid = null
+shader_parameter/extend = 12.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bbgif"]
 shader = ExtResource("2_crsu2")
-shader_parameter/blur = null
-shader_parameter/glow_on = null
-shader_parameter/glow_color = null
-shader_parameter/glow_blur = null
-shader_parameter/glow_strength = null
-shader_parameter/glow_inner = null
-shader_parameter/glow_knockout = null
 shader_parameter/matrix_on = true
 shader_parameter/color_matrix = Projection(2.0455146, -0.94235235, 2.351009, 0, 2.3225214, 1.0219362, -2.7414641, 0, -3.3680358, 0.9204162, 1.3904551, 0, 0, 0, 0, 1)
 shader_parameter/color_offset = Vector4(0, 0, 0, 0)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_frwew"]
-shader = ExtResource("2_crsu2")
 shader_parameter/blur = null
 shader_parameter/glow_on = null
 shader_parameter/glow_color = null
 shader_parameter/glow_blur = null
 shader_parameter/glow_strength = null
-shader_parameter/glow_inner = null
-shader_parameter/glow_knockout = null
+shader_parameter/solid = null
+shader_parameter/extend = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_frwew"]
+shader = ExtResource("2_crsu2")
 shader_parameter/matrix_on = true
 shader_parameter/color_matrix = Projection(1.6391003, -0.33726525, 0.22650805, 0, -0.03151934, 1.2107284, -0.8983966, 0, -0.6275809, 0.106536835, 1.6518886, 0, 0, 0, 0, 1)
 shader_parameter/color_offset = Vector4(0.004980395, 0.004980394, 0.0049803946, 0)
+shader_parameter/blur = null
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yyp0a"]
 resource_local_to_scene = true
@@ -53,72 +53,60 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_btp4u"]
 resource_local_to_scene = true
 
-[node name="Monster48Bullet1" type="Node2D" unique_id=931655059]
+[node name="Monster48Bullet1" type="Node2D" unique_id=1662234496]
 script = ExtResource("1_wbad0")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=1042639287]
+[node name="Parts" type="Node2D" parent="." unique_id=649395058]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=1374414717]
+[node name="default" type="Node2D" parent="Parts" unique_id=18408134]
 visible = false
 
-[node name="g1_f0" type="CanvasGroup" parent="Parts/default" unique_id=45079229]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=1178144054]
 material = SubResource("ShaderMaterial_uofv4")
-fit_margin = 17.0
-clear_margin = 17.0
-
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default/g1_f0" unique_id=248043980]
 position = Vector2(-47.25, -59.899998)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_66ry3")
 centered = false
 
-[node name="g1_f1" type="CanvasGroup" parent="Parts/default" unique_id=1466213336]
+[node name="p1_1_f1" type="Sprite2D" parent="Parts/default" unique_id=2063698607]
 material = SubResource("ShaderMaterial_bbgif")
-fit_margin = 4.0
-clear_margin = 4.0
-
-[node name="p1_1_f1" type="Sprite2D" parent="Parts/default/g1_f1" unique_id=1019312335]
 position = Vector2(-15.150002, -186.15)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_bmi2u")
 centered = false
 
-[node name="p3" type="Sprite2D" parent="Parts/default" unique_id=874241671]
+[node name="p3" type="Sprite2D" parent="Parts/default" unique_id=1777093747]
 position = Vector2(-22.15, -214.4)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("5_fhs48")
 centered = false
 
-[node name="g3_f2" type="CanvasGroup" parent="Parts/default" unique_id=285270286]
+[node name="p3_1_f2" type="Sprite2D" parent="Parts/default" unique_id=1547215596]
 material = SubResource("ShaderMaterial_frwew")
-fit_margin = 4.0
-clear_margin = 4.0
-
-[node name="p3_1_f2" type="Sprite2D" parent="Parts/default/g3_f2" unique_id=594553500]
 position = Vector2(-129.5425, -156.50874)
 scale = Vector2(0.8875, 0.8875)
 texture = ExtResource("6_xnuj8")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=2137568109]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1384003149]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=498346106]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1781075801]
 shape = SubResource("RectangleShape2D_yyp0a")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1194845427]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=205779250]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1421145974]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1761244977]
 shape = SubResource("RectangleShape2D_btp4u")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=403560675]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1531859018]
 callback_mode_process = 0
 libraries/ = ExtResource("7_rdoip")

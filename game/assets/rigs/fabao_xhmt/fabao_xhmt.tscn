@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" path="res://assets/rigs/fabao_xhmt/tex/Common_v7_357.png" id="2_8oeqv"]
 [ext_resource type="Texture2D" path="res://assets/rigs/fabao_xhmt/tex/Common_v7_359.png" id="3_bp4rg"]
 [ext_resource type="Texture2D" path="res://assets/rigs/fabao_xhmt/tex/Common_v7_379.png" id="4_ddsbp"]
-[ext_resource type="Shader" path="res://src/rig/flash_filter.gdshader" id="5_4o2ta"]
+[ext_resource type="Shader" path="res://src/rig/sprite_fx.gdshader" id="5_4o2ta"]
 [ext_resource type="Texture2D" path="res://assets/rigs/fabao_xhmt/tex/Common_v7_361.png" id="6_tbben"]
 [ext_resource type="Texture2D" path="res://assets/rigs/fabao_xhmt/tex/Common_v7_383.png" id="7_qfo5d"]
 [ext_resource type="Texture2D" path="res://assets/rigs/fabao_xhmt/tex/Common_v7_381.png" id="8_amwby"]
@@ -18,42 +18,42 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n0x3k"]
 shader = ExtResource("5_4o2ta")
+shader_parameter/matrix_on = true
+shader_parameter/color_matrix = Projection(0.22836399, 0.22836399, 0.22836399, 0, 0.45095596, 0.45095596, 0.45095596, 0, 0.06068, 0.06068, 0.06068, 0, 0, 0, 0, 1)
+shader_parameter/color_offset = Vector4(0.064745106, 0.064745106, 0.064745106, 0)
 shader_parameter/blur = null
 shader_parameter/glow_on = null
 shader_parameter/glow_color = null
 shader_parameter/glow_blur = null
 shader_parameter/glow_strength = null
-shader_parameter/glow_inner = null
-shader_parameter/glow_knockout = null
-shader_parameter/matrix_on = true
-shader_parameter/color_matrix = Projection(0.22836399, 0.22836399, 0.22836399, 0, 0.45095596, 0.45095596, 0.45095596, 0, 0.06068, 0.06068, 0.06068, 0, 0, 0, 0, 1)
-shader_parameter/color_offset = Vector4(0.064745106, 0.064745106, 0.064745106, 0)
+shader_parameter/solid = null
+shader_parameter/extend = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5foyv"]
 shader = ExtResource("5_4o2ta")
-shader_parameter/blur = Vector2(10, 0)
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = 10.0
 shader_parameter/glow_on = null
 shader_parameter/glow_color = null
 shader_parameter/glow_blur = null
 shader_parameter/glow_strength = null
-shader_parameter/glow_inner = null
-shader_parameter/glow_knockout = null
-shader_parameter/matrix_on = null
-shader_parameter/color_matrix = null
-shader_parameter/color_offset = null
+shader_parameter/solid = null
+shader_parameter/extend = 11.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_s3g7d"]
 shader = ExtResource("5_4o2ta")
-shader_parameter/blur = Vector2(30, 0)
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = 30.0
 shader_parameter/glow_on = null
 shader_parameter/glow_color = null
 shader_parameter/glow_blur = null
 shader_parameter/glow_strength = null
-shader_parameter/glow_inner = null
-shader_parameter/glow_knockout = null
-shader_parameter/matrix_on = null
-shader_parameter/color_matrix = null
-shader_parameter/color_offset = null
+shader_parameter/solid = null
+shader_parameter/extend = 31.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_te60o"]
 resource_local_to_scene = true
@@ -61,227 +61,207 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sgyoy"]
 resource_local_to_scene = true
 
-[node name="FabaoXhmt" type="Node2D" unique_id=1366067072]
+[node name="FabaoXhmt" type="Node2D" unique_id=828820359]
 script = ExtResource("1_gcyqq")
 actions = PackedStringArray("walk", "begin", "run", "hit1", "back")
 
-[node name="Parts" type="Node2D" parent="." unique_id=1976349681]
+[node name="Parts" type="Node2D" parent="." unique_id=1731449251]
 
-[node name="walk" type="Node2D" parent="Parts" unique_id=1851133876]
+[node name="walk" type="Node2D" parent="Parts" unique_id=13447318]
 visible = false
 
-[node name="p1_7" type="Sprite2D" parent="Parts/walk" unique_id=1955641684]
+[node name="p1_7" type="Sprite2D" parent="Parts/walk" unique_id=1769754353]
 position = Vector2(-18.85, -31.55)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_8oeqv")
 centered = false
 
-[node name="begin" type="Node2D" parent="Parts" unique_id=2107479220]
+[node name="begin" type="Node2D" parent="Parts" unique_id=158680758]
 visible = false
 
-[node name="p1_7" type="Sprite2D" parent="Parts/begin" unique_id=656554840]
+[node name="p1_7" type="Sprite2D" parent="Parts/begin" unique_id=483945499]
 position = Vector2(-17.95, -29.949999)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_bp4rg")
 centered = false
 
-[node name="p1_15" type="Sprite2D" parent="Parts/begin" unique_id=637252523]
+[node name="p1_15" type="Sprite2D" parent="Parts/begin" unique_id=93145102]
 position = Vector2(-24.25, -29.65)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_ddsbp")
 centered = false
 
-[node name="g1_16_f0" type="CanvasGroup" parent="Parts/begin" unique_id=985420109]
+[node name="p1_16_1_f0" type="Sprite2D" parent="Parts/begin" unique_id=1269761816]
 material = SubResource("ShaderMaterial_n0x3k")
-fit_margin = 4.0
-clear_margin = 4.0
-
-[node name="p1_16_1_f0" type="Sprite2D" parent="Parts/begin/g1_16_f0" unique_id=1251909827]
 position = Vector2(-42.6, -46.600002)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_tbben")
 centered = false
 
-[node name="run" type="Node2D" parent="Parts" unique_id=1894838919]
+[node name="run" type="Node2D" parent="Parts" unique_id=212847050]
 visible = false
 
-[node name="p1_1_13" type="Sprite2D" parent="Parts/run" unique_id=788054932]
+[node name="p1_1_13" type="Sprite2D" parent="Parts/run" unique_id=71332049]
 modulate = Color(0.8, 0.4, 1, 1)
 position = Vector2(-24.8, -32.6)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("7_qfo5d")
 centered = false
 
-[node name="p1_1_15" type="Sprite2D" parent="Parts/run" unique_id=1111328872]
+[node name="p1_1_15" type="Sprite2D" parent="Parts/run" unique_id=2033874581]
 modulate = Color(0.8, 0.4, 1, 1)
 position = Vector2(-25.949999, -32.85)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("8_amwby")
 centered = false
 
-[node name="p1_17_13" type="Sprite2D" parent="Parts/run" unique_id=1091321973]
+[node name="p1_17_13" type="Sprite2D" parent="Parts/run" unique_id=477162202]
 position = Vector2(-30.4, -32.6)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("7_qfo5d")
 centered = false
 
-[node name="p1_17_15" type="Sprite2D" parent="Parts/run" unique_id=108832278]
+[node name="p1_17_15" type="Sprite2D" parent="Parts/run" unique_id=586611673]
 position = Vector2(-31.55, -32.85)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("8_amwby")
 centered = false
 
-[node name="hit1" type="Node2D" parent="Parts" unique_id=569674270]
+[node name="hit1" type="Node2D" parent="Parts" unique_id=1353521510]
 visible = false
 
-[node name="p1_1_1" type="Sprite2D" parent="Parts/hit1" unique_id=177907955]
+[node name="p1_1_1" type="Sprite2D" parent="Parts/hit1" unique_id=1122639288]
 modulate = Color(0.8, 0.4, 1, 1)
 position = Vector2(-54.05, -80)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("9_psojo")
 centered = false
 
-[node name="g1_1_1_f1" type="CanvasGroup" parent="Parts/hit1" unique_id=1685139763]
-material = SubResource("ShaderMaterial_5foyv")
-fit_margin = 14.0
-clear_margin = 14.0
-
-[node name="p1_1_1_16_f1" type="Sprite2D" parent="Parts/hit1/g1_1_1_f1" unique_id=403979037]
+[node name="p1_1_1_16_f1" type="Sprite2D" parent="Parts/hit1" unique_id=939935532]
 modulate = Color(0.8, 0.4, 1, 1)
+material = SubResource("ShaderMaterial_5foyv")
 position = Vector2(-38.4, -32.7)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("10_ynhd5")
 centered = false
 
-[node name="p1_1_14" type="Sprite2D" parent="Parts/hit1" unique_id=750100124]
+[node name="p1_1_14" type="Sprite2D" parent="Parts/hit1" unique_id=1268528702]
 modulate = Color(0.8, 0.4, 1, 1)
 position = Vector2(-55, -47.65)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("11_5qe7o")
 centered = false
 
-[node name="p1_1_15" type="Sprite2D" parent="Parts/hit1" unique_id=1790135060]
+[node name="p1_1_15" type="Sprite2D" parent="Parts/hit1" unique_id=823172537]
 modulate = Color(0.8, 0.4, 1, 1)
 position = Vector2(-15.300001, -35.6)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("12_lwhcp")
 centered = false
 
-[node name="p1_1_16" type="Sprite2D" parent="Parts/hit1" unique_id=123657644]
+[node name="p1_1_16" type="Sprite2D" parent="Parts/hit1" unique_id=1442670037]
 modulate = Color(0.8, 0.4, 1, 1)
 position = Vector2(-24.1, -32.35)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("13_ub1qr")
 centered = false
 
-[node name="p1_18_1" type="Sprite2D" parent="Parts/hit1" unique_id=419804737]
+[node name="p1_18_1" type="Sprite2D" parent="Parts/hit1" unique_id=1068900981]
 modulate = Color(0.8, 0.4, 1, 1)
 position = Vector2(-56.15, -80)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("9_psojo")
 centered = false
 
-[node name="g1_18_1_f1" type="CanvasGroup" parent="Parts/hit1" unique_id=884640866]
-material = SubResource("ShaderMaterial_5foyv")
-fit_margin = 14.0
-clear_margin = 14.0
-
-[node name="p1_18_1_16_f1" type="Sprite2D" parent="Parts/hit1/g1_18_1_f1" unique_id=446518320]
+[node name="p1_18_1_16_f1" type="Sprite2D" parent="Parts/hit1" unique_id=994400179]
 modulate = Color(0.8, 0.4, 1, 1)
+material = SubResource("ShaderMaterial_5foyv")
 position = Vector2(-40.5, -32.7)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("10_ynhd5")
 centered = false
 
-[node name="p1_18_14" type="Sprite2D" parent="Parts/hit1" unique_id=423132396]
+[node name="p1_18_14" type="Sprite2D" parent="Parts/hit1" unique_id=1713339292]
 modulate = Color(0.8, 0.4, 1, 1)
 position = Vector2(-57.100002, -47.65)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("11_5qe7o")
 centered = false
 
-[node name="p1_18_15" type="Sprite2D" parent="Parts/hit1" unique_id=1539724466]
+[node name="p1_18_15" type="Sprite2D" parent="Parts/hit1" unique_id=1478971434]
 modulate = Color(0.8, 0.4, 1, 1)
 position = Vector2(-17.400002, -35.6)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("12_lwhcp")
 centered = false
 
-[node name="p1_18_16" type="Sprite2D" parent="Parts/hit1" unique_id=517503214]
+[node name="p1_18_16" type="Sprite2D" parent="Parts/hit1" unique_id=817723967]
 modulate = Color(0.8, 0.4, 1, 1)
 position = Vector2(-26.2, -32.35)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("13_ub1qr")
 centered = false
 
-[node name="p1_35_1" type="Sprite2D" parent="Parts/hit1" unique_id=487716746]
+[node name="p1_35_1" type="Sprite2D" parent="Parts/hit1" unique_id=1344812099]
 position = Vector2(-58.95, -80)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("9_psojo")
 centered = false
 
-[node name="g1_35_1_f1" type="CanvasGroup" parent="Parts/hit1" unique_id=436500202]
+[node name="p1_35_1_16_f1" type="Sprite2D" parent="Parts/hit1" unique_id=1175197465]
 material = SubResource("ShaderMaterial_5foyv")
-fit_margin = 14.0
-clear_margin = 14.0
-
-[node name="p1_35_1_16_f1" type="Sprite2D" parent="Parts/hit1/g1_35_1_f1" unique_id=266867492]
 position = Vector2(-43.300003, -32.7)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("10_ynhd5")
 centered = false
 
-[node name="p1_35_14" type="Sprite2D" parent="Parts/hit1" unique_id=1932808399]
+[node name="p1_35_14" type="Sprite2D" parent="Parts/hit1" unique_id=1053548484]
 position = Vector2(-59.9, -47.65)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("11_5qe7o")
 centered = false
 
-[node name="p1_35_15" type="Sprite2D" parent="Parts/hit1" unique_id=1459484090]
+[node name="p1_35_15" type="Sprite2D" parent="Parts/hit1" unique_id=700790188]
 position = Vector2(-20.2, -35.6)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("12_lwhcp")
 centered = false
 
-[node name="p1_35_16" type="Sprite2D" parent="Parts/hit1" unique_id=1127475994]
+[node name="p1_35_16" type="Sprite2D" parent="Parts/hit1" unique_id=1772427925]
 position = Vector2(-29, -32.35)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("13_ub1qr")
 centered = false
 
-[node name="back" type="Node2D" parent="Parts" unique_id=243276516]
+[node name="back" type="Node2D" parent="Parts" unique_id=2133241495]
 visible = false
 
-[node name="g1_1_f2" type="CanvasGroup" parent="Parts/back" unique_id=1637448203]
-material = SubResource("ShaderMaterial_s3g7d")
-fit_margin = 34.0
-clear_margin = 34.0
-
-[node name="p1_1_15_f2" type="Sprite2D" parent="Parts/back/g1_1_f2" unique_id=2043122756]
+[node name="p1_1_15_f2" type="Sprite2D" parent="Parts/back" unique_id=266183047]
 modulate = Color(1, 1, 1, 0.699)
+material = SubResource("ShaderMaterial_s3g7d")
 position = Vector2(-30.85, -34.300003)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("14_u37ev")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=482978109]
+[node name="Hitbox" type="Area2D" parent="." unique_id=751197996]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=703914989]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=130674740]
 shape = SubResource("RectangleShape2D_te60o")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=507543703]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1106980071]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=508856719]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=425886548]
 shape = SubResource("RectangleShape2D_sgyoy")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=1913403052]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=2108226211]
 callback_mode_process = 0
 libraries/ = ExtResource("15_k7pxs")

@@ -1,7 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://src/rig/rig.gd" id="1_b3smx"]
-[ext_resource type="Shader" path="res://src/rig/flash_filter.gdshader" id="2_h2mwn"]
+[ext_resource type="Shader" path="res://src/rig/sprite_fx.gdshader" id="2_h2mwn"]
 [ext_resource type="Texture2D" path="res://assets/shared/1ac3f12778b4dc296a7a7746160673e0.png" id="3_nq6hk"]
 [ext_resource type="Texture2D" path="res://assets/rigs/monster54/tex/2_158.png" id="4_n2mep"]
 [ext_resource type="Texture2D" path="res://assets/shared/9ca1a48aae0a084e4d04c00b31b49f0d.png" id="5_bmbid"]
@@ -9,16 +9,16 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_m7l20"]
 shader = ExtResource("2_h2mwn")
+shader_parameter/matrix_on = true
+shader_parameter/color_matrix = Projection(1.18086, 0.030859996, 0.030859996, 0, 0.060939983, 1.21094, 0.060939983, 0, 0.008199998, 0.008199998, 1.1582, 0, 0, 0, 0, 1)
+shader_parameter/color_offset = Vector4(-0.20441177, -0.20441177, -0.20441176, 0)
 shader_parameter/blur = null
 shader_parameter/glow_on = null
 shader_parameter/glow_color = null
 shader_parameter/glow_blur = null
 shader_parameter/glow_strength = null
-shader_parameter/glow_inner = null
-shader_parameter/glow_knockout = null
-shader_parameter/matrix_on = true
-shader_parameter/color_matrix = Projection(1.18086, 0.030859996, 0.030859996, 0, 0.060939983, 1.21094, 0.060939983, 0, 0.008199998, 0.008199998, 1.1582, 0, 0, 0, 0, 1)
-shader_parameter/color_offset = Vector4(-0.20441177, -0.20441177, -0.20441176, 0)
+shader_parameter/solid = null
+shader_parameter/extend = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6fu2q"]
 resource_local_to_scene = true
@@ -26,100 +26,88 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0y06s"]
 resource_local_to_scene = true
 
-[node name="Monster54" type="Node2D" unique_id=2076732500]
+[node name="Monster54" type="Node2D" unique_id=2130902852]
 script = ExtResource("1_b3smx")
 actions = PackedStringArray("walk", "wait", "dead")
 
-[node name="Parts" type="Node2D" parent="." unique_id=1157144168]
+[node name="Parts" type="Node2D" parent="." unique_id=945335081]
 
-[node name="walk" type="Node2D" parent="Parts" unique_id=69464778]
+[node name="walk" type="Node2D" parent="Parts" unique_id=913459870]
 visible = false
 
-[node name="g1_1_2_f0" type="CanvasGroup" parent="Parts/walk" unique_id=1955574280]
+[node name="p1_1_2_1_f0" type="Sprite2D" parent="Parts/walk" unique_id=790432215]
 material = SubResource("ShaderMaterial_m7l20")
-fit_margin = 4.0
-clear_margin = 4.0
-
-[node name="p1_1_2_1_f0" type="Sprite2D" parent="Parts/walk/g1_1_2_f0" unique_id=511607952]
 position = Vector2(-155.15001, -95.65)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_nq6hk")
 centered = false
 region_enabled = true
 
-[node name="p1_7" type="Sprite2D" parent="Parts/walk" unique_id=1806524830]
+[node name="p1_7" type="Sprite2D" parent="Parts/walk" unique_id=1662200877]
 position = Vector2(-137.15, -170.2)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_n2mep")
 centered = false
 
-[node name="wait" type="Node2D" parent="Parts" unique_id=353870516]
+[node name="wait" type="Node2D" parent="Parts" unique_id=2036553017]
 visible = false
 
-[node name="g1_1_2_f0" type="CanvasGroup" parent="Parts/wait" unique_id=1380397967]
+[node name="p1_1_2_1_f0" type="Sprite2D" parent="Parts/wait" unique_id=1848319335]
 material = SubResource("ShaderMaterial_m7l20")
-fit_margin = 4.0
-clear_margin = 4.0
-
-[node name="p1_1_2_1_f0" type="Sprite2D" parent="Parts/wait/g1_1_2_f0" unique_id=2040356029]
 position = Vector2(-155.15001, -95.6)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_nq6hk")
 centered = false
 region_enabled = true
 
-[node name="p1_7" type="Sprite2D" parent="Parts/wait" unique_id=555072415]
+[node name="p1_7" type="Sprite2D" parent="Parts/wait" unique_id=1665951904]
 position = Vector2(-137.15, -170.15)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_n2mep")
 centered = false
 
-[node name="dead" type="Node2D" parent="Parts" unique_id=844058997]
+[node name="dead" type="Node2D" parent="Parts" unique_id=1389742684]
 visible = false
 
-[node name="g1_1_2_f0" type="CanvasGroup" parent="Parts/dead" unique_id=1590828100]
+[node name="p1_1_2_1_f0" type="Sprite2D" parent="Parts/dead" unique_id=1544914178]
 material = SubResource("ShaderMaterial_m7l20")
-fit_margin = 4.0
-clear_margin = 4.0
-
-[node name="p1_1_2_1_f0" type="Sprite2D" parent="Parts/dead/g1_1_2_f0" unique_id=337933904]
 position = Vector2(-155.15001, -95.6)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_nq6hk")
 centered = false
 region_enabled = true
 
-[node name="p1_1_4" type="Sprite2D" parent="Parts/dead" unique_id=912789705]
+[node name="p1_1_4" type="Sprite2D" parent="Parts/dead" unique_id=537490279]
 position = Vector2(67, -239.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("5_bmbid")
 centered = false
 region_enabled = true
 
-[node name="p1_7" type="Sprite2D" parent="Parts/dead" unique_id=1687699434]
+[node name="p1_7" type="Sprite2D" parent="Parts/dead" unique_id=848583532]
 position = Vector2(-137.15, -170.15)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_n2mep")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1096582017]
+[node name="Hitbox" type="Area2D" parent="." unique_id=2103805447]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=400499786]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1095292042]
 shape = SubResource("RectangleShape2D_6fu2q")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=932758008]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=7108914]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1540494615]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1372258310]
 shape = SubResource("RectangleShape2D_0y06s")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=1803705624]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1918260461]
 callback_mode_process = 0
 libraries/ = ExtResource("6_r1anf")

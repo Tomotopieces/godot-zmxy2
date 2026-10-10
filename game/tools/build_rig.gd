@@ -8,7 +8,6 @@ extends SceneTree
 
 const RigScript := preload("res://src/rig/rig.gd")
 const SlotScript := preload("res://src/rig/equip_slot.gd")
-const FilterShader := preload("res://src/rig/flash_filter.gdshader")
 
 var _d: Dictionary
 var _fps := 24.0
@@ -64,61 +63,27 @@ func _own(n: Node, owner: Node) -> void:
 		c.owner = owner
 		_own(c, owner)
 
-# ------------------------------------------------------------------ filters
+# ------------------------------------------------------------------ effects
 
-## Flash filters of one display object -> material for the CanvasGroup that renders it.
-func _filter_material(fid: int) -> ShaderMaterial:
-	if _materials.has(fid):
-		return _materials[fid]
-	var m := ShaderMaterial.new()
-	m.shader = FilterShader
-	for f in _d.filters[fid]:
-		match f.t:
-			"blur":
-				if f.x == 0 and f.y == 0:
-					continue   # a later no-op must not wipe an earlier filter of the chain
-				m.set_shader_parameter("blur", Vector2(f.x, f.y))
-			"glow":
-				if f.s == 0 or not f.has("c"):
-					continue
-				m.set_shader_parameter("glow_on", true)
-				m.set_shader_parameter("glow_blur", Vector2(f.x, f.y))
-				m.set_shader_parameter("glow_strength", f.s)
-				m.set_shader_parameter("glow_color", Color(f.c[0] / 255.0, f.c[1] / 255.0, f.c[2] / 255.0, f.c[3] / 255.0))
-				m.set_shader_parameter("glow_inner", f.inner)
-				m.set_shader_parameter("glow_knockout", f.knockout)
-			"matrix":
-				var a: Array = f.m
-				m.set_shader_parameter("matrix_on", true)
-				m.set_shader_parameter("color_matrix", Projection(
-					Vector4(a[0], a[5], a[10], a[15]), Vector4(a[1], a[6], a[11], a[16]),
-					Vector4(a[2], a[7], a[12], a[17]), Vector4(a[3], a[8], a[13], a[18])))
-				m.set_shader_parameter("color_offset", Vector4(a[4], a[9], a[14], a[19]) / 255.0)
-	_materials[fid] = m
-	return m
+## The sprite effect (halo / tint / blur) of one filter chain of the original, as a material of the sprite itself.
+## null when the chain does nothing. Shared within a rig.
+func _fx_material(fid: int, additive := false) -> ShaderMaterial:
+	var key := fid * 2 + (1 if additive else 0)
+	if not _materials.has(key):
+		_materials[key] = SpriteFx.material_for(_d.filters[fid], additive)
+	return _materials[key]
 
-## Margin the CanvasGroup needs around its content so blur and glow are not cut off.
-func _filter_margin(fid: int) -> float:
-	var r := 4.0
-	for f in _d.filters[fid]:
-		if f.t != "matrix":
-			r += maxf(f.x, f.y)
-	return r
-
-## Parent for a filtered layer: one CanvasGroup per (group, filter) under `parent`.
-func _filter_group(parent: Node2D, group: String, fid: int) -> Node2D:
-	var gname := "g%s_f%d" % [group.replace(".", "_"), fid]
-	var g := parent.get_node_or_null(gname) as Node2D
-	if g == null:
-		var cg := CanvasGroup.new()
-		cg.name = gname
-		cg.use_mipmaps = false
-		cg.fit_margin = _filter_margin(fid)
-		cg.clear_margin = Rig.filter_clear_margin(cg.fit_margin)
-		cg.material = _filter_material(fid)
-		parent.add_child(cg)
-		g = cg
-	return g
+## Sprite or slot node `n` gets the effect of filter chain `fid` (and the additive blend when asked).
+func _apply_fx(n: Node2D, fid, additive := false) -> void:
+	var m: ShaderMaterial = null
+	if fid != null:
+		m = _fx_material(int(fid), additive)
+	if m != null:
+		n.material = m
+	elif additive:
+		n.material = _add_material()
+	if n.material is ShaderMaterial and not n is Sprite2D:
+		n.set_meta(&"fx_children", true)   # an equipment slot: its sprites use the slot's material
 
 # ------------------------------------------------------------------ slot variants
 
@@ -145,10 +110,9 @@ func _variant_scene(sel: String, id: String, v: Dictionary) -> PackedScene:
 				sp.texture = _texture(lf[1])
 				sp.transform = _xf(lf[2], lf[1])
 				sp.modulate = _mod(lf[3])
-				var parent: Node2D = root
 				if lf.size() > 4 and lf[4] != null:
-					parent = _filter_group(root, String(lf[5]), int(lf[4]))
-				parent.add_child(sp)
+					_apply_fx(sp, lf[4])
+				root.add_child(sp)
 				nodes[k] = sp
 	if frames.size() > 1:
 		var ap := AnimationPlayer.new()
@@ -287,7 +251,6 @@ func _build(json_path: String) -> void:
 			var parent: Node2D = cont
 			if tr.get("filter") != null:
 				nn += "_f%d" % int(tr.filter)
-				parent = _filter_group(cont, String(tr.group), int(tr.filter))
 			var node: Node2D
 			if tr.kind == "tex":
 				var sp := Sprite2D.new()
@@ -298,8 +261,7 @@ func _build(json_path: String) -> void:
 				es.set_script(SlotScript)
 				node = es
 			node.name = nn
-			if int(tr.get("blend", 0)) == 8:   # Flash "add": light drawn on black
-				node.material = _add_material()
+			_apply_fx(node, tr.get("filter"), int(tr.get("blend", 0)) == 8)   # blend 8 = Flash "add": light drawn on black
 			parent.add_child(node)
 			var np := "Parts/%s/%s" % [act_name, String(cont.get_path_to(node))]
 			var tv := _vtrack(an, np + ":visible")

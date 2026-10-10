@@ -1,29 +1,25 @@
 [gd_scene format=3]
 
-[ext_resource type="Shader" path="res://src/rig/flash_filter.gdshader" id="1_banc7"]
+[ext_resource type="Shader" path="res://src/rig/sprite_fx.gdshader" id="1_banc7"]
 [ext_resource type="Texture2D" path="res://assets/shared/620ddcd23870877541b62b8f0f393d0d.png" id="2_uoqrq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1rbdh"]
 shader = ExtResource("1_banc7")
-shader_parameter/blur = null
-shader_parameter/glow_on = true
-shader_parameter/glow_color = Color(1, 0.8, 0, 1)
-shader_parameter/glow_blur = Vector2(13, 13)
-shader_parameter/glow_strength = 2.6679688
-shader_parameter/glow_inner = false
-shader_parameter/glow_knockout = false
 shader_parameter/matrix_on = null
 shader_parameter/color_matrix = null
 shader_parameter/color_offset = null
+shader_parameter/blur = null
+shader_parameter/glow_on = true
+shader_parameter/glow_color = Color(1, 0.8, 0, 1)
+shader_parameter/glow_blur = 13.0
+shader_parameter/glow_strength = 2.6679688
+shader_parameter/solid = null
+shader_parameter/extend = 14.0
 
-[node name="Slot158_3" type="Node2D" unique_id=414255503]
+[node name="Slot158_3" type="Node2D" unique_id=1287830353]
 
-[node name="g1_1_f0" type="CanvasGroup" parent="." unique_id=1088099436]
+[node name="p1_1_1_f0" type="Sprite2D" parent="." unique_id=33027553]
 material = SubResource("ShaderMaterial_1rbdh")
-fit_margin = 17.0
-clear_margin = 17.0
-
-[node name="p1_1_1_f0" type="Sprite2D" parent="g1_1_f0" unique_id=1881453643]
 position = Vector2(-20.72, 27.698)
 rotation = -0.40097558
 scale = Vector2(0.38558426, 0.40016025)
@@ -31,12 +27,8 @@ skew = 0.0005135536
 texture = ExtResource("2_uoqrq")
 centered = false
 
-[node name="g1_3_f0" type="CanvasGroup" parent="." unique_id=872643185]
+[node name="p1_3_1_f0" type="Sprite2D" parent="." unique_id=466849859]
 material = SubResource("ShaderMaterial_1rbdh")
-fit_margin = 17.0
-clear_margin = 17.0
-
-[node name="p1_3_1_f0" type="Sprite2D" parent="g1_3_f0" unique_id=206958666]
 position = Vector2(18.861, 12.811)
 rotation = -0.004656544
 scale = Vector2(0.42950466, 0.400005)

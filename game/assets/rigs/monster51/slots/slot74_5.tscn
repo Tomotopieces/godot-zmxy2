@@ -1,33 +1,33 @@
 [gd_scene format=3]
 
-[ext_resource type="Shader" path="res://src/rig/flash_filter.gdshader" id="1_gbl7n"]
+[ext_resource type="Shader" path="res://src/rig/sprite_fx.gdshader" id="1_gbl7n"]
 [ext_resource type="Texture2D" path="res://assets/shared/6683d804f4c5b88470fe58269a1b9a21.png" id="2_7fykp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_py4th"]
 shader = ExtResource("1_gbl7n")
-shader_parameter/blur = Vector2(5, 5)
-shader_parameter/glow_on = true
-shader_parameter/glow_color = Color(1, 0.4, 0, 1)
-shader_parameter/glow_blur = Vector2(26, 26)
-shader_parameter/glow_strength = 0.83984375
-shader_parameter/glow_inner = false
-shader_parameter/glow_knockout = false
 shader_parameter/matrix_on = null
 shader_parameter/color_matrix = null
 shader_parameter/color_offset = null
+shader_parameter/blur = 5.0
+shader_parameter/glow_on = true
+shader_parameter/glow_color = Color(1, 0.4, 0, 1)
+shader_parameter/glow_blur = 26.0
+shader_parameter/glow_strength = 0.83984375
+shader_parameter/solid = null
+shader_parameter/extend = 27.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jjqud"]
 shader = ExtResource("1_gbl7n")
-shader_parameter/blur = Vector2(4, 4)
-shader_parameter/glow_on = true
-shader_parameter/glow_color = Color(1, 0.4, 0, 1)
-shader_parameter/glow_blur = Vector2(20, 20)
-shader_parameter/glow_strength = 0.83984375
-shader_parameter/glow_inner = false
-shader_parameter/glow_knockout = false
 shader_parameter/matrix_on = null
 shader_parameter/color_matrix = null
 shader_parameter/color_offset = null
+shader_parameter/blur = 4.0
+shader_parameter/glow_on = true
+shader_parameter/glow_color = Color(1, 0.4, 0, 1)
+shader_parameter/glow_blur = 20.0
+shader_parameter/glow_strength = 0.83984375
+shader_parameter/solid = null
+shader_parameter/extend = 21.0
 
 [sub_resource type="Animation" id="Animation_rkd3n"]
 length = 4.166666666666667
@@ -35,7 +35,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("g1_f1/p1_1_1_f1:visible")
+tracks/0/path = NodePath("p1_1_1_f1:visible")
 tracks/0/interp = 0
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -47,7 +47,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("g1_f1/p1_1_1_f1:texture")
+tracks/1/path = NodePath("p1_1_1_f1:texture")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -59,7 +59,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("g1_f1/p1_1_1_f1:transform")
+tracks/2/path = NodePath("p1_1_1_f1:transform")
 tracks/2/interp = 0
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -71,7 +71,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("g1_f1/p1_1_1_f1:modulate")
+tracks/3/path = NodePath("p1_1_1_f1:modulate")
 tracks/3/interp = 0
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -83,7 +83,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("g3_f3/p3_1_1_f3:visible")
+tracks/4/path = NodePath("p3_1_1_f3:visible")
 tracks/4/interp = 0
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -95,7 +95,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("g3_f3/p3_1_1_f3:texture")
+tracks/5/path = NodePath("p3_1_1_f3:texture")
 tracks/5/interp = 0
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -107,7 +107,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("g3_f3/p3_1_1_f3:transform")
+tracks/6/path = NodePath("p3_1_1_f3:transform")
 tracks/6/interp = 0
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -119,7 +119,7 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("g3_f3/p3_1_1_f3:modulate")
+tracks/7/path = NodePath("p3_1_1_f3:modulate")
 tracks/7/interp = 0
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -134,31 +134,23 @@ _data = {
 &"loop": SubResource("Animation_rkd3n")
 }
 
-[node name="Slot74_5" type="Node2D" unique_id=1020328797]
+[node name="Slot74_5" type="Node2D" unique_id=728387994]
 
-[node name="g1_f1" type="CanvasGroup" parent="." unique_id=1226003987]
+[node name="p1_1_1_f1" type="Sprite2D" parent="." unique_id=1002428157]
 material = SubResource("ShaderMaterial_py4th")
-fit_margin = 35.0
-clear_margin = 35.0
-
-[node name="p1_1_1_f1" type="Sprite2D" parent="g1_f1" unique_id=917886382]
 position = Vector2(-68.1984, -73.5373)
 scale = Vector2(0.208, 0.3385)
 texture = ExtResource("2_7fykp")
 centered = false
 
-[node name="g3_f3" type="CanvasGroup" parent="." unique_id=1561971579]
+[node name="p3_1_1_f3" type="Sprite2D" parent="." unique_id=522978290]
 material = SubResource("ShaderMaterial_jjqud")
-fit_margin = 28.0
-clear_margin = 28.0
-
-[node name="p3_1_1_f3" type="Sprite2D" parent="g3_f3" unique_id=1626223364]
 position = Vector2(91.3849, -93.1361)
 rotation = 3.1415927
 scale = Vector2(0.1505, -0.2445)
 texture = ExtResource("2_7fykp")
 centered = false
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=1455827461]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1717846205]
 libraries/ = SubResource("AnimationLibrary_ivtu0")
 autoplay = &"loop"

@@ -675,8 +675,7 @@ const GLOW_STRENGTH := 1.5
 const GLOW_ALPHA_UP := 0.8
 const GLOW_PERIOD := 0.75   ## 18 frames at the original 24 fps
 
-var _glow_group: CanvasGroup   ## the halo: a silhouette of the pose behind the hero, blurred (knocked out under the body)
-var _glow_rig: Rig
+var _glow_rig: Rig   ## the halo: a copy of the hero drawn behind, every sprite a blurred silhouette of one colour
 var _glow_mat: ShaderMaterial
 var _glow_t := 0.0
 
@@ -692,39 +691,28 @@ func _update_tint(delta: float) -> void:
 	if _lock_glow > 0.0:
 		_lock_glow -= delta
 	if color.a == 0.0:
-		if _glow_group != null:
-			_glow_group.visible = false
+		if _glow_rig != null:
+			_glow_rig.visible = false
 		_glow_t = 0.0
 		return
-	if _glow_group == null:
-		_make_glow_group()
-	_glow_group.visible = true
+	if _glow_rig == null:
+		_make_glow()
 	_glow_t = fmod(_glow_t + delta, GLOW_PERIOD)
 	var ph := _glow_t / GLOW_PERIOD * 2.0   # 0..1 shrinking, 1..2 growing
 	var down := ph < 1.0
 	var t := ph if down else 2.0 - ph
-	var blur := lerpf(GLOW_BLUR.x, GLOW_BLUR.y, t)
 	color.a = 1.0 if down else GLOW_ALPHA_UP
-	_glow_mat.set_shader_parameter("glow_color", color)
-	_glow_mat.set_shader_parameter("glow_blur", Vector2(blur, blur))
+	SpriteFx.set_glow(_glow_mat, color, lerpf(GLOW_BLUR.x, GLOW_BLUR.y, t), GLOW_STRENGTH)
 	_glow_rig.mirror(rig)
+	for sp: Sprite2D in _glow_rig.find_children("*", "Sprite2D", true, false):
+		if sp.material != _glow_mat:
+			sp.material = _glow_mat
 
-func _make_glow_group() -> void:
-	_glow_group = CanvasGroup.new()
-	_glow_group.use_mipmaps = false
-	_glow_group.fit_margin = GLOW_BLUR.x * 1.25 + 4.0   # the bell reaches 2.5 sigma
-	_glow_group.clear_margin = Rig.filter_clear_margin(_glow_group.fit_margin)
-	_glow_mat = ShaderMaterial.new()
-	_glow_mat.shader = preload("res://src/rig/flash_filter.gdshader")
-	_glow_mat.set_shader_parameter("glow_on", true)
-	_glow_mat.set_shader_parameter("glow_gauss", true)
-	_glow_mat.set_shader_parameter("glow_knockout", true)
-	_glow_mat.set_shader_parameter("glow_strength", GLOW_STRENGTH)
-	_glow_group.material = _glow_mat
+func _make_glow() -> void:
+	_glow_mat = SpriteFx.glow_material(Color.WHITE, GLOW_BLUR.x, GLOW_STRENGTH, true)
 	_glow_rig = Rig.create(data.rig)
-	_glow_group.add_child(_glow_rig)
-	add_child(_glow_group)
-	move_child(_glow_group, rig.get_index())   # behind the body
+	add_child(_glow_rig)
+	move_child(_glow_rig, rig.get_index())   # behind the body
 	_glow_rig.play(rig.action, true)
 	_glow_rig.anim.pause()
 

@@ -1,22 +1,22 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://src/rig/rig.gd" id="1_h8o4k"]
-[ext_resource type="Shader" path="res://src/rig/flash_filter.gdshader" id="2_w2ogw"]
+[ext_resource type="Shader" path="res://src/rig/sprite_fx.gdshader" id="2_w2ogw"]
 [ext_resource type="Texture2D" path="res://assets/rigs/bullet2explode/tex/2_176.png" id="3_fiojp"]
 [ext_resource type="AnimationLibrary" path="res://assets/rigs/bullet2explode/anims.res" id="4_fguro"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_anlj4"]
 shader = ExtResource("2_w2ogw")
+shader_parameter/matrix_on = true
+shader_parameter/color_matrix = Projection(-0.17157735, 0.40024954, -0.5059147, 0, 0.17916542, 0.7873007, 1.5725145, 0, 0.99241185, -0.18755025, -0.06659999, 0, 0, 0, 0, 1)
+shader_parameter/color_offset = Vector4(0, 0, 0, 0)
 shader_parameter/blur = null
 shader_parameter/glow_on = null
 shader_parameter/glow_color = null
 shader_parameter/glow_blur = null
 shader_parameter/glow_strength = null
-shader_parameter/glow_inner = null
-shader_parameter/glow_knockout = null
-shader_parameter/matrix_on = true
-shader_parameter/color_matrix = Projection(-0.17157735, 0.40024954, -0.5059147, 0, 0.17916542, 0.7873007, 1.5725145, 0, 0.99241185, -0.18755025, -0.06659999, 0, 0, 0, 0, 1)
-shader_parameter/color_offset = Vector4(0, 0, 0, 0)
+shader_parameter/solid = null
+shader_parameter/extend = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7j1tv"]
 resource_local_to_scene = true
@@ -24,44 +24,40 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3p823"]
 resource_local_to_scene = true
 
-[node name="Bullet2Explode" type="Node2D" unique_id=82452240]
+[node name="Bullet2Explode" type="Node2D" unique_id=284975983]
 script = ExtResource("1_h8o4k")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=1537790404]
+[node name="Parts" type="Node2D" parent="." unique_id=1266019788]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=1903294088]
+[node name="default" type="Node2D" parent="Parts" unique_id=1199102358]
 visible = false
 
-[node name="g1_f0" type="CanvasGroup" parent="Parts/default" unique_id=1426239754]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=1542636015]
 material = SubResource("ShaderMaterial_anlj4")
-fit_margin = 4.0
-clear_margin = 4.0
-
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default/g1_f0" unique_id=2111037428]
 position = Vector2(-29, -30.05)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_fiojp")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1863860620]
+[node name="Hitbox" type="Area2D" parent="." unique_id=662176335]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=900038055]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=516226308]
 shape = SubResource("RectangleShape2D_7j1tv")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=2089769120]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1682393507]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1088107000]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1236264586]
 shape = SubResource("RectangleShape2D_3p823")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=1020456460]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1677141323]
 callback_mode_process = 0
 libraries/ = ExtResource("4_fguro")

@@ -1,7 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://src/rig/rig.gd" id="1_nmlu6"]
-[ext_resource type="Shader" path="res://src/rig/flash_filter.gdshader" id="2_kwfrw"]
+[ext_resource type="Shader" path="res://src/rig/sprite_fx.gdshader" id="2_kwfrw"]
 [ext_resource type="Texture2D" path="res://assets/rigs/fabao_lsys/tex/Common_v7_438.png" id="3_0u3x1"]
 [ext_resource type="Texture2D" path="res://assets/rigs/fabao_lsys/tex/Common_v7_441.png" id="4_s8nr8"]
 [ext_resource type="Texture2D" path="res://assets/rigs/fabao_lsys/tex/Common_v7_442.png" id="5_hxx7m"]
@@ -9,16 +9,16 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_oa8sg"]
 shader = ExtResource("2_kwfrw")
+shader_parameter/matrix_on = true
+shader_parameter/color_matrix = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+shader_parameter/color_offset = Vector4(0, 0, 0, 0)
 shader_parameter/blur = null
 shader_parameter/glow_on = null
 shader_parameter/glow_color = null
 shader_parameter/glow_blur = null
 shader_parameter/glow_strength = null
-shader_parameter/glow_inner = null
-shader_parameter/glow_knockout = null
-shader_parameter/matrix_on = true
-shader_parameter/color_matrix = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
-shader_parameter/color_offset = Vector4(0, 0, 0, 0)
+shader_parameter/solid = null
+shader_parameter/extend = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qvjd1"]
 resource_local_to_scene = true
@@ -26,59 +26,55 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3dxub"]
 resource_local_to_scene = true
 
-[node name="FabaoLsys" type="Node2D" unique_id=1792902580]
+[node name="FabaoLsys" type="Node2D" unique_id=608725202]
 script = ExtResource("1_nmlu6")
 actions = PackedStringArray("walk", "hit1")
 
-[node name="Parts" type="Node2D" parent="." unique_id=1455258138]
+[node name="Parts" type="Node2D" parent="." unique_id=217354780]
 
-[node name="walk" type="Node2D" parent="Parts" unique_id=313091624]
+[node name="walk" type="Node2D" parent="Parts" unique_id=1975838679]
 visible = false
 
-[node name="g1_f0" type="CanvasGroup" parent="Parts/walk" unique_id=1746878249]
+[node name="p1_1_1_f0" type="Sprite2D" parent="Parts/walk" unique_id=415554896]
 material = SubResource("ShaderMaterial_oa8sg")
-fit_margin = 4.0
-clear_margin = 4.0
-
-[node name="p1_1_1_f0" type="Sprite2D" parent="Parts/walk/g1_f0" unique_id=1096320851]
 position = Vector2(-20.328499, -53.805252)
 scale = Vector2(0.9325, 0.9325)
 texture = ExtResource("3_0u3x1")
 centered = false
 
-[node name="hit1" type="Node2D" parent="Parts" unique_id=1049375504]
+[node name="hit1" type="Node2D" parent="Parts" unique_id=2036688116]
 visible = false
 
-[node name="p1_1" type="Sprite2D" parent="Parts/hit1" unique_id=1018472633]
+[node name="p1_1" type="Sprite2D" parent="Parts/hit1" unique_id=1262607262]
 position = Vector2(-20.4, -54)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_s8nr8")
 centered = false
 
-[node name="p1_3" type="Sprite2D" parent="Parts/hit1" unique_id=1053413876]
+[node name="p1_3" type="Sprite2D" parent="Parts/hit1" unique_id=761459505]
 position = Vector2(-50.9, -53.8)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("5_hxx7m")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=2102581352]
+[node name="Hitbox" type="Area2D" parent="." unique_id=251007727]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=148380676]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=369026419]
 shape = SubResource("RectangleShape2D_qvjd1")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1253771874]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1643213535]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=20256997]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1766673874]
 shape = SubResource("RectangleShape2D_3dxub")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=540627235]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=757368794]
 callback_mode_process = 0
 libraries/ = ExtResource("6_msiqv")
