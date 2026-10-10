@@ -65,7 +65,7 @@ func _ring() -> void:
 func _recall() -> void:
 	for r in _rings:
 		var tw := r.create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
-		tw.tween_property(r, "global_position", m.global_position, float(param("recall_time", 2.0)))
+		tw.tween_property(r, "global_position", m.global_position, float(param("recall_time", 2.0))).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 		tw.tween_callback(r.queue_free)
 	_rings.clear()
 	# the counter refills when the rings are home

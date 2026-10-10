@@ -15,6 +15,7 @@ func start_final_platforms() -> void:
 		b.position = Vector2(positions[i][0], positions[i][1])
 		if fp.has("art"):
 			var art := Rig.create(String(fp.art))
+			art.z_index = Layers.Z_HERO   # in front of the boss, behind the hero (tree order)
 			b.add_child(art)
 			art.play(art.actions[0])
 		_moving.append([b, Vector2(v, 0), float(fp.get("wrap", 1400))])

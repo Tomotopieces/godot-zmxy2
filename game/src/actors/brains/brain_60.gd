@@ -71,7 +71,8 @@ func _throw() -> void:
 	o.global_position = m.center()
 	var target := Vector2(m.world.view_rect().position.x + SLOTS_X[slot], float(param("slot_y", 460)))
 	o.create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS) \
-		.tween_property(o, "global_position", target, float(param("throw_time", 2.0)))
+		.tween_property(o, "global_position", target, float(param("throw_time", 2.0))) \
+		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)   # TweenMax.to eases out by default
 	_orbs[slot] = o
 	_launched.append(slot)
 
@@ -81,7 +82,7 @@ func _recall(slot: int) -> void:
 	if not is_instance_valid(o):
 		return
 	var tw := o.create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
-	tw.tween_property(o, "global_position", m.center(), float(param("recall_time", 1.0)))
+	tw.tween_property(o, "global_position", m.center(), float(param("recall_time", 1.0))).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	tw.tween_callback(o.queue_free)
 
 func on_call(n: String, _args: Array) -> bool:
