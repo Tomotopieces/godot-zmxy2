@@ -6,7 +6,7 @@ extends Treasure
 var _attacks := 0
 
 func begin() -> void:
-	hero.debuffs.clear()
+	hero.cure_debuffs()
 	_attacks = 0
 	rig.play(&"begin", true)
 

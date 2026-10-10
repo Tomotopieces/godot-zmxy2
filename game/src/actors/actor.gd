@@ -15,6 +15,11 @@ var world: Level:
 	get:
 		return Level.current
 
+func _init() -> void:
+	# Wall.setYByRole: on a slope the original moves at the walking speed along the slope (x cos, y sin)
+	floor_constant_speed = true
+	floor_snap_length = 8.0
+
 var rig: Rig
 var body_shape: CollisionShape2D   ## the actor's body collider (sized from the idle hurt box)
 var hp := 1

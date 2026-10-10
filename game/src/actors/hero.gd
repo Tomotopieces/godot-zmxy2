@@ -68,6 +68,7 @@ func _ready() -> void:
 	facing = 1
 	refill()
 	invincible = data.spawn_invincible
+	_quiet = data.spawn_invincible
 	GameState.leveled_up.connect(_on_level_up)
 	GameState.equipment_changed.connect(_on_equipment_changed)
 	_sync_treasure.call_deferred()
@@ -486,6 +487,10 @@ func take_hit(h: Hit) -> bool:
 		DamageNumber.spawn_miss(global_position + Vector2(-20, -60))
 		return true
 	if h.attack.effect_only:
+		var id := h.carrier.get_instance_id() if h.carrier != null else 0
+		if _cured_carriers.has(id):
+			return false   # this very net already let go of us
+		_effect_carrier = id
 		_apply_effects(h.attack.effects)
 		return true
 	h.damage += int((Rng.randf() - 0.5) * 10.0)   # BaseHero.beAttack: noise (-4..4, truncated) before defense
@@ -558,6 +563,15 @@ func add_debuff(n: StringName, seconds: float) -> void:
 
 func clear_debuff(n: StringName) -> void:
 	debuffs.clear(n)
+
+## 血海魔童 (cureDebuff): every debuff goes. A net that held us does not catch us again.
+func cure_debuffs() -> void:
+	if debuffs.has(&"net") and _effect_carrier != 0:
+		_cured_carriers[_effect_carrier] = true
+	debuffs.clear()
+
+var _effect_carrier := 0          ## instance id of the net that caught us
+var _cured_carriers := {}
 
 ## Status effects from a monster attack (poison damages every tick).
 func _apply_effects(effects: Array) -> void:
@@ -662,25 +676,32 @@ const GLOW_STRENGTH := 1.5
 const GLOW_ALPHA_UP := 0.8
 const GLOW_PERIOD := 0.75   ## 18 frames at the original 24 fps
 
-var _glow_group: CanvasGroup
+var _glow_group: CanvasGroup   ## the halo: a silhouette of the pose behind the hero, blurred (knocked out under the body)
+var _glow_holder: Node2D
 var _glow_mat: ShaderMaterial
 var _glow_t := 0.0
+var _quiet := 0.0   ## the birth protection (not in the original) shows no glow
 
+## BaseAddEffect.step: the glow exists while the rage form lasts or while a protection (setYourFather: anti-lock, the
+## invincible windows of skills, a revival) is on; both end it at once (cancelGlow).
 func _update_tint(delta: float) -> void:
+	_quiet = maxf(_quiet - delta, 0.0)
 	var color := Color.TRANSPARENT
-	if transformed:
-		color = Color.WHITE
-	elif _lock_glow > 0.0:
-		color = GLOW_COLORS.get(data.sound_prefix, Color.WHITE)
+	if state != State.DEAD:
+		if transformed:
+			color = Color.WHITE
+		elif invincible > _quiet or _lock_glow > 0.0:
+			color = GLOW_COLORS.get(data.sound_prefix, Color.WHITE)
 	if _lock_glow > 0.0:
 		_lock_glow -= delta
 	if color.a == 0.0:
 		if _glow_group != null:
-			_glow_group.material = null
+			_glow_group.visible = false
 		_glow_t = 0.0
 		return
 	if _glow_group == null:
 		_make_glow_group()
+	_glow_group.visible = true
 	_glow_t = fmod(_glow_t + delta, GLOW_PERIOD)
 	var ph := _glow_t / GLOW_PERIOD * 2.0   # 0..1 shrinking, 1..2 growing
 	var down := ph < 1.0
@@ -689,20 +710,24 @@ func _update_tint(delta: float) -> void:
 	color.a = 1.0 if down else GLOW_ALPHA_UP
 	_glow_mat.set_shader_parameter("glow_color", color)
 	_glow_mat.set_shader_parameter("glow_blur", Vector2(blur, blur))
-	_glow_group.material = _glow_mat
+	rig.sync_silhouette(_glow_holder, self)
 
 func _make_glow_group() -> void:
 	_glow_group = CanvasGroup.new()
 	_glow_group.use_mipmaps = false
-	_glow_group.fit_margin = GLOW_BLUR.x + 4.0
+	_glow_group.fit_margin = GLOW_BLUR.x * 1.25 + 4.0   # the bell reaches 2.5 sigma
 	_glow_group.clear_margin = Rig.filter_clear_margin(_glow_group.fit_margin)
 	_glow_mat = ShaderMaterial.new()
 	_glow_mat.shader = preload("res://src/rig/flash_filter.gdshader")
 	_glow_mat.set_shader_parameter("glow_on", true)
+	_glow_mat.set_shader_parameter("glow_gauss", true)
+	_glow_mat.set_shader_parameter("glow_knockout", true)
 	_glow_mat.set_shader_parameter("glow_strength", GLOW_STRENGTH)
+	_glow_group.material = _glow_mat
+	_glow_holder = Node2D.new()
+	_glow_group.add_child(_glow_holder)
 	add_child(_glow_group)
-	move_child(_glow_group, rig.get_index())
-	rig.reparent(_glow_group, false)
+	move_child(_glow_group, rig.get_index())   # behind the body
 
 ## 苍生挂饰: come back once with half HP / MP and a short invincibility (not when falling out of the stage).
 func _try_revive() -> bool:

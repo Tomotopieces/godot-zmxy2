@@ -14,6 +14,7 @@ uniform bool glow_on = false;
 uniform vec4 glow_color : source_color = vec4(1.0, 0.6, 0.0, 1.0);
 uniform vec2 glow_blur = vec2(0.0);
 uniform float glow_strength = 1.0;
+uniform bool glow_gauss = false;               // glow of quality HIGH: three box passes, which add up to a bell (sigma = blur / 2)
 uniform bool glow_inner = false;
 uniform bool glow_knockout = false;
 uniform bool matrix_on = false;
@@ -37,10 +38,28 @@ vec4 box(vec2 uv, vec2 size, vec2 pixel) {
 	return acc / float((n + 1) * (n + 1));
 }
 
+// Alpha of the three-pass blur of size `size` (game px), as a Gaussian of sigma size / 2 (a grid of 11 x 11 weighted taps).
+float gauss_alpha(vec2 uv, vec2 size, vec2 pixel) {
+	vec2 sigma = max(size * 0.5 * max(flash_px_scale, 0.0001), vec2(0.5));
+	vec2 reach = sigma * 2.5;
+	float acc = 0.0;
+	float wsum = 0.0;
+	for (int i = 0; i <= 10; i++) {
+		for (int j = 0; j <= 10; j++) {
+			vec2 o = (vec2(float(i), float(j)) / 10.0 - 0.5) * 2.0 * reach;
+			vec2 q = o / sigma;
+			float w = exp(-0.5 * dot(q, q));
+			acc += w * textureLod(screen_texture, uv + o * pixel, 0.0).a;
+			wsum += w;
+		}
+	}
+	return acc / wsum;
+}
+
 void fragment() {
 	vec4 c = box(SCREEN_UV, blur, SCREEN_PIXEL_SIZE);
 	if (glow_on) {
-		float a = box(SCREEN_UV, glow_blur, SCREEN_PIXEL_SIZE).a;
+		float a = glow_gauss ? gauss_alpha(SCREEN_UV, glow_blur, SCREEN_PIXEL_SIZE) : box(SCREEN_UV, glow_blur, SCREEN_PIXEL_SIZE).a;
 		if (glow_inner) {
 			float g = clamp((1.0 - a) * glow_strength, 0.0, 1.0) * glow_color.a;
 			c.rgb = mix(c.rgb, glow_color.rgb * c.a, g);

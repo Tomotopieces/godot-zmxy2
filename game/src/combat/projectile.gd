@@ -75,6 +75,7 @@ func _deliver(target: Actor) -> bool:
 		h.damage = source.outgoing_damage(attack)
 		h.crit = source.last_crit
 	h.origin = global_position
+	h.carrier = self
 	# moving bullets push along their flight, static effects push away from their centre
 	if velocity.x != 0.0:
 		h.direction = 1 if velocity.x > 0.0 else -1

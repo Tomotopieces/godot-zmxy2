@@ -23,6 +23,9 @@ func setup() -> void:
 			_boat = b
 	if _boat == null:
 		return
+	# the boat is drawn over whoever stands on it (its rail and water cover their feet); the soldiers still leaping up
+	# out of the water and the fish are drawn over the boat
+	_boat.z_index = Layers.Z_PICKUP
 	var art := Rig.create("boat")
 	_boat.add_child(art)
 	art.play(art.actions[0])
@@ -71,7 +74,7 @@ func _jumpers(delta: float) -> void:
 	var r: Array = cfg.get("every", [3.0, 7.0])
 	_jump_t = Rng.randf_range(r[0], r[1])
 	var x := _boat.position.x + float(cfg.get("dx", 100)) * Rng.randf_range(-1.0, 1.0)
-	var fx := place_rig("monster41_jump", Vector2(x, _boat.position.y + float(cfg.get("from_dy", 150))), Layers.Z_MONSTER)
+	var fx := place_rig("monster41_jump", Vector2(x, _boat.position.y + float(cfg.get("from_dy", 150))), Layers.Z_EFFECT)
 	var tw := fx.create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 	tw.tween_property(fx, "position:y", _boat.position.y + float(cfg.get("to_dy", -60)), float(cfg.get("rise", 1.5)))
 	tw.tween_callback(func():

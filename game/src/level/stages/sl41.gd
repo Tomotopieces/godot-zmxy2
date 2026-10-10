@@ -13,9 +13,9 @@ func start_final_platforms() -> void:
 		var b: AnimatableBody2D = floats[i]
 		var v := float(fp.get("speed", 48)) * (1.0 if b.position.x < 1500.0 else -1.0)
 		b.position = Vector2(positions[i][0], positions[i][1])
+		b.z_index = Layers.Z_MONSTER   # in front of the boss (it sits on the mechanism layer), behind the hero
 		if fp.has("art"):
 			var art := Rig.create(String(fp.art))
-			art.z_index = Layers.Z_HERO   # in front of the boss, behind the hero (tree order)
 			b.add_child(art)
 			art.play(art.actions[0])
 		_moving.append([b, Vector2(v, 0), float(fp.get("wrap", 1400))])

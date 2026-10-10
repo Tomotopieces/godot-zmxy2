@@ -6,6 +6,15 @@ extends "res://src/actors/brains/boss_d.gd"
 const BLAST := "monster48bullet1"
 const MELEE := [&"hit1", &"hit5", &"hit6", &"hit7"]
 
+## hit4 (the fire blast): the body clip shows its pose for one frame and then nothing for the rest of the move; the
+## blast is the only thing on screen.
+func think(delta: float) -> void:
+	m.rig.visible = not (m.attack_action == &"hit4" and m.is_attacking())
+	super(delta)
+
+func on_died() -> void:
+	m.rig.visible = true
+
 func attack(_action: StringName = &"hit1") -> void:
 	m.face_target()
 	m.attack_with(MELEE[Rng.randi() % MELEE.size()])

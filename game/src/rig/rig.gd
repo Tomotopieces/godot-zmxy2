@@ -149,6 +149,31 @@ func make_ghost() -> Node2D:
 		ghost.add_child(g)
 	return ghost
 
+## Keeps `holder` (a Node2D under `base`) filled with a plain copy of the current pose: one sprite per visible part,
+## unfiltered. A halo drawn from it needs no CanvasGroup around the rig itself (a filter group nested inside another
+## one reads the wrong buffer and draws a white box).
+func sync_silhouette(holder: Node2D, base: Node2D) -> void:
+	var inv := base.global_transform.affine_inverse()
+	var n := 0
+	if _current_parts:
+		for sp: Sprite2D in _current_parts.find_children("*", "Sprite2D", true, false):
+			if sp.texture == null or not sp.is_visible_in_tree():
+				continue
+			var g: Sprite2D
+			if n < holder.get_child_count():
+				g = holder.get_child(n)
+			else:
+				g = Sprite2D.new()
+				holder.add_child(g)
+			g.visible = true
+			g.texture = sp.texture
+			g.centered = sp.centered
+			g.transform = inv * sp.global_transform
+			g.self_modulate = sp.modulate
+			n += 1
+	for i in range(n, holder.get_child_count()):
+		(holder.get_child(i) as CanvasItem).visible = false
+
 ## Called by the method track of every animation with all events of that frame, in source order.
 ## Stops early if a handler switched the action (e.g. "finished" followed by more events).
 func _anim_events(events: Array) -> void:
