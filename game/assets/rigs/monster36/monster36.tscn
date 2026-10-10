@@ -17,93 +17,93 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tr288"]
 resource_local_to_scene = true
 
-[node name="Monster36" type="Node2D" unique_id=1292918841]
+[node name="Monster36" type="Node2D" unique_id=1327195296]
 script = ExtResource("1_pcgvu")
 actions = PackedStringArray("walk", "hit1", "hurt", "dead", "wait")
 
-[node name="Parts" type="Node2D" parent="." unique_id=275507786]
+[node name="Parts" type="Node2D" parent="." unique_id=331283920]
 
-[node name="walk" type="Node2D" parent="Parts" unique_id=1141984685]
+[node name="walk" type="Node2D" parent="Parts" unique_id=1565664701]
 visible = false
 
-[node name="p1_1" type="Sprite2D" parent="Parts/walk" unique_id=1388417966]
+[node name="p1_1" type="Sprite2D" parent="Parts/walk" unique_id=1442788256]
 position = Vector2(-85.3, -59.3)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_wbrn5")
 centered = false
 
-[node name="hit1" type="Node2D" parent="Parts" unique_id=975980979]
+[node name="hit1" type="Node2D" parent="Parts" unique_id=395014436]
 visible = false
 
-[node name="p1_1" type="Sprite2D" parent="Parts/hit1" unique_id=1662147006]
+[node name="p1_1" type="Sprite2D" parent="Parts/hit1" unique_id=696451294]
 position = Vector2(-123.3, -96.2)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_mehm6")
 centered = false
 
-[node name="p1_2_1" type="Sprite2D" parent="Parts/hit1" unique_id=802266432]
+[node name="p1_2_1" type="Sprite2D" parent="Parts/hit1" unique_id=2035864581]
 position = Vector2(-142.4474, -92.61559)
 scale = Vector2(0.627, 0.627)
 texture = ExtResource("4_l8wug")
 centered = false
 
-[node name="p1_2_2" type="Sprite2D" parent="Parts/hit1" unique_id=1348273256]
+[node name="p1_2_2" type="Sprite2D" parent="Parts/hit1" unique_id=1480446986]
 position = Vector2(-38.6789, -12.861198)
 scale = Vector2(0.627, 0.627)
 texture = ExtResource("5_i57qu")
 centered = false
 
-[node name="hurt" type="Node2D" parent="Parts" unique_id=87222347]
+[node name="hurt" type="Node2D" parent="Parts" unique_id=2001069103]
 visible = false
 
-[node name="p1" type="Sprite2D" parent="Parts/hurt" unique_id=880028876]
+[node name="p1" type="Sprite2D" parent="Parts/hurt" unique_id=252922815]
 position = Vector2(8.5, 20)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_d0ju2")
 centered = false
 
-[node name="p2_1" type="Sprite2D" parent="Parts/hurt" unique_id=887767800]
+[node name="p2_1" type="Sprite2D" parent="Parts/hurt" unique_id=702771004]
 position = Vector2(-49.45, -78.45)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("7_3r8d7")
 centered = false
 
-[node name="dead" type="Node2D" parent="Parts" unique_id=169773359]
+[node name="dead" type="Node2D" parent="Parts" unique_id=1700271113]
 visible = false
 
-[node name="p1_1" type="Sprite2D" parent="Parts/dead" unique_id=1999991404]
+[node name="p1_1" type="Sprite2D" parent="Parts/dead" unique_id=1250182257]
 position = Vector2(-101.1, -70.35)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("8_7a5ak")
 centered = false
 
-[node name="wait" type="Node2D" parent="Parts" unique_id=350999061]
+[node name="wait" type="Node2D" parent="Parts" unique_id=55868894]
 visible = false
 
-[node name="p1_1" type="Sprite2D" parent="Parts/wait" unique_id=121164373]
+[node name="p1_1" type="Sprite2D" parent="Parts/wait" unique_id=2018153941]
 position = Vector2(-57.65, -54.100002)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("9_5h1an")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1169077474]
+[node name="Hitbox" type="Area2D" parent="." unique_id=604499933]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=105037171]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1404976821]
 shape = SubResource("RectangleShape2D_87geq")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=745395635]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=945023095]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1087122636]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1116069981]
 shape = SubResource("RectangleShape2D_tr288")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=1033196297]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=500740611]
 callback_mode_process = 0
 libraries/ = ExtResource("10_nwcx0")

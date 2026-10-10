@@ -47,14 +47,24 @@ void fragment() {
 		if (reach[k] <= 0.0) {
 			continue;
 		}
-		float r = reach[k] / sc;
+		float r = reach[k] / sc;   // in texture px
 		vec4 acc = vec4(t.rgb * t.a, t.a);
 		float ws = 1.0;
-		for (int ring = 1; ring <= 3; ring++) {
-			float d = float(ring) / 3.0;
+		// rings about 3 texture px apart, taps about 2.5 px apart on each ring: dense enough that the halo stays smooth
+		// even when a strength above 1 stretches it (a sparse ring pattern would show as noise)
+		int rings = int(clamp(ceil(r / 3.0), 3.0, 14.0));
+		for (int ring = 1; ring <= 14; ring++) {
+			if (ring > rings) {
+				break;
+			}
+			float d = float(ring) / float(rings);
 			float w = exp(-2.0 * d * d);
-			for (int i = 0; i < 12; i++) {
-				float ang = 6.2831853 * (float(i) + 0.5 * float(ring)) / 12.0;
+			int taps = int(clamp(6.2831853 * d * r / 2.5, 6.0, 56.0));
+			for (int i = 0; i < 56; i++) {
+				if (i >= taps) {
+					break;
+				}
+				float ang = 6.2831853 * (float(i) + 0.5 * float(ring)) / float(taps);
 				vec2 q = UV + vec2(cos(ang), sin(ang)) * r * d * px;
 				vec4 s = TEXEL(q);
 				acc += vec4(s.rgb * s.a, s.a) * w;
