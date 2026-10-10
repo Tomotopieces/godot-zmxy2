@@ -5,7 +5,7 @@
 # A check fails on a line starting with FAIL, a script/parse error, or a timeout. The randomised treasure check gets one retry.
 GODOT="${GODOT:-/c/Program Files/Godot/Godot_v4.7.2-stable_win64_console.exe}"
 cd "$(dirname "$0")/../game" || exit 2
-CHECKS=("pad_check" "role_check" "smoke_test" "bag_check" "forge_check" "treasure_check" "stage_test -- hub" "stage_test -- door12")
+CHECKS=("walk_check" "pad_check" "role_check" "smoke_test" "bag_check" "forge_check" "treasure_check" "stage_test -- hub" "stage_test -- door12")
 failed=0
 run() {
   local scene="${1%% *}" rest="${1#"$scene"}" out

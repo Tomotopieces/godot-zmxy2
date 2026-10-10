@@ -247,7 +247,10 @@ func _build(d: Dictionary) -> void:
 			sp.modulate = Color(ct[0] + ct[4] / 255.0, ct[1] + ct[5] / 255.0, ct[2] + ct[6] / 255.0, clampf(ct[3] + ct[7] / 255.0, 0, 1))
 		(ground if leaf.size() > 3 and leaf[3] == 1 else art).add_child(sp)
 
+	_build_ground(d.walls)
 	for w in d.walls:
+		if _is_ground(w):
+			continue
 		var body := AnimatableBody2D.new()   # static unless a stage script moves it
 		body.z_index = Layers.Z_MECHANISM            # art a stage script hangs on it (boat, platforms)
 		body.sync_to_physics = false         # scripts move it directly in the physics step
@@ -259,7 +262,9 @@ func _build(d: Dictionary) -> void:
 		body.position = Vector2(w.pos[0], w.pos[1])
 		body.rotation_degrees = w.rot
 		var cs := CollisionShape2D.new()
-		cs.shape = _wall_shape(w, d.walls, body.transform)
+		var rs := RectangleShape2D.new()
+		rs.size = Vector2(w.size[0], w.size[1])
+		cs.shape = rs
 		cs.one_way_collision = oneway
 		cs.disabled = w.kind == "hidden"
 		body.add_child(cs)
@@ -303,49 +308,65 @@ func _build(d: Dictionary) -> void:
 	world.add_child(camera)
 	camera.make_current()
 
-## The original walks a hero over the joint of a slope and the flat ground above it; a physics body would be stopped by
-## the corner of the slope's end cap that pokes a pixel or two above that ground (奈何桥: no way back down). A slope
-## ending like that is cut flat at the ground's height: the slope's surface meets the ground exactly there.
-const SLOPE_BUMP := 6.0
+# ------------------------------------------------------------------ ground collision
 
-func _wall_shape(w: Dictionary, all: Array, xf: Transform2D) -> Shape2D:
-	var half := Vector2(w.size[0], w.size[1]) / 2.0
-	var rot := absf(fmod(float(w.rot), 90.0))
-	if w.kind == "solid" and rot >= 1.0 and rot <= 89.0:
-		var pts: Array[Vector2] = []
-		var top := INF
-		for c in [Vector2(-half.x, -half.y), Vector2(half.x, -half.y), Vector2(half.x, half.y), Vector2(-half.x, half.y)]:
-			pts.append(xf * c)
-		var peak := pts[0]
-		for p in pts:
-			if p.y < peak.y:
-				peak = p
-		for o in all:
-			if o == w or o.kind != "solid" or absf(float(o.rot)) > 0.5:
-				continue
-			var r := Rect2(Vector2(o.pos[0] - o.size[0] / 2.0, o.pos[1] - o.size[1] / 2.0), Vector2(o.size[0], o.size[1]))
-			if peak.x >= r.position.x and peak.x <= r.end.x and r.position.y > peak.y and r.position.y - peak.y <= SLOPE_BUMP:
-				top = r.position.y
-		if top < INF:
-			# keep the part of the slope below that height
-			var kept: Array[Vector2] = []
-			for i in pts.size():
-				var p: Vector2 = pts[i]
-				var q: Vector2 = pts[(i + 1) % pts.size()]
-				if p.y >= top:
-					kept.append(p)
-				if (p.y >= top) != (q.y >= top):
-					kept.append(p + (q - p) * ((top - p.y) / (q.y - p.y)))
-			var local := PackedVector2Array()
-			var inv := xf.affine_inverse()
-			for p in kept:
-				local.append(inv * p)
+## Solid scene walls that never move make up the ground (everything else - boat, platforms, hidden walls - stays its own body).
+func _is_ground(w: Dictionary) -> bool:
+	return w.kind == "solid" and w.cls != "export.Boat"
+
+## One static body for all the ground: a box per wall, and a ramp (the original's sloped wall: its surface is a line from one
+## end to the other) as a convex polygon whose surface ends exactly at the height of the floor it joins - so nothing
+## pokes above the floor for a foot to catch on.
+func _build_ground(all: Array) -> void:
+	var body := StaticBody2D.new()
+	body.name = "GroundCollision"
+	body.collision_layer = Actor.LAYER_WORLD
+	body.collision_mask = 0
+	for w in all:
+		if not _is_ground(w):
+			continue
+		var cs := CollisionShape2D.new()
+		var rot := absf(fmod(float(w.rot), 90.0))
+		if rot < 1.0 or rot > 89.0:
+			var rs := RectangleShape2D.new()
+			rs.size = Vector2(w.size[0], w.size[1])
+			cs.shape = rs
+			cs.position = Vector2(w.pos[0], w.pos[1])
+			cs.rotation_degrees = w.rot
+		else:
 			var cp := ConvexPolygonShape2D.new()
-			cp.set_point_cloud(local)
-			return cp
-	var rs := RectangleShape2D.new()
-	rs.size = Vector2(w.size[0], w.size[1])
-	return rs
+			cp.points = _ramp_polygon(w, all)
+			cs.shape = cp
+		body.add_child(cs)
+	world.add_child(body)
+
+const RAMP_DEPTH := 60.0     ## how far a ramp reaches down under its surface
+const SNAP := 8.0            ## a ramp end this close to a floor's top edge is on it
+
+func _ramp_polygon(w: Dictionary, all: Array) -> PackedVector2Array:
+	var half := Vector2(w.size[0], w.size[1]) / 2.0
+	var xf := Transform2D(deg_to_rad(float(w.rot)), Vector2(w.pos[0], w.pos[1]))
+	var a: Vector2 = xf * Vector2(-half.x, -half.y)   # the surface is the box's top edge
+	var b: Vector2 = xf * Vector2(half.x, -half.y)
+	var left := a if a.x < b.x else b
+	var right := b if a.x < b.x else a
+	var slope := (right.y - left.y) / (right.x - left.x)
+	var l := _end_on_floor(left, slope, all, w)
+	var r := _end_on_floor(right, slope, all, w)
+	left = l
+	right = r
+	return PackedVector2Array([left, right, right + Vector2(0, RAMP_DEPTH), left + Vector2(0, RAMP_DEPTH)])
+
+## A ramp end `p` that lies on a flat floor box: the surface line is carried on to the floor's top edge, so ramp and floor
+## meet at one point. Otherwise `p` unchanged.
+func _end_on_floor(p: Vector2, slope: float, all: Array, self_w: Dictionary) -> Vector2:
+	for o in all:
+		if o == self_w or not _is_ground(o) or absf(float(o.rot)) > 0.5:
+			continue
+		var r := Rect2(Vector2(o.pos[0] - o.size[0] / 2.0, o.pos[1] - o.size[1] / 2.0), Vector2(o.size[0], o.size[1]))
+		if p.x >= r.position.x - SNAP and p.x <= r.end.x + SNAP and absf(r.position.y - p.y) <= SNAP:
+			return Vector2(p.x + (r.position.y - p.y) / slope, r.position.y)
+	return p
 
 ## Common effects plus every rig of this stage's monsters (body, projectiles, and rigs named after the body:
 ## bullets, effects, form clips) load in the background while the stage starts.
