@@ -15,6 +15,10 @@ shader_parameter/glow_on = null
 shader_parameter/glow_color = null
 shader_parameter/glow_blur = null
 shader_parameter/glow_strength = null
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
 shader_parameter/solid = null
 shader_parameter/extend = 0.0
 
@@ -24,40 +28,40 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b6le5"]
 resource_local_to_scene = true
 
-[node name="Monster47Bullet1" type="Node2D" unique_id=1785178569]
+[node name="Monster47Bullet1" type="Node2D" unique_id=1019984733]
 script = ExtResource("1_arwyb")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=144895906]
+[node name="Parts" type="Node2D" parent="." unique_id=290572046]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=539486962]
+[node name="default" type="Node2D" parent="Parts" unique_id=1593540536]
 visible = false
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=657433247]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=1408607867]
 material = SubResource("ShaderMaterial_0s5t1")
 position = Vector2(-16.5, -16.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_dhsat")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=2062505865]
+[node name="Hitbox" type="Area2D" parent="." unique_id=971030500]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=2076064461]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1762739251]
 shape = SubResource("RectangleShape2D_h3a6r")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=523069104]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=640231946]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1275694326]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1381461010]
 shape = SubResource("RectangleShape2D_b6le5")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=356938800]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=2016411330]
 callback_mode_process = 0
 libraries/ = ExtResource("4_a1vkg")

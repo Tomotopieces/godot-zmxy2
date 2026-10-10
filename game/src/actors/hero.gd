@@ -78,11 +78,22 @@ func _apply_appearance() -> void:
 		rig.set_equip(k, look[k])
 
 ## Gear changes keep the current HP / MP, clamped to the new maximums.
+## With the 脱衣回蓝 trick switched on (GameState.strip_trick, key F) they work as in the original: taking gear off
+## subtracts its bonus from the current value (HP: down to 1 at least), putting it on adds it, and the value is only
+## clamped to 0..max at the next regeneration tick - so a bonus taken off at zero is "lost" only on paper and comes back
+## in full when the gear goes on again.
 func _on_equipment_changed() -> void:
 	_apply_appearance()
 	_sync_treasure()
+	var old_hp := max_hp
+	var old_mp := max_mp
 	max_hp = GameState.max_hp()
 	max_mp = GameState.max_mp()
+	if GameState.strip_trick:
+		var dh := max_hp - old_hp
+		hp = 1 if (dh < 0 and -dh > hp) else hp + dh
+		mp += max_mp - old_mp
+		return
 	hp = mini(hp, max_hp)
 	mp = mini(mp, max_mp)
 
@@ -476,8 +487,8 @@ func _update_regen(delta: float) -> void:
 	var interval := EquipmentCatalog.get_catalog().regen_interval
 	if _regen_t >= interval:
 		_regen_t -= interval
-		hp = mini(hp + GameState.hp_regen(), max_hp)
-		mp = mini(mp + GameState.mp_regen(), max_mp)
+		hp = clampi(hp + GameState.hp_regen(), 0, max_hp)
+		mp = clampi(mp + GameState.mp_regen(), 0, max_mp)   # (BaseRoleProperies.setMMP: also what clears a negative value)
 
 func take_hit(h: Hit) -> bool:
 	if not can_be_hit():

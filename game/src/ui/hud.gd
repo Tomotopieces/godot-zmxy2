@@ -168,7 +168,7 @@ func _process(_dt: float) -> void:
 	var h := lv.hero
 	_update_buffs()
 	_ui.set_bar("hpline", float(h.hp) / h.max_hp)
-	_ui.set_bar("mpline", float(h.mp) / h.max_mp)
+	_ui.set_bar("mpline", clampf(float(h.mp) / h.max_mp, 0.0, 1.0))
 	_ui.set_bar("expline", float(GameState.exp) / GameState.exp_to_next())
 	_ui.set_bar("wsmc", float(h.rage) / h.data.rage_max)
 	_ui.show_frame("shows", 1 if h.rage >= h.data.rage_max else 0)   # 无双 logo lights up when full

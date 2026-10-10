@@ -11,6 +11,8 @@ static func material_for(chain: Array, additive := false) -> ShaderMaterial:
 	m.shader = SHADER_ADD if additive else SHADER
 	var extend := 0.0
 	var used := false
+	var glows := 0
+	var reach1 := 0.0
 	for f in chain:
 		match f.t:
 			"blur":
@@ -22,11 +24,22 @@ static func material_for(chain: Array, additive := false) -> ShaderMaterial:
 			"glow":
 				if float(f.s) > 0.0 and f.has("c"):
 					var b := maxf(float(f.x), float(f.y))
-					m.set_shader_parameter("glow_on", true)
-					m.set_shader_parameter("glow_blur", b)
-					m.set_shader_parameter("glow_strength", float(f.s))
-					m.set_shader_parameter("glow_color", Color(f.c[0] / 255.0, f.c[1] / 255.0, f.c[2] / 255.0, f.c[3] / 255.0))
-					extend = maxf(extend, b)
+					var col := Color(f.c[0] / 255.0, f.c[1] / 255.0, f.c[2] / 255.0, f.c[3] / 255.0)
+					glows += 1
+					if glows == 1:
+						m.set_shader_parameter("glow_on", true)
+						m.set_shader_parameter("glow_blur", b)
+						m.set_shader_parameter("glow_strength", float(f.s))
+						m.set_shader_parameter("glow_color", col)
+						reach1 = b
+						extend = maxf(extend, b)
+					else:
+						# the next glow of a chain wraps the first one's halo: it reaches that much further
+						m.set_shader_parameter("glow2_on", true)
+						m.set_shader_parameter("glow2_blur", reach1 + b)
+						m.set_shader_parameter("glow2_strength", float(f.s) * 2.5)   # (its reach is wider, so the average under the halo edge is lower)
+						m.set_shader_parameter("glow2_color", col)
+						extend = maxf(extend, reach1 + b)
 					used = true
 			"matrix":
 				var a: Array = f.m

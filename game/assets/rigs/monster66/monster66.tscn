@@ -19,6 +19,10 @@ shader_parameter/glow_on = null
 shader_parameter/glow_color = null
 shader_parameter/glow_blur = null
 shader_parameter/glow_strength = null
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
 shader_parameter/solid = null
 shader_parameter/extend = 0.0
 
@@ -28,32 +32,32 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_owdod"]
 resource_local_to_scene = true
 
-[node name="Monster66" type="Node2D" unique_id=1977884853]
+[node name="Monster66" type="Node2D" unique_id=1253283205]
 script = ExtResource("1_6tdbw")
 actions = PackedStringArray("wait", "dead", "hurt", "walk")
 
-[node name="Parts" type="Node2D" parent="." unique_id=2120540105]
+[node name="Parts" type="Node2D" parent="." unique_id=156212840]
 
-[node name="wait" type="Node2D" parent="Parts" unique_id=1354590127]
+[node name="wait" type="Node2D" parent="Parts" unique_id=76067574]
 visible = false
 
-[node name="p1_1" type="Sprite2D" parent="Parts/wait" unique_id=1565498221]
+[node name="p1_1" type="Sprite2D" parent="Parts/wait" unique_id=256635442]
 position = Vector2(-57.95, -76)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_s2mfj")
 centered = false
 
-[node name="dead" type="Node2D" parent="Parts" unique_id=1597722680]
+[node name="dead" type="Node2D" parent="Parts" unique_id=1725182326]
 visible = false
 
-[node name="p1_1_1" type="Sprite2D" parent="Parts/dead" unique_id=343639685]
+[node name="p1_1_1" type="Sprite2D" parent="Parts/dead" unique_id=449099434]
 position = Vector2(-50.45, -81.2)
 rotation = 0.09509385
 scale = Vector2(0.5002602, 0.5002602)
 texture = ExtResource("2_s2mfj")
 centered = false
 
-[node name="p1_3_1_2_f0" type="Sprite2D" parent="Parts/dead" unique_id=1613934231]
+[node name="p1_3_1_2_f0" type="Sprite2D" parent="Parts/dead" unique_id=2105570454]
 material = SubResource("ShaderMaterial_y51mm")
 position = Vector2(-21.129028, 134.58698)
 rotation = -1.3088546
@@ -62,21 +66,21 @@ texture = ExtResource("4_5cqjg")
 centered = false
 region_enabled = true
 
-[node name="p1_3_5" type="Sprite2D" parent="Parts/dead" unique_id=53471695]
+[node name="p1_3_5" type="Sprite2D" parent="Parts/dead" unique_id=1179647481]
 position = Vector2(-45.0716, 3.2583466)
 rotation = 0.13000965
 scale = Vector2(0.3509619, 0.3509619)
 texture = ExtResource("5_lcmsa")
 centered = false
 
-[node name="p1_3_8" type="Sprite2D" parent="Parts/dead" unique_id=1936691331]
+[node name="p1_3_8" type="Sprite2D" parent="Parts/dead" unique_id=40160276]
 position = Vector2(-66.1642, -25.7654)
 rotation = 0.13142201
 scale = Vector2(0.35102707, 0.35102707)
 texture = ExtResource("6_udp7t")
 centered = false
 
-[node name="p1_3_9" type="Sprite2D" parent="Parts/dead" unique_id=396774741]
+[node name="p1_3_9" type="Sprite2D" parent="Parts/dead" unique_id=420034620]
 position = Vector2(-160.4589, -61.76335)
 rotation = 0.15015799
 scale = Vector2(0.35094908, 0.35087463)
@@ -84,42 +88,42 @@ skew = -0.0014090538
 texture = ExtResource("7_hsrhx")
 centered = false
 
-[node name="hurt" type="Node2D" parent="Parts" unique_id=1234383542]
+[node name="hurt" type="Node2D" parent="Parts" unique_id=987870913]
 visible = false
 
-[node name="p1_1" type="Sprite2D" parent="Parts/hurt" unique_id=1676168992]
+[node name="p1_1" type="Sprite2D" parent="Parts/hurt" unique_id=534962110]
 position = Vector2(-58.5, -76.6)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_s2mfj")
 centered = false
 
-[node name="walk" type="Node2D" parent="Parts" unique_id=1144371238]
+[node name="walk" type="Node2D" parent="Parts" unique_id=853007909]
 visible = false
 
-[node name="p1_1" type="Sprite2D" parent="Parts/walk" unique_id=1190516272]
+[node name="p1_1" type="Sprite2D" parent="Parts/walk" unique_id=1882004960]
 position = Vector2(-58.5, -76.6)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_s2mfj")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=2073114609]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1106038013]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1812891798]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=263145862]
 shape = SubResource("RectangleShape2D_5rgan")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=899764975]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=191216494]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1411524785]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=237549667]
 shape = SubResource("RectangleShape2D_owdod")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=1038157379]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=41217889]
 callback_mode_process = 0
 libraries/ = ExtResource("8_govoi")

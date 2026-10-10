@@ -14,6 +14,10 @@ func _ready() -> void:
 func _unhandled_key_input(e: InputEvent) -> void:
 	if e is InputEventKey and e.pressed and not e.echo and e.keycode == KEY_F11:
 		Controls.toggle_fullscreen()
+	if e is InputEventKey and e.pressed and not e.echo and e.keycode == KEY_F:
+		GameState.strip_trick = not GameState.strip_trick
+		if Level.current:
+			Level.current.toast("脱衣回蓝：" + ("开" if GameState.strip_trick else "关"))
 
 func _swap(n: Node) -> void:
 	if _screen:

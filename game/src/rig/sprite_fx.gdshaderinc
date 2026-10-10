@@ -10,6 +10,11 @@ uniform bool glow_on = false;
 uniform vec4 glow_color : source_color = vec4(1.0);
 uniform float glow_blur = 0.0;           // halo reach
 uniform float glow_strength = 1.0;
+// a second halo outside the first (the 无双 logo has a black glow with a white one around it): drawn behind it
+uniform bool glow2_on = false;
+uniform vec4 glow2_color : source_color = vec4(1.0);
+uniform float glow2_blur = 0.0;          // reach measured from the sprite, so beyond glow_blur
+uniform float glow2_strength = 1.0;
 uniform bool solid = false;              // only the halo colour: a silhouette to draw behind a character
 uniform float extend = 0.0;              // room the quad needs around the sprite
 
@@ -36,9 +41,9 @@ void fragment() {
 	vec2 px = TEXTURE_PIXEL_SIZE;
 	vec4 t = TEXEL(UV);
 	vec4 c = vec4(t.rgb * modc.rgb, t.a * modc.a);
-	float reach[2] = float[2](blur, glow_on ? glow_blur : 0.0);
-	vec4 avg[2] = vec4[2](vec4(0.0), vec4(0.0));
-	for (int k = 0; k < 2; k++) {
+	float reach[3] = float[3](blur, glow_on ? glow_blur : 0.0, glow2_on ? glow2_blur : 0.0);
+	vec4 avg[3] = vec4[3](vec4(0.0), vec4(0.0), vec4(0.0));
+	for (int k = 0; k < 3; k++) {
 		if (reach[k] <= 0.0) {
 			continue;
 		}
@@ -64,7 +69,16 @@ void fragment() {
 	if (matrix_on) {
 		c = clamp(color_matrix * c + color_offset, 0.0, 1.0);
 	}
-	if (glow_on) {
+	if (glow2_on && !solid) {
+		float g2 = clamp(avg[2].a * modc.a * glow2_strength, 0.0, 1.0) * glow2_color.a;
+		float g1 = glow_on ? clamp(avg[1].a * modc.a * glow_strength, 0.0, 1.0) * glow_color.a : 0.0;
+		// object over the inner halo over the outer halo
+		float a1 = g1 + g2 * (1.0 - g1);
+		vec3 rgb1 = glow_color.rgb * g1 + glow2_color.rgb * g2 * (1.0 - g1);
+		float oa2 = c.a + a1 * (1.0 - c.a);
+		vec3 rgb2 = c.rgb * c.a + rgb1 * (1.0 - c.a);
+		COLOR = vec4(oa2 > 0.0001 ? rgb2 / oa2 : vec3(0.0), oa2);
+	} else if (glow_on) {
 		float g = clamp(avg[1].a * modc.a * glow_strength, 0.0, 1.0) * glow_color.a;
 		if (solid) {
 			COLOR = vec4(glow_color.rgb, max(g, c.a));

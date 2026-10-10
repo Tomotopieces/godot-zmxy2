@@ -15,6 +15,10 @@ shader_parameter/glow_on = true
 shader_parameter/glow_color = Color(0.2, 0.2, 1, 1)
 shader_parameter/glow_blur = 2.0
 shader_parameter/glow_strength = 4.0
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
 shader_parameter/solid = null
 shader_parameter/extend = 3.0
 
@@ -28,6 +32,10 @@ shader_parameter/glow_on = true
 shader_parameter/glow_color = Color(0.2, 0.2, 1, 1)
 shader_parameter/glow_blur = 2.444458
 shader_parameter/glow_strength = 4.0
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
 shader_parameter/solid = null
 shader_parameter/extend = 3.444458
 
@@ -41,6 +49,10 @@ shader_parameter/glow_on = true
 shader_parameter/glow_color = Color(0.2, 0.2, 1, 1)
 shader_parameter/glow_blur = 2.888916
 shader_parameter/glow_strength = 4.0
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
 shader_parameter/solid = null
 shader_parameter/extend = 3.888916
 
@@ -54,6 +66,10 @@ shader_parameter/glow_on = true
 shader_parameter/glow_color = Color(0.2, 0.2, 1, 1)
 shader_parameter/glow_blur = 3.333313
 shader_parameter/glow_strength = 4.0
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
 shader_parameter/solid = null
 shader_parameter/extend = 4.333313
 
@@ -67,6 +83,10 @@ shader_parameter/glow_on = true
 shader_parameter/glow_color = Color(0.2, 0.2, 1, 1)
 shader_parameter/glow_blur = 3.777771
 shader_parameter/glow_strength = 4.0
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
 shader_parameter/solid = null
 shader_parameter/extend = 4.777771
 
@@ -80,6 +100,10 @@ shader_parameter/glow_on = true
 shader_parameter/glow_color = Color(0.2, 0.2, 1, 1)
 shader_parameter/glow_blur = 4.222229
 shader_parameter/glow_strength = 4.0
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
 shader_parameter/solid = null
 shader_parameter/extend = 5.222229
 
@@ -93,6 +117,10 @@ shader_parameter/glow_on = true
 shader_parameter/glow_color = Color(0.2, 0.2, 1, 1)
 shader_parameter/glow_blur = 4.666687
 shader_parameter/glow_strength = 4.0
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
 shader_parameter/solid = null
 shader_parameter/extend = 5.666687
 
@@ -106,6 +134,10 @@ shader_parameter/glow_on = true
 shader_parameter/glow_color = Color(0.2, 0.2, 1, 1)
 shader_parameter/glow_blur = 5.111084
 shader_parameter/glow_strength = 4.0
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
 shader_parameter/solid = null
 shader_parameter/extend = 6.111084
 
@@ -119,6 +151,10 @@ shader_parameter/glow_on = true
 shader_parameter/glow_color = Color(0.2, 0.2, 1, 1)
 shader_parameter/glow_blur = 5.555542
 shader_parameter/glow_strength = 4.0
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
 shader_parameter/solid = null
 shader_parameter/extend = 6.555542
 
@@ -132,6 +168,10 @@ shader_parameter/glow_on = true
 shader_parameter/glow_color = Color(0.2, 0.2, 1, 1)
 shader_parameter/glow_blur = 6.0
 shader_parameter/glow_strength = 4.0
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
 shader_parameter/solid = null
 shader_parameter/extend = 7.0
 
@@ -141,103 +181,103 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_35c84"]
 resource_local_to_scene = true
 
-[node name="OrbBlue" type="Node2D" unique_id=975850202]
+[node name="OrbBlue" type="Node2D" unique_id=307507930]
 script = ExtResource("1_hg2wb")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=1547825786]
+[node name="Parts" type="Node2D" parent="." unique_id=1783660262]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=431198927]
+[node name="default" type="Node2D" parent="Parts" unique_id=1715632018]
 visible = false
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=1562513875]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=1199766177]
 material = SubResource("ShaderMaterial_i7vxd")
 position = Vector2(-4.7, -5.825)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("3_1mqwx")
 centered = false
 
-[node name="p1_1_f1" type="Sprite2D" parent="Parts/default" unique_id=1587263957]
+[node name="p1_1_f1" type="Sprite2D" parent="Parts/default" unique_id=677163990]
 material = SubResource("ShaderMaterial_vwypp")
 position = Vector2(-4.65, -5.7749996)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("3_1mqwx")
 centered = false
 
-[node name="p1_1_f2" type="Sprite2D" parent="Parts/default" unique_id=403196]
+[node name="p1_1_f2" type="Sprite2D" parent="Parts/default" unique_id=618927135]
 material = SubResource("ShaderMaterial_3ick0")
 position = Vector2(-4.65, -5.7749996)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("3_1mqwx")
 centered = false
 
-[node name="p1_1_f3" type="Sprite2D" parent="Parts/default" unique_id=422905563]
+[node name="p1_1_f3" type="Sprite2D" parent="Parts/default" unique_id=1863601298]
 material = SubResource("ShaderMaterial_a44kd")
 position = Vector2(-4.65, -5.7749996)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("3_1mqwx")
 centered = false
 
-[node name="p1_1_f4" type="Sprite2D" parent="Parts/default" unique_id=879537238]
+[node name="p1_1_f4" type="Sprite2D" parent="Parts/default" unique_id=259762272]
 material = SubResource("ShaderMaterial_vegsv")
 position = Vector2(-4.65, -5.7749996)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("3_1mqwx")
 centered = false
 
-[node name="p1_1_f5" type="Sprite2D" parent="Parts/default" unique_id=2095276543]
+[node name="p1_1_f5" type="Sprite2D" parent="Parts/default" unique_id=61830647]
 material = SubResource("ShaderMaterial_oufga")
 position = Vector2(-4.65, -5.7749996)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("3_1mqwx")
 centered = false
 
-[node name="p1_1_f6" type="Sprite2D" parent="Parts/default" unique_id=1847782188]
+[node name="p1_1_f6" type="Sprite2D" parent="Parts/default" unique_id=10595600]
 material = SubResource("ShaderMaterial_sqrdr")
 position = Vector2(-4.65, -5.7749996)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("3_1mqwx")
 centered = false
 
-[node name="p1_1_f7" type="Sprite2D" parent="Parts/default" unique_id=223707955]
+[node name="p1_1_f7" type="Sprite2D" parent="Parts/default" unique_id=360806758]
 material = SubResource("ShaderMaterial_lcja2")
 position = Vector2(-4.65, -5.7749996)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("3_1mqwx")
 centered = false
 
-[node name="p1_1_f8" type="Sprite2D" parent="Parts/default" unique_id=2125711420]
+[node name="p1_1_f8" type="Sprite2D" parent="Parts/default" unique_id=1513447100]
 material = SubResource("ShaderMaterial_pb8ep")
 position = Vector2(-4.65, -5.7749996)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("3_1mqwx")
 centered = false
 
-[node name="p1_1_f9" type="Sprite2D" parent="Parts/default" unique_id=1868175962]
+[node name="p1_1_f9" type="Sprite2D" parent="Parts/default" unique_id=823051521]
 material = SubResource("ShaderMaterial_jj86v")
 position = Vector2(-4.7, -5.825)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("3_1mqwx")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=805516110]
+[node name="Hitbox" type="Area2D" parent="." unique_id=899625481]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1315825072]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=935396607]
 shape = SubResource("RectangleShape2D_vyqsu")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=726696848]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=703315904]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1178574159]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1049699241]
 shape = SubResource("RectangleShape2D_35c84")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=1088213920]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1362884748]
 callback_mode_process = 0
 libraries/ = ExtResource("4_c2cdn")
