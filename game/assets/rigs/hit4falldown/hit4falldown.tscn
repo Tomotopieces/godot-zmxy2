@@ -24,44 +24,44 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fvtqg"]
 resource_local_to_scene = true
 
-[node name="Hit4Falldown" type="Node2D" unique_id=809637657]
+[node name="Hit4Falldown" type="Node2D" unique_id=402096531]
 script = ExtResource("1_8ngde")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=1905094130]
+[node name="Parts" type="Node2D" parent="." unique_id=1231612199]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=1521371552]
+[node name="default" type="Node2D" parent="Parts" unique_id=179414193]
 visible = false
 
-[node name="g1_f0" type="CanvasGroup" parent="Parts/default" unique_id=438338564]
+[node name="g1_f0" type="CanvasGroup" parent="Parts/default" unique_id=794412717]
 material = SubResource("ShaderMaterial_hl273")
 fit_margin = 4.0
 clear_margin = 4.0
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default/g1_f0" unique_id=1743383809]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default/g1_f0" unique_id=1934386839]
 position = Vector2(-34.800003, -62.350002)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_fx4vq")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=125528256]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1448697331]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=147324827]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1199673661]
 shape = SubResource("RectangleShape2D_tdboe")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1951528258]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1944164664]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1110407614]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=986275052]
 shape = SubResource("RectangleShape2D_fvtqg")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=896695950]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1963740893]
 callback_mode_process = 0
 libraries/ = ExtResource("4_oxqdb")

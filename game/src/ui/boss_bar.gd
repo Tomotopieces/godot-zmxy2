@@ -20,6 +20,8 @@ func _ready() -> void:
 	_ui = UiLayout.create("boss_blood")
 	add_child(_ui)
 	_ui.show_frame("namemc", boss.data.display_name)
+	# the name has a black glow around it (GlowFilter blur 8, strength 5.4)
+	_ui.glow_pulse(_ui.get_piece("namemc"), Color.BLACK, Vector2(8, 8), Vector2(5.45, 5.45), 1.0)
 	for sp: Sprite2D in _ui.find_children("*", "Sprite2D", true, false):
 		if sp.clip_children != CanvasItem.CLIP_CHILDREN_DISABLED:
 			_mask = sp

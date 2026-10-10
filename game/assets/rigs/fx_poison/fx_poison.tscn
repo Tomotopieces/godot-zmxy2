@@ -25,21 +25,21 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6k5rs"]
 resource_local_to_scene = true
 
-[node name="FxPoison" type="Node2D" unique_id=1981290178]
+[node name="FxPoison" type="Node2D" unique_id=1424842560]
 script = ExtResource("1_cfhda")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=1651462668]
+[node name="Parts" type="Node2D" parent="." unique_id=116192888]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=1773458980]
+[node name="default" type="Node2D" parent="Parts" unique_id=287308945]
 visible = false
 
-[node name="g1_f0" type="CanvasGroup" parent="Parts/default" unique_id=257360414]
+[node name="g1_f0" type="CanvasGroup" parent="Parts/default" unique_id=669035805]
 material = SubResource("ShaderMaterial_mn8iw")
 fit_margin = 4.0
 clear_margin = 4.0
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default/g1_f0" unique_id=2112373970]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default/g1_f0" unique_id=731970176]
 modulate = Color(1, 1, 1, 0.559)
 position = Vector2(-20.29025, -39.228752)
 rotation = -0.030293763
@@ -47,30 +47,30 @@ scale = Vector2(0.28062874, 0.28062874)
 texture = ExtResource("3_mc51q")
 centered = false
 
-[node name="p3" type="Sprite2D" parent="Parts/default" unique_id=49237877]
+[node name="p3" type="Sprite2D" parent="Parts/default" unique_id=364876387]
 position = Vector2(-9.8, -11.25)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_v73gg")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=727702947]
+[node name="Hitbox" type="Area2D" parent="." unique_id=239076235]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=2131873305]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1047780567]
 shape = SubResource("RectangleShape2D_c5sw4")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1696884380]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1013421413]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1194225136]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1691801136]
 shape = SubResource("RectangleShape2D_6k5rs")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=933684256]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=371111544]
 callback_mode_process = 0
 libraries/ = ExtResource("5_rop3l")

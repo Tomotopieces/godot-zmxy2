@@ -8,6 +8,15 @@ const BURST := "monster51bullet3"
 
 var _rings: Array[Projectile] = []
 
+func setup() -> void:
+	_show_rounds()
+
+## The ring counter on the body: frame = 7 - rings left (Monster51.getRoundValue); the rings in it keep turning.
+func _show_rounds() -> void:
+	if not is_instance_valid(m) or m.rig == null:
+		return
+	m.rig.set_equip("round", _rings.size() + 1)
+
 func near_skill(action: StringName) -> void:
 	m.invuln = maxf(m.invuln, float(param("burst_invuln", 3.3)))
 	m.attack_with(action)
@@ -51,6 +60,7 @@ func _ring() -> void:
 			p.attack = m.data.attacks.get(&"hit1-2", p.attack)
 			p.dealer.reset()
 	_rings.append(r)
+	_show_rounds()
 
 func _recall() -> void:
 	for r in _rings:
@@ -58,6 +68,8 @@ func _recall() -> void:
 		tw.tween_property(r, "global_position", m.global_position, float(param("recall_time", 2.0)))
 		tw.tween_callback(r.queue_free)
 	_rings.clear()
+	# the counter refills when the rings are home
+	m.get_tree().create_timer(float(param("recall_time", 2.0)), false).timeout.connect(_show_rounds)
 
 func on_destroy() -> void:
 	for r in _rings:

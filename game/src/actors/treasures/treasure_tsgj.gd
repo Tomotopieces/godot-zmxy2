@@ -98,6 +98,8 @@ func _end() -> void:
 	visible = true
 	finish()
 
-func _exit_tree() -> void:
+func _exit_tree() -> void:   # taken off while the sword is out: it goes with it
+	if is_instance_valid(_blade):
+		_blade.queue_free()
 	if is_instance_valid(_body):
 		_body.queue_free()

@@ -137,13 +137,17 @@ func _physics_process(delta: float) -> void:
 			_read_input()
 		_update_velocity()
 	elif input_locked():
-		# grabbed / netted / petrified (setStatic): rooted and standing, not sliding or walking on
+		# grabbed / petrified (setStatic): rooted and standing, not sliding or walking on
 		velocity.x = 0.0
 		_dir = 0
 		running = false
-	if not _no_gravity:
-		apply_gravity(delta)
-	move_and_slide()
+	if has_debuff(&"net"):
+		# BaseHero.move(): caught in the net the hero neither walks nor falls; attacks and treasures still work
+		velocity = Vector2.ZERO
+	else:
+		if not _no_gravity:
+			apply_gravity(delta)
+		move_and_slide()
 	_after_move()
 	_clamp_to_view()
 	if state == State.ATTACK:
@@ -203,11 +207,13 @@ func _read_attack_input() -> void:
 			pass
 		else:
 			_normal_attack()
-	if Input.is_action_just_pressed("skill_u"):
+	# holding a skill key repeats it (the original gets key repeat from the keyboard): 烈焰风暴 and the others
+	# cast again as soon as the move is over
+	if Input.is_action_pressed("skill_u"):
 		_try_skill(&"hit7")
-	elif Input.is_action_just_pressed("skill_i"):
+	elif Input.is_action_pressed("skill_i"):
 		_try_skill(&"hit9")
-	elif Input.is_action_just_pressed("skill_o"):
+	elif Input.is_action_pressed("skill_o"):
 		_try_skill(&"hit10")
 
 func _try_jump() -> void:
@@ -393,6 +399,7 @@ func _on_hero_call(_name: String, _args: Array) -> void:
 func _skill_projectile(rig_name: String, action: StringName, pos: Vector2) -> Projectile:
 	var p := Projectile.create(rig_name, self, data.attacks[action], action)
 	p.position = pos
+	p.facing = facing   # a bullet is flipped to the way its caster faces (BaseBullet.setRole)
 	world.add_object(p)
 	return p
 
@@ -478,6 +485,9 @@ func take_hit(h: Hit) -> bool:
 	if Rng.randf() < GameState.miss():
 		DamageNumber.spawn_miss(global_position + Vector2(-20, -60))
 		return true
+	if h.attack.effect_only:
+		_apply_effects(h.attack.effects)
+		return true
 	h.damage += int((Rng.randf() - 0.5) * 10.0)   # BaseHero.beAttack: noise (-4..4, truncated) before defense
 	var dmg := h.mitigated(GameState.defense(), GameState.bonus("mdef"))
 	dmg = maxi(1, dmg)
@@ -556,9 +566,9 @@ func _apply_effects(effects: Array) -> void:
 		if e.name == "poison":
 			_poison = [float(e.power), float(e.tick), 0.0]
 
-## Input is locked while grabbed, petrified by a gaze or caught in a net.
+## Input is locked while grabbed or petrified by a gaze.
 func input_locked() -> bool:
-	return controls_locked or held_by != null or has_debuff(&"eyefix") or has_debuff(&"net")
+	return controls_locked or held_by != null or has_debuff(&"eyefix")
 
 func has_debuff(n: StringName) -> bool:
 	return debuffs.has(n)
@@ -643,14 +653,56 @@ func _spawn_afterimage() -> void:
 	tw.tween_property(ghost, "modulate:a", 0.0, AFTERIMAGE_FADE)
 	tw.tween_callback(ghost.queue_free)
 
-## Anti-lock protection = pulsing glow.
+## BaseAddEffect.myGlow: the rage form glows white, the anti-lock protection in the hero's colour (悟空 red, 唐僧 blue,
+## 八戒 gold). The glow breathes: blur 15 -> 6 and back, one step per frame (18 frames a cycle), strength 1.5; it is full
+## while the blur shrinks and 0.8 while it grows.
+const GLOW_COLORS := {"Role1": Color(1, 0, 0), "Role2": Color(0, 0, 1), "Role3": Color(1, 0.8, 0.2)}
+const GLOW_BLUR := Vector2(15.0, 6.0)
+const GLOW_STRENGTH := 1.5
+const GLOW_ALPHA_UP := 0.8
+const GLOW_PERIOD := 0.75   ## 18 frames at the original 24 fps
+
+var _glow_group: CanvasGroup
+var _glow_mat: ShaderMaterial
+var _glow_t := 0.0
+
 func _update_tint(delta: float) -> void:
-	var c := Color.WHITE
+	var color := Color.TRANSPARENT
+	if transformed:
+		color = Color.WHITE
+	elif _lock_glow > 0.0:
+		color = GLOW_COLORS.get(data.sound_prefix, Color.WHITE)
 	if _lock_glow > 0.0:
 		_lock_glow -= delta
-		var pulse := 0.5 + 0.5 * sin(_clock * TAU * 2.0)
-		c = c.lerp(Color(1.6, 1.6, 1.3), pulse * 0.6)
-	rig.modulate = c
+	if color.a == 0.0:
+		if _glow_group != null:
+			_glow_group.material = null
+		_glow_t = 0.0
+		return
+	if _glow_group == null:
+		_make_glow_group()
+	_glow_t = fmod(_glow_t + delta, GLOW_PERIOD)
+	var ph := _glow_t / GLOW_PERIOD * 2.0   # 0..1 shrinking, 1..2 growing
+	var down := ph < 1.0
+	var t := ph if down else 2.0 - ph
+	var blur := lerpf(GLOW_BLUR.x, GLOW_BLUR.y, t)
+	color.a = 1.0 if down else GLOW_ALPHA_UP
+	_glow_mat.set_shader_parameter("glow_color", color)
+	_glow_mat.set_shader_parameter("glow_blur", Vector2(blur, blur))
+	_glow_group.material = _glow_mat
+
+func _make_glow_group() -> void:
+	_glow_group = CanvasGroup.new()
+	_glow_group.use_mipmaps = false
+	_glow_group.fit_margin = GLOW_BLUR.x + 4.0
+	_glow_group.clear_margin = Rig.filter_clear_margin(_glow_group.fit_margin)
+	_glow_mat = ShaderMaterial.new()
+	_glow_mat.shader = preload("res://src/rig/flash_filter.gdshader")
+	_glow_mat.set_shader_parameter("glow_on", true)
+	_glow_mat.set_shader_parameter("glow_strength", GLOW_STRENGTH)
+	add_child(_glow_group)
+	move_child(_glow_group, rig.get_index())
+	rig.reparent(_glow_group, false)
 
 ## 苍生挂饰: come back once with half HP / MP and a short invincibility (not when falling out of the stage).
 func _try_revive() -> bool:

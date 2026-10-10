@@ -65,12 +65,12 @@ shader_parameter/color_offset = null
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3hiu4"]
 shader = ExtResource("3_yisbw")
 shader_parameter/blur = null
-shader_parameter/glow_on = true
-shader_parameter/glow_color = Color(1, 1, 1, 1)
-shader_parameter/glow_blur = Vector2(0, 0)
-shader_parameter/glow_strength = 0.0
-shader_parameter/glow_inner = false
-shader_parameter/glow_knockout = false
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow_inner = null
+shader_parameter/glow_knockout = null
 shader_parameter/matrix_on = null
 shader_parameter/color_matrix = null
 shader_parameter/color_offset = null
@@ -146,7 +146,7 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7gky8"]
 resource_local_to_scene = true
 
-[node name="FxRageTransform" type="Node2D" unique_id=1729252955]
+[node name="FxRageTransform" type="Node2D" unique_id=1010227507]
 script = ExtResource("1_jaumj")
 actions = PackedStringArray("default")
 markers = {
@@ -156,46 +156,46 @@ markers = {
 "bg": Vector2(-49.5, -0.3)
 }
 
-[node name="Parts" type="Node2D" parent="." unique_id=1822944226]
+[node name="Parts" type="Node2D" parent="." unique_id=362617095]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=1541656887]
+[node name="default" type="Node2D" parent="Parts" unique_id=611174959]
 visible = false
 
-[node name="p1_1" type="Sprite2D" parent="Parts/default" unique_id=827006497]
+[node name="p1_1" type="Sprite2D" parent="Parts/default" unique_id=738015305]
 position = Vector2(-637.05, -397)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_rfiw6")
 centered = false
 
-[node name="g1_2_f0" type="CanvasGroup" parent="Parts/default" unique_id=997310531]
+[node name="g1_2_f0" type="CanvasGroup" parent="Parts/default" unique_id=1805125204]
 material = SubResource("ShaderMaterial_r4trb")
 fit_margin = 60.0
 clear_margin = 60.0
 
-[node name="p1_2_1_f0" type="Sprite2D" parent="Parts/default/g1_2_f0" unique_id=1401577306]
+[node name="p1_2_1_f0" type="Sprite2D" parent="Parts/default/g1_2_f0" unique_id=1105934298]
 modulate = Color(1, 1, 1, 0.129)
 position = Vector2(-820.8, -46.25)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_ardfi")
 centered = false
 
-[node name="g1_4_f6" type="CanvasGroup" parent="Parts/default" unique_id=596691227]
+[node name="g1_4_f6" type="CanvasGroup" parent="Parts/default" unique_id=1144281715]
 material = SubResource("ShaderMaterial_djp3h")
 fit_margin = 42.0
 clear_margin = 42.0
 
-[node name="p1_4_1_f6" type="Sprite2D" parent="Parts/default/g1_4_f6" unique_id=1219477515]
+[node name="p1_4_1_f6" type="Sprite2D" parent="Parts/default/g1_4_f6" unique_id=1411924079]
 position = Vector2(665.5, -6.206)
 scale = Vector2(0.5, 0.32)
 texture = ExtResource("5_8wnsc")
 centered = false
 
-[node name="g1_6_f9" type="CanvasGroup" parent="Parts/default" unique_id=7984009]
+[node name="g1_6_f9" type="CanvasGroup" parent="Parts/default" unique_id=1964277222]
 material = SubResource("ShaderMaterial_x3jop")
 fit_margin = 4.0
 clear_margin = 4.0
 
-[node name="p1_6_1_f9" type="Sprite2D" parent="Parts/default/g1_6_f9" unique_id=823002783]
+[node name="p1_6_1_f9" type="Sprite2D" parent="Parts/default/g1_6_f9" unique_id=1639414651]
 modulate = Color(1, 1, 1, 0.559)
 position = Vector2(-144.22995, -147.29251)
 rotation = 0.015858665
@@ -204,102 +204,102 @@ skew = 0.0002527237
 texture = ExtResource("6_wuhch")
 centered = false
 
-[node name="g1_8_f8" type="CanvasGroup" parent="Parts/default" unique_id=1528495975]
+[node name="g1_8_f8" type="CanvasGroup" parent="Parts/default" unique_id=655049793]
 material = SubResource("ShaderMaterial_71cox")
 fit_margin = 21.0
 clear_margin = 21.0
 
-[node name="p1_8_1_f8" type="Sprite2D" parent="Parts/default/g1_8_f8" unique_id=833836110]
+[node name="p1_8_1_f8" type="Sprite2D" parent="Parts/default/g1_8_f8" unique_id=32056707]
 modulate = Color(1, 1, 1, 0.09)
 position = Vector2(-637.03204, -116.48386)
 scale = Vector2(1.7085, 1.7085)
 texture = ExtResource("7_c6qjv")
 centered = false
 
-[node name="g12_1_f1" type="CanvasGroup" parent="Parts/default" unique_id=2009521160]
+[node name="g12_1_f1" type="CanvasGroup" parent="Parts/default" unique_id=922826238]
 material = SubResource("ShaderMaterial_3hiu4")
 fit_margin = 4.0
 clear_margin = 4.0
 
-[node name="p12_1_13_f1" type="Sprite2D" parent="Parts/default/g12_1_f1" unique_id=664585770]
+[node name="p12_1_13_f1" type="Sprite2D" parent="Parts/default/g12_1_f1" unique_id=1411183933]
 position = Vector2(-800.67316, -71.859604)
 scale = Vector2(0.278, 0.278)
 texture = ExtResource("8_vmq42")
 centered = false
 
-[node name="g12_1_f2" type="CanvasGroup" parent="Parts/default" unique_id=1904792295]
+[node name="g12_1_f2" type="CanvasGroup" parent="Parts/default" unique_id=657043142]
 material = SubResource("ShaderMaterial_e18jh")
 fit_margin = 4.9999847
 clear_margin = 4.9999847
 
-[node name="p12_1_13_f2" type="Sprite2D" parent="Parts/default/g12_1_f2" unique_id=473112025]
+[node name="p12_1_13_f2" type="Sprite2D" parent="Parts/default/g12_1_f2" unique_id=788344428]
 position = Vector2(-733.5375, -82.05)
 scale = Vector2(0.3125, 0.3125)
 texture = ExtResource("8_vmq42")
 centered = false
 
-[node name="g12_1_f3" type="CanvasGroup" parent="Parts/default" unique_id=129302230]
+[node name="g12_1_f3" type="CanvasGroup" parent="Parts/default" unique_id=1889222099]
 material = SubResource("ShaderMaterial_rsg0o")
 fit_margin = 5.9999695
 clear_margin = 5.9999695
 
-[node name="p12_1_13_f3" type="Sprite2D" parent="Parts/default/g12_1_f3" unique_id=538751032]
+[node name="p12_1_13_f3" type="Sprite2D" parent="Parts/default/g12_1_f3" unique_id=289218258]
 position = Vector2(-666.1871, -92.06881)
 scale = Vector2(0.3465, 0.3465)
 texture = ExtResource("8_vmq42")
 centered = false
 
-[node name="g12_1_f4" type="CanvasGroup" parent="Parts/default" unique_id=2101790313]
+[node name="g12_1_f4" type="CanvasGroup" parent="Parts/default" unique_id=2131931324]
 material = SubResource("ShaderMaterial_yudqt")
 fit_margin = 7.0000305
 clear_margin = 7.0000305
 
-[node name="p12_1_13_f4" type="Sprite2D" parent="Parts/default/g12_1_f4" unique_id=1649415372]
+[node name="p12_1_13_f4" type="Sprite2D" parent="Parts/default/g12_1_f4" unique_id=366370943]
 position = Vector2(-599.0514, -102.20921)
 scale = Vector2(0.381, 0.381)
 texture = ExtResource("8_vmq42")
 centered = false
 
-[node name="g12_1_f5" type="CanvasGroup" parent="Parts/default" unique_id=2040782113]
+[node name="g12_1_f5" type="CanvasGroup" parent="Parts/default" unique_id=2122002505]
 material = SubResource("ShaderMaterial_i86jc")
 fit_margin = 8.000015
 clear_margin = 8.000015
 
-[node name="p12_1_13_f5" type="Sprite2D" parent="Parts/default/g12_1_f5" unique_id=871279025]
+[node name="p12_1_13_f5" type="Sprite2D" parent="Parts/default/g12_1_f5" unique_id=1854074482]
 position = Vector2(-531.91565, -112.3996)
 scale = Vector2(0.4155, 0.4155)
 texture = ExtResource("8_vmq42")
 centered = false
 
-[node name="g12_1_f7" type="CanvasGroup" parent="Parts/default" unique_id=538752299]
+[node name="g12_1_f7" type="CanvasGroup" parent="Parts/default" unique_id=1730729623]
 material = SubResource("ShaderMaterial_k3kei")
 fit_margin = 9.0
 clear_margin = 9.0
 
-[node name="p12_1_13_f7" type="Sprite2D" parent="Parts/default/g12_1_f7" unique_id=285951994]
+[node name="p12_1_13_f7" type="Sprite2D" parent="Parts/default/g12_1_f7" unique_id=285299462]
 position = Vector2(-464.77997, -122.590004)
 scale = Vector2(0.45, 0.45)
 texture = ExtResource("8_vmq42")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=18187450]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1418770822]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=516445331]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1579326053]
 shape = SubResource("RectangleShape2D_wuj44")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=2016306861]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1023096677]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1366460153]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=2127944080]
 shape = SubResource("RectangleShape2D_7gky8")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=289046629]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1861367572]
 callback_mode_process = 0
 libraries/ = ExtResource("9_65iqy")

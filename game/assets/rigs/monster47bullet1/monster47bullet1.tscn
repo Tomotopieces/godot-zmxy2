@@ -24,44 +24,44 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b6le5"]
 resource_local_to_scene = true
 
-[node name="Monster47Bullet1" type="Node2D" unique_id=1177493155]
+[node name="Monster47Bullet1" type="Node2D" unique_id=1918505894]
 script = ExtResource("1_arwyb")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=2121710056]
+[node name="Parts" type="Node2D" parent="." unique_id=1076173289]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=1838131314]
+[node name="default" type="Node2D" parent="Parts" unique_id=577617900]
 visible = false
 
-[node name="g1_f0" type="CanvasGroup" parent="Parts/default" unique_id=92781315]
+[node name="g1_f0" type="CanvasGroup" parent="Parts/default" unique_id=389140908]
 material = SubResource("ShaderMaterial_0s5t1")
 fit_margin = 4.0
 clear_margin = 4.0
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default/g1_f0" unique_id=170647727]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default/g1_f0" unique_id=240365231]
 position = Vector2(-16.5, -16.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_dhsat")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1934281757]
+[node name="Hitbox" type="Area2D" parent="." unique_id=63089700]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1836952650]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=163415818]
 shape = SubResource("RectangleShape2D_h3a6r")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=914725349]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1718417047]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=284827433]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=875320643]
 shape = SubResource("RectangleShape2D_b6le5")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=104588473]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1783229494]
 callback_mode_process = 0
 libraries/ = ExtResource("4_a1vkg")

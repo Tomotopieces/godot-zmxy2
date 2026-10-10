@@ -55,6 +55,6 @@ func _melee_or_walk(delta: float) -> void:
 func use_skill(action: StringName) -> void:
 	act(action)
 
-## Template D monsters take hits without being interrupted.
-func ignores_hit(_h: Hit) -> bool:
-	return m.is_attacking()
+## Template D bosses do get interrupted: BaseMonster.beAttack puts any monster that is hit into "hurt" (only the short
+## setYourFather windows at the start of a skill protect it); what the template lacks is the hurt guard of the AI,
+## so it decides on its next move straight away.

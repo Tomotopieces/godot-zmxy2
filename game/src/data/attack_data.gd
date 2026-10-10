@@ -19,6 +19,7 @@ enum Kind { PHYSICS, MAGIC, TRUE }
 @export var rage_dash_speed := 0.0
 @export var invincible := 0.0
 @export var extra := {}               ## skill specific numbers (already converted)
+@export var effect_only := false      ## puts its effects on the target without damage or hit stun (the 都市王 net)
 @export var effects: Array = []       ## status effects put on the target: {name, time (s), power, tick (s)}
 
 @export_group("Projectile")

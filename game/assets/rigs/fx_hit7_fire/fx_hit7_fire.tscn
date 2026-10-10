@@ -24,44 +24,44 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8xbfi"]
 resource_local_to_scene = true
 
-[node name="FxHit7Fire" type="Node2D" unique_id=1423700507]
+[node name="FxHit7Fire" type="Node2D" unique_id=1524339349]
 script = ExtResource("1_np61m")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=812244372]
+[node name="Parts" type="Node2D" parent="." unique_id=1642731126]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=1994660587]
+[node name="default" type="Node2D" parent="Parts" unique_id=1800147028]
 visible = false
 
-[node name="g1_f0" type="CanvasGroup" parent="Parts/default" unique_id=422249688]
+[node name="g1_f0" type="CanvasGroup" parent="Parts/default" unique_id=1386961761]
 material = SubResource("ShaderMaterial_odx1o")
 fit_margin = 24.0
 clear_margin = 24.0
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default/g1_f0" unique_id=36117566]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default/g1_f0" unique_id=1004588189]
 position = Vector2(-220.85, -34.15)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_5lqjv")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=690846635]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1301776969]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1118225478]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=950734151]
 shape = SubResource("RectangleShape2D_1cpr3")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1495386390]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=687855500]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1595065505]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1300704887]
 shape = SubResource("RectangleShape2D_8xbfi")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=1387587921]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=402678037]
 callback_mode_process = 0
 libraries/ = ExtResource("4_dw6el")

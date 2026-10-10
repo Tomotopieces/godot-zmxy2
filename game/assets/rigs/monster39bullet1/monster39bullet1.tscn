@@ -10,40 +10,40 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sa71j"]
 resource_local_to_scene = true
 
-[node name="Monster39Bullet1" type="Node2D" unique_id=685560799]
+[node name="Monster39Bullet1" type="Node2D" unique_id=847879567]
 script = ExtResource("1_eppx6")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=744005088]
+[node name="Parts" type="Node2D" parent="." unique_id=13439106]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=1661393638]
+[node name="default" type="Node2D" parent="Parts" unique_id=496120273]
 visible = false
 
-[node name="p1_1" type="Sprite2D" parent="Parts/default" unique_id=769885300]
+[node name="p1_1" type="Sprite2D" parent="Parts/default" unique_id=325130343]
 position = Vector2(75.549995, -27.6)
 rotation = 3.1415927
 scale = Vector2(0.5, -0.5)
 texture = ExtResource("2_ccdpj")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1187384324]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1597380935]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1051295205]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=837496359]
 shape = SubResource("RectangleShape2D_mj7gg")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=929850496]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=675978371]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1360157305]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1638244541]
 shape = SubResource("RectangleShape2D_sa71j")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=402219232]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1688216604]
 callback_mode_process = 0
 libraries/ = ExtResource("3_2508r")

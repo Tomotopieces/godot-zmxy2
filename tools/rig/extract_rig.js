@@ -23,7 +23,7 @@ const { classifyEvents } = require('./events');
 
 // ------------------------------------------------------------------ script classification
 
-const SEL_RE = /getCurClothId\(\) > 2|gotoAndPlay\(BaseHero\(this\.to\.parent\)\.(getCurClothId|getCurWeaponId|getWingId)\(\)( - 2)?\)|getEquipNum\(\); (?:if\([^)]*\) \{ )?this\.gotoAndPlay\(this\.obj\.(zbfj|zbwq|zbcb)\)|gotoAndStop\(Monster45\(this\.parent\.parent\)\.(getCurrentForm)\(\)\)/;
+const SEL_RE = /getCurClothId\(\) > 2|gotoAndPlay\(BaseHero\(this\.to\.parent\)\.(getCurClothId|getCurWeaponId|getWingId)\(\)( - 2)?\)|getEquipNum\(\); (?:if\([^)]*\) \{ )?this\.gotoAndPlay\(this\.obj\.(zbfj|zbwq|zbcb)\)|gotoAndStop\(Monster45\(this\.parent\.parent\)\.(getCurrentForm)\(\)\)|gotoAndStop\(7 - Monster51\(this\.parent\.parent\)\.(getRoundValue)\(\)\)/;
 
 // 唐僧's torso pieces sit in a clip named bodyEquip whose frame is the worn clothes id (Role2.setEquips); it is a cloth selector
 function selectorOf(lib, e) { return e.name === 'bodyEquip' ? 'cloth' : selectorKind(lib, e.c); }
@@ -37,6 +37,7 @@ function selectorKind(lib, id) {
   if (!m) return null;
   if (/getCurClothId\(\) > 2/.test(s1)) return 'cloth_ex';     // frame = clothId - 2, hidden when clothId <= 2
   if (m[3]) return { zbfj: 'cloth', zbwq: 'weapon', zbcb: 'wing' }[m[3]];   // bag portrait (User.getEquipNum)
+  if (m[5]) return 'round';   // 转轮王 form 2's ring counter: frame = 7 - rings left
   if (m[4]) return 'form';   // 白骨精 wings: frame = current form (Monster45.getCurrentForm)
   return { getCurClothId: 'cloth', getCurWeaponId: 'weapon', getWingId: 'wing' }[m[1]];
 }
@@ -257,6 +258,14 @@ function variantFrames(lib, selId, kind) {
       const frames = [];
       for (let f = start - 1; f < end; f++) frames.push(simulateRange(lib, selId, f, start - 1));
       out[id] = { frames, loop: true };
+    }
+  } else if (kind === 'round') {
+    // the counter holds its frame, but the rings inside keep turning: loop their clip
+    const period = Math.max(1, ...spr.frames.flat().map((e) => (lib.sprite(e.c) || { n: 1 }).n));
+    for (let f = 0; f < spr.n; f++) {
+      const frames = [];
+      for (let a = 0; a < period; a++) frames.push(simulateRange(lib, selId, f, f - a));
+      out[f + 1] = { frames: frames.some((fr) => fr.length) ? frames : [[]], loop: true };
     }
   } else {
     for (let f = 0; f < spr.n; f++) {

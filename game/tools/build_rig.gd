@@ -75,8 +75,12 @@ func _filter_material(fid: int) -> ShaderMaterial:
 	for f in _d.filters[fid]:
 		match f.t:
 			"blur":
+				if f.x == 0 and f.y == 0:
+					continue   # a later no-op must not wipe an earlier filter of the chain
 				m.set_shader_parameter("blur", Vector2(f.x, f.y))
 			"glow":
+				if f.s == 0 or not f.has("c"):
+					continue
 				m.set_shader_parameter("glow_on", true)
 				m.set_shader_parameter("glow_blur", Vector2(f.x, f.y))
 				m.set_shader_parameter("glow_strength", f.s)

@@ -1,7 +1,7 @@
 extends MonsterBrain
 ## Monster72 都市王 (10-5 boss). hit3: rises in a flash and lands on the hero, then one of two slams; it can't be
 ## interrupted. Too many knockbacks force a hit3. Far: hit3 (cooldown) or chase; near, every check tick: hit2 net
-## (heroes caught can't act until the net's effect ends) when ready, else hit1.
+## (heroes caught can't move or fall until the net goes; attacks and treasures still work, 血海魔童 frees) when ready, else hit1.
 
 var _up_left := 10
 var _check := 0.0
@@ -63,6 +63,8 @@ func on_call(n: String, _args: Array) -> bool:
 			act(&"hit3-1" if Rng.randf() < 0.5 else &"hit3-2")
 		"do_hit2":
 			_net = m.shoot("monster72bullet1", &"hit2", Vector2(150, 0))
+			_net.attack = _net.attack.duplicate()
+			_net.attack.effect_only = true   # the net does no damage, it only holds
 			_net.life = float(param("net_life", 8.0))
 			_net.tree_exiting.connect(func():
 				for h: Hero in m.world.heroes():

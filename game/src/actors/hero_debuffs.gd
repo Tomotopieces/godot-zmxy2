@@ -3,6 +3,8 @@ extends Node
 ## Status effects put on the hero by monsters (deadlink, net, magiclost, eyefix, poison ...): time left per effect and the
 ## effect icons that follow the hero. A child node of Hero, ticked by the hero.
 
+const HOLD_LAST := [&"eyefix"]   ## played once, then it stays on its last frame
+
 const ICONS := {
 	&"deadlink": ["fx_deadlink", Vector2(0, -40)], &"magiclost": ["fx_magiclost", Vector2.ZERO],
 	&"eyefix": ["fx_eyefix", Vector2(0, -20)], &"poison": ["fx_poison", Vector2(0, -70)],
@@ -35,7 +37,8 @@ func tick(delta: float) -> void:
 			r.position = ICONS[k][1]
 			get_parent().add_child(r)
 			r.play(r.actions[0])
-			r.action_finished.connect(func(a): r.play(a, true))
+			if not k in HOLD_LAST:
+				r.action_finished.connect(func(a): r.play(a, true))
 			_icons[k] = r
 		elif not on and _icons.has(k):
 			_icons[k].queue_free()

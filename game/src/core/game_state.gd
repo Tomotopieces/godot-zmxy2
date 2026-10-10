@@ -283,7 +283,14 @@ func make_item(id: String) -> Item:
 	var d := EquipmentCatalog.find(id)
 	if d == null:
 		return null
-	return Forge.new_treasure(id) if d.type == &"treasure" else d.roll()
+	if d.type == &"treasure":
+		return Forge.new_treasure(id)
+	# an item that only exists as a sum of its materials (地藏金戒) has no stats of its own: hand out one made of fresh materials
+	for r: Dictionary in EquipmentCatalog.get_catalog().fusion.recipes:
+		if r.out == id and r.kind == "sum":
+			var mats: Array = (r.mats as Array).map(func(mid): return EquipmentCatalog.find(mid).roll())
+			return Forge.produce(r, mats)
+	return d.roll()
 
 ## Take one out of bag[index] (a single copy when it is a stack).
 func take_at(index: int) -> Item:
