@@ -8,6 +8,9 @@ const SETTINGS := "user://settings.cfg"
 const SOUND_DIR := "res://assets/sounds/"
 const POOL := 12
 const STEP := 0.1
+## The same effect asked for again within this long counts as the same sound: one blow that lands on several enemies
+## plays its hit sound once, not once per enemy stacked into a roar (the original did stack them).
+const SAME_SOUND_MS := 60
 
 var master := 0.3        ## linear 0..1, low by default
 var music_volume := 0.6
@@ -18,6 +21,7 @@ var _music: AudioStreamPlayer
 var _pool: Array[AudioStreamPlayer] = []
 var _next := 0
 var _cache := {}
+var _last_ms := {}   ## sound -> tick of its last start
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -59,6 +63,10 @@ func sfx(sound: String, pitch := 1.0) -> void:
 	var s := _stream(sound)
 	if s == null:
 		return
+	var now := Time.get_ticks_msec()
+	if now - int(_last_ms.get(sound, -SAME_SOUND_MS)) < SAME_SOUND_MS:
+		return
+	_last_ms[sound] = now
 	var p := _pool[_next]
 	_next = (_next + 1) % POOL
 	p.stream = s
