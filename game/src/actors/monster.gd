@@ -336,7 +336,7 @@ func take_hit(h: Hit) -> bool:
 		world.add_combo_hit()
 		h.source.add_rage((h.source as Hero).rage_for_damage(dmg))
 		if h.attack.kind == AttackData.Kind.PHYSICS and GameState.bonus("lifesteal") > 0.0:
-			h.source.heal(int(dmg * GameState.bonus("lifesteal")), false)
+			h.source.heal(int(dmg * GameState.bonus("lifesteal")))   # (BaseHero.cureHp: the green number over the hero)
 	Snd.sfx(h.source.hit_sound if h.source is Hero else "BeattackByRole1")
 	Fx.spawn("fx_monster_hurt1" if Rng.randf() < 0.5 else "fx_monster_hurt2", center())
 	if not data.is_prop:
