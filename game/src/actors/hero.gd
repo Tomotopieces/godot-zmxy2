@@ -151,7 +151,7 @@ func _physics_process(delta: float) -> void:
 	_after_move()
 	_clamp_to_view()
 	if state == State.ATTACK:
-		scan_hits(world.enemies_of(self))
+		scan_hits()
 	_update_tint(delta)
 	if global_position.y > FALL_DEATH_Y and state != State.DEAD:
 		hp = 0

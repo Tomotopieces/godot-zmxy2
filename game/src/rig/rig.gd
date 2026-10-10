@@ -15,8 +15,12 @@ signal action_finished(action: StringName)
 @export var actions: PackedStringArray
 @export var markers: Dictionary = {}   ## named anchor points of the rest pose (e.g. "levelupmc")
 @onready var anim: AnimationPlayer = $Anim
-@onready var hitbox: Area2D = $Hitbox
-@onready var hurtbox: Area2D = $Hurtbox
+var hitbox: Area2D:   ## what this rig hits with (animated per action)
+	get:
+		return get_node("Hitbox")
+var hurtbox: Area2D:   ## where this rig can be hit
+	get:
+		return get_node("Hurtbox")
 
 var action: StringName = &""
 var equipment := {}    ## slot kind -> variant id (cloth / cloth_ex / weapon / wing)

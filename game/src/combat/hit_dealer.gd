@@ -20,14 +20,16 @@ func tick(delta: float) -> void:
 	for k in _log:
 		_log[k][1] -= delta
 
-## Test `rect` against every target's hurt rect and call `deliver(target) -> bool` for fresh overlaps.
-func scan(rect: Rect2, targets: Array, attack: AttackData, deliver: Callable, projectile := false) -> void:
-	if rect.size == Vector2.ZERO or attack == null:
+## The targets whose hurt box overlaps `hitbox` (an Area2D that only sees the other team's hurt layer) and that have not
+## been hit yet by this attack: `deliver(target) -> bool` for each.
+func scan(hitbox: Area2D, attack: AttackData, deliver: Callable, projectile := false) -> void:
+	if attack == null or (hitbox.get_child(0) as CollisionShape2D).disabled:
 		return
-	for t in targets:
+	for area in hitbox.get_overlapping_areas():
 		if projectile and hits >= attack.max_hits:
 			return
-		if not is_instance_valid(t) or not t.can_be_hit():
+		var t = area.get_meta(&"actor", null)
+		if t == null or not is_instance_valid(t) or not t.can_be_hit():
 			continue
 		var id: int = t.get_instance_id()
 		var entry = _log.get(id)
@@ -35,8 +37,6 @@ func scan(rect: Rect2, targets: Array, attack: AttackData, deliver: Callable, pr
 		if entry != null and entry[0] == serial:
 			if not projectile or attack.rehit_interval <= 0.0 or entry[1] > 0.0:
 				continue
-		if not rect.intersects(t.hurt_rect()):
-			continue
 		if deliver.call(t):
 			_log[id] = [serial, attack.rehit_interval]
 			hits += 1

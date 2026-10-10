@@ -34,6 +34,7 @@ static func create(rig_name: String, owner_actor: Actor, data: AttackData, act: 
 	p.attack = data
 	p.action = act
 	p.rig.event.connect(p._on_event)
+	p.rig.hitbox.collision_mask = Actor.LAYER_HURT_MONSTER if owner_actor is Hero else Actor.LAYER_HURT_HERO
 	p.rig.action_finished.connect(func(_a): p.queue_free())
 	return p
 
@@ -59,8 +60,7 @@ func _physics_process(delta: float) -> void:
 				return
 	if not is_instance_valid(source):
 		return
-	var targets: Array = Level.current.enemies_of(source)
-	dealer.scan(rig.hit_rect(), targets, attack, _deliver, true)
+	dealer.scan(rig.hitbox, attack, _deliver, true)
 	if dealer.spent(attack) and attack.max_hits <= 1:
 		queue_free()
 

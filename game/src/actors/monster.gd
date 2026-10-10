@@ -94,7 +94,7 @@ func _physics_process(delta: float) -> void:
 		apply_gravity(delta)
 	move_and_slide()
 	if state == State.ATTACK:
-		scan_hits(world.heroes())
+		scan_hits()
 	if state == State.MOVE and not brain.custom_animation():
 		rig.play(&"walk" if dir != 0 and rig.actions.has("walk") else &"wait")
 	if global_position.y > Hero.FALL_DEATH_Y:

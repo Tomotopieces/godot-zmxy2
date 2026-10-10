@@ -9,6 +9,8 @@ const LAYER_WORLD := 1
 const LAYER_ONEWAY := 2
 const LAYER_HERO := 4
 const LAYER_MONSTER := 8
+const LAYER_HURT_HERO := 16      ## hurt boxes (Area2D): what monsters' attacks overlap
+const LAYER_HURT_MONSTER := 32   ## what the heroes' attacks overlap
 
 ## The stage this actor lives in (one place that reads the Level.current locator; everything else asks the actor).
 var world: Level:
@@ -40,6 +42,11 @@ func setup_rig(rig_name: String) -> void:
 	add_child(rig)
 	rig.scale.x = -facing
 	rig.event.connect(_on_rig_event)
+	# attacks find their targets by physics overlap: this body's hurt box is on its team's hurt layer, its hit box looks at the other
+	var hero := self is Hero
+	rig.hurtbox.collision_layer = LAYER_HURT_HERO if hero else LAYER_HURT_MONSTER
+	rig.hurtbox.set_meta(&"actor", self)
+	rig.hitbox.collision_mask = LAYER_HURT_MONSTER if hero else LAYER_HURT_HERO
 	rig.action_finished.connect(_on_action_finished)
 	rig.play(&"wait" if rig.actions.has("wait") else StringName(rig.actions[0]))
 	# body = hurt box of the idle pose
@@ -76,9 +83,9 @@ func end_attack() -> void:
 	attack = null
 	attack_action = &""
 
-func scan_hits(targets: Array) -> void:
+func scan_hits() -> void:
 	if attack and attack.projectile == "":
-		dealer.scan(rig.hit_rect(), targets, attack, _deliver)
+		dealer.scan(rig.hitbox, attack, _deliver)
 
 func _deliver(target: Actor) -> bool:
 	var h := Hit.new()
