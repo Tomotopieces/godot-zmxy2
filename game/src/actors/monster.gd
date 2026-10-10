@@ -290,7 +290,12 @@ func _on_rig_event(n: StringName, args: Array) -> void:
 			world.shake(float(args[0]))
 
 ## BossDead (Common_v7): a full-screen swirl; at its end every dead boss drops loot and is removed.
+var _boss_dead_started := false
+
 func _boss_dead_sequence() -> void:
+	if _boss_dead_started:
+		return
+	_boss_dead_started = true
 	rig.visible = false
 	var fx := Fx.spawn("fx_boss_dead", center())
 	fx.tree_exited.connect(func():
@@ -315,7 +320,8 @@ func _on_action_finished(action: StringName) -> void:
 				velocity.x = 0.0   # (in the air the knock-back carries on to the landing)
 			state = State.MOVE
 		State.DEAD:
-			vanish()
+			if not _boss_dead_started:   # (a boss waits for its death swirl to finish)
+				vanish()
 
 # ------------------------------------------------------------------ damage
 

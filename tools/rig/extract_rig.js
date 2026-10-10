@@ -142,7 +142,7 @@ class Sim {
     this.events.push([this.frameIndex, src]);
     // action end: script changes curAction / plays another label / stops at top level
     const top = (() => { let s = src, p; do { p = s; s = s.replace(/\{[^{}]*\}/g, ''); } while (s !== p); return s; })();
-    if ((/\.curAction = /.test(src) || /\.gotoAndStop\("/.test(src) || /removeChild\(this\)/.test(src) || /\.destroy\(\)/.test(src)) && this.ended < 0 && this.frameIndex >= (this.endFrom || 0)) this.ended = this.frameIndex;
+    if ((/\.curAction = /.test(src) || /\.gotoAndStop\("/.test(src) || /removeChild\(this\)/.test(src) || /\.destroy\(\)/.test(src) || /BossDead/.test(src)) && this.ended < 0 && this.frameIndex >= (this.endFrom || 0)) this.ended = this.frameIndex;
     if (/(^|[;}\s])(this\.)?stop\(\);/.test(top)) { this.body.playing = false; if (this.held < 0) this.held = this.frameIndex; }
   }
   unknown(cls, f, src) { this.unknowns.push(`${cls} f${f}: ${src.slice(0, 160)}`); }

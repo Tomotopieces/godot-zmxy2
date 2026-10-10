@@ -30,5 +30,5 @@ func _apply() -> void:
 		_inst = ps.instantiate()
 		add_child(_inst)
 		if material != null:   # an effect on the slot (halo, tint) applies to its sprites
-			for sp: Sprite2D in _inst.find_children("*", "Sprite2D", true, false) + ([_inst] if _inst is Sprite2D else []):
-				sp.use_parent_material = true
+			for c: CanvasItem in _inst.find_children("*", "CanvasItem", true, false) + [_inst]:
+				c.use_parent_material = true   # every level down to the sprites takes the slot's effect

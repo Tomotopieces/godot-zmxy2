@@ -13,6 +13,7 @@ const fs = require('fs');
 const path = require('path');
 const fixSeams = require('./fix_seams');
 const { tag } = require('./tag_ground');
+const { decompose } = require('./shape_tiles');
 const { FlashLib, ROOT, I, mul, rectXf, union, CT_ID, ctMul } = require('./flash_data');
 
 const MARKERS = {
@@ -36,9 +37,49 @@ function main(stage, level, outDir) {
     if (!(k in out.textures)) out.textures[k] = lib.texture(c);
     return out.textures[k] ? k : null;
   };
+  // A shape made of bitmap rectangles (floor tiles, rock faces) becomes those bitmaps again instead of one huge
+  // rasterised picture: no seams between abutting pieces, and a run of identical tiles is one repeating strip.
+  // A piece: { key, x, y, region: [u, v, w, h, repeat] } (shape-local position; region in bitmap px)
+  const imgSize = (lib, id) => {   // pixel size of a bitmap (read from its PNG header)
+    const t = lib.J.images[id] && lib.texture(id);
+    if (!t) return null;
+    const b = fs.readFileSync(t.file);
+    return { w: b.readUInt32BE(16), h: b.readUInt32BE(20) };
+  };
+  const tilePieces = (lib, c) => {
+    const rs = decompose(lib.name, c);
+    if (!rs) return null;
+    for (const r of rs) if (!imgSize(lib, r.bitmap)) return null;
+    rs.forEach((r, i) => { r.order = i; });   // the original paints them in this order
+    rs.sort((a, b) => a.bitmap - b.bitmap || a.h - b.h || a.y - b.y || a.x - b.x);
+    const runs = [];
+    for (const r of rs) {
+      const img = imgSize(lib, r.bitmap);
+      const last = runs[runs.length - 1];
+      const tile = r.su === 1 && r.sv === 1 && r.u === 0 && r.v === 0 && r.w === img.w && r.h === img.h;
+      if (tile && last && last.tile && last.bitmap === r.bitmap && Math.abs(last.y - r.y) <= 1 && r.x - (last.x + last.w) >= -8 && r.x - (last.x + last.w) <= 8) {
+        last.w = r.x + r.w - last.x; last.n++;
+      } else runs.push({ ...r, tile, n: 1 });
+    }
+    runs.sort((a, b) => a.order - b.order);
+    return runs.map((r) => {
+      const img = imgSize(lib, r.bitmap);
+      if (r.n > 1) return { key: texKey(lib, r.bitmap), x: r.x, y: r.y, sx: 1, sy: 1, region: [0, 0, r.w, r.h, 1] };
+      // a single piece (region in bitmap px; a scaled bitmap is drawn scaled): grown by half a stage pixel on every
+      // side so neighbours overlap instead of leaving a hairline
+      const gu = 0.5 * r.su, gv = 0.5 * r.sv;
+      const u0 = Math.max(0, r.u - gu), v0 = Math.max(0, r.v - gv);
+      const u1 = Math.min(img.w, r.u + r.w * r.su + gu), v1 = Math.min(img.h, r.v + r.h * r.sv + gv);
+      return { key: texKey(lib, r.bitmap), x: r.x + (u0 - r.u) / r.su, y: r.y + (v0 - r.v) / r.sv, sx: 1 / r.su, sy: 1 / r.sv, region: [u0, v0, u1 - u0, v1 - v0, 0] };
+    });
+  };
   // flatten a character (frame 0) to [texKey, m, ct] leaves
   const flatten = (lib, c, m, ct, acc) => {
     const s = lib.sprite(c);
+    if (!s && lib.isShape(c)) {
+      const pieces = tilePieces(lib, c);
+      if (pieces) { for (const p of pieces) acc.push([p.key, mul(m, [p.sx, 0, 0, p.sy, p.x, p.y]).map((v) => Math.round(v * 10000) / 10000), ct.every((v, i) => v === CT_ID[i]) ? null : ct.map(r2), 0, p.region]); return acc; }
+    }
     if (!s) { const k = texKey(lib, c); if (k) acc.push([k, m.map(r2), ct.every((v, i) => v === CT_ID[i]) ? null : ct.map(r2)]); return acc; }
     for (const e of [...(s.frames[0] || [])].sort((a, b) => a.d - b.d)) {
       if (e.clip) continue;

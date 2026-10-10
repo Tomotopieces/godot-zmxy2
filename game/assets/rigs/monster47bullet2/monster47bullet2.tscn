@@ -24,40 +24,40 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3gaxs"]
 resource_local_to_scene = true
 
-[node name="Monster47Bullet2" type="Node2D" unique_id=1175975958]
+[node name="Monster47Bullet2" type="Node2D" unique_id=1241685655]
 script = ExtResource("1_del7v")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=754157604]
+[node name="Parts" type="Node2D" parent="." unique_id=744050897]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=360781693]
+[node name="default" type="Node2D" parent="Parts" unique_id=1526192533]
 visible = false
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=123662966]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=1379509401]
 material = SubResource("ShaderMaterial_7guw5")
 position = Vector2(-34, -16.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_wmhvb")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=462400242]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1806016739]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1345163138]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1115854173]
 shape = SubResource("RectangleShape2D_0h5bm")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1646255940]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=897975024]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=684852588]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=791635711]
 shape = SubResource("RectangleShape2D_3gaxs")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=696009043]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=71162533]
 callback_mode_process = 0
 libraries/ = ExtResource("4_kyd53")

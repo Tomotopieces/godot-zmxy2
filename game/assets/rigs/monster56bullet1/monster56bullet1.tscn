@@ -10,16 +10,16 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mthx5"]
 resource_local_to_scene = true
 
-[node name="Monster56Bullet1" type="Node2D" unique_id=1002121335]
+[node name="Monster56Bullet1" type="Node2D" unique_id=162767433]
 script = ExtResource("1_dkwr6")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=71700400]
+[node name="Parts" type="Node2D" parent="." unique_id=1925047914]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=1492564386]
+[node name="default" type="Node2D" parent="Parts" unique_id=80849255]
 visible = false
 
-[node name="p1_1" type="Sprite2D" parent="Parts/default" unique_id=77212368]
+[node name="p1_1" type="Sprite2D" parent="Parts/default" unique_id=1135069130]
 position = Vector2(-243.7417, 118.094406)
 rotation = -0.5235462
 scale = Vector2(1.0570962, -0.75444764)
@@ -27,24 +27,24 @@ skew = 0.000289917
 texture = ExtResource("2_rg0v3")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=757856748]
+[node name="Hitbox" type="Area2D" parent="." unique_id=66800142]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1710833145]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=214524750]
 shape = SubResource("RectangleShape2D_d6n17")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1406605134]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=159502034]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=2090321868]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=19679542]
 shape = SubResource("RectangleShape2D_mthx5")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=990376287]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=545599797]
 callback_mode_process = 0
 libraries/ = ExtResource("3_bis5g")

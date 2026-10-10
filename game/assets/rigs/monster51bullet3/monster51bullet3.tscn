@@ -10,45 +10,45 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mjn5e"]
 resource_local_to_scene = true
 
-[node name="Monster51Bullet3" type="Node2D" unique_id=1625513858]
+[node name="Monster51Bullet3" type="Node2D" unique_id=1782620378]
 script = ExtResource("1_qftsw")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=1223254342]
+[node name="Parts" type="Node2D" parent="." unique_id=1375070964]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=1731512998]
+[node name="default" type="Node2D" parent="Parts" unique_id=1925357603]
 visible = false
 
-[node name="p1_1" type="Sprite2D" parent="Parts/default" unique_id=1357162887]
+[node name="p1_1" type="Sprite2D" parent="Parts/default" unique_id=526169588]
 position = Vector2(-425.4, -130.00002)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_3fw7r")
 centered = false
 
-[node name="p3_1" type="Sprite2D" parent="Parts/default" unique_id=132677202]
+[node name="p3_1" type="Sprite2D" parent="Parts/default" unique_id=282940342]
 position = Vector2(-12.600006, -129.75002)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_3fw7r")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=672964698]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1003123237]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1727349060]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=920230609]
 shape = SubResource("RectangleShape2D_q7f8d")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=773451758]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=893974403]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1951593680]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=878852098]
 shape = SubResource("RectangleShape2D_mjn5e")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=1541699853]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1483912745]
 callback_mode_process = 0
 libraries/ = ExtResource("3_khnhc")

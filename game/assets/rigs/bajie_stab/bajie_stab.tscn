@@ -25,22 +25,22 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k4cwo"]
 resource_local_to_scene = true
 
-[node name="BajieStab" type="Node2D" unique_id=650236353]
+[node name="BajieStab" type="Node2D" unique_id=1214611127]
 script = ExtResource("1_sneh5")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=2106143405]
+[node name="Parts" type="Node2D" parent="." unique_id=257100892]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=638253894]
+[node name="default" type="Node2D" parent="Parts" unique_id=1790908761]
 visible = false
 
-[node name="p2" type="Sprite2D" parent="Parts/default" unique_id=1815806946]
+[node name="p2" type="Sprite2D" parent="Parts/default" unique_id=2120913722]
 position = Vector2(-3.85, -17.55)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_gxneq")
 centered = false
 
-[node name="p3_1_1_1_5_f0" type="Sprite2D" parent="Parts/default" unique_id=752533125]
+[node name="p3_1_1_1_5_f0" type="Sprite2D" parent="Parts/default" unique_id=89897431]
 modulate = Color(1, 1, 1, 0.449)
 material = SubResource("ShaderMaterial_yp8gc")
 position = Vector2(-8.8589, 3.5405998)
@@ -48,7 +48,7 @@ scale = Vector2(0.0635, 0.0635)
 texture = ExtResource("4_k5sa0")
 centered = false
 
-[node name="p3_3_1_1_5_f0" type="Sprite2D" parent="Parts/default" unique_id=1250767173]
+[node name="p3_3_1_1_5_f0" type="Sprite2D" parent="Parts/default" unique_id=1586606887]
 modulate = Color(1, 1, 1, 0.449)
 material = SubResource("ShaderMaterial_yp8gc")
 position = Vector2(-12.7909, 10.094601)
@@ -56,7 +56,7 @@ scale = Vector2(0.0635, 0.0635)
 texture = ExtResource("4_k5sa0")
 centered = false
 
-[node name="p3_5_1_1_5_f0" type="Sprite2D" parent="Parts/default" unique_id=2115474989]
+[node name="p3_5_1_1_5_f0" type="Sprite2D" parent="Parts/default" unique_id=210324818]
 modulate = Color(1, 1, 1, 0.449)
 material = SubResource("ShaderMaterial_yp8gc")
 position = Vector2(-7.2929, 19.3786)
@@ -64,7 +64,7 @@ scale = Vector2(0.0635, 0.0635)
 texture = ExtResource("4_k5sa0")
 centered = false
 
-[node name="p3_7_1_1_5_f0" type="Sprite2D" parent="Parts/default" unique_id=939874268]
+[node name="p3_7_1_1_5_f0" type="Sprite2D" parent="Parts/default" unique_id=1777888736]
 modulate = Color(1, 1, 1, 0.449)
 material = SubResource("ShaderMaterial_yp8gc")
 position = Vector2(-19.1259, 26.733599)
@@ -72,7 +72,7 @@ scale = Vector2(0.0635, 0.0635)
 texture = ExtResource("4_k5sa0")
 centered = false
 
-[node name="p3_9_1_1_5_f0" type="Sprite2D" parent="Parts/default" unique_id=723138150]
+[node name="p3_9_1_1_5_f0" type="Sprite2D" parent="Parts/default" unique_id=1089268467]
 modulate = Color(1, 1, 1, 0.449)
 material = SubResource("ShaderMaterial_yp8gc")
 position = Vector2(-0.95790005, 11.1866)
@@ -80,7 +80,7 @@ scale = Vector2(0.0635, 0.0635)
 texture = ExtResource("4_k5sa0")
 centered = false
 
-[node name="p3_11_1_1_5_f0" type="Sprite2D" parent="Parts/default" unique_id=183659452]
+[node name="p3_11_1_1_5_f0" type="Sprite2D" parent="Parts/default" unique_id=1787247390]
 modulate = Color(1, 1, 1, 0.449)
 material = SubResource("ShaderMaterial_yp8gc")
 position = Vector2(-7.6939, 41.078598)
@@ -88,24 +88,24 @@ scale = Vector2(0.0635, 0.0635)
 texture = ExtResource("4_k5sa0")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=224307652]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1909543183]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1387029744]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=417918685]
 shape = SubResource("RectangleShape2D_knot1")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=756471057]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1163923791]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=687924323]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=722979929]
 shape = SubResource("RectangleShape2D_k4cwo")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=1895197915]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=42504086]
 callback_mode_process = 0
 libraries/ = ExtResource("5_05trt")

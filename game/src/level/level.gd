@@ -240,6 +240,13 @@ func _build(d: Dictionary) -> void:
 		sp.centered = false
 		sp.texture = load(info.res)
 		sp.transform = _xf(leaf[1], info)
+		if leaf.size() > 4:
+			# a piece of a bitmap (or a strip of the same tile repeating): the artist's own tiles, not a rasterised shape
+			var r: Array = leaf[4]
+			sp.region_enabled = true
+			sp.region_rect = Rect2(r[0], r[1], r[2], r[3])
+			if int(r[4]) == 1:
+				sp.texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
 		if leaf[2] != null:
 			var ct: Array = leaf[2]
 			sp.modulate = Color(ct[0] + ct[4] / 255.0, ct[1] + ct[5] / 255.0, ct[2] + ct[6] / 255.0, clampf(ct[3] + ct[7] / 255.0, 0, 1))
@@ -390,7 +397,7 @@ const EDGE_SLIVER := 6.0
 
 func _close_edge_slivers(art: Node2D) -> void:
 	for sp: Sprite2D in art.get_children():
-		var r: Rect2 = sp.transform * Rect2(Vector2.ZERO, sp.texture.get_size())
+		var r: Rect2 = sp.transform * Rect2(Vector2.ZERO, sp.region_rect.size if sp.region_enabled else sp.texture.get_size())
 		if r.size.x < Layers.VIEW.x:
 			continue
 		var grow := Rect2(r)
@@ -528,8 +535,13 @@ func _make_camera() -> void:
 	camera.limit_top = 0
 	camera.limit_bottom = int(Layers.VIEW.y)
 	camera.limit_smoothed = false
+	# the stage opens on its first screen: no glide in from wherever the hero was placed
+	_right_cap = minf(Layers.VIEW.x, size.x)
+	camera.limit_left = 0
+	camera.limit_right = int(_right_cap)
 	hero.add_child(camera)
 	camera.make_current()
+	camera.force_update_scroll()
 	camera.reset_smoothing()
 
 func _lock_room() -> void:

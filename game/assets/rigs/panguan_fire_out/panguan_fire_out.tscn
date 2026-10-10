@@ -9,36 +9,36 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8igrw"]
 resource_local_to_scene = true
 
-[node name="PanguanFireOut" type="Node2D" unique_id=1318004485]
+[node name="PanguanFireOut" type="Node2D" unique_id=1593348522]
 script = ExtResource("1_jqqbn")
 actions = PackedStringArray("default")
 markers = {
 "isPanguanFire": Vector2(0, -16.05)
 }
 
-[node name="Parts" type="Node2D" parent="." unique_id=984219242]
+[node name="Parts" type="Node2D" parent="." unique_id=1368230717]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=1638955349]
+[node name="default" type="Node2D" parent="Parts" unique_id=652367802]
 visible = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1188138335]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1304444950]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1084146795]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1365292911]
 shape = SubResource("RectangleShape2D_kpcjb")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1641553372]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=2024790643]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=377069485]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1476867249]
 shape = SubResource("RectangleShape2D_8igrw")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=631427472]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=983177650]
 callback_mode_process = 0
 libraries/ = ExtResource("2_igiv4")
