@@ -13,6 +13,7 @@ var _cycle := 0.0
 var _stop_at := 3.0
 var _attack_t := 0.0
 var _pause := 0.0
+var _reviving := false       ## between two lives (45 reburns, 61 waits for a leech): cannot be hit, does nothing
 
 static var _scripts := {}   ## monster id -> brain script (or null = the base brain)
 
@@ -77,7 +78,7 @@ func ignores_hit(_h: Hit) -> bool:
 	return false
 
 func can_be_hit() -> bool:
-	return true
+	return not _reviving
 
 func on_action_finished(_action: StringName) -> void:
 	pass
@@ -88,6 +89,12 @@ func on_died() -> void:
 ## HP reached 0. Return true to take over (revive phases); the monster then stays alive.
 func intercept_death() -> bool:
 	return false
+
+## The boss starts a revive / re-burn instead of dying: it stops where it is and cannot be hit until the brain ends it.
+func begin_revive() -> void:
+	_reviving = true
+	m.end_attack()
+	m.velocity = Vector2.ZERO
 
 ## Removed from the level (after the death animation). Bosses open the exit by default.
 func on_destroy() -> void:
@@ -103,6 +110,25 @@ func move_speed() -> float:
 
 ## True when the brain drives the walk / wait animation itself.
 func custom_animation() -> bool:
+	return false
+
+# ------------------------------------------------------------------ calls other brains / stage scripts make on a boss
+# (declared here so they are checked by the parser instead of being looked up by name; the boss that has the move overrides)
+
+## The leech 62 tells its master 61 that it is done: 61 comes back at `pos`.
+func revive_at(_pos: Vector2) -> void:
+	pass
+
+## The master 61 tells a leech 62 to go and burn out.
+func go_reburn(_master: Monster) -> void:
+	pass
+
+## The fires are lit (2-2): the 判官 fight begins.
+func real_start() -> void:
+	pass
+
+## A hub stone was just hit (10-1 doors).
+func recently_hit() -> bool:
 	return false
 
 # ------------------------------------------------------------------ pieces shared by the boss templates

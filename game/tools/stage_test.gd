@@ -58,11 +58,11 @@ func hub() -> void:
 	for round in 2:
 		# advance the selector to the wanted pointer, then hit both stones "together"
 		var want := 1 if round == 0 else 4
-		while int((sc._selector.brain as Object).get("pointer")) != want:
+		while (sc._selector.brain as HubPropBrain).pointer != want:
 			sc._selector.invuln = 0.0
 			await _attack_at(sc._selector.center() + Vector2(-60, 0))
 		for s in sc._stones:
-			(s.brain as Object).set("_hit_t", 0.5)
+			(s.brain as HubPropBrain)._hit_t = 0.5
 		await _wait(1.5)
 		print("pointer=", want, " ready_doors=", sc._ready_doors, " statue_ready=", sc._statue_ready)
 	h.global_position = sc._doors[1].hit_rect().get_center()

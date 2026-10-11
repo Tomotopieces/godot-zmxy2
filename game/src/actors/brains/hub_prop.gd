@@ -1,3 +1,4 @@
+class_name HubPropBrain
 extends MonsterBrain
 ## Stage 10 hub props (Monster70 round selector, Monster71 stones): can't be killed or moved.
 ## 70: every hit advances its pointer (0..4). 71: remembers being hit for a short moment.

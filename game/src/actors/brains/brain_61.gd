@@ -7,7 +7,6 @@ const MARK := "monster61bullet1pre"
 const BURST := "monster61bullet1"
 
 var children: Array[Monster] = []
-var _reviving := false
 
 func far_skill(action: StringName) -> void:
 	children = children.filter(func(c): return is_instance_valid(c) and c.state != Monster.State.DEAD)
@@ -16,20 +15,15 @@ func far_skill(action: StringName) -> void:
 	else:
 		attack()
 
-func can_be_hit() -> bool:
-	return not _reviving
-
 func intercept_death() -> bool:
 	children = children.filter(func(c): return is_instance_valid(c) and c.state != Monster.State.DEAD)
 	if children.is_empty():
 		return false
-	_reviving = true
-	m.end_attack()
+	begin_revive()
 	m.state = Monster.State.ATTACK
 	m.rig.visible = false
-	m.velocity = Vector2.ZERO
 	for c in children:
-		(c.brain as Object).call("go_reburn", m)
+		c.brain.go_reburn(m)
 	return true
 
 ## Called by a leech at the end of its sacrifice.

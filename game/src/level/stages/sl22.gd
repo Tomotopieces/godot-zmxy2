@@ -35,7 +35,7 @@ func _light_fires() -> void:
 
 func _start_fight() -> void:
 	if is_instance_valid(_boss):
-		(_boss.brain as Object).call("real_start")
+		_boss.brain.real_start()
 	_t = float(_cfg.fire_out)
 
 func _physics_process(delta: float) -> void:

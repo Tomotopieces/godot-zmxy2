@@ -57,7 +57,7 @@ func on_call(n: String, _args: Array) -> bool:
 					return true
 		"do_re_burn":
 			if is_instance_valid(_master):
-				(_master.brain as Object).call("revive_at", m.global_position)
+				_master.brain.revive_at(m.global_position)
 			m.invuln = 0.0
 			m.damage_directly(999999)
 		_:

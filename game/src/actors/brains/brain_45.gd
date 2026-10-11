@@ -5,7 +5,6 @@ extends "res://src/actors/brains/boss_b.gd"
 ## HP, defence and attack power (Monster45.setInfo). The third death is final. Her wings show the current form.
 
 var _form := 1
-var _reviving := false
 
 func setup() -> void:
 	_apply_form()
@@ -31,15 +30,10 @@ func _apply_form() -> void:
 	m.hp = m.max_hp
 	m.rig.set_equip("form", _form)
 
-func can_be_hit() -> bool:
-	return not _reviving
-
 func intercept_death() -> bool:
 	if _form >= 3:
 		return false
-	_reviving = true
-	m.end_attack()
-	m.velocity = Vector2.ZERO
+	begin_revive()
 	m.play_action(&"dead")   # its last frame calls check_re_burn
 	return true
 

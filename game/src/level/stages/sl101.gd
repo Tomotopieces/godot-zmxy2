@@ -38,9 +38,9 @@ func _physics_process(_delta: float) -> void:
 	if _stones.size() < 2 or _selector == null:
 		return
 	for s in _stones:
-		if not is_instance_valid(s) or not (s.brain as Object).call("recently_hit"):
+		if not is_instance_valid(s) or not s.brain.recently_hit():
 			return
-	var idx: int = (_selector.brain as Object).get("pointer")
+	var idx: int = (_selector.brain as HubPropBrain).pointer
 	if idx < _doors.size():
 		_open_door(idx)
 	else:
