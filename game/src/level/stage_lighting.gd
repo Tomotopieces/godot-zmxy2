@@ -27,6 +27,7 @@ var _shafts: Array[Polygon2D] = []
 var _moon_glow: Sprite2D
 var _shadows := {}      ## instance id of an actor -> {holder, rig, mat, sig, floor_y}
 var _t := 0.0
+var _treasure_rig: Rig
 
 ## Starts the stage's lighting when it has a data file.
 static func attach(lv: Level) -> StageLighting:
@@ -72,17 +73,29 @@ func _ready() -> void:
 
 ## The art's own material: backlight rim; the decoration (not the floor) also fades to dark at its feet.
 func _light_scenery(scene: Dictionary) -> void:
-	for pair in [["Art", float(scene.fade_height)], ["Ground", 0.0]]:
+	# one material per depth layer (the decoration's layers are Parallax2D nodes under "Art"; see level.json "parallax")
+	var layers: Dictionary = _cfg.get("layers", {})
+	var groups := {"Ground": [_lv.world.get_node("Ground"), {"fade": 0.0}]}
+	groups["Art"] = [_lv.world.get_node("Art"), {}]
+	for n in (_lv.world.get_node("Art") as Node2D).get_children():
+		if n is Parallax2D:
+			groups[n.name] = [n, layers.get(String(n.name), {})]
+	for name_ in groups:
+		var node: Node2D = groups[name_][0]
+		var o: Dictionary = groups[name_][1]
 		var m := ShaderMaterial.new()
 		m.shader = ART
 		m.set_shader_parameter("rim_color", _color(scene.rim_color))
 		m.set_shader_parameter("rim_strength", float(scene.rim_strength))
 		m.set_shader_parameter("rim_width", float(scene.rim_width))
 		m.set_shader_parameter("ground_y", float(scene.ground_y))
-		m.set_shader_parameter("fade_height", pair[1])
+		m.set_shader_parameter("fade_height", 0.0 if name_ == "Ground" else float(scene.fade_height) * float(o.get("fade", 1.0)))
 		m.set_shader_parameter("fade_dark", float(scene.fade_dark))
-		for sp: Sprite2D in (_lv.world.get_node(pair[0]) as Node2D).get_children():
-			if sp.material == null:
+		m.set_shader_parameter("blur", float(o.get("blur", 0.0)))
+		if o.has("tint"):
+			node.modulate = _color(o.tint)
+		for sp in node.get_children():
+			if sp is Sprite2D and sp.material == null:
 				sp.material = m
 
 func _build_fog() -> void:
@@ -203,6 +216,12 @@ func _physics_process(delta: float) -> void:
 			continue
 		seen[a.get_instance_id()] = true
 		_update_actor(a)
+	var tr: Treasure = _lv.hero.treasure
+	if is_instance_valid(tr) and tr.rig != null and tr.rig != _treasure_rig:
+		_treasure_rig = tr.rig   # the hero's magic treasure: a mild even tint and the backlight rim (it floats, so no gradient)
+		var b: Dictionary = _cfg.body
+		var mid := _color(b.shade).lerp(_color(b.lit), 0.5)
+		_treasure_rig.set_light(mid, mid, float(b.height), float(b.rim_strength), float(b.rim_width))
 	for id in _shadows.keys():
 		if not seen.has(id):
 			(_shadows[id].holder as Node2D).queue_free()

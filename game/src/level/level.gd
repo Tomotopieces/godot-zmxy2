@@ -234,6 +234,18 @@ func _xf(m: Array, info: Dictionary) -> Transform2D:
 	var s := 1.0 / float(info.scale)
 	return t * Transform2D(Vector2(s, 0), Vector2(0, s), Vector2(info.ox, info.oy))
 
+## Depth layers of the scenery (level.json "parallax": texture -> {layer, scale}): a Parallax2D per layer name; its scale is
+## how much of the camera's movement it follows (below 1: farther away, it drifts slower than the ground).
+func _parallax_layer(art: Node2D, cfg: Dictionary) -> Node2D:
+	var n := art.get_node_or_null(NodePath(String(cfg.layer)))
+	if n == null:
+		var px := Parallax2D.new()
+		px.name = String(cfg.layer)
+		px.scroll_scale = Vector2(float(cfg.scale), 1.0)
+		art.add_child(px)
+		n = px
+	return n
+
 func _build(d: Dictionary) -> void:
 	size = Vector2(d.size[0], d.size[1])
 	var far_layer := CanvasLayer.new()
@@ -272,7 +284,10 @@ func _build(d: Dictionary) -> void:
 		if leaf[2] != null:
 			var ct: Array = leaf[2]
 			sp.modulate = Color(ct[0] + ct[4] / 255.0, ct[1] + ct[5] / 255.0, ct[2] + ct[6] / 255.0, clampf(ct[3] + ct[7] / 255.0, 0, 1))
-		(ground if leaf.size() > 3 and leaf[3] == 1 else art).add_child(sp)
+		var parent: Node2D = ground if leaf.size() > 3 and leaf[3] == 1 else art
+		if d.get("parallax", {}).has(leaf[0]):
+			parent = _parallax_layer(art, d.parallax[leaf[0]])
+		parent.add_child(sp)
 
 	_build_ground(d.walls)
 	for w in d.walls:
@@ -422,7 +437,9 @@ func _warm_rigs(d: Dictionary) -> void:
 const EDGE_SLIVER := 6.0
 
 func _close_edge_slivers(art: Node2D) -> void:
-	for sp: Sprite2D in art.get_children():
+	for sp in art.get_children():
+		if not sp is Sprite2D:
+			continue   # (a depth layer)
 		var r: Rect2 = sp.transform * Rect2(Vector2.ZERO, sp.region_rect.size if sp.region_enabled else sp.texture.get_size())
 		if r.size.x < Layers.VIEW.x:
 			continue

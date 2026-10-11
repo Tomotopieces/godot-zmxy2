@@ -9,20 +9,36 @@ uniform vec2 light_dir = vec2(-0.6, -0.8);         // towards the light, in the 
 uniform float ground_y = 497.0;
 uniform float fade_height = 0.0;                   // px above the floor where the fade starts (0 = none)
 uniform float fade_dark = 0.3;                     // brightness at the floor
+uniform float blur = 0.0;                          // depth of field: soft focus, game px
 
 varying vec4 modc;
 varying vec2 uvdir;
 varying float wy;
+varying float sc;
 
 void vertex() {
 	modc = COLOR;
 	mat2 m = mat2(MODEL_MATRIX[0].xy, MODEL_MATRIX[1].xy);
 	uvdir = inverse(m) * normalize(light_dir) * rim_width * TEXTURE_PIXEL_SIZE;
 	wy = (MODEL_MATRIX * vec4(VERTEX, 0.0, 1.0)).y;
+	sc = max(length(MODEL_MATRIX[0].xy), 0.0001);
 }
 
 void fragment() {
 	vec4 t = texture(TEXTURE, UV);
+	if (blur > 0.0) {   // a ring of taps (premultiplied, so a soft edge does not pick up the colour of nothing)
+		vec2 px = TEXTURE_PIXEL_SIZE * (blur / sc);
+		vec4 acc = vec4(t.rgb * t.a, t.a) * 2.0;
+		float wsum = 2.0;
+		for (int i = 0; i < 8; i++) {
+			float ang = float(i) * 0.7854;
+			vec4 q = texture(TEXTURE, UV + vec2(cos(ang), sin(ang)) * px);
+			acc += vec4(q.rgb * q.a, q.a);
+			wsum += 1.0;
+		}
+		acc /= wsum;
+		t = vec4(acc.a > 0.001 ? acc.rgb / acc.a : t.rgb, acc.a);
+	}
 	vec3 c = t.rgb * modc.rgb;
 	float a = t.a * modc.a;
 	if (rim_strength > 0.0) {
