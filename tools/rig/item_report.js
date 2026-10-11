@@ -17,7 +17,13 @@ const DROP_MUL = 1.5;   // FallEquipObj: probability x 1.5 (BaseMonster.fallEqui
 const SCENE_NAME = (s) => { const d = s.slice(2); return d.length === 3 ? `${d.slice(0, 2)}-${d[2]}` : `${d[0]}-${d[1]}`; };
 const STAGE_NAMES = { '1-1': '1-1', '1-2': '1-2', '1-3': '1-3', '2-1': '2-1', '2-2': '2-2 判官府', '2-3': '2-3 阎罗殿', '3-1': '3-1 忘川河', '3-2': '3-2 奈何桥', '3-3': '3-3 孟婆', '4-1': '4-1', '5-1': '5-1 白骨精(隐藏)', '6-1': '6-1 红孩儿(隐藏)', '7-1': '7-1 刑天(隐藏)', '8-1': '8-1 楚江王(隐藏)', '9-1': '9-1 宋帝王(活动)', '10-2': '10-2 五官王', '10-3': '10-3 卞城王', '10-4': '10-4 泰山王', '10-5': '10-5 都市王', '10-6': '10-6 平等王', '11-1': '11-1(活动)' };
 // stages that have no entrance in the game flow (the original opens them only from events)
-const NO_ENTRY = new Set(['9-1', '11-1']);
+// (9-1 / 11-1 are entered from the 活动 panel on the stage map; nothing is left without an entrance)
+const NO_ENTRY = new Set();
+// 中秋: the cake drops from every boss; the exchange menu of the bag turns 10 into a big one and 100 into the hero's weapon
+const moon = eq.rules.moon;
+const MOON_SOURCE = Object.assign({ [moon.cake]: '中秋：每个 BOSS 单位死亡必掉 1 个' },
+  Object.fromEntries(moon.big.map((id) => [id, `中秋：${moon.big_cost} 个小月饼兑换（随机一种）`])),
+  Object.fromEntries(Object.values(moon.weapons).map((id) => [id, `中秋：${moon.weapon_cost} 个小月饼兑换（本角色）`])));
 
 // monster ids -> names (docs/analysis/05_monsters.md)
 const NAMES = {};
@@ -123,9 +129,9 @@ function status(id, it) {
   if (it.charm) return '✓ ' + (it.charm === 'luck' ? '幸运符：强化成功率 ×1.25' : '保底符：强化失败不降级');
   if (it.type === 'item') {
     if (USABLE.includes(id)) return '✓ 可使用（' + (id === 'wdd' ? '强化已装备的五毒兽' : '限时 buff') + '）';
+    if (id === moon.cake) return '✓ 背包点击：兑换大月饼 / 绝版武器';
     if (id === 'yll') return '✓ 持有后可开启刑天门';
     if (id === 'bsz') return '✓ 持有后触碰忘川河极光进入楚江王';
-    if (id === 'xyb' || /dyb$/.test(id)) return '✗ 中秋活动道具，未做';
     if (mats.has(id)) return '✓ 合成材料';
     return '△ 仅可出售';
   }
@@ -138,6 +144,7 @@ function status(id, it) {
 }
 
 function obtain(id, it) {
+  if (MOON_SOURCE[id]) return { text: MOON_SOURCE[id], reachable: true };
   const list = (src[id] || []);
   if (!list.length) return null;
   // drops from stages without an entrance are not reachable
@@ -153,7 +160,7 @@ lines.push('# 物品清单与实装情况', '', '由 `node tools/rig/item_report
 lines.push('- ✓ 已实装　△ 部分/特殊　✗ 未做（原因见备注）　⚠ 已实装但目前没有任何获取渠道');
 lines.push('- 怪物掉率是已经乘过原版的 ×1.5 之后的值，之后还会乘双倍爆率 buff 和时装加成；"#数字"是怪物 ID。掉率是“该怪的某一件”的概率：先按怪的总掉率判定，掉落时再在掉落表里等概率选一件。药品、经验球、强化石各自单独判定，不和装备抢概率。');
 lines.push('- 红孩儿 #46 的金刚甲只在主角等级大于 15 时掉落。');
-lines.push('- 活动关卡 9-1 / 11-1 在原版只有活动入口，本作没有入口，所以只在这些关卡掉落的物品算"没有获取渠道"。', '');
+lines.push('- 活动关卡 9-1（七夕）/ 11-1（国庆）从地图的「活动」面板进入，每天各一次；中秋月饼靠 BOSS 掉落 + 背包兑换。', '');
 
 const problems = [];
 let total = 0, ok = 0;
@@ -218,7 +225,7 @@ for (const p of problems) console.log('  no source:', p.id, p.it.name, '-', p.ho
     '- 装备：先按怪的“装备掉率”（原版数值 ×1.5）判定掉不掉，掉的话在该怪的装备表里**等概率**选一件，所以每件的概率 = 总掉率 ÷ 件数。表里列的是每件的概率；之后还会乘双倍爆率 buff 和时装加成。',
     '- 强化石（1 级）：只有关底 BOSS 才有，单独判定，不占装备的概率；只有主角等级不超过该关上限才会掉。',
     '- 药品和经验球所有怪都一样，各自独立判定：血瓶共约 5%（小红约 3.75%、大红约 1.25%），蓝瓶约 5%；红球每怪 2~4 个，绿 / 蓝 / 白球各有 4% 概率出 3 个、4% 出 2 个、4% 出 1 个。',
-    '- 红孩儿的金刚甲只在主角等级大于 15 时掉落。活动关卡 9-1 / 11-1 本作没有入口。', '',
+    '- 红孩儿的金刚甲只在主角等级大于 15 时掉落。', '',
     '| 怪物 | 出现关卡 | 装备（每件概率） | 关底强化石 |', '|---|---|---|---|');
   for (const r of rows) {
     const items = r.list.length ? r.list.map((x) => `${ITEM_NAME(x.item)}(${x.item}) ${pct(x.p)}${x.note ? '·' + x.note : ''}`).join('<br>') : '—';

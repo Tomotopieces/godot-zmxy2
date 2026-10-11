@@ -13,6 +13,7 @@ const CELL := 50.0
 const CELL_GAP := 7.0
 const ICON_OFFSET := Vector2(0, -2)
 const MENU_OFFSET := Vector2(25, 25)
+const MOON_MENU_HEIGHT := 142.0   ## the exchange menu is taller than the plain one: keep it on screen
 const SLOT_PIECES := {&"weapon": "zbwq", &"cloth": "zbfj", &"accessory": "zbsp", &"treasure": "zbfb", &"fashion": "zbsz", &"wing": "zbcb"}
 const TABS := {"btn_zb": "equip", "btn_dj": "item", "btn_rw": "look"}   ## page button -> bag page
 
@@ -195,10 +196,15 @@ func _on_bag_click(icon: Control, index: int) -> void:
 	var item := GameState.bag[index]
 	var d := GameState.item_data(item)
 	var enabled := {"bzb": GameState.can_wear(item), "bgy": false, "bmd": true}   # 赠送 is 2P only
+	var moon: bool = item.id == EquipmentCatalog.get_catalog().moon.cake   # 小月饼: the menu also exchanges them
 	if TABS[_tab] == "item":
 		enabled = {"buse": GameState.usable(item), "bthrow": true}
-	_menu = UiLayout.create("item_menu" if TABS[_tab] == "item" else "pack_menu")
+		if moon:
+			enabled.merge({"sbmooncake": true, "smoonweapon": true})
+	_menu = UiLayout.create("item_menu_zq" if moon else "item_menu" if TABS[_tab] == "item" else "pack_menu")
 	_menu.position = icon.position + _grid.position + MENU_OFFSET
+	if moon:
+		_menu.position.y = minf(_menu.position.y, Layers.VIEW.y - MOON_MENU_HEIGHT)
 	add_child(_menu)
 	PadNav.modal(_menu)
 	_menu.button_pressed.connect(_menu_action)
@@ -226,6 +232,8 @@ func _menu_action(piece: String) -> void:
 			_flash_tip(GameState.use_item(idx))
 		"bthrow":
 			GameState.discard(idx)
+		"sbmooncake", "smoonweapon":
+			_flash_tip(GameState.exchange_moon_cake(piece == "smoonweapon"))
 
 func _on_worn_click(_icon: Control, slot: StringName) -> void:
 	if not GameState.take_off(slot):

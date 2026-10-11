@@ -33,6 +33,8 @@ var buffs := {}                      ## timed buff -> seconds of stage time left
 var merit := 0                       ## 功勋: shop currency
 var merit_day := ""                  ## date of the last 功勋 reward (it is limited per day)
 var merit_times := 0                 ## rewards taken on merit_day
+var activity_days := {}              ## 活动 (七夕 / 国庆) -> date it was last entered: each one only once a day
+var notice := ""                     ## shown by the next stage once it has loaded (e.g. the 七夕 reward)
 var stage := Vector2i(1, 1)          ## stage being played (or last played)
 var progress := Vector2i(1, 1)       ## furthest unlocked stage-level on the main path (1-1 .. 4-1)
 var opening_seen := false            ## opening comic shown
@@ -89,16 +91,16 @@ func upgrade_passive(i: int) -> bool:
 	return true
 
 func max_hp() -> int:
-	return int((hero_data.max_hp(level) + int(bonus("hp"))) * buff_value("hp_mul", 1.0))
+	return int((hero_data.max_hp(level) + int(bonus("hp")) + int(buff_sum("hp_add"))) * buff_mul("hp_mul"))
 
 func max_mp() -> int:
-	return hero_data.max_mp(level) + int(bonus("mp"))
+	return hero_data.max_mp(level) + int(bonus("mp")) + int(buff_sum("mp_add"))
 
 func attack_power() -> int:
-	return attack + int(bonus("atk"))
+	return attack + int(bonus("atk")) + int(buff_sum("atk_add"))
 
 func defense() -> int:
-	return hero_data.defense(level) + int(bonus("def"))
+	return hero_data.defense(level) + int(bonus("def")) + int(buff_sum("def_add"))
 
 func crit() -> float:
 	return bonus("crit")
@@ -110,12 +112,12 @@ func hp_regen() -> int:
 	return int(bonus("hp_regen"))
 
 func mp_regen() -> int:
-	return int(bonus("mp_regen") + buff_value("mp_regen", 0.0))
+	return int(bonus("mp_regen") + buff_sum("mp_regen"))
 
 ## Equipment / stone drop rate multiplier: 双倍爆率 buff and the worn fashion.
 func drop_mul() -> float:
 	var cat := EquipmentCatalog.get_catalog()
-	return buff_value("drop_mul", 1.0) * (1.0 + float(cat.drop_bonus.get(Item.id_of(worn[&"fashion"]), 0.0)))
+	return buff_mul("drop_mul") * (1.0 + float(cat.drop_bonus.get(Item.id_of(worn[&"fashion"]), 0.0)))
 
 func exp_to_next() -> int:
 	return hero_data.exp_to_next(level)
@@ -138,13 +140,20 @@ func appearance() -> Dictionary:
 
 # ------------------------------------------------------------------ buffs
 
-## Value of an effect of the running buffs (first buff that has it).
-func buff_value(key: String, fallback: float) -> float:
+## An effect of the running buffs: added up (stat bonuses, regen) or multiplied (rates) over every buff that has it.
+func buff_sum(key: String) -> float:
 	var defs: Dictionary = EquipmentCatalog.get_catalog().buffs
+	var t := 0.0
 	for b in buffs:
-		if defs.get(b, {}).has(key):
-			return float(defs[b][key])
-	return fallback
+		t += float(defs.get(b, {}).get(key, 0.0))
+	return t
+
+func buff_mul(key: String) -> float:
+	var defs: Dictionary = EquipmentCatalog.get_catalog().buffs
+	var t := 1.0
+	for b in buffs:
+		t *= float(defs.get(b, {}).get(key, 1.0))
+	return t
 
 ## Buff timers only run during a stage (HeroBuff.step).
 func tick_buffs(delta: float) -> void:
@@ -341,6 +350,33 @@ func take_off(slot: StringName) -> bool:
 	profile_changed.emit()
 	return true
 
+## 中秋: 10 小月饼 -> one random 大月饼, 100 -> the hero's 绝版武器 (PackThings.swapBigMoonCake / swapMoonWeapon). The product goes into
+## the bag whatever its size (the original did not check either). Returns the notice to show.
+func exchange_moon_cake(weapon: bool) -> String:
+	var m: Dictionary = EquipmentCatalog.get_catalog().moon
+	var cost := int(m.weapon_cost if weapon else m.big_cost)
+	var at := -1
+	for i in bag.size():
+		if bag[i].id == m.cake:
+			at = i
+	if at < 0 or bag[at].n < cost:
+		return "数量不够"
+	if bag[at].n > cost:
+		bag[at].n -= cost
+	else:
+		bag.remove_at(at)
+	var out := make_item(m.weapons[hero_data.character] if weapon else Rng.pick(m.big))
+	add_to_bag(out, true)
+	profile_changed.emit()
+	return "获得 %s" % item_data(out).display_name
+
+## 活动: one entry per calendar day (the original asked the 4399 server for the date; a single-player game uses the clock).
+func activity_done(id: String) -> bool:
+	return activity_days.get(id, "") == Time.get_date_string_from_system()
+
+func mark_activity(id: String) -> void:
+	activity_days[id] = Time.get_date_string_from_system()
+
 func has_item(id: String) -> bool:
 	return bag.any(func(it: Item): return it.id == id)
 
@@ -432,6 +468,8 @@ func new_game(r := "wukong") -> void:
 	merit = 0
 	merit_day = ""
 	merit_times = 0
+	activity_days.clear()
+	notice = ""
 	slot = -1
 	equipment_changed.emit()
 	profile_changed.emit()

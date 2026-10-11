@@ -96,6 +96,10 @@ func _ready() -> void:
 	fixed_camera = params.get("fixed_camera", false)
 	if params.get("save_on_enter", false):
 		GameState.autosave()
+	if GameState.notice != "":
+		var text := GameState.notice   # e.g. the 七夕 reward: shown once the stage is up
+		GameState.notice = ""
+		get_tree().create_timer(1.0, false).timeout.connect(func(): toast(text))
 	if params.has("auto_touch"):
 		# boss rooms: the first stop is touched after a delay, wherever the camera is
 		get_tree().create_timer(float(params.auto_touch), false).timeout.connect(_touch_stop)
@@ -517,6 +521,10 @@ func add_monster(m: Monster) -> void:
 ## A boss finished dying: the exit opens once no other boss is left (Monster33/34 share a room).
 func boss_destroyed(m: Monster) -> void:
 	_bosses_killed += 1
+	var kill_buff: String = EquipmentCatalog.get_catalog().kill_buffs.get(str(m.data.id), "")
+	if kill_buff != "":
+		GameState.add_buff(kill_buff)   # 国庆: 劈天斧 / 风神盾 leave an hour of attack / defence
+		toast("获得 %s" % EquipmentCatalog.get_catalog().buffs[kill_buff].label)
 	var merit := Forge.reward_merit(m.data.id)
 	if merit > 0:
 		toast("获得 功勋 + %d" % merit)

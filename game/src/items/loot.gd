@@ -26,6 +26,9 @@ static func drop(m: Monster) -> void:
 		Potion.spawn(Potion.Kind.SMALL_MP, pos, t)
 
 	_drop_equipment(m)
+	if m.data.is_boss:
+		# 中秋: every boss unit leaves one 小月饼 (the official event: 100 %)
+		_ground(m, EquipmentCatalog.get_catalog().moon.cake)
 
 	# whoever killed it gets the orbs; a kill with no attacker on record (reflected damage, poison, the debug key) goes to
 	# the hero of the stage

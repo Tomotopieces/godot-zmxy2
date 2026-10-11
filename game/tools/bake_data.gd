@@ -44,6 +44,8 @@ func _bake_equipment(d: Dictionary) -> void:
 	c.buff_time = _sec(r.buff_frames)
 	c.use = r.use
 	c.buffs = r.buffs
+	c.kill_buffs = r.kill_buffs
+	c.moon = r.moon
 	c.drop_bonus = r.drop_bonus
 	c.stone_drop = r.stone_drop
 	c.tabs = r.tabs

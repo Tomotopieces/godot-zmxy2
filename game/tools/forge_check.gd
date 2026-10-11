@@ -51,12 +51,14 @@ func _ready() -> void:
 	_check("五毒兽 fixed stats + passive", wds.stats.atk == 50.0 and wds.stats.size() == 5 and wds.lv == 1)
 	var st := Forge.recipe_for([s1, s1, s1])
 	_check("stone recipe free 75%", st.out == "wpqhs2" and Forge.fusion_cost(st) == 0 and is_equal_approx(Forge.fusion_chance(st), 0.75))
-	var ring_mats := [GameState.make_item("dzj"), GameState.make_item("t"), GameState.make_item("c")]
+	# 地藏金戒: the 地藏戒 adds what it has (strengthening included); 贪 / 嗔 are rolled when melted (the bag shows no numbers for them)
+	var dzj := GameState.make_item("dzj")
+	dzj.plus = 7
+	var ring_mats := [dzj, GameState.make_item("t"), GameState.make_item("c")]
 	var ring := Forge.produce(Forge.recipe_for(ring_mats), ring_mats)
-	var want := 0.0
-	for m in ring_mats:
-		want += float(m.stats.get("hp", 0.0)) + float(m.stats.get("atk", 0.0))
-	_check("dzjj sums the materials actually used", ring.id == "dzjj" and is_equal_approx(float(ring.stats.get("hp", 0.0)) + float(ring.stats.get("atk", 0.0)), want))
+	var hp: float = ring.stats.get("hp", 0.0)
+	var atk: float = ring.stats.get("atk", 0.0)
+	_check("dzjj sums its materials", ring.id == "dzjj" and ring.plus == 0 and hp >= 300 + 350 + 100 and hp <= 300 + 350 + 300 and atk >= 30 + 70 + 10 and atk <= 30 + 70 + 30)
 	# equipment stat rolls cover the whole range, ends as often as the middle (the original's round(rand * k) halved the ends)
 	var counts := {}
 	for i in 6000:
