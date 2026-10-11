@@ -32,9 +32,8 @@ var _flash_tween: Tween
 
 const HIT_FLASH := preload("res://src/rig/hit_flash.gdshader")
 
-## A hit lands: the whole rig flashes `color` for `secs` (fading out). Parts that carry an effect material of their
-## own (glows, blurs) keep it; everything else takes the flash through the rig's material.
-func flash(color: Color, secs := 0.1) -> void:
+## The rig's material (flash + stage light) and every part without a material of its own using it.
+func _adopt_parts() -> void:
 	if _flash_mat == null:
 		_flash_mat = ShaderMaterial.new()
 		_flash_mat.shader = HIT_FLASH
@@ -42,6 +41,24 @@ func flash(color: Color, secs := 0.1) -> void:
 	for n: Node2D in find_children("*", "Node2D", true, false):
 		if n.material == null and not n.use_parent_material:
 			n.use_parent_material = true
+
+## A stage's light on this body: multiplier `shade` at the feet, `lit` at `height` px above them.
+func set_light(shade: Color, lit: Color, height: float) -> void:
+	_adopt_parts()
+	_flash_mat.set_shader_parameter("look_on", true)
+	_flash_mat.set_shader_parameter("shade", shade)
+	_flash_mat.set_shader_parameter("lit", lit)
+	_flash_mat.set_shader_parameter("body_height", height)
+
+## Where the feet are now (world y), for the light gradient; call every tick while lit.
+func set_feet(y: float) -> void:
+	if _flash_mat != null:
+		_flash_mat.set_shader_parameter("feet_y", y)
+
+## A hit lands: the whole rig flashes `color` for `secs` (fading out). Parts that carry an effect material of their
+## own (glows, blurs) keep it; everything else takes the flash through the rig's material.
+func flash(color: Color, secs := 0.1) -> void:
+	_adopt_parts()
 	_flash_mat.set_shader_parameter("flash_color", color)
 	_flash_mat.set_shader_parameter("flash", 0.85)
 	if _flash_tween != null:
@@ -142,6 +159,8 @@ func set_equip(kind: String, id: int) -> void:
 	for s in find_children("*", "EquipSlot", true, false):
 		if s.kind == kind or (kind == "cloth" and s.kind == "cloth_ex"):
 			s.set_variant(id)
+	if _flash_mat != null:
+		_adopt_parts.call_deferred()   # (the new variant's parts take the rig's material too)
 
 ## Jump the current action to just before its first event `n` whose first arg is `arg` (original gotoAndPlay(frame)).
 ## Deferred: this is usually called from an animation event, and seeking the player inside its own callback crashes.

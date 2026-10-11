@@ -103,6 +103,7 @@ func _ready() -> void:
 	if params.has("auto_touch"):
 		# boss rooms: the first stop is touched after a delay, wherever the camera is
 		get_tree().create_timer(float(params.auto_touch), false).timeout.connect(_touch_stop)
+	StageLighting.attach(self)
 	var sp := "res://src/level/stages/%s.gd" % level_name
 	if ResourceLoader.exists(sp):
 		script_node = load(sp).new()
@@ -127,6 +128,10 @@ func after(sec: float, fn: Callable) -> void:
 	var tw := create_tween()
 	tw.tween_interval(sec)
 	tw.tween_callback(fn)
+
+## The far background picture (it scrolls slower than the world).
+func far_sprite() -> Sprite2D:
+	return _far
 
 func monsters() -> Array:
 	return get_tree().get_nodes_in_group(&"monsters")
@@ -232,7 +237,7 @@ func _xf(m: Array, info: Dictionary) -> Transform2D:
 func _build(d: Dictionary) -> void:
 	size = Vector2(d.size[0], d.size[1])
 	var far_layer := CanvasLayer.new()
-	far_layer.layer = -1
+	far_layer.layer = -2   # (a stage's lighting puts its mist between this and the world)
 	add_child(far_layer)
 	_far = Sprite2D.new()
 	_far.centered = false

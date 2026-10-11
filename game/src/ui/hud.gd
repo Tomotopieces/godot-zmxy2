@@ -14,6 +14,7 @@ var _buffs: Control
 var _buff_rows := {}   ## buff name -> Label
 
 func _ready() -> void:
+	layer = 3   # over a stage's lighting layers (1, 2)
 	_ui = UiLayout.create("role_info")
 	add_child(_ui)
 	_ui.show_frame("head", GameState.hero_data.role_index)
