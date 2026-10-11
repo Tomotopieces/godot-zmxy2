@@ -28,40 +28,40 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3gaxs"]
 resource_local_to_scene = true
 
-[node name="Monster47Bullet2" type="Node2D" unique_id=1440609885]
+[node name="Monster47Bullet2" type="Node2D" unique_id=1218052574]
 script = ExtResource("1_del7v")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=1980173260]
+[node name="Parts" type="Node2D" parent="." unique_id=1360592620]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=1962338593]
+[node name="default" type="Node2D" parent="Parts" unique_id=1238273524]
 visible = false
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=1484192618]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=1676912918]
 material = SubResource("ShaderMaterial_7guw5")
 position = Vector2(-34, -16.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_wmhvb")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1582375759]
+[node name="Hitbox" type="Area2D" parent="." unique_id=722572784]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1298227544]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1670401732]
 shape = SubResource("RectangleShape2D_0h5bm")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1198881905]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1708971782]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1861947324]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=260750462]
 shape = SubResource("RectangleShape2D_3gaxs")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=1494679170]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=112067073]
 callback_mode_process = 0
 libraries/ = ExtResource("4_kyd53")

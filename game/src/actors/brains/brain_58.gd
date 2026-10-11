@@ -23,7 +23,8 @@ func _hover(delta: float) -> void:
 		_hovering = false
 		m.rig.visible = true   # he comes into view as he drops
 		m.fly = false
-		m.invuln = 0.0
+		# untouchable through the whole drop, up to the end of the flames on the floor (a hit would cancel them)
+		m.invuln = m.rig.anim.get_animation(&"hit2-2").length
 		# the shadow lies on the floor, under the monsters and the hero (the original adds it just below him in the draw order)
 		Fx.spawn("monster58shallow", Vector2(m.global_position.x, float(param("shadow_y", 510)))).z_index = Layers.Z_MONSTER - 1
 		act(&"hit2-2")

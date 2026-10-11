@@ -28,16 +28,16 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wmwql"]
 resource_local_to_scene = true
 
-[node name="FabaoPearlBullet3" type="Node2D" unique_id=596514638]
+[node name="FabaoPearlBullet3" type="Node2D" unique_id=1353530892]
 script = ExtResource("1_1v5jb")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=1377745355]
+[node name="Parts" type="Node2D" parent="." unique_id=160147715]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=410642516]
+[node name="default" type="Node2D" parent="Parts" unique_id=82454822]
 visible = false
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=14955860]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=573430919]
 material = SubResource("ShaderMaterial_eme4m")
 position = Vector2(43.733448, 5.3876996)
 rotation = -3.0275595
@@ -46,24 +46,24 @@ skew = 1.226416
 texture = ExtResource("3_bxl7k")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=2051739614]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1491118536]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=840215632]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=17690434]
 shape = SubResource("RectangleShape2D_0oxdk")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=675500200]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1775302649]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=316726600]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=962242025]
 shape = SubResource("RectangleShape2D_wmwql")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=954752565]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=726954210]
 callback_mode_process = 0
 libraries/ = ExtResource("4_ngemj")

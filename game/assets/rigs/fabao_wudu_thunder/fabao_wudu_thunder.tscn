@@ -28,16 +28,16 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_appip"]
 resource_local_to_scene = true
 
-[node name="FabaoWuduThunder" type="Node2D" unique_id=1529715389]
+[node name="FabaoWuduThunder" type="Node2D" unique_id=1745828536]
 script = ExtResource("1_wj1s4")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=1126859646]
+[node name="Parts" type="Node2D" parent="." unique_id=1201097402]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=440803072]
+[node name="default" type="Node2D" parent="Parts" unique_id=1510190546]
 visible = false
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=703900921]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=894126029]
 material = SubResource("ShaderMaterial_lowo8")
 position = Vector2(-11.494003, 22.204697)
 rotation = -1.6569281
@@ -45,24 +45,24 @@ scale = Vector2(0.49985296, 0.49985296)
 texture = ExtResource("3_wykvv")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=2136460833]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1575358959]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=220828176]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1213067486]
 shape = SubResource("RectangleShape2D_bt7l5")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=264901813]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=656944582]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1170094812]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1288724394]
 shape = SubResource("RectangleShape2D_appip")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=110816084]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=837172027]
 callback_mode_process = 0
 libraries/ = ExtResource("4_8q7cl")

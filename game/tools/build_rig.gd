@@ -239,7 +239,15 @@ func _build(json_path: String) -> void:
 		cont.visible = false
 		parts.add_child(cont)
 		var an := Animation.new()
-		an.length = act.frames / _fps
+		# A Flash clip whose last frame holds the script that ends the action never shows that frame: the script switches to
+		# the next action before it is drawn. The last pose is cut (otherwise it is shown for a moment, and when it is the
+		# pose the action began with it reads as the first frame coming back).
+		var shown: int = act.frames
+		if act.frames >= 3 and not act.loop:
+			for e in act.events:
+				if e[1] == "finished" and int(e[0]) == act.frames - 1:
+					shown = act.frames - 1
+		an.length = shown / _fps
 		an.loop_mode = Animation.LOOP_LINEAR if act.loop else Animation.LOOP_NONE
 		if act.has("loop_from"):
 			an.set_meta(&"loop_from", float(act.loop_from) / _fps)   # Rig keeps looping the tail
@@ -283,6 +291,8 @@ func _build(json_path: String) -> void:
 				treg = _vtrack(an, np + ":region_rect")
 				toff = _vtrack(an, np + ":offset")
 			for k in tr.keys:
+				if int(k[0]) >= shown:
+					continue
 				var t: float = k[0] / _fps
 				if k[1] == null:
 					an.track_insert_key(tv, t, false)
@@ -328,6 +338,8 @@ func _build(json_path: String) -> void:
 			var ts := _vtrack(an, base + ":shape:size")
 			var td := _vtrack(an, base + ":disabled")
 			for k in pair[1]:
+				if int(k[0]) >= shown:
+					continue
 				var t2: float = k[0] / _fps
 				var r = k[1]
 				if r == null:
@@ -349,7 +361,7 @@ func _build(json_path: String) -> void:
 			by_frame[f].append([StringName(e[1]), e.slice(2)])
 		for f in by_frame:
 			if f > 0:
-				an.track_insert_key(tev, f / _fps, {"method": &"_anim_events", "args": [by_frame[f]]})
+				an.track_insert_key(tev, mini(f, shown) / _fps, {"method": &"_anim_events", "args": [by_frame[f]]})
 		an.set_meta(&"start_events", by_frame.get(0, []))
 		# the whole body hidden / shown on given frames (death blink ...)
 		var vis: Array = act.get("rootvis", [])
@@ -358,6 +370,8 @@ func _build(json_path: String) -> void:
 			if int(vis[0][0]) > 0:
 				an.track_insert_key(tvis, 0.0, true)
 			for v in vis:
+				if int(v[0]) >= shown:
+					continue
 				an.track_insert_key(tvis, float(v[0]) / _fps, int(v[1]) == 1)
 		lib.add_animation(StringName(act_name), an)
 

@@ -11,45 +11,45 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d1ccg"]
 resource_local_to_scene = true
 
-[node name="Gogo" type="Node2D" unique_id=839379249]
+[node name="Gogo" type="Node2D" unique_id=1608486219]
 script = ExtResource("1_ma1dy")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=992883259]
+[node name="Parts" type="Node2D" parent="." unique_id=1726074920]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=962643413]
+[node name="default" type="Node2D" parent="Parts" unique_id=591367394]
 visible = false
 
-[node name="p2" type="Sprite2D" parent="Parts/default" unique_id=1614062684]
+[node name="p2" type="Sprite2D" parent="Parts/default" unique_id=1671509115]
 position = Vector2(-106.2, -45.85)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_6x0cu")
 centered = false
 
-[node name="p3_1" type="Sprite2D" parent="Parts/default" unique_id=179575627]
+[node name="p3_1" type="Sprite2D" parent="Parts/default" unique_id=1368148644]
 position = Vector2(-43.35, -9.55)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_2yvrf")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1531219424]
+[node name="Hitbox" type="Area2D" parent="." unique_id=2083592755]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1286883057]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=822301554]
 shape = SubResource("RectangleShape2D_yvf05")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=58340584]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=783477808]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1628590974]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=449152393]
 shape = SubResource("RectangleShape2D_d1ccg")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=1747946039]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1573036118]
 callback_mode_process = 0
 libraries/ = ExtResource("4_tar1m")

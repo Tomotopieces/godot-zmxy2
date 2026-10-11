@@ -28,16 +28,16 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ltnsp"]
 resource_local_to_scene = true
 
-[node name="BagGlow" type="Node2D" unique_id=1474150936]
+[node name="BagGlow" type="Node2D" unique_id=408185178]
 script = ExtResource("1_dxn1y")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=321309687]
+[node name="Parts" type="Node2D" parent="." unique_id=551668430]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=1790563478]
+[node name="default" type="Node2D" parent="Parts" unique_id=1308828386]
 visible = false
 
-[node name="p1_2_f0" type="Sprite2D" parent="Parts/default" unique_id=1293695361]
+[node name="p1_2_f0" type="Sprite2D" parent="Parts/default" unique_id=1258945969]
 modulate = Color(1, 1, 1, 0.461)
 material = SubResource("ShaderMaterial_kahdv")
 position = Vector2(1047.907, 64.592)
@@ -47,24 +47,24 @@ texture = ExtResource("3_uybme")
 centered = false
 region_enabled = true
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=639864377]
+[node name="Hitbox" type="Area2D" parent="." unique_id=591050195]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1400773308]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1459911690]
 shape = SubResource("RectangleShape2D_30k3b")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=746721242]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1148124968]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1446273531]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=294542538]
 shape = SubResource("RectangleShape2D_ltnsp")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=964345871]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1809452561]
 callback_mode_process = 0
 libraries/ = ExtResource("4_n1okd")

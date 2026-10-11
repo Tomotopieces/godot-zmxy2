@@ -28,40 +28,40 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yjgay"]
 resource_local_to_scene = true
 
-[node name="Monster69Bullet1" type="Node2D" unique_id=287311415]
+[node name="Monster69Bullet1" type="Node2D" unique_id=2073813897]
 script = ExtResource("1_rlj1q")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=1871317378]
+[node name="Parts" type="Node2D" parent="." unique_id=1405151437]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=1978423350]
+[node name="default" type="Node2D" parent="Parts" unique_id=2045116977]
 visible = false
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=1149641408]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=54813402]
 material = SubResource("ShaderMaterial_jmjw3")
 position = Vector2(-110.95, -6.9)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_rljhm")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1077177651]
+[node name="Hitbox" type="Area2D" parent="." unique_id=928701711]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1130944846]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1165133705]
 shape = SubResource("RectangleShape2D_sq0qo")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1792703923]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1787145083]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1717746591]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=221086905]
 shape = SubResource("RectangleShape2D_yjgay")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=1422772149]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1961245045]
 callback_mode_process = 0
 libraries/ = ExtResource("4_5sfkb")
