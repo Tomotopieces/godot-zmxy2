@@ -525,6 +525,10 @@ func boss_destroyed(m: Monster) -> void:
 	if kill_buff != "":
 		GameState.add_buff(kill_buff)   # 国庆: 劈天斧 / 风神盾 leave an hour of attack / defence
 		toast("获得 %s" % EquipmentCatalog.get_catalog().buffs[kill_buff].label)
+	var pay: Dictionary = EquipmentCatalog.get_catalog().kill_merit.get(str(m.data.id), {})
+	if not pay.is_empty() and stage == Vector2i(int(pay.stage[0]), int(pay.stage[1])):
+		GameState.merit += int(pay.merit)   # 七夕: 宋帝王 pays the 功勋 when he falls
+		toast(pay.text)
 	var merit := Forge.reward_merit(m.data.id)
 	if merit > 0:
 		toast("获得 功勋 + %d" % merit)

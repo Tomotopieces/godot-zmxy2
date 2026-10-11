@@ -26,8 +26,8 @@ static func drop(m: Monster) -> void:
 		Potion.spawn(Potion.Kind.SMALL_MP, pos, t)
 
 	_drop_equipment(m)
-	if m.data.is_boss:
-		# 中秋: every boss unit leaves one 小月饼 (the official event: 100 %)
+	if m.data.is_boss and GameState.moon_event:
+		# 中秋: every boss unit leaves one 小月饼 (the official event: 100 %); the 活动 window can switch it off
 		_ground(m, EquipmentCatalog.get_catalog().moon.cake)
 
 	# whoever killed it gets the orbs; a kill with no attacker on record (reflected damage, poison, the debug key) goes to
@@ -55,7 +55,7 @@ static func _drop_equipment(m: Monster) -> void:
 	# bosses also drop a 1级强化石 while the hero is not over-levelled for the stage (BaseMonster.dropStone)
 	var st: Dictionary = EquipmentCatalog.get_catalog().stone_drop
 	var cap := int(st.get("level_caps", {}).get(Level.current.level_name, 0))
-	if m.data.is_boss and cap != 0 and (cap < 0 or GameState.level <= cap) and Rng.randf() <= m.data.stone_rate * mul:
+	if m.data.is_boss and (st.always.any(func(id): return int(id) == m.data.id) or (cap != 0 and (cap < 0 or GameState.level <= cap) and Rng.randf() <= m.data.stone_rate * mul)):
 		_ground(m, st.item)
 
 static func _ground(m: Monster, id: String) -> void:

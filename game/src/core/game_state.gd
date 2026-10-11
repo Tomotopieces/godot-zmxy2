@@ -34,6 +34,7 @@ var merit := 0                       ## 功勋: shop currency
 var merit_day := ""                  ## date of the last 功勋 reward (it is limited per day)
 var merit_times := 0                 ## rewards taken on merit_day
 var activity_days := {}              ## 活动 (七夕 / 国庆) -> date it was last entered: each one only once a day
+var moon_event := true                ## 中秋: BOSSes drop 小月饼 (switched in the 活动 window)
 var notice := ""                     ## shown by the next stage once it has loaded (e.g. the 七夕 reward)
 var stage := Vector2i(1, 1)          ## stage being played (or last played)
 var progress := Vector2i(1, 1)       ## furthest unlocked stage-level on the main path (1-1 .. 4-1)
@@ -469,6 +470,7 @@ func new_game(r := "wukong") -> void:
 	merit_day = ""
 	merit_times = 0
 	activity_days.clear()
+	moon_event = true
 	notice = ""
 	slot = -1
 	equipment_changed.emit()

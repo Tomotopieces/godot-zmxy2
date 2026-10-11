@@ -13,6 +13,7 @@ const PATH := "res://data/equipment.tres"
 @export var use := {}                  ## usable item id -> {buff} / {special}
 @export var buffs := {}                ## buff name -> {effects: *_add / *_mul / mp_regen, icon, icon_scale}
 @export var kill_buffs := {}           ## monster id (as text) -> buff its death grants (国庆: 劈天斧 / 风神盾)
+@export var kill_merit := {}            ## monster id (as text) -> {stage, merit, text}: 功勋 for killing it in that stage (七夕)
 @export var moon := {}                 ## 中秋: {cake, big, big_cost, weapon_cost, weapons: {hero -> weapon id}}
 @export var drop_bonus := {}           ## fashion id -> extra drop rate
 @export var stone_drop := {}           ## {item, level_caps: {level name -> max hero level, -1 = always}}

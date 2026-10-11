@@ -45,6 +45,7 @@ func _bake_equipment(d: Dictionary) -> void:
 	c.use = r.use
 	c.buffs = r.buffs
 	c.kill_buffs = r.kill_buffs
+	c.kill_merit = r.kill_merit
 	c.moon = r.moon
 	c.drop_bonus = r.drop_bonus
 	c.stone_drop = r.stone_drop

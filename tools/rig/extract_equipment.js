@@ -96,7 +96,11 @@ const rules = {
   drop_bonus: { wkwdg: 0.1, wkbsz: 0.18, wkzyf: 0.2 },
   // 苍生挂饰: one revive (half HP / MP, short invincibility), not when falling out of the stage
   // 1级强化石 from bosses (BaseMonster.dropStone): only while the hero level is at most the stage's cap (-1 = always)
-  stone_drop: { item: 'wpqhs1', level_caps: { sl11: 4, sl12: 7, sl13: 10, sl21: 13, sl22: 16, sl23: 19, sl31: 22, sl32: 25, sl33: 28, sl41: -1, sl51: 27, sl61: 27, sl71: -1, sl111: -1 } },
+  stone_drop: { item: 'wpqhs1', level_caps: { sl11: 4, sl12: 7, sl13: 10, sl21: 13, sl22: 16, sl23: 19, sl31: 22, sl32: 25, sl33: 28, sl41: -1, sl51: 27, sl61: 27, sl71: -1, sl111: -1 },
+    // 劈天斧 / 风神盾 always leave one (11-1 only counted the stage; a fight anywhere else - the debug arena - drops it too)
+    always: [79, 80] },
+  // 七夕: the 宋帝王 of 9-1 pays out the 功勋 when he falls (the original paid on entering): monster id -> {stage, merit, text}
+  kill_merit: { 64: { stage: [9, 1], merit: 10, text: '七夕快乐，获得 功勋+10' } },
   // bag pages hold 25 entries each; items (道具) stack
   tabs: { equip: ['weapon', 'cloth', 'accessory', 'treasure'], item: ['item'], look: ['fashion', 'wing'] },
   unique: ['csgs'],
