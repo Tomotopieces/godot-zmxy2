@@ -33,31 +33,31 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mygwe"]
 resource_local_to_scene = true
 
-[node name="Monster41" type="Node2D" unique_id=1756793435]
+[node name="Monster41" type="Node2D" unique_id=302438294]
 script = ExtResource("1_jucgu")
 actions = PackedStringArray("walk", "hit1", "hurt", "wait", "dead")
 
-[node name="Parts" type="Node2D" parent="." unique_id=518604590]
+[node name="Parts" type="Node2D" parent="." unique_id=1702424275]
 
-[node name="walk" type="Node2D" parent="Parts" unique_id=1971314452]
+[node name="walk" type="Node2D" parent="Parts" unique_id=352980725]
 visible = false
 
-[node name="p1_1" type="Sprite2D" parent="Parts/walk" unique_id=890364168]
+[node name="p1_1" type="Sprite2D" parent="Parts/walk" unique_id=1136496192]
 position = Vector2(-55.9, -48.1)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_jsy6j")
 centered = false
 
-[node name="hit1" type="Node2D" parent="Parts" unique_id=1864734377]
+[node name="hit1" type="Node2D" parent="Parts" unique_id=1699211344]
 visible = false
 
-[node name="p1_1" type="Sprite2D" parent="Parts/hit1" unique_id=1977548973]
+[node name="p1_1" type="Sprite2D" parent="Parts/hit1" unique_id=458677364]
 position = Vector2(-62.9, -65.9)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_8ptd7")
 centered = false
 
-[node name="p1_2_1_1_f0" type="Sprite2D" parent="Parts/hit1" unique_id=754879268]
+[node name="p1_2_1_1_f0" type="Sprite2D" parent="Parts/hit1" unique_id=2103810466]
 modulate = Color(1, 1, 1, 0.32)
 material = SubResource("ShaderMaterial_g2o2n")
 position = Vector2(-113.450005, -55.8)
@@ -65,51 +65,51 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("5_xw7r1")
 centered = false
 
-[node name="hurt" type="Node2D" parent="Parts" unique_id=1661140050]
+[node name="hurt" type="Node2D" parent="Parts" unique_id=1518405310]
 visible = false
 
-[node name="p1_1" type="Sprite2D" parent="Parts/hurt" unique_id=338552794]
+[node name="p1_1" type="Sprite2D" parent="Parts/hurt" unique_id=1460053703]
 position = Vector2(-62.25, -54.05)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_xlkii")
 centered = false
 
-[node name="wait" type="Node2D" parent="Parts" unique_id=1980555516]
+[node name="wait" type="Node2D" parent="Parts" unique_id=320718496]
 visible = false
 
-[node name="p1_1" type="Sprite2D" parent="Parts/wait" unique_id=974500945]
+[node name="p1_1" type="Sprite2D" parent="Parts/wait" unique_id=635758257]
 position = Vector2(-47, -48)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("7_jw5c4")
 centered = false
 
-[node name="dead" type="Node2D" parent="Parts" unique_id=1345548322]
+[node name="dead" type="Node2D" parent="Parts" unique_id=889602478]
 visible = false
 
-[node name="p1_1" type="Sprite2D" parent="Parts/dead" unique_id=757567031]
+[node name="p1_1" type="Sprite2D" parent="Parts/dead" unique_id=1084172418]
 position = Vector2(-50.05, -51.3)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("8_x5j1v")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1326812869]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1035500987]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1344979776]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=189824911]
 shape = SubResource("RectangleShape2D_bou4f")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1429913936]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=299958164]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=266012901]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=432631249]
 shape = SubResource("RectangleShape2D_mygwe")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=1746917712]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1766136803]
 callback_mode_process = 0
 libraries/ = ExtResource("9_6skw4")

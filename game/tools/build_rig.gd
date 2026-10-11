@@ -293,7 +293,7 @@ func _build(json_path: String) -> void:
 					var reg := full
 					if k.size() > 4 and k[4] != null:
 						var c: Array = k[4]
-						reg = (_xf(k[2], k[1]).affine_inverse() * Rect2(c[0], c[1], c[2], c[3])).intersection(full)
+						reg = (_xf([1, 0, 0, 1, 0, 0], k[1]).affine_inverse() * Rect2(c[0], c[1], c[2], c[3])).intersection(full)   # (the crop is in the layer's own space)
 					an.track_insert_key(treg, t, reg)
 					an.track_insert_key(toff, t, reg.position)
 					if reg.size.x < 1.0 or reg.size.y < 1.0:

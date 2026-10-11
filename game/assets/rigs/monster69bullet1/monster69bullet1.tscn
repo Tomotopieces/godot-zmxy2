@@ -28,40 +28,40 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yjgay"]
 resource_local_to_scene = true
 
-[node name="Monster69Bullet1" type="Node2D" unique_id=1723469371]
+[node name="Monster69Bullet1" type="Node2D" unique_id=1673774904]
 script = ExtResource("1_rlj1q")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=880818528]
+[node name="Parts" type="Node2D" parent="." unique_id=916532442]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=490574944]
+[node name="default" type="Node2D" parent="Parts" unique_id=1313765131]
 visible = false
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=1665374285]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=73332675]
 material = SubResource("ShaderMaterial_jmjw3")
 position = Vector2(-110.95, -6.9)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_rljhm")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1854096785]
+[node name="Hitbox" type="Area2D" parent="." unique_id=969446473]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=473329407]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=968979578]
 shape = SubResource("RectangleShape2D_sq0qo")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=23558383]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=903992380]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1133307783]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1207556606]
 shape = SubResource("RectangleShape2D_yjgay")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=1963071160]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1633164010]
 callback_mode_process = 0
 libraries/ = ExtResource("4_5sfkb")

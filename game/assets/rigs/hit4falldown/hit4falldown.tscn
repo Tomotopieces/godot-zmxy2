@@ -28,40 +28,40 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fvtqg"]
 resource_local_to_scene = true
 
-[node name="Hit4Falldown" type="Node2D" unique_id=1981907966]
+[node name="Hit4Falldown" type="Node2D" unique_id=155408680]
 script = ExtResource("1_8ngde")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=858722236]
+[node name="Parts" type="Node2D" parent="." unique_id=146571062]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=1070720941]
+[node name="default" type="Node2D" parent="Parts" unique_id=860676118]
 visible = false
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=387034015]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=1014653843]
 material = SubResource("ShaderMaterial_hl273")
 position = Vector2(-34.800003, -62.350002)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_fx4vq")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1102073027]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1111887040]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=273988353]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=679632720]
 shape = SubResource("RectangleShape2D_tdboe")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1617161153]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=586878633]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=601249312]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1106508940]
 shape = SubResource("RectangleShape2D_fvtqg")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=1581025919]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=810858857]
 callback_mode_process = 0
 libraries/ = ExtResource("4_oxqdb")

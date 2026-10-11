@@ -10,42 +10,42 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2lpn2"]
 resource_local_to_scene = true
 
-[node name="XingtianDoor" type="Node2D" unique_id=1820480822]
+[node name="XingtianDoor" type="Node2D" unique_id=481079473]
 script = ExtResource("1_7qckv")
 actions = PackedStringArray("default")
 markers = {
 "isXingtianDoor": Vector2(35, -96)
 }
 
-[node name="Parts" type="Node2D" parent="." unique_id=1331856340]
+[node name="Parts" type="Node2D" parent="." unique_id=1832637186]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=1908336597]
+[node name="default" type="Node2D" parent="Parts" unique_id=116521349]
 visible = false
 
-[node name="p1" type="Sprite2D" parent="Parts/default" unique_id=804166483]
+[node name="p1" type="Sprite2D" parent="Parts/default" unique_id=1597079227]
 position = Vector2(-286.5, -210.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_d3rd7")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1016093090]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1870843100]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1869417633]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=954260121]
 shape = SubResource("RectangleShape2D_3p670")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=2018929169]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1013447329]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=592769361]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1052601236]
 shape = SubResource("RectangleShape2D_2lpn2")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=628461240]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1715193013]
 callback_mode_process = 0
 libraries/ = ExtResource("3_n4yrh")

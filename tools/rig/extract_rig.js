@@ -164,11 +164,11 @@ class Sim {
         if (this.hideAt && this.hideAt.some(([pp, ff]) => (p.join('.') + '.').startsWith(pp + '.') && this.frameIndex >= ff)) continue;
         if (e.clip) {
           const b = boundsOf(this.lib, e.c);
-          if (b) masks.push({ until: e.clip, r: rectXf(mm, b) });
+          if (b) masks.push({ until: e.clip, m: mm, b });   // oriented: it lives in the space of the clip that holds it
           continue;
         }
         let ec = cl;
-        for (const mk of masks) if (d <= mk.until) ec = ec ? intersectR(ec, mk.r) : mk.r;
+        for (const mk of masks) if (d <= mk.until) ec = (ec || []).concat([mk]);
         const ef = e.filters && e.filters.length ? fl.concat(e.filters) : fl;
         const eg = ef !== fl && !fg ? p.join('.') : fg;
         if (e.name === 'colipse') {
@@ -181,7 +181,7 @@ class Sim {
         if (/^stick[0-9]*$/.test(e.name || '')) {
           const from = leaves.length;
           if (k.node) walk(k.node, mm, cc, p, inBody, ef, eg, ec, eb);
-          else if (this.lib.texture(e.c)) leaves.push({ path: p, kind: 'tex', ref: e.c, m: mm, ct: cc, fl: ef, fg: eg, cl: ec, bm: eb });
+          else if (this.lib.texture(e.c)) leaves.push({ path: p, kind: 'tex', ref: e.c, m: mm, ct: cc, fl: ef, fg: eg, cl: clipIn(ec, mm), bm: eb });
           let r = null;
           for (const lf of leaves.slice(from)) { const b = lf.kind === 'tex' ? boundsOf(this.lib, lf.ref) : null; if (b) r = union(r, rectXf(lf.m, b)); }
           if (!r) { const b = boundsOf(this.lib, e.c); if (b) r = rectXf(mm, b); }
@@ -189,24 +189,39 @@ class Sim {
           continue;
         }
         const sk = selectorOf(this.lib, e);
-        if (sk) { leaves.push({ path: p, kind: 'slot', ref: e.c, sel: sk, m: mm, ct: cc, fl: ef, fg: eg, cl: ec, bm: eb }); continue; }
+        if (sk) { leaves.push({ path: p, kind: 'slot', ref: e.c, sel: sk, m: mm, ct: cc, fl: ef, fg: eg, cl: clipIn(ec, mm), bm: eb }); continue; }
         if (k.node) {
           if (e.name && e.name !== 'body') markers[e.name] = [mm[4], mm[5]];
           // anchors for effects the game plays on demand (level-up glow) are not part of the rig art
           if (!SEPARATE_CLIPS.has(e.name)) walk(k.node, mm, cc, p, inBody || e.name === 'body', ef, eg, ec, eb);
           continue;
         }
-        if (this.lib.texture(e.c)) leaves.push({ path: p, kind: 'tex', ref: e.c, m: mm, ct: cc, fl: ef, fg: eg, cl: ec, bm: eb });
-        else if (this.lib.J.texts && this.lib.J.texts[e.c]) leaves.push({ path: p, kind: 'text', ref: e.c, m: mm, ct: cc, fl: ef, fg: eg, cl: ec, bm: eb });
+        if (this.lib.texture(e.c)) leaves.push({ path: p, kind: 'tex', ref: e.c, m: mm, ct: cc, fl: ef, fg: eg, cl: clipIn(ec, mm), bm: eb });
+        else if (this.lib.J.texts && this.lib.J.texts[e.c]) leaves.push({ path: p, kind: 'text', ref: e.c, m: mm, ct: cc, fl: ef, fg: eg, cl: clipIn(ec, mm), bm: eb });
       }
     };
     walk(this.root, I, CT_ID, [], false, this.rootFilters || [], this.rootFilters && this.rootFilters.length ? 'root' : null);
     let art = null;
     // the art box (what an effect without hit sticks hits with) is where the picture is visible: the original tests
     // against the drawn pixels, and a texture's transparent margin or soft glow must not count
-    for (const lf of leaves) { const b = lf.kind === 'tex' ? visibleBounds(this.lib, lf.ref) : null; if (b) { let r = rectXf(lf.m, b); if (lf.cl) r = intersectR(r, lf.cl); if (r.w > 0 && r.h > 0) art = union(art, r); } }
+    for (const lf of leaves) { const b = lf.kind === 'tex' ? visibleBounds(this.lib, lf.ref) : null; if (b) { let r = rectXf(lf.m, lf.cl ? intersectR(b, lf.cl) : b); if (r.w > 0 && r.h > 0) art = union(art, r); } }
     return { leaves, rects, markers, art };
   }
+}
+
+// The crop a list of Flash masks puts on a layer with matrix m, as a rect in that layer's own space (before m). A mask
+// is rectangular in the space of the clip that holds it; the layer is usually shifted inside that clip (a sprite sheet
+// scrolling under its window), so relative to the layer it is an upright rect even when the clip is turned.
+function clipIn(list, m) {
+  if (!list) return null;
+  const det = m[0] * m[3] - m[1] * m[2];
+  if (Math.abs(det) < 1e-9) return null;
+  const inv = [m[3] / det, -m[1] / det, -m[2] / det, m[0] / det, 0, 0];
+  inv[4] = -(inv[0] * m[4] + inv[2] * m[5]);
+  inv[5] = -(inv[1] * m[4] + inv[3] * m[5]);
+  let r = null;
+  for (const mk of list) { const rr = rectXf(mul(inv, mk.m), mk.b); r = r ? intersectR(r, rr) : rr; }
+  return r;
 }
 
 function intersectR(a, b) {
