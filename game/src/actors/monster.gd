@@ -338,6 +338,7 @@ func take_hit(h: Hit) -> bool:
 		if h.attack.kind == AttackData.Kind.PHYSICS and GameState.bonus("lifesteal") > 0.0:
 			h.source.heal(int(dmg * GameState.bonus("lifesteal")))   # (BaseHero.cureHp: the green number over the hero)
 	Snd.sfx(h.source.hit_sound if h.source is Hero else "BeattackByRole1")
+	rig.flash(Color.WHITE, 0.09)
 	Fx.spawn("fx_monster_hurt1" if Rng.randf() < 0.5 else "fx_monster_hurt2", center())
 	if not data.is_prop:
 		DamageNumber.spawn("bnum" if h.crit else "hurtnum", dmg,

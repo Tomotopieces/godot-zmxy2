@@ -27,6 +27,27 @@ var equipment := {}    ## slot kind -> variant id (cloth / cloth_ex / weapon / w
 
 var _parts: Node2D
 var _current_parts: Node2D
+var _flash_mat: ShaderMaterial
+var _flash_tween: Tween
+
+const HIT_FLASH := preload("res://src/rig/hit_flash.gdshader")
+
+## A hit lands: the whole rig flashes `color` for `secs` (fading out). Parts that carry an effect material of their
+## own (glows, blurs) keep it; everything else takes the flash through the rig's material.
+func flash(color: Color, secs := 0.1) -> void:
+	if _flash_mat == null:
+		_flash_mat = ShaderMaterial.new()
+		_flash_mat.shader = HIT_FLASH
+		material = _flash_mat
+	for n: Node2D in find_children("*", "Node2D", true, false):
+		if n.material == null and not n.use_parent_material:
+			n.use_parent_material = true
+	_flash_mat.set_shader_parameter("flash_color", color)
+	_flash_mat.set_shader_parameter("flash", 0.85)
+	if _flash_tween != null:
+		_flash_tween.kill()
+	_flash_tween = create_tween()
+	_flash_tween.tween_property(_flash_mat, "shader_parameter/flash", 0.0, secs)
 
 func _ready() -> void:
 	# Only the owner's movement is interpolated; keyed part jumps and facing flips must land on their frame.

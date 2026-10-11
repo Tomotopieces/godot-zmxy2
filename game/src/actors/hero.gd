@@ -512,6 +512,7 @@ func take_hit(h: Hit) -> bool:
 	hp = maxi(hp - dmg, 0)
 	DamageNumber.spawn("pnum", dmg, global_position + Vector2(-20, -60))
 	_apply_effects(h.attack.effects)
+	rig.flash(Color(1.0, 0.35, 0.3), 0.12)
 	Fx.spawn("fx_hero_hurt", center())
 	Snd.sfx(data.sound_prefix + "_beAttack")
 	add_rage(rage_for_damage(dmg))
