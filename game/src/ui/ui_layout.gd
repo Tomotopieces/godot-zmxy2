@@ -255,7 +255,7 @@ func _text(n: Dictionary) -> Label:
 		l.position += Vector2(float(n.nudge[0]), float(n.nudge[1]))
 	l.add_theme_color_override("font_color", Color(n.color))
 	l.add_theme_color_override("font_outline_color", Color.BLACK)
-	l.add_theme_constant_override("outline_size", 2)
+	l.add_theme_constant_override("outline_size", int(n.get("outline", 2)))   # dark text on a light box: "outline": 0
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return l
 
