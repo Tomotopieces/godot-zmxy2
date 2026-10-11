@@ -7,20 +7,13 @@ extends MonsterBrain
 ##   farther:      wander
 ## Params: skill1/skill2/skill3 (actions), near_band, mid_band, far_band (px), cd1, cd2, cd3, far_cd_rand, check.
 
-var _check := 0.0     ## free-running check clock (the original's `count % 24`: it keeps counting through attacks)
 var _tick := false    ## this tick is a check tick
 
 func think(delta: float) -> void:
-	_check -= delta
-	_tick = false
-	if _check <= 0.0:
-		_check += float(param("check", 1.0))
-		_tick = true
+	_tick = tick_check(delta)
 	if m.state == Monster.State.DEAD or m.is_attacking():
 		return
-	if m.target == null:
-		wander(delta)
-		select_target()
+	if not ensure_target(delta):
 		return
 	if not m.is_on_floor() and not m.fly:
 		return

@@ -58,14 +58,12 @@ func on_action_finished(action: StringName) -> void:
 
 func on_destroy() -> void:
 	m.world.open_door()
-	var t := m.get_tree().create_timer(float(param("next_delay", 5.0)), false)
 	var lv := m.world
 	var pos: Array = param("next_pos", [500, 300])
-	t.timeout.connect(func():
-		if is_instance_valid(lv):
-			lv.close_door()
-			var md := lv.monster_data(81)
-			if md:
-				var nx := Monster.create(md)
-				nx.position = Vector2(pos[0], pos[1])
-				lv.add_monster(nx))
+	lv.after(float(param("next_delay", 5.0)), func():   # (the level's timer: this boss is gone by then)
+		lv.close_door()
+		var md := lv.monster_data(81)
+		if md:
+			var nx := Monster.create(md)
+			nx.position = Vector2(pos[0], pos[1])
+			lv.add_monster(nx))

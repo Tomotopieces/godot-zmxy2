@@ -40,8 +40,8 @@ func _open_door() -> void:
 	Fx.spawn(DOOR, pos)
 	var id: int = TOTEMS[_doors]
 	_doors += 1
-	m.get_tree().create_timer(float(param("summon_delay", 2.0)), false).timeout.connect(func():
-		if is_instance_valid(m) and m.state != Monster.State.DEAD:
+	m.after(float(param("summon_delay", 2.0)), func():
+		if m.state != Monster.State.DEAD:
 			var t := m.summon(id, pos + Vector2(0, -190))
 			if t:
 				_totems.append(t))

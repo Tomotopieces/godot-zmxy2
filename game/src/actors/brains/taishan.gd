@@ -6,7 +6,6 @@ extends MonsterBrain
 ## attack / chase; near -> every check tick 50 % hit1. Params: big_at (HP ratio), next_form, to_big,
 ## swap_after (s, timer to the next form), reflect.
 
-var _check := 0.0
 var _swap := 0.0
 var _handing_over := false
 
@@ -14,6 +13,7 @@ func setup() -> void:
 	_swap = float(param("swap_after", 20.0))
 
 func think(delta: float) -> void:
+	var tick := tick_check(delta)   # (the original's `count % 24`, free-running)
 	if _handing_over or m.state != Monster.State.MOVE:
 		return
 	if param("to_big", 0) and float(m.hp) / m.max_hp < float(param("big_at", 0.5)):
@@ -23,28 +23,22 @@ func think(delta: float) -> void:
 	if _swap <= 0.0 and int(param("next_form", 0)) > 0:
 		_become(int(param("next_form", 0)))
 		return
-	if m.target == null:
-		wander(delta)
-		select_target()
+	if not ensure_target(delta):
 		return
 	var d := m.to_target()
 	if absf(d.y) > float(param("reach_y", 600)):
 		wander(delta)
 		return
-	_check -= delta
 	if absf(d.x) > m.data.attack_range:
-		if m.cd("dash") <= 0.0:
-			m.set_cd("dash", float(param("dash_cd", 7.5)))
+		if cooldown_ready("dash", float(param("dash_cd", 7.5))):
 			m.face_target()
 			act(&"hit2")
-		elif _check <= 0.0:
-			_check = float(param("check", 1.0))
+		elif tick:
 			if Rng.randi() % 100 < m.data.attack_chance:
 				attack()
 			else:
 				follow()
-	elif _check <= 0.0:
-		_check = float(param("check", 1.0))
+	elif tick:
 		m.dir = 0
 		if Rng.randi() % 100 < m.data.attack_chance:
 			attack()

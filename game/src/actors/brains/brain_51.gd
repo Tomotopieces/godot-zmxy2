@@ -13,7 +13,7 @@ func setup() -> void:
 
 ## The ring counter on the body: frame = 7 - rings left (Monster51.getRoundValue); the rings in it keep turning.
 func _show_rounds() -> void:
-	if not is_instance_valid(m) or m.rig == null:
+	if m.rig == null:
 		return
 	m.rig.set_equip("round", _rings.size() + 1)
 
@@ -70,7 +70,7 @@ func _recall() -> void:
 		tw.tween_callback(r.queue_free)
 	_rings.clear()
 	# the counter refills when the rings are home
-	m.get_tree().create_timer(float(param("recall_time", 2.0)), false).timeout.connect(_show_rounds)
+	m.after(float(param("recall_time", 2.0)), _show_rounds)
 
 func on_destroy() -> void:
 	for r in _rings:

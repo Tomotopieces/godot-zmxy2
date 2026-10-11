@@ -384,6 +384,21 @@ func _die() -> void:
 		vanish()
 	died.emit(self)
 
+## Run `fn` after `sec` seconds of game time. The timer belongs to this monster: when it is freed first, the call never
+## happens (no stale callback meets a dead boss).
+func after(sec: float, fn: Callable) -> void:
+	var tw := create_tween()
+	tw.tween_interval(sec)
+	tw.tween_callback(fn)
+
+## `fn` wrapped so that it only runs while this monster still exists: for callbacks hung on other objects (effects,
+## projectiles) that can outlive the monster that made them.
+func owned(fn: Callable) -> Callable:
+	var ref: WeakRef = weakref(self)
+	return func(...args: Array) -> void:
+		if ref.get_ref() != null:
+			fn.callv(args)
+
 ## Fade out and free (no death animation, no loot).
 func vanish(fade := 0.3) -> void:
 	if _vanishing:

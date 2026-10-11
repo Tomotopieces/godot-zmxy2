@@ -121,6 +121,13 @@ func add_object(n: Node) -> void:
 	world.add_child(n)
 	n.reset_physics_interpolation()
 
+## Run `fn` after `sec` seconds of game time; dropped when the level is gone (things that must still happen after the
+## monster that asked for them is freed: the next boss, the loot).
+func after(sec: float, fn: Callable) -> void:
+	var tw := create_tween()
+	tw.tween_interval(sec)
+	tw.tween_callback(fn)
+
 func monsters() -> Array:
 	return get_tree().get_nodes_in_group(&"monsters")
 

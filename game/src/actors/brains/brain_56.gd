@@ -61,9 +61,8 @@ func on_call(n: String, _args: Array) -> bool:
 	if n != "do_hit3":
 		return false
 	var b := m.shoot(SLAM, &"hit3")
-	b.on_hit = func(_t: Actor) -> void:
-		if is_instance_valid(m):
-			m.heal(int((m.max_hp - m.hp) * float(param("slam_heal", 0.05))))
+	b.on_hit = m.owned(func(_t: Actor) -> void:
+		m.heal(int((m.max_hp - m.hp) * float(param("slam_heal", 0.05)))))
 	return true
 
 func custom_animation() -> bool:

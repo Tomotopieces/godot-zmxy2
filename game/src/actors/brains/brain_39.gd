@@ -25,7 +25,7 @@ func setup() -> void:
 	m.rig.action_finished.connect(_hold_cast, CONNECT_ONE_SHOT)
 	# outside 2-2 (no fires to light) the boss starts by itself
 	if not m.world.params.has("panguan"):
-		m.get_tree().create_timer(float(param("intro", 6.0)), false).timeout.connect(real_start)
+		m.after(float(param("intro", 6.0)), real_start)
 
 ## After "ready": the held casting pose with its looping glow.
 func _hold_cast(_a: StringName) -> void:

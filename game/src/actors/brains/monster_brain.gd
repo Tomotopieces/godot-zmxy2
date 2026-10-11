@@ -105,6 +105,34 @@ func move_speed() -> float:
 func custom_animation() -> bool:
 	return false
 
+# ------------------------------------------------------------------ pieces shared by the boss templates
+
+var _clock := 0.0
+
+## The check clock of the original AI (`count % 24 == 0`): true on the one tick of every period it fires on. It runs
+## freely - through attacks, hurt and every branch of the AI - so call it once per think(), before any early return.
+func tick_check(delta: float, key := "check", fallback := 1.0) -> bool:
+	_clock -= delta
+	if _clock > 0.0:
+		return false
+	_clock += float(param(key, fallback))
+	return true
+
+## No target: wander and look for one. True when there is a target to act on.
+func ensure_target(delta: float) -> bool:
+	if m.target != null:
+		return true
+	wander(delta)
+	select_target()
+	return false
+
+## A skill's cooldown gate: when it is ready, start the next cooldown and return true.
+func cooldown_ready(key: String, seconds: float) -> bool:
+	if m.cd(key) > 0.0:
+		return false
+	m.set_cd(key, seconds)
+	return true
+
 # ------------------------------------------------------------------ base AI pieces
 
 func base_ai(delta: float) -> void:

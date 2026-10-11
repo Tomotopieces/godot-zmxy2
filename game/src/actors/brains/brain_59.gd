@@ -94,12 +94,13 @@ func on_call(n: String, _args: Array) -> bool:
 			var b := m.shoot(SHOT, &"hit2", Vector2.ZERO, v, 9999.0)
 			b.accel = Vector2(float(param("bomb_ax", 576)) * m.facing, float(param("bomb_ay", 1152)))
 			var floor_y := float(param("floor_y", 472))
+			var explode := m.owned(func(x: float) -> void:   # (a bomb can outlive the boss that dropped it)
+				m.shoot(BLAST, &"hit2").global_position = Vector2(x, floor_y))
 			b.mover = func(p: Projectile, delta: float) -> void:
 				p.velocity += p.accel * delta
 				p.position += p.velocity * delta
 				if p.global_position.y >= floor_y:
-					if is_instance_valid(m):   # (a bomb can outlive the boss that dropped it)
-						m.shoot(BLAST, &"hit2").global_position = Vector2(p.global_position.x, floor_y)
+					explode.call(p.global_position.x)
 					p.queue_free()
 		_:
 			return false

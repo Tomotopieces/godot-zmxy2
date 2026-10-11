@@ -8,7 +8,6 @@ const ORB := "monster38bullet2_2"
 const BOMB := "monster38bullet2_3"
 const EXPLODE := "bullet2explode"
 
-var _check := 0.0
 var _link := 0.0
 var _orbs: Array[Projectile] = []
 
@@ -16,6 +15,7 @@ func setup() -> void:
 	_link = float(param("link_first", 10.0))
 
 func think(delta: float) -> void:
+	var tick := tick_check(delta)   # (the original's `count % 24`, free-running)
 	# the link timer runs on every tick, even while hurt
 	_link -= delta
 	if _link <= 0.0:
@@ -25,9 +25,7 @@ func think(delta: float) -> void:
 				h.add_debuff(&"deadlink", float(param("link_time", 5.0)))
 	if m.state != Monster.State.MOVE:
 		return
-	if m.target == null:
-		wander(delta)
-		select_target()
+	if not ensure_target(delta):
 		return
 	if not m.is_on_floor():
 		return
@@ -38,12 +36,9 @@ func think(delta: float) -> void:
 		follow()
 	else:
 		m.dir = 0
-		_check -= delta
-		if _check <= 0.0:
-			_check = float(param("check", 1.0))
+		if tick:
 			m.face_target()
-			if m.cd("orbs") <= 0.0:
-				m.set_cd("orbs", float(param("orb_cd", 5.25)))
+			if cooldown_ready("orbs", float(param("orb_cd", 5.25))):
 				m.attack_with(&"hit2")
 			else:
 				m.attack_with(&"hit1")
@@ -72,10 +67,10 @@ func _cast_orbs() -> void:
 	for i in 3 + ceili(Rng.randf() * 4.0):
 		var pos := m.global_position + Vector2((Rng.randf() - 0.5) * 100.0, -200.0)
 		var fx := Fx.spawn(ORB_SPAWNER, pos)
-		fx.tree_exiting.connect(_spawn_orb.bind(pos), CONNECT_DEFERRED)
+		fx.tree_exiting.connect(m.owned(_spawn_orb.bind(pos)), CONNECT_DEFERRED)
 
 func _spawn_orb(pos: Vector2) -> void:
-	if not is_instance_valid(m) or m.state == Monster.State.DEAD:
+	if m.state == Monster.State.DEAD:
 		return
 	var o := m.shoot(ORB, &"hit2-2")
 	o.global_position = pos

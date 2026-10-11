@@ -4,13 +4,13 @@ extends MonsterBrain
 ## (heroes caught can't move or fall until the net goes; attacks and treasures still work, 血海魔童 frees) when ready, else hit1.
 
 var _up_left := 10
-var _check := 0.0
 var _net: Projectile
 
 func setup() -> void:
 	_up_left = int(param("up_hits", 10))
 
 func think(delta: float) -> void:
+	var tick := tick_check(delta)   # (the original's `count % 24`, free-running)
 	if m.state != Monster.State.MOVE:
 		return
 	if _up_left <= 0:
@@ -19,26 +19,20 @@ func think(delta: float) -> void:
 		m.face_target()
 		act(&"hit3")
 		return
-	if m.target == null:
-		wander(delta)
-		select_target()
+	if not ensure_target(delta):
 		return
 	var d := m.to_target()
 	if absf(d.x) > m.data.attack_range:
-		if m.cd("leap") <= 0.0:
-			m.set_cd("leap", float(param("leap_cd", 5.8)))
+		if cooldown_ready("leap", float(param("leap_cd", 5.8))):
 			m.face_target()
 			act(&"hit3")
 		else:
 			follow()
 		return
 	m.dir = 0
-	_check -= delta
-	if _check <= 0.0:
-		_check = float(param("check", 1.0))
+	if tick:
 		m.face_target()
-		if m.cd("net") <= 0.0:
-			m.set_cd("net", float(param("net_cd", 10.8)))
+		if cooldown_ready("net", float(param("net_cd", 10.8))):
 			act(&"hit2")
 		else:
 			act(&"hit1")
@@ -66,8 +60,9 @@ func on_call(n: String, _args: Array) -> bool:
 			_net.attack = _net.attack.duplicate()
 			_net.attack.effect_only = true   # the net does no damage, it only holds
 			_net.life = float(param("net_life", 8.0))
+			var lv := m.world
 			_net.tree_exiting.connect(func():
-				for h: Hero in m.world.heroes():
+				for h: Hero in lv.heroes():
 					h.clear_debuff(&"net"))
 		_:
 			return false

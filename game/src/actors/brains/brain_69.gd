@@ -4,7 +4,6 @@ extends MonsterBrain
 ## ready, else hit1. Clones are plain copies (not bosses) and die with the original.
 
 var _split_left := 20
-var _check := 0.0
 var _clone_life := 0.0
 var clones: Array[Monster] = []
 
@@ -20,6 +19,7 @@ func setup() -> void:
 		_clone_life = float(param("clone_life", 20.0))
 
 func think(delta: float) -> void:
+	var tick := tick_check(delta)   # (the original's `count % 24`, free-running)
 	if _clone_life > 0.0:
 		_clone_life -= delta
 		if _clone_life <= 0.0:
@@ -32,28 +32,22 @@ func think(delta: float) -> void:
 		_split_left = Rng.randi_range(r[0], r[1])
 		act(&"fenshen")
 		return
-	if m.target == null:
-		wander(delta)
-		select_target()
+	if not ensure_target(delta):
 		return
 	var d := m.to_target()
 	if absf(d.y) > float(param("reach_y", 300)):
 		wander(delta)
 	elif absf(d.x) > m.data.attack_range:
-		if m.cd("volley") <= 0.0:
-			m.set_cd("volley", float(param("volley_cd", 7.5)))
+		if cooldown_ready("volley", float(param("volley_cd", 7.5))):
 			m.face_target()
 			act(&"hit2")
 		else:
 			follow()
 	else:
 		m.dir = 0
-		_check -= delta
-		if _check <= 0.0:
-			_check = float(param("check", 1.0))
+		if tick:
 			m.face_target()
-			if m.cd("quake") <= 0.0:
-				m.set_cd("quake", float(param("quake_cd", 10.8)))
+			if cooldown_ready("quake", float(param("quake_cd", 10.8))):
 				act(&"hit3")
 			else:
 				act(&"hit1")

@@ -51,7 +51,7 @@ func _ready() -> void:
 			text += "# %d %s\n" % [id, band]
 			text += await _run(id, band)
 		if check:
-			var base := FileAccess.get_file_as_string("%s/%d.txt" % [BASELINE, id])
+			var base := FileAccess.get_file_as_string("%s/%d.txt" % [BASELINE, id]).replace("\r\n", "\n")   # (git may check the baselines out with CRLF)
 			if base != text:
 				failed += 1
 				print("FAIL %d: trace differs from the baseline (%s)" % [id, _first_diff(base, text)])
