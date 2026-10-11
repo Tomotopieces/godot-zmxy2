@@ -44,6 +44,10 @@ var script_node: StageScript     ## this stage's special rules (src/level/stages
 var fixed_camera := false        ## single-screen boss rooms (5-1, 6-1, 7-1, stage 10)
 var debug_boxes := false
 
+## Debug boss arena (console): one single-screen room (the ground and sky of stage 1) holding the monster set in arena_boss.
+const ARENA := Vector2i(0, 1)
+static var arena_boss: MonsterData
+
 var _far: Sprite2D
 var _far_width := 0.0
 var _room_view := 0.0        ## where the camera stood when the current room locked
@@ -65,7 +69,7 @@ var _combo_t := 0.0
 
 ## BGM: bg<stage> for stages 1..7, bg4 beyond (MainGame.newGame).
 static func music_for(s: Vector2i) -> String:
-	return "bg%d" % (s.x if s.x <= 7 else 4)
+	return "bg%d" % (1 if s == ARENA else s.x if s.x <= 7 else 4)
 
 static func scene_name(s: Vector2i) -> String:
 	return "sl%d%d" % [s.x, s.y]
@@ -75,6 +79,8 @@ func _ready() -> void:
 	level_name = scene_name(stage)
 	var all = JSON.parse_string(FileAccess.get_file_as_string("res://data/stages.json"))
 	params = all.get(level_name, {}) if all is Dictionary else {}
+	if stage == ARENA:
+		params = {"auto_touch": 1.0, "fixed_camera": true}
 	process_physics_priority = 10   # after the actors moved
 	_build(JSON.parse_string(FileAccess.get_file_as_string("res://assets/levels/%s/level.json" % level_name)))
 	hero = Hero.create()
@@ -282,6 +288,10 @@ func _build(d: Dictionary) -> void:
 	_end_x = minf(size.x, float(stops[-1].x)) if not stops.is_empty() else size.x
 	_close_edge_slivers(art)
 	_close_edge_slivers(ground)
+	if stage == ARENA and arena_boss != null and not stops.is_empty():
+		var boss := arena_boss.duplicate()
+		boss.is_boss = true
+		stops[0].spawners.append(Spawner.new(boss, Vector2(833.45, 319.55), 1.0, 1.0, 1))
 	for sp in d.spawners:
 		var md := monster_data(int(sp.enemy))
 		if md == null:
@@ -456,6 +466,9 @@ func _unhandled_input(e: InputEvent) -> void:
 		for m: Monster in monsters():
 			if m.can_be_hit():
 				m.damage_directly(maxi(m.hp, 1))
+	elif e.is_action_pressed("debug_invincible"):
+		GameState.debug_god = not GameState.debug_god
+		toast("无敌：" + ("开（不扣血、不被击退）" if GameState.debug_god else "关"))
 	elif e.is_action_pressed("debug_refill") and is_instance_valid(hero):
 		hero.refill()
 		hero.rage = hero.data.rage_max

@@ -1,13 +1,13 @@
 class_name PlayScreen
 extends Node
 ## One stage being played: Level + HUD, backpack, pause menu, win / fail screens.
-## Keys: C bag, Esc pause menu, F5 restart, F1 refill HP/MP/rage, F2 hit boxes, F3 test gear, F4 kill all monsters.
+## Keys: C bag, Esc pause menu, 5 restart, 1 refill HP/MP/rage, 2 hit boxes, 3 test gear, 4 kill all monsters, 6 invincible (no damage, no knockback).
 
 signal to_map
 signal to_menu
 signal play(stage: Vector2i)   ## retry / next stage
 
-## F3 debug: one of each Wukong weapon / armour tier plus accessories.
+## 3 debug: one of each Wukong weapon / armour tier plus accessories.
 const TEST_GEAR := ["ptxzg", "gtq", "tsyj", "gwj", "ryjgb", "ptxzf", "dsyj", "bsxj", "xhmj", "dszk", "dslj", "tsgl", "lzp",
 	"csgs", "wkmrz", "wkwdg", "wkbsz", "wkzyf", "xtzy", "ttzy", "sbbl", "jxbuff", "hhbuff", "wpqhs1", "wpqhs1", "yll", "bsz",
 	"dslj", "dsqz", "dsyj"]
@@ -45,7 +45,8 @@ static func create(s: Vector2i) -> PlayScreen:
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	GameState.stage = stage
+	if stage != Level.ARENA:   # the debug boss arena is not a place a save should remember
+		GameState.stage = stage
 	hud = Hud.new()
 	add_child(hud)
 	hud.open_bag.connect(_open_bag)
@@ -165,7 +166,7 @@ func _open_pause() -> void:
 	m.to_menu.connect(func(): to_menu.emit())
 	add_child(m)
 
-## F3 debug gear: the shared pieces plus every weapon / armour / fashion of this hero.
+## 3 debug gear: the shared pieces plus every weapon / armour / fashion of this hero.
 func _test_gear() -> Array:
 	var out: Array = []
 	for id in TEST_GEAR:

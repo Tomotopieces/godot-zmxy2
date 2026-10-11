@@ -120,7 +120,7 @@ func _on_level_up(_level: int) -> void:
 	Fx.attach("fx_levelup", self, rig.markers.get("levelupmc", Vector2.ZERO))
 
 func can_be_hit() -> bool:
-	return state != State.DEAD and invincible <= 0.0
+	return state != State.DEAD and invincible <= 0.0 and not GameState.debug_god
 
 func _physics_process(delta: float) -> void:
 	_clock += delta
