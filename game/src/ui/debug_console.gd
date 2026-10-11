@@ -21,7 +21,7 @@ const STAGES := [
 	[Vector2i(7, 1), "刑天"], [Vector2i(8, 1), "楚江王"], [Vector2i(9, 1), "宋帝王"],
 	[Vector2i(10, 1), "螺旋地狱 · 大厅"], [Vector2i(10, 2), "螺旋地狱 · 五官王"], [Vector2i(10, 3), "螺旋地狱 · 卞城王"],
 	[Vector2i(10, 4), "螺旋地狱 · 泰山王"], [Vector2i(10, 5), "螺旋地狱 · 都市王"], [Vector2i(10, 6), "螺旋地狱 · 平等王"],
-	[Vector2i(11, 1), "战神刑天"]]
+	[Vector2i(11, 1), "劈天斧 / 风神盾（国庆活动关）"]]
 
 var _list: VBoxContainer
 var _search: LineEdit
