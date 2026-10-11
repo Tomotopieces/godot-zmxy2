@@ -28,40 +28,40 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5l3rn"]
 resource_local_to_scene = true
 
-[node name="Monster59Bullet1" type="Node2D" unique_id=442118400]
+[node name="Monster59Bullet1" type="Node2D" unique_id=193431021]
 script = ExtResource("1_6utbt")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=1183475933]
+[node name="Parts" type="Node2D" parent="." unique_id=1861058253]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=879421021]
+[node name="default" type="Node2D" parent="Parts" unique_id=1471365898]
 visible = false
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=1944029378]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=1156805710]
 material = SubResource("ShaderMaterial_k4bxm")
 position = Vector2(-43.5, -42.6)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_jh5rg")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1233585481]
+[node name="Hitbox" type="Area2D" parent="." unique_id=957282559]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=610554538]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1601451200]
 shape = SubResource("RectangleShape2D_xqggh")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=2062068953]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=96588658]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1471062304]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=481120390]
 shape = SubResource("RectangleShape2D_5l3rn")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=1292195727]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1774201388]
 callback_mode_process = 0
 libraries/ = ExtResource("4_ige27")

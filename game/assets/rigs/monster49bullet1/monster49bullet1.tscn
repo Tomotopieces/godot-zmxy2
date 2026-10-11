@@ -29,46 +29,46 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sinve"]
 resource_local_to_scene = true
 
-[node name="Monster49Bullet1" type="Node2D" unique_id=787096763]
+[node name="Monster49Bullet1" type="Node2D" unique_id=1420266738]
 script = ExtResource("1_0m15l")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=1183501770]
+[node name="Parts" type="Node2D" parent="." unique_id=660542619]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=1242634352]
+[node name="default" type="Node2D" parent="Parts" unique_id=1032856023]
 visible = false
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=1609672272]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=368650258]
 material = SubResource("ShaderMaterial_p8drv")
 position = Vector2(-55.8, -14.3)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_0gmui")
 centered = false
 
-[node name="p3_1" type="Sprite2D" parent="Parts/default" unique_id=447329970]
+[node name="p3_1" type="Sprite2D" parent="Parts/default" unique_id=682844792]
 position = Vector2(-50, -15)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_i0ltu")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1885535821]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1678626011]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=473892722]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=388515890]
 shape = SubResource("RectangleShape2D_mxilo")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1974853915]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=2120631929]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=556976940]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=824929544]
 shape = SubResource("RectangleShape2D_sinve")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=1555626173]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=223726130]
 callback_mode_process = 0
 libraries/ = ExtResource("5_m0bo1")

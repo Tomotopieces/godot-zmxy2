@@ -28,40 +28,40 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w4o6v"]
 resource_local_to_scene = true
 
-[node name="FabaoUmbrellaStab" type="Node2D" unique_id=2089874603]
+[node name="FabaoUmbrellaStab" type="Node2D" unique_id=408540581]
 script = ExtResource("1_qhtk3")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=1113812937]
+[node name="Parts" type="Node2D" parent="." unique_id=1760932102]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=1057774750]
+[node name="default" type="Node2D" parent="Parts" unique_id=1459172121]
 visible = false
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=202769734]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=957596773]
 material = SubResource("ShaderMaterial_02gev")
 position = Vector2(-4.905, -10.253001)
 scale = Vector2(0.143, 0.143)
 texture = ExtResource("3_chpoa")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=131111983]
+[node name="Hitbox" type="Area2D" parent="." unique_id=846154580]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=478830957]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1420917735]
 shape = SubResource("RectangleShape2D_v8sm8")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=184721503]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=827204872]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1706487277]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1438804104]
 shape = SubResource("RectangleShape2D_w4o6v")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=510295549]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1098247999]
 callback_mode_process = 0
 libraries/ = ExtResource("4_hnd7r")

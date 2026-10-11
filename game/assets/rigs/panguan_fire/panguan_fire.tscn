@@ -10,42 +10,42 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_64ygw"]
 resource_local_to_scene = true
 
-[node name="PanguanFire" type="Node2D" unique_id=1340572414]
+[node name="PanguanFire" type="Node2D" unique_id=973405650]
 script = ExtResource("1_55xc5")
 actions = PackedStringArray("default")
 markers = {
 "isPanguanFire": Vector2(0, -16.05)
 }
 
-[node name="Parts" type="Node2D" parent="." unique_id=35449373]
+[node name="Parts" type="Node2D" parent="." unique_id=262335542]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=1811524270]
+[node name="default" type="Node2D" parent="Parts" unique_id=170959920]
 visible = false
 
-[node name="p1" type="Sprite2D" parent="Parts/default" unique_id=1360247283]
+[node name="p1" type="Sprite2D" parent="Parts/default" unique_id=373062177]
 position = Vector2(-30, -50)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_joqa8")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1578034975]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1520460292]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1090695392]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=916508982]
 shape = SubResource("RectangleShape2D_ljehd")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1271150066]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1790254282]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=594766180]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=338165837]
 shape = SubResource("RectangleShape2D_64ygw")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=1998696963]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=114937043]
 callback_mode_process = 0
 libraries/ = ExtResource("3_poc3u")

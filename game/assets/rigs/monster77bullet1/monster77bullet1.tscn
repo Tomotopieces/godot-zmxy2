@@ -28,40 +28,40 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cohr2"]
 resource_local_to_scene = true
 
-[node name="Monster77Bullet1" type="Node2D" unique_id=2023285812]
+[node name="Monster77Bullet1" type="Node2D" unique_id=402384445]
 script = ExtResource("1_exud1")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=1795392808]
+[node name="Parts" type="Node2D" parent="." unique_id=667075053]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=1472576511]
+[node name="default" type="Node2D" parent="Parts" unique_id=1756169581]
 visible = false
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=240371209]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=908277788]
 material = SubResource("ShaderMaterial_chlob")
 position = Vector2(-97.4, -29.2)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_6lgcq")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=615618244]
+[node name="Hitbox" type="Area2D" parent="." unique_id=711786329]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=808120492]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1931063626]
 shape = SubResource("RectangleShape2D_r05nx")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=301631011]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=927457800]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1875634405]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=877865678]
 shape = SubResource("RectangleShape2D_cohr2")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=1888793561]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=545592819]
 callback_mode_process = 0
 libraries/ = ExtResource("4_nbe2f")

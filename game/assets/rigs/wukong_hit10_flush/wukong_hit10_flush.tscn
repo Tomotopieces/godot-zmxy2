@@ -28,40 +28,40 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xi88r"]
 resource_local_to_scene = true
 
-[node name="WukongHit10Flush" type="Node2D" unique_id=497909914]
+[node name="WukongHit10Flush" type="Node2D" unique_id=1286002718]
 script = ExtResource("1_g4dnk")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=1470837865]
+[node name="Parts" type="Node2D" parent="." unique_id=119623230]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=62470815]
+[node name="default" type="Node2D" parent="Parts" unique_id=1996633566]
 visible = false
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=707159477]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=1748186661]
 material = SubResource("ShaderMaterial_jtrgn")
 position = Vector2(-32, -67.55)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_h6a1n")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1624870562]
+[node name="Hitbox" type="Area2D" parent="." unique_id=326382503]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1168231811]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1909077881]
 shape = SubResource("RectangleShape2D_2xkh2")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=36907622]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1397089394]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=146785720]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=611909706]
 shape = SubResource("RectangleShape2D_xi88r")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=925093330]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=172738065]
 callback_mode_process = 0
 libraries/ = ExtResource("4_ssctj")

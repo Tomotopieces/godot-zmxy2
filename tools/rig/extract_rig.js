@@ -186,8 +186,12 @@ class Sim {
           // (where the picture is visible: a sparkle drawn on a big transparent texture must not make the hit box that big)
           // HIT_SKIP=id,id: textures that are decoration inside the attack's clip (sparkles around the swords) and not part of its reach
           const skip = (process.env.HIT_SKIP || '').split(',');
-          for (const lf of leaves.slice(from)) { if (skip.includes(String(lf.ref))) continue; const b = lf.kind === 'tex' ? visibleBounds(this.lib, lf.ref, 12) : null; if (b) r = union(r, rectXf(lf.m, lf.cl ? intersectR(b, lf.cl) : b)); }
+          for (const lf of leaves.slice(from)) { if (skip.includes(String(lf.ref)) || lf.kind !== 'tex') continue; const rr = hitRect(this.lib, lf); if (rr) r = union(r, rr); }
           if (!r) { const b = boundsOf(this.lib, e.c); if (b) r = rectXf(mm, b); }
+          if (process.env.HIT_DEBUG) {
+            const ls = leaves.slice(from).filter((lf) => lf.kind === 'tex').map((lf) => { const b = visibleBounds(this.lib, lf.ref, 12); const rr = b && rectXf(lf.m, lf.cl ? intersectR(b, lf.cl) : b); return rr && { ref: lf.ref, bm: lf.bm || 0, fl: lf.fl && lf.fl.length, fill: fillRatio(this.lib, lf.ref), r: [rr.x, rr.y, rr.w, rr.h].map(Math.round) }; }).filter(Boolean);
+            console.error('HITDBG ' + JSON.stringify({ act: global.__act, f: this.frameIndex, leaves: ls }));
+          }
           if (r) rects.hit = union(rects.hit, r);
           continue;
         }
@@ -207,7 +211,8 @@ class Sim {
     let art = null;
     // the art box (what an effect without hit sticks hits with) is where the picture is visible: the original tests
     // against the drawn pixels, and a texture's transparent margin or soft glow must not count
-    for (const lf of leaves) { const b = lf.kind === 'tex' ? visibleBounds(this.lib, lf.ref) : null; if (b) { let r = rectXf(lf.m, lf.cl ? intersectR(b, lf.cl) : b); if (r.w > 0 && r.h > 0) art = union(art, r); } }
+    for (const lf of leaves) { if (lf.kind !== 'tex') continue; const rr = hitRect(this.lib, lf); if (rr) art = union(art, rr); }
+    if (!art) for (const lf of leaves) { if (lf.kind !== 'tex') continue; const b = visibleBounds(this.lib, lf.ref, 12); if (b && b.w && b.h) art = union(art, rectXf(lf.m, lf.cl ? intersectR(b, lf.cl) : b)); }   // only specks: their faint reach is all there is
     return { leaves, rects, markers, art };
   }
 }
@@ -227,6 +232,36 @@ function clipIn(list, m) {
   return r;
 }
 
+// An attack box that follows every frame of an animated effect (sparks, rays, a flickering glow) twitches with it. Each
+// edge is replaced by the median of its five-frame neighbourhood: a spike or a one-frame flicker disappears, while a
+// steady growth or shrink (a median of a straight line is its middle) comes through unchanged.
+function steady(series) {
+  const med = (v) => { const a = v.slice().sort((x, y) => x - y); return a[a.length >> 1]; };
+  const smooth = series.map(([f, r], i) => {
+    if (!r) return [f, r];
+    const edges = [[], [], [], []];
+    for (let j = Math.max(0, i - 2); j <= Math.min(series.length - 1, i + 2); j++) {
+      const q = series[j][1];
+      if (!q) continue;
+      edges[0].push(q[0]); edges[1].push(q[1]); edges[2].push(q[0] + q[2]); edges[3].push(q[1] + q[3]);
+    }
+    const x0 = med(edges[0]), y0 = med(edges[1]), x1 = med(edges[2]), y1 = med(edges[3]);
+    return [f, [x0, y0, x1 - x0, y1 - y0].map((v) => Math.round(v * 10) / 10)];
+  });
+  // a box that then only wobbles (a spinning gear's corners, a pulsing glow: all frames within about a quarter of the
+  // same width) is one steady box: the median of all its frames
+  const rs = smooth.map((e) => e[1]).filter(Boolean);
+  if (rs.length >= 6) {
+    const ar = rs.map((q) => q[2] * q[3]);
+    if (Math.max(...ar) <= Math.min(...ar) * 1.5 + 1) {
+      const e = [0, 1, 2, 3].map((k) => med(rs.map((q) => (k < 2 ? q[k] : q[k - 2] + q[k]))));
+      const box = [e[0], e[1], e[2] - e[0], e[3] - e[1]].map((v) => Math.round(v * 10) / 10);
+      return smooth.map(([f, r]) => [f, r ? box : r]);
+    }
+  }
+  return smooth;
+}
+
 function intersectR(a, b) {
   const x = Math.max(a.x, b.x), y = Math.max(a.y, b.y);
   const r = Math.min(a.x + a.w, b.x + b.w), btm = Math.min(a.y + a.h, b.y + b.h);
@@ -236,6 +271,18 @@ function intersectR(a, b) {
 const PNG = require('./png');
 const visCache = new Map();
 // bounds (local units) of the pixels of a leaf texture that are visibly opaque
+// share of a texture's pixels that are solid (sparkles, glows and rays are sparse)
+const fillCache = new Map();
+function fillRatio(lib, c) {
+  const t = lib.texture(c);
+  if (!t) return 1;
+  if (!fillCache.has(t.file)) {
+    let v = 1;
+    try { const im = PNG.decode(t.file); let n = 0, tot = 0, soft = 0; for (let i = 3; i < im.data.length; i += 4) { if (im.data[i] > 12) { tot++; if (im.data[i] >= 200) n++; else soft++; } } v = tot ? n / tot : 1; } catch (e) { v = 1; }
+    fillCache.set(t.file, v);
+  }
+  return fillCache.get(t.file);
+}
 function visibleBounds(lib, c, thr = 48) {
   const t = lib.texture(c);
   if (!t) return boundsOf(lib, c);
@@ -244,13 +291,27 @@ function visibleBounds(lib, c, thr = 48) {
     let r = null;
     try {
       const im = PNG.decode(t.file);
-      let x0 = im.width, y0 = im.height, x1 = -1, y1 = -1;
-      for (let y = 0; y < im.height; y++) for (let x = 0; x < im.width; x++) if (im.data[(y * im.width + x) * 4 + 3] >= thr) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
-      if (x1 >= 0) r = { x: t.ox + x0 / t.scale, y: t.oy + y0 / t.scale, w: (x1 + 1 - x0) / t.scale, h: (y1 + 1 - y0) / t.scale };
+      let x0 = im.width, y0 = im.height, x1 = -1, y1 = -1, n = 0;
+      for (let y = 0; y < im.height; y++) for (let x = 0; x < im.width; x++) if (im.data[(y * im.width + x) * 4 + 3] >= thr) { n++; if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+      if (x1 >= 0) r = { x: t.ox + x0 / t.scale, y: t.oy + y0 / t.scale, w: (x1 + 1 - x0) / t.scale, h: (y1 + 1 - y0) / t.scale, mass: n / (t.scale * t.scale) };
+      else r = { x: 0, y: 0, w: 0, h: 0, mass: 0 };
     } catch (e) { r = null; }
     visCache.set(key, r);
   }
   return visCache.get(key) || boundsOf(lib, c);
+}
+
+// Where a leaf really hits: the solid part of its picture (a glow's faint halo, a sparkle's rays and a speck of dust are
+// not the attack), cropped by its masks. null when it adds nothing: no solid pixels, or too few to be more than a speck.
+const SOLID = 96;       // alpha counted as solid
+const MIN_MASS = 120;   // px^2 of solid picture (on the stage) below which a leaf is a speck
+function hitRect(lib, lf) {
+  const b = visibleBounds(lib, lf.ref, SOLID);
+  if (!b || !b.w || !b.h) return null;
+  const det = Math.abs(lf.m[0] * lf.m[3] - lf.m[1] * lf.m[2]);
+  if ((b.mass === undefined ? Infinity : b.mass * det) < MIN_MASS) return null;
+  const r = rectXf(lf.m, lf.cl ? intersectR(b, lf.cl) : b);
+  return r.w > 0 && r.h > 0 ? r : null;
 }
 
 function boundsOf(lib, c, depth = 0) {
@@ -383,6 +444,7 @@ function extract(libName, cls, outName, rootFilters = []) {
     : labels.length ? labels.map(([l, f]) => ({ label: l, f, plays: false })) : [{ label: 'default', f: startFrame, plays: !process.env.ROOT_STOPPED }];   // ROOT_STOPPED=1: the root holds its frame (gotoAndStop), only nested clips run
 
   for (const act of actions) {
+    global.__act = act.label;
     const sim = new Sim(lib, rootId, act.f, act.plays);
     sim.rootFilters = rootFilters;
     sim.hideAt = (process.env.HIDE_AT || '').split(',').filter(Boolean).map((x) => x.split(':')).filter((x) => x[0] === act.label).map((x) => [x[1], +x[2]]);
@@ -449,7 +511,7 @@ function extract(libName, cls, outName, rootFilters = []) {
       // LOOP_FROM=f: play once, then keep looping frames f.. (an opening followed by a nested clip's loop)
       loop_from: process.env.LOOP_FROM ? +process.env.LOOP_FROM : undefined,
       tracks: trackList,
-      hit: compactR(hit), hurt: compactR(hurt), art: compactR(art),
+      hit: compactR(steady(hit)), hurt: compactR(hurt), art: compactR(steady(art)),
       markers,
       events: evs.filter((e) => e[1] !== 'vis' && e[1] !== 'unknown').filter((e) => !(e[1] === 'finished' && e[0] < (sim.endFrom || 0))),
       // the body shown / hidden: becomes a visibility track of the parts, not an event

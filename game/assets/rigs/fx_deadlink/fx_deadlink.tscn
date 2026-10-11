@@ -11,45 +11,45 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wycen"]
 resource_local_to_scene = true
 
-[node name="FxDeadlink" type="Node2D" unique_id=1805974683]
+[node name="FxDeadlink" type="Node2D" unique_id=635772914]
 script = ExtResource("1_vbphe")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=304316936]
+[node name="Parts" type="Node2D" parent="." unique_id=615682759]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=848025297]
+[node name="default" type="Node2D" parent="Parts" unique_id=880403385]
 visible = false
 
-[node name="p1" type="Sprite2D" parent="Parts/default" unique_id=1547466609]
+[node name="p1" type="Sprite2D" parent="Parts/default" unique_id=419411946]
 position = Vector2(-42, -26.35)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_0bxhr")
 centered = false
 
-[node name="p1_1" type="Sprite2D" parent="Parts/default" unique_id=1378953107]
+[node name="p1_1" type="Sprite2D" parent="Parts/default" unique_id=535815162]
 position = Vector2(-20.199999, -32.2)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_4sb0q")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1261743708]
+[node name="Hitbox" type="Area2D" parent="." unique_id=2040733374]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1354449026]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=728376592]
 shape = SubResource("RectangleShape2D_wd148")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=403703653]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1037143059]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=975442243]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=2052580296]
 shape = SubResource("RectangleShape2D_wycen")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=889928996]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1963233189]
 callback_mode_process = 0
 libraries/ = ExtResource("4_kjjnc")

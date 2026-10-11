@@ -28,40 +28,40 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_il2k5"]
 resource_local_to_scene = true
 
-[node name="Monster68Bullet1" type="Node2D" unique_id=573390488]
+[node name="Monster68Bullet1" type="Node2D" unique_id=664819181]
 script = ExtResource("1_r1823")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=882572168]
+[node name="Parts" type="Node2D" parent="." unique_id=431400249]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=391744569]
+[node name="default" type="Node2D" parent="Parts" unique_id=305545475]
 visible = false
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=493479919]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=1729377414]
 material = SubResource("ShaderMaterial_x2pm8")
 position = Vector2(-21, -12)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_urgvn")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=282781744]
+[node name="Hitbox" type="Area2D" parent="." unique_id=880600622]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1250590366]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1489459692]
 shape = SubResource("RectangleShape2D_tabtv")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=266648483]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1991205222]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1366078812]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=606311498]
 shape = SubResource("RectangleShape2D_il2k5")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=669308569]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1199890157]
 callback_mode_process = 0
 libraries/ = ExtResource("4_0p06c")
