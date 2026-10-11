@@ -72,12 +72,14 @@ static func produce(recipe: Dictionary, mats: Array) -> Item:
 	var out := EquipmentCatalog.find(recipe.out).roll()
 	match recipe.kind:
 		"sum":
-			# the materials' own stats (with their strengthening) added up. The original looked each material up by name
-			# and re-rolled it, so the product ignored what was actually put in: a bug, not kept.
+			# The three materials added up. 贪 / 嗔 / 痴 show no numbers in the bag: their values are rolled here, when they are
+			# melted (as the original did - and why the same three materials never give the same ring twice); a piece of
+			# equipment (the 地藏戒) adds what it has, strengthening included (the original ignored it: not kept).
 			var s := {}
 			for m in mats:
+				var src: Item = EquipmentCatalog.find(m.id).roll() if GameState.item_data(m).stacks() else m
 				for k in ["hp", "mp", "atk", "def", "crit", "miss", "hp_regen", "mp_regen", "mdef"]:
-					var v := _total(m, k)
+					var v := _total(src, k)
 					if v != 0.0:
 						s[k] = float(s.get(k, 0.0)) + v
 			out.stats = s
