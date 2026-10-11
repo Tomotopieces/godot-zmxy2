@@ -14,7 +14,7 @@ Godot 4.7 remake of the Flash game (single hero: 孙悟空). The original's numb
 
 ## Run / test / export
 - Run: open `game/` in Godot 4.7 (`F5`). Debug builds only: `~` console (items, teleport, boss fight), number keys 1 refill, 2 hit boxes, 3 test gear, 4 kill all, 5 restart, 6 invincible.
-- Checks (headless, exit code = result): `bash tools/run_checks.sh [filter]`. Visual tools: `game/tools/{ui_shot,rig_shot,seam_check,skill_shot}`.
+- Checks (headless, exit code = result): `bash tools/run_checks.sh [filter]`. The checks include frame-exact AI traces of every monster (`game/tools/ai_trace.gd`, baselines in `game/tools/ai_traces/`; regenerate with `-- --ids=...` after an intended AI change) and a loot check of every boss (`loot_check`). Visual tools: `game/tools/{ui_shot,stage_shot,rig_shot,rig_strip,seam_check,skill_shot,fx_gallery}`.
 - Export: `bash tools/build.sh` → `build/zmxy2_<branch>_v<version>.exe` (needs the 4.7.2 export templates).
 - Saves: `user://slot_N.json` (`core/save_game.gd`: versioned, atomic write, `.bak`, validated load). Items are `Item` objects (`items/item.gd`). Gameplay randomness goes through `Rng`. F11 toggles fullscreen; gamepad defaults in `core/controls.gd`.
 
