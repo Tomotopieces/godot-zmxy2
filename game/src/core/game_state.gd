@@ -263,15 +263,7 @@ func can_add(item: Item) -> bool:
 	var id := item.id
 	if id in EquipmentCatalog.get_catalog().unique and (has_item(id) or is_worn(id)):
 		return false
-	return (d.stacks() and _stack_of(item) != null) or not tab_full(tab_of(item))
-
-## The bag entry this item would stack onto: the same item with the same rolled stats (贪 / 嗔 / 痴 are rolled one by one: a
-## stack would give all of them the numbers of the first).
-func _stack_of(item: Item) -> Item:
-	for it in bag:
-		if it.id == item.id and it.stats == item.stats:
-			return it
-	return null
+	return (d.stacks() and has_item(id)) or not tab_full(tab_of(item))
 
 ## force: no capacity check (items coming back from a forge slot).
 func add_to_bag(item: Item, force := false) -> bool:
@@ -279,11 +271,11 @@ func add_to_bag(item: Item, force := false) -> bool:
 		return false
 	var d := item_data(item)
 	if d.stacks():
-		var stack := _stack_of(item)
-		if stack != null:
-			stack.n += item.n
-			profile_changed.emit()
-			return true
+		for it in bag:
+			if it.id == item.id:
+				it.n += item.n
+				profile_changed.emit()
+				return true
 	bag.append(item)
 	profile_changed.emit()
 	return true
