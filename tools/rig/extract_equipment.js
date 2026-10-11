@@ -74,16 +74,33 @@ while ((m = re.exec(src))) {
 const fall = fs.readFileSync(path.join(ROOT, 'decomp/res/zmxy2_game/scripts/my/FallEquipObj.as'), 'utf8');
 const boss = JSON.parse(fall.match(/bosslist:Array = (\[[^\]]*\])/)[1]);
 const rules = {
-  regen_frames: 24, bag_size: 25, ground_frames: 240, boss_loot: [...new Set(boss)],
+  regen_frames: 24, bag_size: 25, ground_frames: 240, boss_loot: [...new Set([...boss, 'xyb'])],   // 小月饼 (中秋) stays on the ground like the other boss loot
   // usable items (PackThings.useClick): timed buffs last one hour of stage time and do not stack (HeroBuff)
   buff_frames: 86400,
-  use: { sbbl: { buff: 'drop' }, xique: { buff: 'drop' }, jxbuff: { buff: 'hp' }, hhbuff: { buff: 'mp_regen' }, wdd: { special: 'wds_power' } },
-  buffs: { drop: { drop_mul: 2, icon: 'sbbl_buff', icon_scale: 0.3 }, hp: { hp_mul: 1.5, icon: 'hn_buff', icon_scale: 0.3 }, mp_regen: { mp_regen: 10, icon: 'hh_guoqing_buff', icon_scale: 1 } },
+  use: { sbbl: { buff: 'drop' }, xique: { buff: 'drop' }, jxbuff: { buff: 'hp' }, hhbuff: { buff: 'mp_regen' }, wdd: { special: 'wds_power' },
+    // 大月饼 (BaseRoleProperies: +600 hp / +600 mp / +100 atk / +50 def, drop rate x1.5), one hour each
+    jxdyb: { buff: 'moon_hp' }, jmdyb: { buff: 'moon_mp' }, jgjdyb: { buff: 'moon_atk' }, jfydyb: { buff: 'moon_def' }, jbldyb: { buff: 'moon_lucky' } },
+  // effects of the running buffs add up (*_add, mp_regen) or multiply (*_mul); icon_scale is the original's HUD scale
+  buffs: {
+    drop: { drop_mul: 2, icon: 'sbbl_buff', icon_scale: 0.3 }, hp: { hp_mul: 1.5, icon: 'hn_buff', icon_scale: 0.3 }, mp_regen: { mp_regen: 10, icon: 'hh_guoqing_buff', icon_scale: 1 },
+    moon_hp: { hp_add: 600, icon: 'buff_moon_hp', icon_scale: 0.3 }, moon_mp: { mp_add: 600, icon: 'buff_moon_mp', icon_scale: 0.3 },
+    moon_atk: { atk_add: 100, icon: 'buff_moon_atk', icon_scale: 0.3 }, moon_def: { def_add: 50, icon: 'buff_moon_def', icon_scale: 0.3 },
+    moon_lucky: { drop_mul: 1.5, icon: 'buff_moon_lucky', icon_scale: 0.3 },
+    // 国庆: killing 劈天斧 / 风神盾 (Monster79/80.destroy -> setGuoqingAtkCount / DefCount), 20x20 icons unscaled
+    gq_atk: { atk_add: 100, icon: 'atk_guoqing_buff', icon_scale: 1, label: '攻击 +100，持续一小时' }, gq_def: { def_add: 50, icon: 'def_guoqing_buff', icon_scale: 1, label: '防御 +50，持续一小时' },
+  },
+  kill_buffs: { 79: 'gq_atk', 80: 'gq_def' },   // monster id -> buff it grants when killed
+  // 中秋: one 小月饼 from every boss; 10 -> a random 大月饼, 100 -> the hero's 绝版武器 (PackThings.swapBigMoonCake / swapMoonWeapon)
+  moon: { cake: 'xyb', big: ['jxdyb', 'jmdyb', 'jgjdyb', 'jfydyb', 'jbldyb'], big_cost: 10, weapon_cost: 100, weapons: { 悟空: 'nyd', 唐僧: 'myz', 八戒: 'syc' } },
   // fashion: extra equipment / stone drop rate (User.getCurFashionEquipFallThingProbability)
   drop_bonus: { wkwdg: 0.1, wkbsz: 0.18, wkzyf: 0.2 },
   // 苍生挂饰: one revive (half HP / MP, short invincibility), not when falling out of the stage
   // 1级强化石 from bosses (BaseMonster.dropStone): only while the hero level is at most the stage's cap (-1 = always)
-  stone_drop: { item: 'wpqhs1', level_caps: { sl11: 4, sl12: 7, sl13: 10, sl21: 13, sl22: 16, sl23: 19, sl31: 22, sl32: 25, sl33: 28, sl41: -1, sl51: 27, sl61: 27, sl71: -1, sl111: -1 } },
+  stone_drop: { item: 'wpqhs1', level_caps: { sl11: 4, sl12: 7, sl13: 10, sl21: 13, sl22: 16, sl23: 19, sl31: 22, sl32: 25, sl33: 28, sl41: -1, sl51: 27, sl61: 27, sl71: -1, sl111: -1 },
+    // 劈天斧 / 风神盾 always leave one (11-1 only counted the stage; a fight anywhere else - the debug arena - drops it too)
+    always: [79, 80] },
+  // 七夕: the 宋帝王 of 9-1 pays out the 功勋 when he falls (the original paid on entering): monster id -> {stage, merit, text}
+  kill_merit: { 64: { stage: [9, 1], merit: 10, text: '七夕快乐，获得 功勋+10' } },
   // bag pages hold 25 entries each; items (道具) stack
   tabs: { equip: ['weapon', 'cloth', 'accessory', 'treasure'], item: ['item'], look: ['fashion', 'wing'] },
   unique: ['csgs'],

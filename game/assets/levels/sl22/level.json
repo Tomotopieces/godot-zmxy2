@@ -1,1 +1,493 @@
-{"name":"sl22","fps":24,"textures":{"2:606":{"res":"res://assets/levels/sl22/tex/2_606.png","ox":-4,"oy":-65.05,"scale":2},"zmxy2_game:299":{"res":"res://assets/levels/sl22/tex/zmxy2_game_299.png","ox":-26.05,"oy":495,"scale":2},"2:1":{"res":"res://assets/levels/sl22/tex/2_1.png","ox":0,"oy":0,"scale":1}},"art":[["2:606",[1,0,0,1,-52,65],null,0],["zmxy2_game:299",[1,0,0,1,-25.95,2.05],null,1]],"walls":[{"kind":"solid","cls":"export.ObsWall","reg":[2481.3,511.05],"pos":[2481.3,511.05],"size":[5000,20],"rot":0},{"kind":"solid","cls":"export.ObsWall","reg":[4665.55,75],"pos":[4665.55,75],"size":[115.35,1000],"rot":0},{"kind":"solid","cls":"export.ObsWall","reg":[-20.4,197.4],"pos":[-20.4,197.4],"size":[699.95,23.3],"rot":90},{"kind":"solid","cls":"export.ObsWall","reg":[2467.95,-142.6],"pos":[2467.95,-142.6],"size":[5000,20],"rot":0}],"markers":[],"doors":[{"kind":"panguan_fire","pos":[3921.1,132.3],"rect":[3891.1,82.3,68,82],"sym":303},{"kind":"panguan_fire","pos":[4014.7,103.45],"rect":[3984.7,53.45,68,82],"sym":303},{"kind":"panguan_fire","pos":[4114.75,84.25],"rect":[4084.75,34.25,68,82],"sym":303},{"kind":"panguan_fire","pos":[4220.5,84.25],"rect":[4190.5,34.25,68,82],"sym":303},{"kind":"panguan_fire","pos":[4310.8,110.15],"rect":[4280.8,60.15,68,82],"sym":303},{"kind":"panguan_fire","pos":[4386.8,140.45],"rect":[4356.8,90.45,68,82],"sym":303},{"kind":"exit_door","pos":[4289.75,464.75],"rect":[4206,355.6,167,163.45],"sym":223},{"kind":"xingtian_door","pos":[660.1,186.8],"rect":[373.6,-23.7,573,421.75],"sym":239}],"stops":[{"x":1240.3,"y":189.65,"back":1150},{"x":1986.55,"y":182.95,"back":1150},{"x":2990.8,"y":163.75,"back":1150},{"x":3718.95,"y":232.75,"back":1150},{"x":4554.7,"y":252.3,"back":1150}],"spawners":[{"x":144.6,"y":366.05,"enemy":37,"delay":2,"interval":1,"total":3,"stop":0,"random":false,"boss":false},{"x":1160.85,"y":358.05,"enemy":36,"delay":2,"interval":1,"total":3,"stop":0,"random":false,"boss":false},{"x":80.65,"y":402,"enemy":36,"delay":6,"interval":1,"total":3,"stop":0,"random":false,"boss":false},{"x":1227.05,"y":394,"enemy":37,"delay":6,"interval":1,"total":3,"stop":0,"random":false,"boss":false},{"x":1318.55,"y":395.05,"enemy":37,"delay":2,"interval":1,"total":4,"stop":1,"random":false,"boss":false},{"x":2022.7,"y":402,"enemy":36,"delay":2,"interval":1,"total":4,"stop":1,"random":false,"boss":false},{"x":1254.6,"y":431,"enemy":36,"delay":6,"interval":1,"total":3,"stop":1,"random":false,"boss":false},{"x":2088.9,"y":437.95,"enemy":37,"delay":6,"interval":1,"total":3,"stop":1,"random":false,"boss":false},{"x":1949.1,"y":366.6,"enemy":37,"delay":2,"interval":1,"total":4,"stop":2,"random":false,"boss":false},{"x":2941.65,"y":402.6,"enemy":36,"delay":2,"interval":1,"total":4,"stop":2,"random":false,"boss":false},{"x":1921.45,"y":402.6,"enemy":33,"delay":6,"interval":1,"total":3,"stop":2,"random":false,"boss":false},{"x":2913.95,"y":366.6,"enemy":34,"delay":6,"interval":1,"total":3,"stop":2,"random":false,"boss":false},{"x":3037.15,"y":373.55,"enemy":37,"delay":2,"interval":1,"total":4,"stop":3,"random":false,"boss":false},{"x":3837.35,"y":380.5,"enemy":36,"delay":2,"interval":1,"total":4,"stop":3,"random":false,"boss":false},{"x":3009.5,"y":409.55,"enemy":33,"delay":6,"interval":1,"total":4,"stop":3,"random":false,"boss":false},{"x":3781.95,"y":373.55,"enemy":34,"delay":6,"interval":1,"total":4,"stop":3,"random":false,"boss":false},{"x":4491.35,"y":380.5,"enemy":39,"delay":2,"interval":1,"total":1,"stop":4,"random":false,"boss":false}],"size":[5608.5,591.05],"bounds":[-52,-425,5660.5,1016.05],"far":{"tex":"2:1"}}
+{
+ "name": "sl22",
+ "fps": 24,
+ "textures": {
+  "2:606": {
+   "res": "res://assets/levels/sl22/tex/2_606.png",
+   "ox": -4,
+   "oy": -65.05,
+   "scale": 2
+  },
+  "zmxy2_game:298": {
+   "res": "res://assets/shared/e3d14dcd99bc16aaf00f8be046dbea3e.png",
+   "ox": 0,
+   "oy": 0,
+   "scale": 1
+  },
+  "2:1": {
+   "res": "res://assets/shared/4f686efdcea1c95b912c7e53e2852d50.png",
+   "ox": 0,
+   "oy": 0,
+   "scale": 1
+  }
+ },
+ "art": [
+  [
+   "2:606",
+   [
+    1,
+    0,
+    0,
+    1,
+    -52,
+    65
+   ],
+   null,
+   0
+  ],
+  [
+   "zmxy2_game:298",
+   [
+    1,
+    0,
+    0,
+    1,
+    -52,
+    497.05
+   ],
+   null,
+   1,
+   [
+    0,
+    0,
+    4258,
+    94,
+    1
+   ]
+  ],
+  [
+   "zmxy2_game:298",
+   [
+    1,
+    0,
+    0,
+    1,
+    4186.5,
+    497.05
+   ],
+   null,
+   1,
+   [
+    0,
+    0,
+    1422,
+    94,
+    1
+   ]
+  ]
+ ],
+ "walls": [
+  {
+   "kind": "solid",
+   "cls": "export.ObsWall",
+   "reg": [
+    2481.3,
+    511.05
+   ],
+   "pos": [
+    2481.3,
+    511.05
+   ],
+   "size": [
+    5000,
+    20
+   ],
+   "rot": 0
+  },
+  {
+   "kind": "solid",
+   "cls": "export.ObsWall",
+   "reg": [
+    4665.55,
+    75
+   ],
+   "pos": [
+    4665.55,
+    75
+   ],
+   "size": [
+    115.35,
+    1000
+   ],
+   "rot": 0
+  },
+  {
+   "kind": "solid",
+   "cls": "export.ObsWall",
+   "reg": [
+    -20.4,
+    197.4
+   ],
+   "pos": [
+    -20.4,
+    197.4
+   ],
+   "size": [
+    699.95,
+    23.3
+   ],
+   "rot": 90
+  },
+  {
+   "kind": "solid",
+   "cls": "export.ObsWall",
+   "reg": [
+    2467.95,
+    -142.6
+   ],
+   "pos": [
+    2467.95,
+    -142.6
+   ],
+   "size": [
+    5000,
+    20
+   ],
+   "rot": 0
+  }
+ ],
+ "markers": [],
+ "doors": [
+  {
+   "kind": "panguan_fire",
+   "pos": [
+    3921.1,
+    132.3
+   ],
+   "rect": [
+    3891.1,
+    82.3,
+    68,
+    82
+   ],
+   "sym": 303
+  },
+  {
+   "kind": "panguan_fire",
+   "pos": [
+    4014.7,
+    103.45
+   ],
+   "rect": [
+    3984.7,
+    53.45,
+    68,
+    82
+   ],
+   "sym": 303
+  },
+  {
+   "kind": "panguan_fire",
+   "pos": [
+    4114.75,
+    84.25
+   ],
+   "rect": [
+    4084.75,
+    34.25,
+    68,
+    82
+   ],
+   "sym": 303
+  },
+  {
+   "kind": "panguan_fire",
+   "pos": [
+    4220.5,
+    84.25
+   ],
+   "rect": [
+    4190.5,
+    34.25,
+    68,
+    82
+   ],
+   "sym": 303
+  },
+  {
+   "kind": "panguan_fire",
+   "pos": [
+    4310.8,
+    110.15
+   ],
+   "rect": [
+    4280.8,
+    60.15,
+    68,
+    82
+   ],
+   "sym": 303
+  },
+  {
+   "kind": "panguan_fire",
+   "pos": [
+    4386.8,
+    140.45
+   ],
+   "rect": [
+    4356.8,
+    90.45,
+    68,
+    82
+   ],
+   "sym": 303
+  },
+  {
+   "kind": "exit_door",
+   "pos": [
+    4289.75,
+    464.75
+   ],
+   "rect": [
+    4206,
+    355.6,
+    167,
+    163.45
+   ],
+   "sym": 223
+  },
+  {
+   "kind": "xingtian_door",
+   "pos": [
+    660.1,
+    186.8
+   ],
+   "rect": [
+    373.6,
+    -23.7,
+    573,
+    421.75
+   ],
+   "sym": 239
+  }
+ ],
+ "stops": [
+  {
+   "x": 1240.3,
+   "y": 189.65,
+   "back": 1150
+  },
+  {
+   "x": 1986.55,
+   "y": 182.95,
+   "back": 1150
+  },
+  {
+   "x": 2990.8,
+   "y": 163.75,
+   "back": 1150
+  },
+  {
+   "x": 3718.95,
+   "y": 232.75,
+   "back": 1150
+  },
+  {
+   "x": 4554.7,
+   "y": 252.3,
+   "back": 1150
+  }
+ ],
+ "spawners": [
+  {
+   "x": 144.6,
+   "y": 366.05,
+   "enemy": 37,
+   "delay": 2,
+   "interval": 1,
+   "total": 3,
+   "stop": 0,
+   "random": false,
+   "boss": false
+  },
+  {
+   "x": 1160.85,
+   "y": 358.05,
+   "enemy": 36,
+   "delay": 2,
+   "interval": 1,
+   "total": 3,
+   "stop": 0,
+   "random": false,
+   "boss": false
+  },
+  {
+   "x": 80.65,
+   "y": 402,
+   "enemy": 36,
+   "delay": 6,
+   "interval": 1,
+   "total": 3,
+   "stop": 0,
+   "random": false,
+   "boss": false
+  },
+  {
+   "x": 1227.05,
+   "y": 394,
+   "enemy": 37,
+   "delay": 6,
+   "interval": 1,
+   "total": 3,
+   "stop": 0,
+   "random": false,
+   "boss": false
+  },
+  {
+   "x": 1318.55,
+   "y": 395.05,
+   "enemy": 37,
+   "delay": 2,
+   "interval": 1,
+   "total": 4,
+   "stop": 1,
+   "random": false,
+   "boss": false
+  },
+  {
+   "x": 2022.7,
+   "y": 402,
+   "enemy": 36,
+   "delay": 2,
+   "interval": 1,
+   "total": 4,
+   "stop": 1,
+   "random": false,
+   "boss": false
+  },
+  {
+   "x": 1254.6,
+   "y": 431,
+   "enemy": 36,
+   "delay": 6,
+   "interval": 1,
+   "total": 3,
+   "stop": 1,
+   "random": false,
+   "boss": false
+  },
+  {
+   "x": 2088.9,
+   "y": 437.95,
+   "enemy": 37,
+   "delay": 6,
+   "interval": 1,
+   "total": 3,
+   "stop": 1,
+   "random": false,
+   "boss": false
+  },
+  {
+   "x": 1949.1,
+   "y": 366.6,
+   "enemy": 37,
+   "delay": 2,
+   "interval": 1,
+   "total": 4,
+   "stop": 2,
+   "random": false,
+   "boss": false
+  },
+  {
+   "x": 2941.65,
+   "y": 402.6,
+   "enemy": 36,
+   "delay": 2,
+   "interval": 1,
+   "total": 4,
+   "stop": 2,
+   "random": false,
+   "boss": false
+  },
+  {
+   "x": 1921.45,
+   "y": 402.6,
+   "enemy": 33,
+   "delay": 6,
+   "interval": 1,
+   "total": 3,
+   "stop": 2,
+   "random": false,
+   "boss": false
+  },
+  {
+   "x": 2913.95,
+   "y": 366.6,
+   "enemy": 34,
+   "delay": 6,
+   "interval": 1,
+   "total": 3,
+   "stop": 2,
+   "random": false,
+   "boss": false
+  },
+  {
+   "x": 3037.15,
+   "y": 373.55,
+   "enemy": 37,
+   "delay": 2,
+   "interval": 1,
+   "total": 4,
+   "stop": 3,
+   "random": false,
+   "boss": false
+  },
+  {
+   "x": 3837.35,
+   "y": 380.5,
+   "enemy": 36,
+   "delay": 2,
+   "interval": 1,
+   "total": 4,
+   "stop": 3,
+   "random": false,
+   "boss": false
+  },
+  {
+   "x": 3009.5,
+   "y": 409.55,
+   "enemy": 33,
+   "delay": 6,
+   "interval": 1,
+   "total": 4,
+   "stop": 3,
+   "random": false,
+   "boss": false
+  },
+  {
+   "x": 3781.95,
+   "y": 373.55,
+   "enemy": 34,
+   "delay": 6,
+   "interval": 1,
+   "total": 4,
+   "stop": 3,
+   "random": false,
+   "boss": false
+  },
+  {
+   "x": 4491.35,
+   "y": 380.5,
+   "enemy": 39,
+   "delay": 2,
+   "interval": 1,
+   "total": 1,
+   "stop": 4,
+   "random": false,
+   "boss": false
+  }
+ ],
+ "size": [
+  5608.5,
+  591.05
+ ],
+ "bounds": [
+  -52,
+  -425,
+  5660.5,
+  1016.05
+ ],
+ "far": {
+  "tex": "2:1"
+ }
+}

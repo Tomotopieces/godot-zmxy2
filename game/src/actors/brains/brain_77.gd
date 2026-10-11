@@ -25,7 +25,7 @@ func think(delta: float) -> void:
 
 func use_skill(action: StringName) -> void:
 	if action == &"hit2":
-		_variant = randi_range(1, 4)
+		_variant = Rng.randi_range(1, 4)
 	act(action)
 
 func on_call(n: String, _args: Array) -> bool:

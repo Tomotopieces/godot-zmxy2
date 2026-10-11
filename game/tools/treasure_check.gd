@@ -33,7 +33,7 @@ func _ready() -> void:
 			m.position = h.global_position + Vector2(160 + k * 70, -40)
 			lv.add_monster(m)
 			mons.append(m)
-		await get_tree().create_timer(0.3).timeout
+		await get_tree().create_timer(1.2).timeout   # the gourd trails the hero by a while after a fall
 		var hp0 := mons.map(func(m): return m.hp)
 		h.mp = h.max_mp
 		h.hp = h.max_hp / 2
@@ -59,7 +59,7 @@ func _ready() -> void:
 				m.queue_free()
 		await get_tree().create_timer(0.3).timeout
 	# level up
-	var w: Dictionary = GameState.worn[&"treasure"]
+	var w: Item = GameState.worn[&"treasure"]
 	var atk0 := float(w.stats.atk)
 	Forge.upgrade(w)
 	_check("wds level 2", w.lv == 2 and w.stats.atk >= atk0 + 10)

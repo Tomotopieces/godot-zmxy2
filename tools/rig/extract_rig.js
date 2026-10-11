@@ -23,16 +23,21 @@ const { classifyEvents } = require('./events');
 
 // ------------------------------------------------------------------ script classification
 
-const SEL_RE = /getCurClothId\(\) > 2|gotoAndPlay\(BaseHero\(this\.to\.parent\)\.(getCurClothId|getCurWeaponId|getWingId)\(\)( - 2)?\)|getEquipNum\(\); this\.gotoAndPlay\(this\.obj\.(zbfj|zbwq|zbcb)\)|gotoAndStop\(Monster45\(this\.parent\.parent\)\.(getCurrentForm)\(\)\)/;
+const SEL_RE = /getCurClothId\(\) > 2|gotoAndPlay\(BaseHero\(this\.to\.parent\)\.(getCurClothId|getCurWeaponId|getWingId)\(\)( - 2)?\)|getEquipNum\(\); (?:if\([^)]*\) \{ )?this\.gotoAndPlay\(this\.obj\.(zbfj|zbwq|zbcb)\)|gotoAndStop\(Monster45\(this\.parent\.parent\)\.(getCurrentForm)\(\)\)|gotoAndStop\(7 - Monster51\(this\.parent\.parent\)\.(getRoundValue)\(\)\)/;
+
+// 唐僧's torso pieces sit in a clip named bodyEquip whose frame is the worn clothes id (Role2.setEquips); it is a cloth selector
+function selectorOf(lib, e) { return e.name === 'bodyEquip' ? 'cloth' : selectorKind(lib, e.c); }
 
 function selectorKind(lib, id) {
   const fsc = lib.frameScripts(id);
-  const s1 = fsc[1];
+  // the selector script is normally on frame 1; some bag portrait pieces only read the user's look on a later frame
+  const s1 = fsc[1] || Object.values(fsc).find((x) => SEL_RE.test(x));
   if (!s1) return null;
   const m = s1.match(SEL_RE);
   if (!m) return null;
   if (/getCurClothId\(\) > 2/.test(s1)) return 'cloth_ex';     // frame = clothId - 2, hidden when clothId <= 2
   if (m[3]) return { zbfj: 'cloth', zbwq: 'weapon', zbcb: 'wing' }[m[3]];   // bag portrait (User.getEquipNum)
+  if (m[5]) return 'round';   // 转轮王 form 2's ring counter: frame = 7 - rings left
   if (m[4]) return 'form';   // 白骨精 wings: frame = current form (Monster45.getCurrentForm)
   return { getCurClothId: 'cloth', getCurWeaponId: 'weapon', getWingId: 'wing' }[m[1]];
 }
@@ -40,7 +45,7 @@ function selectorKind(lib, id) {
 // nested (non-body) clip scripts: returns {op, arg} | null(no effect) | {op:'unknown'}
 function classifyNested(src) {
   const s = src.replace(/\s+/g, ' ').trim();
-  if (/^(this\.)?stop\(\);?$/.test(s)) return { op: 'stop' };
+  if (/^((this\.)?stop\(\);? ?)+$/.test(s)) return { op: 'stop' };
   let m = s.match(/^(this\.)?(gotoAndPlay|gotoAndStop)\((\d+|"[^"]*")\);?( stop\(\);)?$/);
   if (m) return { op: m[2], arg: m[3].startsWith('"') ? m[3].slice(1, -1) : +m[3] };
   if (/^(if\((this\.)?parent\) \{ )?(this\.)?parent\.removeChild\(this\);( \})?( stop\(\);)?$/.test(s)) return { op: 'remove' };
@@ -71,7 +76,7 @@ class Inst {
       if (k && k.iid === e.i) { k.e = e; continue; }
       if (this.removed.get(e.d) === e.i) continue;
       this.removed.delete(e.d);
-      const node = !e.clip && this.lib.sprite(e.c) && !selectorKind(this.lib, e.c) && e.name !== 'colipse'
+      const node = !e.clip && this.lib.sprite(e.c) && !selectorOf(this.lib, e) && e.name !== 'colipse'
         ? new Inst(this.sim, e.c, this) : null;
       this.kids.set(e.d, { iid: e.i, e, node });
     }
@@ -137,7 +142,7 @@ class Sim {
     this.events.push([this.frameIndex, src]);
     // action end: script changes curAction / plays another label / stops at top level
     const top = (() => { let s = src, p; do { p = s; s = s.replace(/\{[^{}]*\}/g, ''); } while (s !== p); return s; })();
-    if ((/\.curAction = /.test(src) || /\.gotoAndStop\("/.test(src) || /removeChild\(this\)/.test(src) || /\.destroy\(\)/.test(src)) && this.ended < 0) this.ended = this.frameIndex;
+    if ((/\.curAction = /.test(src) || /\.gotoAndStop\("/.test(src) || /removeChild\(this\)/.test(src) || /\.destroy\(\)/.test(src) || /BossDead/.test(src)) && this.ended < 0 && this.frameIndex >= (this.endFrom || 0)) this.ended = this.frameIndex;
     if (/(^|[;}\s])(this\.)?stop\(\);/.test(top)) { this.body.playing = false; if (this.held < 0) this.held = this.frameIndex; }
   }
   unknown(cls, f, src) { this.unknowns.push(`${cls} f${f}: ${src.slice(0, 160)}`); }
@@ -147,20 +152,23 @@ class Sim {
     const leaves = [], rects = { hit: null, hurt: null }, markers = {};
     // fl = Flash filters inherited from ancestors, fg = path of the outermost filtered ancestor (filter group)
     // cl = crop rect in rig space from Flash mask layers (rectangular masks: sprite sheets, gauges)
-    const walk = (inst, m, ct, pathArr, inBody, fl = [], fg = null, cl = null) => {
+    const walk = (inst, m, ct, pathArr, inBody, fl = [], fg = null, cl = null, bm = 0) => {
       const masks = [];
       for (const [d, k] of [...inst.kids].sort((a, b) => a[0] - b[0])) {
         const e = k.e;
         const mm = mul(m, e.m);
         const cc = e.ct ? ctMul(ct, e.ct) : ct;
         const p = pathArr.concat(d);
+        const eb = e.blend || bm;   // Flash blend mode (8 = add), inherited by the clip's children
+        // HIDE_AT=action:path:frame,...: a sub-tree that is gone from this frame on (a skill part replaced by the next one)
+        if (this.hideAt && this.hideAt.some(([pp, ff]) => (p.join('.') + '.').startsWith(pp + '.') && this.frameIndex >= ff)) continue;
         if (e.clip) {
           const b = boundsOf(this.lib, e.c);
-          if (b) masks.push({ until: e.clip, r: rectXf(mm, b) });
+          if (b) masks.push({ until: e.clip, m: mm, b });   // oriented: it lives in the space of the clip that holds it
           continue;
         }
         let ec = cl;
-        for (const mk of masks) if (d <= mk.until) ec = ec ? intersectR(ec, mk.r) : mk.r;
+        for (const mk of masks) if (d <= mk.until) ec = (ec || []).concat([mk]);
         const ef = e.filters && e.filters.length ? fl.concat(e.filters) : fl;
         const eg = ef !== fl && !fg ? p.join('.') : fg;
         if (e.name === 'colipse') {
@@ -170,39 +178,140 @@ class Sim {
         }
         // stick = attack area. Skill sticks are the visible effect animation itself (hit tests are per pixel),
         // so it plays and draws like any clip; the hit rect follows its current frame.
-        if (e.name === 'stick') {
+        if (/^stick[0-9]*$/.test(e.name || '')) {
           const from = leaves.length;
-          if (k.node) walk(k.node, mm, cc, p, inBody, ef, eg, ec);
-          else if (this.lib.texture(e.c)) leaves.push({ path: p, kind: 'tex', ref: e.c, m: mm, ct: cc, fl: ef, fg: eg, cl: ec });
+          if (k.node) walk(k.node, mm, cc, p, inBody, ef, eg, ec, eb);
+          else if (this.lib.texture(e.c)) leaves.push({ path: p, kind: 'tex', ref: e.c, m: mm, ct: cc, fl: ef, fg: eg, cl: clipIn(ec, mm), bm: eb });
           let r = null;
-          for (const lf of leaves.slice(from)) { const b = lf.kind === 'tex' ? boundsOf(this.lib, lf.ref) : null; if (b) r = union(r, rectXf(lf.m, b)); }
+          // (where the picture is visible: a sparkle drawn on a big transparent texture must not make the hit box that big)
+          // HIT_SKIP=id,id: textures that are decoration inside the attack's clip (sparkles around the swords) and not part of its reach
+          const skip = (process.env.HIT_SKIP || '').split(',');
+          for (const lf of leaves.slice(from)) { if (skip.includes(String(lf.ref)) || lf.kind !== 'tex') continue; const rr = hitRect(this.lib, lf); if (rr) r = union(r, rr); }
           if (!r) { const b = boundsOf(this.lib, e.c); if (b) r = rectXf(mm, b); }
+          if (process.env.HIT_DEBUG) {
+            const ls = leaves.slice(from).filter((lf) => lf.kind === 'tex').map((lf) => { const b = visibleBounds(this.lib, lf.ref, 12); const rr = b && rectXf(lf.m, lf.cl ? intersectR(b, lf.cl) : b); return rr && { ref: lf.ref, bm: lf.bm || 0, fl: lf.fl && lf.fl.length, fill: fillRatio(this.lib, lf.ref), r: [rr.x, rr.y, rr.w, rr.h].map(Math.round) }; }).filter(Boolean);
+            console.error('HITDBG ' + JSON.stringify({ act: global.__act, f: this.frameIndex, leaves: ls }));
+          }
           if (r) rects.hit = union(rects.hit, r);
           continue;
         }
-        const sk = selectorKind(this.lib, e.c);
-        if (sk) { leaves.push({ path: p, kind: 'slot', ref: e.c, sel: sk, m: mm, ct: cc, fl: ef, fg: eg, cl: ec }); continue; }
+        const sk = selectorOf(this.lib, e);
+        if (sk) { leaves.push({ path: p, kind: 'slot', ref: e.c, sel: sk, m: mm, ct: cc, fl: ef, fg: eg, cl: clipIn(ec, mm), bm: eb }); continue; }
         if (k.node) {
           if (e.name && e.name !== 'body') markers[e.name] = [mm[4], mm[5]];
           // anchors for effects the game plays on demand (level-up glow) are not part of the rig art
-          if (!SEPARATE_CLIPS.has(e.name)) walk(k.node, mm, cc, p, inBody || e.name === 'body', ef, eg, ec);
+          if (!SEPARATE_CLIPS.has(e.name)) walk(k.node, mm, cc, p, inBody || e.name === 'body', ef, eg, ec, eb);
           continue;
         }
-        if (this.lib.texture(e.c)) leaves.push({ path: p, kind: 'tex', ref: e.c, m: mm, ct: cc, fl: ef, fg: eg, cl: ec });
-        else if (this.lib.J.texts && this.lib.J.texts[e.c]) leaves.push({ path: p, kind: 'text', ref: e.c, m: mm, ct: cc, fl: ef, fg: eg, cl: ec });
+        if (this.lib.texture(e.c)) leaves.push({ path: p, kind: 'tex', ref: e.c, m: mm, ct: cc, fl: ef, fg: eg, cl: clipIn(ec, mm), bm: eb });
+        else if (this.lib.J.texts && this.lib.J.texts[e.c]) leaves.push({ path: p, kind: 'text', ref: e.c, m: mm, ct: cc, fl: ef, fg: eg, cl: clipIn(ec, mm), bm: eb });
       }
     };
     walk(this.root, I, CT_ID, [], false, this.rootFilters || [], this.rootFilters && this.rootFilters.length ? 'root' : null);
     let art = null;
-    for (const lf of leaves) { const b = lf.kind === 'tex' ? boundsOf(this.lib, lf.ref) : null; if (b) art = union(art, rectXf(lf.m, b)); }
+    // the art box (what an effect without hit sticks hits with) is where the picture is visible: the original tests
+    // against the drawn pixels, and a texture's transparent margin or soft glow must not count
+    for (const lf of leaves) { if (lf.kind !== 'tex') continue; const rr = hitRect(this.lib, lf); if (rr) art = union(art, rr); }
+    if (!art) for (const lf of leaves) { if (lf.kind !== 'tex') continue; const b = visibleBounds(this.lib, lf.ref, 12); if (b && b.w && b.h) art = union(art, rectXf(lf.m, lf.cl ? intersectR(b, lf.cl) : b)); }   // only specks: their faint reach is all there is
     return { leaves, rects, markers, art };
   }
+}
+
+// The crop a list of Flash masks puts on a layer with matrix m, as a rect in that layer's own space (before m). A mask
+// is rectangular in the space of the clip that holds it; the layer is usually shifted inside that clip (a sprite sheet
+// scrolling under its window), so relative to the layer it is an upright rect even when the clip is turned.
+function clipIn(list, m) {
+  if (!list) return null;
+  const det = m[0] * m[3] - m[1] * m[2];
+  if (Math.abs(det) < 1e-9) return null;
+  const inv = [m[3] / det, -m[1] / det, -m[2] / det, m[0] / det, 0, 0];
+  inv[4] = -(inv[0] * m[4] + inv[2] * m[5]);
+  inv[5] = -(inv[1] * m[4] + inv[3] * m[5]);
+  let r = null;
+  for (const mk of list) { const rr = rectXf(mul(inv, mk.m), mk.b); r = r ? intersectR(r, rr) : rr; }
+  return r;
+}
+
+// An attack box that follows every frame of an animated effect (sparks, rays, a flickering glow) twitches with it. Each
+// edge is replaced by the median of its five-frame neighbourhood: a spike or a one-frame flicker disappears, while a
+// steady growth or shrink (a median of a straight line is its middle) comes through unchanged.
+function steady(series) {
+  const med = (v) => { const a = v.slice().sort((x, y) => x - y); return a[a.length >> 1]; };
+  const smooth = series.map(([f, r], i) => {
+    if (!r) return [f, r];
+    const edges = [[], [], [], []];
+    for (let j = Math.max(0, i - 2); j <= Math.min(series.length - 1, i + 2); j++) {
+      const q = series[j][1];
+      if (!q) continue;
+      edges[0].push(q[0]); edges[1].push(q[1]); edges[2].push(q[0] + q[2]); edges[3].push(q[1] + q[3]);
+    }
+    const x0 = med(edges[0]), y0 = med(edges[1]), x1 = med(edges[2]), y1 = med(edges[3]);
+    return [f, [x0, y0, x1 - x0, y1 - y0].map((v) => Math.round(v * 10) / 10)];
+  });
+  // a box that then only wobbles (a spinning gear's corners, a pulsing glow: all frames within about a quarter of the
+  // same width) is one steady box: the median of all its frames
+  const rs = smooth.map((e) => e[1]).filter(Boolean);
+  if (rs.length >= 6) {
+    const ar = rs.map((q) => q[2] * q[3]);
+    if (Math.max(...ar) <= Math.min(...ar) * 1.5 + 1) {
+      const e = [0, 1, 2, 3].map((k) => med(rs.map((q) => (k < 2 ? q[k] : q[k - 2] + q[k]))));
+      const box = [e[0], e[1], e[2] - e[0], e[3] - e[1]].map((v) => Math.round(v * 10) / 10);
+      return smooth.map(([f, r]) => [f, r ? box : r]);
+    }
+  }
+  return smooth;
 }
 
 function intersectR(a, b) {
   const x = Math.max(a.x, b.x), y = Math.max(a.y, b.y);
   const r = Math.min(a.x + a.w, b.x + b.w), btm = Math.min(a.y + a.h, b.y + b.h);
   return { x, y, w: Math.max(0, r - x), h: Math.max(0, btm - y) };
+}
+
+const PNG = require('./png');
+const visCache = new Map();
+// bounds (local units) of the pixels of a leaf texture that are visibly opaque
+// share of a texture's pixels that are solid (sparkles, glows and rays are sparse)
+const fillCache = new Map();
+function fillRatio(lib, c) {
+  const t = lib.texture(c);
+  if (!t) return 1;
+  if (!fillCache.has(t.file)) {
+    let v = 1;
+    try { const im = PNG.decode(t.file); let n = 0, tot = 0, soft = 0; for (let i = 3; i < im.data.length; i += 4) { if (im.data[i] > 12) { tot++; if (im.data[i] >= 200) n++; else soft++; } } v = tot ? n / tot : 1; } catch (e) { v = 1; }
+    fillCache.set(t.file, v);
+  }
+  return fillCache.get(t.file);
+}
+function visibleBounds(lib, c, thr = 48) {
+  const t = lib.texture(c);
+  if (!t) return boundsOf(lib, c);
+  const key = t.file + '|' + thr;
+  if (!visCache.has(key)) {
+    let r = null;
+    try {
+      const im = PNG.decode(t.file);
+      let x0 = im.width, y0 = im.height, x1 = -1, y1 = -1, n = 0;
+      for (let y = 0; y < im.height; y++) for (let x = 0; x < im.width; x++) if (im.data[(y * im.width + x) * 4 + 3] >= thr) { n++; if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+      if (x1 >= 0) r = { x: t.ox + x0 / t.scale, y: t.oy + y0 / t.scale, w: (x1 + 1 - x0) / t.scale, h: (y1 + 1 - y0) / t.scale, mass: n / (t.scale * t.scale) };
+      else r = { x: 0, y: 0, w: 0, h: 0, mass: 0 };
+    } catch (e) { r = null; }
+    visCache.set(key, r);
+  }
+  return visCache.get(key) || boundsOf(lib, c);
+}
+
+// Where a leaf really hits: the solid part of its picture (a glow's faint halo, a sparkle's rays and a speck of dust are
+// not the attack), cropped by its masks. null when it adds nothing: no solid pixels, or too few to be more than a speck.
+const SOLID = 96;       // alpha counted as solid
+const MIN_MASS = 120;   // px^2 of solid picture (on the stage) below which a leaf is a speck
+function hitRect(lib, lf) {
+  const b = visibleBounds(lib, lf.ref, SOLID);
+  if (!b || !b.w || !b.h) return null;
+  const det = Math.abs(lf.m[0] * lf.m[3] - lf.m[1] * lf.m[2]);
+  if ((b.mass === undefined ? Infinity : b.mass * det) < MIN_MASS) return null;
+  const r = rectXf(lf.m, lf.cl ? intersectR(b, lf.cl) : b);
+  return r.w > 0 && r.h > 0 ? r : null;
 }
 
 function boundsOf(lib, c, depth = 0) {
@@ -250,6 +359,14 @@ function variantFrames(lib, selId, kind) {
       const frames = [];
       for (let f = start - 1; f < end; f++) frames.push(simulateRange(lib, selId, f, start - 1));
       out[id] = { frames, loop: true };
+    }
+  } else if (kind === 'round') {
+    // the counter holds its frame, but the rings inside keep turning: loop their clip
+    const period = Math.max(1, ...spr.frames.flat().map((e) => (lib.sprite(e.c) || { n: 1 }).n));
+    for (let f = 0; f < spr.n; f++) {
+      const frames = [];
+      for (let a = 0; a < period; a++) frames.push(simulateRange(lib, selId, f, f - a));
+      out[f + 1] = { frames: frames.some((fr) => fr.length) ? frames : [[]], loop: true };
     }
   } else {
     for (let f = 0; f < spr.n; f++) {
@@ -327,8 +444,12 @@ function extract(libName, cls, outName, rootFilters = []) {
     : labels.length ? labels.map(([l, f]) => ({ label: l, f, plays: false })) : [{ label: 'default', f: startFrame, plays: !process.env.ROOT_STOPPED }];   // ROOT_STOPPED=1: the root holds its frame (gotoAndStop), only nested clips run
 
   for (const act of actions) {
+    global.__act = act.label;
     const sim = new Sim(lib, rootId, act.f, act.plays);
     sim.rootFilters = rootFilters;
+    sim.hideAt = (process.env.HIDE_AT || '').split(',').filter(Boolean).map((x) => x.split(':')).filter((x) => x[0] === act.label).map((x) => [x[1], +x[2]]);
+    // END_FROM=action:frame,...: scripts that merely switch to another action before this frame do not end the action
+    sim.endFrom = +(((process.env.END_FROM || '').split(',').map((x) => x.split(':')).find((x) => x[0] === act.label) || [])[1] || 0);
     let bodyN = sim.body && sim.body !== sim.root ? sim.body.n : (act.plays ? root.n - act.f : 1);
     // a single-frame container whose children animate (e.g. portals): capture the longest child loop
     if (act.plays && root.n === 1) {
@@ -337,6 +458,8 @@ function extract(libName, cls, outName, rootFilters = []) {
     }
     // HOLD_FRAMES=n: keep simulating a stopped timeline whose nested clips still loop (held poses)
     if (process.env.HOLD_FRAMES) bodyN = Math.max(bodyN, +process.env.HOLD_FRAMES);
+    // DEAD_FRAMES=n: the dead pose is a nested clip (blink + BossDead script) on a single frame of the root: run it for n frames
+    if (process.env.DEAD_FRAMES && act.label === 'dead') bodyN = Math.max(bodyN, +process.env.DEAD_FRAMES);
     const tracks = new Map();   // pathKey -> track
     const hit = [], hurt = [], art = [], markers = {};
     let frames = 0;
@@ -347,9 +470,9 @@ function extract(libName, cls, outName, rootFilters = []) {
       const snap = sim.snapshot();
       for (const lf of snap.leaves) {
         const fid = filterId(lf.fl);
-        const pk = lf.path.join('.') + ':' + lf.kind + (fid === null ? '' : '|f' + fid);
+        const pk = lf.path.join('.') + ':' + lf.kind + (fid === null ? '' : '|f' + fid) + (lf.bm ? '|b' + lf.bm : '');
         let tr = tracks.get(pk);
-        if (!tr) { tr = { path: lf.path, kind: lf.kind, keys: [], filter: fid, group: fid === null ? null : lf.fg }; tracks.set(pk, tr); }
+        if (!tr) { tr = { path: lf.path, kind: lf.kind, keys: [], filter: fid, group: fid === null ? null : lf.fg, blend: lf.bm || 0 }; tracks.set(pk, tr); }
         const ref = lf.kind === 'tex' ? texKey(lf.ref) : lf.kind === 'slot' ? lf.ref : libName + ':text:' + lf.ref;
         if (lf.kind === 'slot' && !out.slots[lf.ref]) out.slots[lf.ref] = { kind: lf.sel, variants: null };
         tr.keys.push(lf.cl ? [f, ref, fmtM(lf.m), fmtCt(lf.ct), fmtR(lf.cl)] : [f, ref, fmtM(lf.m), fmtCt(lf.ct)]);
@@ -358,7 +481,11 @@ function extract(libName, cls, outName, rootFilters = []) {
         const last = tr.keys[tr.keys.length - 1];
         if (last[0] !== f && last[1] !== null) tr.keys.push([f, null, null, null]);  // hidden this frame
       }
-      hit.push([f, fmtR(snap.rects.hit)]);
+      // HIT_MAX_X=action:x,...: the attack box never reaches behind x (art faces left: x < 0 is the front)
+      let hr = fmtR(snap.rects.hit);
+      const cap = ((process.env.HIT_MAX_X || '').split(',').map((q) => q.split(':')).find((q) => q[0] === act.label) || [])[1];
+      if (hr && cap !== undefined && hr[0] + hr[2] > +cap) hr = hr[0] >= +cap ? null : [hr[0], hr[1], Math.round((+cap - hr[0]) * 10) / 10, hr[3]];
+      hit.push([f, hr]);
       art.push([f, fmtR(snap.art)]);
       hurt.push([f, fmtR(snap.rects.hurt)]);
       for (const [n, p] of Object.entries(snap.markers)) (markers[n] ||= []).push([f, r3(p[0]), r3(p[1])]);
@@ -374,19 +501,23 @@ function extract(libName, cls, outName, rootFilters = []) {
         if (p && JSON.stringify(p.slice(1)) === JSON.stringify(k.slice(1))) continue;
         keys.push(k);
       }
-      return { path: t.path.join('.'), kind: t.kind, keys, filter: t.filter, group: t.group };
+      return { path: t.path.join('.'), kind: t.kind, keys, filter: t.filter, group: t.group, blend: t.blend || undefined };
     });
     const compactR = (arr) => arr.filter((k, i) => i === 0 || JSON.stringify(k[1]) !== JSON.stringify(arr[i - 1][1]));
+    const evs = sim.events.filter(([f]) => f < frames).flatMap(([f, src]) => classifyEvents(src, lib.fps).map((e) => [f, ...e]));
     out.actions[act.label] = {
       frames,
       loop: !process.env.LOOP_FROM && ((sim.ended < 0 && sim.held < 0) || !!process.env.HOLD_FRAMES),
       // LOOP_FROM=f: play once, then keep looping frames f.. (an opening followed by a nested clip's loop)
       loop_from: process.env.LOOP_FROM ? +process.env.LOOP_FROM : undefined,
       tracks: trackList,
-      hit: compactR(hit), hurt: compactR(hurt), art: compactR(art),
+      hit: compactR(steady(hit)), hurt: compactR(hurt), art: compactR(steady(art)),
       markers,
-      events: sim.events.filter(([f]) => f < frames).flatMap(([f, src]) => classifyEvents(src, lib.fps).map((e) => [f, ...e])),
+      events: evs.filter((e) => e[1] !== 'vis' && e[1] !== 'unknown').filter((e) => !(e[1] === 'finished' && e[0] < (sim.endFrom || 0))),
+      // the body shown / hidden: becomes a visibility track of the parts, not an event
+      rootvis: evs.filter((e) => e[1] === 'vis').map((e) => [e[0], e[2]]),
     };
+    for (const e of evs) if (e[1] === 'unknown') out.unknownScripts.push(e[2]);
     out.unknownScripts.push(...sim.unknowns);
   }
   for (const sel of Object.keys(out.slots)) {

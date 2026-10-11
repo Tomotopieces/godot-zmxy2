@@ -15,15 +15,18 @@ func think(delta: float) -> void:
 
 func _hover(delta: float) -> void:
 	m.velocity.y = 0.0
-	var h: Hero = Level.current.hero
+	var h: Hero = m.world.hero
 	if h:
 		m.velocity.x = signf(h.global_position.x - m.global_position.x) * float(param("hover_speed", 120))
 	_fall -= delta
 	if _fall <= 0.0:
 		_hovering = false
+		m.rig.visible = true   # he comes into view as he drops
 		m.fly = false
-		m.invuln = 0.0
-		Fx.spawn("monster58shallow", Vector2(m.global_position.x, float(param("shadow_y", 510))))
+		# untouchable through the whole drop, up to the end of the flames on the floor (a hit would cancel them)
+		m.invuln = m.rig.anim.get_animation(&"hit2-2").length
+		# the shadow lies on the floor, under the monsters and the hero (the original adds it just below him in the draw order)
+		Fx.spawn("monster58shallow", Vector2(m.global_position.x, float(param("shadow_y", 510)))).z_index = Layers.Z_MONSTER - 1
 		act(&"hit2-2")
 
 func moves_while_attacking() -> bool:
@@ -33,6 +36,7 @@ func on_call(n: String, _args: Array) -> bool:
 	match n:
 		"in_top":
 			_hovering = true
+			m.rig.visible = false   # up in the sky he is out of sight (the original left his soles showing at the top)
 			m.fly = true
 			m.invuln = 9999.0
 			if _first_fall:
@@ -40,7 +44,7 @@ func on_call(n: String, _args: Array) -> bool:
 				_fall = float(param("first_fall", 2.0))
 			else:
 				var r: Array = param("fall", [2.0, 4.0])
-				_fall = randf_range(r[0], r[1])
+				_fall = Rng.randf_range(r[0], r[1])
 		"do_hit3":
 			pull_heroes(float(param("pull_time", 0.6)))
 		_:
@@ -53,15 +57,13 @@ func on_action_finished(action: StringName) -> void:
 		m.rig.play(&"wait")
 
 func on_destroy() -> void:
-	Level.current.open_door()
-	var t := m.get_tree().create_timer(float(param("next_delay", 5.0)), false)
-	var lv := Level.current
+	m.world.open_door()
+	var lv := m.world
 	var pos: Array = param("next_pos", [500, 300])
-	t.timeout.connect(func():
-		if is_instance_valid(lv):
-			lv.close_door()
-			var md := lv.monster_data(81)
-			if md:
-				var nx := Monster.create(md)
-				nx.position = Vector2(pos[0], pos[1])
-				lv.add_monster(nx))
+	lv.after(float(param("next_delay", 5.0)), func():   # (the level's timer: this boss is gone by then)
+		lv.close_door()
+		var md := lv.monster_data(81)
+		if md:
+			var nx := Monster.create(md)
+			nx.position = Vector2(pos[0], pos[1])
+			lv.add_monster(nx))

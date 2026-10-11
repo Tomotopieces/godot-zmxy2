@@ -13,7 +13,7 @@ func _ready() -> void:
 	var spots: Array = stage.param("xingtian_door", {}).get("positions", [])
 	if spots.is_empty():
 		return
-	var s: Array = spots[randi() % spots.size()]
+	var s: Array = spots[Rng.randi() % spots.size()]
 	_door = stage.place_rig("xingtian_door", Vector2(s[0], s[1]))
 	_touch = float(cfg.touch)
 

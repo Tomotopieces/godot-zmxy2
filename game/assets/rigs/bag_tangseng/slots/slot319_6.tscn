@@ -1,0 +1,44 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/shared/2e4179e57350d4997f3b99f280dd320e.png" id="1_t181x"]
+[ext_resource type="Shader" path="res://src/rig/sprite_fx.gdshader" id="2_fp5lk"]
+[ext_resource type="Texture2D" path="res://assets/shared/6b96430d3b69495d0e2bfb0d0db973d5.png" id="3_rd46l"]
+[ext_resource type="Texture2D" path="res://assets/shared/b1e46c0b57ffb9eedd6ba23823f55fee.png" id="4_oxmin"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0ksuv"]
+shader = ExtResource("2_fp5lk")
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = 2.0
+shader_parameter/glow_on = true
+shader_parameter/glow_color = Color(1, 1, 0, 1)
+shader_parameter/glow_blur = 2.0
+shader_parameter/glow_strength = 2.6875
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 3.0
+
+[node name="Slot319_6" type="Node2D" unique_id=1255028318]
+
+[node name="p1" type="Sprite2D" parent="." unique_id=1158353693]
+position = Vector2(-14.75, -28.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_t181x")
+centered = false
+
+[node name="p2_1_f1" type="Sprite2D" parent="." unique_id=1045243806]
+material = SubResource("ShaderMaterial_0ksuv")
+position = Vector2(-13.25, -101.350006)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_rd46l")
+centered = false
+
+[node name="p4" type="Sprite2D" parent="." unique_id=817437502]
+position = Vector2(-15.85, -32.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_oxmin")
+centered = false

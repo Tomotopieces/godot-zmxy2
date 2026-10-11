@@ -5,7 +5,6 @@ extends "res://src/actors/brains/boss_b.gd"
 ## HP, defence and attack power (Monster45.setInfo). The third death is final. Her wings show the current form.
 
 var _form := 1
-var _reviving := false
 
 func setup() -> void:
 	_apply_form()
@@ -31,15 +30,10 @@ func _apply_form() -> void:
 	m.hp = m.max_hp
 	m.rig.set_equip("form", _form)
 
-func can_be_hit() -> bool:
-	return not _reviving
-
 func intercept_death() -> bool:
 	if _form >= 3:
 		return false
-	_reviving = true
-	m.end_attack()
-	m.velocity = Vector2.ZERO
+	begin_revive()
 	m.play_action(&"dead")   # its last frame calls check_re_burn
 	return true
 
@@ -47,15 +41,17 @@ func on_call(n: String, _args: Array) -> bool:
 	match n:
 		"check_re_burn":
 			if not _reviving:
-				return true   # final death: the normal boss death takes over
+				m.boss_dead_sequence()   # final death (checkReBurn, form 3): BossDead - the swirl, then the loot and the exit
+				return true
 			_form += 1
 			Loot.drop(m)
-			Level.current.open_door()
+			m.remove_meta(&"loot_dropped")   # she comes back: her next death drops again
+			m.world.open_door()
 			m.play_action(&"reburn")
 		"set_info":
 			_apply_form()
 			_reviving = false
-			Level.current.close_door()
+			m.world.close_door()
 			m.state = Monster.State.MOVE
 		"do_hit2":
 			var b := m.shoot("monster45bullet1", &"hit2", Vector2(0, 80))
@@ -69,7 +65,7 @@ func on_call(n: String, _args: Array) -> bool:
 ## Heroes in front of her and facing her are petrified (eyefix): no input for a while.
 func _gaze() -> void:
 	var t := float(param("gaze_time", 5.0)) + float(param("gaze_per_form", 0.08)) * (_form - 1)
-	for h: Hero in Level.current.heroes():
+	for h: Hero in m.world.heroes():
 		if not h.can_be_hit():
 			continue
 		var in_front := signf(h.global_position.x - m.global_position.x) == float(m.facing)

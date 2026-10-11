@@ -1943,13 +1943,28 @@ items = {
 &"zshb": SubResource("Resource_imhvv"),
 &"zzyj": SubResource("Resource_5ilcn")
 }
-boss_loot = PackedStringArray("tpzy", "jcdp", "wpqhs1", "dslj", "dsyj", "dsqz", "tsgl", "tsyp", "tsyj", "xhyk", "xhxh", "xhmj", "qxsh", "jhcz", "ryjgb", "zljs", "dszk", "bhz")
+boss_loot = PackedStringArray("tpzy", "jcdp", "wpqhs1", "dslj", "dsyj", "dsqz", "tsgl", "tsyp", "tsyj", "xhyk", "xhxh", "xhmj", "qxsh", "jhcz", "ryjgb", "zljs", "dszk", "bhz", "xyb")
 use = {
 "hhbuff": {
 "buff": "mp_regen"
 },
+"jbldyb": {
+"buff": "moon_lucky"
+},
+"jfydyb": {
+"buff": "moon_def"
+},
+"jgjdyb": {
+"buff": "moon_atk"
+},
+"jmdyb": {
+"buff": "moon_mp"
+},
 "jxbuff": {
 "buff": "hp"
+},
+"jxdyb": {
+"buff": "moon_hp"
 },
 "sbbl": {
 "buff": "drop"
@@ -1967,15 +1982,74 @@ buffs = {
 "icon": "sbbl_buff",
 "icon_scale": 0.3
 },
+"gq_atk": {
+"atk_add": 100.0,
+"icon": "atk_guoqing_buff",
+"icon_scale": 1.0,
+"label": "攻击 +100，持续一小时"
+},
+"gq_def": {
+"def_add": 50.0,
+"icon": "def_guoqing_buff",
+"icon_scale": 1.0,
+"label": "防御 +50，持续一小时"
+},
 "hp": {
 "hp_mul": 1.5,
 "icon": "hn_buff",
 "icon_scale": 0.3
 },
+"moon_atk": {
+"atk_add": 100.0,
+"icon": "buff_moon_atk",
+"icon_scale": 0.3
+},
+"moon_def": {
+"def_add": 50.0,
+"icon": "buff_moon_def",
+"icon_scale": 0.3
+},
+"moon_hp": {
+"hp_add": 600.0,
+"icon": "buff_moon_hp",
+"icon_scale": 0.3
+},
+"moon_lucky": {
+"drop_mul": 1.5,
+"icon": "buff_moon_lucky",
+"icon_scale": 0.3
+},
+"moon_mp": {
+"icon": "buff_moon_mp",
+"icon_scale": 0.3,
+"mp_add": 600.0
+},
 "mp_regen": {
 "icon": "hh_guoqing_buff",
 "icon_scale": 1.0,
 "mp_regen": 10.0
+}
+}
+kill_buffs = {
+"79": "gq_atk",
+"80": "gq_def"
+}
+kill_merit = {
+"64": {
+"merit": 10.0,
+"stage": [9.0, 1.0],
+"text": "七夕快乐，获得 功勋+10"
+}
+}
+moon = {
+"big": ["jxdyb", "jmdyb", "jgjdyb", "jfydyb", "jbldyb"],
+"big_cost": 10.0,
+"cake": "xyb",
+"weapon_cost": 100.0,
+"weapons": {
+"八戒": "syc",
+"唐僧": "myz",
+"悟空": "nyd"
 }
 }
 drop_bonus = {
@@ -1984,6 +2058,7 @@ drop_bonus = {
 "wkzyf": 0.2
 }
 stone_drop = {
+"always": [79.0, 80.0],
 "item": "wpqhs1",
 "level_caps": {
 "sl11": 4.0,

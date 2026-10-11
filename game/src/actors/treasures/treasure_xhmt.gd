@@ -6,7 +6,7 @@ extends Treasure
 var _attacks := 0
 
 func begin() -> void:
-	hero.debuffs.clear()
+	hero.cure_debuffs()
 	_attacks = 0
 	rig.play(&"begin", true)
 
@@ -29,11 +29,13 @@ func _next_target() -> void:
 	if _attacks >= _max_attacks() or all.is_empty():
 		finish()
 		return
-	var m: Monster = all[randi() % all.size()]
+	var m: Monster = all[Rng.randi() % all.size()]
 	facing = 1 if global_position.x < m.global_position.x else -1
 	rig.play(&"back", true)
 	_attacks += 1
-	move_to(m.global_position - Vector2(facing * p.side, 0), p.move_time, func(): rig.play(&"hit1", true))
+	# the immobile 转轮王 (form 3) is aimed at by the head, not the floor it hangs over
+	var at := m.center() if m.data.id == 60 else m.global_position
+	move_to(at - Vector2(facing * p.side, 0), p.move_time, func(): rig.play(&"hit1", true))
 
 func _bullet(rig_name: String, k: int) -> void:
 	var off: Array = p.bullet_offsets[k]

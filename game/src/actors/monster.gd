@@ -30,7 +30,7 @@ static func create(d: MonsterData) -> Monster:
 func _ready() -> void:
 	gravity = data.gravity
 	collision_layer = LAYER_MONSTER
-	z_index = Level.Z_MECHANISM if data.behind else Level.Z_MONSTER
+	z_index = Layers.Z_MECHANISM if data.behind else Layers.Z_MONSTER
 	collision_mask = LAYER_WORLD | LAYER_ONEWAY
 	brain = MonsterBrain.create(self)   # before the rig: its first action already emits events
 	setup_rig(data.rig)
@@ -44,6 +44,26 @@ func _ready() -> void:
 	if rig.actions.has("walk"):
 		rig.play(&"walk")
 	brain.setup()
+
+var _stun_t := 0.0
+var _stun_fx: Rig
+
+## 眩晕 (BaseAddEffect "stun"): the monster stands still, no AI, no attacks.
+func stun(seconds: float) -> void:
+	if state == State.DEAD or data.is_prop:
+		return
+	_stun_t = maxf(_stun_t, seconds)
+	if state == State.ATTACK or state == State.HURT:
+		end_attack()
+		state = State.MOVE
+	dir = 0
+	if _stun_fx == null:
+		_stun_fx = Rig.create("fx_stun")
+		_stun_fx.position = Vector2(0, hurt_rect().position.y - global_position.y - 10.0)
+		_stun_fx.scale = Vector2(0.4, 0.4)
+		add_child(_stun_fx)
+		_stun_fx.play(_stun_fx.actions[0])
+		_stun_fx.action_finished.connect(func(a): _stun_fx.play(a, true))
 
 func can_be_hit() -> bool:
 	return state != State.DEAD and invuln <= 0.0 and brain.can_be_hit()
@@ -60,23 +80,37 @@ func _physics_process(delta: float) -> void:
 	if target and not target.is_alive():
 		target = null
 	_tick_poison(delta)
-	if state != State.DEAD:
+	if _stun_t > 0.0:
+		_stun_t -= delta
+		velocity.x = 0.0
+		if _stun_t <= 0.0 and _stun_fx:
+			_stun_fx.queue_free()
+			_stun_fx = null
+	elif state != State.DEAD:
 		brain.think(delta)
-	_apply_motion(delta)
+	if _stun_t <= 0.0:
+		_apply_motion(delta)
 	if not fly:
 		apply_gravity(delta)
 	move_and_slide()
 	if state == State.ATTACK:
-		scan_hits(Level.current.heroes())
+		scan_hits()
 	if state == State.MOVE and not brain.custom_animation():
 		rig.play(&"walk" if dir != 0 and rig.actions.has("walk") else &"wait")
 	if global_position.y > Hero.FALL_DEATH_Y:
-		_vanish()
+		vanish()
 
 func _apply_motion(delta: float) -> void:
 	match state:
 		State.MOVE:
-			velocity.x = dir * brain.move_speed()
+			if not fly and dir == 0 and not is_on_floor():
+				# in the air with no walking intention (knocked up): the sideways speed carries on to the landing, an arc
+				if absf(velocity.x) > data.speed:
+					velocity.x *= pow(data.knockback_decay, delta)
+					if absf(velocity.x) < data.speed:
+						velocity.x = signf(velocity.x) * data.speed
+			else:
+				velocity.x = dir * brain.move_speed()
 			if dir != 0:
 				facing = dir
 		State.ATTACK:
@@ -143,19 +177,19 @@ func shoot(rig_name: String, key: StringName, offset := Vector2.ZERO, vel := Vec
 	p.facing = facing
 	p.velocity = Vector2(vel.x * facing, vel.y)
 	p.distance_left = distance
-	Level.current.add_object(p)
+	world.add_object(p)
 	return p
 
 ## Create another monster (summons, form changes). Returns null when the data is missing.
 func summon(id: int, pos: Vector2) -> Monster:
-	var md := Level.current.monster_data(id)
+	var md := world.monster_data(id)
 	if md == null:
 		push_warning("monster %d: no data" % id)
 		return null
 	var m := Monster.create(md)
 	m.position = pos
 	m.summoner = self
-	Level.current.add_monster(m)
+	world.add_monster(m)
 	return m
 
 ## Poison (BaseAddEffect POISON, 罗刹妖伞): `power` damage every `tick` for `seconds`; icon over the head.
@@ -198,6 +232,10 @@ func hurt_directly(amount: int) -> void:
 		return
 	DamageNumber.spawn("hurtnum", amount, Vector2(global_position.x - 20, hurt_rect().position.y), 20.0)
 	damage_directly(amount)
+	if not data.is_prop and not data.is_boss:
+		_hp_bar_t = data.hp_bar_time
+		_hp_bar.visible = true
+		_hp_bar.queue_redraw()
 
 func heal(amount: int) -> void:
 	hp = mini(hp + amount, max_hp)
@@ -243,27 +281,31 @@ func _on_rig_event(n: StringName, args: Array) -> void:
 				"drop_aura":
 					Loot.drop(self)
 				"destroy":
-					_vanish()
-		&"raw":
-			_raw_event(String(args[0]))
+					if state == State.DEAD:
+						Loot.drop(self)   # a death clip that only destroys (楚江王): the loot comes with it
+					vanish()
+		&"boss_dead_fx":
+			boss_dead_sequence()
+		&"shake":
+			world.shake(float(args[0]))
 
-## Frame scripts kept as source by the extractor: boss death blink and the BossDead sequence.
-func _raw_event(src: String) -> void:
-	if src.contains("P.visible = false"):
-		rig.visible = false
-	elif src.contains("P.visible = true"):
-		rig.visible = true
-	if src.contains("BossDead"):
-		_boss_dead_sequence()
+## BossDead (Common_v7; a brain whose last death clip has no drop of its own starts it too): a full-screen swirl; at its end every dead boss drops loot and is removed.
+var _boss_dead_started := false
 
-## BossDead (Common_v7): a full-screen swirl; at its end every dead boss drops loot and is removed.
-func _boss_dead_sequence() -> void:
+func boss_dead_sequence() -> void:
+	if _boss_dead_started:
+		return
+	_boss_dead_started = true
 	rig.visible = false
 	var fx := Fx.spawn("fx_boss_dead", center())
 	fx.tree_exited.connect(func():
 		if is_instance_valid(self) and not _vanishing:
 			Loot.drop(self)
-			_vanish(), CONNECT_DEFERRED)
+			vanish(), CONNECT_DEFERRED)
+
+## An action ends as if its clip had finished (brains whose action is cut short by their own logic).
+func finish_action(action: StringName) -> void:
+	_on_action_finished(action)
 
 func _on_action_finished(action: StringName) -> void:
 	if action != rig.action:
@@ -274,10 +316,12 @@ func _on_action_finished(action: StringName) -> void:
 			state = State.MOVE
 			brain.on_action_finished(action)
 		State.HURT:
-			velocity.x = 0.0
+			if is_on_floor() or fly:
+				velocity.x = 0.0   # (in the air the knock-back carries on to the landing)
 			state = State.MOVE
 		State.DEAD:
-			_vanish()
+			if not _boss_dead_started:   # (a boss waits for its death swirl to finish)
+				vanish()
 
 # ------------------------------------------------------------------ damage
 
@@ -289,12 +333,12 @@ func take_hit(h: Hit) -> bool:
 	hp = maxi(hp - dmg, 0)
 	if h.source is Hero:
 		target = h.source
-		Level.current.add_combo_hit()
-		h.source.add_rage(roundi(dmg * GameState.hero_data.rage_hit_gain / maxf(GameState.attack_power(), 1.0)))
+		world.add_combo_hit()
+		h.source.add_rage((h.source as Hero).rage_for_damage(dmg))
 		if h.attack.kind == AttackData.Kind.PHYSICS and GameState.bonus("lifesteal") > 0.0:
-			h.source.heal(int(dmg * GameState.bonus("lifesteal")), false)
-	Snd.sfx("BeattackByRole1")
-	Fx.spawn("fx_monster_hurt1" if randf() < 0.5 else "fx_monster_hurt2", center())
+			h.source.heal(int(dmg * GameState.bonus("lifesteal")))   # (BaseHero.cureHp: the green number over the hero)
+	Snd.sfx(h.source.hit_sound if h.source is Hero else "BeattackByRole1")
+	Fx.spawn("fx_monster_hurt1" if Rng.randf() < 0.5 else "fx_monster_hurt2", center())
 	if not data.is_prop:
 		DamageNumber.spawn("bnum" if h.crit else "hurtnum", dmg,
 			Vector2(global_position.x - 20, hurt_rect().position.y), 16.0 if h.crit else 20.0)
@@ -330,19 +374,40 @@ func _die() -> void:
 	brain.on_died()
 	if rig.actions.has("dead"):
 		rig.play(&"dead", true)
+		# a death pose that never ends (a single looping frame, no script): it fades out quickly instead of staying
+		var an := rig.anim.get_animation(&"dead")
+		if an != null and an.loop_mode != Animation.LOOP_NONE and not an.has_meta(&"loop_from") and not rig.has_events(&"dead"):
+			Loot.drop(self)
+			vanish(0.4)
 	else:
 		Loot.drop(self)
-		_vanish()
+		vanish()
 	died.emit(self)
 
-func _vanish() -> void:
+## Run `fn` after `sec` seconds of game time. The timer belongs to this monster: when it is freed first, the call never
+## happens (no stale callback meets a dead boss).
+func after(sec: float, fn: Callable) -> void:
+	var tw := create_tween()
+	tw.tween_interval(sec)
+	tw.tween_callback(fn)
+
+## `fn` wrapped so that it only runs while this monster still exists: for callbacks hung on other objects (effects,
+## projectiles) that can outlive the monster that made them.
+func owned(fn: Callable) -> Callable:
+	var ref: WeakRef = weakref(self)
+	return func(...args: Array) -> void:
+		if ref.get_ref() != null:
+			fn.callv(args)
+
+## Fade out and free (no death animation, no loot).
+func vanish(fade := 0.3) -> void:
 	if _vanishing:
 		return
 	_vanishing = true
 	brain.on_destroy()
 	destroyed.emit(self)
 	var tw := create_tween()
-	tw.tween_property(self, "modulate:a", 0.0, 0.3)
+	tw.tween_property(self, "modulate:a", 0.0, fade)
 	tw.tween_callback(queue_free)
 
 func _draw_hp_bar() -> void:

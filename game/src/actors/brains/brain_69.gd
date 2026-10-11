@@ -4,7 +4,6 @@ extends MonsterBrain
 ## ready, else hit1. Clones are plain copies (not bosses) and die with the original.
 
 var _split_left := 20
-var _check := 0.0
 var _clone_life := 0.0
 var clones: Array[Monster] = []
 
@@ -15,9 +14,12 @@ func setup() -> void:
 		m.data = m.data.duplicate()
 		m.data.is_boss = false
 		m.data.exp = 0
+		m.data.equip_drops = PackedStringArray()   # only the real one drops the 蝎之印记
+		m.data.stone_rate = 0.0
 		_clone_life = float(param("clone_life", 20.0))
 
 func think(delta: float) -> void:
+	var tick := tick_check(delta)   # (the original's `count % 24`, free-running)
 	if _clone_life > 0.0:
 		_clone_life -= delta
 		if _clone_life <= 0.0:
@@ -27,31 +29,25 @@ func think(delta: float) -> void:
 		return
 	if _split_left <= 0:
 		var r: Array = param("split_reset", [10, 20])
-		_split_left = randi_range(r[0], r[1])
+		_split_left = Rng.randi_range(r[0], r[1])
 		act(&"fenshen")
 		return
-	if m.target == null:
-		wander(delta)
-		select_target()
+	if not ensure_target(delta):
 		return
 	var d := m.to_target()
 	if absf(d.y) > float(param("reach_y", 300)):
 		wander(delta)
 	elif absf(d.x) > m.data.attack_range:
-		if m.cd("volley") <= 0.0:
-			m.set_cd("volley", float(param("volley_cd", 7.5)))
+		if cooldown_ready("volley", float(param("volley_cd", 7.5))):
 			m.face_target()
 			act(&"hit2")
 		else:
 			follow()
 	else:
 		m.dir = 0
-		_check -= delta
-		if _check <= 0.0:
-			_check = float(param("check", 1.0))
+		if tick:
 			m.face_target()
-			if m.cd("quake") <= 0.0:
-				m.set_cd("quake", float(param("quake_cd", 10.8)))
+			if cooldown_ready("quake", float(param("quake_cd", 10.8))):
 				act(&"hit3")
 			else:
 				act(&"hit1")
@@ -62,12 +58,12 @@ func on_hurt_start() -> void:
 func on_call(n: String, _args: Array) -> bool:
 	match n:
 		"do_fenshen":
-			if Level.current.monsters().size() < int(param("max_monsters", 5)):
-				var c := m.summon(69, m.global_position + Vector2(20.0 * m.facing, 0))
+			if m.world.monsters().size() < int(param("max_monsters", 5)):
+				var c := m.summon(69, m.global_position + Vector2(Rng.randf_range(-20.0, 20.0), 0))
 				if c:
 					clones.append(c)
 		"do_hit2":
-			var b := m.shoot("monster69bullet1", &"hit2", Vector2(0, -20 + randf_range(-40, 40)))
+			var b := m.shoot("monster69bullet1", &"hit2", Vector2(0, -20 + Rng.randf_range(-40, 40)))
 			b.rig.scale.x = absf(b.rig.scale.x) * -m.facing
 		_:
 			return false

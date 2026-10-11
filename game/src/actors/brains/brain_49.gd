@@ -6,7 +6,7 @@ var _mark := Vector2.INF
 
 func attack(_action: StringName = &"hit1") -> void:
 	m.face_target()
-	m.attack_with(&"hit1" if randf() < 0.5 else &"hit4")
+	m.attack_with(&"hit1" if Rng.randf() < 0.5 else &"hit4")
 
 func on_call(n: String, _args: Array) -> bool:
 	match n:
@@ -17,7 +17,7 @@ func on_call(n: String, _args: Array) -> bool:
 		"do_hit2":
 			m.shoot("monster49bullet3", &"hit2")
 		"do_hit3_1":
-			var h: Hero = Level.current.hero
+			var h: Hero = m.world.hero
 			if h:
 				_mark = Vector2(h.global_position.x, m.global_position.y - float(param("mark_up", 300)))
 				Fx.spawn("monster49mc1", _mark)

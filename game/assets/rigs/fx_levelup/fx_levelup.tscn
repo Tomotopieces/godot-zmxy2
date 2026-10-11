@@ -1,22 +1,26 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://src/rig/rig.gd" id="1_c1mmq"]
-[ext_resource type="Shader" path="res://src/rig/flash_filter.gdshader" id="2_8sijb"]
+[ext_resource type="Shader" path="res://src/rig/sprite_fx.gdshader" id="2_8sijb"]
 [ext_resource type="Texture2D" path="res://assets/rigs/fx_levelup/tex/Role_v6_228.png" id="3_e5kxk"]
 [ext_resource type="AnimationLibrary" path="res://assets/rigs/fx_levelup/anims.res" id="4_d1peq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7mbqq"]
 shader = ExtResource("2_8sijb")
+shader_parameter/matrix_on = true
+shader_parameter/color_matrix = Projection(-0.52679086, 0.46808612, -0.12970623, 0, 0.8031287, 0.5866675, 1.7223148, 0, 0.7236619, -0.05475363, -0.59260875, 0, 0, 0, 0, 1)
+shader_parameter/color_offset = Vector4(0, 0, 0, 0)
 shader_parameter/blur = null
 shader_parameter/glow_on = null
 shader_parameter/glow_color = null
 shader_parameter/glow_blur = null
 shader_parameter/glow_strength = null
-shader_parameter/glow_inner = null
-shader_parameter/glow_knockout = null
-shader_parameter/matrix_on = true
-shader_parameter/color_matrix = Projection(-0.52679086, 0.46808612, -0.12970623, 0, 0.8031287, 0.5866675, 1.7223148, 0, 0.7236619, -0.05475363, -0.59260875, 0, 0, 0, 0, 1)
-shader_parameter/color_offset = Vector4(0, 0, 0, 0)
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e141f"]
 resource_local_to_scene = true
@@ -24,45 +28,40 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qvnt1"]
 resource_local_to_scene = true
 
-[node name="FxLevelup" type="Node2D" unique_id=306187329]
+[node name="FxLevelup" type="Node2D" unique_id=980562284]
 script = ExtResource("1_c1mmq")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=95329581]
+[node name="Parts" type="Node2D" parent="." unique_id=1578491718]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=2036684937]
+[node name="default" type="Node2D" parent="Parts" unique_id=402263106]
 visible = false
 
-[node name="groot_f0" type="CanvasGroup" parent="Parts/default" unique_id=613915480]
+[node name="p1_f0" type="Sprite2D" parent="Parts/default" unique_id=553123643]
 material = SubResource("ShaderMaterial_7mbqq")
-fit_margin = 4.0
-clear_margin = 4.0
-use_mipmaps = true
-
-[node name="p1_f0" type="Sprite2D" parent="Parts/default/groot_f0" unique_id=2136816737]
 position = Vector2(-31.5, -70.7)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_e5kxk")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1112879222]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1970193744]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1988832005]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1416471679]
 shape = SubResource("RectangleShape2D_e141f")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1728092987]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1866003061]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1416531222]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=568480897]
 shape = SubResource("RectangleShape2D_qvnt1")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=1460358938]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=575702853]
 callback_mode_process = 0
 libraries/ = ExtResource("4_d1peq")

@@ -2,7 +2,19 @@ class_name HeroData
 extends Resource
 ## Hero tuning baked from tools/data/<hero>.json by tools/bake_data.gd. Units: px, seconds.
 
+## Who this is: id (file name / save key), index (HUD portrait, shop and bag pages), names, rig and sound prefix.
+@export var role := "wukong"
+@export var role_index := 0
+@export var title := "孙悟空"        ## name shown in the bag
+@export var character := "悟空"      ## matches EquipmentData.user
+@export var sound_prefix := "Role1"
 @export var rig := "wukong"
+@export var super_armor_in_rage := true      ## no hit stun / knockback while transformed
+@export var damage_taken_mul_in_rage := 1.0
+@export var lock_glow := Color.RED           ## anti-lock protection glow
+
+## Numbers only this hero's moves use (charge time, shadow, stab count ...), units converted.
+@export var kit := {}
 
 @export_group("Movement")
 @export var walk_speed := 0.0
@@ -62,6 +74,10 @@ extends Resource
 @export var passive_cost_per_level := 5000
 @export var passive_bonus := {}                  ## stat -> Vector2(a, b): level n gives a*n + b
 
+## Icon frame of the first learnable skill in the HUD (role_info skill1..5: 0 = locked, then 5 frames per hero).
+func hud_icon_base() -> int:
+	return role_index * 5 + 1
+
 func passive_value(stat: String, lv: int) -> float:
 	if lv <= 0:
 		return 0.0
@@ -75,7 +91,7 @@ func max_mp(level: int) -> int:
 	return mp_base + mp_per_level * (level - 1)
 
 func attack_power(level: int) -> int:
-	return atk_base + randi_range(0, atk_rand) + atk_per_level * (level - 1)
+	return atk_base + Rng.randi_range(0, atk_rand) + atk_per_level * (level - 1)
 
 func defense(level: int) -> int:
 	if level < def_cap_level:

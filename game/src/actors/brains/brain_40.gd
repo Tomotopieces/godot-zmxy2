@@ -33,15 +33,15 @@ func on_call(n: String, _args: Array) -> bool:
 	return true
 
 func _open_door() -> void:
-	var hero: Hero = Level.current.hero
+	var hero: Hero = m.world.hero
 	if hero == null or _doors >= 3:
 		return
 	var pos := Vector2(hero.global_position.x, m.global_position.y + 80)
 	Fx.spawn(DOOR, pos)
 	var id: int = TOTEMS[_doors]
 	_doors += 1
-	m.get_tree().create_timer(float(param("summon_delay", 2.0)), false).timeout.connect(func():
-		if is_instance_valid(m) and m.state != Monster.State.DEAD:
+	m.after(float(param("summon_delay", 2.0)), func():
+		if m.state != Monster.State.DEAD:
 			var t := m.summon(id, pos + Vector2(0, -190))
 			if t:
 				_totems.append(t))

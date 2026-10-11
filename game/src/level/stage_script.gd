@@ -55,7 +55,7 @@ func hero_hits(r: Rect2) -> bool:
 	return hr.size != Vector2.ZERO and hr.intersects(r)
 
 ## A rig placed in the world as scenery.
-func place_rig(rig_name: String, pos: Vector2, z := Level.Z_MECHANISM) -> Rig:
+func place_rig(rig_name: String, pos: Vector2, z := Layers.Z_MECHANISM) -> Rig:
 	var r := Rig.create(rig_name)
 	r.position = pos
 	r.z_index = z

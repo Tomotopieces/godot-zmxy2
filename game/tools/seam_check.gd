@@ -45,7 +45,7 @@ func _ready() -> void:
 			_only = a.substr(7).split(",")
 		elif a.begins_with("--out="):
 			_out = a.substr(6)
-	get_window().size = Vector2i(Level.VIEW * scale)
+	get_window().size = Vector2i(Layers.VIEW * scale)
 	await get_tree().process_frame
 	RenderingServer.set_default_clear_color(KEY)
 	var bad := 0
@@ -136,7 +136,7 @@ func _check(s: Vector2i) -> int:
 	lv.set_physics_process(false)   # the camera is driven by the check
 	var found := 0
 	var vx := 0.0
-	var last := maxf(lv._end_x - Level.VIEW.x, 0.0)
+	var last := maxf(lv._end_x - Layers.VIEW.x, 0.0)
 	while true:
 		lv.camera.position = Vector2(vx, 0)
 		lv.camera.force_update_scroll()

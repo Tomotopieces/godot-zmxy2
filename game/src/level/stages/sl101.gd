@@ -4,7 +4,7 @@ extends StageScript
 ## 10-2 .. 10-5, the fifth position opens the statue to 10-6. Press up in an open door to go.
 
 ## The doors sit behind the hall art and show through its arches (added under the scene in the original); the statue stands in front of it.
-const BEHIND_ART := Level.Z_BEHIND_ART
+const BEHIND_ART := Layers.Z_BEHIND_ART
 
 var _doors: Array[Rig] = []      ## closed or open door rigs
 var _ready_doors := {}           ## door index -> true once it can be entered
@@ -19,7 +19,7 @@ func setup() -> void:
 	var y := float(_cfg.get("doors_y", 5))
 	for x in _cfg.get("doors_x", []):
 		_doors.append(place_rig("hub_door", Vector2(x, y), BEHIND_ART))
-	_statue = place_rig("hub_statue", Vector2(float(_cfg.get("statue_x", 220)), float(_cfg.get("statue_y", 5))), Level.Z_MECHANISM)
+	_statue = place_rig("hub_statue", Vector2(float(_cfg.get("statue_x", 220)), float(_cfg.get("statue_y", 5))), Layers.Z_MECHANISM)
 	var sel: Array = _cfg.get("selector", [70, 450, 423])
 	_selector = _prop(sel)
 	for st in _cfg.get("stones", []):
@@ -38,9 +38,9 @@ func _physics_process(_delta: float) -> void:
 	if _stones.size() < 2 or _selector == null:
 		return
 	for s in _stones:
-		if not is_instance_valid(s) or not (s.brain as Object).call("recently_hit"):
+		if not is_instance_valid(s) or not s.brain.recently_hit():
 			return
-	var idx: int = (_selector.brain as Object).get("pointer")
+	var idx: int = (_selector.brain as HubPropBrain).pointer
 	if idx < _doors.size():
 		_open_door(idx)
 	else:
@@ -62,7 +62,7 @@ func _open_statue() -> void:
 		_selector.queue_free()
 	var pos := _statue.position
 	_statue.queue_free()
-	_statue = place_rig("hub_statue_open", pos, Level.Z_MECHANISM)
+	_statue = place_rig("hub_statue_open", pos, Layers.Z_MECHANISM)
 	get_tree().create_timer(float(_cfg.get("statue_open", 1.0)), false).timeout.connect(func(): _statue_ready = true)
 
 func on_up(_hero: Hero) -> bool:
@@ -71,7 +71,7 @@ func on_up(_hero: Hero) -> bool:
 		if _ready_doors.get(i, false) and hero_in(_doors[i].hit_rect()):
 			level.go_to(Vector2i(10, int(levels[i])))
 			return true
-	if _statue_ready and hero_in(_statue.hit_rect()):
+	if _statue_ready and hero_in(_statue.hurt_rect()):   # its "colipse" box is the central slot
 		level.go_to(Vector2i(10, int(_cfg.get("statue_level", 6))))
 		return true
 	return false

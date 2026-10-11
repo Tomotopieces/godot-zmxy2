@@ -9,8 +9,21 @@ const LAYER_WORLD := 1
 const LAYER_ONEWAY := 2
 const LAYER_HERO := 4
 const LAYER_MONSTER := 8
+const LAYER_HURT_HERO := 16      ## hurt boxes (Area2D): what monsters' attacks overlap
+const LAYER_HURT_MONSTER := 32   ## what the heroes' attacks overlap
+
+## The stage this actor lives in (one place that reads the Level.current locator; everything else asks the actor).
+var world: Level:
+	get:
+		return Level.current
+
+func _init() -> void:
+	# Wall.setYByRole: on a slope the original moves at the walking speed along the slope (x cos, y sin)
+	floor_constant_speed = true
+	floor_snap_length = 8.0
 
 var rig: Rig
+var body_shape: CollisionShape2D   ## the actor's body collider (sized from the idle hurt box)
 var hp := 1
 var max_hp := 1
 var gravity := 0.0
@@ -29,6 +42,11 @@ func setup_rig(rig_name: String) -> void:
 	add_child(rig)
 	rig.scale.x = -facing
 	rig.event.connect(_on_rig_event)
+	# attacks find their targets by physics overlap: this body's hurt box is on its team's hurt layer, its hit box looks at the other
+	var hero := self is Hero
+	rig.hurtbox.collision_layer = LAYER_HURT_HERO if hero else LAYER_HURT_MONSTER
+	rig.hurtbox.set_meta(&"actor", self)
+	rig.hitbox.collision_mask = LAYER_HURT_MONSTER if hero else LAYER_HURT_HERO
 	rig.action_finished.connect(_on_action_finished)
 	rig.play(&"wait" if rig.actions.has("wait") else StringName(rig.actions[0]))
 	# body = hurt box of the idle pose
@@ -39,6 +57,7 @@ func setup_rig(rig_name: String) -> void:
 	body.shape = shape
 	body.position = Vector2(cs.position.x * rig.scale.x, cs.position.y)
 	add_child(body)
+	body_shape = body
 
 func is_alive() -> bool:
 	return hp > 0
@@ -64,9 +83,9 @@ func end_attack() -> void:
 	attack = null
 	attack_action = &""
 
-func scan_hits(targets: Array) -> void:
+func scan_hits() -> void:
 	if attack and attack.projectile == "":
-		dealer.scan(rig.hit_rect(), targets, attack, _deliver)
+		dealer.scan(rig.hitbox, attack, _deliver)
 
 func _deliver(target: Actor) -> bool:
 	var h := Hit.new()
@@ -82,7 +101,13 @@ func _deliver(target: Actor) -> bool:
 	var landed: bool = target.take_hit(h)
 	if landed and self is Monster and target is Hero:
 		(self as Monster).brain.on_hit_hero(target, attack_action)
+	if landed:
+		_on_landed(target)
 	return landed
+
+## A melee hit of this actor landed on `target` (virtual).
+func _on_landed(_target: Actor) -> void:
+	pass
 
 ## Spawn the attack's projectile (monster bullets) in front of the actor.
 func fire_projectile(data: AttackData, action: StringName) -> Projectile:
@@ -91,7 +116,7 @@ func fire_projectile(data: AttackData, action: StringName) -> Projectile:
 	p.facing = facing
 	p.velocity = Vector2(data.speed * facing, 0)
 	p.distance_left = data.distance
-	Level.current.add_object(p)
+	world.add_object(p)
 	if data.spin_deg != 0.0:
 		p.create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS).tween_property(p.rig, "rotation_degrees", data.spin_deg * -facing, data.spin_time)
 	return p

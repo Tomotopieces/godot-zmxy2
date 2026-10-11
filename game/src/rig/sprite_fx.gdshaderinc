@@ -1,0 +1,103 @@
+// Per-sprite visual effects (no CanvasGroup, no screen texture, nothing nests): the soft glow around fire and
+// energy, a tint matrix, a soft blur. Each sprite grows its own quad to make room for the halo and reads only its
+// own texture, so it works on any sprite, in any renderer, inside any other effect.
+// Sizes are in game pixels (sprite scale is taken from the node's transform).
+uniform bool matrix_on = false;
+uniform mat4 color_matrix = mat4(1.0);   // rgba' = color_matrix * rgba + color_offset
+uniform vec4 color_offset = vec4(0.0);
+uniform float blur = 0.0;                // soft blur radius
+uniform bool glow_on = false;
+uniform vec4 glow_color : source_color = vec4(1.0);
+uniform float glow_blur = 0.0;           // halo reach
+uniform float glow_strength = 1.0;
+// a second halo outside the first (the 无双 logo has a black glow with a white one around it): drawn behind it
+uniform bool glow2_on = false;
+uniform vec4 glow2_color : source_color = vec4(1.0);
+uniform float glow2_blur = 0.0;          // reach measured from the sprite, so beyond glow_blur
+uniform float glow2_strength = 1.0;
+uniform bool solid = false;              // only the halo colour: a silhouette to draw behind a character
+uniform float extend = 0.0;              // room the quad needs around the sprite
+
+varying float sc;
+varying vec4 modc;
+
+void vertex() {
+	sc = max(length(MODEL_MATRIX[0].xy), 0.0001);
+	modc = COLOR;
+	if (extend > 0.0) {
+		vec2 dir = sign(UV - 0.5);
+		float pad = extend / sc;
+		VERTEX += dir * pad;
+		UV += dir * pad * TEXTURE_PIXEL_SIZE;
+	}
+}
+
+// A texel of this sprite; outside the picture it is transparent (the quad was grown for the halo).
+#define TEXEL(uv) (texture(TEXTURE, (uv)) * (step(0.0, (uv).x) * step((uv).x, 1.0) * step(0.0, (uv).y) * step((uv).y, 1.0)))
+
+// Gaussian-weighted average of premultiplied colour within `reach` game px (sigma = reach / 2: Flash's blur of that size).
+// One call per effect; the taps lie on three rings of twelve around the pixel.
+void fragment() {
+	vec2 px = TEXTURE_PIXEL_SIZE;
+	vec4 t = TEXEL(UV);
+	vec4 c = vec4(t.rgb * modc.rgb, t.a * modc.a);
+	float reach[3] = float[3](blur, glow_on ? glow_blur : 0.0, glow2_on ? glow2_blur : 0.0);
+	vec4 avg[3] = vec4[3](vec4(0.0), vec4(0.0), vec4(0.0));
+	for (int k = 0; k < 3; k++) {
+		if (reach[k] <= 0.0) {
+			continue;
+		}
+		float r = reach[k] / sc;   // in texture px
+		vec4 acc = vec4(t.rgb * t.a, t.a);
+		float ws = 1.0;
+		// rings about 3 texture px apart, taps about 2.5 px apart on each ring: dense enough that the halo stays smooth
+		// even when a strength above 1 stretches it (a sparse ring pattern would show as noise)
+		int rings = int(clamp(ceil(r / 3.0), 3.0, 14.0));
+		for (int ring = 1; ring <= 14; ring++) {
+			if (ring > rings) {
+				break;
+			}
+			float d = float(ring) / float(rings);
+			float w = exp(-2.0 * d * d);
+			int taps = int(clamp(6.2831853 * d * r / 2.5, 6.0, 56.0));
+			for (int i = 0; i < 56; i++) {
+				if (i >= taps) {
+					break;
+				}
+				float ang = 6.2831853 * (float(i) + 0.5 * float(ring)) / float(taps);
+				vec2 q = UV + vec2(cos(ang), sin(ang)) * r * d * px;
+				vec4 s = TEXEL(q);
+				acc += vec4(s.rgb * s.a, s.a) * w;
+				ws += w;
+			}
+		}
+		avg[k] = acc / ws;
+	}
+	if (blur > 0.0) {
+		c = vec4(avg[0].a > 0.0001 ? avg[0].rgb / avg[0].a : vec3(0.0), avg[0].a) * vec4(modc.rgb, modc.a);
+	}
+	if (matrix_on) {
+		c = clamp(color_matrix * c + color_offset, 0.0, 1.0);
+	}
+	if (glow2_on && !solid) {
+		float g2 = clamp(avg[2].a * modc.a * glow2_strength, 0.0, 1.0) * glow2_color.a;
+		float g1 = glow_on ? clamp(avg[1].a * modc.a * glow_strength, 0.0, 1.0) * glow_color.a : 0.0;
+		// object over the inner halo over the outer halo
+		float a1 = g1 + g2 * (1.0 - g1);
+		vec3 rgb1 = glow_color.rgb * g1 + glow2_color.rgb * g2 * (1.0 - g1);
+		float oa2 = c.a + a1 * (1.0 - c.a);
+		vec3 rgb2 = c.rgb * c.a + rgb1 * (1.0 - c.a);
+		COLOR = vec4(oa2 > 0.0001 ? rgb2 / oa2 : vec3(0.0), oa2);
+	} else if (glow_on) {
+		float g = clamp(avg[1].a * modc.a * glow_strength, 0.0, 1.0) * glow_color.a;
+		if (solid) {
+			COLOR = vec4(glow_color.rgb, max(g, c.a));
+		} else {
+			float oa = c.a + g * (1.0 - c.a);
+			vec3 rgb = c.rgb * c.a + glow_color.rgb * g * (1.0 - c.a);
+			COLOR = vec4(oa > 0.0001 ? rgb / oa : vec3(0.0), oa);
+		}
+	} else {
+		COLOR = c;
+	}
+}

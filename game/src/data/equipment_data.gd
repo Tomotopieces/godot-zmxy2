@@ -21,9 +21,6 @@ const SLOTS := [&"weapon", &"cloth", &"accessory", &"treasure", &"fashion", &"wi
 @export var icon: Texture2D
 @export var ground_icon: Texture2D
 
-## Fashion and wings cannot be sold.
-func sellable() -> bool:
-	return type != &"fashion" and type != &"wing"
 
 ## Items (道具) stack in the bag.
 func stacks() -> bool:
@@ -32,11 +29,14 @@ func stacks() -> bool:
 func wearable_by(character: String) -> bool:
 	return type in SLOTS and (user == "" or user == character)
 
-## A dropped copy with rolled stats, as stored in the profile.
-func roll() -> Dictionary:
+## A dropped copy with rolled stats.
+func roll() -> Item:
 	var s := {}
 	for k in stats:
 		var r: Vector2 = stats[k]
-		var v := randf_range(r.x, r.y)
-		s[String(k)] = v if r.x != roundf(r.x) or r.y != roundf(r.y) else float(roundi(v))
-	return {"id": String(id), "stats": s}
+		# whole numbers, or whole percents for the fractional stats; every value of the range equally likely
+		var whole := r.x == roundf(r.x) and r.y == roundf(r.y)
+		s[String(k)] = Rng.stepped(r.x, r.y, 1.0 if whole else 0.01)
+	var it := Item.new(String(id))
+	it.stats = s
+	return it

@@ -27,9 +27,9 @@ func _physics_process(_delta: float) -> void:
 			continue
 		pr[2] = h.dealer.serial
 		pr[1] -= 1
-		Fx.spawn("fx_monster_hurt1" if randf() < 0.5 else "fx_monster_hurt2", box.get_center())
+		Fx.spawn("fx_monster_hurt1" if Rng.randf() < 0.5 else "fx_monster_hurt2", box.get_center())
 		if pr[1] <= 0:
-			if randf() < float(cfg.get("drop_chance", 0.2)):
+			if Rng.randf() < float(cfg.get("drop_chance", 0.2)):
 				GroundItem.spawn(String(cfg.get("drop", "bsz")), r.position)
 			var tw := r.create_tween()
 			tw.tween_property(r, "modulate:a", 0.0, float(cfg.get("fade", 1.0)))

@@ -7,14 +7,13 @@ extends MonsterBrain
 ##   farther:      wander
 ## Params: skill1/skill2/skill3 (actions), near_band, mid_band, far_band (px), cd1, cd2, cd3, far_cd_rand, check.
 
-var _check := 0.0
+var _tick := false    ## this tick is a check tick
 
 func think(delta: float) -> void:
+	_tick = tick_check(delta)
 	if m.state == Monster.State.DEAD or m.is_attacking():
 		return
-	if m.target == null:
-		wander(delta)
-		select_target()
+	if not ensure_target(delta):
 		return
 	if not m.is_on_floor() and not m.fly:
 		return
@@ -35,20 +34,17 @@ func think(delta: float) -> void:
 
 func _try_skill(skill: String, cd_key: String, chance: float, rand_extra := 0.0) -> bool:
 	var action: String = param(skill, "")
-	if action == "" or m.cd(cd_key) > 0.0 or randf() >= chance:
+	if action == "" or m.cd(cd_key) > 0.0 or Rng.randf() >= chance:
 		return false
-	m.set_cd(cd_key, float(param(cd_key, 4.0)) + randf() * rand_extra)
+	m.set_cd(cd_key, float(param(cd_key, 4.0)) + Rng.randf() * rand_extra)
 	m.face_target()
 	use_skill(StringName(action))
 	return true
 
 func _melee_or_walk(delta: float) -> void:
-	_check -= delta
-	if _check > 0.0:
-		wander(delta)
-		return
-	_check = float(param("check", 1.0))
-	if randf() < 0.7:
+	if not _tick:
+		return   # stands its ground between checks (the original only walks on the 30 % branch of a check)
+	if Rng.randf() < 0.7:
 		attack()
 	else:
 		wander(delta)
@@ -56,6 +52,6 @@ func _melee_or_walk(delta: float) -> void:
 func use_skill(action: StringName) -> void:
 	act(action)
 
-## Template D monsters take hits without being interrupted.
-func ignores_hit(_h: Hit) -> bool:
-	return m.is_attacking()
+## Template D bosses do get interrupted: BaseMonster.beAttack puts any monster that is hit into "hurt" (only the short
+## setYourFather windows at the start of a skill protect it); what the template lacks is the hurt guard of the AI,
+## so it decides on its next move straight away.

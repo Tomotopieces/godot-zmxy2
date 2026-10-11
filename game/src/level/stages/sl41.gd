@@ -13,6 +13,7 @@ func start_final_platforms() -> void:
 		var b: AnimatableBody2D = floats[i]
 		var v := float(fp.get("speed", 48)) * (1.0 if b.position.x < 1500.0 else -1.0)
 		b.position = Vector2(positions[i][0], positions[i][1])
+		b.z_index = Layers.Z_MONSTER   # in front of the boss (it sits on the mechanism layer), behind the hero
 		if fp.has("art"):
 			var art := Rig.create(String(fp.art))
 			b.add_child(art)
@@ -25,7 +26,21 @@ func _physics_process(delta: float) -> void:
 		var b: AnimatableBody2D = mv[0]
 		b.position += mv[1] * delta
 		var half: float = ((b.get_child(0) as CollisionShape2D).shape as RectangleShape2D).size.x / 2.0
+		var wrap := 0.0
 		if b.position.x < view.position.x - half:
-			b.position.x += mv[2]
+			wrap = mv[2]
 		elif b.position.x > view.end.x + half:
-			b.position.x -= mv[2]
+			wrap = -mv[2]
+		if wrap != 0.0 and not _carries_hero(b):
+			b.position.x += wrap
+			b.reset_physics_interpolation()   # a jump, not a flight across the screen
+
+## Whether the hero stands on this platform (it must not be carried along when the platform wraps).
+func _carries_hero(b: AnimatableBody2D) -> bool:
+	var h := level.hero
+	if not is_instance_valid(h):
+		return false
+	for i in h.get_slide_collision_count():
+		if h.get_slide_collision(i).get_collider() == b:
+			return true
+	return false

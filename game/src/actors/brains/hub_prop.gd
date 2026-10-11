@@ -1,3 +1,4 @@
+class_name HubPropBrain
 extends MonsterBrain
 ## Stage 10 hub props (Monster70 round selector, Monster71 stones): can't be killed or moved.
 ## 70: every hit advances its pointer (0..4). 71: remembers being hit for a short moment.
@@ -34,7 +35,7 @@ func on_hit(_h: Hit, _dmg: int) -> void:
 		pointer = (pointer + 1) % 5
 		_pointer_rig.play(StringName("f%d" % pointer))
 		m.invuln = float(param("hit_invuln", 1.0))
-		Level.current.hub_pointer_changed(m, pointer)
+		m.world.hub_pointer_changed(m, pointer)
 
 func recently_hit() -> bool:
 	return _hit_t > 0.0

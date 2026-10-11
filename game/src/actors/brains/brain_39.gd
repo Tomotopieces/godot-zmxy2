@@ -24,8 +24,8 @@ func setup() -> void:
 	m.play_action(&"ready")
 	m.rig.action_finished.connect(_hold_cast, CONNECT_ONE_SHOT)
 	# outside 2-2 (no fires to light) the boss starts by itself
-	if not Level.current.params.has("panguan"):
-		m.get_tree().create_timer(float(param("intro", 6.0)), false).timeout.connect(real_start)
+	if not m.world.params.has("panguan"):
+		m.after(float(param("intro", 6.0)), real_start)
 
 ## After "ready": the held casting pose with its looping glow.
 func _hold_cast(_a: StringName) -> void:
@@ -76,7 +76,7 @@ func _sped_up(delta: float) -> void:
 	_move_t -= delta
 	_hop_t -= delta
 	if _strike_t <= 0.0:
-		_strike_t = float(param("fast_strike", 1.0)) * ceili(randf() * 3.0)
+		_strike_t = float(param("fast_strike", 1.0)) * ceili(Rng.randf() * 3.0)
 		attack()
 		return
 	if _move_t <= 0.0:

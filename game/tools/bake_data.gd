@@ -12,7 +12,8 @@ var _fps := 0.0
 func _init() -> void:
 	var src := ProjectSettings.globalize_path("res://").path_join("../tools/data")
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(OUT + "/monsters"))
-	_bake_hero(_json(src.path_join("wukong.json")), "wukong")
+	for role in ["wukong", "tangseng", "bajie"]:
+		_bake_hero(_json(src.path_join("%s.json" % role)), role)
 	_bake_monsters(_json(src.path_join("monsters.json")), _json(src.path_join("monsters_auto.json")))
 	_bake_equipment(_json(src.path_join("equipment.json")))
 	_bake_stages(_json(src.path_join("stages.json")))
@@ -43,6 +44,9 @@ func _bake_equipment(d: Dictionary) -> void:
 	c.buff_time = _sec(r.buff_frames)
 	c.use = r.use
 	c.buffs = r.buffs
+	c.kill_buffs = r.kill_buffs
+	c.kill_merit = r.kill_merit
+	c.moon = r.moon
 	c.drop_bonus = r.drop_bonus
 	c.stone_drop = r.stone_drop
 	c.tabs = r.tabs
@@ -102,16 +106,24 @@ func _jump_velocity(jump_power: float, g_frame: float, g_sec: float) -> float:
 		vy += g_frame
 	return -sqrt(2.0 * g_sec * h)
 
+## Gravity (px / frame^2) of whoever is knocked up: every actor but a transformed hero (BaseObject.graity).
+const KNOCKBACK_GRAVITY := 1.5
+
 func _attack(a: Dictionary) -> AttackData:
 	var r := AttackData.new()
 	r.power_mul = float(a.get("power", 0.0 if a.has("flat") else 1.0))
 	r.flat = int(a.get("flat", 0))
 	r.kind = {"physics": AttackData.Kind.PHYSICS, "magic": AttackData.Kind.MAGIC}.get(a.get("kind", ""), AttackData.Kind.TRUE)
 	var kb: Array = a.get("knockback", [0, 0])
-	r.knockback = Vector2(_pps(kb[0]), _pps(kb[1]))
+	# the original integrates y += vy; vy += g once per frame, which rises higher than the continuous arc of the same
+	# launch speed: the upward speed is chosen so that the apex matches (as for the jumps)
+	var ky: float = kb[1]
+	r.knockback = Vector2(_pps(kb[0]), _jump_velocity(ky, KNOCKBACK_GRAVITY, _pps(_pps(KNOCKBACK_GRAVITY))) if ky < 0.0 else _pps(ky))
 	r.push_from_center = a.get("push_from_center", false)
 	var interval := int(a.get("interval", 0))
-	r.rehit_interval = 0.0 if interval >= 999 else _sec(interval)
+	# BaseBullet: a hit sets its counter to 1 and the same step raises it to 2; a new attack id comes when the counter
+	# equals `attackInterval`. So a bullet hits again after interval - 1 frames, and with an interval of 1 never.
+	r.rehit_interval = 0.0 if interval >= 999 or interval <= 1 else _sec(interval - 1)
 	r.max_hits = int(a.get("max_hits", 1))
 	r.mp_cost = int(a.get("mp", 0))
 	r.cooldown = _sec(a.get("cooldown", 0))
@@ -136,6 +148,16 @@ func _bake_hero(d: Dictionary, rig: String) -> void:
 	var m: Dictionary = d.move
 	var h := HeroData.new()
 	h.rig = rig
+	var meta: Dictionary = d.meta
+	h.role = meta.role
+	h.role_index = int(meta.index)
+	h.title = meta.title
+	h.character = meta.character
+	h.sound_prefix = meta.sound_prefix
+	h.super_armor_in_rage = meta.super_armor_in_rage
+	h.damage_taken_mul_in_rage = float(meta.damage_taken_mul_in_rage)
+	h.lock_glow = Color(meta.lock_glow)
+	h.kit = _units(d.get("kit", {}))
 	h.walk_speed = _pps(m.walk_speed)
 	h.run_speed = _pps(m.run_speed)
 	h.gravity = _pps(_pps(m.gravity))

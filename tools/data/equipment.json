@@ -22,7 +22,8 @@
    "ryjgb",
    "zljs",
    "dszk",
-   "bhz"
+   "bhz",
+   "xyb"
   ],
   "buff_frames": 86400,
   "use": {
@@ -40,6 +41,21 @@
    },
    "wdd": {
     "special": "wds_power"
+   },
+   "jxdyb": {
+    "buff": "moon_hp"
+   },
+   "jmdyb": {
+    "buff": "moon_mp"
+   },
+   "jgjdyb": {
+    "buff": "moon_atk"
+   },
+   "jfydyb": {
+    "buff": "moon_def"
+   },
+   "jbldyb": {
+    "buff": "moon_lucky"
    }
   },
   "buffs": {
@@ -57,6 +73,64 @@
     "mp_regen": 10,
     "icon": "hh_guoqing_buff",
     "icon_scale": 1
+   },
+   "moon_hp": {
+    "hp_add": 600,
+    "icon": "buff_moon_hp",
+    "icon_scale": 0.3
+   },
+   "moon_mp": {
+    "mp_add": 600,
+    "icon": "buff_moon_mp",
+    "icon_scale": 0.3
+   },
+   "moon_atk": {
+    "atk_add": 100,
+    "icon": "buff_moon_atk",
+    "icon_scale": 0.3
+   },
+   "moon_def": {
+    "def_add": 50,
+    "icon": "buff_moon_def",
+    "icon_scale": 0.3
+   },
+   "moon_lucky": {
+    "drop_mul": 1.5,
+    "icon": "buff_moon_lucky",
+    "icon_scale": 0.3
+   },
+   "gq_atk": {
+    "atk_add": 100,
+    "icon": "atk_guoqing_buff",
+    "icon_scale": 1,
+    "label": "攻击 +100，持续一小时"
+   },
+   "gq_def": {
+    "def_add": 50,
+    "icon": "def_guoqing_buff",
+    "icon_scale": 1,
+    "label": "防御 +50，持续一小时"
+   }
+  },
+  "kill_buffs": {
+   "79": "gq_atk",
+   "80": "gq_def"
+  },
+  "moon": {
+   "cake": "xyb",
+   "big": [
+    "jxdyb",
+    "jmdyb",
+    "jgjdyb",
+    "jfydyb",
+    "jbldyb"
+   ],
+   "big_cost": 10,
+   "weapon_cost": 100,
+   "weapons": {
+    "悟空": "nyd",
+    "唐僧": "myz",
+    "八戒": "syc"
    }
   },
   "drop_bonus": {
@@ -81,6 +155,20 @@
     "sl61": 27,
     "sl71": -1,
     "sl111": -1
+   },
+   "always": [
+    79,
+    80
+   ]
+  },
+  "kill_merit": {
+   "64": {
+    "stage": [
+     9,
+     1
+    ],
+    "merit": 10,
+    "text": "七夕快乐，获得 功勋+10"
    }
   },
   "tabs": {

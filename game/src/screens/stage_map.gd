@@ -9,15 +9,15 @@ signal to_menu
 
 const MAIN_STAGES := ["s1_1", "s1_2", "s1_3", "s2_1", "s2_2", "s2_3", "s3_1", "s3_2", "s3_3", "s4_1"]
 const SIDE_STAGES := {"btnnmg": Vector2i(6, 1), "lxdy": Vector2i(10, 1)}
-const HIDDEN := ["s4_2", "s4_3", "arena", "submitbtn", "huodongbtn"]
+const HIDDEN := ["s4_2", "s4_3", "arena", "submitbtn"]
 ## the next stage's pulse: GlowFilter 0x9900CC, blur 0 -> 12 -> 0, strength 0 -> 1.82, over 19 frames
 const NEXT_GLOW_COLOR := Color8(153, 0, 204)
 const NEXT_GLOW_BLUR := Vector2(0.0, 12.0)
 const NEXT_GLOW_STRENGTH := Vector2(0.0, 1.82)
 const NEXT_GLOW_HALF := 9.0 / 24.0
-## bottom-right buttons; with 提交分数 / 活动 gone the others close up to the right
+## bottom-right buttons; with 提交分数 gone the others close up to the right
 const BOTTOM_ROW := ["scgm", "savebtn", "ldl", "showBuySkill"]
-const BOTTOM_SHIFT_FROM := "submitbtn"   ## the first hidden slot: the row moves right by two slots
+const BOTTOM_SHIFT_FROM := "submitbtn"   ## the first hidden slot: the row moves right by one slot
 const BOTTOM_SHIFT_TO := "btnback"
 
 var _ui: UiLayout
@@ -45,7 +45,7 @@ func _ready() -> void:
 
 func _close_up_buttons() -> void:
 	var slot: float = (_ui.get_piece(BOTTOM_SHIFT_TO).position.x - _ui.get_piece(BOTTOM_SHIFT_FROM).position.x) / 2.0
-	var shift := slot * 2.0
+	var shift := slot
 	for p in BOTTOM_ROW:
 		_ui.get_piece(p).position.x += shift
 
@@ -90,6 +90,10 @@ func _on_button(b: String) -> void:
 			_open(ForgeScreen.new())
 		"scgm":
 			_open(ShopScreen.new())
+		"huodongbtn":
+			var a := ActivityPanel.new()
+			a.play.connect(func(s: Vector2i): play.emit(s))
+			_open(a)
 
 func _saved(slot: int) -> void:
 	Toast.show_on(self, "存档成功")

@@ -30,17 +30,17 @@ func think(delta: float) -> void:
 		m.dealer.new_serial()
 	if _turn <= 0.0:
 		var r: Array = param("turn_every", [1.0, 3.0])
-		_turn = randf_range(r[0], r[1])
-		var h: Hero = Level.current.hero
+		_turn = Rng.randf_range(r[0], r[1])
+		var h: Hero = m.world.hero
 		if h:
 			m.face(h.global_position)
 	var near := false
-	for h: Hero in Level.current.heroes():
+	for h: Hero in m.world.heroes():
 		if h.global_position.distance_to(m.global_position) < float(param("leap_range", 200)):
 			near = true
 	if near and m.cd("leap") <= 0.0:
 		var r2: Array = param("leap_cd", [6.0, 10.0])
-		m.set_cd("leap", randf_range(r2[0], r2[1]))
+		m.set_cd("leap", Rng.randf_range(r2[0], r2[1]))
 		m.attack_with(&"hit3")
 		return
 	# running is itself the attack: keep the run hitbox live
@@ -61,9 +61,8 @@ func on_call(n: String, _args: Array) -> bool:
 	if n != "do_hit3":
 		return false
 	var b := m.shoot(SLAM, &"hit3")
-	b.on_hit = func(_t: Actor) -> void:
-		if is_instance_valid(m):
-			m.heal(int((m.max_hp - m.hp) * float(param("slam_heal", 0.05))))
+	b.on_hit = m.owned(func(_t: Actor) -> void:
+		m.heal(int((m.max_hp - m.hp) * float(param("slam_heal", 0.05)))))
 	return true
 
 func custom_animation() -> bool:

@@ -16,7 +16,7 @@ var _buff_rows := {}   ## buff name -> Label
 func _ready() -> void:
 	_ui = UiLayout.create("role_info")
 	add_child(_ui)
-	_ui.show_frame("head", 0)
+	_ui.show_frame("head", GameState.hero_data.role_index)
 	_setup_rage_glow()
 	_ui.button_pressed.connect(_on_button)
 	_banner = Label.new()
@@ -39,6 +39,13 @@ func _ready() -> void:
 const BUFF_POS := Vector2(0, 80)
 const BUFF_ROW := 30.0
 
+static var _buff_icons := {}
+
+static func _buff_icon(name: String) -> Texture2D:
+	if not _buff_icons.has(name):
+		_buff_icons[name] = load("res://assets/ui/buffs/%s.png" % name)
+	return _buff_icons[name]
+
 func _rebuild_buffs() -> void:
 	for c in _buffs.get_children():
 		c.queue_free()
@@ -48,7 +55,7 @@ func _rebuild_buffs() -> void:
 	for b in GameState.buffs:
 		var icon := Sprite2D.new()
 		icon.centered = false
-		icon.texture = load("res://assets/ui/buffs/%s.png" % defs[b].icon)
+		icon.texture = _buff_icon(defs[b].icon)
 		icon.scale = Vector2.ONE * float(defs[b].icon_scale)
 		icon.position = Vector2(30, row * BUFF_ROW)
 		_buffs.add_child(icon)
@@ -92,7 +99,7 @@ func toast(text: String) -> void:
 ## Full-screen 无双 transform animation (WsEffect), centred on screen; plays through the freeze.
 func play_rage_transform() -> void:
 	var r := Rig.create("fx_rage_transform")
-	r.position = Level.VIEW / 2.0
+	r.position = Layers.VIEW / 2.0
 	add_child(r)
 	r.play(r.actions[0])
 	get_tree().create_timer(r.anim.current_animation_length, true).timeout.connect(r.queue_free)
@@ -102,6 +109,11 @@ var _boss_bars: Array[BossBar] = []
 
 func add_boss_bar(m: Monster) -> void:
 	_boss_bars = _boss_bars.filter(func(b): return is_instance_valid(b))
+	for old in _boss_bars:   # a boss that changes form hands its bar over to the new body
+		if is_instance_valid(old.boss) and old.boss.has_meta(&"handover"):
+			old.boss.remove_meta(&"handover")
+			old.boss = m
+			return
 	var b := BossBar.create(m)
 	b.position = Vector2(465, 50 + 50 * _boss_bars.size())
 	add_child(b)
@@ -156,7 +168,7 @@ func _process(_dt: float) -> void:
 	var h := lv.hero
 	_update_buffs()
 	_ui.set_bar("hpline", float(h.hp) / h.max_hp)
-	_ui.set_bar("mpline", float(h.mp) / h.max_mp)
+	_ui.set_bar("mpline", clampf(float(h.mp) / h.max_mp, 0.0, 1.0))
 	_ui.set_bar("expline", float(GameState.exp) / GameState.exp_to_next())
 	_ui.set_bar("wsmc", float(h.rage) / h.data.rage_max)
 	_ui.show_frame("shows", 1 if h.rage >= h.data.rage_max else 0)   # 无双 logo lights up when full
@@ -164,7 +176,8 @@ func _process(_dt: float) -> void:
 	_ui.set_text("txtmp", "%d/%d" % [h.mp, h.max_mp])
 	_ui.set_text("txtexp", "%d/%d" % [GameState.exp, GameState.exp_to_next()])
 	_ui.set_text("txtlevel", str(GameState.level))
-	# Wukong's learned skill i shows icon frame i + 1 (frame 0 = locked)
-	var learned := [&"hit8", &"hit6", &"hit7", &"hit9", &"hit10"]
+	# the hero's learned skill i shows its icon frame (frame 0 = locked; 5 frames per hero)
+	var learned := GameState.hero_data.learn_active
+	var base := GameState.hero_data.hud_icon_base()
 	for i in learned.size():
-		_ui.show_frame("skill%d" % (i + 1), i + 1 if GameState.has_skill(learned[i]) else 0)
+		_ui.show_frame("skill%d" % (i + 1), base + i if GameState.has_skill(StringName(learned[i])) else 0)

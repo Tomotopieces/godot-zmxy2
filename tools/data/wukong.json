@@ -1,5 +1,16 @@
 {
  "_doc": "Raw numbers transcribed from the original AS3 (export/hero/Role1.as, base/BaseHero.as, base/BaseObject.as). Units are ORIGINAL frames / px-per-frame; tools/bake_data.gd converts them with the SWF frame rate.",
+ "meta": {
+  "role": "wukong",
+  "index": 0,
+  "title": "孙悟空",
+  "character": "悟空",
+  "sound_prefix": "Role1",
+  "rig": "wukong",
+  "super_armor_in_rage": true,
+  "damage_taken_mul_in_rage": 1,
+  "lock_glow": "#ff0000"
+ },
  "move": {
   "walk_speed": 6,
   "run_speed": 10,
@@ -14,18 +25,18 @@
   "spawn_invincible_frames": 48
  },
  "stats": {
-  "_doc": "level L: hp=80+50(L-1), mp=50+20(L-1), atk=10+rand(0..4)+5(L-1), def=2+2(L-1) (L<15) else 28+5(L-14)",
+  "_doc": "level L: hp=80+50(L-1), mp=50+20(L-1), atk=10+5(L-1)+0..1 (getPower() overwrites the roll in upGrade with baselowerpower + baseadd*(L-1) + rand), def=2+2(L-1) for L<15, then 28 for every level: Role1.upGrade writes the +(L-14)*5 outside the setDefense call, so it is lost (kept as in the original)",
   "hp_base": 80,
   "hp_per_level": 50,
   "mp_base": 50,
   "mp_per_level": 20,
   "atk_base": 10,
-  "atk_rand": 4,
+  "atk_rand": 1,
   "atk_per_level": 5,
   "def_base": 2,
   "def_per_level": 2,
   "def_cap_level": 15,
-  "def_per_level_after": 5,
+  "def_per_level_after": 0,
   "exp_table": [
    135,
    145,

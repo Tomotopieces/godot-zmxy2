@@ -15,8 +15,12 @@ signal action_finished(action: StringName)
 @export var actions: PackedStringArray
 @export var markers: Dictionary = {}   ## named anchor points of the rest pose (e.g. "levelupmc")
 @onready var anim: AnimationPlayer = $Anim
-@onready var hitbox: Area2D = $Hitbox
-@onready var hurtbox: Area2D = $Hurtbox
+var hitbox: Area2D:   ## what this rig hits with (animated per action)
+	get:
+		return get_node("Hitbox")
+var hurtbox: Area2D:   ## where this rig can be hit
+	get:
+		return get_node("Hurtbox")
 
 var action: StringName = &""
 var equipment := {}    ## slot kind -> variant id (cloth / cloth_ex / weapon / wing)
@@ -30,9 +34,6 @@ func _ready() -> void:
 	_parts = $Parts
 	for c in _parts.get_children():
 		c.visible = false
-	for g: CanvasGroup in find_children("*", "CanvasGroup", true, false):
-		g.use_mipmaps = false   # see flash_filter.gdshader
-		g.clear_margin = maxf(g.clear_margin, filter_clear_margin(g.fit_margin))
 	anim.animation_finished.connect(_on_anim_finished)
 
 ## An action with a loop tail (an opening, then a looping part) keeps looping instead of finishing.
@@ -80,6 +81,34 @@ func settled() -> bool:
 	var an := anim.get_animation(action)
 	return an != null and an.has_meta(&"loop_from") and anim.current_animation_position >= float(an.get_meta(&"loop_from"))
 
+## Draw the whole rig additively: effects authored as light on a black background (the original blends them with "add").
+func set_additive() -> void:
+	var mat := CanvasItemMaterial.new()
+	mat.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+	for sp: Sprite2D in find_children("*", "Sprite2D", true, false):
+		if sp.material is ShaderMaterial:
+			var m := (sp.material as ShaderMaterial).duplicate() as ShaderMaterial
+			m.shader = SpriteFx.SHADER_ADD
+			sp.material = m
+		else:
+			sp.material = mat
+
+## Whether an action carries frame events (a script that ends it, drops, destroys ...).
+func has_events(a: StringName) -> bool:
+	var an := anim.get_animation(a)
+	if an == null:
+		return false
+	for tr in an.get_track_count():
+		if an.track_get_type(tr) == Animation.TYPE_METHOD and an.track_get_key_count(tr) > 0:
+			return true
+		if String(an.track_get_path(tr)) == "Parts:visible":   # the body blinks / hides on its own
+			return true
+	return false
+
+## Seconds into the current action.
+func time() -> float:
+	return anim.current_animation_position
+
 ## Normalized progress of the current action (0..1).
 func progress() -> float:
 	if anim.current_animation == "":
@@ -111,7 +140,29 @@ func _seek_in(a: StringName, t: float) -> void:
 	if action == a and anim.is_playing():
 		anim.seek(t, false)
 
-## Frozen copy of the current pose in world space (afterimages). Filter groups are copied unfiltered.
+## Makes this rig show exactly what `src` shows now: same action and moment (also of the animated equipment), same
+## equipment, transform and tint. Used for a halo drawn behind the real rig.
+func mirror(src: Rig) -> void:
+	if src.action != action:
+		play(src.action, true)
+		anim.pause()
+	for k in src.equipment:
+		if equipment.get(k) != src.equipment[k]:
+			set_equip(k, src.equipment[k])
+	anim.seek(src.anim.current_animation_position, true)
+	var mine := find_children("*", "AnimationPlayer", true, false)
+	var theirs := src.find_children("*", "AnimationPlayer", true, false)
+	if mine.size() == theirs.size():
+		for i in mine.size():
+			var p: AnimationPlayer = mine[i]
+			var q: AnimationPlayer = theirs[i]
+			if p != anim and p.current_animation != "":
+				p.seek(q.current_animation_position, true)
+	transform = src.transform
+	visible = src.visible
+	modulate = src.modulate
+
+## Frozen copy of the current pose in world space (afterimages), without effects.
 func make_ghost() -> Node2D:
 	if _current_parts == null:
 		return null
@@ -123,8 +174,17 @@ func make_ghost() -> Node2D:
 		var g := Sprite2D.new()
 		g.texture = sp.texture
 		g.centered = sp.centered
+		g.region_enabled = sp.region_enabled   # a cropped part (Flash mask) draws only its region
+		g.region_rect = sp.region_rect
+		g.offset = sp.offset
 		g.transform = sp.global_transform
-		g.self_modulate = sp.modulate
+		var tint := Color.WHITE
+		var n: Node = sp
+		while n != null and n != get_parent():
+			if n is CanvasItem:
+				tint *= (n as CanvasItem).modulate
+			n = n.get_parent()
+		g.self_modulate = tint
 		ghost.add_child(g)
 	return ghost
 
@@ -150,10 +210,6 @@ func hit_rect() -> Rect2:
 
 func hurt_rect() -> Rect2:
 	return box_rect(hurtbox)
-
-## Back buffer area a filter group clears around its drawn rect.
-static func filter_clear_margin(fit_margin: float) -> float:
-	return fit_margin
 
 static var _scenes := {}
 static var _loading := {}   ## rig name -> path being loaded in the background

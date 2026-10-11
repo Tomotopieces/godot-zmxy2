@@ -6,7 +6,6 @@ signal volume_changed(master: float, muted: bool)
 
 const SETTINGS := "user://settings.cfg"
 const SOUND_DIR := "res://assets/sounds/"
-const POOL := 12
 const STEP := 0.1
 
 var master := 0.3        ## linear 0..1, low by default
@@ -15,8 +14,8 @@ var sfx_volume := 1.0
 var muted := false
 
 var _music: AudioStreamPlayer
-var _pool: Array[AudioStreamPlayer] = []
-var _next := 0
+var _players := {}   ## sound -> its AudioStreamPlayer (a few overlapping plays allowed: a new one never cuts the old)
+var _frame_of := {}  ## sound -> the engine frame it last started in
 var _cache := {}
 
 func _ready() -> void:
@@ -30,11 +29,6 @@ func _ready() -> void:
 	_music = AudioStreamPlayer.new()
 	_music.bus = "Music"
 	add_child(_music)
-	for i in POOL:
-		var p := AudioStreamPlayer.new()
-		p.bus = "SFX"
-		add_child(p)
-		_pool.append(p)
 	_load_settings()
 	_apply()
 
@@ -59,18 +53,30 @@ func sfx(sound: String, pitch := 1.0) -> void:
 	var s := _stream(sound)
 	if s == null:
 		return
-	var p := _pool[_next]
-	_next = (_next + 1) % POOL
-	p.stream = s
+	# The same effect asked for again in the same frame is one sound: a blow landing on several enemies asks once per
+	# enemy, and stacked copies were a roar (the original did stack them). Later requests overlap normally.
+	var frame := Engine.get_process_frames()
+	if _frame_of.get(sound, -1) == frame:
+		return
+	_frame_of[sound] = frame
+	var p: AudioStreamPlayer = _players.get(sound)
+	if p == null:
+		p = AudioStreamPlayer.new()
+		p.bus = "SFX"
+		p.stream = s
+		p.max_polyphony = 6   # the engine mixes overlapping plays of one player; none is cut until six are running
+		add_child(p)
+		_players[sound] = p
 	p.pitch_scale = pitch
 	p.play()
 
-func music(sound: String) -> void:
+## loop: false for jingles (the game-over tune plays once).
+func music(sound: String, loop := true) -> void:
 	var s := _stream(sound)
 	if s == null or _music.stream == s and _music.playing:
 		return
 	if s is AudioStreamMP3:
-		s.loop = true
+		s.loop = loop
 	_music.stream = s
 	_music.play()
 
@@ -98,10 +104,13 @@ func _apply() -> void:
 func _load_settings() -> void:
 	var cf := ConfigFile.new()
 	if cf.load(SETTINGS) == OK:
-		master = cf.get_value("audio", "master", master)
-		music_volume = cf.get_value("audio", "music", music_volume)
-		sfx_volume = cf.get_value("audio", "sfx", sfx_volume)
-		muted = cf.get_value("audio", "muted", muted)
+		master = _volume(cf.get_value("audio", "master", master), master)
+		music_volume = _volume(cf.get_value("audio", "music", music_volume), music_volume)
+		sfx_volume = _volume(cf.get_value("audio", "sfx", sfx_volume), sfx_volume)
+		muted = cf.get_value("audio", "muted", muted) == true
+
+static func _volume(v: Variant, fallback: float) -> float:
+	return clampf(float(v), 0.0, 1.0) if v is float or v is int else fallback
 
 func _save_settings() -> void:
 	var cf := ConfigFile.new()
@@ -110,4 +119,5 @@ func _save_settings() -> void:
 	cf.set_value("audio", "music", music_volume)
 	cf.set_value("audio", "sfx", sfx_volume)
 	cf.set_value("audio", "muted", muted)
-	cf.save(SETTINGS)
+	if cf.save(SETTINGS) != OK:
+		push_warning("settings could not be saved")

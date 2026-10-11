@@ -7,9 +7,12 @@ extends Node2D
 const DIR := "res://src/actors/treasures/"
 
 var hero: Hero
-var item: Dictionary       ## the worn item (lv, growth, elem ...)
+var item: Item             ## the worn item (lv, growth, elem ...)
 var id := ""
 var p: Dictionary          ## this treasure's numbers
+var world: Level:
+	get:
+		return Level.current
 var rig: Rig
 var using := false
 var facing := -1:
@@ -21,7 +24,7 @@ var facing := -1:
 var _follow_t := 0.0
 var _move: Tween
 
-static func create(h: Hero, it: Dictionary) -> Treasure:
+static func create(h: Hero, it: Item) -> Treasure:
 	var path := DIR + "treasure_%s.gd" % it.id
 	var t: Treasure = load(path).new() if ResourceLoader.exists(path) else Treasure.new()
 	t.hero = h
@@ -31,7 +34,7 @@ static func create(h: Hero, it: Dictionary) -> Treasure:
 	return t
 
 func _ready() -> void:
-	z_index = Level.Z_TREASURE
+	z_index = Layers.Z_TREASURE
 	rig = Rig.create("fabao_" + id)
 	add_child(rig)
 	rig.event.connect(_on_rig_event)
@@ -43,7 +46,7 @@ func _ready() -> void:
 	setup()
 
 func level() -> int:
-	return int(item.get("lv", 1))
+	return item.lv
 
 func wood() -> bool:
 	return Forge.has_element(item, "mu")
@@ -54,19 +57,19 @@ func mul_range(normal := "") -> Array:
 
 func element_mul(normal := "") -> float:
 	var r := mul_range(normal)
-	return randf_range(r[0], r[1])
+	return Rng.randf_range(r[0], r[1])
 
 ## Damage roll base + per_level x level +- spread / 2, times the element range. Built from plain values so the
 ## effects keep working after the treasure is taken off.
 func flat_roll(base: float, per_level: float, spread: float, normal := "") -> Callable:
 	var v := base + per_level * level()
 	var r := mul_range(normal)
-	return func() -> int: return int((v + (randf() - 0.5) * spread) * randf_range(r[0], r[1]))
+	return func() -> int: return int((v + (Rng.randf() - 0.5) * spread) * Rng.randf_range(r[0], r[1]))
 
 ## Damage roll k x hero attack, times the element range.
 func power_roll(k: float, normal := "") -> Callable:
 	var r := mul_range(normal)
-	return func() -> int: return int(k * GameState.attack_power() * randf_range(r[0], r[1]))
+	return func() -> int: return int(k * GameState.attack_power() * Rng.randf_range(r[0], r[1]))
 
 ## Resting place: behind the hero (setPosition).
 func home() -> Vector2:
@@ -116,13 +119,13 @@ func shoot(rig_name: String, attack_key: StringName, pos: Vector2, face: int, da
 	pr.position = pos
 	pr.facing = face
 	pr.damage_fn = damage
-	Level.current.add_object(pr)
+	world.add_object(pr)
 	return pr
 
 ## Everything a treasure may go for: monsters and hittable scene props (the 10-1 stones: 血海魔童 helps to open the
 ## doors that way; the original keeps them in the monster list too).
 func targets() -> Array:
-	return Level.current.monsters() + get_tree().get_nodes_in_group(&"props")
+	return world.monsters() + get_tree().get_nodes_in_group(&"props")
 
 ## Targets that can be hit now and are not in the skip list.
 func candidates(skip_key := "skip_monsters") -> Array:

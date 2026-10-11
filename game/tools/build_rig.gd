@@ -8,12 +8,19 @@ extends SceneTree
 
 const RigScript := preload("res://src/rig/rig.gd")
 const SlotScript := preload("res://src/rig/equip_slot.gd")
-const FilterShader := preload("res://src/rig/flash_filter.gdshader")
 
 var _d: Dictionary
 var _fps := 24.0
 var _dir := ""
 var _tex := {}
+var _add_mat: CanvasItemMaterial
+
+func _add_material() -> CanvasItemMaterial:
+	if _add_mat == null:
+		_add_mat = CanvasItemMaterial.new()
+		_add_mat.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+	return _add_mat
+
 var _materials := {}   ## filter id -> ShaderMaterial (shared within one rig)
 
 func _init() -> void:
@@ -56,57 +63,27 @@ func _own(n: Node, owner: Node) -> void:
 		c.owner = owner
 		_own(c, owner)
 
-# ------------------------------------------------------------------ filters
+# ------------------------------------------------------------------ effects
 
-## Flash filters of one display object -> material for the CanvasGroup that renders it.
-func _filter_material(fid: int) -> ShaderMaterial:
-	if _materials.has(fid):
-		return _materials[fid]
-	var m := ShaderMaterial.new()
-	m.shader = FilterShader
-	for f in _d.filters[fid]:
-		match f.t:
-			"blur":
-				m.set_shader_parameter("blur", Vector2(f.x, f.y))
-			"glow":
-				m.set_shader_parameter("glow_on", true)
-				m.set_shader_parameter("glow_blur", Vector2(f.x, f.y))
-				m.set_shader_parameter("glow_strength", f.s)
-				m.set_shader_parameter("glow_color", Color(f.c[0] / 255.0, f.c[1] / 255.0, f.c[2] / 255.0, f.c[3] / 255.0))
-				m.set_shader_parameter("glow_inner", f.inner)
-				m.set_shader_parameter("glow_knockout", f.knockout)
-			"matrix":
-				var a: Array = f.m
-				m.set_shader_parameter("matrix_on", true)
-				m.set_shader_parameter("color_matrix", Projection(
-					Vector4(a[0], a[5], a[10], a[15]), Vector4(a[1], a[6], a[11], a[16]),
-					Vector4(a[2], a[7], a[12], a[17]), Vector4(a[3], a[8], a[13], a[18])))
-				m.set_shader_parameter("color_offset", Vector4(a[4], a[9], a[14], a[19]) / 255.0)
-	_materials[fid] = m
-	return m
+## The sprite effect (halo / tint / blur) of one filter chain of the original, as a material of the sprite itself.
+## null when the chain does nothing. Shared within a rig.
+func _fx_material(fid: int, additive := false) -> ShaderMaterial:
+	var key := fid * 2 + (1 if additive else 0)
+	if not _materials.has(key):
+		_materials[key] = SpriteFx.material_for(_d.filters[fid], additive)
+	return _materials[key]
 
-## Margin the CanvasGroup needs around its content so blur and glow are not cut off.
-func _filter_margin(fid: int) -> float:
-	var r := 4.0
-	for f in _d.filters[fid]:
-		if f.t != "matrix":
-			r += maxf(f.x, f.y)
-	return r
-
-## Parent for a filtered layer: one CanvasGroup per (group, filter) under `parent`.
-func _filter_group(parent: Node2D, group: String, fid: int) -> Node2D:
-	var gname := "g%s_f%d" % [group.replace(".", "_"), fid]
-	var g := parent.get_node_or_null(gname) as Node2D
-	if g == null:
-		var cg := CanvasGroup.new()
-		cg.name = gname
-		cg.use_mipmaps = false
-		cg.fit_margin = _filter_margin(fid)
-		cg.clear_margin = Rig.filter_clear_margin(cg.fit_margin)
-		cg.material = _filter_material(fid)
-		parent.add_child(cg)
-		g = cg
-	return g
+## Sprite or slot node `n` gets the effect of filter chain `fid` (and the additive blend when asked).
+func _apply_fx(n: Node2D, fid, additive := false) -> void:
+	var m: ShaderMaterial = null
+	if fid != null:
+		m = _fx_material(int(fid), additive)
+	if m != null:
+		n.material = m
+	elif additive:
+		n.material = _add_material()
+	if n.material is ShaderMaterial and not n is Sprite2D:
+		n.set_meta(&"fx_children", true)   # an equipment slot: its sprites use the slot's material
 
 # ------------------------------------------------------------------ slot variants
 
@@ -133,10 +110,9 @@ func _variant_scene(sel: String, id: String, v: Dictionary) -> PackedScene:
 				sp.texture = _texture(lf[1])
 				sp.transform = _xf(lf[2], lf[1])
 				sp.modulate = _mod(lf[3])
-				var parent: Node2D = root
 				if lf.size() > 4 and lf[4] != null:
-					parent = _filter_group(root, String(lf[5]), int(lf[4]))
-				parent.add_child(sp)
+					_apply_fx(sp, lf[4])
+				root.add_child(sp)
 				nodes[k] = sp
 	if frames.size() > 1:
 		var ap := AnimationPlayer.new()
@@ -263,7 +239,15 @@ func _build(json_path: String) -> void:
 		cont.visible = false
 		parts.add_child(cont)
 		var an := Animation.new()
-		an.length = act.frames / _fps
+		# A Flash clip whose last frame holds the script that ends the action never shows that frame: the script switches to
+		# the next action before it is drawn. The last pose is cut (otherwise it is shown for a moment, and when it is the
+		# pose the action began with it reads as the first frame coming back).
+		var shown: int = act.frames
+		if act.frames >= 3 and not act.loop:
+			for e in act.events:
+				if e[1] == "finished" and int(e[0]) == act.frames - 1:
+					shown = act.frames - 1
+		an.length = shown / _fps
 		an.loop_mode = Animation.LOOP_LINEAR if act.loop else Animation.LOOP_NONE
 		if act.has("loop_from"):
 			an.set_meta(&"loop_from", float(act.loop_from) / _fps)   # Rig keeps looping the tail
@@ -275,7 +259,6 @@ func _build(json_path: String) -> void:
 			var parent: Node2D = cont
 			if tr.get("filter") != null:
 				nn += "_f%d" % int(tr.filter)
-				parent = _filter_group(cont, String(tr.group), int(tr.filter))
 			var node: Node2D
 			if tr.kind == "tex":
 				var sp := Sprite2D.new()
@@ -286,6 +269,7 @@ func _build(json_path: String) -> void:
 				es.set_script(SlotScript)
 				node = es
 			node.name = nn
+			_apply_fx(node, tr.get("filter"), int(tr.get("blend", 0)) == 8)   # blend 8 = Flash "add": light drawn on black
 			parent.add_child(node)
 			var np := "Parts/%s/%s" % [act_name, String(cont.get_path_to(node))]
 			var tv := _vtrack(an, np + ":visible")
@@ -307,6 +291,8 @@ func _build(json_path: String) -> void:
 				treg = _vtrack(an, np + ":region_rect")
 				toff = _vtrack(an, np + ":offset")
 			for k in tr.keys:
+				if int(k[0]) >= shown:
+					continue
 				var t: float = k[0] / _fps
 				if k[1] == null:
 					an.track_insert_key(tv, t, false)
@@ -317,7 +303,7 @@ func _build(json_path: String) -> void:
 					var reg := full
 					if k.size() > 4 and k[4] != null:
 						var c: Array = k[4]
-						reg = (_xf(k[2], k[1]).affine_inverse() * Rect2(c[0], c[1], c[2], c[3])).intersection(full)
+						reg = (_xf([1, 0, 0, 1, 0, 0], k[1]).affine_inverse() * Rect2(c[0], c[1], c[2], c[3])).intersection(full)   # (the crop is in the layer's own space)
 					an.track_insert_key(treg, t, reg)
 					an.track_insert_key(toff, t, reg.position)
 					if reg.size.x < 1.0 or reg.size.y < 1.0:
@@ -352,6 +338,8 @@ func _build(json_path: String) -> void:
 			var ts := _vtrack(an, base + ":shape:size")
 			var td := _vtrack(an, base + ":disabled")
 			for k in pair[1]:
+				if int(k[0]) >= shown:
+					continue
 				var t2: float = k[0] / _fps
 				var r = k[1]
 				if r == null:
@@ -373,8 +361,18 @@ func _build(json_path: String) -> void:
 			by_frame[f].append([StringName(e[1]), e.slice(2)])
 		for f in by_frame:
 			if f > 0:
-				an.track_insert_key(tev, f / _fps, {"method": &"_anim_events", "args": [by_frame[f]]})
+				an.track_insert_key(tev, mini(f, shown) / _fps, {"method": &"_anim_events", "args": [by_frame[f]]})
 		an.set_meta(&"start_events", by_frame.get(0, []))
+		# the whole body hidden / shown on given frames (death blink ...)
+		var vis: Array = act.get("rootvis", [])
+		if not vis.is_empty():
+			var tvis := _vtrack(an, "Parts:visible")
+			if int(vis[0][0]) > 0:
+				an.track_insert_key(tvis, 0.0, true)
+			for v in vis:
+				if int(v[0]) >= shown:
+					continue
+				an.track_insert_key(tvis, float(v[0]) / _fps, int(v[1]) == 1)
 		lib.add_animation(StringName(act_name), an)
 
 	var lib_path := _dir + "/anims.res"

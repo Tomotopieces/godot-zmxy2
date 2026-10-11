@@ -16,6 +16,7 @@ func setup() -> void:
 	if pos.size() == 2:
 		m.global_position = Vector2(pos[0], pos[1])
 	_swap = float(param("first_swap", 3.0))
+	_head = HEADS[Rng.randi() % HEADS.size()]   # setRandomHead() in the constructor
 	m.rig.play(_head)
 
 func ignores_hit(_h: Hit) -> bool:
@@ -36,11 +37,11 @@ func think(delta: float) -> void:
 	_swap -= delta
 	if _swap <= 0.0:
 		var span: Array = param("swap", [2.0, 5.0])
-		_swap = randf_range(span[0], span[1])
-		_head = HEADS[randi() % HEADS.size()]
+		_swap = Rng.randf_range(span[0], span[1])
+		_head = HEADS[Rng.randi() % HEADS.size()]
 	m.rig.play(_head)
 
 func on_destroy() -> void:
 	if is_instance_valid(_puppet) and _puppet.state != Monster.State.DEAD:
-		_puppet._vanish()
+		_puppet.vanish()
 	super()

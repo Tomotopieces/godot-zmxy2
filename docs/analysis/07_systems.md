@@ -230,8 +230,8 @@ HUD：`HeroBuff`（GameInfo 内）每个 buff 一行：图标位图缩放 0.3 + 
 | jfydyb | 坚果月饼 | 防御 +50 | moonCakeDefAddCount / buff_moon_def | 同上 |
 | jbldyb | 芒果月饼 | 装备/强化石掉率 ×1.5 | moonCakeLuckyCount / buff_moon_lucky | 同上 |
 | wdd | 五毒丹 | 已装备 wds 时永久强化其主动技（§2.5）；未装备 wds 或已强化则不消耗（提示「您没有装备五毒兽」/「已经强化」） | — | 商店 500 |
-- 另有国庆 buff guoqingAtkCount（攻+100）/ guoqingDefCount（防+50），只能由活动给，无道具（范围外）。
-- 其余道具「使用」按钮置灰。小月饼 xyb：专用按钮 zqsimplebtn——10 个换随机一种大月饼、100 个换中秋武器（悟空 nyd 凝月刀）。小月饼掉落函数 fallMoonCake **从未被调用** ⇒ 活动限定，范围外（月饼系列可整体不做）。
+- 另有国庆 buff guoqingAtkCount（攻+100）/ guoqingDefCount（防+50），由击杀 11-1 的劈天斧 / 风神盾获得，无道具。**重制版已实现**（`rules.kill_buffs`，持续 1 小时，可与大月饼叠加）。
+- 其余道具「使用」按钮置灰。小月饼 xyb：专用按钮 zqsimplebtn——10 个换随机一种大月饼、100 个换中秋武器（悟空 nyd 凝月刀）。小月饼掉落函数 fallMoonCake 在反编译代码里**从未被调用**；按 4399 官方文章（2011-09）「每关 BOSS 100% 掉小月饼」补上。**重制版已实现**：每个 BOSS 单位死亡掉 1 个（`Loot.drop`），背包兑换菜单 `item_menu_zq`（`GameState.exchange_moon_cake`），大月饼 buff 与国庆 buff 都可叠加（`buff_sum / buff_mul`）。
 
 ### 5.2 任务 / 材料道具（不可使用）
 | id | 名称 | 来源（库目录=大关；probability 为怪物基础掉率，实际再 ×1.5 等） | 用途 |

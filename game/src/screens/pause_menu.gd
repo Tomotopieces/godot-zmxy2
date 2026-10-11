@@ -16,7 +16,7 @@ func _ready() -> void:
 	get_tree().paused = true
 	var dim := ColorRect.new()
 	dim.color = Color(0, 0, 0, 0.4)
-	dim.size = Level.VIEW
+	dim.size = Layers.VIEW
 	add_child(dim)
 	_ui = UiLayout.create("set_menu")
 	add_child(_ui)
@@ -47,6 +47,7 @@ func _show_help() -> void:
 		return
 	var h := UiLayout.create("help")
 	_help = h
+	PadNav.modal(h)
 	h.button_pressed.connect(func(b): if b == "btnback":
 		h.queue_free()
 		_help = null)

@@ -13,6 +13,7 @@ const CELL := 50.0
 const CELL_GAP := 7.0
 const ICON_OFFSET := Vector2(0, -2)
 const MENU_OFFSET := Vector2(25, 25)
+const MOON_MENU_HEIGHT := 142.0   ## the exchange menu is taller than the plain one: keep it on screen
 const SLOT_PIECES := {&"weapon": "zbwq", &"cloth": "zbfj", &"accessory": "zbsp", &"treasure": "zbfb", &"fashion": "zbsz", &"wing": "zbcb"}
 const TABS := {"btn_zb": "equip", "btn_dj": "item", "btn_rw": "look"}   ## page button -> bag page
 
@@ -30,7 +31,7 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	var dim := ColorRect.new()
 	dim.color = Color(0, 0, 0, 0.45)
-	dim.size = Level.VIEW
+	dim.size = Layers.VIEW
 	dim.gui_input.connect(func(e: InputEvent):
 		if e is InputEventMouseButton and e.pressed:
 			_close_menu())
@@ -69,7 +70,7 @@ func _build_portrait() -> void:
 	_ui.add_child(glow)
 	_ui.move_child(glow, _ui.get_piece("personmc").get_index())
 	glow.play(glow.actions[0])
-	_portrait = Rig.create("bag_wukong")
+	_portrait = Rig.create("bag_" + GameState.hero_data.role)
 	_portrait.position = (_ui.get_piece("personmc") as Node2D).position
 	_ui.add_child(_portrait)
 	_ui.move_child(_portrait, _ui.get_piece("personmc").get_index() + 1)
@@ -125,14 +126,14 @@ func _refresh() -> void:
 		if k < shown.size():
 			var idx: int = shown[k]
 			_grid.add_child(_icon(GameState.bag[idx], pos, _on_bag_click.bind(idx)))
-			var n := int(GameState.bag[idx].get("n", 1))
+			var n := GameState.bag[idx].n
 			if n > 1:
 				_grid.add_child(_count_label(n, pos))
 	# worn gear on the slot frames
 	for slot in SLOT_PIECES:
-		var item: Dictionary = GameState.worn[slot]
+		var item: Item = GameState.worn[slot]
 		var piece: Node2D = _ui.get_piece(SLOT_PIECES[slot])
-		if item.is_empty() or piece == null:
+		if item == null or piece == null:
 			continue
 		_worn.add_child(_icon(item, piece.position, _on_worn_click.bind(slot)))
 
@@ -149,7 +150,7 @@ func _count_label(n: int, pos: Vector2) -> Label:
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return l
 
-func _icon(item: Dictionary, pos: Vector2, on_click: Callable) -> TextureRect:
+func _icon(item: Item, pos: Vector2, on_click: Callable) -> TextureRect:
 	var d := GameState.item_data(item)
 	var t := TextureRect.new()
 	t.texture = d.icon
@@ -162,13 +163,14 @@ func _icon(item: Dictionary, pos: Vector2, on_click: Callable) -> TextureRect:
 	t.gui_input.connect(func(e: InputEvent):
 		if e is InputEventMouseButton and e.pressed and e.button_index == MOUSE_BUTTON_LEFT:
 			on_click.call(t))
+	PadNav.mark(t)
 	return t
 
 func _fill_stats() -> void:
 	var h: Hero = Level.current.hero if Level.current else null
 	var hp := h.hp if h else GameState.max_hp()
 	var mp := h.mp if h else GameState.max_mp()
-	_ui.set_text("txt_name", "孙悟空")
+	_ui.set_text("txt_name", GameState.hero_data.title)
 	_ui.set_text("txt_hp", "%d / %d" % [hp, GameState.max_hp()])
 	_ui.set_text("txt_mp", "%d / %d" % [mp, GameState.max_mp()])
 	_ui.set_text("txt_exp", "%d / %d" % [GameState.exp, GameState.exp_to_next()])
@@ -178,8 +180,8 @@ func _fill_stats() -> void:
 	_ui.set_text("txt_sb", "%d %%" % roundi(GameState.miss() * 100))
 	_ui.set_text("txt_hx", str(GameState.hp_regen()))
 	_ui.set_text("txt_hl", str(GameState.mp_regen()))
-	_ui.set_text("txt_lh", str(GameState.souls))
-	_ui.set_text("txt_zg", str(GameState.merit))
+	_ui.set_text("txt_lh", " " + str(GameState.souls))   # a space of padding: the field art starts right at the text
+	_ui.set_text("txt_zg", " " + str(GameState.merit))
 	_ui.show_frame("levelmc", clampi(GameState.level - 1, 0, 39))
 	_ui.show_frame("mc_exp", clampi(roundi(30.0 * GameState.exp / maxf(GameState.exp_to_next(), 1.0)) - 1, 0, 29))
 
@@ -191,14 +193,20 @@ func _on_bag_click(icon: Control, index: int) -> void:
 	_close_menu()
 	_hide_tip()
 	_menu_index = index
-	var item: Dictionary = GameState.bag[index]
+	var item := GameState.bag[index]
 	var d := GameState.item_data(item)
-	var enabled := {"bzb": GameState.can_wear(item), "bgy": false, "bmd": d.sellable()}   # 赠送 is 2P only
+	var enabled := {"bzb": GameState.can_wear(item), "bgy": false, "bmd": true}   # 赠送 is 2P only
+	var moon: bool = item.id == EquipmentCatalog.get_catalog().moon.cake   # 小月饼: the menu also exchanges them
 	if TABS[_tab] == "item":
 		enabled = {"buse": GameState.usable(item), "bthrow": true}
-	_menu = UiLayout.create("item_menu" if TABS[_tab] == "item" else "pack_menu")
+		if moon:
+			enabled.merge({"sbmooncake": true, "smoonweapon": true})
+	_menu = UiLayout.create("item_menu_zq" if moon else "item_menu" if TABS[_tab] == "item" else "pack_menu")
 	_menu.position = icon.position + _grid.position + MENU_OFFSET
+	if moon:
+		_menu.position.y = minf(_menu.position.y, Layers.VIEW.y - MOON_MENU_HEIGHT)
 	add_child(_menu)
+	PadNav.modal(_menu)
 	_menu.button_pressed.connect(_menu_action)
 	for p in enabled:
 		_menu.show_frame(p, 0 if enabled[p] else 1)
@@ -224,6 +232,8 @@ func _menu_action(piece: String) -> void:
 			_flash_tip(GameState.use_item(idx))
 		"bthrow":
 			GameState.discard(idx)
+		"sbmooncake", "smoonweapon":
+			_flash_tip(GameState.exchange_moon_cake(piece == "smoonweapon"))
 
 func _on_worn_click(_icon: Control, slot: StringName) -> void:
 	if not GameState.take_off(slot):
@@ -237,7 +247,7 @@ func _close_menu() -> void:
 
 # ------------------------------------------------------------------ tooltip
 
-func _show_tip(item: Dictionary, at: Control) -> void:
+func _show_tip(item: Item, at: Control) -> void:
 	_tip.show_for(item, at, CELL)
 
 func _hide_tip() -> void:

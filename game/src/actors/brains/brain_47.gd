@@ -32,7 +32,7 @@ func on_call(n: String, _args: Array) -> bool:
 		"do_hit1":
 			m.shoot(BOLT, &"hit1", Vector2(40, 0), Vector2(float(param("bolt_speed", 360)), 0), float(param("bolt_distance", 1500)))
 		"do_hit2":
-			for h: Hero in Level.current.heroes():
+			for h: Hero in m.world.heroes():
 				if h.can_be_hit():
 					h.add_debuff(&"magiclost", float(param("magiclost", 5.0)))
 		"do_hit3":
@@ -51,7 +51,7 @@ func _bounce_orb() -> void:
 	o.mover = func(p: Projectile, delta: float) -> void:
 		var v := p.velocity
 		var next := p.global_position + v * delta
-		var view := Level.current.view_rect()
+		var view := Level.current.view_rect()   # (not the boss: it may be gone while its orb still flies)
 		if next.x < view.position.x or next.x > view.end.x:
 			v.x = -v.x
 		if next.y < 0.0 or next.y > floor_y:

@@ -21,7 +21,7 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	var dim := ColorRect.new()
 	dim.color = Color(0, 0, 0, 0.5)
-	dim.size = Level.VIEW
+	dim.size = Layers.VIEW
 	add_child(dim)
 	_ui = UiLayout.create("save_slots")
 	add_child(_ui)
@@ -29,6 +29,11 @@ func _ready() -> void:
 		var info: Dictionary = GameState.slot_info(i)
 		_ui.set_inner_text(SLOT_PIECES[i], "txt_name", info.get("title", "空存档"))
 		_ui.set_inner_text(SLOT_PIECES[i], "txt_time", info.get("datetime", ""))
+		if info.has("datetime"):
+			# two lines (title over time): the pair, not the title alone, is centred in the slot
+			for f in ["txt_name", "txt_time"]:
+				for l: Label in _ui.get_piece(SLOT_PIECES[i]).find_children(f, "Label", true, false):
+					l.position.y -= 9.0
 		_ui.make_clickable(SLOT_PIECES[i], 1, 0)
 	_ui.button_pressed.connect(_on_button)
 
@@ -42,6 +47,7 @@ func _on_button(b: String) -> void:
 	if mode == Mode.LOAD:
 		if GameState.slot_info(i).is_empty():
 			return
+		Snd.sfx("SD_xz")
 		GameState.load_from(i)
 	else:
 		GameState.save_to(i)

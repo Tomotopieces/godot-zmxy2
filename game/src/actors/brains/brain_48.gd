@@ -6,9 +6,18 @@ extends "res://src/actors/brains/boss_d.gd"
 const BLAST := "monster48bullet1"
 const MELEE := [&"hit1", &"hit5", &"hit6", &"hit7"]
 
+## hit4 (the fire blast): the body clip shows its pose for one frame and then nothing for the rest of the move; the
+## blast is the only thing on screen.
+func think(delta: float) -> void:
+	m.rig.visible = not (m.attack_action == &"hit4" and m.is_attacking())
+	super(delta)
+
+func on_died() -> void:
+	m.rig.visible = true
+
 func attack(_action: StringName = &"hit1") -> void:
 	m.face_target()
-	m.attack_with(MELEE[randi() % MELEE.size()])
+	m.attack_with(MELEE[Rng.randi() % MELEE.size()])
 
 func use_skill(action: StringName) -> void:
 	m.invuln = maxf(m.invuln, float(param("invuln_" + String(action), 0.0)))
@@ -23,7 +32,7 @@ func on_call(n: String, _args: Array) -> bool:
 	if n != "do_hit4":
 		return false
 	var b := m.shoot(BLAST, &"hit4")
-	b.tree_exiting.connect(func():
-		if is_instance_valid(m) and m.attack_action == &"hit4":
-			m._on_action_finished(&"hit4"), CONNECT_DEFERRED)
+	b.tree_exiting.connect(m.owned(func():
+		if m.attack_action == &"hit4":
+			m.finish_action(&"hit4")), CONNECT_DEFERRED)
 	return true

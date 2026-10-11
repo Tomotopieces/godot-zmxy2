@@ -7,8 +7,8 @@
 script = ExtResource("1_gpub3")
 power_mul = 0.0
 flat = 300
-knockback = Vector2(144, -120)
-rehit_interval = 0.16666666666666666
+knockback = Vector2(144, -137.8695)
+rehit_interval = 0.125
 max_hits = 2
 
 [sub_resource type="Resource" id="Resource_xnsq7"]
@@ -16,8 +16,8 @@ script = ExtResource("1_gpub3")
 power_mul = 0.0
 flat = 300
 kind = 1
-knockback = Vector2(144, -120)
-rehit_interval = 1.5
+knockback = Vector2(144, -137.8695)
+rehit_interval = 1.4583333333333333
 max_hits = 9999
 
 [sub_resource type="Resource" id="Resource_g42mk"]
@@ -25,8 +25,8 @@ script = ExtResource("1_gpub3")
 power_mul = 0.0
 flat = 300
 kind = 1
-knockback = Vector2(144, -120)
-rehit_interval = 1.5
+knockback = Vector2(144, -137.8695)
+rehit_interval = 1.4583333333333333
 max_hits = 9999
 
 [sub_resource type="Resource" id="Resource_tilll"]
@@ -35,7 +35,6 @@ power_mul = 0.0
 flat = 800
 kind = 1
 knockback = Vector2(360, 0)
-rehit_interval = 0.041666666666666664
 max_hits = 50
 
 [sub_resource type="Resource" id="Resource_q1t4i"]
@@ -71,4 +70,18 @@ attacks = {
 &"hit1-2": SubResource("Resource_g42mk"),
 &"hit2": SubResource("Resource_tilll"),
 &"hit3": SubResource("Resource_q1t4i")
+}
+brain = {
+"burst_invuln": 3.3333333333333335,
+"burst_life": 0.5,
+"check": 1.0,
+"far_cd": 7.5,
+"far_skill": "hit3",
+"near_cd": 10.833333333333334,
+"near_skill": "hit2",
+"range_y_mul": 2.0,
+"recall_time": 2.0,
+"ring_speed": 240.0,
+"rings": 6.0,
+"spin_invuln": 0.8333333333333334
 }

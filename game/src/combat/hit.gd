@@ -8,6 +8,7 @@ var action: StringName
 var damage := 0             ## before the target's defense
 var crit := false
 var origin := Vector2.ZERO  ## world position the hit came from (bullet / effect centre)
+var carrier: Node           ## the bullet / effect that delivered it, if any
 var direction := 1          ## knockback x direction (+1 = to the right)
 
 ## Damage after the target's defense (BaseMonster.getRealHurt / BaseHero.beAttack).

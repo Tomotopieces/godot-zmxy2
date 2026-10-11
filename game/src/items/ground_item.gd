@@ -3,7 +3,7 @@ extends CharacterBody2D
 ## Dropped equipment (my/FallEquipObj): falls to the floor and goes into the bag on touch.
 ## Expires after a while unless it is boss loot; stays on the ground while the bag is full.
 
-var item: Dictionary
+var item: Item
 var _life := 0.0
 var _keep := false
 var _taken := false
@@ -27,7 +27,7 @@ static func spawn(id: String, pos: Vector2) -> GroundItem:
 	g.collision_layer = 0
 	g.collision_mask = Actor.LAYER_WORLD | Actor.LAYER_ONEWAY
 	g.position = pos
-	g.z_index = Level.Z_PICKUP
+	g.z_index = Layers.Z_PICKUP
 	Level.current.add_object(g)
 	return g
 

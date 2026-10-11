@@ -8,6 +8,15 @@ const BURST := "monster51bullet3"
 
 var _rings: Array[Projectile] = []
 
+func setup() -> void:
+	_show_rounds()
+
+## The ring counter on the body: frame = 7 - rings left (Monster51.getRoundValue); the rings in it keep turning.
+func _show_rounds() -> void:
+	if m.rig == null:
+		return
+	m.rig.set_equip("round", _rings.size() + 1)
+
 func near_skill(action: StringName) -> void:
 	m.invuln = maxf(m.invuln, float(param("burst_invuln", 3.3)))
 	m.attack_with(action)
@@ -41,6 +50,7 @@ func _ring() -> void:
 	r.velocity = to.normalized() * float(param("ring_speed", 240))
 	r.distance_left = to.length() + 40.0
 	# when its flight ends the ring stays as a trap
+	var trap_attack: AttackData = m.data.attacks.get(&"hit1-2", r.attack)
 	r.mover = func(p: Projectile, delta: float) -> void:
 		if p.distance_left <= 0.0:
 			return
@@ -48,16 +58,19 @@ func _ring() -> void:
 		p.position += step
 		p.distance_left -= step.length()
 		if p.distance_left <= 0.0:
-			p.attack = m.data.attacks.get(&"hit1-2", p.attack)
+			p.attack = trap_attack
 			p.dealer.reset()
 	_rings.append(r)
+	_show_rounds()
 
 func _recall() -> void:
 	for r in _rings:
 		var tw := r.create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
-		tw.tween_property(r, "global_position", m.global_position, float(param("recall_time", 2.0)))
+		tw.tween_property(r, "global_position", m.global_position, float(param("recall_time", 2.0))).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 		tw.tween_callback(r.queue_free)
 	_rings.clear()
+	# the counter refills when the rings are home
+	m.after(float(param("recall_time", 2.0)), _show_rounds)
 
 func on_destroy() -> void:
 	for r in _rings:

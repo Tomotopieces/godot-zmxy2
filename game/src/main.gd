@@ -5,14 +5,19 @@ var _screen: Node
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	get_viewport().size_changed.connect(_update_filter_scale)
-	_update_filter_scale()
-	add_child(DebugConsole.new())   # ~ lists every item
+	Controls.add_gamepad_defaults()
+	add_child(PadNav.new())
+	if OS.is_debug_build():   # debug aids are not part of exported (release) builds
+		add_child(DebugConsole.new())   # ~ lists every item
 	show_menu()
 
-## Filter sizes (blur / glow) are authored in game pixels; the shader needs screen pixels.
-func _update_filter_scale() -> void:
-	RenderingServer.global_shader_parameter_set(&"flash_px_scale", get_viewport().get_final_transform().get_scale().x)
+func _unhandled_key_input(e: InputEvent) -> void:
+	if e is InputEventKey and e.pressed and not e.echo and e.keycode == KEY_F11:
+		Controls.toggle_fullscreen()
+	if e is InputEventKey and e.pressed and not e.echo and e.keycode == KEY_F:
+		GameState.strip_trick = not GameState.strip_trick
+		if Level.current:
+			Level.current.toast("脱衣回蓝：" + ("开" if GameState.strip_trick else "关"))
 
 func _swap(n: Node) -> void:
 	if _screen:
@@ -23,11 +28,18 @@ func _swap(n: Node) -> void:
 
 func show_menu() -> void:
 	var m := MainMenu.new()
-	m.new_game.connect(func():
-		GameState.new_game()
-		_after_new_game())
+	m.new_game.connect(show_select_role)
 	m.continued.connect(show_map)
 	_swap(m)
+
+## New game, step 1: choose the hero.
+func show_select_role() -> void:
+	var s := SelectRole.new()
+	s.chosen.connect(func(role: String):
+		GameState.new_game(role)
+		_after_new_game())
+	s.cancelled.connect(show_menu)
+	_swap(s)
 
 ## New game: the opening comic once, then the map.
 func _after_new_game() -> void:

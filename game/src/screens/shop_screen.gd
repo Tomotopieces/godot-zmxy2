@@ -20,7 +20,7 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	var dim := ColorRect.new()
 	dim.color = Color(0, 0, 0, 0.5)
-	dim.size = Level.VIEW
+	dim.size = Layers.VIEW
 	add_child(dim)
 	_ui = UiLayout.create("shop")
 	_ui.button_pressed.connect(_on_button)
@@ -115,6 +115,7 @@ func _ask(i: int) -> void:
 	l.size = Vector2(280, 60)
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	c.add_child(l)
+	PadNav.modal(c)
 	c.button_pressed.connect(func(b):
 		_confirm = null
 		c.queue_free()
@@ -154,5 +155,6 @@ func _refresh() -> void:
 		var item := GameState.make_item(id)
 		icon.mouse_entered.connect(func(): _tip.show_for(item, icon))
 		icon.mouse_exited.connect(func(): _tip.visible = false)
+		PadNav.mark(icon)   # reachable with the pad for its tooltip
 		_icons.add_child(icon)
 	move_child(_tip, -1)

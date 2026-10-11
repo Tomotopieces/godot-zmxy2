@@ -8,7 +8,10 @@
 //   set_vx_forward v         velocity.x = v in facing direction (px/s, positive = forward)
 //   grounded_call m          if on the floor: call m and hold the animation
 //   call m args...           actor method (snake_case of the original method)
-//   raw src                  not understood (needs a manual handler)
+//   vis 0|1                  the owner is hidden / shown (becomes an animation track, not an event)
+//   boss_dead_fx             the boss-death sequence starts (actor method)
+//   shake px                 screen shake
+//   unknown src              a script nobody has read yet: dropped, and reported by the extractor so it gets read
 'use strict';
 
 const OWNER = /(?:[A-Za-z0-9_]+\((?:this\.parent(?:\.parent)?)\)|this\.parent(?:\.parent)?)/g;
@@ -23,6 +26,21 @@ function classifyEvents(src, fps) {
     (_, op, ax, a, b) => `P.speed.${ax} = P.transform.matrix.a == -1 ? ${op === '>' ? b : a} : ${op === '>' ? a : b};`);
   const out = [];
   if (/^(stop\(\);\s*)+$/.test(s)) return out;
+
+  // purposes: scripts are not translated line by line; each one is read for what it is for and matched by that
+  // hide / show the whole body (death blink, a move that leaves the screen)
+  const vis = s.match(/^(?:trace\("[^"]*"\); )*if\(P\) \{ (?:trace\("[^"]*"\); )?P\.visible = (true|false); \}$/);
+  if (vis) return [['vis', vis[1] === 'true' ? 1 : 0]];
+  // the original re-dresses the body with the worn equipment; EquipSlot nodes follow the equipment by themselves
+  if (/P\.setEquips\(/.test(s) || /bodyEquip\.numChildren/.test(s)) return out;
+  // the full-screen boss death sequence
+  if (/BossDead/.test(s)) return [['boss_dead_fx']];
+  // screen shake
+  const shake = s.match(/vControllor\.shake\((\d+)\)/);
+  if (shake) return [['shake', +shake[1]]];
+  // done by the actor's own code: the dash speed of a hero / monster move, loops and holds inside effect clips
+  if (/^if\(P\) \{ P\.speed\.x = P\.transform\.matrix\.a < 0 \? 30 : -30; \}$/.test(s) || /this\.speed = P\.isGXP/.test(s)
+      || /^this\.gotoAndPlay\(\d+\);$/.test(s) || /^this\.gotoAndStop\(this\.totalFrames\);$/.test(s)) return out;
 
   const grounded = s.match(/^if\(P\.standInObj\) \{ P\.(\w+)\(\); this\.stop\(\); \}$/);
   if (grounded) return [['grounded_call', snake(grounded[1])]];
@@ -46,7 +64,7 @@ function classifyEvents(src, fps) {
   const finished = /P\.curAction = |P\.gotoAndStop\("|removeChild\(this\)|P\.destroy\(\)/.test(s);
   if (/P\.setStatic\(\)/.test(s)) out.push(['stop_move']);
   if (finished) out.push(['finished']);
-  if (!out.length) out.push(['raw', s.slice(0, 200)]);
+  if (!out.length) out.push(['unknown', s.slice(0, 200)]);
   return out;
 }
 

@@ -18,9 +18,9 @@ func setup() -> void:
 	m.fly = true
 	m.velocity = Vector2.ZERO
 	_orbs.resize(SLOTS_X.size())
-	_pattern = PATTERNS[randi() % PATTERNS.size()]
+	_pattern = PATTERNS[Rng.randi() % PATTERNS.size()]
 	_t = float(param("first_throw", 4.0))
-	Level.current.start_final_platforms()
+	m.world.start_final_platforms()
 
 func custom_animation() -> bool:
 	m.rig.play(&"wait")
@@ -36,7 +36,7 @@ func think(delta: float) -> void:
 	if _phase == 0:
 		_throw()
 		var r: Array = param("throw_every", [2.0, 5.0])
-		_t = randf_range(r[0], r[1])
+		_t = Rng.randf_range(r[0], r[1])
 		if _launched.size() >= SLOTS_X.size():
 			_phase = 1
 			_recall_wave = 0
@@ -66,12 +66,13 @@ func _throw() -> void:
 			free.append(i)
 	if free.is_empty():
 		return
-	var slot: int = free[randi() % free.size()]
+	var slot: int = free[Rng.randi() % free.size()]
 	var o := m.shoot(ORB, &"hit1")
 	o.global_position = m.center()
-	var target := Vector2(Level.current.view_rect().position.x + SLOTS_X[slot], float(param("slot_y", 460)))
+	var target := Vector2(m.world.view_rect().position.x + SLOTS_X[slot], float(param("slot_y", 460)))
 	o.create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS) \
-		.tween_property(o, "global_position", target, float(param("throw_time", 2.0)))
+		.tween_property(o, "global_position", target, float(param("throw_time", 2.0))) \
+		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)   # TweenMax.to eases out by default
 	_orbs[slot] = o
 	_launched.append(slot)
 
@@ -81,7 +82,7 @@ func _recall(slot: int) -> void:
 	if not is_instance_valid(o):
 		return
 	var tw := o.create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
-	tw.tween_property(o, "global_position", m.center(), float(param("recall_time", 1.0)))
+	tw.tween_property(o, "global_position", m.center(), float(param("recall_time", 1.0))).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	tw.tween_callback(o.queue_free)
 
 func on_call(n: String, _args: Array) -> bool:
@@ -94,4 +95,4 @@ func on_destroy() -> void:
 	for o in _orbs:
 		if is_instance_valid(o):
 			o.queue_free()
-	Level.current.final_victory()
+	m.world.final_victory()

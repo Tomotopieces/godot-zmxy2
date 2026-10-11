@@ -46,7 +46,7 @@ func moves_while_attacking() -> bool:
 func on_call(n: String, _args: Array) -> bool:
 	match n:
 		"do_hit1":
-			for h: Hero in Level.current.heroes():
+			for h: Hero in m.world.heroes():
 				if h.can_be_hit() and h.center().distance_to(m.center()) < float(param("latch_range", 100)):
 					_host = h
 					_ticks = 0
@@ -57,7 +57,7 @@ func on_call(n: String, _args: Array) -> bool:
 					return true
 		"do_re_burn":
 			if is_instance_valid(_master):
-				(_master.brain as Object).call("revive_at", m.global_position)
+				_master.brain.revive_at(m.global_position)
 			m.invuln = 0.0
 			m.damage_directly(999999)
 		_:

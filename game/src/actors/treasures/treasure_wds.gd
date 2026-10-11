@@ -9,10 +9,10 @@ func setup() -> void:
 	_auto_t = p.first_auto
 
 func _spell() -> Dictionary:
-	return p.spells[int(item.get("spell", 0))]
+	return p.spells[item.spell]
 
 func _strong() -> bool:
-	return item.get("strong", false)
+	return item.strong
 
 func step(delta: float) -> void:
 	_auto_t = maxf(_auto_t - delta, 0.0)
@@ -31,7 +31,7 @@ func begin() -> void:
 		rig.play(&"hit2-2", true)
 		return
 	var all := candidates()
-	var m: Monster = all[randi() % all.size()]
+	var m: Monster = all[Rng.randi() % all.size()]
 	var c := m.center()
 	var tx: float = c.x - p.side if global_position.x < c.x else c.x + p.side
 	facing = 1 if global_position.x < tx else -1
@@ -48,7 +48,7 @@ func on_call(method: String) -> void:
 		"do_hit2_2":
 			var s := _spell()
 			var sc: Array = s.big_screen
-			var v := Level.current.view_rect()
+			var v := world.view_rect()
 			shoot(s.big, StringName(s.big_attack), Vector2(v.position.x + sc[0], sc[1]), -1, power_roll(float(s.big_power) * level()))
 		"hit1_over":
 			finish()
@@ -57,7 +57,7 @@ func _spit() -> void:
 	var all := candidates()
 	if all.is_empty():
 		return
-	var m: Monster = all[randi() % all.size()]
+	var m: Monster = all[Rng.randi() % all.size()]
 	var dir := (m.center() - global_position).normalized()
 	facing = 1 if dir.x >= 0.0 else -1
 	var pr := shoot("fabao_wudu_bullet1", &"fabao_wudu_hit1", global_position, facing, func() -> int: return GameState.attack_power())
