@@ -183,7 +183,8 @@ class Sim {
           if (k.node) walk(k.node, mm, cc, p, inBody, ef, eg, ec, eb);
           else if (this.lib.texture(e.c)) leaves.push({ path: p, kind: 'tex', ref: e.c, m: mm, ct: cc, fl: ef, fg: eg, cl: clipIn(ec, mm), bm: eb });
           let r = null;
-          for (const lf of leaves.slice(from)) { const b = lf.kind === 'tex' ? boundsOf(this.lib, lf.ref) : null; if (b) r = union(r, rectXf(lf.m, b)); }
+          // (where the picture is visible: a sparkle drawn on a big transparent texture must not make the hit box that big)
+          for (const lf of leaves.slice(from)) { const b = lf.kind === 'tex' ? visibleBounds(this.lib, lf.ref, 12) : null; if (b) r = union(r, rectXf(lf.m, lf.cl ? intersectR(b, lf.cl) : b)); }
           if (!r) { const b = boundsOf(this.lib, e.c); if (b) r = rectXf(mm, b); }
           if (r) rects.hit = union(rects.hit, r);
           continue;
@@ -233,16 +234,16 @@ function intersectR(a, b) {
 const PNG = require('./png');
 const visCache = new Map();
 // bounds (local units) of the pixels of a leaf texture that are visibly opaque
-function visibleBounds(lib, c) {
+function visibleBounds(lib, c, thr = 48) {
   const t = lib.texture(c);
   if (!t) return boundsOf(lib, c);
-  const key = t.file;
+  const key = t.file + '|' + thr;
   if (!visCache.has(key)) {
     let r = null;
     try {
       const im = PNG.decode(t.file);
       let x0 = im.width, y0 = im.height, x1 = -1, y1 = -1;
-      for (let y = 0; y < im.height; y++) for (let x = 0; x < im.width; x++) if (im.data[(y * im.width + x) * 4 + 3] >= 48) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+      for (let y = 0; y < im.height; y++) for (let x = 0; x < im.width; x++) if (im.data[(y * im.width + x) * 4 + 3] >= thr) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
       if (x1 >= 0) r = { x: t.ox + x0 / t.scale, y: t.oy + y0 / t.scale, w: (x1 + 1 - x0) / t.scale, h: (y1 + 1 - y0) / t.scale };
     } catch (e) { r = null; }
     visCache.set(key, r);

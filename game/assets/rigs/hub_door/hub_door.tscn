@@ -11,44 +11,44 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ujt8c"]
 resource_local_to_scene = true
 
-[node name="HubDoor" type="Node2D" unique_id=349301808]
+[node name="HubDoor" type="Node2D" unique_id=654348043]
 script = ExtResource("1_f3j1m")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=978840055]
+[node name="Parts" type="Node2D" parent="." unique_id=710494864]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=1607112750]
+[node name="default" type="Node2D" parent="Parts" unique_id=2033144748]
 visible = false
 
-[node name="p1" type="Sprite2D" parent="Parts/default" unique_id=825822136]
+[node name="p1" type="Sprite2D" parent="Parts/default" unique_id=634411161]
 position = Vector2(-22.05, -4)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_c8dam")
 centered = false
 
-[node name="p2" type="Sprite2D" parent="Parts/default" unique_id=1866189732]
+[node name="p2" type="Sprite2D" parent="Parts/default" unique_id=949349051]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_86ooi")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=108209935]
+[node name="Hitbox" type="Area2D" parent="." unique_id=63707229]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1140359875]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=144311499]
 shape = SubResource("RectangleShape2D_kiso1")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=897508537]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1428207919]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=406777850]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1092490573]
 shape = SubResource("RectangleShape2D_ujt8c")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=180985930]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=31089566]
 callback_mode_process = 0
 libraries/ = ExtResource("4_mqclr")

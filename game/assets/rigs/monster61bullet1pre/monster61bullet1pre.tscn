@@ -13,16 +13,16 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o48uj"]
 resource_local_to_scene = true
 
-[node name="Monster61Bullet1Pre" type="Node2D" unique_id=275946723]
+[node name="Monster61Bullet1Pre" type="Node2D" unique_id=1263268989]
 script = ExtResource("1_5483i")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=673582615]
+[node name="Parts" type="Node2D" parent="." unique_id=1844155476]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=589667719]
+[node name="default" type="Node2D" parent="Parts" unique_id=18683131]
 visible = false
 
-[node name="p1_2" type="Sprite2D" parent="Parts/default" unique_id=786285226]
+[node name="p1_2" type="Sprite2D" parent="Parts/default" unique_id=181577291]
 material = SubResource("CanvasItemMaterial_ssqt1")
 position = Vector2(-95, -140)
 scale = Vector2(0.5, 0.5)
@@ -30,24 +30,24 @@ texture = ExtResource("2_l26y2")
 centered = false
 region_enabled = true
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=878815843]
+[node name="Hitbox" type="Area2D" parent="." unique_id=990394497]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=406013921]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=709168405]
 shape = SubResource("RectangleShape2D_02wm4")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1310026695]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=679891005]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=2092782520]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=806548922]
 shape = SubResource("RectangleShape2D_o48uj")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=1698443535]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=2079328458]
 callback_mode_process = 0
 libraries/ = ExtResource("3_7juoc")
