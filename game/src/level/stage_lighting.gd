@@ -86,7 +86,7 @@ func _light_scenery(scene: Dictionary) -> void:
 		var m := ShaderMaterial.new()
 		m.shader = ART
 		m.set_shader_parameter("rim_color", _color(scene.rim_color))
-		m.set_shader_parameter("rim_strength", float(scene.rim_strength))
+		m.set_shader_parameter("rim_strength", float(o.get("rim", float(scene.rim_strength))))
 		m.set_shader_parameter("rim_width", float(scene.rim_width))
 		m.set_shader_parameter("ground_y", float(scene.ground_y))
 		m.set_shader_parameter("fade_height", 0.0 if name_ == "Ground" else float(scene.fade_height) * float(o.get("fade", 1.0)))
