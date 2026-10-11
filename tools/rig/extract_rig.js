@@ -184,7 +184,9 @@ class Sim {
           else if (this.lib.texture(e.c)) leaves.push({ path: p, kind: 'tex', ref: e.c, m: mm, ct: cc, fl: ef, fg: eg, cl: clipIn(ec, mm), bm: eb });
           let r = null;
           // (where the picture is visible: a sparkle drawn on a big transparent texture must not make the hit box that big)
-          for (const lf of leaves.slice(from)) { const b = lf.kind === 'tex' ? visibleBounds(this.lib, lf.ref, 12) : null; if (b) r = union(r, rectXf(lf.m, lf.cl ? intersectR(b, lf.cl) : b)); }
+          // HIT_SKIP=id,id: textures that are decoration inside the attack's clip (sparkles around the swords) and not part of its reach
+          const skip = (process.env.HIT_SKIP || '').split(',');
+          for (const lf of leaves.slice(from)) { if (skip.includes(String(lf.ref))) continue; const b = lf.kind === 'tex' ? visibleBounds(this.lib, lf.ref, 12) : null; if (b) r = union(r, rectXf(lf.m, lf.cl ? intersectR(b, lf.cl) : b)); }
           if (!r) { const b = boundsOf(this.lib, e.c); if (b) r = rectXf(mm, b); }
           if (r) rects.hit = union(rects.hit, r);
           continue;

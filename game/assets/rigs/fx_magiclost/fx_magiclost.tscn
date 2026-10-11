@@ -28,40 +28,40 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nn2ay"]
 resource_local_to_scene = true
 
-[node name="FxMagiclost" type="Node2D" unique_id=1598555892]
+[node name="FxMagiclost" type="Node2D" unique_id=759535747]
 script = ExtResource("1_gp86x")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=1014117246]
+[node name="Parts" type="Node2D" parent="." unique_id=323435692]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=1160640843]
+[node name="default" type="Node2D" parent="Parts" unique_id=1113550291]
 visible = false
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=251859143]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=1730478850]
 material = SubResource("ShaderMaterial_knd2q")
 position = Vector2(-67.5, -71.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_svqbl")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=512074987]
+[node name="Hitbox" type="Area2D" parent="." unique_id=2115368970]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=605017201]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1174467207]
 shape = SubResource("RectangleShape2D_dg0cj")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=896853751]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=291239276]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1665200084]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1349940696]
 shape = SubResource("RectangleShape2D_nn2ay")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=38217979]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1810706877]
 callback_mode_process = 0
 libraries/ = ExtResource("4_cg88f")

@@ -11,48 +11,48 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f4hh7"]
 resource_local_to_scene = true
 
-[node name="ExitDoor" type="Node2D" unique_id=142089528]
+[node name="ExitDoor" type="Node2D" unique_id=239436460]
 script = ExtResource("1_083dj")
 actions = PackedStringArray("default")
 markers = {
 "isTransferDoor": Vector2(-1, -1)
 }
 
-[node name="Parts" type="Node2D" parent="." unique_id=1438570621]
+[node name="Parts" type="Node2D" parent="." unique_id=1781297964]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=1397471488]
+[node name="default" type="Node2D" parent="Parts" unique_id=1744127204]
 visible = false
 
-[node name="p1_1" type="Sprite2D" parent="Parts/default" unique_id=1033085345]
+[node name="p1_1" type="Sprite2D" parent="Parts/default" unique_id=1712140827]
 position = Vector2(-83.75, -109.149994)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_e60va")
 centered = false
 
-[node name="p3_1_1" type="Sprite2D" parent="Parts/default" unique_id=1179607203]
+[node name="p3_1_1" type="Sprite2D" parent="Parts/default" unique_id=1221102329]
 position = Vector2(-12, -9.7)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_elrqi")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1214467988]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1430952637]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1943227662]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=831805268]
 shape = SubResource("RectangleShape2D_763fr")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=473528044]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1157160450]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=27332134]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=380396643]
 shape = SubResource("RectangleShape2D_f4hh7")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=1039270475]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=977612855]
 callback_mode_process = 0
 libraries/ = ExtResource("4_76l3g")

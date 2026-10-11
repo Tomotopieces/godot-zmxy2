@@ -28,40 +28,40 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hv6q8"]
 resource_local_to_scene = true
 
-[node name="Monster32Bullet2" type="Node2D" unique_id=499327413]
+[node name="Monster32Bullet2" type="Node2D" unique_id=1615082160]
 script = ExtResource("1_iq0os")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=1231644258]
+[node name="Parts" type="Node2D" parent="." unique_id=120027763]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=204878198]
+[node name="default" type="Node2D" parent="Parts" unique_id=379085046]
 visible = false
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=869773012]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=1694169395]
 material = SubResource("ShaderMaterial_2oy4i")
 position = Vector2(-95.3, -15.650002)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_j180w")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=11338381]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1694154081]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1836682534]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=2101914327]
 shape = SubResource("RectangleShape2D_4n4w0")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=83045249]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=2100015369]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1287250136]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=169828220]
 shape = SubResource("RectangleShape2D_hv6q8")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=2028504895]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=397342797]
 callback_mode_process = 0
 libraries/ = ExtResource("4_1yuef")

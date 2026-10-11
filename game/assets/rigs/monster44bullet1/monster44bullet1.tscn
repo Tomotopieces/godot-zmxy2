@@ -28,40 +28,40 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5ph1p"]
 resource_local_to_scene = true
 
-[node name="Monster44Bullet1" type="Node2D" unique_id=865545600]
+[node name="Monster44Bullet1" type="Node2D" unique_id=2145310675]
 script = ExtResource("1_jp34y")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=300383577]
+[node name="Parts" type="Node2D" parent="." unique_id=1837635428]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=1198749619]
+[node name="default" type="Node2D" parent="Parts" unique_id=1969546991]
 visible = false
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=1035757909]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=1607385146]
 material = SubResource("ShaderMaterial_wet7g")
 position = Vector2(-28.35, -18.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_jle4l")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=548619511]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1305444702]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1781103974]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=789978827]
 shape = SubResource("RectangleShape2D_er6bw")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1349540128]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=36169713]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=39198122]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=324642165]
 shape = SubResource("RectangleShape2D_5ph1p")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=311892309]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1282260413]
 callback_mode_process = 0
 libraries/ = ExtResource("4_ln4ya")

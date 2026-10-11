@@ -28,40 +28,40 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fvtqg"]
 resource_local_to_scene = true
 
-[node name="Hit4Falldown" type="Node2D" unique_id=1323337634]
+[node name="Hit4Falldown" type="Node2D" unique_id=1153111662]
 script = ExtResource("1_8ngde")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=441911378]
+[node name="Parts" type="Node2D" parent="." unique_id=1135605675]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=918982866]
+[node name="default" type="Node2D" parent="Parts" unique_id=1771225315]
 visible = false
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=1523180281]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=1601497162]
 material = SubResource("ShaderMaterial_hl273")
 position = Vector2(-34.800003, -62.350002)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_fx4vq")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1918750340]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1867764511]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1738198212]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1223854158]
 shape = SubResource("RectangleShape2D_tdboe")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=505486419]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=401290155]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1803792099]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=278553549]
 shape = SubResource("RectangleShape2D_fvtqg")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=709003051]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=348577212]
 callback_mode_process = 0
 libraries/ = ExtResource("4_oxqdb")

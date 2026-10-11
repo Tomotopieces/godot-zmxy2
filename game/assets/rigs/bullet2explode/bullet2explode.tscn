@@ -28,40 +28,40 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3p823"]
 resource_local_to_scene = true
 
-[node name="Bullet2Explode" type="Node2D" unique_id=782103238]
+[node name="Bullet2Explode" type="Node2D" unique_id=2040622412]
 script = ExtResource("1_h8o4k")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=24332534]
+[node name="Parts" type="Node2D" parent="." unique_id=1896339198]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=70374008]
+[node name="default" type="Node2D" parent="Parts" unique_id=1489901112]
 visible = false
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=950166801]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=457489382]
 material = SubResource("ShaderMaterial_anlj4")
 position = Vector2(-29, -30.05)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_fiojp")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1985858437]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1837908524]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=2056888200]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=393447415]
 shape = SubResource("RectangleShape2D_7j1tv")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1100868031]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1143294142]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=2117784741]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1210044687]
 shape = SubResource("RectangleShape2D_3p823")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=2147281495]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=135712762]
 callback_mode_process = 0
 libraries/ = ExtResource("4_fguro")

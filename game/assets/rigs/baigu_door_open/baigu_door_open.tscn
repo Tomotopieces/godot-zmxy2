@@ -13,7 +13,7 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gaudd"]
 resource_local_to_scene = true
 
-[node name="BaiguDoorOpen" type="Node2D" unique_id=992466221]
+[node name="BaiguDoorOpen" type="Node2D" unique_id=536906542]
 script = ExtResource("1_qacfx")
 actions = PackedStringArray("default")
 markers = {
@@ -21,55 +21,55 @@ markers = {
 "isBaiguDoor": Vector2(-32.05, 14)
 }
 
-[node name="Parts" type="Node2D" parent="." unique_id=1755848643]
+[node name="Parts" type="Node2D" parent="." unique_id=21435882]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=830919704]
+[node name="default" type="Node2D" parent="Parts" unique_id=52561463]
 visible = false
 
-[node name="p2_1" type="Sprite2D" parent="Parts/default" unique_id=1586950455]
+[node name="p2_1" type="Sprite2D" parent="Parts/default" unique_id=775834265]
 position = Vector2(-533, -173.1)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_733pj")
 centered = false
 region_enabled = true
 
-[node name="p2_5" type="Sprite2D" parent="Parts/default" unique_id=483862828]
+[node name="p2_5" type="Sprite2D" parent="Parts/default" unique_id=619002715]
 position = Vector2(-508.95, -156.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_ln1ou")
 centered = false
 region_enabled = true
 
-[node name="p9_1" type="Sprite2D" parent="Parts/default" unique_id=1156165311]
+[node name="p9_1" type="Sprite2D" parent="Parts/default" unique_id=644939709]
 position = Vector2(-106, -8.099998)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_lqrmg")
 centered = false
 
-[node name="p15" type="Sprite2D" parent="Parts/default" unique_id=1233905242]
+[node name="p15" type="Sprite2D" parent="Parts/default" unique_id=783386362]
 position = Vector2(-599, 19.25)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("5_ncdhu")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1050365260]
+[node name="Hitbox" type="Area2D" parent="." unique_id=234504031]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1603167633]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1613341967]
 shape = SubResource("RectangleShape2D_7sqb2")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1371876470]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1773234669]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1487653999]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1549956538]
 shape = SubResource("RectangleShape2D_gaudd")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=200385423]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=751471651]
 callback_mode_process = 0
 libraries/ = ExtResource("6_hmrok")

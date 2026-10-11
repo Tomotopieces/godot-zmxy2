@@ -28,16 +28,16 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uxg3x"]
 resource_local_to_scene = true
 
-[node name="FabaoPearlBullet2" type="Node2D" unique_id=1503285426]
+[node name="FabaoPearlBullet2" type="Node2D" unique_id=1980572299]
 script = ExtResource("1_whwq4")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=1144643968]
+[node name="Parts" type="Node2D" parent="." unique_id=1802729970]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=1139724128]
+[node name="default" type="Node2D" parent="Parts" unique_id=1705383597]
 visible = false
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=1434817572]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=809471478]
 material = SubResource("ShaderMaterial_tumq8")
 position = Vector2(-92.88275, 28.26915)
 rotation = -1.5999585
@@ -46,24 +46,24 @@ skew = 0.0013363361
 texture = ExtResource("3_q3eeg")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=2104134629]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1025723854]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=61193153]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=853812291]
 shape = SubResource("RectangleShape2D_55mro")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1202288298]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=170410811]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=562303491]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=393308924]
 shape = SubResource("RectangleShape2D_uxg3x")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=304492166]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1504189171]
 callback_mode_process = 0
 libraries/ = ExtResource("4_7hm3s")

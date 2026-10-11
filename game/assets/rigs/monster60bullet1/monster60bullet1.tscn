@@ -28,40 +28,40 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_173j0"]
 resource_local_to_scene = true
 
-[node name="Monster60Bullet1" type="Node2D" unique_id=1338070433]
+[node name="Monster60Bullet1" type="Node2D" unique_id=1009436417]
 script = ExtResource("1_oe5n1")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=1538171252]
+[node name="Parts" type="Node2D" parent="." unique_id=1622466634]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=784609818]
+[node name="default" type="Node2D" parent="Parts" unique_id=1410837956]
 visible = false
 
-[node name="p1_1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=101438975]
+[node name="p1_1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=121975724]
 material = SubResource("ShaderMaterial_kt8to")
 position = Vector2(-59.4033, -59.4033)
 scale = Vector2(0.2585, 0.2585)
 texture = ExtResource("3_bg63n")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=852425267]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1973641091]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1318527391]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=2008213584]
 shape = SubResource("RectangleShape2D_dyblg")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1673064653]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1661206960]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=595390436]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1832476738]
 shape = SubResource("RectangleShape2D_173j0")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=1668063357]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=670648719]
 callback_mode_process = 0
 libraries/ = ExtResource("4_5t4dw")

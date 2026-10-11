@@ -28,40 +28,40 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8xbfi"]
 resource_local_to_scene = true
 
-[node name="FxHit7Fire" type="Node2D" unique_id=1107855768]
+[node name="FxHit7Fire" type="Node2D" unique_id=1930402410]
 script = ExtResource("1_np61m")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=1113047318]
+[node name="Parts" type="Node2D" parent="." unique_id=309631826]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=1287219294]
+[node name="default" type="Node2D" parent="Parts" unique_id=1628695188]
 visible = false
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=1971984317]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=236709844]
 material = SubResource("ShaderMaterial_odx1o")
 position = Vector2(-220.85, -34.15)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_5lqjv")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=603466041]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1839518643]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=607268344]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1896234065]
 shape = SubResource("RectangleShape2D_1cpr3")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=101507985]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=2064748785]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1368220239]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1467932416]
 shape = SubResource("RectangleShape2D_8xbfi")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=1692674707]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=29764255]
 callback_mode_process = 0
 libraries/ = ExtResource("4_dw6el")
