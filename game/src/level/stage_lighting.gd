@@ -73,12 +73,13 @@ func _ready() -> void:
 
 ## The art's own material: backlight rim; the decoration (not the floor) also fades to dark at its feet.
 func _light_scenery(scene: Dictionary) -> void:
-	# one material per depth layer (the decoration's layers are Parallax2D nodes under "Art"; see level.json "parallax")
+	# one material per layer: the children of "Art" (the depth layers of a hand-made scene, scenes/levels/<stage>.tscn: "Far",
+	# "Near", ...) each get the settings of their name under "layers" of the lighting file; the floor has its own
 	var layers: Dictionary = _cfg.get("layers", {})
 	var groups := {"Ground": [_lv.world.get_node("Ground"), {"fade": 0.0}]}
 	groups["Art"] = [_lv.world.get_node("Art"), {}]
 	for n in (_lv.world.get_node("Art") as Node2D).get_children():
-		if n is Parallax2D:
+		if n is Node2D and not n is Sprite2D:
 			groups[n.name] = [n, layers.get(String(n.name), {})]
 	for name_ in groups:
 		var node: Node2D = groups[name_][0]
@@ -94,8 +95,9 @@ func _light_scenery(scene: Dictionary) -> void:
 		m.set_shader_parameter("blur", float(o.get("blur", 0.0)))
 		if o.has("tint"):
 			node.modulate = _color(o.tint)
-		for sp in node.get_children():
-			if sp is Sprite2D and sp.material == null:
+		var sprites: Array = node.find_children("*", "Sprite2D", true, false) if name_ != "Art" else node.get_children().filter(func(c): return c is Sprite2D)
+		for sp: Sprite2D in sprites:
+			if sp.material == null:
 				sp.material = m
 
 func _build_fog() -> void:
