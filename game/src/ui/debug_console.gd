@@ -14,7 +14,7 @@ enum Mode { ITEMS, TELEPORT, BOSS }
 const MODES := [["物品", Mode.ITEMS], ["传送", Mode.TELEPORT], ["Boss 战", Mode.BOSS]]
 ## [stage, what is there]: the stage rooms, with the boss each one ends on
 const STAGES := [
-	[Vector2i(1, 1), "鬼门关 · 守夜人"], [Vector2i(1, 2), "无常巷 · 黑白无常"], [Vector2i(1, 3), "鬼城"],
+	[Vector2i(1, 1), "鬼城 · 守夜人"], [Vector2i(1, 2), "无常巷 · 黑白无常"], [Vector2i(1, 3), "鬼门关"],
 	[Vector2i(2, 1), "秦广王"], [Vector2i(2, 2), "判官"], [Vector2i(2, 3), "阎罗王"],
 	[Vector2i(3, 1), "忘川河"], [Vector2i(3, 2), "夜叉"], [Vector2i(3, 3), "孟婆"],
 	[Vector2i(4, 1), "转轮王"], [Vector2i(5, 1), "白骨精"], [Vector2i(6, 1), "牛魔谷 · 红孩儿"],

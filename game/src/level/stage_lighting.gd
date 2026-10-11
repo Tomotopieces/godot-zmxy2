@@ -1,16 +1,19 @@
 class_name StageLighting
 extends Node
 ## The look of a stage at night, from data/lighting/<stage>.json (a stage without a file is drawn as the original did):
-##  - the scenery is dimmed (not the actors, pickups or numbers) and the far background a little less;
-##  - bodies are lit from above by the moon and shaded below (Rig.set_light), and cast a long shadow away from it;
+##  - the scenery and the floor are dimmed (not the actors, pickups or numbers) and the far background a little less; the
+##    decoration gets a rim of backlight on the edges facing the moon and fades to dark towards the floor;
+##  - bodies are lit from above by the moon, shaded below and rimmed on their upper-left edges (Rig.set_light), and cast a
+##    soft shadow away from it;
 ##  - drifting mist, in a patchy layer behind the actors and a thin one in front; it swells and thins on its own;
-##  - the moon's glow and a few slow shafts of moonlight from it; wisps (鬼火) that fade in and out;
+##  - the moon's glow and a few slow shafts of moonlight from it - in the sky only: behind all scenery and actors;
 ##  - a screen grade: cool shadows, a little less colour, a vignette.
-## Draw order: far layer (-2), world, the effects layer (1), the grade layer (2), the HUD (3).
+## Draw order: far layer (-2), the moonlight layer (-1), world, the mist layer (1), the grade layer (2), the HUD (3).
 
 const FOG := preload("res://src/level/fog.gdshader")
 const GRADE := preload("res://src/level/grade.gdshader")
 const CAST := preload("res://src/level/cast_shadow.gdshader")
+const ART := preload("res://src/level/art_look.gdshader")
 
 var _lv: Level
 var _cfg: Dictionary
@@ -58,13 +61,29 @@ static func glow_texture() -> GradientTexture2D:
 
 func _ready() -> void:
 	var scene: Dictionary = _cfg.scene
-	for n in ["Art", "Ground"]:
-		(_lv.world.get_node(n) as Node2D).modulate = _color(scene.art)
+	(_lv.world.get_node("Art") as Node2D).modulate = _color(scene.art)
+	(_lv.world.get_node("Ground") as Node2D).modulate = _color(scene.ground)
 	_far_tint = _color(scene.far)
 	_lv.far_sprite().modulate = _far_tint
+	_light_scenery(scene)
 	_build_fog()
 	_build_effects()
 	_build_grade()
+
+## The art's own material: backlight rim; the decoration (not the floor) also fades to dark at its feet.
+func _light_scenery(scene: Dictionary) -> void:
+	for pair in [["Art", float(scene.fade_height)], ["Ground", 0.0]]:
+		var m := ShaderMaterial.new()
+		m.shader = ART
+		m.set_shader_parameter("rim_color", _color(scene.rim_color))
+		m.set_shader_parameter("rim_strength", float(scene.rim_strength))
+		m.set_shader_parameter("rim_width", float(scene.rim_width))
+		m.set_shader_parameter("ground_y", float(scene.ground_y))
+		m.set_shader_parameter("fade_height", pair[1])
+		m.set_shader_parameter("fade_dark", float(scene.fade_dark))
+		for sp: Sprite2D in (_lv.world.get_node(pair[0]) as Node2D).get_children():
+			if sp.material == null:
+				sp.material = m
 
 func _build_fog() -> void:
 	var f: Dictionary = _cfg.fog
@@ -84,6 +103,7 @@ func _fog_material(f: Dictionary, density: float, seed_: float) -> ShaderMateria
 	m.shader = FOG
 	m.set_shader_parameter("fog_color", _color(f.color))
 	m.set_shader_parameter("density", density)
+	m.set_shader_parameter("max_alpha", float(f.max_alpha))
 	m.set_shader_parameter("ground_bias", float(f.ground_bias))
 	m.set_shader_parameter("speed", float(f.speed))
 	m.set_shader_parameter("seed", seed_)
@@ -105,8 +125,11 @@ func _build_effects() -> void:
 	add.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
 	var m: Dictionary = _cfg.moon
 	var mc := _color(m.glow)
+	var sky := CanvasLayer.new()   # behind the world: scenery and actors stand in front of the moonlight
+	sky.layer = -1
+	add_child(sky)
 	_moon = Node2D.new()
-	layer.add_child(_moon)
+	sky.add_child(_moon)
 	_moon_glow = Sprite2D.new()
 	_moon_glow.texture = glow_texture()
 	_moon_glow.scale = Vector2(2.6, 2.6)
@@ -116,19 +139,20 @@ func _build_effects() -> void:
 	# slow shafts of moonlight fanning out from the moon to the lower right
 	for i in int(m.shafts):
 		var p := Polygon2D.new()
-		var w0 := 14.0 + 10.0 * i
+		var w0 := 10.0 + 8.0 * i
 		var w1 := 70.0 + 42.0 * i
 		var len := 760.0 + 90.0 * i
-		p.polygon = PackedVector2Array([Vector2(-w0, 0), Vector2(w0, 0), Vector2(w1, len), Vector2(-w1, len)])
+		var lm := len * 0.16                 # where the beam is at its brightest: it grows out of the moon's glow
+		var wm := lerpf(w0, w1, 0.16)
+		p.polygon = PackedVector2Array([Vector2(-w0, 0), Vector2(w0, 0), Vector2(wm, lm), Vector2(w1, len), Vector2(-w1, len), Vector2(-wm, lm)])
 		p.texture = _soft_edge()   # bright in the middle, fading to both sides: no hard beam edges
-		p.uv = PackedVector2Array([Vector2(0, 0), Vector2(64, 0), Vector2(64, 4), Vector2(0, 4)])
+		p.uv = PackedVector2Array([Vector2(0, 0), Vector2(64, 0), Vector2(64, 4), Vector2(64, 4), Vector2(0, 4), Vector2(0, 4)])
 		var a := float(m.shaft_alpha) * (1.0 - 0.18 * i)
-		p.vertex_colors = PackedColorArray([Color(mc, a), Color(mc, a), Color(mc, 0.0), Color(mc, 0.0)])
+		p.vertex_colors = PackedColorArray([Color(mc, 0.0), Color(mc, 0.0), Color(mc, a), Color(mc, 0.0), Color(mc, 0.0), Color(mc, a)])
 		p.rotation = deg_to_rad(-(float(m.angle) - 13.0 + 13.0 * i))
 		p.material = add
 		_moon.add_child(p)
 		_shafts.append(p)
-	_build_wisps(layer, add)
 
 static var _edge_tex: GradientTexture2D
 
@@ -145,34 +169,6 @@ static func _soft_edge() -> GradientTexture2D:
 		g.colors = PackedColorArray([Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)])
 		_edge_tex.gradient = g
 	return _edge_tex
-
-func _build_wisps(layer: CanvasLayer, add: CanvasItemMaterial) -> void:
-	var w: Dictionary = _cfg.wisps
-	var c := _color(w.color)
-	var ramp := Gradient.new()
-	ramp.offsets = PackedFloat32Array([0.0, 0.25, 0.7, 1.0])
-	ramp.colors = PackedColorArray([Color(c, 0.0), Color(c, 0.55), Color(c, 0.4), Color(c, 0.0)])
-	var p := CPUParticles2D.new()
-	p.amount = int(w.count)
-	p.lifetime = 9.0
-	p.preprocess = 9.0
-	p.local_coords = true
-	p.emission_shape = CPUParticles2D.EMISSION_SHAPE_RECTANGLE
-	p.emission_rect_extents = Vector2(480, 130)
-	p.position = Vector2(470, 400)
-	p.direction = Vector2(1, -0.3)
-	p.spread = 70.0
-	p.gravity = Vector2(0, -3)
-	p.initial_velocity_min = 5.0
-	p.initial_velocity_max = 16.0
-	p.tangential_accel_min = -5.0
-	p.tangential_accel_max = 5.0
-	p.scale_amount_min = 0.08
-	p.scale_amount_max = 0.2
-	p.texture = glow_texture()
-	p.color_ramp = ramp
-	p.material = add
-	layer.add_child(p)
 
 func _build_grade() -> void:
 	var layer := CanvasLayer.new()
@@ -217,7 +213,7 @@ func _update_actor(a: Actor) -> void:
 	var id := a.get_instance_id()
 	var b: Dictionary = _cfg.body
 	if not _shadows.has(id):
-		rig.set_light(_color(b.shade), _color(b.lit), float(b.height))
+		rig.set_light(_color(b.shade), _color(b.lit), float(b.height), float(b.rim_strength), float(b.rim_width))
 		_shadows[id] = _make_shadow(a)
 	# an actor's origin is not at its feet: the feet are the bottom of its body shape
 	var feet_off := a.body_shape.position.y + (a.body_shape.shape as RectangleShape2D).size.y / 2.0
@@ -243,6 +239,7 @@ func _update_actor(a: Actor) -> void:
 			sp.material = e.mat
 	var high := clampf(1.0 - (floor_y - feet_y) / 280.0, 0.25, 1.0)
 	(e.mat as ShaderMaterial).set_shader_parameter("shadow_color", Color(0.02, 0.03, 0.08, float(sh.alpha) * high))
+	(e.mat as ShaderMaterial).set_shader_parameter("blur", float(sh.blur))
 
 func _make_shadow(a: Actor) -> Dictionary:
 	var holder := Node2D.new()

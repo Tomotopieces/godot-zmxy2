@@ -2,7 +2,8 @@ shader_type canvas_item;
 // Drifting mist: patches of fractal noise that slide sideways, swell and thin out on their own (no picture, nothing that
 // repeats), denser near the ground, never opaque. `scroll` ties the mist loosely to the camera.
 uniform vec4 fog_color : source_color = vec4(0.62, 0.72, 0.9, 1.0);
-uniform float density = 0.5;        // peak opacity of a patch
+uniform float density = 0.5;        // opacity of a patch
+uniform float max_alpha = 0.42;
 uniform float ground_bias = 0.6;    // 0 = even over the screen, 1 = only near the ground
 uniform float speed = 14.0;         // px / s
 uniform float seed = 0.0;
@@ -44,5 +45,5 @@ void fragment() {
 	float f = smoothstep(0.38, 0.74, n) * mix(0.3, 1.0, breathe);
 	float low = smoothstep(0.15, 0.95, UV.y);
 	float h = mix(1.0, low, ground_bias);
-	COLOR = vec4(fog_color.rgb, clamp(f * h * density, 0.0, 0.42));
+	COLOR = vec4(fog_color.rgb, clamp(f * h * density, 0.0, max_alpha));
 }

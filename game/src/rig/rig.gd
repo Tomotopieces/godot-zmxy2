@@ -43,8 +43,10 @@ func _adopt_parts() -> void:
 			n.use_parent_material = true
 
 ## A stage's light on this body: multiplier `shade` at the feet, `lit` at `height` px above them.
-func set_light(shade: Color, lit: Color, height: float) -> void:
+func set_light(shade: Color, lit: Color, height: float, rim := 0.0, rim_width := 1.6) -> void:
 	_adopt_parts()
+	_flash_mat.set_shader_parameter("rim_strength", rim)
+	_flash_mat.set_shader_parameter("rim_width", rim_width)
 	_flash_mat.set_shader_parameter("look_on", true)
 	_flash_mat.set_shader_parameter("shade", shade)
 	_flash_mat.set_shader_parameter("lit", lit)
