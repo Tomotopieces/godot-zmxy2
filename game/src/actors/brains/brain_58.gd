@@ -15,17 +15,13 @@ func think(delta: float) -> void:
 
 func _hover(delta: float) -> void:
 	m.velocity.y = 0.0
-	# Up in the sky he is out of the picture. (The original left him hanging with his soles still in view.)
-	var over := m.hurt_rect().end.y + float(param("hide_margin", 10.0))
-	if over > 0.0:
-		m.global_position.y -= over
-		m.reset_physics_interpolation()
 	var h: Hero = m.world.hero
 	if h:
 		m.velocity.x = signf(h.global_position.x - m.global_position.x) * float(param("hover_speed", 120))
 	_fall -= delta
 	if _fall <= 0.0:
 		_hovering = false
+		m.rig.visible = true   # he comes into view as he drops
 		m.fly = false
 		m.invuln = 0.0
 		# the shadow lies on the floor, under the monsters and the hero (the original adds it just below him in the draw order)
@@ -39,6 +35,7 @@ func on_call(n: String, _args: Array) -> bool:
 	match n:
 		"in_top":
 			_hovering = true
+			m.rig.visible = false   # up in the sky he is out of sight (the original left his soles showing at the top)
 			m.fly = true
 			m.invuln = 9999.0
 			if _first_fall:
