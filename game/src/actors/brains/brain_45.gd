@@ -47,7 +47,8 @@ func on_call(n: String, _args: Array) -> bool:
 	match n:
 		"check_re_burn":
 			if not _reviving:
-				return true   # final death: the normal boss death takes over
+				m.boss_dead_sequence()   # final death (checkReBurn, form 3): BossDead - the swirl, then the loot and the exit
+				return true
 			_form += 1
 			Loot.drop(m)
 			m.remove_meta(&"loot_dropped")   # she comes back: her next death drops again

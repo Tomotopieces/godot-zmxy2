@@ -285,14 +285,14 @@ func _on_rig_event(n: StringName, args: Array) -> void:
 						Loot.drop(self)   # a death clip that only destroys (楚江王): the loot comes with it
 					vanish()
 		&"boss_dead_fx":
-			_boss_dead_sequence()
+			boss_dead_sequence()
 		&"shake":
 			world.shake(float(args[0]))
 
-## BossDead (Common_v7): a full-screen swirl; at its end every dead boss drops loot and is removed.
+## BossDead (Common_v7; a brain whose last death clip has no drop of its own starts it too): a full-screen swirl; at its end every dead boss drops loot and is removed.
 var _boss_dead_started := false
 
-func _boss_dead_sequence() -> void:
+func boss_dead_sequence() -> void:
 	if _boss_dead_started:
 		return
 	_boss_dead_started = true
