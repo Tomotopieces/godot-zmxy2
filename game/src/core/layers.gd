@@ -13,6 +13,7 @@ const Z_BEHIND_ART := -12   ## shows through holes of the stage art (10-1 doors)
 const Z_ART := -10          ## background art, with the decoration standing on the ground
 const Z_MECHANISM := -8     ## 机关
 const Z_GROUND := -7        ## the floor strip (and anything else the scene lists above the mechanisms)
+const Z_EXIT := -6          ## the exit portal: over the floor art, under the actors
 const Z_MONSTER := -1
 const Z_HERO := 0
 const Z_PICKUP := 1         ## dropped items, potions, soul orbs

@@ -309,7 +309,7 @@ func _build(d: Dictionary) -> void:
 			features.append(dd)
 			continue
 		door = Rig.create("exit_door")
-		door.z_index = Layers.Z_MECHANISM
+		door.z_index = Layers.Z_EXIT   # in front of the floor art (9-1: the bridge rail would cover it) but behind the actors
 		door.position = Vector2(dd.pos[0], dd.pos[1])
 		door.visible = false
 		world.add_child(door)
