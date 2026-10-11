@@ -15,6 +15,11 @@ func think(delta: float) -> void:
 
 func _hover(delta: float) -> void:
 	m.velocity.y = 0.0
+	# Up in the sky he is out of the picture. (The original left him hanging with his soles still in view.)
+	var over := m.hurt_rect().end.y + float(param("hide_margin", 10.0))
+	if over > 0.0:
+		m.global_position.y -= over
+		m.reset_physics_interpolation()
 	var h: Hero = m.world.hero
 	if h:
 		m.velocity.x = signf(h.global_position.x - m.global_position.x) * float(param("hover_speed", 120))
@@ -23,7 +28,8 @@ func _hover(delta: float) -> void:
 		_hovering = false
 		m.fly = false
 		m.invuln = 0.0
-		Fx.spawn("monster58shallow", Vector2(m.global_position.x, float(param("shadow_y", 510))))
+		# the shadow lies on the floor, under the monsters and the hero (the original adds it just below him in the draw order)
+		Fx.spawn("monster58shallow", Vector2(m.global_position.x, float(param("shadow_y", 510)))).z_index = Layers.Z_MONSTER - 1
 		act(&"hit2-2")
 
 func moves_while_attacking() -> bool:

@@ -5,9 +5,13 @@ extends MonsterBrain
 ## Params: far_skill / near_skill (action names, "" = none), far_cd / near_cd (s), check (s),
 ## range_y_mul (vertical reach in attack ranges, default 2), face_far (face target before skill1).
 
-var _check := 0.0
+var _check := 0.0     ## free-running check clock (the original's `count % 24`: it keeps counting through attacks)
 
 func think(delta: float) -> void:
+	_check -= delta
+	var tick := _check <= 0.0
+	if tick:
+		_check += float(param("check", 1.0))
 	if m.state != Monster.State.MOVE:
 		return
 	if m.target == null:
@@ -30,10 +34,8 @@ func think(delta: float) -> void:
 			follow()
 		return
 	m.dir = 0
-	_check -= delta
-	if _check > 0.0:
+	if not tick:
 		return
-	_check = float(param("check", 1.0))
 	var near: String = param("near_skill", "")
 	if near != "" and m.cd("near") <= 0.0:
 		m.set_cd("near", float(param("near_cd", 4.0)))
