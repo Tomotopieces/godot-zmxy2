@@ -59,6 +59,8 @@ func _apply(look: String) -> void:
 			_mist()
 		"outline":
 			_outline()
+		"designed":
+			_designed()
 		"all":
 			_bump()
 			_lights()
@@ -109,8 +111,8 @@ func _lights() -> void:
 		l.color = Color(1.0, 0.6, 0.3)
 		l.energy = 1.1
 		l.height = 80.0
-		l.global_position = Vector2(x, 300.0)
 		_lv.world.add_child(l)
+		l.global_position = Vector2(x, 300.0)
 
 ## A thin dark outline around every character: a silhouette copy behind it (the same trick the rage glow uses).
 func _outline() -> void:
@@ -123,6 +125,91 @@ func _outline() -> void:
 		var mat := SpriteFx.glow_material(Color(0.05, 0.03, 0.08, 1.0), 2.2, 2.5, true)
 		for sp: Sprite2D in halo.find_children("*", "Sprite2D", true, false):
 			sp.material = mat
+
+## A designed look for the 2-3 hall (camera 1500): the light comes from the scene - two braziers and the red doors - and
+## the hero is lit by them (more on the side that faces them), not by a light of its own; floor pools, embers, a cool
+## fill from above, graded shadows.
+func _designed() -> void:
+	var mod := CanvasModulate.new()
+	mod.color = Color(0.5, 0.52, 0.7)
+	_lv.world.add_child(mod)
+	_bump()
+	var tex := GradientTexture2D.new()
+	tex.fill = GradientTexture2D.FILL_RADIAL
+	tex.fill_from = Vector2(0.5, 0.5)
+	tex.fill_to = Vector2(1.0, 0.5)
+	tex.width = 512
+	tex.height = 512
+	var g := Gradient.new()
+	g.offsets = PackedFloat32Array([0.0, 0.35, 1.0])
+	g.colors = PackedColorArray([Color.WHITE, Color(1, 1, 1, 0.45), Color(1, 1, 1, 0)])
+	tex.gradient = g
+	for x in [75.0, 700.0]:
+		var l := PointLight2D.new()
+		l.texture = tex
+		l.texture_scale = 3.8
+		l.color = Color(1.0, 0.58, 0.26)
+		l.energy = 2.8
+		l.height = 90.0
+		l.global_position = Vector2(x, 420.0)
+		l.range_item_cull_mask = 3
+		_lv.world.add_child(l)
+		var pool := Sprite2D.new()   # the warm pool on the floor
+		pool.texture = tex
+		pool.scale = Vector2(1.5, 0.28)
+		pool.modulate = Color(1.0, 0.5, 0.2, 0.7)
+		var flame := Sprite2D.new()   # the flame itself glows (additive)
+		flame.texture = tex
+		flame.scale = Vector2(0.42, 0.55)
+		flame.modulate = Color(1.0, 0.62, 0.25, 0.8)
+		flame.material = CanvasItemMaterial.new()
+		(flame.material as CanvasItemMaterial).blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+		_lv.world.add_child(flame)
+		flame.global_position = Vector2(x, 405.0)
+		var cim := CanvasItemMaterial.new()
+		cim.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+		pool.material = cim
+		_lv.world.add_child(pool)
+		pool.global_position = Vector2(x, 492.0)
+		var embers := CPUParticles2D.new()
+		embers.amount = 26
+		embers.lifetime = 2.6
+		embers.preprocess = 2.6
+		embers.emission_shape = CPUParticles2D.EMISSION_SHAPE_RECTANGLE
+		embers.emission_rect_extents = Vector2(18, 4)
+		embers.direction = Vector2(0, -1)
+		embers.spread = 25.0
+		embers.gravity = Vector2(0, -20)
+		embers.initial_velocity_min = 20.0
+		embers.initial_velocity_max = 55.0
+		embers.scale_amount_min = 1.2
+		embers.scale_amount_max = 2.6
+		embers.color = Color(1.0, 0.65, 0.25, 0.9)
+		var cim2 := CanvasItemMaterial.new()
+		cim2.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+		embers.material = cim2
+		embers.global_position = Vector2(x, 400.0)
+		embers.z_index = 30
+		_lv.world.add_child(embers)
+	var door := PointLight2D.new()   # the red doors glow from behind
+	door.texture = tex
+	door.texture_scale = 2.4
+	door.color = Color(0.9, 0.2, 0.12)
+	door.energy = 0.9
+	door.height = 30.0
+	_lv.world.add_child(door)
+	door.global_position = Vector2(380.0, 270.0)
+	var fill := PointLight2D.new()   # a cool fill from above, so the shadow side is not black
+	fill.texture = tex
+	fill.texture_scale = 7.0
+	fill.color = Color(0.45, 0.55, 0.9)
+	fill.energy = 0.45
+	fill.height = 200.0
+	_lv.world.add_child(fill)
+	fill.global_position = Vector2(470.0, 40.0)
+	for sp: Sprite2D in _lv.hero.find_children("*", "Sprite2D", true, false):
+		sp.light_mask = 1
+	_grade()
 
 func _grade() -> void:
 	var layer := CanvasLayer.new()
