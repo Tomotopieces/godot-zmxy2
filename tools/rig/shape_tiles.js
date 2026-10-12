@@ -93,3 +93,57 @@ if (require.main === module) {
   console.log(r ? r.length + ' rects' : 'not decomposable');
   if (r) console.log(r.slice(0, 4));
 }
+
+// Like decompose(), but for a shape that mixes things: the rectangles of bitmap fills are returned (a mirrored bitmap has a
+// negative su / sv), and whatever else the shape holds (solid or gradient fills, slanted or curved edges, rotated bitmaps)
+// is listed in `skipped` with its bounds. Every rectangle is a piece of its own, in painting order.
+function parseStylesLoose(s) {
+  const out = [];
+  const re = /<item type="FILLSTYLE"([^>]*)>(?:\s*<bitmapMatrix([^>]*)\/>)?/g;
+  let m;
+  while ((m = re.exec(s))) {
+    const bid = /bitmapId="(\d+)"/.exec(m[1]);
+    if (!bid || +bid[1] === 65535 || !m[2] || /hasRotate="true"/.test(m[2])) { out.push({ bitmap: 65535 }); continue; }
+    out.push({ bitmap: +bid[1], sx: attr(m[2], 'scaleX'), sy: attr(m[2], 'scaleY'), tx: attr(m[2], 'translateX') || 0, ty: attr(m[2], 'translateY') || 0 });
+  }
+  return out;
+}
+
+function decomposeLoose(lib, id) {
+  const xml = shapeXml(lib, id);
+  if (!xml) return null;
+  const at = xml.indexOf('<shapeRecords>');
+  let styles = parseStylesLoose(xml.slice(0, at));
+  const parts = xml.slice(at).split(/(?=<item type="StyleChangeRecord")/);
+  const out = [];
+  const skipped = [];
+  let pos = [0, 0];
+  for (const p of parts) {
+    if (!p.startsWith('<item type="StyleChangeRecord"')) continue;
+    const headTag = /<item type="StyleChangeRecord"[^>]*>/.exec(p)[0];
+    const firstEdge = p.search(/<item type="(Straight|Curved)EdgeRecord"/);
+    const ns = p.indexOf('<fillStyles type="FILLSTYLEARRAY">');
+    if (ns >= 0 && (firstEdge < 0 || ns < firstEdge)) styles = parseStylesLoose(p.slice(ns, firstEdge < 0 ? undefined : firstEdge));
+    if (/stateMoveTo="true"/.test(headTag)) pos = [attr(headTag, 'moveDeltaX') || 0, attr(headTag, 'moveDeltaY') || 0];
+    const edges = [...p.matchAll(/<item type="(StraightEdgeRecord|CurvedEdgeRecord)"([^>]*)>/g)];
+    if (!edges.length) continue;
+    const curved = edges.some((e) => e[1] === 'CurvedEdgeRecord');
+    const fill = attr(headTag, 'fillStyle1') || attr(headTag, 'fillStyle0') || 0;
+    const pts = [pos.slice()];
+    let q = pos.slice();
+    for (const e of edges) {
+      q = [q[0] + (attr(e[2], 'deltaX') || 0) + (attr(e[2], 'controlDeltaX') || 0) + (attr(e[2], 'anchorDeltaX') || 0), q[1] + (attr(e[2], 'deltaY') || 0) + (attr(e[2], 'controlDeltaY') || 0) + (attr(e[2], 'anchorDeltaY') || 0)];
+      pts.push(q.slice());
+    }
+    pos = q;
+    const st = styles[fill - 1];
+    const xs = pts.map((v) => v[0]);
+    const ys = pts.map((v) => v[1]);
+    const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+    const rect = !curved && pts.every((v) => (v[0] === x0 || v[0] === x1) && (v[1] === y0 || v[1] === y1));
+    if (st && st.bitmap !== 65535 && rect && st.sx && st.sy) out.push({ bitmap: st.bitmap, x: x0 / 20, y: y0 / 20, w: (x1 - x0) / 20, h: (y1 - y0) / 20, u: (x0 - st.tx) / st.sx, v: (y0 - st.ty) / st.sy, su: 20 / st.sx, sv: 20 / st.sy });
+    else skipped.push({ fill, st, rect, curved, x: x0 / 20, y: y0 / 20, w: (x1 - x0) / 20, h: (y1 - y0) / 20, edges: edges.length });
+  }
+  return { pieces: out, skipped };
+}
+module.exports.decomposeLoose = decomposeLoose;

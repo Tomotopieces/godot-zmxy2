@@ -9,6 +9,8 @@ const path = require('path');
 
 const ROOT = path.join(__dirname, '..', '..', 'game', 'assets', 'levels');
 const DROP = ['12cdbf45acb5abd81d0c603436a952c7.png', 'd6a67103e9c5507714e6c407afcc37ed.png'];
+// the same two as texture keys of a freshly extracted level (art library 1_v6: bitmap 30 = the logo, 87 = the ground strip)
+const DROP_KEYS = ['1_v6:30', '1_v6:87'];
 
 let total = 0;
 for (const lv of fs.readdirSync(ROOT)) {
@@ -17,10 +19,10 @@ for (const lv of fs.readdirSync(ROOT)) {
   const raw = fs.readFileSync(f, 'utf8');
   const d = JSON.parse(raw);
   const before = d.art.length;
-  d.art = d.art.filter((a) => !DROP.includes(path.basename(d.textures[a[0]].res)));
+  d.art = d.art.filter((a) => !DROP.includes(path.basename(d.textures[a[0]].res)) && !DROP_KEYS.includes(a[0]));
   const used = new Set(d.art.map((a) => a[0]));
   used.add(d.far.tex);
-  for (const k of Object.keys(d.textures)) if (!used.has(k) && DROP.includes(path.basename(d.textures[k].res))) delete d.textures[k];
+  for (const k of Object.keys(d.textures)) if (!used.has(k) && (DROP.includes(path.basename(d.textures[k].res)) || DROP_KEYS.includes(k))) delete d.textures[k];
   if (d.art.length !== before) {
     fs.writeFileSync(f, JSON.stringify(d, null, raw.includes('\n ') ? 1 : 0));
     console.log(lv, 'dropped', before - d.art.length);

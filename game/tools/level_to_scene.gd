@@ -1,12 +1,12 @@
 extends Node
 ## Turns a stage's scenery (assets/levels/<stage>/level.json) into a scene to arrange by hand in the editor:
-##   godot --headless --path game res://tools/level_to_scene.tscn -- sl11 [--force]
+##   godot --headless --path game res://tools/level_to_scene.tscn -- sl11 [--force] [--far=1_v6:84,1_v6:85]
 ## writes res://scenes/levels/<stage>.tscn, which Level then uses instead of the art of level.json:
 ##   Scenery
 ##     Guides          reference lines for the editor only (the first screen, the floor); dropped when the stage runs
 ##     Art             behind the actors
-##       Far           Parallax2D, scroll 0.6: the distant layer (empty to start with: put pictures here)
-##       Near          Parallax2D, scroll 1.0: the scenery as the original had it (moves with the ground)
+##       Far           Parallax2D, scroll 0.6: the distant layer (the pictures named by --far, if any)
+##       Near          Parallax2D, scroll 1.0: the rest of the scenery as the original had it (moves with the ground)
 ##     Ground          the floor
 ## One piece of art = one Sprite2D with its picture, place and tint; edit the scene as you like. Nothing is regenerated
 ## once the scene exists (this tool refuses to overwrite it without --force).
@@ -21,6 +21,10 @@ func _ready() -> void:
 		print("%s exists: not overwritten (use --force)" % out)
 		get_tree().quit(1)
 		return
+	var far_keys: PackedStringArray = []
+	for a in args:
+		if String(a).begins_with("--far="):
+			far_keys = String(a).substr(6).split(",")
 	var d: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://assets/levels/%s/level.json" % stage))
 	var root := Node2D.new()
 	root.name = "Scenery"
@@ -64,9 +68,10 @@ func _ready() -> void:
 			var ct: Array = leaf[2]
 			sp.modulate = Color(ct[0] + ct[4] / 255.0, ct[1] + ct[5] / 255.0, ct[2] + ct[6] / 255.0, clampf(ct[3] + ct[7] / 255.0, 0, 1))
 		var is_ground: bool = leaf.size() > 3 and leaf[3] == 1
-		sp.name = "%s_%02d" % [String(info.res).get_file().get_basename(), n]
+		# named after the original bitmap (1_v6:47 -> b47_03), numbered in painting order
+		sp.name = "%s_%02d" % [String(leaf[0]).replace(":", "_").replace("1_v6_", "b"), n]
 		n += 1
-		(ground if is_ground else near).add_child(sp)
+		(ground if is_ground else (far if leaf[0] in far_keys else near)).add_child(sp)
 	_own(root, root)
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path("res://scenes/levels"))
 	var packed := PackedScene.new()
