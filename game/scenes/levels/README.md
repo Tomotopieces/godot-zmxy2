@@ -6,11 +6,14 @@ A stage with a scene here (`<stage>.tscn`, e.g. `sl11.tscn` = 1-1 鬼城) takes 
 
 Structure (the tool `game/tools/level_to_scene.gd` makes it from level.json once; it never overwrites without `--force`):
 
+Every picture the original placed is its own `Sprite2D`, named after its bitmap (`b47_03` = bitmap 47, third in painting order); nothing is merged,
+so trees, houses and the gate can each be moved, deleted or sent to the other layer.
+
 - `Scenery`
   - `Guides` - reference lines for the editor only (the floor, the first screen); the game drops them
   - `Art` - everything behind the actors
-    - `Far` - a `Parallax2D` that scrolls at 0.6 of the camera: the distant layer (empty to start with)
-    - `Near` - a `Parallax2D` at 1.0: the scenery as the original painted it
+    - `Far` - a `Parallax2D` that scrolls at 0.6 of the camera: the distant layer (to start with: the blue haze tiles `b84` and the distant houses `b85`; the tool's `--far=1_v6:84,1_v6:85` picks them)
+    - `Near` - a `Parallax2D` at 1.0: the rest of the scenery as the original painted it
     - ...any other `Node2D` / `Parallax2D` you add: add its settings under `layers` in the lighting file (blur, tint, rim, fade)
   - `Ground` - the floor
 
