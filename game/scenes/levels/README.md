@@ -1,6 +1,6 @@
 # Hand-made stage scenery
 
-Every stage has a scene here (`<stage>.tscn`: `sl11` = 1-1 鬼城, `sl12` = 1-2 无常巷, `sl13` = 1-3 鬼门关, `sl21` = 2-1 接引院, `sl51` = 5-1 白骨精, ..., `sl01` = the debug arena); it takes its scenery from it instead of from
+Every stage has a scene here (every stage has one, `<stage>.tscn`: `sl11` = 1-1 鬼城, `sl12` = 1-2 无常巷, `sl13` = 1-3 鬼门关, `sl21` = 2-1 接引院, `sl51` = 5-1 白骨精, ..., `sl01` = the debug arena); it takes its scenery from it instead of from
 the `art` list of `assets/levels/<stage>/level.json`. Walls, camera stops, spawners and the exit still come from `level.json`; the
 stage's lighting (`data/lighting/<stage>.json`) are separate too.
 
@@ -21,7 +21,7 @@ The tool `game/tools/level_to_scene.gd` makes the scene from level.json once (it
   - `Ground` - the floor (one tiling `TextureRect`)
 
 Every picture the original placed is its own `Sprite2D`, named after its bitmap (`2_624_05` = bitmap 624, the 5th piece in painting order);
-nothing is merged and nothing is left out (logos and fake-mist strips of the original are in there: delete what you do not want).
+nothing is merged. Bitmaps that are only the 4399 logo or only a fake-mist strip were left out; a logo embedded in a texture is untouched.
 
 ## Layers and positions
 
