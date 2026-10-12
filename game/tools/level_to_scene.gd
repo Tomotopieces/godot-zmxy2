@@ -1,24 +1,24 @@
 extends Node
 ## Turns a stage's scenery (assets/levels/<stage>/level.json) into a scene to arrange by hand in the editor:
-##   godot --headless --path game res://tools/level_to_scene.tscn -- sl12 [--force] [--far=1_v6:35] [--fog=1_v6:45,1_v6:60] [--near=1_v6:50]
+##   godot --headless --path game res://tools/level_to_scene.tscn -- sl21 [--force]
 ## writes res://scenes/levels/<stage>.tscn, which Level then uses instead of the art of level.json:
 ##   Scenery
 ##     Guides          reference lines for the editor only (the first screen, the floor); dropped when the stage runs
+##     Background      CanvasLayer behind everything: the stage's sky picture (Sky), scrolled by Level over the length of the stage
 ##     Art             behind the actors
-##       Far           Parallax2D, scroll 0.8: distant silhouettes (the keys of --far)
-##       <Fog...>      TextureRects (the keys of --fog): haze bands that run the length of the stage, at the speed of the ground
-##       Middle        Parallax2D, scroll 0.9: the decoration
-##       Near          Parallax2D, scroll 1.0: what the player passes close by - the tall pieces around a door, and --near
+##       Far           Parallax2D, scroll 0.8: EMPTY - the layering is the artist's work
+##       Middle        Parallax2D, scroll 0.9: EMPTY
+##       Near          Parallax2D, scroll 1.0: every piece of the original, where the original has it (x as it was)
 ##     Ground          the floor
-## A Parallax2D layer at scroll s moves with s of the camera, so what it holds is placed at s * (the original x): standing
-## in front of a piece (the camera at its place) it is where the original had it, and the further the camera is from it
-## the slower it slides. The original's pieces are placed one Sprite2D per bitmap rectangle; a row of the same picture
-## laid side by side (haze, floor) is one TextureRect with tiling instead (repeat on, stretch mode Tile, texture filter Nearest): no seams, one node.
+## The tool does not decide the depth of anything: all the decoration starts in Near and the artist moves it into Far / Middle
+## (x * the layer's scale, so that standing in front of a piece it is where it was). Nothing is removed either (logos and fake
+## mist strips of the original stay for the artist to delete).
+## One Sprite2D per bitmap rectangle of the original; a row of the same picture laid side by side (haze, floor) is one TextureRect
+## with tiling (repeat on, stretch mode Tile, texture filter Nearest): no seams, one node.
 ## Nothing is regenerated once the scene exists (this tool refuses to overwrite it without --force).
 
 const FLOOR_Y := 497.0
-const SCROLL := {"Far": 0.8, "Middle": 0.9, "Near": 1.0}
-const TALL := 250.0           ## a piece this tall next to a door goes in the near layer
+const SCROLL := {"Far": 0.8, "Middle": 0.9}
 
 func _ready() -> void:
 	var args := OS.get_cmdline_user_args()
@@ -28,9 +28,6 @@ func _ready() -> void:
 		print("%s exists: not overwritten (use --force)" % out)
 		get_tree().quit(1)
 		return
-	var far_keys := _keys(args, "--far=")
-	var fog_keys := _keys(args, "--fog=")
-	var near_keys := _keys(args, "--near=")
 	var d: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://assets/levels/%s/level.json" % stage))
 
 	var root := Node2D.new()
@@ -44,7 +41,22 @@ func _ready() -> void:
 	art.name = "Art"
 	art.z_index = Layers.Z_ART
 	root.add_child(art)
+	var bg := CanvasLayer.new()
+	bg.name = "Background"
+	bg.layer = -2
+	root.add_child(bg)
+	var sky := Sprite2D.new()
+	sky.name = "Sky"
+	sky.centered = false
+	sky.texture = load(d.textures[d.far.tex].res)
+	bg.add_child(sky)
 	var layers := {}
+	for nm in ["Far", "Middle", "Near"]:
+		var px := Parallax2D.new()
+		px.name = nm
+		px.scroll_scale = Vector2(SCROLL.get(nm, 1.0), 1.0)
+		layers[nm] = px
+		art.add_child(px)
 	var ground := Node2D.new()
 	ground.name = "Ground"
 	ground.z_index = Layers.Z_GROUND
@@ -70,61 +82,29 @@ func _ready() -> void:
 			tint = Color(ct[0] + ct[4] / 255.0, ct[1] + ct[5] / 255.0, ct[2] + ct[6] / 255.0, clampf(ct[3] + ct[7] / 255.0, 0, 1))
 		pieces.append({"key": String(leaf[0]), "tex": tex, "xf": xf, "region": r, "repeat": repeat, "tint": tint,
 				"ground": leaf.size() > 3 and leaf[3] == 1, "n": i, "run": -1})
-	# which layer: the floor, the fog bands, the far silhouettes; tall pieces around a door (and --near) are near; the rest middle
 	for p in pieces:
-		var box := Rect2(p.xf.origin, p.region.size * p.xf.get_scale().abs())
-		var layer := "Middle"
-		if p.ground:
-			layer = "Ground"
-		elif p.key in fog_keys:
-			layer = "Fog"
-		elif p.key in far_keys:
-			layer = "Far"
-		elif p.key in near_keys or _by_a_door(d, box):
-			layer = "Near"
-		p["layer"] = layer
+		p["layer"] = "Ground" if p.ground else "Near"
 	_find_runs(pieces)
 
 	var counters := {}
-	var fog_nodes: Array = []
 	var made := 0
 	var run_seen := {}
 	for p in pieces:
 		var layer: String = p.layer
-		var k := 1.0
-		if layer != "Ground" and layer != "Fog":
-			k = SCROLL[layer]
-			if not layers.has(layer):
-				var px := Parallax2D.new()
-				px.name = layer
-				px.scroll_scale = Vector2(k, 1.0)
-				layers[layer] = px
 		if p.run >= 0:
 			if run_seen.has(p.run):
 				continue
 			run_seen[p.run] = true
-		var node: CanvasItem = _make_rect(p, pieces, k) if p.run >= 0 else _make_sprite(p, k)
+		var node: CanvasItem = _make_rect(p, pieces) if p.run >= 0 else _make_sprite(p)
 		var base := String(p.key).replace(":", "_").replace("1_v6_", "b")
 		if p.run >= 0:
-			base = {"Ground": "Tile", "Fog": "Fog"}.get(layer, base + "_Tiles")
+			base = "Tile" if layer == "Ground" else base + "_Tiles"
 			counters[base] = int(counters.get(base, 0)) + 1
 			node.name = base if counters[base] == 1 else "%s%d" % [base, counters[base]]
 		else:
 			node.name = "%s_%02d" % [base, p.n]
-		if layer == "Ground":
-			ground.add_child(node)
-		elif layer == "Fog":
-			fog_nodes.append(node)
-		else:
-			layers[layer].add_child(node)
+		(ground if layer == "Ground" else layers["Near"]).add_child(node)
 		made += 1
-	# behind to front: far, the fog bands, middle, near
-	for nm in ["Far", "Fog", "Middle", "Near"]:
-		if nm == "Fog":
-			for c in fog_nodes:
-				art.add_child(c)
-		elif layers.has(nm):
-			art.add_child(layers[nm])
 	_own(root, root)
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path("res://scenes/levels"))
 	var packed := PackedScene.new()
@@ -132,24 +112,6 @@ func _ready() -> void:
 	var err := ResourceSaver.save(packed, out)
 	print("%s: %s (%d nodes from %d pieces)" % [out, "saved" if err == OK else "ERROR %d" % err, made, pieces.size()])
 	get_tree().quit(0 if err == OK else 1)
-
-func _keys(args: PackedStringArray, prefix: String) -> PackedStringArray:
-	for a in args:
-		if String(a).begins_with(prefix):
-			return String(a).substr(prefix.length()).split(",")
-	return PackedStringArray()
-
-## A tall piece (a tree, a gate, a statue) standing at an exit door, or in the way of another door's frame.
-func _by_a_door(d: Dictionary, box: Rect2) -> bool:
-	if box.size.y < TALL:
-		return false
-	for dd in d.doors:
-		var r := Rect2(dd.rect[0], dd.rect[1], dd.rect[2], dd.rect[3])
-		if dd.kind == "exit_door":
-			r = Rect2(r.position.x - 600.0, r.position.y, r.size.x + 850.0, r.size.y)   # the approach to the door, and just past it
-		if box.position.x < r.end.x and box.end.x > r.position.x:
-			return true
-	return false
 
 ## Pieces of one picture laid side by side along a line (same size, same row, edge to edge) are one run: marks p.run.
 ## Floor and fog strips may overlap as much as they like (they are a pattern); decoration only by a few px (a bitmap
@@ -171,7 +133,7 @@ func _find_runs(pieces: Array) -> void:
 	for g in groups:
 		var list: Array = groups[g]
 		list.sort_custom(func(a, b): return a.xf.origin.x < b.xf.origin.x)
-		var loose: bool = list[0].layer == "Ground" or list[0].layer == "Fog"
+		var loose: bool = list[0].layer == "Ground"
 		var chains: Array = []
 		for p in list:
 			var joined := false
@@ -188,17 +150,16 @@ func _find_runs(pieces: Array) -> void:
 			if not joined:
 				chains.append([p])
 		for chain in chains:
-			if chain.size() >= (2 if loose else 3):   # floor / fog: two strips already make a run
+			if chain.size() >= (2 if loose else 3):   # floor: two strips already make a run
 				for p in chain:
 					p.run = run_id
 				run_id += 1
 
-func _make_sprite(p: Dictionary, k: float) -> Sprite2D:
+func _make_sprite(p: Dictionary) -> Sprite2D:
 	var sp := Sprite2D.new()
 	sp.centered = false
 	sp.texture = p.tex
 	var xf: Transform2D = p.xf
-	xf.origin.x *= k
 	sp.transform = xf
 	sp.region_enabled = true
 	sp.region_rect = p.region
@@ -209,7 +170,7 @@ func _make_sprite(p: Dictionary, k: float) -> Sprite2D:
 	return sp
 
 ## One TextureRect tiling the whole run: from the first piece's corner to the last piece's far edge.
-func _make_rect(p: Dictionary, pieces: Array, k: float) -> TextureRect:
+func _make_rect(p: Dictionary, pieces: Array) -> TextureRect:
 	var first: Dictionary = p
 	var end_x := -1e9
 	for q in pieces:
@@ -224,7 +185,7 @@ func _make_rect(p: Dictionary, pieces: Array, k: float) -> TextureRect:
 	tr.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST   # a tiling TextureRect needs Nearest: linear filtering blends the tile edges
 	tr.stretch_mode = TextureRect.STRETCH_TILE
 	tr.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	tr.position = Vector2(first.xf.origin.x * k, first.xf.origin.y)
+	tr.position = first.xf.origin
 	tr.size = Vector2((end_x - first.xf.origin.x) / sc, first.region.size.y)
 	if not is_equal_approx(sc, 1.0):
 		tr.scale = Vector2(sc, sc)

@@ -50,6 +50,7 @@ static var arena_boss: MonsterData
 
 var _far: Sprite2D
 var _far_width := 0.0
+var _far_x0 := 0.0         ## where the sky picture stands before the stage scrolls it
 var _room_view := 0.0        ## where the camera stood when the current room locked
 var _room_back := 0.0        ## how far back from there the hero may scroll
 var _drag_right := 0.0
@@ -252,14 +253,25 @@ func _scenery_scene() -> Node:
 
 func _build(d: Dictionary) -> void:
 	size = Vector2(d.size[0], d.size[1])
-	var far_layer := CanvasLayer.new()
-	far_layer.layer = -2   # (a stage's lighting puts its mist between this and the world)
-	add_child(far_layer)
-	_far = Sprite2D.new()
-	_far.centered = false
-	_far.texture = load(d.textures[d.far.tex].res)
+	var scenery := _scenery_scene()
+	var hand_made := scenery != null
+	var sky := scenery.get_node_or_null("Background/Sky") as Sprite2D if hand_made else null
+	if sky != null:
+		# the sky picture is part of the hand-made scene: its Background layer (-2) goes into the level as it is
+		var bg := scenery.get_node("Background")
+		scenery.remove_child(bg)
+		add_child(bg)
+		_far = sky
+	else:
+		var far_layer := CanvasLayer.new()
+		far_layer.layer = -2   # (a stage's lighting puts its mist between this and the world)
+		add_child(far_layer)
+		_far = Sprite2D.new()
+		_far.centered = false
+		_far.texture = load(d.textures[d.far.tex].res)
+		far_layer.add_child(_far)
 	_far_width = _far.texture.get_width()
-	far_layer.add_child(_far)
+	_far_x0 = _far.position.x
 
 	world = Node2D.new()
 	world.name = "World"
@@ -270,8 +282,6 @@ func _build(d: Dictionary) -> void:
 	var ground := Node2D.new()
 	ground.name = "Ground"
 	ground.z_index = Layers.Z_GROUND
-	var scenery := _scenery_scene()
-	var hand_made := scenery != null
 	if hand_made:
 		# a hand-made scene (res://scenes/levels/<stage>.tscn) stands in for the art of level.json
 		art.free()
@@ -659,7 +669,7 @@ func _update_camera(delta: float) -> void:
 	camera.offset.x = _shake
 	_shake = 0.0
 	if _end_x > Layers.VIEW.x:
-		_far.position.x = -view_x * (_far_width - Layers.VIEW.x) / (_end_x - Layers.VIEW.x)
+		_far.position.x = _far_x0 - view_x * (_far_width - Layers.VIEW.x) / (_end_x - Layers.VIEW.x)
 
 func _draw_debug() -> void:
 	if not debug_boxes:

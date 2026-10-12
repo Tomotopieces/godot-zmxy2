@@ -14,18 +14,20 @@ commit or overwrite them unless you must touch the file, then edit it as text an
 1. **Extract the original bitmaps as loose pieces** (every placement its own piece, never glued or rasterised into strips):
    `node tools/rig/extract_level.js <area> <stage> game/assets/levels/sl<area><stage>` (e.g. `1 3` -> sl13). Bg shapes are decomposed by
    `shape_tiles.js decomposeLoose`; the log lists skipped non-bitmap records.
-2. **Find the junk bitmaps**: view textures (`node tools/_sheet3.js out.png <png...>` makes a contact sheet; `_crop.js`, `_view.js` too -
-   scratch helpers in tools/, git-ignored, recreate if missing). The "4399" logo bitmap and the grey/blue gradient "fake fog" strips are
-   dropped per level: add the keys to `DROP` in `tools/rig/drop_overlays.js` (symbol ids differ per level: 1-1 `1_v6:30,87`, 1-2 `30,60`, 1-3 `30,2`),
-   run it, then `node tools/rig/dedupe.js` (stores identical PNGs once, names them `<lib>_<id>.png` via `organize_shared.js`, refreshes scene uids).
+2. **Do not remove anything** (no "4399" logo / fake-mist-strip removal, no drop scripts): the extractor-side removal of such parts looked bad and the user does it
+   himself in the editor. `drop_overlays.js` only keeps the results for stages 1-1..1-3 that were done before this rule; never add a new stage to it. Look at the textures
+   (`node tools/_sheet3.js out.png <png...>` makes a contact sheet; `_crop.js`, `_view.js` too - scratch helpers in tools/, git-ignored, recreate if missing) only to know what is there, then
+   `node tools/rig/dedupe.js` (stores identical PNGs once, names them `<lib>_<id>.png` via `organize_shared.js`, refreshes scene uids).
 3. **Import + rebuild**: `godot --headless --path game --import`, then `bash tools/rig/rebuild_all.sh` if any rig texture moved (compressed
    `anims.res` embed texture paths - grep cannot see them; symptom: "Resource file not found: res://assets/shared/<md5>.png"). Delete
    `game/.godot/exported` (Recycle Bin; it is a directory: use `[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteDirectory(path, 'OnlyErrorDialogs', 'SendToRecycleBin')`) if stale refs persist.
-4. **Generate the scene**: `godot --headless --path game res://tools/level_to_scene.tscn -- sl13 --far=<keys> --fog=<keys> [--near=<keys>]`.
-   - far = distant silhouettes (houses), fog = haze strips (the 360-wide repeating bitmap), near = pieces to force into the near layer;
-     tall pieces by an exit door go near automatically. Pick the keys from the contact sheet / the texture keys with their counts in level.json.
-   - Result: `Far` Parallax2D 0.8, fog TextureRects under `Art`, `Middle` 0.9, `Near` 1.0, `Ground`; x of a piece in a layer = s * original x.
-   - Runs of 3+ identical pictures edge to edge (haze, floor) become ONE TextureRect: texture_repeat on, stretch Tile, **texture_filter Nearest**.
+4. **Generate the scene**: `godot --headless --path game res://tools/level_to_scene.tscn -- sl21` (no other arguments).
+   - **The tool does not decide depth**: every decoration piece goes into `Art/Near` (Parallax2D 1.0) at its original x; `Art/Far` (0.8) and `Art/Middle` (0.9) are created EMPTY.
+     The user does the layering himself (moving a piece to a layer = x * the layer's scale). Do not move pieces between layers on your own, do not guess "far" or "fog" bitmaps.
+     Only when he asks you to move pieces: convert x (x_layer = s * x_orig, back: x_orig = x_layer / s), keep the painting order (far pieces first, then middle, then what was in front).
+   - The stage's **sky picture** (`far` of level.json) is in the scene too: `Background` (CanvasLayer -2) / `Sky` (Sprite2D). Level scrolls it over the stage length from where the sprite stands (`_far_x0`).
+   - Runs of 3+ identical pictures edge to edge (haze, floor) become ONE TextureRect (2+ for the floor): texture_repeat on, stretch Tile, **texture_filter Nearest**. The floor must be ONE
+     TextureRect (the original lays it in 2-3 strips, an original quirk). A haze strip that starts at an odd x (the original's bug) is moved to x 0.
 5. **Mechanisms** (doors, switches...) whose art lives inside a rig: put them in `scenes/objects/<name>.tscn` with a script on the root
    (`src/level/objects/<name>.gd`, `@export` parameters, a `Guides` node for editor-only boxes), instance it under `Scenery/Objects/<Name>` at its
    **real world position** (take it from `game/data/stages.json` / the old stage script - NOT from level.json `doors`, which can be wrong; 1-2's
@@ -35,23 +37,23 @@ commit or overwrite them unless you must touch the file, then edit it as text an
    point `tools/stage_test.gd` at the node. Mechanisms get no parallax.
 6. Wire the lighting file (section B) and README notes; commit on the `visual` branch (art work lives there).
 
-Some stages are not pieces at all: 5-1 白骨精 is ONE finished 940x590 painting (skeleton, moon, mist) plus a floor strip. Do not try to cut it up. Generate the scene with the painting forced into
-`--near=` (a fixed-camera room: a Parallax2D below 1.0 would shift it by (1-s) x half a screen), tile the floor, and design the look for a painted backdrop: light dimming/tint,
-no rim light and no feet fade on it (`rim:0, fade:0` for its layer), the glow and mist added around it.
+Some stages are not pieces at all: 5-1 白骨精 is ONE finished 940x590 painting (skeleton, moon, mist) plus a floor strip. Do not try to cut it up. The generator puts it in Near like any piece (a fixed-camera
+room: a Parallax2D below 1.0 would shift it by (1-s) x half a screen); design the look for a painted backdrop: light dimming/tint, no rim light or feet fade on it (`rim:0, fade:0` for its layer), mist/rain around it.
 
 ## B. Look design (data/lighting/<stage>.json -> src/level/stage_lighting.gd)
 
 Methodology - decide the **mood in one sentence** per stage first, then express it with a fixed set of knobs, always in this order:
 1. **Value structure**: dim scenery/ground/far (`scene.art/ground/far` multipliers, far a little lighter = aerial perspective), dim actors less (`body.shade/lit`),
    never dim pickups/numbers/HUD. Night is cool blue; other moods change the hue, not the pipeline.
-2. **One light logic**: a source (moon, upper left) drives everything consistently: rim light on the facing edges (`rim_*`, `art_look.gdshader`, keep thin: 2 px),
-   body rim (`Rig.set_light`), shadow direction (`shadow.shear/squash/blur`: small shear, soft edge, alpha by mood). Light shafts / moon glow live in the sky layer
-   **behind** scenery and actors (CanvasLayer -1). No light source (overcast) = drop `moon`, keep rim low.
+2. **One light logic**: find the stage's own light source and make everything agree with it. The rim light (a thin 2 px highlight on the edges facing a light, `rim_*`, `art_look.gdshader`, body rim
+   `Rig.set_light`) and the moon glow / shafts exist **because 1-1..1-3 have a moon** - they are not a general setting. A new style is designed from scratch: ask what lights this place (a pillar of light
+   from above, lava glow from below, lanterns, nothing) and set rim (`rim_strength 0` to switch it off), shadows (`shadow.shear/squash/blur/alpha`: direction and softness follow the source), glow and shafts
+   (`moon` key, any light in the sky: behind scenery and actors, CanvasLayer -1) accordingly. No source (overcast) = drop `moon`, no rim.
 3. **Depth**: fade decoration to dark at the feet (`fade_height/fade_dark`), per-layer tint/blur (`layers.Far.blur`, `tint`) - aerial perspective, slight DOF.
 4. **Atmosphere**: mist (`fog.*`, shader-driven, never a baked strip), a patchy layer behind actors + a thin one in front; density scales the mood (1-1 heavy, 1-2 thin).
 5. **Weather** (differentiate stages by it): `rain` (rain.gdshader: world-space x via `scroll`, one landing row `land_y`, streaks + splash ring/beads, `amount` x `density`,
    negative `slant` = leaning left, speed/length scale the intensity), `lightning` (screen flash with 3 pulses + a sky bolt, `interval/strength`), `grade.brightness` for storms.
-   Escalate across stages: 1-1 moonlit mist -> 1-2 no moon, drizzle -> 1-3 darker, 2x rain, thunder.
+   Escalate across a set of related stages: 1-1 moonlit mist -> 1-2 no moon, drizzle -> 1-3 darker, 2x rain, thunder; a new area gets its own mood (2-1: violet underworld lit by a pillar of light from above, no rim).
 6. **Grade**: `grade.saturation/vignette/brightness` last, a global pass over the world (under the HUD).
 
 Rules learned the hard way: effects stay out of gameplay (nothing covers actors; nothing screen-fixed that should be world-fixed); weather has its own RNG (never the

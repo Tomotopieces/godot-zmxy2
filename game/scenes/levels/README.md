@@ -1,27 +1,27 @@
 # Hand-made stage scenery
 
 A stage with a scene here (`<stage>.tscn`: `sl11.tscn` = 1-1 鬼城, `sl12.tscn` = 1-2 无常巷, `sl13.tscn` = 1-3 鬼门关, `sl21.tscn` = 2-1 接引院, `sl51.tscn` = 5-1 白骨精) takes its scenery from it instead of from
-the `art` list of `assets/levels/<stage>/level.json`. Walls, camera stops, spawners and the exit still come from `level.json`; the far
-sky picture (`far` in level.json) and the stage's lighting (`data/lighting/<stage>.json`) are separate too.
+the `art` list of `assets/levels/<stage>/level.json`. Walls, camera stops, spawners and the exit still come from `level.json`; the
+stage's lighting (`data/lighting/<stage>.json`) are separate too.
 
 The tool `game/tools/level_to_scene.gd` makes the scene from level.json once (it never overwrites without `--force`):
 
-    godot --headless --path game res://tools/level_to_scene.tscn -- sl12 [--force] [--far=1_v6:35] [--fog=1_v6:45,1_v6:60] [--near=1_v6:50]
+    godot --headless --path game res://tools/level_to_scene.tscn -- sl21
 
 ## Structure
 
 - `Scenery`
   - `Guides` - reference lines for the editor only (the floor, the first screen); the game drops them
+  - `Background/Sky` - a `CanvasLayer` (-2) with the sky picture; Level scrolls it over the length of the stage, starting from where the sprite stands
   - `Art` - everything behind the actors
-    - `Far` - a `Parallax2D`, scroll scale 0.8: distant silhouettes (`--far`)
-    - `Fog`, `Fog2`... - `TextureRect`s straight under `Art`, at the speed of the ground: haze bands the length of the stage (`--fog`)
-    - `Middle` - a `Parallax2D`, 0.9: the decoration
-    - `Near` - a `Parallax2D`, 1.0: what the player passes close by (tall pieces around a door, and `--near`)
-    - ...any other `Node2D` / `Parallax2D` you add: add its settings under `layers` in the lighting file (blur, tint, rim, fade)
-  - `Ground` - the floor
+    - `Far` - a `Parallax2D`, scroll scale 0.8
+    - `Middle` - a `Parallax2D`, 0.9
+    - `Near` - a `Parallax2D`, 1.0: **every piece starts here**, at its original x. The generated scene has `Far` and `Middle` empty: the layering is yours.
+    - ...any other `Node2D` / `Parallax2D` / `TextureRect` you add: add its settings under `layers` in the lighting file (blur, tint, rim, fade)
+  - `Ground` - the floor (one tiling `TextureRect`)
 
-Every picture the original placed is its own `Sprite2D`, named after its bitmap (`b47_03` = bitmap 47, the 3rd in painting order);
-nothing is merged, so trees, houses and the gate can each be moved, deleted or sent to another layer.
+Every picture the original placed is its own `Sprite2D`, named after its bitmap (`2_624_05` = bitmap 624, the 5th piece in painting order);
+nothing is merged and nothing is left out (logos and fake-mist strips of the original are in there: delete what you do not want).
 
 ## Layers and positions
 
