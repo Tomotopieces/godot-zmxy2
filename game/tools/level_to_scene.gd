@@ -162,7 +162,8 @@ func _find_runs(pieces: Array) -> void:
 		var whole: bool = p.repeat or (p.region.position.is_zero_approx() and p.region.size.distance_to(tex_size) < 0.6)
 		if not (absf(xf.x.y) < 1e-6 and absf(xf.y.x) < 1e-6 and xf.x.x > 0.0 and absf(xf.x.x - xf.y.y) < 1e-6 and whole):
 			continue
-		var g := "%s|%.3f|%s|%s|%s" % [p.key, xf.x.x, p.region.size, p.layer, p.tint]
+		var size_key := "tile"   # (every piece here is the whole picture, or a repeat of it: any number of tiles wide)
+		var g := "%s|%.3f|%s|%s|%s" % [p.key, xf.x.x, size_key, p.layer, p.tint]
 		if not groups.has(g):
 			groups[g] = []
 		groups[g].append(p)
@@ -187,7 +188,7 @@ func _find_runs(pieces: Array) -> void:
 			if not joined:
 				chains.append([p])
 		for chain in chains:
-			if chain.size() >= 3:
+			if chain.size() >= (2 if loose else 3):   # floor / fog: two strips already make a run
 				for p in chain:
 					p.run = run_id
 				run_id += 1

@@ -35,6 +35,10 @@ commit or overwrite them unless you must touch the file, then edit it as text an
    point `tools/stage_test.gd` at the node. Mechanisms get no parallax.
 6. Wire the lighting file (section B) and README notes; commit on the `visual` branch (art work lives there).
 
+Some stages are not pieces at all: 5-1 白骨精 is ONE finished 940x590 painting (skeleton, moon, mist) plus a floor strip. Do not try to cut it up. Generate the scene with the painting forced into
+`--near=` (a fixed-camera room: a Parallax2D below 1.0 would shift it by (1-s) x half a screen), tile the floor, and design the look for a painted backdrop: light dimming/tint,
+no rim light and no feet fade on it (`rim:0, fade:0` for its layer), the glow and mist added around it.
+
 ## B. Look design (data/lighting/<stage>.json -> src/level/stage_lighting.gd)
 
 Methodology - decide the **mood in one sentence** per stage first, then express it with a fixed set of knobs, always in this order:
