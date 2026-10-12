@@ -1,14 +1,14 @@
 {
- "_doc": "白骨精 (5-1): the bone graveyard under a cold moon. The scenery is one finished painting (moon, mist and all), so it is only dimmed a little and tinted; no rim light on it, no fade at its feet. Sickly green-teal mist, bodies lit like 1-1. Colours are [r, g, b] multipliers; px are game pixels.",
+ "_doc": "白骨精 (5-1): the same look as 无常巷 (1-2) - no moonlight, thin mist, drizzle. The scenery is one finished painting, so its layer gets no rim light and no fade at its feet. Colours are [r, g, b] multipliers; px are game pixels.",
  "scene": {
-  "art": [0.78, 0.86, 0.9],
-  "ground": [0.62, 0.7, 0.74],
-  "far": [0.78, 0.86, 0.9],
-  "fade_height": 0,
-  "fade_dark": 0.3,
+  "art": [0.46, 0.52, 0.64],
+  "ground": [0.52, 0.58, 0.7],
+  "far": [0.5, 0.57, 0.7],
+  "fade_height": 110,
+  "fade_dark": 0.28,
   "ground_y": 501,
-  "rim_color": [0.72, 0.9, 0.9],
-  "rim_strength": 0,
+  "rim_color": [0.72, 0.86, 1],
+  "rim_strength": 0.3,
   "rim_width": 2.2
  },
  "layers": {
@@ -18,37 +18,41 @@
   }
  },
  "body": {
-  "shade": [0.66, 0.76, 0.82],
-  "lit": [0.92, 1, 1.06],
+  "shade": [0.6, 0.68, 0.86],
+  "lit": [0.86, 0.92, 1.04],
   "height": 130,
-  "rim_strength": 0.5,
+  "rim_strength": 0.25,
   "rim_width": 1.6
  },
  "shadow": {
-  "alpha": 0.5,
-  "shear": 0.3,
+  "alpha": 0.32,
+  "shear": 0.18,
   "squash": 0.3,
-  "blur": 3.5,
+  "blur": 4,
   "floor_y": 501
  },
- "moon": {
-  "x": 237,
-  "y": 111,
-  "glow": [0.7, 0.95, 0.9],
-  "shafts": 2,
-  "shaft_alpha": 0.12,
-  "angle": 40
- },
  "fog": {
-  "color": [0.55, 0.78, 0.78],
-  "density": 0.8,
-  "max_alpha": 0.5,
-  "ground_bias": 0.75,
-  "speed": 14,
-  "front_density": 0.22
+  "color": [0.64, 0.74, 0.92],
+  "density": 0.6,
+  "max_alpha": 0.4,
+  "ground_bias": 0.6,
+  "speed": 16,
+  "front_density": 0.14
  },
  "grade": {
-  "saturation": 0.88,
-  "vignette": 0.5
+  "vignette": 0.46,
+  "saturation": 0.82
+ },
+ "rain": {
+  "color": [0.74, 0.84, 0.97],
+  "amount": 0.8,
+  "speed": 330,
+  "length_px": 14,
+  "slant": -0.1,
+  "alpha": 0.5,
+  "splash_alpha": 0.85,
+  "splash_size": 6,
+  "land_y": 520,
+  "density": 1
  }
 }
