@@ -38,6 +38,9 @@ commit or overwrite them unless you must touch the file, then edit it as text an
    (`build_rig.gd`), otherwise they reappear at run time. Rebuild the rig's animation **completely** (every track: texture, position, region, offset,
    visibility) - a texture-only copy leaves pieces stuck (the leaves on the white-bone door). Delete the old stage script / stages.json entries,
    point `tools/stage_test.gd` at the node. Mechanisms get no parallax.
+   **No rig inside a stage scene.** A rig (Rig node, rig.json/anims.res) is for characters and effects. A mechanism whose art is a few pictures (the white-bone door, the boat) is built from plain Sprite2D nodes
+   (visible in the editor) with a normal AnimationPlayer for whatever really animates (door leaves, the water ripple); never instance a rig for it (its parts are hidden until it plays, and it drags the rig machinery in).
+   Move the pictures next to the stage (`assets/levels/<stage>/tex`) and delete the now unused rig.
 6. Wire the lighting file (section B) and README notes; commit on the `visual` branch (art work lives there).
 
 Some stages are not pieces at all: 5-1 白骨精 is ONE finished 940x590 painting (skeleton, moon, mist) plus a floor strip. Do not try to cut it up. The generator puts it in Near like any piece (a fixed-camera
