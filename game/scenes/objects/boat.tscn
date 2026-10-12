@@ -20,3 +20,6 @@ shape = SubResource("RectangleShape2D_35gfm")
 [node name="Art" type="Node2D" parent="." unique_id=1611340576 instance=ExtResource("2_w0k4f")]
 script = ExtResource("3_2ukov")
 actions = PackedStringArray("default")
+
+[node name="default" parent="Art/Parts" index="0"]
+visible = true   # shown in the editor; the rig hides its parts when it starts and plays the action itself
