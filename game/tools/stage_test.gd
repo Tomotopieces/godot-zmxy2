@@ -34,17 +34,16 @@ func _attack_at(pos: Vector2) -> void:
 
 func door12() -> void:
 	await _wait(1.0)
-	var sc = _ps.level.script_node
-	var box: Rect2 = sc._hit_box
+	var door: BaiguDoor = _ps.level.world.get_node("Objects/BaiguDoor")
+	door.global_position = Vector2(480.0, 336.0)   # the first screen: the headless camera does not follow a hero teleported far away
+	var box: Rect2 = door.weak_rect()
 	_ps.level.stops.clear()
-	_ps.level.view_x = box.position.x - 400
 	for i in 4:
 		# stand left of the weak spot at its height (no gravity during the test)
 		_ps.level.hero.gravity = 0.0
 		await _attack_at(box.get_center() + Vector2(-70, -10))
-	print("door open=", sc._open, " hits_left=", sc._hits)
-	var e: Array = sc._cfg.enter_rect
-	_ps.level.hero.global_position = sc._door.position + Vector2(e[0] + e[2] / 2.0, e[1] + e[3] / 2.0)
+	print("door open=", door.is_open(), " hits_left=", door.hits_left())
+	_ps.level.hero.global_position = door.enter_world_rect().get_center()
 	Engine.time_scale = 4.0
 	await _wait(6.0)
 	print("RESULT door12 transfers=", _transfers)

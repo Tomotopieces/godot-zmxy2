@@ -46,10 +46,12 @@ the ones several levels use are in `assets/shared/levels/`.
 
 ## Mechanisms (`Objects`)
 
-A stage's working objects are placed in the scene too: `Scenery/Objects/<Name>`, one node each. Level drops the `Objects` node when
-the stage starts and keeps only the places (`level.scene_objects["<Name>"]`); the stage script puts the real object there. So move
-the node to move the object (a world position: no parallax, like the `Near` layer at 1.0), and the stage's own numbers (data/stages.json) stay relative to it.
+A stage's working objects are scenes of their own, instanced under `Scenery/Objects`; each has its script on its root node and its
+numbers as exports (select the node: the Inspector shows them). Level moves `Objects` into the world as it is when the stage starts.
+Positions are world positions (no parallax, like `Near` at 1.0).
 
-- `sl12.tscn`: `Objects/BaiguDoor` - the white-bone door, at (2270, 336), the middle of the third screen (its two pictures, shown closed, as `Arch` and `Base`; the game draws the working door with the rig `assets/rigs/baigu_door` at the node's place). Its children
-  `WeakSpotRange` (yellow: where the weak spot may be, a random place inside) and `EnterRect` (blue: stand in it once the door is open)
-  are guides only. The door has to stay at ground level to be reached; it is drawn in front of the scenery (z -8).
+- `scenes/objects/baigu_door.tscn` (script `src/level/objects/baigu_door.gd`, `BaiguDoor`) - the white-bone door of 1-2, at (2270, 336),
+  the middle of the third screen. `Closed` is its picture; `Opened` (hidden) and the `open` animation are what it turns into. The
+  yellow and blue boxes under `Guides` are for the editor only (where the weak spot may be; the doorway to stand in once open). Exports:
+  hits, weak spot size / range, doorway, seconds in it, the stage it leads to. `level_to_scene.gd` does not make `Objects`: re-making a
+  stage's scene with `--force` would drop them, add them again by hand.
