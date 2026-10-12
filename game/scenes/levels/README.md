@@ -1,6 +1,6 @@
 # Hand-made stage scenery
 
-A stage with a scene here (`<stage>.tscn`: `sl11.tscn` = 1-1 鬼城, `sl12.tscn` = 1-2 无常巷) takes its scenery from it instead of from
+A stage with a scene here (`<stage>.tscn`: `sl11.tscn` = 1-1 鬼城, `sl12.tscn` = 1-2 无常巷, `sl13.tscn` = 1-3 鬼门关) takes its scenery from it instead of from
 the `art` list of `assets/levels/<stage>/level.json`. Walls, camera stops, spawners and the exit still come from `level.json`; the far
 sky picture (`far` in level.json) and the stage's lighting (`data/lighting/<stage>.json`) are separate too.
 
@@ -32,8 +32,8 @@ the layers' ratio (0.8 / 0.9 / 1.0). The y scale stays 1 (the camera never moves
 
 ## Repeating pictures
 
-A row of the same picture laid side by side (haze, floor) is **one `TextureRect`** with `Texture Repeat` on and `Stretch Mode` =
-Tile (the tool makes them; a run of 3+ pieces that touch edge to edge). Resize the rect to cover more or less: no seams, no node
+A row of the same picture laid side by side (haze, floor) is **one `TextureRect`** with `Texture Repeat` on, `Stretch Mode` =
+Tile and **`Texture Filter` = Nearest** (linear filtering blends the tile edges and brings the seams back) (the tool makes them; a run of 3+ pieces that touch edge to edge). Resize the rect to cover more or less: no seams, no node
 per tile. Do the same by hand for anything that repeats.
 
 ## Editing

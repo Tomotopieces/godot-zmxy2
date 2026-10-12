@@ -8,8 +8,8 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.join(__dirname, '..', '..', 'game', 'assets', 'levels');
-// texture keys (art library 1_v6: bitmap 30 = the logo, 87 = the ground strip)
-const DROP_KEYS = ['1_v6:30', '1_v6:87'];
+// texture keys per level (the art library's symbol ids differ from level to level): the logo bitmap and the strips
+const DROP = { sl11: ['1_v6:30', '1_v6:87'], sl12: ['1_v6:30', '1_v6:60'], sl13: ['1_v6:30', '1_v6:2'] };
 
 let total = 0;
 for (const lv of fs.readdirSync(ROOT)) {
@@ -17,6 +17,7 @@ for (const lv of fs.readdirSync(ROOT)) {
   if (!fs.existsSync(f)) continue;
   const raw = fs.readFileSync(f, 'utf8');
   const d = JSON.parse(raw);
+  const DROP_KEYS = DROP[lv] || [];
   const before = d.art.length;
   d.art = d.art.filter((a) => !DROP_KEYS.includes(a[0]));
   const used = new Set(d.art.map((a) => a[0]));

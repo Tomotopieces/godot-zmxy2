@@ -13,7 +13,7 @@ extends Node
 ## A Parallax2D layer at scroll s moves with s of the camera, so what it holds is placed at s * (the original x): standing
 ## in front of a piece (the camera at its place) it is where the original had it, and the further the camera is from it
 ## the slower it slides. The original's pieces are placed one Sprite2D per bitmap rectangle; a row of the same picture
-## laid side by side (haze, floor) is one TextureRect with tiling instead (repeat on, stretch mode Tile): no seams, one node.
+## laid side by side (haze, floor) is one TextureRect with tiling instead (repeat on, stretch mode Tile, texture filter Nearest): no seams, one node.
 ## Nothing is regenerated once the scene exists (this tool refuses to overwrite it without --force).
 
 const FLOOR_Y := 497.0
@@ -220,6 +220,7 @@ func _make_rect(p: Dictionary, pieces: Array, k: float) -> TextureRect:
 	var tr := TextureRect.new()
 	tr.texture = first.tex
 	tr.texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
+	tr.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST   # a tiling TextureRect needs Nearest: linear filtering blends the tile edges
 	tr.stretch_mode = TextureRect.STRETCH_TILE
 	tr.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	tr.position = Vector2(first.xf.origin.x * k, first.xf.origin.y)
