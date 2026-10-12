@@ -32,7 +32,8 @@ function classifyEvents(src, fps) {
   const vis = s.match(/^(?:trace\("[^"]*"\); )*if\(P\) \{ (?:trace\("[^"]*"\); )?P\.visible = (true|false); \}$/);
   if (vis) return [['vis', vis[1] === 'true' ? 1 : 0]];
   // the original re-dresses the body with the worn equipment; EquipSlot nodes follow the equipment by themselves
-  if (/P\.setEquips\(/.test(s) || /bodyEquip\.numChildren/.test(s)) return out;
+  // (unless the script also fires something: the charge shot's frame re-dresses the body and then shoots)
+  if ((/P\.setEquips\(/.test(s) || /bodyEquip\.numChildren/.test(s)) && !/P\.do[A-Z]\w*\(/.test(s)) return out;
   // the full-screen boss death sequence
   if (/BossDead/.test(s)) return [['boss_dead_fx']];
   // screen shake

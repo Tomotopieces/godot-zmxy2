@@ -41,6 +41,7 @@ var _last_attack_at := -100.0
 var _no_gravity := false
 var _no_input := false
 var _hit10_down := false
+var _hit10_land := false   ## 火魔斩's animation has run out while he is still falling: the move waits for the landing
 var _lock_count := 0
 var _last_hurt_at := -100.0
 var _rage_t := 0.0
@@ -331,6 +332,9 @@ func _after_move() -> void:
 		jump_count = 0
 		if _hit10_down:
 			_hit10_slam()
+		if _hit10_land:   # the slam has come out: now the move is over
+			_hit10_land = false
+			_finish_action(attack_action)
 	if state == State.MOVE:
 		_pick_move_anim()
 
@@ -395,7 +399,8 @@ func _on_rig_event(n: StringName, args: Array) -> void:
 					invincible = maxf(invincible, data.attacks[&"hit10"].extra.flush_invincible)
 					_hit10_down = true
 				"add_hit10_and2":
-					_hit10_slam()
+					if is_on_floor():   # in the air the slam waits for the landing (see _hit10_land)
+						_hit10_slam()
 				_:
 					_on_hero_call(String(args[0]), args)
 
@@ -449,6 +454,11 @@ func _finish_action(action: StringName) -> void:
 		return
 	match state:
 		State.ATTACK:
+			if action == &"hit10" and _hit10_down and not is_on_floor():
+				# dived from so high that the animation ended in the air: hold the last frame until he lands, then slam
+				_hit10_land = true
+				return
+			_hit10_land = false
 			_no_gravity = false
 			_no_input = false
 			_hit10_down = false
@@ -529,6 +539,8 @@ func take_hit(h: Hit) -> bool:
 	else:
 		state = State.HURT
 		end_attack()
+		_hit10_down = false
+		_hit10_land = false
 		_no_gravity = false
 		_no_input = false
 		rig.play(&"hurt", true)
