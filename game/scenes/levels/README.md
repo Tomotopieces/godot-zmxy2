@@ -55,5 +55,5 @@ Positions are world positions (no parallax, like `Near` at 1.0).
   yellow and blue boxes under `Guides` are for the editor only (where the weak spot may be; the doorway to stand in once open). Exports:
   hits, weak spot size / range, doorway, seconds in it, the stage it leads to. `level_to_scene.gd` does not make `Objects`: re-making a
   stage's scene with `--force` would drop them, add them again by hand.
-- `scenes/objects/boat.tscn` (script `src/level/objects/boat.gd`, `Boat`) - the boat of 3-1, at its start (272.35, 495): an `AnimatableBody2D` with the deck's collision shape and the boat's picture
-  (`Art`, the boat rig). It sails by itself (exports: speed, where it ties up, the bob table) and emits `arrived`; `stages/sl31.gd` hangs the soldiers and fish on it and opens the exit.
+- `scenes/objects/boat.tscn` (script `src/level/objects/boat.gd`, `Boat`) - the boat of 3-1, at its start (272.35, 495): an `AnimatableBody2D` with the deck's collision shape and the boat's pictures
+  (plain `Hull` and `Water` Sprite2Ds; the ripple is an `Anim` animation of `Water`, not a rig). It sails by itself (exports: speed, where it ties up, the bob table) and emits `arrived`; `stages/sl31.gd` hangs the soldiers and fish on it and opens the exit.

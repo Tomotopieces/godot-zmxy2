@@ -2,7 +2,7 @@ class_name Boat
 extends AnimatableBody2D
 ## The boat of 3-1 (export.Boat, driven by StageListener31): a platform that sails right with a gentle bob and stops at the far
 ## pier, where the exit opens. A scene of its own (scenes/objects/boat.tscn) placed in the stage scene (Objects/Boat): the numbers are
-## exports; the stage script (stages/sl31.gd) hangs the soldiers and fish on it and opens the exit on `arrived`.
+## exports; the hull and the water ripple are plain Sprite2Ds (the ripple is an animation of its picture, `Anim`, playing on its own); the stage script (stages/sl31.gd) hangs the soldiers and fish on it and opens the exit on `arrived`.
 
 @export var speed := 48.0                   ## px / s to the right
 @export var stop_x := 4129.0                ## where it ties up
@@ -23,8 +23,6 @@ func _ready() -> void:
 	sync_to_physics = false             # moved directly in the physics step
 	process_physics_priority = 5        # after the level and the actors, as the stage script used to be
 	z_index = Layers.Z_PICKUP           # drawn over whoever stands on it (its rail and water cover their feet)
-	var art := $Art as Rig
-	art.play(art.actions[0])
 
 ## Half of the deck's width.
 func half_width() -> float:
