@@ -233,6 +233,10 @@ func make_ghost() -> Node2D:
 ## Called by the method track of every animation with all events of that frame, in source order.
 ## Stops early if a handler switched the action (e.g. "finished" followed by more events).
 func _anim_events(events: Array) -> void:
+	# keys of the last frame of an action that has just ended and been replaced from its "finished" handler arrive after the
+	# new action began (it stands at 0 and no key of its own is at 0: those are emitted by play()): they are not its events
+	if anim.current_animation_position <= 0.0:
+		return
 	var a := action
 	for ev in events:
 		if action != a:
