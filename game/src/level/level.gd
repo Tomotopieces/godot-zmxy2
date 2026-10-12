@@ -39,6 +39,7 @@ var door: Node2D                 ## exit portal (hidden until the stage is clear
 var door_rect := Rect2()
 var walls: Array[AnimatableBody2D] = []   ## scene walls / platforms (meta "wall" = level.json entry)
 var params := {}                 ## this stage's script numbers (data/stages.json)
+var scene_objects := {}             ## name -> place of a mechanism set in the hand-made scene ("Objects" node)
 var features: Array = []         ## other scene objects (white-bone door, Xingtian door, fires...) for stage scripts
 var script_node: StageScript     ## this stage's special rules (src/level/stages/<level_name>.gd), if any
 var fixed_camera := false        ## single-screen boss rooms (5-1, 6-1, 7-1, stage 10)
@@ -235,7 +236,9 @@ func _xf(m: Array, info: Dictionary) -> Transform2D:
 	return t * Transform2D(Vector2(s, 0), Vector2(0, s), Vector2(info.ox, info.oy))
 
 ## The stage's scenery as a scene made in the editor, if there is one: a root with the children "Art" (behind the
-## actors) and "Ground" (the floor), and optionally "Guides" (reference lines for the editor: dropped here).
+## actors) and "Ground" (the floor), and optionally "Guides" (reference lines for the editor: dropped here) and "Objects"
+## (places of the stage's mechanisms, one node each: the node is dropped here and its position is kept in scene_objects,
+## the stage script puts the working object there).
 ## Depth layers are Parallax2D nodes inside "Art" (see scenes/levels/README.md).
 func _scenery_scene() -> Node:
 	var path := "res://scenes/levels/%s.tscn" % level_name
@@ -246,6 +249,12 @@ func _scenery_scene() -> Node:
 	if guides != null:
 		s.remove_child(guides)
 		guides.free()
+	var objects := s.get_node_or_null("Objects")
+	if objects != null:
+		for o in objects.get_children():
+			scene_objects[String(o.name)] = (o as Node2D).position
+		s.remove_child(objects)
+		objects.free()
 	return s
 
 func _build(d: Dictionary) -> void:

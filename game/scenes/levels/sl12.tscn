@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://ie87lb2bsywc" path="res://assets/levels/sl12/tex/1_v6_58.png" id="19_y0uqf"]
 [ext_resource type="Texture2D" uid="uid://bv4ptl420tt3c" path="res://assets/levels/sl12/tex/1_v6_57.png" id="20_665m5"]
 [ext_resource type="Texture2D" uid="uid://bbr5oo5k4v1yt" path="res://assets/shared/levels/zmxy2_game_308.png" id="21_yn4ge"]
+[ext_resource type="PackedScene" path="res://assets/rigs/baigu_door/baigu_door.tscn" id="baigu_door"]
 
 [node name="Scenery" type="Node2D" unique_id=1979471459]
 
@@ -467,3 +468,22 @@ offset_bottom = 603.15
 texture = ExtResource("21_yn4ge")
 expand_mode = 1
 stretch_mode = 1
+
+[node name="Objects" type="Node2D" parent="."]
+
+[node name="BaiguDoor" parent="Objects" instance=ExtResource("baigu_door")]
+z_index = -8
+position = Vector2(769.5, 336.85)
+
+[node name="default" parent="Objects/BaiguDoor/Parts" index="0"]
+visible = true
+
+[node name="WeakSpotRange" type="Line2D" parent="Objects/BaiguDoor"]
+points = PackedVector2Array(-220.5, -90.5, 220.5, -90.5, 220.5, 0.5, -220.5, 0.5, -220.5, -90.5)
+width = 2.0
+default_color = Color(1, 0.8, 0.2, 0.8)
+
+[node name="EnterRect" type="Line2D" parent="Objects/BaiguDoor"]
+points = PackedVector2Array(-106, -8.1, 68, -8.1, 68, 92.9, -106, 92.9, -106, -8.1)
+width = 2.0
+default_color = Color(0.3, 0.8, 1, 0.8)

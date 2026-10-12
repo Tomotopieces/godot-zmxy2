@@ -15,6 +15,8 @@ func setup() -> void:
 	if _cfg.is_empty():
 		return
 	var pos := Vector2(_cfg.pos[0], _cfg.pos[1])
+	if level.scene_objects.has("BaiguDoor"):   # placed in the editor scene (scenes/levels/sl12.tscn, Objects/BaiguDoor)
+		pos = level.scene_objects["BaiguDoor"]
 	_door = place_rig("baigu_door", pos)
 	var hb: Array = _cfg.hit_box
 	var off := Vector2(Rng.randf_range(_cfg.hit_dx[0], _cfg.hit_dx[1]), Rng.randf_range(_cfg.hit_dy[0], _cfg.hit_dy[1]))
