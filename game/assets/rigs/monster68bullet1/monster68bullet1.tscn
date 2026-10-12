@@ -28,40 +28,40 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_il2k5"]
 resource_local_to_scene = true
 
-[node name="Monster68Bullet1" type="Node2D" unique_id=1890729947]
+[node name="Monster68Bullet1" type="Node2D" unique_id=21931928]
 script = ExtResource("1_r1823")
 actions = PackedStringArray("default")
 
-[node name="Parts" type="Node2D" parent="." unique_id=837746446]
+[node name="Parts" type="Node2D" parent="." unique_id=392095589]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=1682590998]
+[node name="default" type="Node2D" parent="Parts" unique_id=977506263]
 visible = false
 
-[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=893107838]
+[node name="p1_1_f0" type="Sprite2D" parent="Parts/default" unique_id=1663655202]
 material = SubResource("ShaderMaterial_x2pm8")
 position = Vector2(-21, -12)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_urgvn")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1958515230]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1112343914]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1070913388]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=604268399]
 shape = SubResource("RectangleShape2D_tabtv")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=738421584]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=730462948]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=32842391]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=220261081]
 shape = SubResource("RectangleShape2D_il2k5")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=62781767]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1638079817]
 callback_mode_process = 0
 libraries/ = ExtResource("4_0p06c")

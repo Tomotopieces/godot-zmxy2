@@ -29,16 +29,16 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m7l20"]
 resource_local_to_scene = true
 
-[node name="Monster54" type="Node2D" unique_id=898106791]
+[node name="Monster54" type="Node2D" unique_id=1079150881]
 script = ExtResource("1_5mmjf")
 actions = PackedStringArray("walk", "wait", "dead")
 
-[node name="Parts" type="Node2D" parent="." unique_id=701138262]
+[node name="Parts" type="Node2D" parent="." unique_id=1142609393]
 
-[node name="walk" type="Node2D" parent="Parts" unique_id=39962327]
+[node name="walk" type="Node2D" parent="Parts" unique_id=660847208]
 visible = false
 
-[node name="p1_1_2_1_f0" type="Sprite2D" parent="Parts/walk" unique_id=496617616]
+[node name="p1_1_2_1_f0" type="Sprite2D" parent="Parts/walk" unique_id=1129413295]
 material = SubResource("ShaderMaterial_bmbid")
 position = Vector2(-155.15001, -95.65)
 scale = Vector2(0.5, 0.5)
@@ -46,16 +46,16 @@ texture = ExtResource("3_h2mwn")
 centered = false
 region_enabled = true
 
-[node name="p1_7" type="Sprite2D" parent="Parts/walk" unique_id=1246217011]
+[node name="p1_7" type="Sprite2D" parent="Parts/walk" unique_id=505382721]
 position = Vector2(-137.15, -170.2)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_nq6hk")
 centered = false
 
-[node name="wait" type="Node2D" parent="Parts" unique_id=748218245]
+[node name="wait" type="Node2D" parent="Parts" unique_id=405387871]
 visible = false
 
-[node name="p1_1_2_1_f0" type="Sprite2D" parent="Parts/wait" unique_id=156584590]
+[node name="p1_1_2_1_f0" type="Sprite2D" parent="Parts/wait" unique_id=1763409716]
 material = SubResource("ShaderMaterial_bmbid")
 position = Vector2(-155.15001, -95.6)
 scale = Vector2(0.5, 0.5)
@@ -63,16 +63,16 @@ texture = ExtResource("3_h2mwn")
 centered = false
 region_enabled = true
 
-[node name="p1_7" type="Sprite2D" parent="Parts/wait" unique_id=132867884]
+[node name="p1_7" type="Sprite2D" parent="Parts/wait" unique_id=620667064]
 position = Vector2(-137.15, -170.15)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_nq6hk")
 centered = false
 
-[node name="dead" type="Node2D" parent="Parts" unique_id=996733123]
+[node name="dead" type="Node2D" parent="Parts" unique_id=755536003]
 visible = false
 
-[node name="p1_1_2_1_f0" type="Sprite2D" parent="Parts/dead" unique_id=1766258723]
+[node name="p1_1_2_1_f0" type="Sprite2D" parent="Parts/dead" unique_id=391741929]
 material = SubResource("ShaderMaterial_bmbid")
 position = Vector2(-155.15001, -95.6)
 scale = Vector2(0.5, 0.5)
@@ -80,34 +80,34 @@ texture = ExtResource("3_h2mwn")
 centered = false
 region_enabled = true
 
-[node name="p1_1_4" type="Sprite2D" parent="Parts/dead" unique_id=364854441]
+[node name="p1_1_4" type="Sprite2D" parent="Parts/dead" unique_id=1917993570]
 centered = false
 region_enabled = true
 
-[node name="p1_7" type="Sprite2D" parent="Parts/dead" unique_id=1477201639]
+[node name="p1_7" type="Sprite2D" parent="Parts/dead" unique_id=533442433]
 position = Vector2(-137.15, -170.15)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_nq6hk")
 centered = false
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1975093575]
+[node name="Hitbox" type="Area2D" parent="." unique_id=881561396]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1839149880]
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1376643490]
 shape = SubResource("RectangleShape2D_r1anf")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=660302711]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1862150970]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1726079920]
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1282422629]
 shape = SubResource("RectangleShape2D_m7l20")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=623405143]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1549177009]
 callback_mode_process = 0
 libraries/ = ExtResource("5_n2mep")
