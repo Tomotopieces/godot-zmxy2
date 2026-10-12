@@ -238,8 +238,7 @@ func _xf(m: Array, info: Dictionary) -> Transform2D:
 ## The stage's scenery as a scene made in the editor, if there is one: a root with the children "Art" (behind the
 ## actors) and "Ground" (the floor), and optionally "Guides" (reference lines for the editor: dropped here) and "Objects"
 ## (places of the stage's mechanisms, one node each: the node is dropped here and its position is kept in scene_objects,
-## the stage script puts the working object there). The nodes sit among the art of the "Middle" layer, so their x is in
-## that layer's terms (x * its scroll scale, like the pieces the artist placed there): it is divided back here.
+## the stage script puts the working object there). Mechanisms are not parallax art: their positions are world positions.
 ## Depth layers are Parallax2D nodes inside "Art" (see scenes/levels/README.md).
 func _scenery_scene() -> Node:
 	var path := "res://scenes/levels/%s.tscn" % level_name
@@ -252,11 +251,8 @@ func _scenery_scene() -> Node:
 		guides.free()
 	var objects := s.get_node_or_null("Objects")
 	if objects != null:
-		var middle := s.get_node_or_null("Art/Middle") as Parallax2D
-		var k := middle.scroll_scale.x if middle != null else 1.0
 		for o in objects.get_children():
-			var at := (o as Node2D).position
-			scene_objects[String(o.name)] = Vector2(at.x / k, at.y)
+			scene_objects[String(o.name)] = (o as Node2D).position
 		s.remove_child(objects)
 		objects.free()
 	return s
