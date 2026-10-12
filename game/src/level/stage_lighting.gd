@@ -34,6 +34,7 @@ var _t := 0.0
 var _treasure_rig: Rig
 var _sky: CanvasLayer           ## behind the world: the moon's light and the lightning bolt
 var _flash: ColorRect
+var _rain_mat: ShaderMaterial
 var _flash_mat: ShaderMaterial
 var _bolt: Node2D
 var _strike_at := 0.0           ## time of the next lightning
@@ -215,10 +216,11 @@ func _build_rain() -> void:
 	var m := ShaderMaterial.new()
 	m.shader = RAIN
 	m.set_shader_parameter("rain_color", _color(r.color))
-	for k in ["amount", "speed", "length_px", "slant", "alpha", "splash_alpha", "land_min", "land_max", "splash_size"]:
+	for k in ["amount", "speed", "length_px", "slant", "alpha", "splash_alpha", "land_y", "density", "splash_size"]:
 		if r.has(k):
 			m.set_shader_parameter(k, float(r[k]))
 	rect.material = m
+	_rain_mat = m
 	layer.add_child(rect)
 
 ## Lightning: now and then the screen flashes (a quick double or triple flicker) and a bolt shows in the sky.
@@ -330,6 +332,8 @@ func _physics_process(delta: float) -> void:
 		for i in _shafts.size():
 			_shafts[i].modulate.a = 0.55 + 0.45 * sin(_t * (0.35 + 0.11 * i) + 1.7 * i)
 		_moon_glow.modulate.a = 0.26 + 0.05 * sin(_t * 0.6)
+	if _rain_mat != null:
+		_rain_mat.set_shader_parameter("scroll", vr.position.x)   # the rain stays where it is in the world
 	if _flash != null:
 		_update_lightning(delta)
 	var actors: Array = [_lv.hero] + _lv.monsters()

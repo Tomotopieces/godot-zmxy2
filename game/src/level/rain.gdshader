@@ -1,8 +1,9 @@
 shader_type canvas_item;
 // Rain over a stage, all in one pass (no particles, no pictures): two depth layers of drops, each falling as a thin streak
 // and, where it reaches the floor, splashing: a flat ring that widens and fades plus a few droplets thrown up.
-// Screen space: the camera never moves vertically, so the floor is a band of rows (land_min..land_max); a drop picks its
-// landing row at random, so the splashes are spread over the depth of the floor.
+// The rain belongs to the world, not to the screen: x is the world x (the camera's scroll is added), so the drops stay
+// where they are when the camera moves. The camera never moves vertically, so the floor is one screen row (land_y): every
+// drop lands, and splashes, at that height.
 uniform vec4 rain_color : source_color = vec4(0.72, 0.82, 0.96, 1.0);
 uniform float amount = 0.5;          // chance that a cell has a drop in its cycle (0..1)
 uniform float speed = 380.0;         // px / s, near layer (the far layer is slower)
@@ -10,8 +11,9 @@ uniform float length_px = 16.0;      // streak length, near layer
 uniform float slant = 0.12;          // sideways px per px of fall (wind)
 uniform float alpha = 0.5;
 uniform float splash_alpha = 0.9;
-uniform float land_min = 500.0;      // screen rows where the near layer's drops land
-uniform float land_max = 585.0;
+uniform float land_y = 520.0;       // the screen row where the drops land
+uniform float density = 1.0;         // drops per width: 2 = twice as many cells
+uniform float scroll = 0.0;          // the camera's x
 uniform float splash_size = 7.0;     // ring radius at its widest, near layer
 uniform vec2 area = vec2(940.0, 590.0);
 
@@ -21,12 +23,10 @@ float h11(float n) {
 
 // one layer. k: scale of the layer (1 = near)
 vec2 layer(vec2 p, float k, float seed) {
-	float cell_w = 34.0 * mix(0.7, 1.0, k);
+	float cell_w = 34.0 * mix(0.7, 1.0, k) / density;
 	float sp = speed * mix(0.7, 1.0, k);
 	float len = length_px * mix(0.6, 1.0, k);
-	float lo = mix(land_min - 40.0, land_min, k);   // the far layer lands higher up the floor: smaller, nearer the horizon
-	float hi = mix(land_min + 12.0, land_max, k);
-	float fall_max = (hi + len) / sp;
+	float fall_max = (land_y + len) / sp;
 	float splash_t = 0.55;
 	float period = fall_max + splash_t + 0.4;
 	float u = p.x - slant * p.y;
@@ -41,7 +41,7 @@ vec2 layer(vec2 p, float k, float seed) {
 		float id = c * 7.31 + mod(cyc, 997.0) * 3.17 + seed * 13.0;
 		if (h11(id + 0.5) > amount) continue;
 		float ux = (c + 0.1 + 0.8 * h11(id + 1.5)) * cell_w;
-		float land = mix(lo, hi, h11(id + 2.5));
+		float land = land_y;
 		float t_land = (land + len) / sp;                // the head reaches the floor
 		float head = -len + t * sp;
 		// the streak: between tail and head, cut off at the floor
@@ -76,7 +76,7 @@ vec2 layer(vec2 p, float k, float seed) {
 }
 
 void fragment() {
-	vec2 p = UV * area;
+	vec2 p = UV * area + vec2(scroll, 0.0);
 	vec2 far_l = layer(p, 0.55, 1.0);
 	vec2 near_l = layer(p, 1.0, 5.0);
 	float streak = max(far_l.x * 0.55, near_l.x) * 0.85 * alpha;
