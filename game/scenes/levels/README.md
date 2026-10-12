@@ -48,8 +48,8 @@ the ones several levels use are in `assets/shared/levels/`.
 
 A stage's working objects are placed in the scene too: `Scenery/Objects/<Name>`, one node each. Level drops the `Objects` node when
 the stage starts and keeps only the places (`level.scene_objects["<Name>"]`); the stage script puts the real object there. So move
-the node to move the object, and the stage's own numbers (data/stages.json) stay relative to it.
+the node to move the object (its x is in the `Middle` layer's terms, x * 0.9 like the art around it: Level divides it back), and the stage's own numbers (data/stages.json) stay relative to it.
 
-- `sl12.tscn`: `Objects/BaiguDoor` - the white-bone door (an instance of `assets/rigs/baigu_door`, shown closed). Its children
+- `sl12.tscn`: `Objects/BaiguDoor` - the white-bone door, original x 769.5 = 692.55 here (its two pictures, shown closed, as `Arch` and `Base`; the game draws the working door with the rig `assets/rigs/baigu_door` at the node's place). Its children
   `WeakSpotRange` (yellow: where the weak spot may be, a random place inside) and `EnterRect` (blue: stand in it once the door is open)
   are guides only. The door has to stay at ground level to be reached; it is drawn in front of the scenery (z -8).
