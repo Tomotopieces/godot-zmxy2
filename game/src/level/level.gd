@@ -319,6 +319,8 @@ func _build(d: Dictionary) -> void:
 	for w in d.walls:
 		if _is_ground(w):
 			continue
+		if w.cls == "export.Boat" and world.has_node("Objects/Boat"):
+			continue   # the stage scene has its own boat (scenes/objects/boat.tscn)
 		var body := AnimatableBody2D.new()   # static unless a stage script moves it
 		body.z_index = Layers.Z_MECHANISM            # art a stage script hangs on it (boat, platforms)
 		body.sync_to_physics = false         # scripts move it directly in the physics step
@@ -599,7 +601,9 @@ func boss_destroyed(m: Monster) -> void:
 ##    (limit_right), and the hero can only go back a set distance from where the room closed (limit_left);
 ##  - once a room is cleared the camera runs ahead on its own (hero speed + 240 px/s) until the hero is back at the
 ##    auto line, so the way on opens by itself (limit_left rising);
-##  - the last room's right edge is the stage's end.
+##  - the last room's right edge is the stage's end;
+##  - it does not snap to its target: it eases towards it (Camera2D position smoothing, an exponential lerp), so starts and
+##    stops of the hero and the room opening / closing move the view softly. The limits still hold at every frame.
 
 func _make_camera() -> void:
 	camera = Camera2D.new()
@@ -614,6 +618,8 @@ func _make_camera() -> void:
 	camera.limit_top = 0
 	camera.limit_bottom = int(Layers.VIEW.y)
 	camera.limit_smoothed = false
+	camera.position_smoothing_enabled = true   # the camera eases towards where it wants to be (lerp), instead of snapping to the hero
+	camera.position_smoothing_speed = CAMERA_SMOOTHING
 	# the stage opens on its first screen: no glide in from wherever the hero was placed
 	_right_cap = minf(Layers.VIEW.x, size.x)
 	camera.limit_left = 0
@@ -632,6 +638,7 @@ func _lock_room() -> void:
 ## The camera never moves faster than this (the original follows at the hero's own speed): when a room opens the
 ## screen glides on instead of jumping to the hero.
 const CAMERA_MAX_SPEED := 720.0
+const CAMERA_SMOOTHING := 8.0   ## how fast the camera eases to its target (per second; higher = tighter)
 
 func _update_camera(delta: float) -> void:
 	if fixed_camera:

@@ -1,15 +1,10 @@
 extends StageScript
-## 3-1 (StageListener31): the boat ride. The boat sails right with a gentle bob; soldiers jump out of the water onto
-## it and fish leap over it; when it reaches the far pier it stops and the exit opens. Once, an aurora drifts by:
+## 3-1 (StageListener31): the boat ride. The boat (scenes/objects/boat.tscn, Objects/Boat of the stage scene) sails by itself;
+## soldiers jump out of the water onto it and fish leap over it; when it reaches the far pier the exit opens. Once, an aurora drifts by:
 ## a hero carrying the 避水珠 (bsz) who touches it dives to 楚江王 (8-1).
 ## (Fix of the original: fish from both sides leap toward the boat; they all flew the same way.)
 
-var _boat: AnimatableBody2D
-var _bob: Array
-var _bob_t := 0.0
-var _bob_i := 0
-var _bob_dir := 1
-var _sailing := true
+var _boat: Boat
 var _jump_t := 0.0
 var _fish_t := 0.0
 var _fish_on := false
@@ -18,22 +13,16 @@ var _aurora: Rig
 var _aurora_life := 0.0
 
 func setup() -> void:
-	for b in level.walls:
-		if b.get_meta(&"wall").cls == "export.Boat":
-			_boat = b
+	_boat = level.world.get_node_or_null("Objects/Boat") as Boat
 	if _boat == null:
 		return
-	# the boat is drawn over whoever stands on it (its rail and water cover their feet); the soldiers still leaping up
-	# out of the water and the fish are drawn over the boat
-	_boat.z_index = Layers.Z_PICKUP
-	var art := Rig.create("boat")
-	_boat.add_child(art)
-	art.play(art.actions[0])
-	_bob = param("boat", {}).get("bob", [])
+	_boat.arrived.connect(func():
+		_fish_on = false
+		level.open_door())
 	_jump_t = float(param("jumpers", {}).get("first", 8.0))
 	var fish: Dictionary = param("fish", {})
 	get_tree().create_timer(float(fish.get("start", 5.0)), false).timeout.connect(func():
-		_fish_on = _sailing
+		_fish_on = _boat.sailing
 		_fish_t = float(fish.get("first", 3.0)))
 	var at: Array = param("aurora", {}).get("at", [5.0, 15.0])
 	get_tree().create_timer(Rng.randf_range(at[0], at[1]), false).timeout.connect(_show_aurora)
@@ -41,30 +30,11 @@ func setup() -> void:
 func _physics_process(delta: float) -> void:
 	if _boat == null:
 		return
-	if _sailing:
-		_sail(delta)
+	if _boat.sailing:
 		_jumpers(delta)
 	if _fish_on:
 		_fish(delta)
 	_update_aurora(delta)
-
-## x += speed; y follows the bob table down then up (ObsWall speedY).
-func _sail(delta: float) -> void:
-	var cfg: Dictionary = param("boat", {})
-	_boat.position.x += float(cfg.get("speed", 48)) * delta
-	_bob_t += delta
-	var step := float(cfg.get("bob_step", 0.05))   # one table entry per original frame
-	while _bob_t >= step and not _bob.is_empty():
-		_bob_t -= step
-		_boat.position.y += float(_bob[_bob_i]) * _bob_dir
-		_bob_i += 1
-		if _bob_i >= _bob.size():
-			_bob_i = 0
-			_bob_dir = -_bob_dir
-	if _boat.position.x >= float(cfg.get("stop_x", 4129)):
-		_sailing = false
-		_fish_on = false
-		level.open_door()
 
 func _jumpers(delta: float) -> void:
 	var cfg: Dictionary = param("jumpers", {})
@@ -79,7 +49,7 @@ func _jumpers(delta: float) -> void:
 	tw.tween_property(fx, "position:y", _boat.position.y + float(cfg.get("to_dy", -60)), float(cfg.get("rise", 1.5)))
 	tw.tween_callback(func():
 		var md := level.monster_data(int(cfg.get("monster", 41)))
-		if md and _sailing:
+		if md and _boat.sailing:
 			var m := Monster.create(md)
 			m.position = fx.position + Vector2(0, 10)
 			level.add_monster(m)
@@ -102,7 +72,7 @@ func _fish(delta: float) -> void:
 		_emitter.visible = false
 		_emitter.invuln = INF
 		level.add_object(_emitter)
-	var half := ((_boat.get_child(0) as CollisionShape2D).shape as RectangleShape2D).size.x / 2.0
+	var half := _boat.half_width()
 	var n: Array = cfg.get("count", [2, 4])
 	# Monster57 re-rolls its loop condition `i < int(2 + random * 3)` every round: 2, 3 or 4 fish with chance 1/3, 4/9, 2/9
 	var fish: int = int(n[0])
