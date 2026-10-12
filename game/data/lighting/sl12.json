@@ -1,11 +1,64 @@
 {
-  "_doc": "无常巷 (1-2) by moonlight (the look of 1-1), the moon at the upper left. Colours are [r, g, b] multipliers; px are game pixels.",
-  "scene": {"art": [0.5, 0.56, 0.72], "ground": [0.56, 0.62, 0.78], "far": [0.78, 0.85, 1.0],
-    "fade_height": 110.0, "fade_dark": 0.28, "ground_y": 497.0, "rim_color": [0.72, 0.86, 1.0], "rim_strength": 0.75, "rim_width": 2.2},
-    "layers": {"Far": {"blur": 2.0, "tint": [1.15, 1.15, 1.2], "fade": 0.0, "rim": 0.0}, "Middle": {"blur": 0.7}, "Near": {}},
-  "body": {"shade": [0.62, 0.7, 0.9], "lit": [0.95, 1.0, 1.15], "height": 130.0, "rim_strength": 0.6, "rim_width": 1.6},
-  "shadow": {"alpha": 0.6, "shear": 0.42, "squash": 0.3, "blur": 3.0, "floor_y": 497.0},
-  "moon": {"x": 240.0, "y": 118.0, "glow": [0.7, 0.85, 1.0], "shafts": 3, "shaft_alpha": 0.2, "angle": 38.0},
-  "fog": {"color": [0.64, 0.74, 0.92], "density": 0.95, "max_alpha": 0.62, "ground_bias": 0.6, "speed": 16.0, "front_density": 0.3},
-  "grade": {"vignette": 0.42, "saturation": 0.92}
+ "_doc": "无常巷 (1-2): a drizzling night - no moonlight, thinner mist, light rain that splashes on the floor. Colours are [r, g, b] multipliers; px are game pixels.",
+ "scene": {
+  "art": [0.46, 0.52, 0.64],
+  "ground": [0.52, 0.58, 0.7],
+  "far": [0.5, 0.57, 0.7],
+  "fade_height": 110,
+  "fade_dark": 0.28,
+  "ground_y": 497,
+  "rim_color": [0.72, 0.86, 1],
+  "rim_strength": 0.3,
+  "rim_width": 2.2
+ },
+ "layers": {
+  "Far": {
+   "blur": 2,
+   "tint": [1, 1.05, 1.12],
+   "fade": 0,
+   "rim": 0
+  },
+  "Middle": {
+   "blur": 0.7
+  },
+  "Near": {}
+ },
+ "body": {
+  "shade": [0.6, 0.68, 0.86],
+  "lit": [0.86, 0.92, 1.04],
+  "height": 130,
+  "rim_strength": 0.25,
+  "rim_width": 1.6
+ },
+ "shadow": {
+  "alpha": 0.32,
+  "shear": 0.18,
+  "squash": 0.3,
+  "blur": 4,
+  "floor_y": 497
+ },
+ "fog": {
+  "color": [0.64, 0.74, 0.92],
+  "density": 0.6,
+  "max_alpha": 0.4,
+  "ground_bias": 0.6,
+  "speed": 16,
+  "front_density": 0.14
+ },
+ "grade": {
+  "vignette": 0.46,
+  "saturation": 0.82
+ },
+ "rain": {
+  "color": [0.74, 0.84, 0.97],
+  "amount": 0.5,
+  "speed": 330,
+  "length_px": 14,
+  "slant": 0.1,
+  "alpha": 0.5,
+  "splash_alpha": 0.85,
+  "land_min": 500,
+  "land_max": 585,
+  "splash_size": 6
+ }
 }

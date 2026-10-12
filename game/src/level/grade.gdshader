@@ -8,6 +8,7 @@ uniform vec3 light_tone = vec3(1.05, 1.02, 0.96);
 uniform float saturation = 0.92;
 uniform float contrast = 1.06;
 uniform float vignette = 0.4;
+uniform float brightness = 1.0;                  // < 1 darkens the whole picture (storm)
 
 void fragment() {
 	vec3 c = texture(screen, SCREEN_UV).rgb;
@@ -17,5 +18,5 @@ void fragment() {
 	c *= mix(shadow_tone, light_tone, smoothstep(0.2, 0.75, l)) * tint;
 	vec2 d = SCREEN_UV - 0.5;
 	c *= 1.0 - vignette * smoothstep(0.28, 0.88, length(d * vec2(1.2, 1.0)));
-	COLOR = vec4(c, 1.0);
+	COLOR = vec4(c * brightness, 1.0);
 }

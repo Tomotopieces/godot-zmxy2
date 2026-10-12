@@ -6,14 +6,18 @@ extends Node
 ##  - bodies are lit from above by the moon, shaded below and rimmed on their upper-left edges (Rig.set_light), and cast a
 ##    soft shadow away from it;
 ##  - drifting mist, in a patchy layer behind the actors and a thin one in front; it swells and thins on its own;
-##  - the moon's glow and a few slow shafts of moonlight from it - in the sky only: behind all scenery and actors;
-##  - a screen grade: cool shadows, a little less colour, a vignette.
+##  - the moon's glow and a few slow shafts of moonlight from it - in the sky only: behind all scenery and actors
+##    (a stage without "moon" in its file has none);
+##  - rain ("rain": streaks that splash where they land on the floor) and, for a storm, lightning ("lightning": the screen
+##    flashes and a bolt shows in the sky behind the scenery);
+##  - a screen grade: cool shadows, a little less colour, a vignette, optionally darker ("brightness").
 ## Draw order: far layer (-2), the moonlight layer (-1), world, the mist layer (1), the grade layer (2), the HUD (3).
 
 const FOG := preload("res://src/level/fog.gdshader")
 const GRADE := preload("res://src/level/grade.gdshader")
 const CAST := preload("res://src/level/cast_shadow.gdshader")
 const ART := preload("res://src/level/art_look.gdshader")
+const RAIN := preload("res://src/level/rain.gdshader")
 
 var _lv: Level
 var _cfg: Dictionary
@@ -28,6 +32,13 @@ var _moon_glow: Sprite2D
 var _shadows := {}      ## instance id of an actor -> {holder, rig, mat, sig, floor_y}
 var _t := 0.0
 var _treasure_rig: Rig
+var _sky: CanvasLayer           ## behind the world: the moon's light and the lightning bolt
+var _flash: ColorRect
+var _flash_mat: ShaderMaterial
+var _bolt: Node2D
+var _strike_at := 0.0           ## time of the next lightning
+var _strike_t := -1.0           ## seconds since the current one began (-1 = none)
+var _dice := RandomNumberGenerator.new()   ## the weather has its own dice: gameplay's Rng stays untouched
 
 ## Starts the stage's lighting when it has a data file.
 static func attach(lv: Level) -> StageLighting:
@@ -69,6 +80,8 @@ func _ready() -> void:
 	_light_scenery(scene)
 	_build_fog()
 	_build_effects()
+	_build_rain()
+	_build_lightning()
 	_build_grade()
 
 ## The art's own material: backlight rim; the decoration (not the floor) also fades to dark at its feet.
@@ -139,13 +152,15 @@ func _build_effects() -> void:
 	layer.add_child(_fog_front)
 	var add := CanvasItemMaterial.new()
 	add.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+	_sky = CanvasLayer.new()   # behind the world: scenery and actors stand in front of the moonlight
+	_sky.layer = -1
+	add_child(_sky)
+	if not _cfg.has("moon"):
+		return
 	var m: Dictionary = _cfg.moon
 	var mc := _color(m.glow)
-	var sky := CanvasLayer.new()   # behind the world: scenery and actors stand in front of the moonlight
-	sky.layer = -1
-	add_child(sky)
 	_moon = Node2D.new()
-	sky.add_child(_moon)
+	_sky.add_child(_moon)
 	_moon_glow = Sprite2D.new()
 	_moon_glow.texture = glow_texture()
 	_moon_glow.scale = Vector2(2.6, 2.6)
@@ -186,6 +201,107 @@ static func _soft_edge() -> GradientTexture2D:
 		_edge_tex.gradient = g
 	return _edge_tex
 
+## Rain over the actors (shader rain.gdshader): thin streaks and splashes on the floor. Every number is in the "rain" entry.
+func _build_rain() -> void:
+	if not _cfg.has("rain"):
+		return
+	var r: Dictionary = _cfg.rain
+	var layer := CanvasLayer.new()
+	layer.layer = 1
+	add_child(layer)
+	var rect := ColorRect.new()
+	rect.size = Layers.VIEW
+	rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var m := ShaderMaterial.new()
+	m.shader = RAIN
+	m.set_shader_parameter("rain_color", _color(r.color))
+	for k in ["amount", "speed", "length_px", "slant", "alpha", "splash_alpha", "land_min", "land_max", "splash_size"]:
+		if r.has(k):
+			m.set_shader_parameter(k, float(r[k]))
+	rect.material = m
+	layer.add_child(rect)
+
+## Lightning: now and then the screen flashes (a quick double or triple flicker) and a bolt shows in the sky.
+func _build_lightning() -> void:
+	if not _cfg.has("lightning"):
+		return
+	var l: Dictionary = _cfg.lightning
+	_dice.randomize()
+	_strike_at = _dice.randf_range(float(l.interval[0]) * 0.4, float(l.interval[1]) * 0.6)   # the first one comes early
+	var layer := CanvasLayer.new()
+	layer.layer = 1
+	add_child(layer)
+	_flash = ColorRect.new()
+	_flash.size = Layers.VIEW
+	_flash.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_flash.color = Color(_color(l.color), 0.0)
+	var add := CanvasItemMaterial.new()
+	add.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+	_flash.material = add
+	layer.add_child(_flash)
+	_bolt = Node2D.new()
+	_bolt.modulate.a = 0.0
+	_bolt.material = add
+	_sky.add_child(_bolt)
+
+func _new_bolt() -> void:
+	for c in _bolt.get_children():
+		c.queue_free()
+	var x := _dice.randf_range(120.0, Layers.VIEW.x - 120.0)
+	var pts := PackedVector2Array([Vector2(x, -10.0)])
+	var y := -10.0
+	var bottom := _dice.randf_range(280.0, 400.0)
+	var branch_from := Vector2.ZERO
+	while y < bottom:
+		y += _dice.randf_range(28.0, 52.0)
+		x += _dice.randf_range(-34.0, 34.0)
+		pts.append(Vector2(x, y))
+		if branch_from == Vector2.ZERO and y > 120.0 and _dice.randf() < 0.4:
+			branch_from = Vector2(x, y)
+	var lines: Array = [[pts, 1.0]]
+	if branch_from != Vector2.ZERO:
+		var b := PackedVector2Array([branch_from])
+		var dir := -1.0 if _dice.randf() < 0.5 else 1.0
+		for i in 3:
+			b.append(b[-1] + Vector2(dir * _dice.randf_range(14.0, 30.0), _dice.randf_range(18.0, 34.0)))
+		lines.append([b, 0.55])
+	for e in lines:
+		for pass_ in 2:   # a wide soft glow under a thin bright core
+			var ln := Line2D.new()
+			ln.points = e[0]
+			ln.width = (7.0 if pass_ == 0 else 2.0) * float(e[1])
+			ln.default_color = Color(0.7, 0.8, 1.0, 0.25) if pass_ == 0 else Color(0.95, 0.97, 1.0, 0.95)
+			ln.joint_mode = Line2D.LINE_JOINT_ROUND
+			_bolt.add_child(ln)
+
+func _update_lightning(delta: float) -> void:
+	var l: Dictionary = _cfg.lightning
+	var strength := float(l.strength)
+	if _strike_t < 0.0:
+		_strike_at -= delta
+		if _strike_at <= 0.0:
+			_strike_t = 0.0
+			_new_bolt()
+		return
+	_strike_t += delta
+	# pulses: (start, height, decay time) - the main flash, then flickers
+	var level := 0.0
+	var core := 0.0
+	for p in [[0.0, 1.0, 0.22], [0.2, 0.6, 0.26], [0.55, 0.3, 0.4]]:
+		var d: float = _strike_t - p[0]
+		if d >= 0.0:
+			var v: float = clampf(d / 0.03, 0.0, 1.0) * exp(-d / float(p[2])) * float(p[1])
+			level = maxf(level, v)
+			if p[0] < 0.5:
+				core = maxf(core, v)
+	_flash.color.a = level * strength
+	_bolt.modulate.a = clampf(core * 1.4, 0.0, 1.0)
+	if _strike_t > 1.8:
+		_strike_t = -1.0
+		_flash.color.a = 0.0
+		_bolt.modulate.a = 0.0
+		_strike_at = _dice.randf_range(float(l.interval[0]), float(l.interval[1]))
+
 func _build_grade() -> void:
 	var layer := CanvasLayer.new()
 	layer.layer = 2
@@ -198,6 +314,7 @@ func _build_grade() -> void:
 	var g: Dictionary = _cfg.grade
 	m.set_shader_parameter("vignette", float(g.vignette))
 	m.set_shader_parameter("saturation", float(g.saturation))
+	m.set_shader_parameter("brightness", float(g.get("brightness", 1.0)))
 	r.material = m
 	layer.add_child(r)
 
@@ -207,11 +324,14 @@ func _physics_process(delta: float) -> void:
 	_fog_back.global_position = vr.position
 	_fog_back_mat.set_shader_parameter("scroll", Vector2(vr.position.x * 0.85, 0.0))
 	_fog_front_mat.set_shader_parameter("scroll", Vector2(vr.position.x * 1.25, 0.0))
-	var far := _lv.far_sprite()
-	_moon.position = far.position + Vector2(float(_cfg.moon.x), float(_cfg.moon.y))
-	for i in _shafts.size():
-		_shafts[i].modulate.a = 0.55 + 0.45 * sin(_t * (0.35 + 0.11 * i) + 1.7 * i)
-	_moon_glow.modulate.a = 0.26 + 0.05 * sin(_t * 0.6)
+	if _moon != null:
+		var far := _lv.far_sprite()
+		_moon.position = far.position + Vector2(float(_cfg.moon.x), float(_cfg.moon.y))
+		for i in _shafts.size():
+			_shafts[i].modulate.a = 0.55 + 0.45 * sin(_t * (0.35 + 0.11 * i) + 1.7 * i)
+		_moon_glow.modulate.a = 0.26 + 0.05 * sin(_t * 0.6)
+	if _flash != null:
+		_update_lightning(delta)
 	var actors: Array = [_lv.hero] + _lv.monsters()
 	var seen := {}
 	for a in actors:

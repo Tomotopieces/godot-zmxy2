@@ -1,5 +1,5 @@
 extends Node
-## A stage as played, with its lighting: godot --path game --position 6000,6000 res://tools/light_shot.tscn -- <stage a,b> <out.png> <camera x> [monster ids]
+## A stage as played, with its lighting: godot --path game --position 6000,6000 res://tools/light_shot.tscn -- <stage a,b> <out.png> <camera x> [monster ids] [wait s] [strike: lightning at once, shot after that many s]
 func _ready() -> void:
 	var a := OS.get_cmdline_user_args()
 	GameState.new_game("wukong")
@@ -18,6 +18,11 @@ func _ready() -> void:
 	print("monsters ", lv.monsters().size(), " hero ", lv.hero.global_position)
 	await get_tree().create_timer(float(a[4]) if a.size() > 4 else 2.5, false).timeout
 	print("monsters ", lv.monsters().size(), " hero ", lv.hero.global_position, " ", lv.hero.is_on_floor())
+	if a.size() > 5:
+		for c in lv.get_children():
+			if c is StageLighting:
+				c._strike_at = 0.0
+		await get_tree().create_timer(float(a[5]), false).timeout
 	for i in 4: await RenderingServer.frame_post_draw
 	get_viewport().get_texture().get_image().save_png(a[1])
 	get_tree().quit()
