@@ -57,3 +57,10 @@ Positions are world positions (no parallax, like `Near` at 1.0).
   stage's scene with `--force` would drop them, add them again by hand.
 - `scenes/objects/boat.tscn` (script `src/level/objects/boat.gd`, `Boat`) - the boat of 3-1, at its start (272.35, 495): an `AnimatableBody2D` with the deck's collision shape and the boat's pictures
   (plain `Hull` and `Water` Sprite2Ds; the ripple is an `Anim` animation of `Water`, not a rig). It sails by itself (exports: speed, where it ties up, the bob table) and emits `arrived`; `stages/sl31.gd` hangs the soldiers and fish on it and opens the exit.
+
+## Stages whose background was baked by the original (sl22)
+
+2-2 (sl22) has its background as ONE 4700x522 JPEG (bitmap 605, apparently a screenshot of the design) instead of loose bitmaps. It was rebuilt from the loose bitmaps of 2-3
+(sl23, the same art set) by template matching: the brick wall, header, railing, doors, pillars, statues and chains are the artist's bitmaps again, placed where the
+baked picture shows them (positions are inferred: pitch 446 for the wall, 222 for the railing, 443.5 for the header; the rest matched one by one). The last part (from x=3745: the
+boss end with the chandelier, which exists only inside the baked picture) stays a crop of the baked bitmap (`2_605_boss`). Small gaps and tone differences are expected.
