@@ -95,10 +95,11 @@ func _light_scenery(scene: Dictionary) -> void:
 		m.set_shader_parameter("blur", float(o.get("blur", 0.0)))
 		if o.has("tint"):
 			node.modulate = _color(o.tint)
-		var sprites: Array = node.find_children("*", "Sprite2D", true, false) if name_ != "Art" else node.get_children().filter(func(c): return c is Sprite2D)
-		for sp: Sprite2D in sprites:
-			if sp.material == null:
-				sp.material = m
+		# the pictures: Sprite2D, and the TextureRects that tile a floor or a haze band
+		var pics: Array = node.find_children("*", "CanvasItem", true, false) if name_ != "Art" else node.get_children()
+		for pic: CanvasItem in pics:
+			if (pic is Sprite2D or pic is TextureRect) and pic.material == null:
+				pic.material = m
 
 func _build_fog() -> void:
 	var f: Dictionary = _cfg.fog
