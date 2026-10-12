@@ -1,0 +1,50 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/shared/levels/1_v6_1.png" id="1_jve1w"]
+[ext_resource type="Texture2D" path="res://assets/shared/levels/zmxy2_game_271.png" id="2_1x2j1"]
+
+[node name="Scenery" type="Node2D" unique_id=161253371]
+
+[node name="Guides" type="Node2D" parent="." unique_id=22004261]
+
+[node name="Floor" type="Line2D" parent="Guides" unique_id=846533804]
+points = PackedVector2Array(-200, 497, 1291.05, 497)
+width = 2.0
+default_color = Color(1, 0.3, 0.2, 0.8)
+
+[node name="FirstScreen" type="Line2D" parent="Guides" unique_id=659006122]
+points = PackedVector2Array(0, 0, 940, 0, 940, 590, 0, 590, 0, 0)
+width = 2.0
+default_color = Color(0.3, 1, 0.4, 0.8)
+
+[node name="Art" type="Node2D" parent="." unique_id=621169438]
+z_index = -10
+
+[node name="Far" type="Parallax2D" parent="Art" unique_id=756815248]
+scroll_scale = Vector2(0.8, 1)
+
+[node name="Middle" type="Parallax2D" parent="Art" unique_id=1858037169]
+scroll_scale = Vector2(0.9, 1)
+
+[node name="Near" type="Parallax2D" parent="Art" unique_id=1776752715]
+
+[node name="Background" type="CanvasLayer" parent="." unique_id=533473267]
+layer = -2
+
+[node name="Sky" type="Sprite2D" parent="Background" unique_id=137752903]
+texture = ExtResource("1_jve1w")
+centered = false
+
+[node name="Ground" type="Node2D" parent="." unique_id=502962773]
+z_index = -7
+
+[node name="Tile" type="TextureRect" parent="Ground" unique_id=1100015967]
+texture_filter = 1
+texture_repeat = 2
+offset_left = -52.0
+offset_top = 509.65
+offset_right = 1366.0
+offset_bottom = 607.65
+texture = ExtResource("2_1x2j1")
+expand_mode = 1
+stretch_mode = 1

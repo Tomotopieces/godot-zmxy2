@@ -1,6 +1,6 @@
 # Hand-made stage scenery
 
-A stage with a scene here (`<stage>.tscn`: `sl11.tscn` = 1-1 鬼城, `sl12.tscn` = 1-2 无常巷, `sl13.tscn` = 1-3 鬼门关, `sl21.tscn` = 2-1 接引院, `sl51.tscn` = 5-1 白骨精) takes its scenery from it instead of from
+Every stage has a scene here (`<stage>.tscn`: `sl11` = 1-1 鬼城, `sl12` = 1-2 无常巷, `sl13` = 1-3 鬼门关, `sl21` = 2-1 接引院, `sl51` = 5-1 白骨精, ..., `sl01` = the debug arena); it takes its scenery from it instead of from
 the `art` list of `assets/levels/<stage>/level.json`. Walls, camera stops, spawners and the exit still come from `level.json`; the
 stage's lighting (`data/lighting/<stage>.json`) are separate too.
 

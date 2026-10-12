@@ -9,7 +9,8 @@ const path = require('path');
 
 const ROOT = path.join(__dirname, '..', '..', 'game', 'assets', 'levels');
 // texture keys per level (the art library's symbol ids differ from level to level): the logo bitmap and the strips
-const DROP = { sl11: ['1_v6:30', '1_v6:87'], sl12: ['1_v6:30', '1_v6:60'], sl13: ['1_v6:30', '1_v6:2'] };
+const DROP = { sl11: ['1_v6:30', '1_v6:87'], sl12: ['1_v6:30', '1_v6:60'], sl13: ['1_v6:30', '1_v6:2'],
+  sl21: ['2:597', '2:608'], sl23: ['2:597'], sl31: ['3:1036', '3:1102'], sl32: ['3:1036'], sl33: ['3:1036', '3:1054'], sl41: ['4:306', '4:307'] };
 
 let total = 0;
 for (const lv of fs.readdirSync(ROOT)) {

@@ -140,7 +140,9 @@ function decomposeLoose(lib, id) {
     const xs = pts.map((v) => v[0]);
     const ys = pts.map((v) => v[1]);
     const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
-    const rect = !curved && pts.every((v) => (v[0] === x0 || v[0] === x1) && (v[1] === y0 || v[1] === y1));
+    // a rectangle may be drawn with extra vertices on its sides (two edges one after the other in a direction): every edge is horizontal or vertical and every vertex lies on the box
+    const rect = !curved && pts.every((v) => v[0] === x0 || v[0] === x1 || v[1] === y0 || v[1] === y1)
+      && pts.every((v, i) => i === 0 || v[0] === pts[i - 1][0] || v[1] === pts[i - 1][1]);
     if (st && st.bitmap !== 65535 && rect && st.sx && st.sy) out.push({ bitmap: st.bitmap, x: x0 / 20, y: y0 / 20, w: (x1 - x0) / 20, h: (y1 - y0) / 20, u: (x0 - st.tx) / st.sx, v: (y0 - st.ty) / st.sy, su: 20 / st.sx, sv: 20 / st.sy });
     else skipped.push({ fill, st, rect, curved, x: x0 / 20, y: y0 / 20, w: (x1 - x0) / 20, h: (y1 - y0) / 20, edges: edges.length });
   }

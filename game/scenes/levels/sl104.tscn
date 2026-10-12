@@ -1,0 +1,54 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/levels/sl104/tex/10_672.png" id="1_0lonk"]
+[ext_resource type="Texture2D" path="res://assets/shared/levels/10_1.png" id="2_3b0dy"]
+[ext_resource type="Texture2D" path="res://assets/levels/sl104/tex/zmxy2_game_247.png" id="3_clwwq"]
+
+[node name="Scenery" type="Node2D" unique_id=1294173651]
+
+[node name="Guides" type="Node2D" parent="." unique_id=863154015]
+
+[node name="Floor" type="Line2D" parent="Guides" unique_id=1279173898]
+points = PackedVector2Array(-200, 497, 1304.16, 497)
+width = 2.0
+default_color = Color(1, 0.3, 0.2, 0.8)
+
+[node name="FirstScreen" type="Line2D" parent="Guides" unique_id=401734175]
+points = PackedVector2Array(0, 0, 940, 0, 940, 590, 0, 590, 0, 0)
+width = 2.0
+default_color = Color(0.3, 1, 0.4, 0.8)
+
+[node name="Art" type="Node2D" parent="." unique_id=941823600]
+z_index = -10
+
+[node name="Far" type="Parallax2D" parent="Art" unique_id=1401606063]
+scroll_scale = Vector2(0.8, 1)
+
+[node name="Middle" type="Parallax2D" parent="Art" unique_id=1793094902]
+scroll_scale = Vector2(0.9, 1)
+
+[node name="Near" type="Parallax2D" parent="Art" unique_id=1393112955]
+
+[node name="10_672_00" type="Sprite2D" parent="Art/Near" unique_id=1697013263]
+position = Vector2(-32, 0)
+texture = ExtResource("1_0lonk")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 1015, 590)
+
+[node name="Background" type="CanvasLayer" parent="." unique_id=2099470275]
+layer = -2
+
+[node name="Sky" type="Sprite2D" parent="Background" unique_id=2046206313]
+texture = ExtResource("2_3b0dy")
+centered = false
+
+[node name="Ground" type="Node2D" parent="." unique_id=1222723491]
+z_index = -7
+
+[node name="zmxy2_game_247_01" type="Sprite2D" parent="Ground" unique_id=1593980623]
+position = Vector2(-29.85, 497.4)
+texture = ExtResource("3_clwwq")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 1015, 95)

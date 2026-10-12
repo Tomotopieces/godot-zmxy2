@@ -14,10 +14,12 @@ commit or overwrite them unless you must touch the file, then edit it as text an
 1. **Extract the original bitmaps as loose pieces** (every placement its own piece, never glued or rasterised into strips):
    `node tools/rig/extract_level.js <area> <stage> game/assets/levels/sl<area><stage>` (e.g. `1 3` -> sl13). Bg shapes are decomposed by
    `shape_tiles.js decomposeLoose`; the log lists skipped non-bitmap records.
-2. **Do not remove anything** (no "4399" logo / fake-mist-strip removal, no drop scripts): the extractor-side removal of such parts looked bad and the user does it
-   himself in the editor. `drop_overlays.js` only keeps the results for stages 1-1..1-3 that were done before this rule; never add a new stage to it. Look at the textures
-   (`node tools/_sheet3.js out.png <png...>` makes a contact sheet; `_crop.js`, `_view.js` too - scratch helpers in tools/, git-ignored, recreate if missing) only to know what is there, then
-   `node tools/rig/dedupe.js` (stores identical PNGs once, names them `<lib>_<id>.png` via `organize_shared.js`, refreshes scene uids).
+2. **Overlays**: leave the 4399 logo that is *embedded* in a texture (floor tile, rock...) alone - never scrub it (`remove_watermark.js` looked bad; do not run it). Bitmaps that are *only* the logo
+   (an 83x36 "4399 4399 ..." bitmap, drawn at alpha 0.17) and the grey / tinted "fake mist" gradient strips lying along the ground (wide, low, low-contrast, half transparent: e.g. 1_v6:60, 2:608) are
+   dropped: find them with `node tools/_find_overlays.js sl23 ...` (scratch helper, recreate if missing: flags 83x36 bitmaps and wide low-variance strips), LOOK at them on a contact sheet
+   (`tools/_sheet3.js out.png <png...>`; floors and haze bands that look similar are real art), add the keys of that stage to `DROP` in `tools/rig/drop_overlays.js` (symbol ids differ per level), run it, then
+   `node tools/rig/dedupe.js` (stores identical PNGs once, names them `<lib>_<id>.png` via `organize_shared.js`, refreshes scene uids). Never put a dropped piece back on your own, and never
+   decide anything else for the user: only these two kinds are removed.
 3. **Import + rebuild**: `godot --headless --path game --import`, then `bash tools/rig/rebuild_all.sh` if any rig texture moved (compressed
    `anims.res` embed texture paths - grep cannot see them; symptom: "Resource file not found: res://assets/shared/<md5>.png"). Delete
    `game/.godot/exported` (Recycle Bin; it is a directory: use `[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteDirectory(path, 'OnlyErrorDialogs', 'SendToRecycleBin')`) if stale refs persist.
@@ -26,6 +28,7 @@ commit or overwrite them unless you must touch the file, then edit it as text an
      The user does the layering himself (moving a piece to a layer = x * the layer's scale). Do not move pieces between layers on your own, do not guess "far" or "fog" bitmaps.
      Only when he asks you to move pieces: convert x (x_layer = s * x_orig, back: x_orig = x_layer / s), keep the painting order (far pieces first, then middle, then what was in front).
    - The stage's **sky picture** (`far` of level.json) is in the scene too: `Background` (CanvasLayer -2) / `Sky` (Sprite2D). Level scrolls it over the stage length from where the sprite stands (`_far_x0`).
+   - Every stage gets a scene (sl01 is the debug arena). A stage whose background is one painting + a floor (boss rooms) simply has 2 nodes.
    - Runs of 3+ identical pictures edge to edge (haze, floor) become ONE TextureRect (2+ for the floor): texture_repeat on, stretch Tile, **texture_filter Nearest**. The floor must be ONE
      TextureRect (the original lays it in 2-3 strips, an original quirk). A haze strip that starts at an odd x (the original's bug) is moved to x 0.
 5. **Mechanisms** (doors, switches...) whose art lives inside a rig: put them in `scenes/objects/<name>.tscn` with a script on the root

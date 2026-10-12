@@ -1,7 +1,8 @@
 [gd_scene format=3]
 
 [ext_resource type="Texture2D" path="res://assets/levels/sl51/tex/5_v7_137.png" id="1_kqb3g"]
-[ext_resource type="Texture2D" path="res://assets/shared/levels/zmxy2_game_271.png" id="2_y1gr7"]
+[ext_resource type="Texture2D" path="res://assets/shared/levels/11_1.png" id="1_y1gr7"]
+[ext_resource type="Texture2D" path="res://assets/levels/sl13/tex/zmxy2_game_308.png" id="2_kqb3g"]
 
 [node name="Scenery" type="Node2D" unique_id=1018630056]
 
@@ -17,12 +18,17 @@ points = PackedVector2Array(0, 0, 940, 0, 940, 590, 0, 590, 0, 0)
 width = 2.0
 default_color = Color(0.3, 1, 0.4, 0.8)
 
+[node name="Background" type="CanvasLayer" parent="." unique_id=1018797503]
+layer = -2
+
+[node name="Sky" type="Sprite2D" parent="Background" unique_id=1463630568]
+texture = ExtResource("1_y1gr7")
+centered = false
+
 [node name="Art" type="Node2D" parent="." unique_id=1023717304]
 z_index = -10
 
-[node name="Near" type="Parallax2D" parent="Art" unique_id=1476884553]
-
-[node name="5_v7_137_00" type="Sprite2D" parent="Art/Near" unique_id=451610905]
+[node name="5_v7_137_00" type="Sprite2D" parent="Art" unique_id=451610905]
 texture = ExtResource("1_kqb3g")
 centered = false
 region_enabled = true
@@ -34,10 +40,9 @@ z_index = -7
 [node name="Tile" type="TextureRect" parent="Ground" unique_id=614009163]
 texture_filter = 1
 texture_repeat = 2
-offset_left = -3.9
 offset_top = 490.15
-offset_right = 940.1
+offset_right = 944.0
 offset_bottom = 588.15
-texture = ExtResource("2_y1gr7")
+texture = ExtResource("2_kqb3g")
 expand_mode = 1
 stretch_mode = 1
