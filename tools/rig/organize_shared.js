@@ -118,3 +118,24 @@ if (trash.length) {
   cp.execFileSync('powershell', ['-NoProfile', '-Command', ps], { stdio: 'inherit' });
   console.log('moved', trash.length, 'files to the Recycle Bin');
 }
+
+// scenes keep a uid next to every texture path: a texture that took the place of an identical one (dedupe) has another uid,
+// so refresh the uids of the text scenes / resources from the .import files (after Godot has imported the new files)
+if (!dry) {
+  const uidOf = (p) => {
+    const f = path.join(GAME, p.replace('res://', '') + '.import');
+    if (!fs.existsSync(f)) return null;
+    const m = /^uid="(uid:\/\/[^"]+)"/m.exec(fs.readFileSync(f, 'utf8'));
+    return m ? m[1] : null;
+  };
+  let fixed = 0;
+  for (const f of texts.filter((t) => /\.(tscn|tres)$/.test(t))) {
+    const s = fs.readFileSync(f, 'utf8');
+    const out = s.replace(/(\[ext_resource [^\]]*?)uid="(uid:\/\/[^"]+)"([^\]]*?path="(res:\/\/[^"]+\.png)")/g, (all, a, uid, b, r) => {
+      const want = uidOf(r);
+      return want && want !== uid ? a + 'uid="' + want + '"' + b : all;
+    });
+    if (out !== s) { fs.writeFileSync(f, out); fixed++; }
+  }
+  if (fixed) console.log('refreshed texture uids in', fixed, 'scenes');
+}
