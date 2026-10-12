@@ -125,11 +125,11 @@ function search(H, w, h, tpl, minScore) {
 // it is drawn black and bold). [x, y, w, h] in texture pixels, only the visible part.
 const MANUAL = {
   '1_v6_86.png': [[3412, 886, 56, 36], [5858, 886, 56, 36]],
-  'e2b96b7221852ada4ea8fa907680fcdf.png': [[74, 40, 92, 38]],
+  'zmxy2_game_308.png': [[74, 40, 92, 38]],
 };
 
 // textures that repeat sideways (a floor tile): patches may wrap around
-const WRAP = { 'e2b96b7221852ada4ea8fa907680fcdf.png': true };
+const WRAP = { 'zmxy2_game_308.png': true };
 
 function findStamps(d) {
   const w = d.width, h = d.height;
