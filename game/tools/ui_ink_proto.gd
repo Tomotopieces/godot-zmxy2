@@ -10,7 +10,7 @@ func _ready() -> void:
 	_manifest = JSON.parse_string(FileAccess.get_file_as_string(DIR + "ink.json"))
 	var args := OS.get_cmdline_user_args()
 	var bg := TextureRect.new()
-	bg.texture = load("res://assets/shared/06b9a7640ad6a413c05a32e9ed588287.png")
+	bg.texture = load("res://assets/shared/levels/1_v6_1.png")
 	bg.size = Layers.VIEW
 	bg.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	add_child(bg)

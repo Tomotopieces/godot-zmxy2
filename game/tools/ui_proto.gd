@@ -10,7 +10,7 @@ const PARCHMENT := Color("2a2430")
 
 func _ready() -> void:
 	var bg := TextureRect.new()
-	bg.texture = load("res://assets/shared/06b9a7640ad6a413c05a32e9ed588287.png")
+	bg.texture = load("res://assets/shared/levels/1_v6_1.png")
 	bg.size = Layers.VIEW
 	bg.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	add_child(bg)
