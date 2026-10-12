@@ -1,59 +1,52 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://src/rig/rig.gd" id="1_a72ts"]
-[ext_resource type="Texture2D" path="res://assets/rigs/baigu_door/tex/zmxy2_game_316.png" id="2_dmtt4"]
-[ext_resource type="Texture2D" path="res://assets/shared/rigs/zmxy2_game_323.png" id="3_j2igb"]
-[ext_resource type="AnimationLibrary" path="res://assets/rigs/baigu_door/anims.res" id="4_rxsg6"]
+[ext_resource type="Script" path="res://src/rig/rig.gd" id="1_hr6ik"]
+[ext_resource type="Texture2D" path="res://assets/rigs/baigu_door/tex/zmxy2_game_316.png" id="2_a72ts"]
+[ext_resource type="AnimationLibrary" path="res://assets/rigs/baigu_door/anims.res" id="3_dmtt4"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ywlb4"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j2igb"]
 resource_local_to_scene = true
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tbf83"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rxsg6"]
 resource_local_to_scene = true
 
-[node name="BaiguDoor" type="Node2D" unique_id=472996694]
-script = ExtResource("1_a72ts")
+[node name="BaiguDoor" type="Node2D" unique_id=1548092389]
+script = ExtResource("1_hr6ik")
 actions = PackedStringArray("default")
 markers = {
 "isBaiguDoor": Vector2(-32.05, 14)
 }
 
-[node name="Parts" type="Node2D" parent="." unique_id=1075051180]
+[node name="Parts" type="Node2D" parent="." unique_id=1652476846]
 
-[node name="default" type="Node2D" parent="Parts" unique_id=643678426]
+[node name="default" type="Node2D" parent="Parts" unique_id=1565775751]
 visible = false
 
-[node name="p2_5" type="Sprite2D" parent="Parts/default" unique_id=1158526006]
+[node name="p2_5" type="Sprite2D" parent="Parts/default" unique_id=1499642822]
 position = Vector2(-533, -173.1)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_dmtt4")
+texture = ExtResource("2_a72ts")
 centered = false
 region_enabled = true
 
-[node name="p15" type="Sprite2D" parent="Parts/default" unique_id=743471828]
-position = Vector2(-599, 19.25)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_j2igb")
-centered = false
-
-[node name="Hitbox" type="Area2D" parent="." unique_id=869504016]
+[node name="Hitbox" type="Area2D" parent="." unique_id=545167703]
 collision_layer = 0
 collision_mask = 0
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=840022730]
-shape = SubResource("RectangleShape2D_ywlb4")
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=70426044]
+shape = SubResource("RectangleShape2D_j2igb")
 disabled = true
 
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1188284171]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=2117379156]
 collision_layer = 0
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=325530714]
-shape = SubResource("RectangleShape2D_tbf83")
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1349262310]
+shape = SubResource("RectangleShape2D_rxsg6")
 disabled = true
 
-[node name="Anim" type="AnimationPlayer" parent="." unique_id=1586476068]
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=66793453]
 callback_mode_process = 0
-libraries/ = ExtResource("4_rxsg6")
+libraries/ = ExtResource("3_dmtt4")
