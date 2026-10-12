@@ -12,9 +12,9 @@ so trees, houses and the gate can each be moved, deleted or sent to the other la
 - `Scenery`
   - `Guides` - reference lines for the editor only (the floor, the first screen); the game drops them
   - `Art` - everything behind the actors
-    - `Far` - a `Parallax2D` that scrolls at 0.6 of the camera: the distant layer (to start with: the blue haze tiles `b84` and the distant houses `b85`; the tool's `--far=1_v6:84,1_v6:85` picks them)
-    - `Near` - a `Parallax2D` at 1.0: the rest of the scenery as the original painted it
-    - ...any other `Node2D` / `Parallax2D` you add: add its settings under `layers` in the lighting file (blur, tint, rim, fade)
+	- `Far` - a `Parallax2D` that scrolls at 0.6 of the camera: the distant layer (to start with: the blue haze tiles `b84` and the distant houses `b85`; the tool's `--far=1_v6:84,1_v6:85` picks them)
+	- `Near` - a `Parallax2D` at 1.0: the rest of the scenery as the original painted it
+	- ...any other `Node2D` / `Parallax2D` you add: add its settings under `layers` in the lighting file (blur, tint, rim, fade)
   - `Ground` - the floor
 
 Work in the 2D editor: drag a `Sprite2D` between layers, change a layer's `Scroll Scale`, add pictures. An object is placed where it
