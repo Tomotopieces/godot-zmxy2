@@ -5,7 +5,7 @@ description: Rework a stage of the 造梦西游2 Godot remake - turn its baked a
 
 # Stage rework (1-1 鬼城, 1-2 无常巷, 1-3 鬼门关 are the reference results)
 
-Read `game/scenes/levels/README.md` first (structure, conventions). The user hand-edits the scenes afterwards: **never
+Read the "Stage scenes" section of the root `README.md` first (structure, conventions). The user hand-edits the scenes afterwards: **never
 regenerate over an existing scene** (`level_to_scene.gd` refuses without `--force`; `git status` shows their uncommitted edits - do not
 commit or overwrite them unless you must touch the file, then edit it as text and say so).
 

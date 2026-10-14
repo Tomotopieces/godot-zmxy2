@@ -4,7 +4,6 @@ extends Hero
 ##   J 连击 (hit1-3)
 ##   U 地刺 (hit4, ground only)   I 旋转防御 (hit6)   O 冲撞 (hit5)   W+J 聚怪 (hit8)
 ##   L 反伤架势 (hit7-1: no hit stun, reflects damage); L again after a moment: 飞刺 (hit7-2)
-## docs/analysis/09_bajie.md
 
 const STANCE := &"hit7-1"
 const STAB := &"hit7-2"
