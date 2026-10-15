@@ -122,36 +122,17 @@ func add_boss_bar(m: Monster) -> void:
 
 ## Combo counter (export.Batter): shown from 2 hits, fades out over 3.5 s after the last hit.
 const COMBO_POS := Vector2(694.95, 234.95)
-const COMBO_FADE := 3.5
-const COMBO_DIGIT_END := 1.4 / 3.5
-const COMBO_POP := 4.0 / 24.0
-var _combo: Node2D
-var _combo_tween: Tween
+const COMBO_SCENE := preload("res://scenes/ui/combo_counter.tscn")
+var _combo: ComboCounter
 
 func show_combo(count: int) -> void:
 	if count < 2:
 		return
 	if _combo == null:
-		_combo = Node2D.new()
+		_combo = COMBO_SCENE.instantiate()
 		_combo.position = COMBO_POS
 		add_child(_combo)
-	for c in _combo.get_children():
-		c.queue_free()
-	_combo.add_child(UiLayout.create("combo"))
-	var digits := str(count)
-	var x := 4.0 if count < 10 else (-44.6 if count < 100 else -95.6)
-	for i in digits.length():
-		var d := UiLayout.create("combo_num" + digits[i])
-		d.position = Vector2(x + i * 50.0, 28.3)
-		# num clip: pops from 3.5x to 1.4x over 4 frames (the extracted art is its first frame)
-		d.scale = Vector2.ONE
-		d.create_tween().tween_property(d, "scale", Vector2.ONE * COMBO_DIGIT_END, COMBO_POP)
-		_combo.add_child(d)
-	_combo.modulate.a = 1.0
-	if _combo_tween:
-		_combo_tween.kill()
-	_combo_tween = create_tween()
-	_combo_tween.tween_property(_combo, "modulate:a", 0.0, COMBO_FADE)
+	_combo.show_count(count)
 
 ## "GO GO" arrow shown when a camera stop is cleared (StopPoint.destroy).
 func play_gogo() -> void:
