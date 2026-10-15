@@ -6,7 +6,7 @@ extends Control
 
 signal button_pressed(button_name: String)
 
-const INK_MIDDLE := 0.78   ## where the middle of this font's glyphs lies below the top of the line, in em
+const INK_MIDDLE := 0.55   ## where the middle of this font's glyphs lies below the top of the line, in em
 
 var _d: Dictionary
 var _named := {}     ## name -> Node (art / frames holder / Label / button Control)
@@ -227,10 +227,10 @@ func _masked(mask: Array, content: Array) -> Node2D:
 		holder.add_child(m)
 	return holder
 
-## How far a field's text is lifted from the top of its box: the middle of this font's glyphs is 0.78 em below the top
+## How far a field's text is lifted from the top of its box: the middle of this font's glyphs is 0.55 em below the top
 ## of its line, the original's was about 0.51 em.
 static func text_lift(font_size: float) -> float:
-	return 0.27 * font_size
+	return (INK_MIDDLE - 0.51) * font_size
 
 func _text(n: Dictionary) -> Label:
 	var l := Label.new()
