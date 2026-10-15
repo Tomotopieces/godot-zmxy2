@@ -148,49 +148,6 @@ func set_visible_piece(piece: String, v: bool) -> void:
 	if p:
 		p.visible = v
 
-## Hide every sprite drawn from texture `tex_key` (one original texture usually carries a whole group of baked
-## captions or boxes), wherever it sits under this layout.
-func hide_leaves(tex_key: String) -> void:
-	for sp in _leaves_of(tex_key):
-		sp.visible = false
-
-## Blank a group of rectangles out of the texture `tex_key` is drawn from (texture pixel space). All sprites sharing it
-## get the same new texture (built once), so the baked captions / boxes inside those rectangles disappear.
-func erase_texture_regions(tex_key: String, px_rects: Array) -> void:
-	var sprites := _leaves_of(tex_key)
-	if sprites.is_empty():
-		return
-	var tex := sprites[0].texture.duplicate() as Texture2D   # one ImageTexture per group: editing it in place would hit the asset
-	var img := tex.get_image()
-	if img == null:
-		return
-	var out := img.duplicate()
-	for r in px_rects:
-		out.fill_rect(r, Color(0, 0, 0, 0))
-	var fresh := ImageTexture.create_from_image(out)
-	for sp in sprites:
-		sp.texture = fresh
-
-func _leaves_of(tex_key: String) -> Array[Sprite2D]:
-	var out: Array[Sprite2D] = []
-	for sp: Sprite2D in find_children("*", "Sprite2D", true, false):
-		if sp.get_meta(&"tex_key", "") == tex_key:
-			out.append(sp)
-	return out
-
-## Put a layout text field inside a drawn box: left-aligned, 4 px in from the box's left, its glyph middle on the box's
-## middle (same rule as _text()'s "fit").
-func place_label_in_box(label_name: String, box: Rect2) -> void:
-	var l: Label = _named.get(label_name)
-	if l == null:
-		return
-	var font_size := float(l.get_theme_font_size("font_size"))
-	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
-	l.position.x = box.position.x + 4.0
-	l.size.x = box.size.x - 8.0
-	l.position.y = box.get_center().y - INK_MIDDLE * font_size
-	l.size.y = font_size * 1.6
-
 ## Pulsing outer glow on a piece (or one frame of it): the original animates a GlowFilter's blur and strength
 ## up and back down (lit 无双 logo, the next stage on the map). Rebuilt as a halo material of the sprites, pulsed by a tween.
 func glow_pulse(target: Node2D, color: Color, blur: Vector2, strength: Vector2, half: float) -> void:

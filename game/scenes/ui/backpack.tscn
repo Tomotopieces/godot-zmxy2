@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" path="res://assets/ui/backpack/tex/backpack_v5_9.png" id="7_06c2m"]
 [ext_resource type="Texture2D" path="res://assets/shared/ui/Common_v7_547.png" id="8_u3sjm"]
 [ext_resource type="Texture2D" path="res://assets/shared/ui/Common_v7_549.png" id="9_v2suv"]
-[ext_resource type="Texture2D" path="res://assets/ui/backpack/tex/backpack_v5_16.png" id="10_pmf04"]
 [ext_resource type="Texture2D" path="res://assets/shared/ui/OtherMat_v10_567.png" id="11_yxu1y"]
 [ext_resource type="Texture2D" path="res://assets/shared/ui/OtherMat_v10_569.png" id="12_di6wg"]
 [ext_resource type="Texture2D" path="res://assets/shared/ui/OtherMat_v10_571.png" id="13_ykggo"]
@@ -58,6 +57,7 @@
 [ext_resource type="Texture2D" path="res://assets/ui/backpack/tex/backpack_v5_113.png" id="56_tq5qr"]
 [ext_resource type="Texture2D" path="res://assets/shared/ui/OtherMat_v10_583.png" id="57_nu7vl"]
 [ext_resource type="Texture2D" path="res://assets/shared/ui/OtherMat_v10_585.png" id="58_bo46w"]
+[ext_resource type="Script" path="res://src/ui/stat_rows.gd" id="59_pa08k"]
 [ext_resource type="Texture2D" path="res://assets/ui/backpack/tex/backpack_v5_122.png" id="59_q3rou"]
 [ext_resource type="Texture2D" path="res://assets/shared/ui/backpack_v5_133.png" id="60_i4o5w"]
 [ext_resource type="Texture2D" path="res://assets/shared/ui/backpack_v5_135.png" id="61_rpvka"]
@@ -84,6 +84,114 @@
 [ext_resource type="Texture2D" path="res://assets/shared/ui/backpack_v5_415.png" id="82_3nogg"]
 [ext_resource type="Texture2D" path="res://assets/ui/backpack/tex/backpack_v5_441.png" id="83_5t232"]
 [ext_resource type="Texture2D" path="res://assets/ui/backpack/tex/backpack_v5_444.png" id="84_x2ym6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ysyl"]
+bg_color = Color(0, 0, 0, 0.55)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.7882353, 0.6431373, 0.3529412, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rcy87"]
+bg_color = Color(0, 0, 0, 0.55)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.7882353, 0.6431373, 0.3529412, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_10tr8"]
+bg_color = Color(0, 0, 0, 0.55)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.7882353, 0.6431373, 0.3529412, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v22i1"]
+bg_color = Color(0, 0, 0, 0.55)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.7882353, 0.6431373, 0.3529412, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_71fha"]
+bg_color = Color(0, 0, 0, 0.55)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.7882353, 0.6431373, 0.3529412, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_06c2m"]
+bg_color = Color(0, 0, 0, 0.55)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.7882353, 0.6431373, 0.3529412, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u3sjm"]
+bg_color = Color(0, 0, 0, 0.55)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.7882353, 0.6431373, 0.3529412, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v2suv"]
+bg_color = Color(0, 0, 0, 0.55)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.7882353, 0.6431373, 0.3529412, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pmf04"]
+bg_color = Color(0, 0, 0, 0.55)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.7882353, 0.6431373, 0.3529412, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
 [node name="backpack" type="Control" unique_id=1004764809]
 layout_mode = 3
@@ -1090,87 +1198,6 @@ metadata/tex_key = "backpack_v5:12"
 
 [node name="Art2" type="Node2D" parent="." unique_id=945568241]
 
-[node name="backpack_v5_16" type="Sprite2D" parent="Art2" unique_id=614936874]
-position = Vector2(127.15, 294.45)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("10_pmf04")
-centered = false
-region_enabled = true
-region_rect = Rect2(3, 0, 53, 26)
-metadata/tex_key = "backpack_v5:16"
-
-[node name="backpack_v5_17" type="Sprite2D" parent="Art2" unique_id=1261783873]
-position = Vector2(285.65, 294.2)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("10_pmf04")
-centered = false
-region_enabled = true
-region_rect = Rect2(320, 3, 60, 27)
-metadata/tex_key = "backpack_v5:16"
-
-[node name="backpack_v5_18" type="Sprite2D" parent="Art2" unique_id=1548678457]
-position = Vector2(125.65, 324.05)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("10_pmf04")
-centered = false
-region_enabled = true
-region_rect = Rect2(0, 59, 59, 30)
-metadata/tex_key = "backpack_v5:16"
-
-[node name="backpack_v5_19" type="Sprite2D" parent="Art2" unique_id=361238786]
-position = Vector2(286.65, 323.8)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("10_pmf04")
-centered = false
-region_enabled = true
-region_rect = Rect2(322, 64, 58, 31)
-metadata/tex_key = "backpack_v5:16"
-
-[node name="backpack_v5_20" type="Sprite2D" parent="Art2" unique_id=659210919]
-position = Vector2(125.65, 356.05)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("10_pmf04")
-centered = false
-region_enabled = true
-region_rect = Rect2(0, 121, 59, 30)
-metadata/tex_key = "backpack_v5:16"
-
-[node name="backpack_v5_21" type="Sprite2D" parent="Art2" unique_id=1425804411]
-position = Vector2(286.65, 355.8)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("10_pmf04")
-centered = false
-region_enabled = true
-region_rect = Rect2(322, 126, 58, 31)
-metadata/tex_key = "backpack_v5:16"
-
-[node name="backpack_v5_22" type="Sprite2D" parent="Art2" unique_id=868647368]
-position = Vector2(125.65, 387.75)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("10_pmf04")
-centered = false
-region_enabled = true
-region_rect = Rect2(0, 181, 60, 29)
-metadata/tex_key = "backpack_v5:16"
-
-[node name="backpack_v5_23" type="Sprite2D" parent="Art2" unique_id=1229124722]
-position = Vector2(286.65, 387.55)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("10_pmf04")
-centered = false
-region_enabled = true
-region_rect = Rect2(322, 186, 58, 30)
-metadata/tex_key = "backpack_v5:16"
-
-[node name="backpack_v5_24" type="Sprite2D" parent="Art2" unique_id=1579638362]
-position = Vector2(126.15, 413.95)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("10_pmf04")
-centered = false
-region_enabled = true
-region_rect = Rect2(1, 243, 60, 28)
-metadata/tex_key = "backpack_v5:16"
-
 [node name="btn_zb" type="Control" parent="." unique_id=169974895]
 anchors_preset = 0
 offset_left = 481.2
@@ -1651,38 +1678,6 @@ texture = ExtResource("54_f3h6a")
 centered = false
 metadata/tex_key = "backpack_v5:104"
 
-[node name="txt_exp" type="Label" parent="." unique_id=1776180703]
-layout_mode = 0
-offset_left = 193.0
-offset_top = 411.89
-offset_right = 332.95
-offset_bottom = 432.34003
-theme_override_font_sizes/font_size = 14
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
-horizontal_alignment = 1
-metadata/rec = {
-"align": "center",
-"b": {
-"h": 20.45,
-"w": 139.95,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"m": [1.0, 0.0, 0.0, 1.0, 195.0, 415.45],
-"multiline": true,
-"name": "txt_exp",
-"nudge": [0.0, -1.0],
-"size": 14.0,
-"text": "",
-"type": "text",
-"var": "",
-"wrap": true
-}
-metadata/ui_piece = ["txt_exp"]
-
 [node name="Art3" type="Node2D" parent="." unique_id=1316015275]
 
 [node name="backpack_v5_110" type="Sprite2D" parent="Art3" unique_id=935701358]
@@ -1812,17 +1807,52 @@ texture = ExtResource("59_q3rou")
 centered = false
 metadata/tex_key = "backpack_v5:122"
 
-[node name="txt_hp" type="Label" parent="." unique_id=198850871]
-layout_mode = 0
-offset_left = 160.4
-offset_top = 292.3
+[node name="StatRows" type="Control" parent="." unique_id=1161073590]
+anchors_preset = 0
+offset_right = 429.0
+offset_bottom = 433.0
+mouse_filter = 2
+
+[node name="Row_txt_hp" type="Control" parent="StatRows" unique_id=1318898009]
+anchors_preset = 0
+offset_left = 115.0
+offset_top = 293.0
 offset_right = 269.0
-offset_bottom = 314.69998
+offset_bottom = 313.0
+mouse_filter = 2
+script = ExtResource("59_pa08k")
+
+[node name="Caption" type="Label" parent="StatRows/Row_txt_hp" unique_id=1864548126]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 20.0
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.9529412, 0.8901961, 0.6901961, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+text = "生命"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Box" type="Panel" parent="StatRows/Row_txt_hp" unique_id=1290097731]
+layout_mode = 0
+offset_left = 46.0
+offset_right = 154.0
+offset_bottom = 20.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2ysyl")
+
+[node name="txt_hp" type="Label" parent="StatRows/Row_txt_hp/Box" unique_id=198850871]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 2.3
+offset_right = -4.0
 theme_override_font_sizes/font_size = 14
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
-horizontal_alignment = 1
 metadata/rec = {
 "align": "center",
 "b": {
@@ -1845,17 +1875,46 @@ metadata/rec = {
 }
 metadata/ui_piece = ["txt_hp"]
 
-[node name="txt_att" type="Label" parent="." unique_id=107944862]
+[node name="Row_txt_att" type="Control" parent="StatRows" unique_id=41023895]
+anchors_preset = 0
+offset_left = 115.0
+offset_top = 323.0
+offset_right = 269.0
+offset_bottom = 343.0
+mouse_filter = 2
+script = ExtResource("59_pa08k")
+
+[node name="Caption" type="Label" parent="StatRows/Row_txt_att" unique_id=944315609]
 layout_mode = 0
-offset_left = 162.6
-offset_top = 322.84998
-offset_right = 271.0
-offset_bottom = 345.24997
+offset_right = 40.0
+offset_bottom = 20.0
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.9529412, 0.8901961, 0.6901961, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+text = "攻击"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Box" type="Panel" parent="StatRows/Row_txt_att" unique_id=316167282]
+layout_mode = 0
+offset_left = 46.0
+offset_right = 154.0
+offset_bottom = 20.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rcy87")
+
+[node name="txt_att" type="Label" parent="StatRows/Row_txt_att/Box" unique_id=107944862]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 2.3
+offset_right = -4.0
 theme_override_font_sizes/font_size = 14
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
-horizontal_alignment = 1
 metadata/rec = {
 "align": "center",
 "b": {
@@ -1878,17 +1937,46 @@ metadata/rec = {
 }
 metadata/ui_piece = ["txt_att"]
 
-[node name="txt_baoji" type="Label" parent="." unique_id=2138777147]
+[node name="Row_txt_baoji" type="Control" parent="StatRows" unique_id=1059522623]
+anchors_preset = 0
+offset_left = 115.0
+offset_top = 353.0
+offset_right = 269.0
+offset_bottom = 373.0
+mouse_filter = 2
+script = ExtResource("59_pa08k")
+
+[node name="Caption" type="Label" parent="StatRows/Row_txt_baoji" unique_id=101697194]
 layout_mode = 0
-offset_left = 160.4
-offset_top = 354.9
-offset_right = 273.0
-offset_bottom = 377.3
+offset_right = 40.0
+offset_bottom = 20.0
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.9529412, 0.8901961, 0.6901961, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+text = "暴击"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Box" type="Panel" parent="StatRows/Row_txt_baoji" unique_id=876806598]
+layout_mode = 0
+offset_left = 46.0
+offset_right = 154.0
+offset_bottom = 20.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_10tr8")
+
+[node name="txt_baoji" type="Label" parent="StatRows/Row_txt_baoji/Box" unique_id=2138777147]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 2.3
+offset_right = -4.0
 theme_override_font_sizes/font_size = 14
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
-horizontal_alignment = 1
 metadata/rec = {
 "align": "center",
 "b": {
@@ -1911,17 +1999,46 @@ metadata/rec = {
 }
 metadata/ui_piece = ["txt_baoji"]
 
-[node name="txt_hx" type="Label" parent="." unique_id=240934974]
+[node name="Row_txt_hx" type="Control" parent="StatRows" unique_id=699697246]
+anchors_preset = 0
+offset_left = 115.0
+offset_top = 383.0
+offset_right = 269.0
+offset_bottom = 403.0
+mouse_filter = 2
+script = ExtResource("59_pa08k")
+
+[node name="Caption" type="Label" parent="StatRows/Row_txt_hx" unique_id=1498720731]
 layout_mode = 0
-offset_left = 160.0
-offset_top = 386.3
-offset_right = 270.0
-offset_bottom = 408.69998
+offset_right = 40.0
+offset_bottom = 20.0
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.9529412, 0.8901961, 0.6901961, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+text = "回血"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Box" type="Panel" parent="StatRows/Row_txt_hx" unique_id=1094874963]
+layout_mode = 0
+offset_left = 46.0
+offset_right = 154.0
+offset_bottom = 20.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_v22i1")
+
+[node name="txt_hx" type="Label" parent="StatRows/Row_txt_hx/Box" unique_id=240934974]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 2.3
+offset_right = -4.0
 theme_override_font_sizes/font_size = 14
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
-horizontal_alignment = 1
 metadata/rec = {
 "align": "center",
 "b": {
@@ -1944,17 +2061,107 @@ metadata/rec = {
 }
 metadata/ui_piece = ["txt_hx"]
 
-[node name="txt_hl" type="Label" parent="." unique_id=236140660]
+[node name="Row_txt_exp" type="Control" parent="StatRows" unique_id=2089605644]
+anchors_preset = 0
+offset_left = 115.0
+offset_top = 413.0
+offset_right = 301.0
+offset_bottom = 433.0
+mouse_filter = 2
+script = ExtResource("59_pa08k")
+
+[node name="Caption" type="Label" parent="StatRows/Row_txt_exp" unique_id=359059716]
 layout_mode = 0
-offset_left = 322.2
-offset_top = 386.34998
-offset_right = 429.95
-offset_bottom = 408.74997
+offset_right = 40.0
+offset_bottom = 20.0
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.9529412, 0.8901961, 0.6901961, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+text = "经验"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Box" type="Panel" parent="StatRows/Row_txt_exp" unique_id=668975082]
+layout_mode = 0
+offset_left = 46.0
+offset_right = 186.0
+offset_bottom = 20.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_71fha")
+
+[node name="txt_exp" type="Label" parent="StatRows/Row_txt_exp/Box" unique_id=1776180703]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 2.3
+offset_right = -4.0
 theme_override_font_sizes/font_size = 14
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
-horizontal_alignment = 1
+metadata/rec = {
+"align": "center",
+"b": {
+"h": 20.45,
+"w": 139.95,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"m": [1.0, 0.0, 0.0, 1.0, 195.0, 415.45],
+"multiline": true,
+"name": "txt_exp",
+"nudge": [0.0, -1.0],
+"size": 14.0,
+"text": "",
+"type": "text",
+"var": "",
+"wrap": true
+}
+metadata/ui_piece = ["txt_exp"]
+
+[node name="Row_txt_mp" type="Control" parent="StatRows" unique_id=1792466737]
+anchors_preset = 0
+offset_left = 275.0
+offset_top = 293.0
+offset_right = 429.0
+offset_bottom = 313.0
+mouse_filter = 2
+script = ExtResource("59_pa08k")
+
+[node name="Caption" type="Label" parent="StatRows/Row_txt_mp" unique_id=404549091]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 20.0
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.9529412, 0.8901961, 0.6901961, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+text = "魔法"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Box" type="Panel" parent="StatRows/Row_txt_mp" unique_id=809113393]
+layout_mode = 0
+offset_left = 46.0
+offset_right = 154.0
+offset_bottom = 20.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_06c2m")
+
+[node name="txt_mp" type="Label" parent="StatRows/Row_txt_mp/Box" unique_id=1652955601]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 2.3
+offset_right = -4.0
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
 metadata/rec = {
 "align": "center",
 "b": {
@@ -1964,10 +2171,10 @@ metadata/rec = {
 "y": -2.0
 },
 "color": "#ffffff",
-"fit": [2.5, 19.5],
-"m": [1.0, 0.0, 0.0, 1.0, 324.2, 386.05],
+"fit": [0.0, 17.0],
+"m": [1.0, 0.0, 0.0, 1.0, 324.2, 294.45],
 "multiline": true,
-"name": "txt_hl",
+"name": "txt_mp",
 "nudge": [0.0, -1.0],
 "size": 14.0,
 "text": "",
@@ -1975,52 +2182,48 @@ metadata/rec = {
 "var": "",
 "wrap": true
 }
-metadata/ui_piece = ["txt_hl"]
+metadata/ui_piece = ["txt_mp"]
 
-[node name="txt_sb" type="Label" parent="." unique_id=1230398138]
+[node name="Row_txt_def" type="Control" parent="StatRows" unique_id=1370041782]
+anchors_preset = 0
+offset_left = 275.0
+offset_top = 323.0
+offset_right = 429.0
+offset_bottom = 343.0
+mouse_filter = 2
+script = ExtResource("59_pa08k")
+
+[node name="Caption" type="Label" parent="StatRows/Row_txt_def" unique_id=993524430]
 layout_mode = 0
-offset_left = 320.0
-offset_top = 354.84998
-offset_right = 430.95
-offset_bottom = 377.24997
+offset_right = 40.0
+offset_bottom = 20.0
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.9529412, 0.8901961, 0.6901961, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+text = "防御"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Box" type="Panel" parent="StatRows/Row_txt_def" unique_id=1782068953]
+layout_mode = 0
+offset_left = 46.0
+offset_right = 154.0
+offset_bottom = 20.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_u3sjm")
+
+[node name="txt_def" type="Label" parent="StatRows/Row_txt_def/Box" unique_id=107352821]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 2.3
+offset_right = -4.0
 theme_override_font_sizes/font_size = 14
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
-horizontal_alignment = 1
-metadata/rec = {
-"align": "center",
-"b": {
-"h": 20.45,
-"w": 110.95,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [0.5, 18.5],
-"m": [1.0, 0.0, 0.0, 1.0, 322.0, 356.05],
-"multiline": true,
-"name": "txt_sb",
-"nudge": [0.0, -1.0],
-"size": 14.0,
-"text": "",
-"type": "text",
-"var": "",
-"wrap": true
-}
-metadata/ui_piece = ["txt_sb"]
-
-[node name="txt_def" type="Label" parent="." unique_id=107352821]
-layout_mode = 0
-offset_left = 319.6
-offset_top = 322.84998
-offset_right = 430.95
-offset_bottom = 345.24997
-theme_override_font_sizes/font_size = 14
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
-horizontal_alignment = 1
 metadata/rec = {
 "align": "center",
 "b": {
@@ -2043,17 +2246,108 @@ metadata/rec = {
 }
 metadata/ui_piece = ["txt_def"]
 
-[node name="txt_mp" type="Label" parent="." unique_id=1652955601]
+[node name="Row_txt_sb" type="Control" parent="StatRows" unique_id=1342865893]
+anchors_preset = 0
+offset_left = 275.0
+offset_top = 353.0
+offset_right = 429.0
+offset_bottom = 373.0
+mouse_filter = 2
+script = ExtResource("59_pa08k")
+
+[node name="Caption" type="Label" parent="StatRows/Row_txt_sb" unique_id=989706021]
 layout_mode = 0
-offset_left = 322.2
-offset_top = 292.25
-offset_right = 429.95
-offset_bottom = 314.65
+offset_right = 40.0
+offset_bottom = 20.0
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.9529412, 0.8901961, 0.6901961, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+text = "闪避"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Box" type="Panel" parent="StatRows/Row_txt_sb" unique_id=570697103]
+layout_mode = 0
+offset_left = 46.0
+offset_right = 154.0
+offset_bottom = 20.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_v2suv")
+
+[node name="txt_sb" type="Label" parent="StatRows/Row_txt_sb/Box" unique_id=1230398138]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 2.3
+offset_right = -4.0
 theme_override_font_sizes/font_size = 14
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
-horizontal_alignment = 1
+metadata/rec = {
+"align": "center",
+"b": {
+"h": 20.45,
+"w": 110.95,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"fit": [0.5, 18.5],
+"m": [1.0, 0.0, 0.0, 1.0, 322.0, 356.05],
+"multiline": true,
+"name": "txt_sb",
+"nudge": [0.0, -1.0],
+"size": 14.0,
+"text": "",
+"type": "text",
+"var": "",
+"wrap": true
+}
+metadata/ui_piece = ["txt_sb"]
+
+[node name="Row_txt_hl" type="Control" parent="StatRows" unique_id=216398030]
+anchors_preset = 0
+offset_left = 275.0
+offset_top = 383.0
+offset_right = 429.0
+offset_bottom = 403.0
+mouse_filter = 2
+script = ExtResource("59_pa08k")
+
+[node name="Caption" type="Label" parent="StatRows/Row_txt_hl" unique_id=725882080]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 20.0
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.9529412, 0.8901961, 0.6901961, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+text = "回蓝"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Box" type="Panel" parent="StatRows/Row_txt_hl" unique_id=694351941]
+layout_mode = 0
+offset_left = 46.0
+offset_right = 154.0
+offset_bottom = 20.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_pmf04")
+
+[node name="txt_hl" type="Label" parent="StatRows/Row_txt_hl/Box" unique_id=236140660]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 2.3
+offset_right = -4.0
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
 metadata/rec = {
 "align": "center",
 "b": {
@@ -2063,10 +2357,10 @@ metadata/rec = {
 "y": -2.0
 },
 "color": "#ffffff",
-"fit": [0.0, 17.0],
-"m": [1.0, 0.0, 0.0, 1.0, 324.2, 294.45],
+"fit": [2.5, 19.5],
+"m": [1.0, 0.0, 0.0, 1.0, 324.2, 386.05],
 "multiline": true,
-"name": "txt_mp",
+"name": "txt_hl",
 "nudge": [0.0, -1.0],
 "size": 14.0,
 "text": "",
@@ -2074,7 +2368,7 @@ metadata/rec = {
 "var": "",
 "wrap": true
 }
-metadata/ui_piece = ["txt_mp"]
+metadata/ui_piece = ["txt_hl"]
 
 [node name="txt_name" type="Label" parent="." unique_id=332687760]
 layout_mode = 0

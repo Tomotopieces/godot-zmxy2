@@ -26,18 +26,6 @@ var _menu_index := -1
 var _tab := "btn_zb"
 var _cell_ui: Dictionary
 
-## Stat rows drawn by Godot over the art: each column matches a stack of pairs in the original's one caption texture, which
-## also holds the crooked captions and the value boxes drawn on it (hidden / blanked below).
-const STAT_COLS := [
-	{"x": 115, "y": 293, "row_h": 30, "caption_w": 40, "box_w": 108,
-		"rows": [{"caption": "生命", "label": "txt_hp"}, {"caption": "攻击", "label": "txt_att"},
-			{"caption": "暴击", "label": "txt_baoji"}, {"caption": "回血", "label": "txt_hx"},
-			{"caption": "经验", "label": "txt_exp", "box_w": 140}]},
-	{"x": 275, "y": 293, "row_h": 30, "caption_w": 40, "box_w": 108,
-		"rows": [{"caption": "魔法", "label": "txt_mp"}, {"caption": "防御", "label": "txt_def"},
-			{"caption": "闪避", "label": "txt_sb"}, {"caption": "回蓝", "label": "txt_hl"}]},
-]
-
 func _ready() -> void:
 	layer = 10
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -50,7 +38,6 @@ func _ready() -> void:
 	add_child(dim)
 	_ui = UiLayout.create("backpack")
 	add_child(_ui)
-	_add_stat_rows()
 	_build_portrait()
 	_ui.button_pressed.connect(_on_button)
 	_grid = Control.new()
@@ -66,18 +53,6 @@ func _ready() -> void:
 	GameState.equipment_changed.connect(_refresh)
 	get_tree().paused = true
 	_refresh()
-
-## Replace the baked captions and value boxes of the two stat stacks with boxes drawn over the art; the original text
-## fields go inside them.
-func _add_stat_rows() -> void:
-	_ui.hide_leaves("backpack_v5:16")
-	var rows := StatRows.create(STAT_COLS)
-	_ui.add_child(rows)
-	# under the value labels, over the art (the labels come after the art / buttons in the layout, the rows between them)
-	_ui.move_child(rows, (_ui.get_piece("txt_hp") as Node).get_index())
-	for col in STAT_COLS:
-		for r in col.rows:
-			_ui.place_label_in_box(r.label, rows.box_rect(r.label))
 
 ## The portrait plays the original animated clips: the spotlight behind (symbol 137) and Wukong (personmc body)
 ## wearing the current gear. They replace the layout's frozen first frames.

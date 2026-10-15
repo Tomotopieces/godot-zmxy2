@@ -26,37 +26,10 @@ func _ready() -> void:
 	_ui = UiLayout.create("sutra")
 	_ui.button_pressed.connect(_on_button)
 	add_child(_ui)
-	_add_stat_rows()
 	var d := GameState.item_data(_item())
 	_ui.show_frame("showmc", d.display_name)
 	_ui.show_frame("introducemc", d.display_name)
 	_refresh()
-
-## The baked captions and value boxes of the treasure's three stat groups live in one texture; blank them out and draw
-## aligned rows in their place, then put the original text fields inside the new boxes.
-## The rectangles are in that texture's pixels (their corners are not axis-aligned on screen, so they are blanked rather
-## than hidden).
-const ERASE_RECTS := [Rect2i(252, 253, 262, 54), Rect2i(250, 326, 128, 50), Rect2i(252, 396, 262, 54),
-	Rect2i(64, 490, 180, 122), Rect2i(321, 490, 180, 122), Rect2i(0, 624, 72, 46)]
-const STAT_COLS := [
-	{"x": 330, "y": 223, "row_h": 35, "caption_w": 40, "box_w": 80,
-		"rows": [{"caption": "等级", "label": "txt_fbdj"}, {"caption": "成长", "label": "txt_fbczl"},
-			{"caption": "五行", "label": "txt_fbwx"}]},
-	{"x": 195, "y": 342, "row_h": 35, "caption_w": 40, "box_w": 80,
-		"rows": [{"caption": "回血", "label": "txt_fbhx"}, {"caption": "攻击", "label": "txt_fbatk"},
-			{"caption": "灵魂", "label": "txt_fblh", "box_w": 210}]},
-	{"x": 324, "y": 342, "row_h": 35, "caption_w": 40, "box_w": 80,
-		"rows": [{"caption": "回蓝", "label": "txt_fbhl"}, {"caption": "防御", "label": "txt_fbdef"}]},
-]
-
-func _add_stat_rows() -> void:
-	_ui.erase_texture_regions("backpack_v5:470", ERASE_RECTS)
-	var rows := StatRows.create(STAT_COLS)
-	_ui.add_child(rows)
-	_ui.move_child(rows, (_ui.get_piece("txt_fbatk") as Node).get_index())
-	for col in STAT_COLS:
-		for r in col.rows:
-			_ui.place_label_in_box(r.label, rows.box_rect(r.label))
 
 func _item() -> Item:
 	return GameState.worn[&"treasure"]
