@@ -3,7 +3,8 @@ extends Node2D
 ## Boss HP gauge at the top of the screen (GameInfo.addBossBlood / BossBlood): the mask slides left as HP drops
 ## while the red fill stays put, so the red never leaves the gauge.
 ## The boss name was a per-boss bitmap (the `namemc` frames piece); it is now the display_name drawn in a marker font,
-## centred on the left edge of the gauge (its centre sits exactly on that edge).
+## centred on the left edge of the visible red gauge (its centre sits exactly on that edge), not on the clip mask's own
+## left edge: the mask texture is far wider than the fill it clips.
 
 const EMPTY_SHIFT := -323.0   ## mask x offset at 0 HP relative to full (BossBlood frame 1 -> frame 100)
 
@@ -15,7 +16,7 @@ var boss: Monster
 var _ui: UiLayout
 var _mask: Sprite2D
 var _mask_x := 0.0
-var _gauge_left := 0.0   ## left edge of the gauge (the clip mask at full HP) in this BossBar's space
+var _gauge_left := 0.0   ## left edge of the visible red gauge (the fill's first opaque pixel) in this BossBar's space, at full HP
 var _fill_x := {}   ## fill sprite -> its x (in the mask's space) at full HP
 
 static func create(m: Monster) -> BossBar:
@@ -32,10 +33,33 @@ func _ready() -> void:
 			_mask = sp
 	if _mask:
 		_mask_x = _mask.position.x
-		_gauge_left = _mask_x   # the mask is centered = false, so its left edge is its x, and at full HP the shift is 0
+		_gauge_left = _visible_fill_left()
 		for c: Node2D in _mask.get_children():
 			_fill_x[c] = c.position.x
 	add_child(_name_label(boss.data.display_name))
+
+## Left edge of the visible red gauge at full HP, in this BossBar's space: the first opaque pixel column of the red fill
+## inside the clip mask (the mask texture is much wider than the bar, so the mask's own left edge sits well left of it).
+func _visible_fill_left() -> float:
+	var left := INF
+	for c: Node2D in _mask.get_children():
+		if not (c is Sprite2D):
+			continue
+		var sp := c as Sprite2D
+		var x := 0.0
+		var img: Image = sp.texture.get_image() if sp.texture != null else null
+		if img != null:
+			var used := img.get_used_rect()   # the opaque (alpha > 0) pixels
+			if used.size.x > 0:
+				x = float(used.position.x)   # centered = false, so pixel 0 is the sprite's origin
+		left = minf(left, to_local(sp.to_global(Vector2(x, 0))).x)
+	if is_inf(left):   # unreadable texture: fall back to the fill's own left edge
+		for c: Node2D in _mask.get_children():
+			if c is Sprite2D:
+				left = minf(left, to_local(c.to_global(Vector2.ZERO)).x)
+	if is_inf(left):
+		left = _mask_x   # last resort: the old behaviour (the mask's left edge), already in BossBar space
+	return left
 
 func _process(_dt: float) -> void:
 	if not is_instance_valid(boss) or boss.state == Monster.State.DEAD:
