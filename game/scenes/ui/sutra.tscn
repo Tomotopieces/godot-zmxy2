@@ -31,104 +31,9 @@
 [ext_resource type="Texture2D" path="res://assets/ui/sutra/tex/backpack_v5_547.png" id="29_aakcr"]
 [ext_resource type="Texture2D" path="res://assets/ui/sutra/tex/backpack_v5_549.png" id="30_ony7b"]
 [ext_resource type="Texture2D" path="res://assets/shared/ui/Common_v7_547.png" id="31_plfqd"]
-[ext_resource type="Script" path="res://src/ui/stat_rows.gd" id="31_r735v"]
 [ext_resource type="Texture2D" path="res://assets/shared/ui/Common_v7_549.png" id="32_ad4e2"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cr8vu"]
-bg_color = Color(0, 0, 0, 0.55)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.7882353, 0.6431373, 0.3529412, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tspwb"]
-bg_color = Color(0, 0, 0, 0.55)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.7882353, 0.6431373, 0.3529412, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1acjm"]
-bg_color = Color(0, 0, 0, 0.55)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.7882353, 0.6431373, 0.3529412, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gcbsr"]
-bg_color = Color(0, 0, 0, 0.55)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.7882353, 0.6431373, 0.3529412, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ihqu3"]
-bg_color = Color(0, 0, 0, 0.55)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.7882353, 0.6431373, 0.3529412, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hqo6y"]
-bg_color = Color(0, 0, 0, 0.55)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.7882353, 0.6431373, 0.3529412, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t0cq7"]
-bg_color = Color(0, 0, 0, 0.55)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.7882353, 0.6431373, 0.3529412, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_30kgi"]
-bg_color = Color(0, 0, 0, 0.55)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.7882353, 0.6431373, 0.3529412, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
+[ext_resource type="PackedScene" uid="uid://bn7cu4s02f7m0" path="res://scenes/ui/backpack/stat.tscn" id="33_stat"]
+[ext_resource type="PackedScene" uid="uid://cc8hr3t5hdisi" path="res://scenes/ui/backpack/currency.tscn" id="34_curr"]
 
 [node name="sutra" type="Control" unique_id=104091820]
 layout_mode = 3
@@ -570,499 +475,85 @@ offset_right = 456.0
 offset_bottom = 432.0
 mouse_filter = 2
 
-[node name="Row_txt_fbdj" type="Control" parent="StatRows" unique_id=870992650]
-anchors_preset = 0
+[node name="StatFbdj" parent="StatRows" unique_id=870992650 instance=ExtResource("33_stat")]
+layout_mode = 0
 offset_left = 330.0
 offset_top = 223.0
-offset_right = 456.0
-offset_bottom = 243.0
-mouse_filter = 2
-script = ExtResource("31_r735v")
+offset_right = 330.0
+offset_bottom = 223.0
+caption = "等级"
+width = 80
+piece = "txt_fbdj"
 
-[node name="Caption" type="Label" parent="StatRows/Row_txt_fbdj" unique_id=551931244]
+[node name="StatFbczl" parent="StatRows" unique_id=276743491 instance=ExtResource("33_stat")]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 20.0
-theme_override_font_sizes/font_size = 14
-theme_override_colors/font_color = Color(0.9529412, 0.8901961, 0.6901961, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
-text = "等级"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="Box" type="Panel" parent="StatRows/Row_txt_fbdj" unique_id=31257808]
-layout_mode = 0
-offset_left = 46.0
-offset_right = 126.0
-offset_bottom = 20.0
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_cr8vu")
-
-[node name="txt_fbdj" type="Label" parent="StatRows/Row_txt_fbdj/Box" unique_id=1708912120]
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 2.3
-offset_right = -4.0
-theme_override_font_sizes/font_size = 14
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
-metadata/rec = {
-"align": "left",
-"b": {
-"h": 20.45,
-"w": 77.8,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [2.5, 19.5],
-"m": [1.0, 0.0, 0.0, 1.0, 380.6, 224.15],
-"multiline": false,
-"name": "txt_fbdj",
-"nudge": [3.0, 0.0],
-"size": 14.0,
-"text": "",
-"type": "text",
-"var": "",
-"wrap": false
-}
-metadata/ui_piece = ["txt_fbdj"]
-
-[node name="Row_txt_fbczl" type="Control" parent="StatRows" unique_id=276743491]
-anchors_preset = 0
 offset_left = 330.0
 offset_top = 258.0
-offset_right = 456.0
-offset_bottom = 278.0
-mouse_filter = 2
-script = ExtResource("31_r735v")
+offset_right = 330.0
+offset_bottom = 258.0
+caption = "成长"
+width = 80
+piece = "txt_fbczl"
 
-[node name="Caption" type="Label" parent="StatRows/Row_txt_fbczl" unique_id=1044230664]
+[node name="StatFbwx" parent="StatRows" unique_id=650313914 instance=ExtResource("33_stat")]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 20.0
-theme_override_font_sizes/font_size = 14
-theme_override_colors/font_color = Color(0.9529412, 0.8901961, 0.6901961, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
-text = "成长"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="Box" type="Panel" parent="StatRows/Row_txt_fbczl" unique_id=1331316410]
-layout_mode = 0
-offset_left = 46.0
-offset_right = 126.0
-offset_bottom = 20.0
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_tspwb")
-
-[node name="txt_fbczl" type="Label" parent="StatRows/Row_txt_fbczl/Box" unique_id=1011354796]
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 2.3
-offset_right = -4.0
-theme_override_font_sizes/font_size = 14
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
-metadata/rec = {
-"align": "left",
-"b": {
-"h": 20.45,
-"w": 77.8,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [0.5, 17.5],
-"m": [1.0, 0.0, 0.0, 1.0, 393.6, 261.15],
-"multiline": false,
-"name": "txt_fbczl",
-"nudge": [3.0, 0.0],
-"size": 14.0,
-"text": "",
-"type": "text",
-"var": "",
-"wrap": false
-}
-metadata/ui_piece = ["txt_fbczl"]
-
-[node name="Row_txt_fbwx" type="Control" parent="StatRows" unique_id=650313914]
-anchors_preset = 0
 offset_left = 330.0
 offset_top = 293.0
-offset_right = 456.0
-offset_bottom = 313.0
-mouse_filter = 2
-script = ExtResource("31_r735v")
+offset_right = 330.0
+offset_bottom = 293.0
+caption = "五行"
+width = 80
+piece = "txt_fbwx"
 
-[node name="Caption" type="Label" parent="StatRows/Row_txt_fbwx" unique_id=624600022]
+[node name="StatFbhx" parent="StatRows" unique_id=1389367803 instance=ExtResource("33_stat")]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 20.0
-theme_override_font_sizes/font_size = 14
-theme_override_colors/font_color = Color(0.9529412, 0.8901961, 0.6901961, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
-text = "五行"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="Box" type="Panel" parent="StatRows/Row_txt_fbwx" unique_id=6741230]
-layout_mode = 0
-offset_left = 46.0
-offset_right = 126.0
-offset_bottom = 20.0
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_1acjm")
-
-[node name="txt_fbwx" type="Label" parent="StatRows/Row_txt_fbwx/Box" unique_id=976420973]
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 2.3
-offset_right = -4.0
-theme_override_font_sizes/font_size = 14
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
-metadata/rec = {
-"align": "left",
-"b": {
-"h": 20.45,
-"w": 77.8,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [3.5, 20.5],
-"m": [1.0, 0.0, 0.0, 1.0, 379.6, 294.15],
-"multiline": false,
-"name": "txt_fbwx",
-"nudge": [3.0, 0.0],
-"size": 14.0,
-"text": "",
-"type": "text",
-"var": "",
-"wrap": false
-}
-metadata/ui_piece = ["txt_fbwx"]
-
-[node name="Row_txt_fbhx" type="Control" parent="StatRows" unique_id=1389367803]
-anchors_preset = 0
 offset_left = 195.0
 offset_top = 342.0
-offset_right = 321.0
-offset_bottom = 362.0
-mouse_filter = 2
-script = ExtResource("31_r735v")
+offset_right = 195.0
+offset_bottom = 342.0
+caption = "回血"
+width = 80
+piece = "txt_fbhx"
 
-[node name="Caption" type="Label" parent="StatRows/Row_txt_fbhx" unique_id=793226563]
+[node name="StatFbatk" parent="StatRows" unique_id=341846521 instance=ExtResource("33_stat")]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 20.0
-theme_override_font_sizes/font_size = 14
-theme_override_colors/font_color = Color(0.9529412, 0.8901961, 0.6901961, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
-text = "回血"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="Box" type="Panel" parent="StatRows/Row_txt_fbhx" unique_id=1172022052]
-layout_mode = 0
-offset_left = 46.0
-offset_right = 126.0
-offset_bottom = 20.0
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_gcbsr")
-
-[node name="txt_fbhx" type="Label" parent="StatRows/Row_txt_fbhx/Box" unique_id=1396924881]
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 2.3
-offset_right = -4.0
-theme_override_font_sizes/font_size = 14
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
-metadata/rec = {
-"align": "left",
-"b": {
-"h": 20.45,
-"w": 77.8,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [3.5, 20.5],
-"m": [1.0, 0.0, 0.0, 1.0, 242.3, 342.05],
-"multiline": false,
-"name": "txt_fbhx",
-"nudge": [3.0, 0.0],
-"size": 14.0,
-"text": "",
-"type": "text",
-"var": "",
-"wrap": false
-}
-metadata/ui_piece = ["txt_fbhx"]
-
-[node name="Row_txt_fbatk" type="Control" parent="StatRows" unique_id=341846521]
-anchors_preset = 0
 offset_left = 195.0
 offset_top = 377.0
-offset_right = 321.0
-offset_bottom = 397.0
-mouse_filter = 2
-script = ExtResource("31_r735v")
+offset_right = 195.0
+offset_bottom = 377.0
+caption = "攻击"
+width = 80
+piece = "txt_fbatk"
 
-[node name="Caption" type="Label" parent="StatRows/Row_txt_fbatk" unique_id=131792140]
+[node name="StatFbhl" parent="StatRows" unique_id=279161895 instance=ExtResource("33_stat")]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 20.0
-theme_override_font_sizes/font_size = 14
-theme_override_colors/font_color = Color(0.9529412, 0.8901961, 0.6901961, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
-text = "攻击"
-horizontal_alignment = 2
-vertical_alignment = 1
+offset_left = 324.0
+offset_top = 342.0
+offset_right = 324.0
+offset_bottom = 342.0
+caption = "回蓝"
+width = 80
+piece = "txt_fbhl"
 
-[node name="Box" type="Panel" parent="StatRows/Row_txt_fbatk" unique_id=482546122]
+[node name="StatFbdef" parent="StatRows" unique_id=494170138 instance=ExtResource("33_stat")]
 layout_mode = 0
-offset_left = 46.0
-offset_right = 126.0
-offset_bottom = 20.0
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ihqu3")
+offset_left = 324.0
+offset_top = 377.0
+offset_right = 324.0
+offset_bottom = 377.0
+caption = "防御"
+width = 80
+piece = "txt_fbdef"
 
-[node name="txt_fbatk" type="Label" parent="StatRows/Row_txt_fbatk/Box" unique_id=1456037410]
+[node name="CurrencyFblh" parent="StatRows" unique_id=242989214 instance=ExtResource("34_curr")]
 layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 2.3
-offset_right = -4.0
-theme_override_font_sizes/font_size = 14
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
-metadata/rec = {
-"align": "left",
-"b": {
-"h": 20.45,
-"w": 77.8,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [2.0, 19.0],
-"m": [1.0, 0.0, 0.0, 1.0, 242.3, 377.25],
-"multiline": false,
-"name": "txt_fbatk",
-"nudge": [3.0, 0.0],
-"size": 14.0,
-"text": "",
-"type": "text",
-"var": "",
-"wrap": false
-}
-metadata/ui_piece = ["txt_fbatk"]
-
-[node name="Row_txt_fblh" type="Control" parent="StatRows" unique_id=242989214]
-anchors_preset = 0
 offset_left = 195.0
 offset_top = 412.0
-offset_right = 451.0
-offset_bottom = 432.0
-mouse_filter = 2
-script = ExtResource("31_r735v")
-
-[node name="Caption" type="Label" parent="StatRows/Row_txt_fblh" unique_id=397954836]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 20.0
-theme_override_font_sizes/font_size = 14
-theme_override_colors/font_color = Color(0.9529412, 0.8901961, 0.6901961, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
-text = "灵魂"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="Box" type="Panel" parent="StatRows/Row_txt_fblh" unique_id=101463753]
-layout_mode = 0
-offset_left = 46.0
-offset_right = 256.0
-offset_bottom = 20.0
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hqo6y")
-
-[node name="txt_fblh" type="Label" parent="StatRows/Row_txt_fblh/Box" unique_id=554373461]
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 2.3
-offset_right = -4.0
-theme_override_font_sizes/font_size = 14
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
-metadata/rec = {
-"align": "center",
-"b": {
-"h": 20.45,
-"w": 152.95,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"m": [1.0, 0.0, 0.0, 1.0, 245.0, 410.75],
-"multiline": false,
-"name": "txt_fblh",
-"size": 14.0,
-"text": "",
-"type": "text",
-"var": "",
-"wrap": false
-}
-metadata/ui_piece = ["txt_fblh"]
-
-[node name="Row_txt_fbhl" type="Control" parent="StatRows" unique_id=279161895]
-anchors_preset = 0
-offset_left = 324.0
-offset_top = 342.0
-offset_right = 450.0
-offset_bottom = 362.0
-mouse_filter = 2
-script = ExtResource("31_r735v")
-
-[node name="Caption" type="Label" parent="StatRows/Row_txt_fbhl" unique_id=2044552889]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 20.0
-theme_override_font_sizes/font_size = 14
-theme_override_colors/font_color = Color(0.9529412, 0.8901961, 0.6901961, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
-text = "回蓝"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="Box" type="Panel" parent="StatRows/Row_txt_fbhl" unique_id=2093323264]
-layout_mode = 0
-offset_left = 46.0
-offset_right = 126.0
-offset_bottom = 20.0
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_t0cq7")
-
-[node name="txt_fbhl" type="Label" parent="StatRows/Row_txt_fbhl/Box" unique_id=982060106]
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 2.3
-offset_right = -4.0
-theme_override_font_sizes/font_size = 14
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
-metadata/rec = {
-"align": "left",
-"b": {
-"h": 20.45,
-"w": 77.8,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [3.5, 20.5],
-"m": [1.0, 0.0, 0.0, 1.0, 371.95, 342.05],
-"multiline": false,
-"name": "txt_fbhl",
-"nudge": [3.0, 0.0],
-"size": 14.0,
-"text": "",
-"type": "text",
-"var": "",
-"wrap": false
-}
-metadata/ui_piece = ["txt_fbhl"]
-
-[node name="Row_txt_fbdef" type="Control" parent="StatRows" unique_id=494170138]
-anchors_preset = 0
-offset_left = 324.0
-offset_top = 377.0
-offset_right = 450.0
-offset_bottom = 397.0
-mouse_filter = 2
-script = ExtResource("31_r735v")
-
-[node name="Caption" type="Label" parent="StatRows/Row_txt_fbdef" unique_id=1023534212]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 20.0
-theme_override_font_sizes/font_size = 14
-theme_override_colors/font_color = Color(0.9529412, 0.8901961, 0.6901961, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
-text = "防御"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="Box" type="Panel" parent="StatRows/Row_txt_fbdef" unique_id=161545556]
-layout_mode = 0
-offset_left = 46.0
-offset_right = 126.0
-offset_bottom = 20.0
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_30kgi")
-
-[node name="txt_fbdef" type="Label" parent="StatRows/Row_txt_fbdef/Box" unique_id=561819637]
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 2.3
-offset_right = -4.0
-theme_override_font_sizes/font_size = 14
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
-metadata/rec = {
-"align": "left",
-"b": {
-"h": 20.45,
-"w": 77.8,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [1.0, 18.0],
-"m": [1.0, 0.0, 0.0, 1.0, 374.15, 378.25],
-"multiline": false,
-"name": "txt_fbdef",
-"nudge": [3.0, 0.0],
-"size": 14.0,
-"text": "",
-"type": "text",
-"var": "",
-"wrap": false
-}
-metadata/ui_piece = ["txt_fbdef"]
+offset_right = 195.0
+offset_bottom = 412.0
+caption = "灵魂"
+width = 210
+piece = "txt_fblh"
 
 [node name="txt_fbname" type="Label" parent="." unique_id=7344340]
 layout_mode = 0
