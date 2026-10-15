@@ -11,7 +11,6 @@ var _lose_t := -1.0
 
 func setup() -> void:
 	_cfg = param("panguan", {})
-	add_xingtian_door()
 
 func on_monster_added(m: Monster) -> void:
 	if m.data.id != int(_cfg.get("boss", 39)) or _boss != null:

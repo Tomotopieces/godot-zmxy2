@@ -27,13 +27,6 @@ static func shared(key: String) -> Dictionary:
 		_all = JSON.parse_string(FileAccess.get_file_as_string("res://data/stages.json"))
 	return _all.get(key, {})
 
-## The 刑天门 of stages 2-2 / 2-3 / 11-1.
-func add_xingtian_door() -> void:
-	var d: Node = load("res://src/level/stages/xingtian_door.gd").new()
-	d.set("stage", self)
-	d.set("cfg", shared("xingtian_door"))
-	add_child(d)
-
 ## Scene object of a kind exported in level.json "doors" (white-bone door, fires...).
 func features(kind: String) -> Array:
 	return level.features.filter(func(f): return f.kind == kind)
