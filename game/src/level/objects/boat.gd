@@ -19,7 +19,9 @@ var _bob_i := 0
 var _bob_dir := 1.0
 
 func _ready() -> void:
-	collision_layer = Actor.LAYER_WORLD
+	# a one-way platform like the scene's own: move_down + jump drops the hero through the deck into the river
+	collision_layer = Actor.LAYER_ONEWAY
+	($Shape as CollisionShape2D).one_way_collision = true
 	collision_mask = 0
 	sync_to_physics = false             # moved directly in the physics step
 	process_physics_priority = 5        # after the level and the actors, as the stage script used to be
