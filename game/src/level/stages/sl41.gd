@@ -14,10 +14,15 @@ func start_final_platforms() -> void:
 		var v := float(fp.get("speed", 48)) * (1.0 if b.position.x < 1500.0 else -1.0)
 		b.position = Vector2(positions[i][0], positions[i][1])
 		b.z_index = Layers.Z_MONSTER   # in front of the boss (it sits on the mechanism layer), behind the hero
-		if fp.has("art"):
-			var art := Rig.create(String(fp.art))
+		var tex_path := String(fp.get("art_texture", ""))
+		if tex_path != "":
+			var art := Sprite2D.new()
+			art.name = "PlatformArt"
+			art.texture = load(tex_path) as Texture2D
+			art.centered = false
+			art.scale = Vector2(0.5, 0.5)
+			art.position = Vector2(-117.5, -28.5)
 			b.add_child(art)
-			art.play(art.actions[0])
 		_moving.append([b, Vector2(v, 0), float(fp.get("wrap", 1400))])
 
 func _physics_process(delta: float) -> void:

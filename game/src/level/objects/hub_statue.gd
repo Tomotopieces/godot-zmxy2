@@ -15,6 +15,16 @@ var _open := false
 
 func _ready() -> void:
 	$Open.visible = false
+	$Anim.animation_finished.connect(_on_anim_finished)
+
+## The "open" action has a loop tail (the portal keeps turning): replay it from `loop_from` instead of stopping.
+func _on_anim_finished(n: StringName) -> void:
+	if n != &"open":
+		return
+	var an: Animation = $Anim.get_animation(&"open")
+	if an != null and an.has_meta(&"loop_from"):
+		$Anim.play(&"open")
+		$Anim.seek(float(an.get_meta(&"loop_from")), true)
 
 func is_open() -> bool:
 	return _open

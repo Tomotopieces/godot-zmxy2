@@ -24,6 +24,7 @@ var _open := false
 func _ready() -> void:
 	z_index = Layers.Z_MECHANISM
 	$Open.visible = false
+	$Anim.animation_finished.connect(_on_anim_finished)
 	_touch_left = touch_time
 	_choose_open_door()
 
@@ -82,6 +83,15 @@ func _open_door() -> void:
 	$Open.visible = true
 	$Anim.play(&"open")
 	opened.emit()
+
+## The "open" action has a loop tail (the vortex keeps turning): replay it from `loop_from` instead of stopping.
+func _on_anim_finished(n: StringName) -> void:
+	if n != &"open":
+		return
+	var an: Animation = $Anim.get_animation(&"open")
+	if an != null and an.has_meta(&"loop_from"):
+		$Anim.play(&"open")
+		$Anim.seek(float(an.get_meta(&"loop_from")), true)
 
 ## The door has finished swinging open (the vortex underneath keeps turning).
 func _settled() -> bool:

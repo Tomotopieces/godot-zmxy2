@@ -150,7 +150,7 @@ func _build_guoqing() -> Control:
 	var art := TextureRect.new()
 	art.name = "GuoqingArt"
 	art.texture = load("res://assets/ui/activity/guoqing.png")   # the original 战神刑天来袭 window
-	art.position = Vector2.ZERO   # same top-left as the 七夕 picture (Art/Common_v7_709)
+	art.position = Vector2(83, 29)   # the 七夕 picture (Art/Common_v7_709) draws its art at (84, 29.5) inside a 940x590 canvas
 	art.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return art
 
