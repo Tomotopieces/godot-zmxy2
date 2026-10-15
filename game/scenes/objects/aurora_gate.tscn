@@ -1,0 +1,95 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/level/objects/aurora_gate.gd" id="1_2r7b6"]
+[ext_resource type="Texture2D" path="res://assets/rigs/aurora/tex/3_987.png" id="2_qnkfd"]
+[ext_resource type="Texture2D" path="res://assets/rigs/aurora/tex/3_989.png" id="3_huj5f"]
+[ext_resource type="Texture2D" path="res://assets/rigs/aurora/tex/3_991.png" id="4_ym421"]
+[ext_resource type="Texture2D" path="res://assets/rigs/aurora/tex/3_993.png" id="5_rlqtf"]
+[ext_resource type="Texture2D" path="res://assets/rigs/aurora/tex/3_995.png" id="6_0sppk"]
+[ext_resource type="Texture2D" path="res://assets/rigs/aurora/tex/3_997.png" id="7_yrkto"]
+[ext_resource type="Texture2D" path="res://assets/rigs/aurora/tex/3_999.png" id="8_iaxur"]
+[ext_resource type="Texture2D" path="res://assets/rigs/aurora/tex/3_1001.png" id="9_ekokc"]
+[ext_resource type="Texture2D" path="res://assets/rigs/aurora/tex/3_1003.png" id="10_xi6qq"]
+[ext_resource type="Texture2D" path="res://assets/rigs/aurora/tex/3_1005.png" id="11_ro230"]
+[ext_resource type="Texture2D" path="res://assets/rigs/aurora/tex/3_1007.png" id="12_djkul"]
+[ext_resource type="Texture2D" path="res://assets/rigs/aurora/tex/3_1009.png" id="13_1cm8k"]
+[ext_resource type="Texture2D" path="res://assets/rigs/aurora/tex/3_1011.png" id="14_kj1o4"]
+[ext_resource type="Texture2D" path="res://assets/rigs/aurora/tex/3_1013.png" id="15_lsh63"]
+[ext_resource type="Texture2D" path="res://assets/rigs/aurora/tex/3_1015.png" id="16_3254b"]
+[ext_resource type="Texture2D" path="res://assets/rigs/aurora/tex/3_1017.png" id="17_6vu7t"]
+[ext_resource type="Texture2D" path="res://assets/rigs/aurora/tex/3_1019.png" id="18_npdns"]
+[ext_resource type="Texture2D" path="res://assets/rigs/aurora/tex/3_1021.png" id="19_4riyv"]
+[ext_resource type="Texture2D" path="res://assets/rigs/aurora/tex/3_1023.png" id="20_cljbo"]
+
+[sub_resource type="Animation" id="Animation_agr5k"]
+length = 1.5833333333333333
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Glow/GlowPart1:visible")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.083333336, 0.16666667, 0.25, 0.33333334, 0.41666666, 0.5, 0.5833333, 0.6666667, 0.75, 0.8333333, 0.9166667, 1, 1.0833334, 1.1666666, 1.25, 1.3333334, 1.4166666, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Glow/GlowPart1:texture")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.083333336, 0.16666667, 0.25, 0.33333334, 0.41666666, 0.5, 0.5833333, 0.6666667, 0.75, 0.8333333, 0.9166667, 1, 1.0833334, 1.1666666, 1.25, 1.3333334, 1.4166666, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_qnkfd"), ExtResource("3_huj5f"), ExtResource("4_ym421"), ExtResource("5_rlqtf"), ExtResource("6_0sppk"), ExtResource("7_yrkto"), ExtResource("8_iaxur"), ExtResource("9_ekokc"), ExtResource("10_xi6qq"), ExtResource("11_ro230"), ExtResource("12_djkul"), ExtResource("13_1cm8k"), ExtResource("14_kj1o4"), ExtResource("15_lsh63"), ExtResource("16_3254b"), ExtResource("17_6vu7t"), ExtResource("18_npdns"), ExtResource("19_4riyv"), ExtResource("20_cljbo")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Glow/GlowPart1:transform")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.083333336, 0.16666667, 0.25, 0.33333334, 0.41666666, 0.5, 0.5833333, 0.6666667, 0.75, 0.8333333, 0.9166667, 1, 1.0833334, 1.1666666, 1.25, 1.3333334, 1.4166666, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Transform2D(0.5, 0, 0, 0.5, -249, -87.9), Transform2D(0.5, 0, 0, 0.5, -249, -87.9), Transform2D(0.5, 0, 0, 0.5, -249, -87.9), Transform2D(0.5, 0, 0, 0.5, -249, -87.9), Transform2D(0.5, 0, 0, 0.5, -249, -87.9), Transform2D(0.5, 0, 0, 0.5, -249, -87.9), Transform2D(0.5, 0, 0, 0.5, -249, -87.9), Transform2D(0.5, 0, 0, 0.5, -249, -87.9), Transform2D(0.5, 0, 0, 0.5, -249, -87.9), Transform2D(0.5, 0, 0, 0.5, -249, -87.9), Transform2D(0.5, 0, 0, 0.5, -249, -87.9), Transform2D(0.5, 0, 0, 0.5, -249, -87.9), Transform2D(0.5, 0, 0, 0.5, -249, -87.9), Transform2D(0.5, 0, 0, 0.5, -249, -87.9), Transform2D(0.5, 0, 0, 0.5, -249, -87.9), Transform2D(0.5, 0, 0, 0.5, -249, -87.9), Transform2D(0.5, 0, 0, 0.5, -249, -87.9), Transform2D(0.5, 0, 0, 0.5, -249, -87.9), Transform2D(0.5, 0, 0, 0.5, -249, -87.9)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Glow/GlowPart1:modulate")
+tracks/3/interp = 0
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.083333336, 0.16666667, 0.25, 0.33333334, 0.41666666, 0.5, 0.5833333, 0.6666667, 0.75, 0.8333333, 0.9166667, 1, 1.0833334, 1.1666666, 1.25, 1.3333334, 1.4166666, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+metadata/start_events = []
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3rfni"]
+_data = {
+&"shimmer": SubResource("Animation_agr5k")
+}
+
+[node name="AuroraGate" type="Node2D" unique_id=2039846137]
+script = ExtResource("1_2r7b6")
+metadata/hit_rect_glow = Rect2(-69, -61.9, 161, 130)
+
+[node name="Glow" type="Node2D" parent="." unique_id=359956208]
+
+[node name="GlowPart1" type="Sprite2D" parent="Glow" unique_id=1726298602]
+position = Vector2(-249, -87.9)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_qnkfd")
+centered = false
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1105768712]
+libraries/ = SubResource("AnimationLibrary_3rfni")

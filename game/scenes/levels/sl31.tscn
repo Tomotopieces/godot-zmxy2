@@ -21,6 +21,8 @@
 [ext_resource type="Texture2D" uid="uid://dhraw7mn4bfkn" path="res://assets/levels/sl31/tex/3_1101.png" id="19_dqnod"]
 [ext_resource type="Texture2D" uid="uid://bnbaxe2lw80o1" path="res://assets/shared/levels/3_1.png" id="20_435hn"]
 [ext_resource type="PackedScene" path="res://scenes/objects/boat.tscn" id="boat_obj"]
+[ext_resource type="PackedScene" path="res://scenes/objects/aurora_gate.tscn" id="aurora_obj"]
+[ext_resource type="PackedScene" path="res://scenes/objects/river_water.tscn" id="water_obj"]
 
 [node name="Scenery" type="Node2D" unique_id=1695339481]
 
@@ -715,6 +717,13 @@ centered = false
 z_index = -7
 
 [node name="Objects" type="Node2D" parent="."]
+
+[node name="RiverWater" parent="Objects" instance=ExtResource("water_obj")]
+position = Vector2(0, 519.43225)
+z_index = 4
+
+[node name="AuroraGate" parent="Objects" instance=ExtResource("aurora_obj")]
+position = Vector2(1000, 600)
 
 [node name="Boat" parent="Objects" instance=ExtResource("boat_obj")]
 position = Vector2(272.35, 495)

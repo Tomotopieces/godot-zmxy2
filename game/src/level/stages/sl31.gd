@@ -1,7 +1,8 @@
 extends StageScript
 ## 3-1 (StageListener31): the boat ride. The boat (scenes/objects/boat.tscn, Objects/Boat of the stage scene) sails by itself;
-## soldiers jump out of the water onto it and fish leap over it; when it reaches the far pier the exit opens. Once, an aurora drifts by:
-## a hero carrying the 避水珠 (bsz) who touches it dives to 楚江王 (8-1).
+## soldiers jump out of the water onto it and fish leap over it; when it reaches the far pier the exit opens. An aurora
+## (scenes/objects/aurora_gate.tscn, Objects/AuroraGate) hangs over the water: a hero carrying the 避水珠 (bsz) who touches
+## it dives to 楚江王 (8-1).
 ## (Fix of the original: fish from both sides leap toward the boat; they all flew the same way.)
 
 var _boat: Boat
@@ -9,8 +10,6 @@ var _jump_t := 0.0
 var _fish_t := 0.0
 var _fish_on := false
 var _emitter: Monster
-var _aurora: Rig
-var _aurora_life := 0.0
 
 func setup() -> void:
 	_boat = level.world.get_node_or_null("Objects/Boat") as Boat
@@ -24,8 +23,6 @@ func setup() -> void:
 	get_tree().create_timer(float(fish.get("start", 5.0)), false).timeout.connect(func():
 		_fish_on = _boat.sailing
 		_fish_t = float(fish.get("first", 3.0)))
-	var at: Array = param("aurora", {}).get("at", [5.0, 15.0])
-	get_tree().create_timer(Rng.randf_range(at[0], at[1]), false).timeout.connect(_show_aurora)
 
 func _physics_process(delta: float) -> void:
 	if _boat == null:
@@ -34,7 +31,6 @@ func _physics_process(delta: float) -> void:
 		_jumpers(delta)
 	if _fish_on:
 		_fish(delta)
-	_update_aurora(delta)
 
 func _jumpers(delta: float) -> void:
 	var cfg: Dictionary = param("jumpers", {})
@@ -96,28 +92,3 @@ func _fish(delta: float) -> void:
 		f.velocity = Vector2(-side * float(pick[0]), float(pick[1]))
 		f.accel = Vector2(0, float(cfg.get("gravity", 1152)))
 		f.distance_left = 2000.0
-
-func _show_aurora() -> void:
-	var cfg: Dictionary = param("aurora", {})
-	_aurora = Rig.create("aurora")
-	_aurora.z_index = Layers.Z_MECHANISM
-	# placed once at (1000, 600) of the scene (StageListener31: a screen point converted into the scene's
-	# parent, which does not scroll) and left there
-	var at: Array = cfg.get("pos", [1000, 600])
-	_aurora.position = Vector2(at[0], at[1])
-	level.add_object(_aurora)
-	_aurora.play(_aurora.actions[0])
-	_aurora_life = float(cfg.get("life", 15.0))
-
-func _update_aurora(delta: float) -> void:
-	if _aurora == null:
-		return
-	_aurora_life -= delta
-	if _aurora_life <= 0.0:
-		_aurora.queue_free()
-		_aurora = null
-		return
-	var cfg: Dictionary = param("aurora", {})
-	var r := _aurora.hit_rect()
-	if r.size != Vector2.ZERO and hero_in(r) and GameState.take_item(String(cfg.get("key", "bsz"))):
-		level.go_to(Vector2i(cfg.to[0], cfg.to[1]))

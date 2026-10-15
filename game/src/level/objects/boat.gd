@@ -2,7 +2,8 @@ class_name Boat
 extends AnimatableBody2D
 ## The boat of 3-1 (export.Boat, driven by StageListener31): a platform that sails right with a gentle bob and stops at the far
 ## pier, where the exit opens. A scene of its own (scenes/objects/boat.tscn) placed in the stage scene (Objects/Boat): the numbers are
-## exports; the hull and the water ripple are plain Sprite2Ds (the ripple is an animation of its picture, `Anim`, playing on its own); the stage script (stages/sl31.gd) hangs the soldiers and fish on it and opens the exit on `arrived`.
+## exports; the hull is a plain Sprite2D. Its own water ripple was removed (the stage's RiverWater covers the water line:
+## src/level/water.gdshader); the stage script (stages/sl31.gd) hangs the soldiers and fish on it and opens the exit on `arrived`.
 
 @export var speed := 48.0                   ## px / s to the right
 @export var stop_x := 4129.0                ## where it ties up
