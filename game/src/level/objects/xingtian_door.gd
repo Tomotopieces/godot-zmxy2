@@ -8,6 +8,7 @@ extends Node2D
 ## (Objects/XingtianDoor): the numbers are exports.
 
 @export var key := "yll"                                            ## the item the hero must carry
+@export var can_open := true                                        ## false: the door is only the closed picture and never opens
 @export var destination := Vector2i(7, 1)                           ## stage entered
 @export var touch_time := 1.0                                       ## seconds in touch_box to open it
 @export var touch_box := Rect2(-86.0, -142.6, 156.0, 354.0)         ## where the hero touches it
@@ -24,6 +25,25 @@ func _ready() -> void:
 	z_index = Layers.Z_MECHANISM
 	$Open.visible = false
 	_touch_left = touch_time
+	_choose_open_door()
+
+## A stage may hold several 刑天门 (2-2, 2-3): one Rng draw picks the door that can be opened, the others stay the
+## closed picture. The first door of the parent by name does the picking and writes `can_open` on every sibling.
+func _choose_open_door() -> void:
+	if not can_open or get_parent() == null:
+		return
+	var siblings: Array[XingtianDoor] = []
+	for c in get_parent().get_children():
+		if c is XingtianDoor:
+			siblings.append(c)
+	if siblings.size() < 2:
+		return
+	siblings.sort_custom(func(a: XingtianDoor, b: XingtianDoor) -> bool: return a.name < b.name)
+	if siblings[0] != self:
+		return
+	var chosen := Rng.randi_range(0, siblings.size() - 1)
+	for i in siblings.size():
+		siblings[i].can_open = i == chosen
 
 ## The closed door is gone, the open one plays its "open" action (once the rig has settled the hero may walk in).
 func is_open() -> bool:
@@ -37,6 +57,8 @@ func _physics_process(delta: float) -> void:
 	if not is_instance_valid(hero) or not GameState.has_item(key):
 		return
 	if not _open:
+		if not can_open:
+			return   # only the chosen door of a stage opens; the others never do
 		if hero.is_alive() and touch_world_rect().intersects(hero.hurt_rect().grow(HERO_BOUNDS_MARGIN)):
 			_touch_left -= delta
 			if _touch_left <= 0.0:

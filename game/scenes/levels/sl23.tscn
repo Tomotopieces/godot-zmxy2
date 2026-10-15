@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://d2pyv70vhkv0" path="res://assets/shared/levels/2_593.png" id="3_ijnb7"]
 [ext_resource type="Texture2D" uid="uid://dbcoow8m8yf4e" path="res://assets/shared/levels/2_592.png" id="4_hbbg4"]
 [ext_resource type="Texture2D" uid="uid://bffm8fpubjqj" path="res://assets/shared/levels/2_589.png" id="5_m3wjk"]
-[ext_resource type="Texture2D" uid="uid://bfp403br0gl23" path="res://assets/shared/levels/2_591.png" id="6_qid3x"]
 [ext_resource type="Texture2D" uid="uid://b1qaqn7o261uq" path="res://assets/shared/levels/2_590.png" id="7_qmoyh"]
 [ext_resource type="Texture2D" uid="uid://le8ihi7yp6lo" path="res://assets/levels/sl23/tex/2_588.png" id="8_fjqu0"]
 [ext_resource type="Texture2D" uid="uid://6s073ypf6e4m" path="res://assets/shared/levels/2_587.png" id="9_beshp"]
@@ -94,27 +93,6 @@ texture = ExtResource("5_m3wjk")
 expand_mode = 1
 stretch_mode = 1
 metadata/_edit_use_anchors_ = true
-
-[node name="2_591_43" type="Sprite2D" parent="Art/Near" unique_id=1576757843]
-position = Vector2(195.45, -11.5)
-texture = ExtResource("6_qid3x")
-centered = false
-region_enabled = true
-region_rect = Rect2(0, 0, 573, 421)
-
-[node name="2_591_56" type="Sprite2D" parent="Art/Near" unique_id=163870712]
-position = Vector2(1600.2, -11.5)
-texture = ExtResource("6_qid3x")
-centered = false
-region_enabled = true
-region_rect = Rect2(0, 0, 573, 421)
-
-[node name="2_591_57" type="Sprite2D" parent="Art/Near" unique_id=1982310571]
-position = Vector2(3005.85, -8.6)
-texture = ExtResource("6_qid3x")
-centered = false
-region_enabled = true
-region_rect = Rect2(0, 0, 573, 421)
 
 [node name="2_588_70" type="Sprite2D" parent="Art/Near" unique_id=1512051347]
 position = Vector2(4607.6, 5.8)
@@ -470,5 +448,11 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Objects" type="Node2D" parent="."]
 
-[node name="XingtianDoor" type="Node2D" parent="Objects" instance=ExtResource("xingtian_door")]
-position = Vector2(712.1, 109.65)
+[node name="XingtianDoor1" type="Node2D" parent="Objects" instance=ExtResource("xingtian_door")]
+position = Vector2(481.95, 199.0)
+
+[node name="XingtianDoor2" type="Node2D" parent="Objects" instance=ExtResource("xingtian_door")]
+position = Vector2(1886.7, 199.0)
+
+[node name="XingtianDoor3" type="Node2D" parent="Objects" instance=ExtResource("xingtian_door")]
+position = Vector2(3292.35, 201.9)
