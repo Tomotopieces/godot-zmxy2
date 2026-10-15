@@ -109,7 +109,7 @@ func _watch_flicker(h: Hero) -> void:
 	if _hist.size() == 4 and _hist[0] == _hist[3] and _hist[1] != _hist[0]:
 		var k := "%s>%s>%s" % [_hist[0], _hist[1], _hist[3]]
 		_flicker[k] = _flicker.get(k, 0) + 1
-	var parts := h.rig.get_node("Parts/" + String(h.rig.action))
+	var parts := h.rig.current_pose()
 	var shown := 0
 	for c in parts.get_children():
 		if c.visible:

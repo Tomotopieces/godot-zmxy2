@@ -105,6 +105,10 @@ func play(a: StringName, restart := false) -> void:
 		for ev in an.get_meta(&"start_events"):
 			event.emit(ev[0], ev[1])
 
+## The node holding the parts of the playing action (null before the first play).
+func current_pose() -> Node2D:
+	return _current_parts
+
 func pause() -> void:
 	anim.pause()
 

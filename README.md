@@ -25,6 +25,8 @@ Answers to the user: Simplified Chinese. Deleting files: Recycle Bin (`bash tool
 - Export: `bash tools/build.sh` → `build/zmxy2_<branch>_v<version>.exe` (4.7.2 export templates).
 - Saves: `user://slot_N.json` (`core/save_game.gd`). Items are `Item` objects. Gameplay randomness only through `Rng` (weather uses its own generator).
 - Godot headless: `class_name` scripts need `godot --headless --path game --import` first; autoloads do not exist under `-s` scripts (use a tiny scene runner); Windows shell heredocs eat backslashes and many files are CRLF — edit with the Edit tool or scripts that split on `\r\n`.
+- Throw-away runner scenes must quit even when they fail: first line of `_ready()` = `get_tree().create_timer(<budget s>, true, false, true).timeout.connect(get_tree().quit.bind(2))`, then the work, then `get_tree().quit()`. Always run them under `timeout`.
+- Live debugging (godot-ai MCP plugin, editor open): `project_run` the game, then `game_manage` ops `suspend` / `next_frame` / `resume` (pause and step frames), `get_scene_tree` / `get_node_info` (runtime state), `input_action` / `input_sequence` (frame-timed input), `editor_manage` op `game_eval` (run GDScript in the running game), `editor_screenshot` source `game`, `logs_read` source `game`.
 
 ## Pipeline (original → game)
 1. `tools/rig/batch.sh specs_*.txt` extracts rigs (bodies, effects, bullets, monsters) and builds their scenes, then `dedupe.js` (identical PNGs stored once, `organize_shared.js` names/places them) and `rebuild_all.sh` (rebuilds every rig; **needed whenever a texture moved: `anims.res` embeds texture paths**; also runs `fix_scene_uids.js`).
@@ -42,6 +44,14 @@ Generate once: `godot --headless --path game res://tools/level_to_scene.tscn -- 
 - Mechanisms (white-bone door of 1-2, 刑天门 of 2-2 / 2-3 / 11-1, the hub door `hub_door` and the statue `hub_statue` of 10-1, boat of 3-1, the aurora `aurora_gate` hanging over it and the water it sails on, `river_water`, drawn from `src/level/water.gdshader`) are scenes of their own with a script on the root and `@export` parameters, instanced under `Objects` at their real world position (no parallax), built from plain Sprite2D + AnimationPlayer — **never a Rig** (parts are hidden in the editor). `Level` moves `Objects` into the world; the stage script (`stages/<stage>.gd`) finds them there. `level_to_scene.gd` does not make `Objects`.
 - 5-1 (and boss rooms) have one painting + a floor: 2 nodes. 2-2 (`sl22`) was ONE baked 4700x522 JPEG in the original; it was rebuilt from the loose bitmaps of 2-3 by template matching (positions inferred); only the boss end (x ≥ 3745) stays a crop of the baked bitmap.
 - Textures: `assets/levels/<stage>/tex/<lib>_<id>.png`; shared ones in `assets/shared/levels/`. After merging identical textures a scene's texture uids can go stale ("missing dependency"): `node tools/rig/fix_scene_uids.js --fix`.
+
+## Actor scenes
+An actor's art is a rig built from `assets/rig/<name>`; when a scene `scenes/actors/<name>/<name>.tscn` exists the actor loads it instead (`Actor.make_body`). Only Wukong has one so far.
+The scene is **hand-edited** (like the stage and UI scenes: **never regenerate it**), made once by `godot --headless --path game res://tools/rig_to_actor.tscn -- <rig> res://scenes/actors/<rig>` (refuses to overwrite without `--force`).
+- `Poses/<Action>` = the parts of one action (only the playing one is visible).
+- `Hitbox` / `Hurtbox` `Shape` tracks = attack and hurt boxes (position, size, disabled per key).
+- Method tracks `ev_*` = gameplay events: `ev_new_hit` (a new hit may land), `ev_finished` (action over), `ev_set_vx` / `ev_set_vy` / `ev_set_vx_forward` (px/s) and `ev_scale_vx` (factor) = movement, `ev_stop_move`, `ev_call(name)` = skill hook in `hero.gd`, `ev_grounded_call(name)` = only when on the floor.
+- An action lasts its animation length; tweak by moving keys / changing the length in the Animation panel. The animations are the text file `<name>_actions.tres`.
 
 ## UI scenes
 Every UI layout is an editor scene `scenes/ui/<name>.tscn`; `UiLayout.create()` instantiates it, and builds the layout from `assets/ui/<name>/ui.json` only when the scene does not exist (the json stays the generator and the fallback). The user arranges these scenes by hand: **never regenerate an existing one** (`ui_to_scene.gd` refuses without `--force`).

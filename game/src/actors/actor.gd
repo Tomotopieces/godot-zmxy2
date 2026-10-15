@@ -37,8 +37,14 @@ var facing := -1:
 		if rig:
 			rig.scale.x = -facing
 
+## The rig to build an actor's art with: the hand-edited actor scene when it exists, else the generated rig.
+## See README "Actor scenes" (game/scenes/actors/<name>/<name>.tscn, built once by tools/rig_to_actor.tscn).
+static func make_body(rig_name: String) -> Rig:
+	var path := "res://scenes/actors/%s/%s.tscn" % [rig_name, rig_name]
+	return load(path).instantiate() if ResourceLoader.exists(path) else Rig.create(rig_name)
+
 func setup_rig(rig_name: String) -> void:
-	rig = Rig.create(rig_name)
+	rig = make_body(rig_name)
 	add_child(rig)
 	rig.scale.x = -facing
 	rig.event.connect(_on_rig_event)

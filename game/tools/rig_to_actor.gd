@@ -16,7 +16,11 @@ func _ready() -> void:
 		return
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(out_dir))
 	var root: Node2D = (load("res://assets/rigs/%s/%s.tscn" % [rig_name, rig_name]) as PackedScene).instantiate()
+	var keep_actions: PackedStringArray = root.actions   # set_script resets the exported Rig fields
+	var keep_markers: Dictionary = root.markers
 	root.set_script(load("res://src/actors/actor_body.gd"))
+	root.actions = keep_actions
+	root.markers = keep_markers
 	root.name = rig_name.to_pascal_case()
 	var map := {}   # old track node path -> new
 	var parts: Node = root.get_node("Parts")
