@@ -3,6 +3,8 @@
 [ext_resource type="Texture2D" path="res://assets/levels/sl101/tex/10_681.png" id="1_1m4l4"]
 [ext_resource type="Texture2D" path="res://assets/shared/levels/10_1.png" id="2_k4est"]
 [ext_resource type="Texture2D" path="res://assets/levels/sl101/tex/zmxy2_game_256.png" id="3_6wbql"]
+[ext_resource type="PackedScene" path="res://scenes/objects/hub_door.tscn" id="hub_door"]
+[ext_resource type="PackedScene" path="res://scenes/objects/hub_statue.tscn" id="hub_statue"]
 
 [node name="Scenery" type="Node2D" unique_id=501146615]
 
@@ -52,3 +54,29 @@ texture = ExtResource("3_6wbql")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 1004, 94)
+
+[node name="Objects" type="Node2D" parent="." unique_id=1994815203]
+
+[node name="HubDoor1" type="Node2D" parent="Objects" instance=ExtResource("hub_door")]
+position = Vector2(5, 5)
+z_index = -12
+index = 0
+
+[node name="HubDoor2" type="Node2D" parent="Objects" instance=ExtResource("hub_door")]
+position = Vector2(155, 5)
+z_index = -12
+index = 1
+
+[node name="HubDoor3" type="Node2D" parent="Objects" instance=ExtResource("hub_door")]
+position = Vector2(660, 5)
+z_index = -12
+index = 2
+
+[node name="HubDoor4" type="Node2D" parent="Objects" instance=ExtResource("hub_door")]
+position = Vector2(810, 5)
+z_index = -12
+index = 3
+
+[node name="HubStatue" type="Node2D" parent="Objects" instance=ExtResource("hub_statue")]
+position = Vector2(220, 0)
+z_index = -8

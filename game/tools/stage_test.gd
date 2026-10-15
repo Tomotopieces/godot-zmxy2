@@ -63,8 +63,8 @@ func hub() -> void:
 		for s in sc._stones:
 			(s.brain as HubPropBrain)._hit_t = 0.5
 		await _wait(1.5)
-		print("pointer=", want, " ready_doors=", sc._ready_doors, " statue_ready=", sc._statue_ready)
-	h.global_position = sc._doors[1].hit_rect().get_center()
+		print("pointer=", want, " door2_ready=", sc._doors[1].ready_to_enter, " statue_ready=", sc._statue.ready_to_enter)
+	h.global_position = sc._doors[1].enter_world_rect().get_center()
 	Input.action_press("move_up")
 	await _wait(0.1)
 	Input.action_release("move_up")
