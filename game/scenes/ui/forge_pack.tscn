@@ -1,0 +1,269 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/ui/ui_layout.gd" id="1_tcmg4"]
+[ext_resource type="Texture2D" path="res://assets/ui/forge_pack/tex/OtherMat_v10_562.png" id="2_d3q6t"]
+[ext_resource type="Texture2D" path="res://assets/ui/forge_pack/tex/OtherMat_v10_565.png" id="3_kd2dx"]
+[ext_resource type="Texture2D" path="res://assets/shared/ui/OtherMat_v10_567.png" id="4_tkqhp"]
+[ext_resource type="Texture2D" path="res://assets/shared/ui/OtherMat_v10_569.png" id="5_6ctnn"]
+[ext_resource type="Texture2D" path="res://assets/shared/ui/OtherMat_v10_571.png" id="6_pp4hp"]
+[ext_resource type="Texture2D" path="res://assets/shared/ui/OtherMat_v10_572.png" id="7_c5asr"]
+[ext_resource type="Texture2D" path="res://assets/ui/forge_pack/tex/OtherMat_v10_574.png" id="8_c4rio"]
+[ext_resource type="Texture2D" path="res://assets/ui/forge_pack/tex/OtherMat_v10_575.png" id="9_g387a"]
+[ext_resource type="Texture2D" path="res://assets/ui/forge_pack/tex/OtherMat_v10_578.png" id="10_vgia5"]
+[ext_resource type="Texture2D" path="res://assets/ui/forge_pack/tex/OtherMat_v10_579.png" id="11_3toxb"]
+[ext_resource type="Texture2D" path="res://assets/shared/ui/OtherMat_v10_583.png" id="12_lqwrc"]
+[ext_resource type="Texture2D" path="res://assets/shared/ui/OtherMat_v10_585.png" id="13_2g7ca"]
+
+[node name="forge_pack" type="Control" unique_id=646844994]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_tcmg4")
+
+[node name="Art" type="Node2D" parent="." unique_id=1074061141]
+
+[node name="OtherMat_v10_562" type="Sprite2D" parent="Art" unique_id=88804093]
+position = Vector2(80, 53.65)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_d3q6t")
+centered = false
+metadata/tex_key = "OtherMat_v10:562"
+
+[node name="txtlh" type="Label" parent="." unique_id=1899312030]
+layout_mode = 0
+offset_left = 693.5
+offset_top = 550.69995
+offset_right = 828.5
+offset_bottom = 587.49994
+theme_override_font_sizes/font_size = 23
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+text = "1234567890"
+metadata/rec = {
+"align": "left",
+"b": {
+"h": 31.05,
+"w": 135.0,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"fit": [-25.0, 9.0],
+"m": [1.0, 0.0, 0.0, 1.0, 695.5, 563.35],
+"multiline": false,
+"name": "txtlh",
+"nudge": [0.0, 10.0],
+"size": 23.0,
+"text": "1234567890",
+"type": "text",
+"var": "",
+"wrap": false
+}
+metadata/ui_piece = ["txtlh"]
+
+[node name="Art2" type="Node2D" parent="." unique_id=187877804]
+
+[node name="OtherMat_v10_565" type="Sprite2D" parent="Art2" unique_id=1485663593]
+position = Vector2(96, 167.1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_kd2dx")
+centered = false
+metadata/tex_key = "OtherMat_v10:565"
+
+[node name="btn_zb" type="Control" parent="." unique_id=230767215]
+anchors_preset = 0
+offset_left = 518.65
+offset_top = 105.65
+offset_right = 593.65
+offset_bottom = 134.65
+mouse_default_cursor_shape = 2
+metadata/ui_piece = ["btn_zb"]
+metadata/ui_button = "btn_zb"
+metadata/pad_seq = 11
+
+[node name="Up" type="Node2D" parent="btn_zb" unique_id=923272414]
+
+[node name="OtherMat_v10_567" type="Sprite2D" parent="btn_zb/Up" unique_id=1985522269]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_tkqhp")
+centered = false
+metadata/tex_key = "OtherMat_v10:567"
+
+[node name="Over" type="Node2D" parent="btn_zb" unique_id=1404258485]
+visible = false
+modulate = Color(1.3, 1.15, 1, 1)
+
+[node name="OtherMat_v10_567" type="Sprite2D" parent="btn_zb/Over" unique_id=729245466]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_tkqhp")
+centered = false
+metadata/tex_key = "OtherMat_v10:567"
+
+[node name="Down" type="Node2D" parent="btn_zb" unique_id=32826097]
+visible = false
+
+[node name="OtherMat_v10_569" type="Sprite2D" parent="btn_zb/Down" unique_id=890084347]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_6ctnn")
+centered = false
+metadata/tex_key = "OtherMat_v10:569"
+
+[node name="btn_dj" type="Control" parent="." unique_id=452979093]
+anchors_preset = 0
+offset_left = 593.5
+offset_top = 105.65
+offset_right = 668.5
+offset_bottom = 134.65
+mouse_default_cursor_shape = 2
+metadata/ui_piece = ["btn_dj"]
+metadata/ui_button = "btn_dj"
+metadata/pad_seq = 12
+
+[node name="Up" type="Node2D" parent="btn_dj" unique_id=1724643563]
+
+[node name="OtherMat_v10_571" type="Sprite2D" parent="btn_dj/Up" unique_id=196671474]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_pp4hp")
+centered = false
+metadata/tex_key = "OtherMat_v10:571"
+
+[node name="Over" type="Node2D" parent="btn_dj" unique_id=2093141062]
+visible = false
+modulate = Color(1.3, 1.15, 1, 1)
+
+[node name="OtherMat_v10_571" type="Sprite2D" parent="btn_dj/Over" unique_id=1035962345]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_pp4hp")
+centered = false
+metadata/tex_key = "OtherMat_v10:571"
+
+[node name="Down" type="Node2D" parent="btn_dj" unique_id=1764888080]
+visible = false
+
+[node name="OtherMat_v10_572" type="Sprite2D" parent="btn_dj/Down" unique_id=120784864]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_c5asr")
+centered = false
+metadata/tex_key = "OtherMat_v10:572"
+
+[node name="strengthbtn" type="Control" parent="." unique_id=1874580160]
+anchors_preset = 0
+offset_left = 188.8
+offset_top = 549.14996
+offset_right = 249.75
+offset_bottom = 579.14996
+mouse_default_cursor_shape = 2
+metadata/ui_piece = ["strengthbtn"]
+metadata/ui_button = "strengthbtn"
+metadata/pad_seq = 13
+
+[node name="Up" type="Node2D" parent="strengthbtn" unique_id=2055851484]
+position = Vector2(7.2, 3.4)
+
+[node name="OtherMat_v10_574" type="Sprite2D" parent="strengthbtn/Up" unique_id=2118916343]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_c4rio")
+centered = false
+metadata/tex_key = "OtherMat_v10:574"
+
+[node name="Over" type="Node2D" parent="strengthbtn" unique_id=1470916116]
+visible = false
+position = Vector2(7.2, 3.4)
+
+[node name="OtherMat_v10_575" type="Sprite2D" parent="strengthbtn/Over" unique_id=791729490]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_g387a")
+centered = false
+metadata/tex_key = "OtherMat_v10:575"
+
+[node name="Down" type="Node2D" parent="strengthbtn" unique_id=1923897159]
+visible = false
+position = Vector2(7.2, 3.4)
+
+[node name="OtherMat_v10_575" type="Sprite2D" parent="strengthbtn/Down" unique_id=1000167588]
+position = Vector2(0, 2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_g387a")
+centered = false
+metadata/tex_key = "OtherMat_v10:575"
+
+[node name="mixturebtn" type="Control" parent="." unique_id=168202555]
+anchors_preset = 0
+offset_left = 265.25
+offset_top = 543.5
+offset_right = 330.25
+offset_bottom = 574.5
+mouse_default_cursor_shape = 2
+metadata/ui_piece = ["mixturebtn"]
+metadata/ui_button = "mixturebtn"
+metadata/pad_seq = 14
+
+[node name="Up" type="Node2D" parent="mixturebtn" unique_id=117809899]
+position = Vector2(9, 4)
+
+[node name="OtherMat_v10_578" type="Sprite2D" parent="mixturebtn/Up" unique_id=352110221]
+position = Vector2(2.95, 5.05)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("10_vgia5")
+centered = false
+metadata/tex_key = "OtherMat_v10:578"
+
+[node name="Over" type="Node2D" parent="mixturebtn" unique_id=692360183]
+visible = false
+position = Vector2(9, 4)
+
+[node name="OtherMat_v10_579" type="Sprite2D" parent="mixturebtn/Over" unique_id=297094673]
+position = Vector2(2.95, 5.05)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_3toxb")
+centered = false
+metadata/tex_key = "OtherMat_v10:579"
+
+[node name="Down" type="Node2D" parent="mixturebtn" unique_id=572455451]
+visible = false
+position = Vector2(9, 4)
+
+[node name="OtherMat_v10_579" type="Sprite2D" parent="mixturebtn/Down" unique_id=1518420052]
+position = Vector2(2.95, 7.05)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_3toxb")
+centered = false
+metadata/tex_key = "OtherMat_v10:579"
+
+[node name="btn_sz" type="Control" parent="." unique_id=1780234149]
+anchors_preset = 0
+offset_left = 668.5
+offset_top = 106.65
+offset_right = 741.5
+offset_bottom = 133.65
+mouse_default_cursor_shape = 2
+metadata/ui_piece = ["btn_sz"]
+metadata/ui_button = "btn_sz"
+metadata/pad_seq = 15
+
+[node name="Up" type="Node2D" parent="btn_sz" unique_id=244382421]
+
+[node name="OtherMat_v10_583" type="Sprite2D" parent="btn_sz/Up" unique_id=147755909]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("12_lqwrc")
+centered = false
+metadata/tex_key = "OtherMat_v10:583"
+
+[node name="Over" type="Node2D" parent="btn_sz" unique_id=1771259818]
+visible = false
+
+[node name="OtherMat_v10_585" type="Sprite2D" parent="btn_sz/Over" unique_id=942161197]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("13_2g7ca")
+centered = false
+metadata/tex_key = "OtherMat_v10:585"
+
+[node name="Down" type="Node2D" parent="btn_sz" unique_id=144716501]
+visible = false
+
+[node name="OtherMat_v10_583" type="Sprite2D" parent="btn_sz/Down" unique_id=38631865]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("12_lqwrc")
+centered = false
+metadata/tex_key = "OtherMat_v10:583"

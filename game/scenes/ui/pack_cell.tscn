@@ -1,0 +1,50 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/ui/ui_layout.gd" id="1_k3cxs"]
+[ext_resource type="Texture2D" path="res://assets/ui/pack_cell/tex/backpack_v5_596.png" id="2_i73mu"]
+
+[node name="pack_cell" type="Control" unique_id=1002880187]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_k3cxs")
+
+[node name="Art" type="Node2D" parent="." unique_id=744516976]
+
+[node name="backpack_v5_596" type="Sprite2D" parent="Art" unique_id=218681175]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_i73mu")
+centered = false
+metadata/tex_key = "backpack_v5:596"
+
+[node name="txtname" type="Label" parent="." unique_id=880512287]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 27.5
+offset_right = 49.95
+offset_bottom = 53.1
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(1, 0.6, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+horizontal_alignment = 2
+metadata/rec = {
+"align": "right",
+"b": {
+"h": 22.85,
+"w": 23.95,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ff9900",
+"fit": [-4.5, 19.5],
+"m": [1.0, 0.0, 0.0, 1.0, 28.0, 30.8],
+"multiline": false,
+"name": "txtname",
+"size": 16.0,
+"text": "",
+"type": "text",
+"var": "",
+"wrap": false
+}
+metadata/ui_piece = ["txtname"]

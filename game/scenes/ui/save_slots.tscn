@@ -1,0 +1,805 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/ui/ui_layout.gd" id="1_unw5w"]
+[ext_resource type="Texture2D" path="res://assets/ui/save_slots/tex/Common_v7_502.png" id="2_dgjw0"]
+[ext_resource type="Texture2D" path="res://assets/ui/save_slots/tex/Common_v7_504.png" id="3_ntvyo"]
+[ext_resource type="Texture2D" path="res://assets/ui/save_slots/tex/Common_v7_509.png" id="4_8h6kf"]
+[ext_resource type="Texture2D" path="res://assets/ui/save_slots/tex/Common_v7_512.png" id="5_2m10p"]
+[ext_resource type="Texture2D" path="res://assets/ui/save_slots/tex/Common_v7_516.png" id="6_ejige"]
+[ext_resource type="Texture2D" path="res://assets/ui/save_slots/tex/Common_v7_519.png" id="7_apiqw"]
+[ext_resource type="Texture2D" path="res://assets/ui/save_slots/tex/Common_v7_523.png" id="8_mydoj"]
+[ext_resource type="Texture2D" path="res://assets/ui/save_slots/tex/Common_v7_526.png" id="9_tevew"]
+[ext_resource type="Texture2D" path="res://assets/ui/save_slots/tex/Common_v7_530.png" id="10_05i8q"]
+[ext_resource type="Texture2D" path="res://assets/ui/save_slots/tex/Common_v7_533.png" id="11_5m7vv"]
+[ext_resource type="Texture2D" path="res://assets/ui/save_slots/tex/Common_v7_537.png" id="12_fwagj"]
+[ext_resource type="Texture2D" path="res://assets/ui/save_slots/tex/Common_v7_540.png" id="13_7ipjt"]
+[ext_resource type="Texture2D" path="res://assets/ui/save_slots/tex/Common_v7_544.png" id="14_pffwd"]
+[ext_resource type="Texture2D" path="res://assets/shared/ui/Common_v7_547.png" id="15_tvhb3"]
+[ext_resource type="Texture2D" path="res://assets/shared/ui/Common_v7_549.png" id="16_wrs4k"]
+
+[node name="save_slots" type="Control" unique_id=34313135]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_unw5w")
+
+[node name="Art" type="Node2D" parent="." unique_id=1523768598]
+
+[node name="Common_v7_502" type="Sprite2D" parent="Art" unique_id=976147088]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_dgjw0")
+centered = false
+metadata/tex_key = "Common_v7:502"
+
+[node name="btn_0" type="Node2D" parent="." unique_id=1214810266]
+position = Vector2(209, 224.05)
+metadata/labels = {}
+metadata/ui_piece = ["btn_0"]
+
+[node name="Frame0" type="Node2D" parent="btn_0" unique_id=1014493700]
+
+[node name="Common_v7_504" type="Sprite2D" parent="btn_0/Frame0" unique_id=1861833556]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_ntvyo")
+centered = false
+metadata/tex_key = "Common_v7:504"
+
+[node name="txt_name" type="Label" parent="btn_0/Frame0" unique_id=404159856]
+offset_left = 56.0
+offset_top = 25.300001
+offset_right = 247.95
+offset_bottom = 52.850002
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+metadata/rec = {
+"align": "left",
+"b": {
+"h": 27.55,
+"w": 191.95,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"multiline": true,
+"size": 20.0,
+"text": "",
+"var": "",
+"wrap": true
+}
+
+[node name="txt_time" type="Label" parent="btn_0/Frame0" unique_id=1096396353]
+offset_left = 56.0
+offset_top = 53.600002
+offset_right = 248.95
+offset_bottom = 75.25
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+metadata/rec = {
+"align": "left",
+"b": {
+"h": 21.65,
+"w": 192.95,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"multiline": true,
+"size": 15.0,
+"text": "",
+"var": "",
+"wrap": true
+}
+
+[node name="Frame1" type="Node2D" parent="btn_0" unique_id=1537519578]
+visible = false
+
+[node name="Common_v7_509" type="Sprite2D" parent="btn_0/Frame1" unique_id=1723705931]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_8h6kf")
+centered = false
+metadata/tex_key = "Common_v7:509"
+
+[node name="txt_name" type="Label" parent="btn_0/Frame1" unique_id=1248999081]
+offset_left = 56.0
+offset_top = 25.300001
+offset_right = 247.95
+offset_bottom = 52.850002
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+metadata/rec = {
+"align": "left",
+"b": {
+"h": 27.55,
+"w": 191.95,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"multiline": true,
+"size": 20.0,
+"text": "",
+"var": "",
+"wrap": true
+}
+
+[node name="txt_time" type="Label" parent="btn_0/Frame1" unique_id=2037430427]
+offset_left = 56.0
+offset_top = 53.600002
+offset_right = 248.95
+offset_bottom = 75.25
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+metadata/rec = {
+"align": "left",
+"b": {
+"h": 21.65,
+"w": 192.95,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"multiline": true,
+"size": 15.0,
+"text": "",
+"var": "",
+"wrap": true
+}
+
+[node name="btn_1" type="Node2D" parent="." unique_id=517881480]
+position = Vector2(465, 224.05)
+metadata/labels = {}
+metadata/ui_piece = ["btn_1"]
+
+[node name="Frame0" type="Node2D" parent="btn_1" unique_id=1002242680]
+
+[node name="Common_v7_512" type="Sprite2D" parent="btn_1/Frame0" unique_id=295571811]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_2m10p")
+centered = false
+metadata/tex_key = "Common_v7:512"
+
+[node name="txt_name" type="Label" parent="btn_1/Frame0" unique_id=639338736]
+offset_left = 60.0
+offset_top = 22.300001
+offset_right = 248.0
+offset_bottom = 49.850002
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+metadata/rec = {
+"align": "left",
+"b": {
+"h": 27.55,
+"w": 188.0,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"multiline": true,
+"size": 20.0,
+"text": "",
+"var": "",
+"wrap": true
+}
+
+[node name="txt_time" type="Label" parent="btn_1/Frame0" unique_id=2072777956]
+offset_left = 60.0
+offset_top = 52.5
+offset_right = 247.0
+offset_bottom = 74.15
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+metadata/rec = {
+"align": "left",
+"b": {
+"h": 21.65,
+"w": 187.0,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"multiline": true,
+"size": 15.0,
+"text": "",
+"var": "",
+"wrap": true
+}
+
+[node name="Frame1" type="Node2D" parent="btn_1" unique_id=1153072105]
+visible = false
+
+[node name="Common_v7_516" type="Sprite2D" parent="btn_1/Frame1" unique_id=2074862934]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_ejige")
+centered = false
+metadata/tex_key = "Common_v7:516"
+
+[node name="txt_name" type="Label" parent="btn_1/Frame1" unique_id=1790314964]
+offset_left = 60.0
+offset_top = 22.300001
+offset_right = 248.0
+offset_bottom = 49.850002
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+metadata/rec = {
+"align": "left",
+"b": {
+"h": 27.55,
+"w": 188.0,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"multiline": true,
+"size": 20.0,
+"text": "",
+"var": "",
+"wrap": true
+}
+
+[node name="txt_time" type="Label" parent="btn_1/Frame1" unique_id=1117621725]
+offset_left = 60.0
+offset_top = 52.5
+offset_right = 247.0
+offset_bottom = 74.15
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+metadata/rec = {
+"align": "left",
+"b": {
+"h": 21.65,
+"w": 187.0,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"multiline": true,
+"size": 15.0,
+"text": "",
+"var": "",
+"wrap": true
+}
+
+[node name="btn_2" type="Node2D" parent="." unique_id=1958178052]
+position = Vector2(209, 303)
+metadata/labels = {}
+metadata/ui_piece = ["btn_2"]
+
+[node name="Frame0" type="Node2D" parent="btn_2" unique_id=609753884]
+
+[node name="Common_v7_519" type="Sprite2D" parent="btn_2/Frame0" unique_id=668265823]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_apiqw")
+centered = false
+metadata/tex_key = "Common_v7:519"
+
+[node name="txt_name" type="Label" parent="btn_2/Frame0" unique_id=1158018502]
+offset_left = 60.0
+offset_top = 24.300001
+offset_right = 248.95
+offset_bottom = 51.850002
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+metadata/rec = {
+"align": "left",
+"b": {
+"h": 27.55,
+"w": 188.95,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"multiline": true,
+"size": 20.0,
+"text": "",
+"var": "",
+"wrap": true
+}
+
+[node name="txt_time" type="Label" parent="btn_2/Frame0" unique_id=981968282]
+offset_left = 60.0
+offset_top = 53.4
+offset_right = 248.95
+offset_bottom = 75.05
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+metadata/rec = {
+"align": "left",
+"b": {
+"h": 21.65,
+"w": 188.95,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"multiline": true,
+"size": 15.0,
+"text": "",
+"var": "",
+"wrap": true
+}
+
+[node name="Frame1" type="Node2D" parent="btn_2" unique_id=672409526]
+visible = false
+
+[node name="Common_v7_523" type="Sprite2D" parent="btn_2/Frame1" unique_id=382603693]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_mydoj")
+centered = false
+metadata/tex_key = "Common_v7:523"
+
+[node name="txt_name" type="Label" parent="btn_2/Frame1" unique_id=701448164]
+offset_left = 60.0
+offset_top = 24.300001
+offset_right = 248.95
+offset_bottom = 51.850002
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+metadata/rec = {
+"align": "left",
+"b": {
+"h": 27.55,
+"w": 188.95,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"multiline": true,
+"size": 20.0,
+"text": "",
+"var": "",
+"wrap": true
+}
+
+[node name="txt_time" type="Label" parent="btn_2/Frame1" unique_id=812476269]
+offset_left = 60.0
+offset_top = 53.4
+offset_right = 248.95
+offset_bottom = 75.05
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+metadata/rec = {
+"align": "left",
+"b": {
+"h": 21.65,
+"w": 188.95,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"multiline": true,
+"size": 15.0,
+"text": "",
+"var": "",
+"wrap": true
+}
+
+[node name="btn_3" type="Node2D" parent="." unique_id=1426691049]
+position = Vector2(465, 303)
+metadata/labels = {}
+metadata/ui_piece = ["btn_3"]
+
+[node name="Frame0" type="Node2D" parent="btn_3" unique_id=377689322]
+
+[node name="Common_v7_526" type="Sprite2D" parent="btn_3/Frame0" unique_id=582425977]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_tevew")
+centered = false
+metadata/tex_key = "Common_v7:526"
+
+[node name="txt_name" type="Label" parent="btn_3/Frame0" unique_id=1244794133]
+offset_left = 61.0
+offset_top = 25.300001
+offset_right = 248.0
+offset_bottom = 52.850002
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+metadata/rec = {
+"align": "left",
+"b": {
+"h": 27.55,
+"w": 187.0,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"multiline": true,
+"size": 20.0,
+"text": "",
+"var": "",
+"wrap": true
+}
+
+[node name="txt_time" type="Label" parent="btn_3/Frame0" unique_id=915748839]
+offset_left = 61.0
+offset_top = 53.4
+offset_right = 248.0
+offset_bottom = 75.05
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+metadata/rec = {
+"align": "left",
+"b": {
+"h": 21.65,
+"w": 187.0,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"multiline": true,
+"size": 15.0,
+"text": "",
+"var": "",
+"wrap": true
+}
+
+[node name="Frame1" type="Node2D" parent="btn_3" unique_id=23829378]
+visible = false
+
+[node name="Common_v7_530" type="Sprite2D" parent="btn_3/Frame1" unique_id=1902676024]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("10_05i8q")
+centered = false
+metadata/tex_key = "Common_v7:530"
+
+[node name="txt_name" type="Label" parent="btn_3/Frame1" unique_id=578147452]
+offset_left = 61.0
+offset_top = 25.300001
+offset_right = 248.0
+offset_bottom = 52.850002
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+metadata/rec = {
+"align": "left",
+"b": {
+"h": 27.55,
+"w": 187.0,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"multiline": true,
+"size": 20.0,
+"text": "",
+"var": "",
+"wrap": true
+}
+
+[node name="txt_time" type="Label" parent="btn_3/Frame1" unique_id=2037458120]
+offset_left = 61.0
+offset_top = 53.4
+offset_right = 248.0
+offset_bottom = 75.05
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+metadata/rec = {
+"align": "left",
+"b": {
+"h": 21.65,
+"w": 187.0,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"multiline": true,
+"size": 15.0,
+"text": "",
+"var": "",
+"wrap": true
+}
+
+[node name="btn_4" type="Node2D" parent="." unique_id=287018471]
+position = Vector2(209, 381)
+metadata/labels = {}
+metadata/ui_piece = ["btn_4"]
+
+[node name="Frame0" type="Node2D" parent="btn_4" unique_id=540461149]
+
+[node name="Common_v7_533" type="Sprite2D" parent="btn_4/Frame0" unique_id=218145981]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_5m7vv")
+centered = false
+metadata/tex_key = "Common_v7:533"
+
+[node name="txt_name" type="Label" parent="btn_4/Frame0" unique_id=2090552311]
+offset_left = 62.0
+offset_top = 24.300001
+offset_right = 248.95
+offset_bottom = 51.850002
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+metadata/rec = {
+"align": "left",
+"b": {
+"h": 27.55,
+"w": 186.95,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"multiline": true,
+"size": 20.0,
+"text": "",
+"var": "",
+"wrap": true
+}
+
+[node name="txt_time" type="Label" parent="btn_4/Frame0" unique_id=1939580596]
+offset_left = 62.0
+offset_top = 53.4
+offset_right = 248.95
+offset_bottom = 75.05
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+metadata/rec = {
+"align": "left",
+"b": {
+"h": 21.65,
+"w": 186.95,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"multiline": true,
+"size": 15.0,
+"text": "",
+"var": "",
+"wrap": true
+}
+
+[node name="Frame1" type="Node2D" parent="btn_4" unique_id=936849361]
+visible = false
+
+[node name="Common_v7_537" type="Sprite2D" parent="btn_4/Frame1" unique_id=322940568]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("12_fwagj")
+centered = false
+metadata/tex_key = "Common_v7:537"
+
+[node name="txt_name" type="Label" parent="btn_4/Frame1" unique_id=90584663]
+offset_left = 62.0
+offset_top = 24.300001
+offset_right = 248.95
+offset_bottom = 51.850002
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+metadata/rec = {
+"align": "left",
+"b": {
+"h": 27.55,
+"w": 186.95,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"multiline": true,
+"size": 20.0,
+"text": "",
+"var": "",
+"wrap": true
+}
+
+[node name="txt_time" type="Label" parent="btn_4/Frame1" unique_id=1731666585]
+offset_left = 62.0
+offset_top = 53.4
+offset_right = 248.95
+offset_bottom = 75.05
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+metadata/rec = {
+"align": "left",
+"b": {
+"h": 21.65,
+"w": 186.95,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"multiline": true,
+"size": 15.0,
+"text": "",
+"var": "",
+"wrap": true
+}
+
+[node name="btn_5" type="Node2D" parent="." unique_id=512534142]
+position = Vector2(465, 381)
+metadata/labels = {}
+metadata/ui_piece = ["btn_5"]
+
+[node name="Frame0" type="Node2D" parent="btn_5" unique_id=622349494]
+
+[node name="Common_v7_540" type="Sprite2D" parent="btn_5/Frame0" unique_id=1368940898]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("13_7ipjt")
+centered = false
+metadata/tex_key = "Common_v7:540"
+
+[node name="txt_name" type="Label" parent="btn_5/Frame0" unique_id=1276259547]
+offset_left = 60.0
+offset_top = 24.300001
+offset_right = 249.0
+offset_bottom = 51.850002
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+metadata/rec = {
+"align": "left",
+"b": {
+"h": 27.55,
+"w": 189.0,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"multiline": true,
+"size": 20.0,
+"text": "",
+"var": "",
+"wrap": true
+}
+
+[node name="txt_time" type="Label" parent="btn_5/Frame0" unique_id=973623613]
+offset_left = 60.0
+offset_top = 53.4
+offset_right = 250.0
+offset_bottom = 75.05
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+metadata/rec = {
+"align": "left",
+"b": {
+"h": 21.65,
+"w": 190.0,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"multiline": true,
+"size": 15.0,
+"text": "",
+"var": "",
+"wrap": true
+}
+
+[node name="Frame1" type="Node2D" parent="btn_5" unique_id=99619414]
+visible = false
+
+[node name="Common_v7_544" type="Sprite2D" parent="btn_5/Frame1" unique_id=915081493]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("14_pffwd")
+centered = false
+metadata/tex_key = "Common_v7:544"
+
+[node name="txt_name" type="Label" parent="btn_5/Frame1" unique_id=1492140706]
+offset_left = 60.0
+offset_top = 24.300001
+offset_right = 249.0
+offset_bottom = 51.850002
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+metadata/rec = {
+"align": "left",
+"b": {
+"h": 27.55,
+"w": 189.0,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"multiline": true,
+"size": 20.0,
+"text": "",
+"var": "",
+"wrap": true
+}
+
+[node name="txt_time" type="Label" parent="btn_5/Frame1" unique_id=2023893817]
+offset_left = 60.0
+offset_top = 53.4
+offset_right = 250.0
+offset_bottom = 75.05
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+metadata/rec = {
+"align": "left",
+"b": {
+"h": 21.65,
+"w": 190.0,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"multiline": true,
+"size": 15.0,
+"text": "",
+"var": "",
+"wrap": true
+}
+
+[node name="btn_x" type="Control" parent="." unique_id=465868294]
+anchors_preset = 0
+offset_left = 718.45
+offset_top = 113.05
+offset_right = 758.45
+offset_bottom = 153.05
+mouse_default_cursor_shape = 2
+metadata/ui_piece = ["btn_x"]
+metadata/ui_button = "btn_x"
+metadata/pad_seq = 39
+
+[node name="Up" type="Node2D" parent="btn_x" unique_id=167118489]
+position = Vector2(0, -2)
+
+[node name="Common_v7_547" type="Sprite2D" parent="btn_x/Up" unique_id=825098825]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("15_tvhb3")
+centered = false
+metadata/tex_key = "Common_v7:547"
+
+[node name="Over" type="Node2D" parent="btn_x" unique_id=2019265227]
+visible = false
+position = Vector2(0, -2)
+
+[node name="Common_v7_549" type="Sprite2D" parent="btn_x/Over" unique_id=1900123236]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("16_wrs4k")
+centered = false
+metadata/tex_key = "Common_v7:549"
+
+[node name="Down" type="Node2D" parent="btn_x" unique_id=490156617]
+visible = false
+position = Vector2(0, -2)
+
+[node name="Common_v7_547" type="Sprite2D" parent="btn_x/Down" unique_id=881754320]
+position = Vector2(0, 2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("15_tvhb3")
+centered = false
+metadata/tex_key = "Common_v7:547"

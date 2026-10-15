@@ -1,0 +1,243 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/ui/ui_layout.gd" id="1_gkni2"]
+[ext_resource type="Texture2D" path="res://assets/shared/ui/backpack_v5_600.png" id="2_08w05"]
+[ext_resource type="Texture2D" path="res://assets/shared/ui/backpack_v5_602.png" id="3_t7u03"]
+[ext_resource type="Texture2D" path="res://assets/shared/ui/backpack_v5_607.png" id="4_o25i8"]
+[ext_resource type="Texture2D" path="res://assets/ui/shop_thing/tex/backpack_v5_609.png" id="5_1g7kh"]
+[ext_resource type="Texture2D" path="res://assets/shared/ui/backpack_v5_613.png" id="6_0xht8"]
+[ext_resource type="Texture2D" path="res://assets/ui/shop_thing/tex/backpack_v5_615.png" id="7_cssvq"]
+[ext_resource type="Texture2D" path="res://assets/shared/ui/backpack_v5_618.png" id="8_7rybb"]
+[ext_resource type="Texture2D" path="res://assets/ui/shop_thing/tex/backpack_v5_620.png" id="9_vi6cb"]
+
+[node name="shop_thing" type="Control" unique_id=2011313066]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_gkni2")
+
+[node name="Art" type="Node2D" parent="." unique_id=2082801168]
+
+[node name="backpack_v5_600" type="Sprite2D" parent="Art" unique_id=1676699981]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_08w05")
+centered = false
+metadata/tex_key = "backpack_v5:600"
+
+[node name="bgmc" type="Node2D" parent="." unique_id=890352243]
+position = Vector2(75.05, 67.45)
+metadata/ui_piece = ["bgmc"]
+
+[node name="backpack_v5_602" type="Sprite2D" parent="bgmc" unique_id=828075256]
+position = Vector2(-36.25, -11)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_t7u03")
+centered = false
+metadata/tex_key = "backpack_v5:602"
+
+[node name="txt_name" type="Label" parent="." unique_id=1317341557]
+layout_mode = 0
+offset_left = 81.0
+offset_top = 4.0
+offset_right = 171.65
+offset_bottom = 29.6
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+horizontal_alignment = 2
+metadata/rec = {
+"align": "right",
+"b": {
+"h": 22.85,
+"w": 90.65,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"fit": [-1.5, 17.5],
+"m": [1.0, 0.0, 0.0, 1.0, 83.0, 6.8],
+"multiline": true,
+"name": "txt_name",
+"size": 16.0,
+"text": "",
+"type": "text",
+"var": "",
+"wrap": true
+}
+metadata/ui_piece = ["txt_name"]
+
+[node name="txt_price" type="Label" parent="." unique_id=1213687346]
+layout_mode = 0
+offset_left = 81.0
+offset_top = 31.5
+offset_right = 172.65
+offset_bottom = 57.1
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+horizontal_alignment = 2
+metadata/rec = {
+"align": "right",
+"b": {
+"h": 22.85,
+"w": 91.65,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"fit": [-9.5, 28.5],
+"m": [1.0, 0.0, 0.0, 1.0, 83.0, 32.8],
+"multiline": true,
+"name": "txt_price",
+"size": 16.0,
+"text": "",
+"type": "text",
+"var": "",
+"wrap": true
+}
+metadata/ui_piece = ["txt_price"]
+
+[node name="btn_buy" type="Control" parent="." unique_id=55288568]
+anchors_preset = 0
+offset_left = 108.65
+offset_top = 53.45
+offset_right = 176.65
+offset_bottom = 83.45
+mouse_default_cursor_shape = 2
+metadata/ui_piece = ["btn_buy"]
+metadata/ui_button = "btn_buy"
+metadata/pad_seq = 61
+
+[node name="Up" type="Node2D" parent="btn_buy" unique_id=1633985990]
+
+[node name="backpack_v5_607" type="Sprite2D" parent="btn_buy/Up" unique_id=2117846885]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_o25i8")
+centered = false
+metadata/tex_key = "backpack_v5:607"
+
+[node name="Over" type="Node2D" parent="btn_buy" unique_id=1664714616]
+visible = false
+
+[node name="backpack_v5_609" type="Sprite2D" parent="btn_buy/Over" unique_id=1991415081]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_1g7kh")
+centered = false
+metadata/tex_key = "backpack_v5:609"
+
+[node name="Down" type="Node2D" parent="btn_buy" unique_id=1344096128]
+visible = false
+
+[node name="backpack_v5_607" type="Sprite2D" parent="btn_buy/Down" unique_id=607142588]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_o25i8")
+centered = false
+metadata/tex_key = "backpack_v5:607"
+
+[node name="txt_num" type="Label" parent="." unique_id=931895132]
+layout_mode = 0
+offset_left = 69.75
+offset_top = 60.199997
+offset_right = 95.95
+offset_bottom = 81.0
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+horizontal_alignment = 1
+metadata/rec = {
+"align": "center",
+"b": {
+"h": 19.3,
+"w": 26.2,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"fit": [1.5, 17.5],
+"m": [1.0, 0.0, 0.0, 1.0, 71.75, 59.85],
+"multiline": true,
+"name": "txt_num",
+"size": 13.0,
+"text": "",
+"type": "text",
+"var": "",
+"wrap": true
+}
+metadata/ui_piece = ["txt_num"]
+
+[node name="btn_up" type="Control" parent="." unique_id=270717287]
+anchors_preset = 0
+offset_left = 93.75
+offset_top = 57.9
+offset_right = 110.75
+offset_bottom = 68.9
+mouse_default_cursor_shape = 2
+metadata/ui_piece = ["btn_up"]
+metadata/ui_button = "btn_up"
+metadata/pad_seq = 62
+
+[node name="Up" type="Node2D" parent="btn_up" unique_id=2143727647]
+
+[node name="backpack_v5_613" type="Sprite2D" parent="btn_up/Up" unique_id=568025210]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_0xht8")
+centered = false
+metadata/tex_key = "backpack_v5:613"
+
+[node name="Over" type="Node2D" parent="btn_up" unique_id=636005976]
+visible = false
+
+[node name="backpack_v5_615" type="Sprite2D" parent="btn_up/Over" unique_id=1997119662]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_cssvq")
+centered = false
+metadata/tex_key = "backpack_v5:615"
+
+[node name="Down" type="Node2D" parent="btn_up" unique_id=2113335867]
+visible = false
+
+[node name="backpack_v5_613" type="Sprite2D" parent="btn_up/Down" unique_id=1988549519]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_0xht8")
+centered = false
+metadata/tex_key = "backpack_v5:613"
+
+[node name="btn_down" type="Control" parent="." unique_id=159469580]
+anchors_preset = 0
+offset_left = 93.5
+offset_top = 66.9
+offset_right = 110.5
+offset_bottom = 77.9
+mouse_default_cursor_shape = 2
+metadata/ui_piece = ["btn_down"]
+metadata/ui_button = "btn_down"
+metadata/pad_seq = 63
+
+[node name="Up" type="Node2D" parent="btn_down" unique_id=1542001537]
+
+[node name="backpack_v5_618" type="Sprite2D" parent="btn_down/Up" unique_id=1556092507]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_7rybb")
+centered = false
+metadata/tex_key = "backpack_v5:618"
+
+[node name="Over" type="Node2D" parent="btn_down" unique_id=197998038]
+visible = false
+
+[node name="backpack_v5_620" type="Sprite2D" parent="btn_down/Over" unique_id=40690833]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_vi6cb")
+centered = false
+metadata/tex_key = "backpack_v5:620"
+
+[node name="Down" type="Node2D" parent="btn_down" unique_id=1221509588]
+visible = false
+
+[node name="backpack_v5_618" type="Sprite2D" parent="btn_down/Down" unique_id=975768891]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_7rybb")
+centered = false
+metadata/tex_key = "backpack_v5:618"

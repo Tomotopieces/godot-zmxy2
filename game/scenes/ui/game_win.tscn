@@ -1,0 +1,232 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/ui/ui_layout.gd" id="1_36grx"]
+[ext_resource type="Texture2D" path="res://assets/ui/game_win/tex/OtherMat_v10_741.png" id="2_puku0"]
+[ext_resource type="Texture2D" path="res://assets/shared/ui/OtherMat_v10_747.png" id="3_4fimg"]
+[ext_resource type="Texture2D" path="res://assets/shared/ui/OtherMat_v10_749.png" id="4_rtx3q"]
+[ext_resource type="Texture2D" path="res://assets/ui/game_win/tex/OtherMat_v10_752.png" id="5_weuqy"]
+[ext_resource type="Texture2D" path="res://assets/ui/game_win/tex/OtherMat_v10_754.png" id="6_bfpqc"]
+
+[node name="game_win" type="Control" unique_id=726004482]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_36grx")
+
+[node name="Art" type="Node2D" parent="." unique_id=1846685702]
+
+[node name="OtherMat_v10_741" type="Sprite2D" parent="Art" unique_id=305433841]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_puku0")
+centered = false
+metadata/tex_key = "OtherMat_v10:741"
+
+[node name="txt_allscore" type="Label" parent="." unique_id=1736344815]
+layout_mode = 0
+offset_left = 727.2
+offset_top = 401.5
+offset_right = 861.95
+offset_bottom = 452.7
+theme_override_font_sizes/font_size = 32
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+horizontal_alignment = 2
+metadata/rec = {
+"align": "right",
+"b": {
+"h": 43.2,
+"w": 134.75,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"fit": [-3.5, 53.5],
+"m": [1.0, 0.0, 0.0, 1.0, 729.2, 396.1],
+"multiline": true,
+"name": "txt_allscore",
+"size": 32.0,
+"text": "",
+"type": "text",
+"var": "",
+"wrap": true
+}
+metadata/ui_piece = ["txt_allscore"]
+
+[node name="txt_hight" type="Label" parent="." unique_id=237883658]
+layout_mode = 0
+offset_left = 767.1
+offset_top = 338.0
+offset_right = 861.94995
+offset_bottom = 389.2
+theme_override_font_sizes/font_size = 32
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+horizontal_alignment = 2
+metadata/rec = {
+"align": "right",
+"b": {
+"h": 43.2,
+"w": 94.85,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"fit": [-5.5, 48.5],
+"m": [1.0, 0.0, 0.0, 1.0, 769.1, 336.1],
+"multiline": true,
+"name": "txt_hight",
+"size": 32.0,
+"text": "",
+"type": "text",
+"var": "",
+"wrap": true
+}
+metadata/ui_piece = ["txt_hight"]
+
+[node name="txt_state" type="Label" parent="." unique_id=1323020497]
+layout_mode = 0
+offset_left = 743.1
+offset_top = 275.94998
+offset_right = 861.94995
+offset_bottom = 327.15
+theme_override_font_sizes/font_size = 32
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+horizontal_alignment = 2
+metadata/rec = {
+"align": "right",
+"b": {
+"h": 43.2,
+"w": 118.85,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"fit": [-3.5, 50.5],
+"m": [1.0, 0.0, 0.0, 1.0, 745.1, 272.05],
+"multiline": true,
+"name": "txt_state",
+"size": 32.0,
+"text": "",
+"type": "text",
+"var": "",
+"wrap": true
+}
+metadata/ui_piece = ["txt_state"]
+
+[node name="txt_usertime" type="Label" parent="." unique_id=1181515382]
+layout_mode = 0
+offset_left = 743.1
+offset_top = 213.95
+offset_right = 861.94995
+offset_bottom = 265.15
+theme_override_font_sizes/font_size = 32
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+horizontal_alignment = 2
+metadata/rec = {
+"align": "right",
+"b": {
+"h": 43.95,
+"w": 118.85,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"fit": [-5.5, 48.5],
+"m": [1.0, 0.0, 0.0, 1.0, 745.1, 212.05],
+"multiline": true,
+"name": "txt_usertime",
+"size": 32.0,
+"text": "",
+"type": "text",
+"var": "",
+"wrap": true
+}
+metadata/ui_piece = ["txt_usertime"]
+
+[node name="backTochooseButton" type="Control" parent="." unique_id=579340015]
+anchors_preset = 0
+offset_left = 268.45
+offset_top = 388.0
+offset_right = 389.45
+offset_bottom = 419.0
+mouse_default_cursor_shape = 2
+metadata/ui_piece = ["backTochooseButton"]
+metadata/ui_button = "backTochooseButton"
+metadata/pad_seq = 31
+
+[node name="Up" type="Node2D" parent="backTochooseButton" unique_id=2005599228]
+position = Vector2(0, -2)
+
+[node name="OtherMat_v10_747" type="Sprite2D" parent="backTochooseButton/Up" unique_id=1072493534]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_4fimg")
+centered = false
+metadata/tex_key = "OtherMat_v10:747"
+
+[node name="Over" type="Node2D" parent="backTochooseButton" unique_id=75954500]
+visible = false
+position = Vector2(0, -2)
+
+[node name="OtherMat_v10_749" type="Sprite2D" parent="backTochooseButton/Over" unique_id=590587038]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_rtx3q")
+centered = false
+metadata/tex_key = "OtherMat_v10:749"
+
+[node name="Down" type="Node2D" parent="backTochooseButton" unique_id=1079294602]
+visible = false
+position = Vector2(0, -2)
+
+[node name="OtherMat_v10_747" type="Sprite2D" parent="backTochooseButton/Down" unique_id=368226847]
+position = Vector2(0, 2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_4fimg")
+centered = false
+metadata/tex_key = "OtherMat_v10:747"
+
+[node name="nextStageButton" type="Control" parent="." unique_id=1352710961]
+anchors_preset = 0
+offset_left = 120.55
+offset_top = 386.1
+offset_right = 211.55
+offset_bottom = 417.1
+mouse_default_cursor_shape = 2
+metadata/ui_piece = ["nextStageButton"]
+metadata/ui_button = "nextStageButton"
+metadata/pad_seq = 32
+
+[node name="Up" type="Node2D" parent="nextStageButton" unique_id=876931657]
+position = Vector2(0, -2)
+
+[node name="OtherMat_v10_752" type="Sprite2D" parent="nextStageButton/Up" unique_id=520064542]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_weuqy")
+centered = false
+metadata/tex_key = "OtherMat_v10:752"
+
+[node name="Over" type="Node2D" parent="nextStageButton" unique_id=1894461087]
+visible = false
+position = Vector2(0, -2)
+
+[node name="OtherMat_v10_754" type="Sprite2D" parent="nextStageButton/Over" unique_id=733302237]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_bfpqc")
+centered = false
+metadata/tex_key = "OtherMat_v10:754"
+
+[node name="Down" type="Node2D" parent="nextStageButton" unique_id=868290784]
+visible = false
+position = Vector2(0, -2)
+
+[node name="OtherMat_v10_752" type="Sprite2D" parent="nextStageButton/Down" unique_id=1691097482]
+position = Vector2(0, 2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_weuqy")
+centered = false
+metadata/tex_key = "OtherMat_v10:752"

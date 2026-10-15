@@ -3,25 +3,43 @@ extends Control
 ## Screen built from an original interface layout (assets/ui/<name>/ui.json, written by tools/rig/extract_ui.js).
 ## Node kinds: art (static sprites), frames (one visible frame), bar (clipped fill), text (Label), button.
 ## Named pieces are reachable with art(), frames(), text(), set_bar(); buttons emit `button_pressed`.
+##
+## create() prefers the editor scene scenes/ui/<name>.tscn (written once by tools/ui_to_scene.gd from the same json, then
+## arranged by hand); without it the layout is built from the json. Both origins wire the same way: every node carries the
+## pieces the code reaches it by in `ui_piece`, a button its name in `ui_button`, a bar holder its travel in `ui_bar`, and
+## _wire_from_scene() walks the tree and rebuilds _named / the buttons / the bars from those metas. A node may therefore be
+## moved anywhere by hand, but must keep its name and its metas (a button's Up / Over / Down children and a bar's Clip /
+## Content are looked up by name).
 
 signal button_pressed(button_name: String)
 
 const INK_MIDDLE := 0.55   ## where the middle of this font's glyphs lies below the top of the line, in em
+const SCENE_PATH := "res://scenes/ui/%s.tscn"
 
 var _d: Dictionary
 var _named := {}     ## name -> Node (art / frames holder / Label / button Control)
-var _bars := {}      ## name -> {clip, content, full: Vector2, empty: Vector2, glow}
+var _bars := {}      ## path -> {clip, content, full: Vector2, empty: Vector2}
+var _from_scene := false   ## the tree was instantiated from scenes/ui/: wired in _ready()
 
 static func create(ui_name: String) -> UiLayout:
+	var scene_path := SCENE_PATH % ui_name
+	if ResourceLoader.exists(scene_path):
+		var scene_ui := (load(scene_path) as PackedScene).instantiate() as UiLayout
+		scene_ui._from_scene = true
+		return scene_ui
 	var u := UiLayout.new()
 	u.build("res://assets/ui/%s/ui.json" % ui_name)
 	return u
+
+func _ready() -> void:
+	if _from_scene:
+		_wire_from_scene()
 
 func build(path: String) -> void:
 	_d = JSON.parse_string(FileAccess.get_file_as_string(path))
 	build_from_data()
 
-## Builds the nodes from the layout data in `_d` (tools/fit_ui.gd hands in data of its own).
+## Builds the nodes from the layout data in `_d` (tools/fit_ui.gd hands in data of its own) and wires them.
 func build_from_data() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	for n in _d.nodes:
@@ -29,16 +47,16 @@ func build_from_data() -> void:
 		match n.type:
 			"art":
 				node = _leaves(n.leaves, _m(n.m))
+				node.name = "Art"
 			"frames":
 				node = _frames_node(n.frames, n.get("labels", {}), _m(n.m))
 				# clips nested in one of the frames, driven separately ("parent/child")
 				for q in n.get("nested", []):
 					var sub := _frames_node(q.frames, q.get("labels", {}), _m(q.m))
-					node.get_child(int(q.frame)).add_child(sub)
+					node.get_child(int(q.frame)).add_child(sub, true)
 					var key: String = "%s/%s" % [n.name, q.name]
-					if not _named.has(key):
-						_named[key] = sub
-					_named["%s@%d" % [key, int(q.frame)]] = sub   # the same clip name differs per frame (a page per hero)
+					# the same clip name differs per frame (a page per hero)
+					_piece_keys(sub, [key, "%s@%d" % [key, int(q.frame)]])
 			"bar":
 				node = _bar(n)
 			"text":
@@ -48,9 +66,13 @@ func build_from_data() -> void:
 				node = _button(n)
 		if node == null:
 			continue
-		add_child(node)
 		if n.name != null:
-			_named[n.name] = node
+			node.name = String(n.name)
+			_piece_keys(node, [n.name])
+			if n.type == "button":
+				node.set_meta(&"ui_button", String(n.name))   # a button emits the layout's name of it, not the node's
+		add_child(node, true)
+	_wire_from_scene()
 
 func get_piece(piece: String) -> Node:
 	return _named.get(piece)
@@ -181,6 +203,74 @@ func glow_pulse(target: Node2D, color: Color, blur: Vector2, strength: Vector2, 
 	tw.tween_method(pulse, 0.0, 1.0, half)
 	tw.tween_method(pulse, 1.0, 0.0, half)
 
+## -- wiring ---------------------------------------------------------------------------------------------------------
+
+## Rebuilds the run-time wiring from the tree itself: the pieces the code reaches by name (`ui_piece`), the buttons
+## (`ui_button`) and the bars (`ui_bar`). Runs on a tree built from json and on one instantiated from scenes/ui/.
+func _wire_from_scene() -> void:
+	_named.clear()
+	_bars.clear()
+	_collect(self)
+	for piece in _bars:
+		set_bar(piece, 1.0)   # a gauge starts full: the code slides it from there
+
+func _collect(n: Node) -> void:
+	for k in n.get_meta(&"ui_piece", []):
+		var key := String(k)
+		if not _named.has(key):
+			_named[key] = n   # the first node claiming a name keeps it (a clip nested in several frames)
+	if n.has_meta(&"ui_button"):
+		_wire_button(n as Control, String(n.get_meta(&"ui_button")))
+	if n.has_meta(&"ui_bar"):
+		_wire_bar(n as Node2D)
+	for c in n.get_children():
+		_collect(c)
+
+## Wires one button: its up / over / down art, the pad mark, the cursor and the click.
+func _wire_button(b: Control, button_name: String) -> void:
+	var states := {}
+	for st in ["up", "over", "down"]:
+		var art := b.get_node_or_null({"up": "Up", "over": "Over", "down": "Down"}[st])
+		if art == null:
+			return
+		states[st] = art
+	b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	PadNav.mark(b)
+	@warning_ignore("shadowed_variable_base_class")
+	var show := func(st: String):
+		for k in states:
+			states[k].visible = k == st
+	b.mouse_entered.connect(show.bind("over"))
+	b.mouse_exited.connect(show.bind("up"))
+	b.gui_input.connect(func(e: InputEvent):
+		if e is InputEventMouseButton and e.button_index == MOUSE_BUTTON_LEFT:
+			show.call("down" if e.pressed else "over")
+			if not e.pressed:
+				button_pressed.emit(button_name))
+
+## Wires one bar holder (its ui_bar travel + its Clip / Content children) so set_bar() can slide it.
+func _wire_bar(holder: Node2D) -> void:
+	var data: Dictionary = holder.get_meta(&"ui_bar", {})
+	var clip := holder.get_node_or_null("Clip") as Control
+	var content := clip.get_node_or_null("Content") as Node2D
+	if content == null:
+		content = holder.find_child("Content", true, false) as Node2D   # moved out of the clip by hand
+	if clip == null or content == null or data.is_empty():
+		return
+	_bars[_node_path(holder)] = {"clip": clip, "content": content, "full": data.full, "empty": data.empty}
+
+## How set_bar() names a bar: its path under the layout root (a bar is a top-level node, so usually just its name).
+func _node_path(n: Node) -> String:
+	var parts := PackedStringArray()
+	var c := n
+	while c != null and c != self:
+		parts.insert(0, String(c.name))
+		c = c.get_parent()
+	return "/".join(parts)
+
+func _piece_keys(n: Node, keys: Array) -> void:
+	n.set_meta(&"ui_piece", keys)
+
 ## Show frame `idx` (or the frame with label `idx`) of a frames piece.
 func show_frame(piece: String, idx) -> void:
 	var h: Node2D = _named.get(piece)
@@ -201,14 +291,18 @@ func set_bar(piece: String, ratio: float) -> void:
 
 # ------------------------------------------------------------------ builders
 
-## One child Node2D per frame, only the shown frame visible.
+## One child Node2D per frame, only the shown frame visible. A frame is named after its label when it has one.
 func _frames_node(frames: Array, labels: Dictionary, xf: Transform2D) -> Node2D:
 	var holder := Node2D.new()
 	holder.transform = xf
-	for f in frames:
-		var fr := _leaves(f, Transform2D.IDENTITY)
+	var named := {}   # frame index -> label (a page per hero)
+	for k in labels:
+		named[int(labels[k])] = String(k)
+	for i in frames.size():
+		var fr := _leaves(frames[i], Transform2D.IDENTITY)
 		fr.visible = false
-		holder.add_child(fr)
+		fr.name = String(named.get(i, "Frame%d" % i))
+		holder.add_child(fr, true)
 	if holder.get_child_count() > 0:
 		holder.get_child(0).visible = true
 	holder.set_meta(&"labels", labels)
@@ -222,20 +316,21 @@ func _leaves(leaves: Array, xf: Transform2D) -> Node2D:
 	holder.transform = xf
 	for lf in leaves:
 		if lf[0] == "mask":
-			holder.add_child(_masked(lf[1], lf[2]))
+			holder.add_child(_masked(lf[1], lf[2]), true)
 		elif lf[0] == "text":
 			var l := _text({"m": lf[1], "name": lf[3] if lf.size() > 3 else null}.merged(lf[2]))
 			l.set_meta(&"rec", lf[2])
 			if lf.size() > 3 and lf[3] != null:
 				l.name = String(lf[3])
-			holder.add_child(l)
+			holder.add_child(l, true)
 		elif _d.textures.has(lf[0]):
-			holder.add_child(_sprite(lf))
+			holder.add_child(_sprite(lf), true)
 	return holder
 
 func _sprite(lf: Array) -> Sprite2D:
 	var info: Dictionary = _d.textures[lf[0]]
 	var sp := Sprite2D.new()
+	sp.name = String(lf[0]).replace(":", "_")
 	sp.centered = false
 	sp.texture = load(info.res)
 	sp.set_meta(&"tex_key", lf[0])
@@ -256,6 +351,7 @@ func _sprite(lf: Array) -> Sprite2D:
 ## Flash mask layer: the mask sprite clips its children (content re-expressed in the mask's space).
 func _masked(mask: Array, content: Array) -> Node2D:
 	var holder := Node2D.new()
+	holder.name = "Art"
 	for mk in mask:
 		if not _d.textures.has(mk[0]):
 			continue
@@ -303,16 +399,13 @@ func _text(n: Dictionary) -> Label:
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return l
 
-## Button: hit rect Control with up / over / down art.
+## Button: hit rect Control with its up / over / down art (the states are named so _wire_button() finds them again).
 func _button(n: Dictionary) -> Control:
 	var b := Control.new()
 	var hit: Array = n.get("hit", [0, 0, 10, 10])
 	var xf := _m(n.m)
 	b.position = xf.origin + Vector2(hit[0], hit[1])
 	b.size = Vector2(hit[2], hit[3])
-	b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-	PadNav.mark(b)
-	var states := {}
 	# a button whose states reuse one texture (only nudged down in the original) is brightened instead of jumping
 	var same: bool = n.get("up", []).map(func(l): return [l[0], l[2] if l.size() > 2 else null]) == n.get("over", []).map(func(l): return [l[0], l[2] if l.size() > 2 else null])
 	for st in ["up", "over", "down"]:
@@ -320,22 +413,12 @@ func _button(n: Dictionary) -> Control:
 		if same and st == "over":
 			art.modulate = Color(1.3, 1.15, 1.0)
 		art.visible = st == "up"
-		b.add_child(art)
-		states[st] = art
-	@warning_ignore("shadowed_variable_base_class")
-	var show := func(st: String):
-		for k in states:
-			states[k].visible = k == st
-	b.mouse_entered.connect(show.bind("over"))
-	b.mouse_exited.connect(show.bind("up"))
-	b.gui_input.connect(func(e: InputEvent):
-		if e is InputEventMouseButton and e.button_index == MOUSE_BUTTON_LEFT:
-			show.call("down" if e.pressed else "over")
-			if not e.pressed:
-				button_pressed.emit(n.name))
+		art.name = {"up": "Up", "over": "Over", "down": "Down"}[st]
+		b.add_child(art, true)
 	return b
 
-## Bar = clip rect sliding between the original mask's empty and full positions; content stays put.
+## Bar = clip rect sliding between the original mask's empty and full positions; content stays put. The holder records
+## its travel in `ui_bar` and names its two halves Clip / Content, which is all _wire_bar() needs.
 func _bar(n: Dictionary) -> Node2D:
 	var holder := Node2D.new()
 	holder.transform = _m(n.m)
@@ -351,13 +434,16 @@ func _bar(n: Dictionary) -> Node2D:
 	var empty := b if a_full else a
 	# unmasked layers of the gauge (its empty track) sit under the fill
 	if n.other.size() > 0:
-		holder.add_child(_leaves(n.other, Transform2D.IDENTITY))
+		var other := _leaves(n.other, Transform2D.IDENTITY)
+		other.name = "Art"
+		holder.add_child(other, true)
 	var clip := Control.new()
+	clip.name = "Clip"
 	clip.clip_contents = true
 	clip.size = full.size
 	clip.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	clip.add_child(content)
-	holder.add_child(clip)
-	_bars[n.name] = {"clip": clip, "content": content, "full": full.position, "empty": empty.position}
-	set_bar(n.name, 1.0)
+	content.name = "Content"
+	clip.add_child(content, true)
+	holder.add_child(clip, true)
+	holder.set_meta(&"ui_bar", {"full": full.position, "empty": empty.position})
 	return holder

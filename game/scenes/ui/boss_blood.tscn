@@ -1,0 +1,342 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/ui/ui_layout.gd" id="1_moaef"]
+[ext_resource type="Texture2D" path="res://assets/ui/boss_blood/tex/zmxy2_game_139.png" id="2_ul0wx"]
+[ext_resource type="Texture2D" path="res://assets/ui/boss_blood/tex/zmxy2_game_125.png" id="3_xm3x5"]
+[ext_resource type="Texture2D" path="res://assets/ui/boss_blood/tex/zmxy2_game_142.png" id="4_31bg5"]
+[ext_resource type="Texture2D" path="res://assets/ui/boss_blood/tex/zmxy2_game_143.png" id="5_u04yb"]
+[ext_resource type="Texture2D" path="res://assets/ui/boss_blood/tex/zmxy2_game_144.png" id="6_isx0q"]
+[ext_resource type="Texture2D" path="res://assets/ui/boss_blood/tex/zmxy2_game_145.png" id="7_fm1ff"]
+[ext_resource type="Texture2D" path="res://assets/ui/boss_blood/tex/zmxy2_game_146.png" id="8_1ias0"]
+[ext_resource type="Texture2D" path="res://assets/ui/boss_blood/tex/zmxy2_game_147.png" id="9_7clme"]
+[ext_resource type="Texture2D" path="res://assets/ui/boss_blood/tex/zmxy2_game_148.png" id="10_j06wb"]
+[ext_resource type="Texture2D" path="res://assets/ui/boss_blood/tex/zmxy2_game_149.png" id="11_s7x2j"]
+[ext_resource type="Texture2D" path="res://assets/ui/boss_blood/tex/zmxy2_game_150.png" id="12_7nqio"]
+[ext_resource type="Texture2D" path="res://assets/ui/boss_blood/tex/zmxy2_game_151.png" id="13_w052r"]
+[ext_resource type="Texture2D" path="res://assets/ui/boss_blood/tex/zmxy2_game_152.png" id="14_rd37q"]
+[ext_resource type="Texture2D" path="res://assets/ui/boss_blood/tex/zmxy2_game_153.png" id="15_qg8sc"]
+[ext_resource type="Texture2D" path="res://assets/ui/boss_blood/tex/zmxy2_game_154.png" id="16_2mmtb"]
+[ext_resource type="Texture2D" path="res://assets/ui/boss_blood/tex/zmxy2_game_155.png" id="17_pf3sx"]
+[ext_resource type="Texture2D" path="res://assets/ui/boss_blood/tex/zmxy2_game_156.png" id="18_78pjw"]
+[ext_resource type="Texture2D" path="res://assets/ui/boss_blood/tex/zmxy2_game_157.png" id="19_powvn"]
+[ext_resource type="Texture2D" path="res://assets/ui/boss_blood/tex/zmxy2_game_158.png" id="20_skiei"]
+[ext_resource type="Texture2D" path="res://assets/ui/boss_blood/tex/zmxy2_game_159.png" id="21_40818"]
+[ext_resource type="Texture2D" path="res://assets/ui/boss_blood/tex/zmxy2_game_160.png" id="22_5omwd"]
+[ext_resource type="Texture2D" path="res://assets/ui/boss_blood/tex/zmxy2_game_161.png" id="23_koi1m"]
+[ext_resource type="Texture2D" path="res://assets/ui/boss_blood/tex/zmxy2_game_162.png" id="24_4yqt7"]
+[ext_resource type="Texture2D" path="res://assets/ui/boss_blood/tex/zmxy2_game_163.png" id="25_foppc"]
+[ext_resource type="Texture2D" path="res://assets/ui/boss_blood/tex/zmxy2_game_164.png" id="26_qihwu"]
+[ext_resource type="Texture2D" path="res://assets/ui/boss_blood/tex/zmxy2_game_165.png" id="27_osvsa"]
+[ext_resource type="Texture2D" path="res://assets/ui/boss_blood/tex/zmxy2_game_166.png" id="28_fko2j"]
+[ext_resource type="Texture2D" path="res://assets/ui/boss_blood/tex/zmxy2_game_167.png" id="29_30g0l"]
+
+[node name="boss_blood" type="Control" unique_id=907597755]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_moaef")
+
+[node name="Art" type="Node2D" parent="." unique_id=1894092903]
+
+[node name="zmxy2_game_139" type="Sprite2D" parent="Art" unique_id=214757012]
+position = Vector2(-169.5, -14)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_ul0wx")
+centered = false
+metadata/tex_key = "zmxy2_game:139"
+
+[node name="Art" type="Node2D" parent="Art" unique_id=15106798]
+
+[node name="zmxy2_game_125" type="Sprite2D" parent="Art/Art" unique_id=1919617566]
+clip_children = 1
+position = Vector2(-232.9, -20.2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_xm3x5")
+centered = false
+metadata/tex_key = "zmxy2_game:125"
+
+[node name="zmxy2_game_142" type="Sprite2D" parent="Art/Art/zmxy2_game_125" unique_id=1863543971]
+position = Vector2(120.899994, 8.400002)
+texture = ExtResource("4_31bg5")
+centered = false
+metadata/tex_key = "zmxy2_game:142"
+
+[node name="namemc" type="Node2D" parent="." unique_id=2008726673]
+position = Vector2(-181.45, -1)
+metadata/labels = {
+"五官王": 17.0,
+"刑天": 14.0,
+"判官": 5.0,
+"劈天斧": 24.0,
+"卞城王": 18.0,
+"夜叉": 7.0,
+"孟婆": 8.0,
+"守夜人": 0.0,
+"宋帝王": 16.0,
+"平等王": 21.0,
+"战神刑天": 22.0,
+"楚江王": 15.0,
+"泰山王": 20.0,
+"白无常": 1.0,
+"白骨精": 13.0,
+"秦广王": 4.0,
+"秦广王傀儡": 3.0,
+"红孩儿": 12.0,
+"转轮王": 11.0,
+"邪.唐僧": 10.0,
+"邪.悟空": 9.0,
+"都市王": 19.0,
+"阎罗王": 6.0,
+"风神盾": 23.0,
+"黑无常": 2.0
+}
+metadata/ui_piece = ["namemc"]
+
+[node name="守夜人" type="Node2D" parent="namemc" unique_id=1739286161]
+
+[node name="zmxy2_game_143" type="Sprite2D" parent="namemc/守夜人" unique_id=1232445965]
+position = Vector2(-47.6, -12.45)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_u04yb")
+centered = false
+metadata/tex_key = "zmxy2_game:143"
+
+[node name="白无常" type="Node2D" parent="namemc" unique_id=974412634]
+visible = false
+
+[node name="zmxy2_game_144" type="Sprite2D" parent="namemc/白无常" unique_id=1658700188]
+position = Vector2(-50.85, -13.75)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_isx0q")
+centered = false
+metadata/tex_key = "zmxy2_game:144"
+
+[node name="黑无常" type="Node2D" parent="namemc" unique_id=450644599]
+visible = false
+
+[node name="zmxy2_game_145" type="Sprite2D" parent="namemc/黑无常" unique_id=1872400873]
+position = Vector2(-50.7, -12.4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_fm1ff")
+centered = false
+metadata/tex_key = "zmxy2_game:145"
+
+[node name="秦广王傀儡" type="Node2D" parent="namemc" unique_id=1819612210]
+visible = false
+
+[node name="zmxy2_game_146" type="Sprite2D" parent="namemc/秦广王傀儡" unique_id=1988987967]
+position = Vector2(-26.85, -13.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_1ias0")
+centered = false
+metadata/tex_key = "zmxy2_game:146"
+
+[node name="秦广王" type="Node2D" parent="namemc" unique_id=1176102556]
+visible = false
+
+[node name="zmxy2_game_147" type="Sprite2D" parent="namemc/秦广王" unique_id=1032944036]
+position = Vector2(-50.05, -12.4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_7clme")
+centered = false
+metadata/tex_key = "zmxy2_game:147"
+
+[node name="判官" type="Node2D" parent="namemc" unique_id=1025709451]
+visible = false
+
+[node name="zmxy2_game_148" type="Sprite2D" parent="namemc/判官" unique_id=1138252889]
+position = Vector2(-23.6, -13.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("10_j06wb")
+centered = false
+metadata/tex_key = "zmxy2_game:148"
+
+[node name="阎罗王" type="Node2D" parent="namemc" unique_id=2110309277]
+visible = false
+
+[node name="zmxy2_game_149" type="Sprite2D" parent="namemc/阎罗王" unique_id=798547415]
+position = Vector2(-51.55, -11.95)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_s7x2j")
+centered = false
+metadata/tex_key = "zmxy2_game:149"
+
+[node name="夜叉" type="Node2D" parent="namemc" unique_id=711847545]
+visible = false
+
+[node name="zmxy2_game_150" type="Sprite2D" parent="namemc/夜叉" unique_id=1946520393]
+position = Vector2(-25.2, -11.9)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("12_7nqio")
+centered = false
+metadata/tex_key = "zmxy2_game:150"
+
+[node name="孟婆" type="Node2D" parent="namemc" unique_id=1798454151]
+visible = false
+
+[node name="zmxy2_game_151" type="Sprite2D" parent="namemc/孟婆" unique_id=1774555044]
+position = Vector2(-25.5, -12.3)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("13_w052r")
+centered = false
+metadata/tex_key = "zmxy2_game:151"
+
+[node name="邪_悟空" type="Node2D" parent="namemc" unique_id=1760430396]
+visible = false
+
+[node name="zmxy2_game_152" type="Sprite2D" parent="namemc/邪_悟空" unique_id=285800557]
+position = Vector2(-58.05, -12.2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("14_rd37q")
+centered = false
+metadata/tex_key = "zmxy2_game:152"
+
+[node name="邪_唐僧" type="Node2D" parent="namemc" unique_id=1089468646]
+visible = false
+
+[node name="zmxy2_game_153" type="Sprite2D" parent="namemc/邪_唐僧" unique_id=236245533]
+position = Vector2(-60.25, -12.45)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("15_qg8sc")
+centered = false
+metadata/tex_key = "zmxy2_game:153"
+
+[node name="转轮王" type="Node2D" parent="namemc" unique_id=915494514]
+visible = false
+
+[node name="zmxy2_game_154" type="Sprite2D" parent="namemc/转轮王" unique_id=1508482396]
+position = Vector2(-51.7, -12.25)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("16_2mmtb")
+centered = false
+metadata/tex_key = "zmxy2_game:154"
+
+[node name="红孩儿" type="Node2D" parent="namemc" unique_id=1028072178]
+visible = false
+
+[node name="zmxy2_game_155" type="Sprite2D" parent="namemc/红孩儿" unique_id=1101492182]
+position = Vector2(-48.8, -12.2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("17_pf3sx")
+centered = false
+metadata/tex_key = "zmxy2_game:155"
+
+[node name="白骨精" type="Node2D" parent="namemc" unique_id=1591237031]
+visible = false
+
+[node name="zmxy2_game_156" type="Sprite2D" parent="namemc/白骨精" unique_id=1162279087]
+position = Vector2(-47.5, -12.4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("18_78pjw")
+centered = false
+metadata/tex_key = "zmxy2_game:156"
+
+[node name="刑天" type="Node2D" parent="namemc" unique_id=2144245859]
+visible = false
+
+[node name="zmxy2_game_157" type="Sprite2D" parent="namemc/刑天" unique_id=1143706937]
+position = Vector2(-21.35, -11.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("19_powvn")
+centered = false
+metadata/tex_key = "zmxy2_game:157"
+
+[node name="楚江王" type="Node2D" parent="namemc" unique_id=28383696]
+visible = false
+
+[node name="zmxy2_game_158" type="Sprite2D" parent="namemc/楚江王" unique_id=444317780]
+position = Vector2(-46.15, -9.9)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("20_skiei")
+centered = false
+metadata/tex_key = "zmxy2_game:158"
+
+[node name="宋帝王" type="Node2D" parent="namemc" unique_id=723434621]
+visible = false
+
+[node name="zmxy2_game_159" type="Sprite2D" parent="namemc/宋帝王" unique_id=410148529]
+position = Vector2(-47.45, -10.05)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("21_40818")
+centered = false
+metadata/tex_key = "zmxy2_game:159"
+
+[node name="五官王" type="Node2D" parent="namemc" unique_id=843763506]
+visible = false
+
+[node name="zmxy2_game_160" type="Sprite2D" parent="namemc/五官王" unique_id=1966609770]
+position = Vector2(-47.25, -9.7)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("22_5omwd")
+centered = false
+metadata/tex_key = "zmxy2_game:160"
+
+[node name="卞城王" type="Node2D" parent="namemc" unique_id=683855115]
+visible = false
+
+[node name="zmxy2_game_161" type="Sprite2D" parent="namemc/卞城王" unique_id=177981377]
+position = Vector2(-46.5, -9.45)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("23_koi1m")
+centered = false
+metadata/tex_key = "zmxy2_game:161"
+
+[node name="都市王" type="Node2D" parent="namemc" unique_id=1427541349]
+visible = false
+
+[node name="zmxy2_game_162" type="Sprite2D" parent="namemc/都市王" unique_id=337546504]
+position = Vector2(-48.7, -9.8)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_4yqt7")
+centered = false
+metadata/tex_key = "zmxy2_game:162"
+
+[node name="泰山王" type="Node2D" parent="namemc" unique_id=761157234]
+visible = false
+
+[node name="zmxy2_game_163" type="Sprite2D" parent="namemc/泰山王" unique_id=1980510177]
+position = Vector2(-46.8, -9.75)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("25_foppc")
+centered = false
+metadata/tex_key = "zmxy2_game:163"
+
+[node name="平等王" type="Node2D" parent="namemc" unique_id=1119869967]
+visible = false
+
+[node name="zmxy2_game_164" type="Sprite2D" parent="namemc/平等王" unique_id=222197597]
+position = Vector2(-48, -8.9)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("26_qihwu")
+centered = false
+metadata/tex_key = "zmxy2_game:164"
+
+[node name="战神刑天" type="Node2D" parent="namemc" unique_id=1381313830]
+visible = false
+
+[node name="zmxy2_game_165" type="Sprite2D" parent="namemc/战神刑天" unique_id=204665777]
+position = Vector2(-69.9, -9.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("27_osvsa")
+centered = false
+metadata/tex_key = "zmxy2_game:165"
+
+[node name="风神盾" type="Node2D" parent="namemc" unique_id=905840279]
+visible = false
+
+[node name="zmxy2_game_166" type="Sprite2D" parent="namemc/风神盾" unique_id=1400007333]
+position = Vector2(-41.6, -8.2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("28_fko2j")
+centered = false
+metadata/tex_key = "zmxy2_game:166"
+
+[node name="劈天斧" type="Node2D" parent="namemc" unique_id=77119348]
+visible = false
+
+[node name="zmxy2_game_167" type="Sprite2D" parent="namemc/劈天斧" unique_id=1406177887]
+position = Vector2(-42.85, -10)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("29_30g0l")
+centered = false
+metadata/tex_key = "zmxy2_game:167"

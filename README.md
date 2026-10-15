@@ -11,6 +11,7 @@ Answers to the user: Simplified Chinese. Deleting files: Recycle Bin (`bash tool
 | `game/src/core/layers.gd` | screen size (940x590) and z-order constants (`Layers.Z_*`): never use a raw `z_index` number |
 | `game/scenes/levels/<stage>.tscn` | the scenery of every stage (editor scenes, see "Stage scenes") |
 | `game/scenes/objects/*.tscn` | stage mechanisms as scenes with a script on the root (`baigu_door`, `boat`) |
+| `game/scenes/ui/<name>.tscn` | UI layouts as editor scenes (one per `assets/ui/<name>/ui.json`, see "UI scenes") |
 | `game/assets/` | `rigs/<name>/` (rig.json + generated .tscn/anims.res), `levels/<stage>/` (level.json + `tex/`), `ui/`, `items/`, `sounds/`, `shared/<rigs\|ui\|levels\|mixed>/` (textures several things use) |
 | `game/data/` | baked gameplay data (`.tres`, `stages.json`) and `lighting/<stage>.json` (per-stage look). Do not hand-edit baked files |
 | `tools/data/*.json` | source of the gameplay numbers → `game/tools/bake_data.gd` → `game/data/` |
@@ -40,6 +41,11 @@ Generate once: `godot --headless --path game res://tools/level_to_scene.tscn -- 
 - Mechanisms (white-bone door of 1-2, boat of 3-1) are scenes of their own with a script on the root and `@export` parameters, instanced under `Objects` at their real world position (no parallax), built from plain Sprite2D + AnimationPlayer — **never a Rig** (parts are hidden in the editor). `Level` moves `Objects` into the world; the stage script (`stages/<stage>.gd`) finds them there. `level_to_scene.gd` does not make `Objects`.
 - 5-1 (and boss rooms) have one painting + a floor: 2 nodes. 2-2 (`sl22`) was ONE baked 4700x522 JPEG in the original; it was rebuilt from the loose bitmaps of 2-3 by template matching (positions inferred); only the boss end (x ≥ 3745) stays a crop of the baked bitmap.
 - Textures: `assets/levels/<stage>/tex/<lib>_<id>.png`; shared ones in `assets/shared/levels/`. After merging identical textures a scene's texture uids can go stale ("missing dependency"): `node tools/rig/fix_scene_uids.js --fix`.
+
+## UI scenes
+Every UI layout is an editor scene `scenes/ui/<name>.tscn`; `UiLayout.create()` instantiates it, and builds the layout from `assets/ui/<name>/ui.json` only when the scene does not exist (the json stays the generator and the fallback). The user arranges these scenes by hand: **never regenerate an existing one** (`ui_to_scene.gd` refuses without `--force`).
+Generate once: `godot --headless --path game res://tools/ui_to_scene.tscn -- <name|all>` (`all` = every `assets/ui/*/ui.json`); `--force` overwrites.
+The json build stays the only place that knows the data, so the tool writes what the game would have built: every node keeps the metas the run-time wiring reads — `ui_piece` (the names the code reaches it by, e.g. `backbtn` or `introducemc/skill1`), `ui_button` (a button's name) and `ui_bar` (a gauge holder's full / empty travel) — plus `labels`, `rec`, `tex_key`, `rest`. `UiLayout._wire_from_scene()` rebuilds `_named` / the buttons / the bars from them. A node may therefore be moved anywhere by hand, but **the code keeps reaching it only if its name and its metas survive**; a button keeps its `Up` / `Over` / `Down` children and a bar its `Clip` / `Content` (found by name).
 
 ## Stage look (`StageLighting`)
 `game/src/level/stage_lighting.gd` reads `data/lighting/<stage>.json`; a stage without a file is drawn as the original. Every key is optional: `scene` (tints of art/ground/far, rim light, feet fade), `layers` (per-layer blur/tint/rim/fade by node name), `body`/`shadow` (actor light, soft shadow), `fog`, `moon` (glow + light shafts, sky layer behind everything), `rain` (`rain.gdshader`: world-space drops, one landing row, splashes), `lightning`, `grade` (saturation, vignette, brightness).

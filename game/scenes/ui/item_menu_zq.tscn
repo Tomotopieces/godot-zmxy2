@@ -1,0 +1,119 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/ui/ui_layout.gd" id="1_0flwa"]
+[ext_resource type="Texture2D" path="res://assets/ui/item_menu_zq/tex/backpack_v5_841.png" id="2_7kra1"]
+[ext_resource type="Texture2D" path="res://assets/ui/item_menu_zq/tex/backpack_v5_843.png" id="3_rsx5s"]
+[ext_resource type="Texture2D" path="res://assets/ui/item_menu_zq/tex/backpack_v5_845.png" id="4_j8gs5"]
+[ext_resource type="Texture2D" path="res://assets/ui/item_menu_zq/tex/backpack_v5_848.png" id="5_t0yva"]
+[ext_resource type="Texture2D" path="res://assets/ui/item_menu_zq/tex/backpack_v5_850.png" id="6_cnuyk"]
+[ext_resource type="Texture2D" path="res://assets/shared/ui/backpack_v5_449.png" id="7_euikp"]
+[ext_resource type="Texture2D" path="res://assets/shared/ui/backpack_v5_451.png" id="8_ycevt"]
+[ext_resource type="Texture2D" path="res://assets/shared/ui/backpack_v5_454.png" id="9_2yi5f"]
+[ext_resource type="Texture2D" path="res://assets/shared/ui/backpack_v5_456.png" id="10_ly0g3"]
+
+[node name="item_menu_zq" type="Control" unique_id=652254222]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_0flwa")
+
+[node name="Art" type="Node2D" parent="." unique_id=671988552]
+
+[node name="backpack_v5_841" type="Sprite2D" parent="Art" unique_id=2020031032]
+position = Vector2(-0.5, -0.8)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_7kra1")
+centered = false
+metadata/tex_key = "backpack_v5:841"
+
+[node name="sbmooncake" type="Node2D" parent="." unique_id=2016192108]
+position = Vector2(5, 38)
+metadata/labels = {}
+metadata/ui_piece = ["sbmooncake"]
+
+[node name="Frame0" type="Node2D" parent="sbmooncake" unique_id=1837788356]
+
+[node name="backpack_v5_843" type="Sprite2D" parent="sbmooncake/Frame0" unique_id=1334650472]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_rsx5s")
+centered = false
+metadata/tex_key = "backpack_v5:843"
+
+[node name="Frame1" type="Node2D" parent="sbmooncake" unique_id=103308353]
+visible = false
+
+[node name="backpack_v5_845" type="Sprite2D" parent="sbmooncake/Frame1" unique_id=1819702172]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_j8gs5")
+centered = false
+metadata/tex_key = "backpack_v5:845"
+
+[node name="smoonweapon" type="Node2D" parent="." unique_id=1690371493]
+position = Vector2(5, 71)
+metadata/labels = {}
+metadata/ui_piece = ["smoonweapon"]
+
+[node name="Frame0" type="Node2D" parent="smoonweapon" unique_id=1967714848]
+
+[node name="backpack_v5_848" type="Sprite2D" parent="smoonweapon/Frame0" unique_id=1710280915]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_t0yva")
+centered = false
+metadata/tex_key = "backpack_v5:848"
+
+[node name="Frame1" type="Node2D" parent="smoonweapon" unique_id=1695328506]
+visible = false
+
+[node name="backpack_v5_850" type="Sprite2D" parent="smoonweapon/Frame1" unique_id=462826430]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_cnuyk")
+centered = false
+metadata/tex_key = "backpack_v5:850"
+
+[node name="buse" type="Node2D" parent="." unique_id=14666605]
+position = Vector2(43.5, 18.5)
+metadata/labels = {}
+metadata/ui_piece = ["buse"]
+
+[node name="Frame0" type="Node2D" parent="buse" unique_id=1997799425]
+
+[node name="backpack_v5_449" type="Sprite2D" parent="buse/Frame0" unique_id=2007789856]
+position = Vector2(-38.5, -15.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_euikp")
+centered = false
+metadata/tex_key = "backpack_v5:449"
+
+[node name="Frame1" type="Node2D" parent="buse" unique_id=403995902]
+visible = false
+
+[node name="backpack_v5_451" type="Sprite2D" parent="buse/Frame1" unique_id=434878226]
+position = Vector2(-38.5, -15.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_ycevt")
+centered = false
+metadata/tex_key = "backpack_v5:451"
+
+[node name="bthrow" type="Node2D" parent="." unique_id=1109707652]
+position = Vector2(43.5, 118)
+metadata/labels = {}
+metadata/ui_piece = ["bthrow"]
+
+[node name="Frame0" type="Node2D" parent="bthrow" unique_id=165400523]
+
+[node name="backpack_v5_454" type="Sprite2D" parent="bthrow/Frame0" unique_id=1892013118]
+position = Vector2(-38.5, -15.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_2yi5f")
+centered = false
+metadata/tex_key = "backpack_v5:454"
+
+[node name="Frame1" type="Node2D" parent="bthrow" unique_id=644014096]
+visible = false
+
+[node name="backpack_v5_456" type="Sprite2D" parent="bthrow/Frame1" unique_id=1634006360]
+position = Vector2(-38.5, -15.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("10_ly0g3")
+centered = false
+metadata/tex_key = "backpack_v5:456"
