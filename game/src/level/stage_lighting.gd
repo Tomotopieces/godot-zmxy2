@@ -11,7 +11,7 @@ extends Node
 ##  - rain ("rain": streaks that splash where they land on the floor) and, for a storm, lightning ("lightning": the screen
 ##    flashes and a bolt shows in the sky behind the scenery);
 ##  - a screen grade: cool shadows, a little less colour, a vignette, optionally darker ("brightness").
-##  - the lamps of a hall ("lamps": a soft additive glow each, wavering) and ash drifting down through the frame ("ash",
+##  - the lamps of a hall ("lamps": a soft additive glow each, wavering) and motes floating in the air in random directions ("ash",
 ##    a spray of small squares over everything);
 ##  - a stage may take another stage's look as its base ("use": that stage's name): every other entry of its own file is
 ##    copied over it (shallow), so only what differs from that look has to be written.
@@ -34,6 +34,7 @@ var _moon: Node2D
 var _shafts: Array[Polygon2D] = []
 var _moon_glow: Sprite2D
 var _shadows := {}      ## instance id of an actor -> {holder, rig, mat, sig, floor_y}
+var _motes: CPUParticles2D   ## the motes' emitter: it follows the view, the motes it lets go do not
 var _lamps: Array[Sprite2D] = []   ## the hall's lamps: additive glows that waver (one per "lamps" entry)
 var _t := 0.0
 var _treasure_rig: Rig
@@ -119,6 +120,7 @@ func _light_scenery(scene: Dictionary) -> void:
 		m.set_shader_parameter("rim_color", _color(scene.rim_color))
 		m.set_shader_parameter("rim_strength", float(o.get("rim", float(scene.rim_strength))))
 		m.set_shader_parameter("rim_width", float(scene.rim_width))
+		m.set_shader_parameter("rim_sides", bool(scene.get("rim_sides", false)))
 		m.set_shader_parameter("ground_y", float(scene.ground_y))
 		m.set_shader_parameter("fade_height", 0.0 if name_ == "Ground" else float(scene.fade_height) * float(o.get("fade", 1.0)))
 		m.set_shader_parameter("fade_dark", float(scene.fade_dark))
@@ -143,6 +145,8 @@ func _light_scenery(scene: Dictionary) -> void:
 				pic.material = near
 
 func _build_fog() -> void:
+	if not _cfg.has("fog"):
+		return   # a stage without mist
 	var f: Dictionary = _cfg.fog
 	var holder := Node2D.new()
 	holder.name = "Fog"
@@ -170,6 +174,11 @@ func _build_effects() -> void:
 	var layer := CanvasLayer.new()
 	layer.layer = 1
 	add_child(layer)
+	if _cfg.has("fog"):
+		_build_front_fog(layer)
+	_build_sky()
+
+func _build_front_fog(layer: CanvasLayer) -> void:
 	var f: Dictionary = _cfg.fog
 	_fog_front = ColorRect.new()
 	_fog_front.size = Layers.VIEW
@@ -178,6 +187,8 @@ func _build_effects() -> void:
 	_fog_front_mat.set_shader_parameter("speed", float(f.speed) * 1.7)
 	_fog_front.material = _fog_front_mat
 	layer.add_child(_fog_front)
+
+func _build_sky() -> void:
 	var add := CanvasItemMaterial.new()
 	add.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
 	_sky = CanvasLayer.new()   # behind the world: scenery and actors stand in front of the moonlight
@@ -277,43 +288,41 @@ static func ash_texture() -> ImageTexture:
 		_ash_tex = ImageTexture.create_from_image(img)
 	return _ash_tex
 
-## Ash drifting down through the frame (a screen-space CPUParticles2D): a slow sideways sway, a small square each.
-## Every number is in the "ash" entry.
+## Motes floating in the hall's air ("ash"): each drifts slowly in its own random direction for a short while and
+## fades. They belong to the world, not to the screen: the emitter covers the view but every mote stays where it was
+## born when the camera moves. Every number is in the "ash" entry.
 func _build_ash() -> void:
 	if not _cfg.has("ash"):
 		return
 	var a: Dictionary = _cfg.ash
-	var layer := CanvasLayer.new()
-	layer.layer = 1
-	add_child(layer)
 	var p := CPUParticles2D.new()
+	p.name = "Motes"
+	p.z_index = Layers.Z_EFFECT
+	p.local_coords = false   # emitted motes stay in the world
+	p.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
 	p.emitting = true
 	p.amount = int(a.amount)
 	p.lifetime = float(a.lifetime)
-	p.preprocess = float(a.lifetime)   # the air is already full of ash when the stage opens
+	p.preprocess = float(a.lifetime)   # the air is already full when the stage opens
 	p.emission_shape = CPUParticles2D.EMISSION_SHAPE_RECTANGLE
-	p.emission_rect_extents = Vector2(Layers.VIEW.x * 0.6, 10.0)
-	p.position = Vector2(Layers.VIEW.x * 0.5, -20.0)   # above the top of the frame, so the flakes drift into it
-	p.direction = Vector2(0.0, 1.0)
-	p.spread = 25.0
-	p.gravity = Vector2.ZERO   # they fall at their own slow pace, not the world's
+	p.emission_rect_extents = Layers.VIEW * 0.5 + Vector2(40.0, 0.0)
+	p.direction = Vector2(1.0, 0.0)
+	p.spread = 180.0   # any direction
+	p.gravity = Vector2.ZERO
 	p.initial_velocity_min = float(a.speed[0])
 	p.initial_velocity_max = float(a.speed[1])
 	p.scale_amount_min = float(a.size[0]) / 4.0
 	p.scale_amount_max = float(a.size[1]) / 4.0
 	p.texture = ash_texture()
 	p.color = Color(_color(a.color), float(a.alpha))
-	var g := Gradient.new()   # fading in over the first tenth of a flake's fall, out over its last quarter
-	g.offsets = PackedFloat32Array([0.0, 0.1, 0.75, 1.0])
+	var g := Gradient.new()   # fading in and out: a mote is never born or gone at full strength
+	g.offsets = PackedFloat32Array([0.0, 0.3, 0.7, 1.0])
 	g.colors = PackedColorArray([Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)])
 	p.color_ramp = g
-	p.orbit_velocity_min = 0.0
-	p.orbit_velocity_max = 0.0
-	p.angular_velocity_min = 0.0
-	p.angular_velocity_max = 0.0
-	p.tangential_accel_min = -float(a.sway)   # a slow sway to the sides as it falls
+	p.tangential_accel_min = -float(a.sway)   # a lazy curve rather than a straight line
 	p.tangential_accel_max = float(a.sway)
-	layer.add_child(p)
+	_lv.world.add_child(p)
+	_motes = p
 
 ## Lightning: now and then the screen flashes (a quick double or triple flicker) and a bolt shows in the sky.
 func _build_lightning() -> void:
@@ -415,19 +424,24 @@ func _build_grade() -> void:
 func _physics_process(delta: float) -> void:
 	_t += delta
 	var vr := _lv.view_rect()
-	_fog_back.global_position = vr.position
-	_fog_back_mat.set_shader_parameter("scroll", Vector2(vr.position.x * 0.85, 0.0))
-	_fog_front_mat.set_shader_parameter("scroll", Vector2(vr.position.x * 1.25, 0.0))
+	if _fog_back != null:
+		_fog_back.global_position = vr.position
+		_fog_back_mat.set_shader_parameter("scroll", Vector2(vr.position.x * 0.85, 0.0))
+		_fog_front_mat.set_shader_parameter("scroll", Vector2(vr.position.x * 1.25, 0.0))
 	for i in _lamps.size():
 		var l: Dictionary = _cfg.lamps[i]
 		var f := float(l.flicker)
-		_lamps[i].modulate.a = float(l.alpha) * (1.0 - f * 0.5 + f * 0.5 * sin(_t * (5.0 + 1.3 * i) + 2.1 * i) * sin(_t * (2.3 + 0.7 * i)))
+		var k := float(l.get("flicker_speed", 1.0))   # 1 = the quick waver of a flame; lower = slower breathing
+		var tt := _t * k
+		_lamps[i].modulate.a = float(l.alpha) * (1.0 - f * 0.5 + f * 0.5 * sin(tt * (5.0 + 1.3 * i) + 2.1 * i) * sin(tt * (2.3 + 0.7 * i)))
 	if _moon != null:
 		var far := _lv.far_sprite()
 		_moon.position = far.position + Vector2(float(_cfg.moon.x), float(_cfg.moon.y))
 		for i in _shafts.size():
 			_shafts[i].modulate.a = 0.55 + 0.45 * sin(_t * (0.35 + 0.11 * i) + 1.7 * i)
 		_moon_glow.modulate.a = 0.26 + 0.05 * sin(_t * 0.6)
+	if _motes != null:
+		_motes.global_position = vr.get_center()
 	if _rain_mat != null:
 		_rain_mat.set_shader_parameter("scroll", vr.position.x)   # the rain stays where it is in the world
 	if _flash != null:

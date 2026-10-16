@@ -15,7 +15,6 @@
 [ext_resource type="Texture2D" uid="uid://d2pyv70vhkv0" path="res://assets/shared/levels/2_593.png" id="p_2_593"]
 [ext_resource type="Texture2D" uid="uid://5hq85qsap0si" path="res://assets/shared/levels/2_594.png" id="p_2_594"]
 [ext_resource type="Texture2D" uid="uid://ce50xtej84j4r" path="res://assets/shared/levels/2_602.png" id="p_2_602"]
-
 [ext_resource type="PackedScene" path="res://scenes/objects/xingtian_door.tscn" id="xingtian_door"]
 
 [node name="Scenery2" type="Node2D" unique_id=1453884680]
@@ -37,6 +36,17 @@ z_index = -10
 
 [node name="Near" type="Parallax2D" parent="Art" unique_id=209979640]
 
+[node name="2_589_Tiles" type="TextureRect" parent="Art/Near" unique_id=2033959211]
+texture_filter = 1
+texture_repeat = 2
+offset_top = -2.5
+offset_right = 5342.0
+offset_bottom = 77.5
+texture = ExtResource("p_2_589")
+expand_mode = 1
+stretch_mode = 1
+metadata/_edit_use_anchors_ = true
+
 [node name="2_594_Tiles" type="TextureRect" parent="Art/Near" unique_id=398863548]
 texture_filter = 1
 texture_repeat = 2
@@ -56,21 +66,36 @@ centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 310, 18)
 
-[node name="2_593_13" type="Sprite2D" parent="Art/Near" unique_id=53695423]
+[node name="Near2" type="Parallax2D" parent="Art"]
+
+[node name="Objects" type="Node2D" parent="Art/Near2"]
+
+[node name="XingtianDoor1" parent="Art/Near2/Objects" unique_id=1089281242 instance=ExtResource("xingtian_door")]
+position = Vector2(481.95, 199)
+
+[node name="XingtianDoor2" parent="Art/Near2/Objects" unique_id=863643074 instance=ExtResource("xingtian_door")]
+position = Vector2(1886.7, 199)
+
+[node name="XingtianDoor3" parent="Art/Near2/Objects" unique_id=1367169902 instance=ExtResource("xingtian_door")]
+position = Vector2(3292.35, 201.9)
+
+[node name="Near3" type="Parallax2D" parent="Art"]
+
+[node name="2_593_13" type="Sprite2D" parent="Art/Near3" unique_id=53695423]
 position = Vector2(2348.35, 104.8)
 texture = ExtResource("p_2_593")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 474, 315)
 
-[node name="2_593_14" type="Sprite2D" parent="Art/Near" unique_id=572321619]
+[node name="2_593_14" type="Sprite2D" parent="Art/Near3" unique_id=572321619]
 position = Vector2(932.75, 99.4)
 texture = ExtResource("p_2_593")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 474, 315)
 
-[node name="2_592_Tiles" type="TextureRect" parent="Art/Near" unique_id=1178048694]
+[node name="2_592_Tiles" type="TextureRect" parent="Art/Near3" unique_id=1178048694]
 texture_filter = 1
 texture_repeat = 2
 offset_top = 411.8
@@ -81,256 +106,245 @@ expand_mode = 1
 stretch_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="2_589_Tiles" type="TextureRect" parent="Art/Near" unique_id=2033959211]
-texture_filter = 1
-texture_repeat = 2
-offset_top = -2.5
-offset_right = 5342.0
-offset_bottom = 77.5
-texture = ExtResource("p_2_589")
-expand_mode = 1
-stretch_mode = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="2_587_71" type="Sprite2D" parent="Art/Near" unique_id=696428383]
+[node name="2_587_71" type="Sprite2D" parent="Art/Near3" unique_id=696428383]
 position = Vector2(878.2, -6.7)
 texture = ExtResource("p_2_587")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 63, 505)
 
-[node name="2_586_72" type="Sprite2D" parent="Art/Near" unique_id=299045881]
+[node name="2_586_72" type="Sprite2D" parent="Art/Near3" unique_id=299045881]
 position = Vector2(23.75, -7.8)
 texture = ExtResource("p_2_586")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 64, 505)
 
-[node name="2_587_73" type="Sprite2D" parent="Art/Near" unique_id=222454033]
+[node name="2_587_73" type="Sprite2D" parent="Art/Near3" unique_id=222454033]
 position = Vector2(2277.25, -5.45)
 texture = ExtResource("p_2_587")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 63, 505)
 
-[node name="2_586_74" type="Sprite2D" parent="Art/Near" unique_id=1374264826]
+[node name="2_586_74" type="Sprite2D" parent="Art/Near3" unique_id=1374264826]
 position = Vector2(1422.8, -6.55)
 texture = ExtResource("p_2_586")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 64, 505)
 
-[node name="2_587_75" type="Sprite2D" parent="Art/Near" unique_id=1273643045]
+[node name="2_587_75" type="Sprite2D" parent="Art/Near3" unique_id=1273643045]
 position = Vector2(3681.2, -4.25)
 texture = ExtResource("p_2_587")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 63, 505)
 
-[node name="2_586_76" type="Sprite2D" parent="Art/Near" unique_id=1985360014]
+[node name="2_586_76" type="Sprite2D" parent="Art/Near3" unique_id=1985360014]
 position = Vector2(2826.75, -5.35)
 texture = ExtResource("p_2_586")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 64, 505)
 
-[node name="2_585_77" type="Sprite2D" parent="Art/Near" unique_id=318008733]
+[node name="2_585_77" type="Sprite2D" parent="Art/Near3" unique_id=318008733]
 position = Vector2(138.95, 30.5)
 texture = ExtResource("p_2_585")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 60, 67)
 
-[node name="2_585_78" type="Sprite2D" parent="Art/Near" unique_id=168439792]
+[node name="2_585_78" type="Sprite2D" parent="Art/Near3" unique_id=168439792]
 position = Vector2(775.25, 17.9)
 texture = ExtResource("p_2_585")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 60, 67)
 
-[node name="2_585_79" type="Sprite2D" parent="Art/Near" unique_id=1362529980]
+[node name="2_585_79" type="Sprite2D" parent="Art/Near3" unique_id=1362529980]
 position = Vector2(2948.5, 32.4)
 texture = ExtResource("p_2_585")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 60, 67)
 
-[node name="2_585_80" type="Sprite2D" parent="Art/Near" unique_id=671346623]
+[node name="2_585_80" type="Sprite2D" parent="Art/Near3" unique_id=671346623]
 position = Vector2(3584.8, 19.8)
 texture = ExtResource("p_2_585")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 60, 67)
 
-[node name="2_583_81" type="Sprite2D" parent="Art/Near" unique_id=1802064909]
+[node name="2_583_81" type="Sprite2D" parent="Art/Near3" unique_id=1802064909]
 position = Vector2(607.6, -6.95)
 texture = ExtResource("p_2_583")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 178, 82)
 
-[node name="2_582_82" type="Sprite2D" parent="Art/Near" unique_id=1763333975]
+[node name="2_582_82" type="Sprite2D" parent="Art/Near3" unique_id=1763333975]
 position = Vector2(576.5, -8.6)
 texture = ExtResource("p_2_582")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 20, 123)
 
-[node name="2_582_83" type="Sprite2D" parent="Art/Near" unique_id=2142863763]
+[node name="2_582_83" type="Sprite2D" parent="Art/Near3" unique_id=2142863763]
 position = Vector2(96.55, -16.6)
 texture = ExtResource("p_2_582")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 20, 123)
 
-[node name="2_584_84" type="Sprite2D" parent="Art/Near" unique_id=1510118022]
+[node name="2_584_84" type="Sprite2D" parent="Art/Near3" unique_id=1510118022]
 position = Vector2(703.75, -12.2)
 texture = ExtResource("p_2_584")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 229, 139)
 
-[node name="2_584_85" type="Sprite2D" parent="Art/Near" unique_id=1973854186]
+[node name="2_584_85" type="Sprite2D" parent="Art/Near3" unique_id=1973854186]
 position = Vector2(859.75, -12.2)
 texture = ExtResource("p_2_584")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 229, 139)
 
-[node name="2_582_86" type="Sprite2D" parent="Art/Near" unique_id=1713730224]
+[node name="2_582_86" type="Sprite2D" parent="Art/Near3" unique_id=1713730224]
 position = Vector2(1088.75, -38.1)
 texture = ExtResource("p_2_582")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 20, 123)
 
-[node name="2_582_87" type="Sprite2D" parent="Art/Near" unique_id=1292098535]
+[node name="2_582_87" type="Sprite2D" parent="Art/Near3" unique_id=1292098535]
 position = Vector2(1142.75, -66.1)
 texture = ExtResource("p_2_582")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 20, 123)
 
-[node name="2_582_88" type="Sprite2D" parent="Art/Near" unique_id=1932350574]
+[node name="2_582_88" type="Sprite2D" parent="Art/Near3" unique_id=1932350574]
 position = Vector2(1230.75, -11.5)
 texture = ExtResource("p_2_582")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 20, 123)
 
-[node name="2_583_89" type="Sprite2D" parent="Art/Near" unique_id=2103639836]
+[node name="2_583_89" type="Sprite2D" parent="Art/Near3" unique_id=2103639836]
 position = Vector2(1250.75, -16.6)
 texture = ExtResource("p_2_583")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 178, 82)
 
-[node name="2_584_90" type="Sprite2D" parent="Art/Near" unique_id=904431663]
+[node name="2_584_90" type="Sprite2D" parent="Art/Near3" unique_id=904431663]
 position = Vector2(1359.75, -12.2)
 texture = ExtResource("p_2_584")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 229, 139)
 
-[node name="2_583_91" type="Sprite2D" parent="Art/Near" unique_id=1096716505]
+[node name="2_583_91" type="Sprite2D" parent="Art/Near3" unique_id=1096716505]
 position = Vector2(1712.7, -11.5)
 texture = ExtResource("p_2_583")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 178, 82)
 
-[node name="2_582_92" type="Sprite2D" parent="Art/Near" unique_id=1956117820]
+[node name="2_582_92" type="Sprite2D" parent="Art/Near3" unique_id=1956117820]
 position = Vector2(1762.8, -6.95)
 texture = ExtResource("p_2_582")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 20, 123)
 
-[node name="2_584_93" type="Sprite2D" parent="Art/Near" unique_id=390512020]
+[node name="2_584_93" type="Sprite2D" parent="Art/Near3" unique_id=390512020]
 position = Vector2(1908.75, -12.2)
 texture = ExtResource("p_2_584")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 229, 139)
 
-[node name="2_584_94" type="Sprite2D" parent="Art/Near" unique_id=40144887]
+[node name="2_584_94" type="Sprite2D" parent="Art/Near3" unique_id=40144887]
 position = Vector2(2260.75, -12.2)
 texture = ExtResource("p_2_584")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 229, 139)
 
-[node name="2_583_95" type="Sprite2D" parent="Art/Near" unique_id=1839110733]
+[node name="2_583_95" type="Sprite2D" parent="Art/Near3" unique_id=1839110733]
 position = Vector2(2421.65, -5.45)
 texture = ExtResource("p_2_583")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 178, 82)
 
-[node name="2_582_96" type="Sprite2D" parent="Art/Near" unique_id=347922596]
+[node name="2_582_96" type="Sprite2D" parent="Art/Near3" unique_id=347922596]
 position = Vector2(2600.75, -6.95)
 texture = ExtResource("p_2_582")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 20, 123)
 
-[node name="2_584_97" type="Sprite2D" parent="Art/Near" unique_id=386571453]
+[node name="2_584_97" type="Sprite2D" parent="Art/Near3" unique_id=386571453]
 position = Vector2(2720.7, -12.2)
 texture = ExtResource("p_2_584")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 229, 139)
 
-[node name="2_583_98" type="Sprite2D" parent="Art/Near" unique_id=400212258]
+[node name="2_583_98" type="Sprite2D" parent="Art/Near3" unique_id=400212258]
 position = Vector2(2965.65, -21.9)
 texture = ExtResource("p_2_583")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 178, 82)
 
-[node name="2_584_99" type="Sprite2D" parent="Art/Near" unique_id=1675379981]
+[node name="2_584_99" type="Sprite2D" parent="Art/Near3" unique_id=1675379981]
 position = Vector2(3470.1, -13.5)
 texture = ExtResource("p_2_584")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 229, 139)
 
-[node name="2_584_100" type="Sprite2D" parent="Art/Near" unique_id=1671720045]
+[node name="2_584_100" type="Sprite2D" parent="Art/Near3" unique_id=1671720045]
 position = Vector2(3859.8, -18.8)
 texture = ExtResource("p_2_584")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 229, 139)
 
-[node name="2_583_101" type="Sprite2D" parent="Art/Near" unique_id=20283489]
+[node name="2_583_101" type="Sprite2D" parent="Art/Near3" unique_id=20283489]
 position = Vector2(3632.85, -7.8)
 texture = ExtResource("p_2_583")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 178, 82)
 
-[node name="2_583_102" type="Sprite2D" parent="Art/Near" unique_id=1558246185]
+[node name="2_583_102" type="Sprite2D" parent="Art/Near3" unique_id=1558246185]
 position = Vector2(4158.85, -7.8)
 texture = ExtResource("p_2_583")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 178, 82)
 
-[node name="2_583_103" type="Sprite2D" parent="Art/Near" unique_id=775130535]
+[node name="2_583_103" type="Sprite2D" parent="Art/Near3" unique_id=775130535]
 position = Vector2(4491.8, -7.8)
 texture = ExtResource("p_2_583")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 178, 82)
 
-[node name="2_582_104" type="Sprite2D" parent="Art/Near" unique_id=406671164]
+[node name="2_582_104" type="Sprite2D" parent="Art/Near3" unique_id=406671164]
 position = Vector2(3810.85, -11.5)
 texture = ExtResource("p_2_582")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 20, 123)
 
-[node name="2_602_116" type="Sprite2D" parent="Art/Near" unique_id=1586297150]
+[node name="2_602_116" type="Sprite2D" parent="Art/Near3" unique_id=1586297150]
 position = Vector2(877.65, 96.55)
 rotation = 3.1415927
 scale = Vector2(1, -1)
@@ -339,28 +353,28 @@ centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 224, 403)
 
-[node name="2_602_117" type="Sprite2D" parent="Art/Near" unique_id=831173601]
+[node name="2_602_117" type="Sprite2D" parent="Art/Near3" unique_id=831173601]
 position = Vector2(1486.8, 97.25)
 texture = ExtResource("p_2_602")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 224, 403)
 
-[node name="2_582_106" type="Sprite2D" parent="Art/Near" unique_id=632986715]
+[node name="2_582_106" type="Sprite2D" parent="Art/Near3" unique_id=632986715]
 position = Vector2(4424.95, -21.9)
 texture = ExtResource("p_2_582")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 20, 123)
 
-[node name="2_582_105" type="Sprite2D" parent="Art/Near" unique_id=1679280659]
+[node name="2_582_105" type="Sprite2D" parent="Art/Near3" unique_id=1679280659]
 position = Vector2(4101.65, -46.45)
 texture = ExtResource("p_2_582")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 20, 123)
 
-[node name="2_602_118" type="Sprite2D" parent="Art/Near" unique_id=1670119048]
+[node name="2_602_118" type="Sprite2D" parent="Art/Near3" unique_id=1670119048]
 position = Vector2(2281.7, 98.95)
 rotation = 3.1415927
 scale = Vector2(1, -1)
@@ -369,14 +383,14 @@ centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 224, 403)
 
-[node name="2_602_119" type="Sprite2D" parent="Art/Near" unique_id=810522592]
+[node name="2_602_119" type="Sprite2D" parent="Art/Near3" unique_id=810522592]
 position = Vector2(2892.1, 101.1)
 texture = ExtResource("p_2_602")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 224, 403)
 
-[node name="2_602_120" type="Sprite2D" parent="Art/Near" unique_id=292887230]
+[node name="2_602_120" type="Sprite2D" parent="Art/Near3" unique_id=292887230]
 position = Vector2(3687, 102.8)
 rotation = 3.1415927
 scale = Vector2(1, -1)
@@ -385,14 +399,14 @@ centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 224, 403)
 
-[node name="2_584_115" type="Sprite2D" parent="Art/Near" unique_id=1182987884]
+[node name="2_584_115" type="Sprite2D" parent="Art/Near3" unique_id=1182987884]
 position = Vector2(3976.85, -13.5)
 texture = ExtResource("p_2_584")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 229, 139)
 
-[node name="2_581_Tiles" type="TextureRect" parent="Art/Near" unique_id=1121412269]
+[node name="2_581_Tiles" type="TextureRect" parent="Art/Near3" unique_id=1121412269]
 texture_filter = 1
 texture_repeat = 2
 offset_top = 395.75
@@ -402,7 +416,7 @@ texture = ExtResource("14_iyauw")
 expand_mode = 1
 stretch_mode = 1
 
-[node name="Chandelier" type="Sprite2D" parent="Art/Near" unique_id=648911942]
+[node name="Chandelier" type="Sprite2D" parent="Art/Near3" unique_id=648911942]
 position = Vector2(4175, 109)
 texture = ExtResource("16_iyauw")
 
@@ -419,14 +433,3 @@ texture = ExtResource("3_d2dgr")
 expand_mode = 1
 stretch_mode = 1
 metadata/_edit_use_anchors_ = true
-
-[node name="Objects" type="Node2D" parent="."]
-
-[node name="XingtianDoor1" type="Node2D" parent="Objects" instance=ExtResource("xingtian_door")]
-position = Vector2(481.95, 199.0)
-
-[node name="XingtianDoor2" type="Node2D" parent="Objects" instance=ExtResource("xingtian_door")]
-position = Vector2(1886.7, 199.0)
-
-[node name="XingtianDoor3" type="Node2D" parent="Objects" instance=ExtResource("xingtian_door")]
-position = Vector2(3292.35, 201.9)
