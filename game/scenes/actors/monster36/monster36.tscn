@@ -1,0 +1,109 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/actors/actor_body.gd" id="1_kig37"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster36/tex/2_452.png" id="2_w3ump"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster36/tex/2_461.png" id="3_s5heb"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster36/tex/2_473.png" id="4_8y3gj"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster36/tex/2_474.png" id="5_06cax"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster36/tex/2_485.png" id="6_olyur"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster36/tex/2_487.png" id="7_03dtl"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster36/tex/2_490.png" id="8_t3bvm"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster36/tex/2_505.png" id="9_qillh"]
+[ext_resource type="AnimationLibrary" path="res://scenes/actors/monster36/monster36_actions.tres" id="10_nbdqp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ndgq4"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_54cj0"]
+resource_local_to_scene = true
+
+[node name="Monster36" type="Node2D" unique_id=1836618704]
+script = ExtResource("1_kig37")
+actions = PackedStringArray("walk", "hit1", "hurt", "dead", "wait")
+
+[node name="Poses" type="Node2D" parent="." unique_id=1405907108]
+
+[node name="Walk" type="Node2D" parent="Poses" unique_id=2115698297]
+visible = false
+
+[node name="WalkPart1" type="Sprite2D" parent="Poses/Walk" unique_id=2051820173]
+position = Vector2(-85.3, -59.3)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_w3ump")
+centered = false
+
+[node name="Hit1" type="Node2D" parent="Poses" unique_id=1886468333]
+visible = false
+
+[node name="Hit1Part1" type="Sprite2D" parent="Poses/Hit1" unique_id=984085833]
+position = Vector2(-123.3, -96.2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_s5heb")
+centered = false
+
+[node name="Hit1Part2" type="Sprite2D" parent="Poses/Hit1" unique_id=659521948]
+position = Vector2(-142.4474, -92.61559)
+scale = Vector2(0.627, 0.627)
+texture = ExtResource("4_8y3gj")
+centered = false
+
+[node name="Hit1Part3" type="Sprite2D" parent="Poses/Hit1" unique_id=88871940]
+position = Vector2(-38.6789, -12.861198)
+scale = Vector2(0.627, 0.627)
+texture = ExtResource("5_06cax")
+centered = false
+
+[node name="Hurt" type="Node2D" parent="Poses" unique_id=1017550785]
+visible = false
+
+[node name="HurtPart1" type="Sprite2D" parent="Poses/Hurt" unique_id=1187502842]
+position = Vector2(8.5, 20)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_olyur")
+centered = false
+
+[node name="HurtPart2" type="Sprite2D" parent="Poses/Hurt" unique_id=989260185]
+position = Vector2(-49.45, -78.45)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_03dtl")
+centered = false
+
+[node name="Dead" type="Node2D" parent="Poses" unique_id=163992717]
+visible = false
+
+[node name="DeadPart1" type="Sprite2D" parent="Poses/Dead" unique_id=382756100]
+position = Vector2(-101.1, -70.35)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_t3bvm")
+centered = false
+
+[node name="Wait" type="Node2D" parent="Poses" unique_id=1557785069]
+visible = false
+
+[node name="WaitPart1" type="Sprite2D" parent="Poses/Wait" unique_id=864627388]
+position = Vector2(-57.65, -54.100002)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_qillh")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1770673591]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=266261192]
+shape = SubResource("RectangleShape2D_ndgq4")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=551269956]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=2068634209]
+shape = SubResource("RectangleShape2D_54cj0")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=814871091]
+callback_mode_process = 0
+libraries/ = ExtResource("10_nbdqp")
