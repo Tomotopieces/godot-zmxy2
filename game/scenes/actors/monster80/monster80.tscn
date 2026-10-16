@@ -1,0 +1,93 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/actors/actor_body.gd" id="1_iwfqc"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster80/tex/11_21.png" id="2_i4fbr"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster80/tex/11_24.png" id="3_5wfce"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster80/tex/11_26.png" id="4_qrkax"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster80/tex/11_28.png" id="5_5epx1"]
+[ext_resource type="AnimationLibrary" path="res://scenes/actors/monster80/monster80_actions.tres" id="6_fvi2a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bmc3x"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_neqw6"]
+resource_local_to_scene = true
+
+[node name="Monster80" type="Node2D" unique_id=1896871482]
+script = ExtResource("1_iwfqc")
+actions = PackedStringArray("walk", "hurt", "hit1", "wait", "dead")
+
+[node name="Poses" type="Node2D" parent="." unique_id=820732911]
+
+[node name="Walk" type="Node2D" parent="Poses" unique_id=403199812]
+visible = false
+
+[node name="WalkPart1" type="Sprite2D" parent="Poses/Walk" unique_id=1754349190]
+position = Vector2(-48, -56.95)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_i4fbr")
+centered = false
+
+[node name="Hurt" type="Node2D" parent="Poses" unique_id=616352698]
+visible = false
+
+[node name="HurtPart1" type="Sprite2D" parent="Poses/Hurt" unique_id=896634671]
+position = Vector2(-42.4, -51)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_5wfce")
+centered = false
+
+[node name="Hit1" type="Node2D" parent="Poses" unique_id=148994148]
+visible = false
+
+[node name="Hit1Part1" type="Sprite2D" parent="Poses/Hit1" unique_id=890024824]
+position = Vector2(-44.750004, -49.15)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_qrkax")
+centered = false
+
+[node name="Hit1Part2" type="Sprite2D" parent="Poses/Hit1" unique_id=566282336]
+position = Vector2(-220.85, -38.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_5epx1")
+centered = false
+
+[node name="Wait" type="Node2D" parent="Poses" unique_id=1328546864]
+visible = false
+
+[node name="WaitPart1" type="Sprite2D" parent="Poses/Wait" unique_id=873063765]
+position = Vector2(-47.85, -57.05)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_i4fbr")
+centered = false
+
+[node name="Dead" type="Node2D" parent="Poses" unique_id=1198939442]
+visible = false
+
+[node name="DeadPart1" type="Sprite2D" parent="Poses/Dead" unique_id=1519197942]
+position = Vector2(-47.9, -48.2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_5wfce")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=342893961]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=823848692]
+shape = SubResource("RectangleShape2D_bmc3x")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=320202234]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1619342729]
+shape = SubResource("RectangleShape2D_neqw6")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=170144805]
+callback_mode_process = 0
+libraries/ = ExtResource("6_fvi2a")

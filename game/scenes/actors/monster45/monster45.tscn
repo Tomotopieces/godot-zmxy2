@@ -1,0 +1,1044 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/actors/actor_body.gd" id="1_j3lc1"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_31.png" id="2_10aoi"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_36.png" id="3_1d1pn"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_38.png" id="4_32xdk"]
+[ext_resource type="Script" path="res://src/rig/equip_slot.gd" id="5_3k0lg"]
+[ext_resource type="PackedScene" path="res://assets/rigs/monster45/slots/slot34_2.tscn" id="6_1axe7"]
+[ext_resource type="PackedScene" path="res://assets/rigs/monster45/slots/slot34_3.tscn" id="7_s4ptf"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_39.png" id="8_hb50i"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_37.png" id="9_21q5x"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_35.png" id="10_2mbgn"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_44.png" id="11_21d8t"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_45.png" id="12_w6wco"]
+[ext_resource type="Shader" path="res://src/rig/sprite_fx.gdshader" id="13_ao7o6"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_51.png" id="14_gd2x4"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_88.png" id="15_y5h1o"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_91.png" id="16_d1cmj"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_98.png" id="17_ct8ue"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_99.png" id="18_4hybk"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_106.png" id="19_ly70f"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_107.png" id="20_cdo81"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_110.png" id="21_4d86o"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_112.png" id="22_x5eqt"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_121.png" id="23_133yl"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_117.png" id="24_dto77"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_32.png" id="25_12uvd"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_33.png" id="26_jy8vw"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_119.png" id="27_1d7yt"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45/tex/5_125.png" id="28_x6v41"]
+[ext_resource type="AnimationLibrary" path="res://scenes/actors/monster45/monster45_actions.tres" id="29_smdjn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_amg0m"]
+shader = ExtResource("13_ao7o6")
+shader_parameter/matrix_on = true
+shader_parameter/color_matrix = Projection(0.08343069, 0.33295208, -0.5919533, 0, -0.07082099, 0.8840236, 1.3513453, 0, 0.9873902, -0.21697575, 0.24060795, 0, 0, 0, 0, 1)
+shader_parameter/color_offset = Vector4(0, 0, 0, 0)
+shader_parameter/blur = null
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_880nh"]
+shader = ExtResource("13_ao7o6")
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = 1.25
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 2.25
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_apta0"]
+shader = ExtResource("13_ao7o6")
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = 2.5
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 3.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jallo"]
+shader = ExtResource("13_ao7o6")
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = 3.75
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 4.75
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_naq7t"]
+shader = ExtResource("13_ao7o6")
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = 5.0
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 6.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3ocni"]
+shader = ExtResource("13_ao7o6")
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = 4.400009
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 5.400009
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0sfcr"]
+shader = ExtResource("13_ao7o6")
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = 3.8000183
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 4.8000183
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s36j8"]
+shader = ExtResource("13_ao7o6")
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = 3.1999817
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 4.1999817
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w5ckt"]
+shader = ExtResource("13_ao7o6")
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = 2.5999908
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 3.5999908
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tcgfx"]
+shader = ExtResource("13_ao7o6")
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = 2.0
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 3.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ljehj"]
+shader = ExtResource("13_ao7o6")
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = 2.75
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 3.75
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f1a5k"]
+shader = ExtResource("13_ao7o6")
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = 3.5
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 4.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3blhv"]
+shader = ExtResource("13_ao7o6")
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = 4.25
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 5.25
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vyicb"]
+shader = ExtResource("13_ao7o6")
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = 4.0000153
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 5.0000153
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l46ce"]
+shader = ExtResource("13_ao7o6")
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = 3.0000305
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 4.0000305
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kvdix"]
+shader = ExtResource("13_ao7o6")
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = 1.9999695
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 2.9999695
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gbibu"]
+shader = ExtResource("13_ao7o6")
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = 0.9999847412109376
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 1.9999847
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sx5nk"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h886a"]
+resource_local_to_scene = true
+
+[node name="Monster45" type="Node2D" unique_id=421588373]
+script = ExtResource("1_j3lc1")
+actions = PackedStringArray("walk", "hit1", "hurt", "wait", "hit2", "hit3", "dead", "reburn")
+
+[node name="Poses" type="Node2D" parent="." unique_id=1648650912]
+
+[node name="Walk" type="Node2D" parent="Poses" unique_id=1484639401]
+visible = false
+
+[node name="WalkPart1" type="Sprite2D" parent="Poses/Walk" unique_id=1077671759]
+position = Vector2(-27.45, -0.4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_10aoi")
+centered = false
+
+[node name="WalkPart2" type="Sprite2D" parent="Poses/Walk" unique_id=95648156]
+position = Vector2(-14.9, -7.7)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_1d1pn")
+centered = false
+
+[node name="WalkPart3" type="Sprite2D" parent="Poses/Walk" unique_id=773953543]
+position = Vector2(-81.75, -10.7)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_32xdk")
+centered = false
+
+[node name="WalkSlot1" type="Node2D" parent="Poses/Walk" unique_id=132990166]
+position = Vector2(43.9, -9.85)
+script = ExtResource("5_3k0lg")
+kind = "form"
+variants = {
+2: ExtResource("6_1axe7"),
+3: ExtResource("7_s4ptf")
+}
+
+[node name="WalkPart4" type="Sprite2D" parent="Poses/Walk" unique_id=1843734282]
+position = Vector2(-32.25, -70.65)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_hb50i")
+centered = false
+
+[node name="WalkPart5" type="Sprite2D" parent="Poses/Walk" unique_id=1186048167]
+position = Vector2(-56.25, -70.25)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_21q5x")
+centered = false
+
+[node name="WalkPart6" type="Sprite2D" parent="Poses/Walk" unique_id=1394788755]
+position = Vector2(-37.6, -70.65)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("10_2mbgn")
+centered = false
+
+[node name="Hit1" type="Node2D" parent="Poses" unique_id=2017410634]
+visible = false
+
+[node name="Hit1Part1" type="Sprite2D" parent="Poses/Hit1" unique_id=596895334]
+position = Vector2(-13.7, -4.05)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_21d8t")
+centered = false
+
+[node name="Hit1Slot1" type="Node2D" parent="Poses/Hit1" unique_id=162090107]
+position = Vector2(45.45, -9.5)
+script = ExtResource("5_3k0lg")
+kind = "form"
+variants = {
+2: ExtResource("6_1axe7"),
+3: ExtResource("7_s4ptf")
+}
+
+[node name="Hit1Part2" type="Sprite2D" parent="Poses/Hit1" unique_id=226914739]
+position = Vector2(-37.5, -70.25)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("12_w6wco")
+centered = false
+
+[node name="Hit1Part3" type="Sprite2D" parent="Poses/Hit1" unique_id=1494817104]
+material = SubResource("ShaderMaterial_amg0m")
+position = Vector2(-156.3516, 77.648796)
+rotation = -1.5527983
+scale = Vector2(0.500081, 0.500081)
+texture = ExtResource("14_gd2x4")
+centered = false
+
+[node name="Hurt" type="Node2D" parent="Poses" unique_id=865832835]
+visible = false
+
+[node name="HurtSlot1" type="Node2D" parent="Poses/Hurt" unique_id=1027396733]
+position = Vector2(44.7, 2.35)
+rotation = 0.34040156
+scale = Vector2(1.0004025, 1.0004025)
+script = ExtResource("5_3k0lg")
+kind = "form"
+variants = {
+2: ExtResource("6_1axe7"),
+3: ExtResource("7_s4ptf")
+}
+
+[node name="HurtPart1" type="Sprite2D" parent="Poses/Hurt" unique_id=568431591]
+position = Vector2(-37.65, -67.35)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("15_y5h1o")
+centered = false
+
+[node name="Wait" type="Node2D" parent="Poses" unique_id=1763855803]
+visible = false
+
+[node name="WaitPart1" type="Sprite2D" parent="Poses/Wait" unique_id=249544283]
+position = Vector2(-13.9, -5.9)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_21d8t")
+centered = false
+
+[node name="WaitSlot1" type="Node2D" parent="Poses/Wait" unique_id=1683750446]
+position = Vector2(42.5, -9.65)
+rotation = 0.0009999997
+scale = Vector2(1.0000005, 1.0000005)
+script = ExtResource("5_3k0lg")
+kind = "form"
+variants = {
+2: ExtResource("6_1axe7"),
+3: ExtResource("7_s4ptf")
+}
+
+[node name="WaitPart2" type="Sprite2D" parent="Poses/Wait" unique_id=587255578]
+position = Vector2(-55.25, -70.25)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("16_d1cmj")
+centered = false
+
+[node name="Hit2" type="Node2D" parent="Poses" unique_id=1198457785]
+visible = false
+
+[node name="Hit2Part1" type="Sprite2D" parent="Poses/Hit2" unique_id=1496798974]
+position = Vector2(-30.05, -22.7)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("17_ct8ue")
+centered = false
+
+[node name="Hit2Slot1" type="Node2D" parent="Poses/Hit2" unique_id=1751858853]
+position = Vector2(44.15, -10.15)
+rotation = 0.0009999997
+scale = Vector2(1.0000005, 1.0000005)
+script = ExtResource("5_3k0lg")
+kind = "form"
+variants = {
+2: ExtResource("6_1axe7"),
+3: ExtResource("7_s4ptf")
+}
+
+[node name="Hit2Part2" type="Sprite2D" parent="Poses/Hit2" unique_id=1770980397]
+position = Vector2(-65.15, -70.35)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("18_4hybk")
+centered = false
+
+[node name="Hit3" type="Node2D" parent="Poses" unique_id=15373757]
+visible = false
+
+[node name="Hit3Part1" type="Sprite2D" parent="Poses/Hit3" unique_id=682355054]
+position = Vector2(-29.199999, -3.75)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("19_ly70f")
+centered = false
+
+[node name="Hit3Slot1" type="Node2D" parent="Poses/Hit3" unique_id=394473725]
+position = Vector2(44.5, -12.65)
+rotation = 0.0009999997
+scale = Vector2(1.0000005, 1.0000005)
+script = ExtResource("5_3k0lg")
+kind = "form"
+variants = {
+2: ExtResource("6_1axe7"),
+3: ExtResource("7_s4ptf")
+}
+
+[node name="Hit3Part2" type="Sprite2D" parent="Poses/Hit3" unique_id=2114398949]
+position = Vector2(-31.999998, -71.7)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("20_cdo81")
+centered = false
+
+[node name="Hit3Part3" type="Sprite2D" parent="Poses/Hit3" unique_id=58783753]
+position = Vector2(-42.5, -61.85)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("21_4d86o")
+centered = false
+
+[node name="Hit3Part4" type="Sprite2D" parent="Poses/Hit3" unique_id=672883200]
+position = Vector2(-31.6, 5.1000004)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("22_x5eqt")
+centered = false
+
+[node name="Dead" type="Node2D" parent="Poses" unique_id=206536633]
+visible = false
+
+[node name="DeadPart1" type="Sprite2D" parent="Poses/Dead" unique_id=1102818149]
+position = Vector2(-30.250002, -41.35)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("23_133yl")
+centered = false
+
+[node name="DeadPart2" type="Sprite2D" parent="Poses/Dead" unique_id=1917296799]
+position = Vector2(-4.6000004, -8.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_dto77")
+centered = false
+
+[node name="DeadPart3" type="Sprite2D" parent="Poses/Dead" unique_id=372858868]
+modulate = Color(1.0009804, 1.0009804, 1.0009804, 1)
+material = SubResource("ShaderMaterial_880nh")
+position = Vector2(-4.6000004, -8.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_dto77")
+centered = false
+
+[node name="DeadPart4" type="Sprite2D" parent="Poses/Dead" unique_id=1996886406]
+modulate = Color(1.0019608, 1.0019608, 1.0019608, 1)
+material = SubResource("ShaderMaterial_apta0")
+position = Vector2(-4.6000004, -8.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_dto77")
+centered = false
+
+[node name="DeadPart5" type="Sprite2D" parent="Poses/Dead" unique_id=2053642613]
+modulate = Color(0.9990196, 0.9990196, 0.9990196, 1)
+material = SubResource("ShaderMaterial_jallo")
+position = Vector2(-4.6000004, -8.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_dto77")
+centered = false
+
+[node name="DeadPart6" type="Sprite2D" parent="Poses/Dead" unique_id=731562326]
+material = SubResource("ShaderMaterial_naq7t")
+position = Vector2(-4.6000004, -8.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_dto77")
+centered = false
+
+[node name="DeadPart7" type="Sprite2D" parent="Poses/Dead" unique_id=901244398]
+modulate = Color(0.999, 0.999, 0.999, 0.852)
+material = SubResource("ShaderMaterial_3ocni")
+position = Vector2(-4.6000004, -8.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_dto77")
+centered = false
+
+[node name="DeadPart8" type="Sprite2D" parent="Poses/Dead" unique_id=1353642815]
+modulate = Color(0.998, 0.998, 0.998, 0.699)
+material = SubResource("ShaderMaterial_0sfcr")
+position = Vector2(-4.6000004, -8.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_dto77")
+centered = false
+
+[node name="DeadPart9" type="Sprite2D" parent="Poses/Dead" unique_id=1353891919]
+modulate = Color(1.002, 1.002, 1.002, 0.551)
+material = SubResource("ShaderMaterial_s36j8")
+position = Vector2(-4.6000004, -8.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_dto77")
+centered = false
+
+[node name="DeadPart10" type="Sprite2D" parent="Poses/Dead" unique_id=728020696]
+modulate = Color(1.001, 1.001, 1.001, 0.398)
+material = SubResource("ShaderMaterial_w5ckt")
+position = Vector2(-4.6000004, -8.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_dto77")
+centered = false
+
+[node name="DeadPart11" type="Sprite2D" parent="Poses/Dead" unique_id=1891558341]
+modulate = Color(1, 1, 1, 0.25)
+material = SubResource("ShaderMaterial_tcgfx")
+position = Vector2(-4.6000004, -8.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_dto77")
+centered = false
+
+[node name="DeadPart12" type="Sprite2D" parent="Poses/Dead" unique_id=1428748514]
+position = Vector2(1.390152, -48.636353)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("25_12uvd")
+centered = false
+
+[node name="DeadPart13" type="Sprite2D" parent="Poses/Dead" unique_id=716452546]
+modulate = Color(1.0009804, 1.0009804, 1.0009804, 1)
+material = SubResource("ShaderMaterial_880nh")
+position = Vector2(-4.17865, -79.84194)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("26_jy8vw")
+centered = false
+
+[node name="DeadPart14" type="Sprite2D" parent="Poses/Dead" unique_id=386073891]
+modulate = Color(1.0019608, 1.0019608, 1.0019608, 1)
+material = SubResource("ShaderMaterial_apta0")
+position = Vector2(1.390152, -48.636353)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("25_12uvd")
+centered = false
+
+[node name="DeadPart15" type="Sprite2D" parent="Poses/Dead" unique_id=1715015597]
+modulate = Color(0.9990196, 0.9990196, 0.9990196, 1)
+material = SubResource("ShaderMaterial_jallo")
+position = Vector2(-4.17865, -79.84194)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("26_jy8vw")
+centered = false
+
+[node name="DeadPart16" type="Sprite2D" parent="Poses/Dead" unique_id=242558332]
+material = SubResource("ShaderMaterial_naq7t")
+position = Vector2(1.390152, -48.636353)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("25_12uvd")
+centered = false
+
+[node name="DeadPart17" type="Sprite2D" parent="Poses/Dead" unique_id=784603648]
+modulate = Color(0.999, 0.999, 0.999, 0.852)
+material = SubResource("ShaderMaterial_3ocni")
+position = Vector2(-4.17865, -79.84194)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("26_jy8vw")
+centered = false
+
+[node name="DeadPart18" type="Sprite2D" parent="Poses/Dead" unique_id=1980767007]
+modulate = Color(0.998, 0.998, 0.998, 0.699)
+material = SubResource("ShaderMaterial_0sfcr")
+position = Vector2(1.390152, -48.636353)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("25_12uvd")
+centered = false
+
+[node name="DeadPart19" type="Sprite2D" parent="Poses/Dead" unique_id=59568033]
+modulate = Color(1.002, 1.002, 1.002, 0.551)
+material = SubResource("ShaderMaterial_s36j8")
+position = Vector2(-4.17865, -79.84194)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("26_jy8vw")
+centered = false
+
+[node name="DeadPart20" type="Sprite2D" parent="Poses/Dead" unique_id=725203640]
+modulate = Color(1.001, 1.001, 1.001, 0.398)
+material = SubResource("ShaderMaterial_w5ckt")
+position = Vector2(1.390152, -48.636353)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("25_12uvd")
+centered = false
+
+[node name="DeadPart21" type="Sprite2D" parent="Poses/Dead" unique_id=641893996]
+modulate = Color(1, 1, 1, 0.25)
+material = SubResource("ShaderMaterial_tcgfx")
+position = Vector2(-4.17865, -79.84194)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("26_jy8vw")
+centered = false
+
+[node name="DeadPart22" type="Sprite2D" parent="Poses/Dead" unique_id=2045776881]
+position = Vector2(-92.1, -65.950005)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("27_1d7yt")
+centered = false
+
+[node name="DeadPart23" type="Sprite2D" parent="Poses/Dead" unique_id=265381461]
+modulate = Color(1.0009804, 1.0009804, 1.0009804, 1)
+material = SubResource("ShaderMaterial_880nh")
+position = Vector2(-92.1, -65.950005)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("27_1d7yt")
+centered = false
+
+[node name="DeadPart24" type="Sprite2D" parent="Poses/Dead" unique_id=20380730]
+modulate = Color(1.0019608, 1.0019608, 1.0019608, 1)
+material = SubResource("ShaderMaterial_apta0")
+position = Vector2(-92.1, -65.950005)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("27_1d7yt")
+centered = false
+
+[node name="DeadPart25" type="Sprite2D" parent="Poses/Dead" unique_id=297385769]
+modulate = Color(0.9990196, 0.9990196, 0.9990196, 1)
+material = SubResource("ShaderMaterial_jallo")
+position = Vector2(-92.1, -65.950005)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("27_1d7yt")
+centered = false
+
+[node name="DeadPart26" type="Sprite2D" parent="Poses/Dead" unique_id=34261933]
+material = SubResource("ShaderMaterial_naq7t")
+position = Vector2(-92.1, -65.950005)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("27_1d7yt")
+centered = false
+
+[node name="DeadPart27" type="Sprite2D" parent="Poses/Dead" unique_id=1528256363]
+modulate = Color(0.999, 0.999, 0.999, 0.852)
+material = SubResource("ShaderMaterial_3ocni")
+position = Vector2(-92.1, -65.950005)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("27_1d7yt")
+centered = false
+
+[node name="DeadPart28" type="Sprite2D" parent="Poses/Dead" unique_id=852207423]
+modulate = Color(0.998, 0.998, 0.998, 0.699)
+material = SubResource("ShaderMaterial_0sfcr")
+position = Vector2(-92.1, -65.950005)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("27_1d7yt")
+centered = false
+
+[node name="DeadPart29" type="Sprite2D" parent="Poses/Dead" unique_id=1180591024]
+modulate = Color(1.002, 1.002, 1.002, 0.551)
+material = SubResource("ShaderMaterial_s36j8")
+position = Vector2(-92.1, -65.950005)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("27_1d7yt")
+centered = false
+
+[node name="DeadPart30" type="Sprite2D" parent="Poses/Dead" unique_id=1751293034]
+modulate = Color(1.001, 1.001, 1.001, 0.398)
+material = SubResource("ShaderMaterial_w5ckt")
+position = Vector2(-92.1, -65.950005)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("27_1d7yt")
+centered = false
+
+[node name="DeadPart31" type="Sprite2D" parent="Poses/Dead" unique_id=476719866]
+modulate = Color(1, 1, 1, 0.25)
+material = SubResource("ShaderMaterial_tcgfx")
+position = Vector2(-92.1, -65.950005)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("27_1d7yt")
+centered = false
+
+[node name="Reburn" type="Node2D" parent="Poses" unique_id=1918864138]
+visible = false
+
+[node name="ReburnPart1" type="Sprite2D" parent="Poses/Reburn" unique_id=1688545029]
+position = Vector2(-35.35, 25.6)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("28_x6v41")
+centered = false
+
+[node name="ReburnPart2" type="Sprite2D" parent="Poses/Reburn" unique_id=97827113]
+modulate = Color(1, 1, 1, 0.25)
+material = SubResource("ShaderMaterial_tcgfx")
+position = Vector2(-0.6499996, -4.4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_dto77")
+centered = false
+
+[node name="ReburnPart3" type="Sprite2D" parent="Poses/Reburn" unique_id=1004399671]
+modulate = Color(1.0009804, 1.0009804, 1.0009804, 0.438)
+material = SubResource("ShaderMaterial_ljehj")
+position = Vector2(-0.6499996, -4.4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_dto77")
+centered = false
+
+[node name="ReburnPart4" type="Sprite2D" parent="Poses/Reburn" unique_id=1113330969]
+modulate = Color(1.0019608, 1.0019608, 1.0019608, 0.625)
+material = SubResource("ShaderMaterial_f1a5k")
+position = Vector2(-0.6499996, -4.4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_dto77")
+centered = false
+
+[node name="ReburnPart5" type="Sprite2D" parent="Poses/Reburn" unique_id=1242013499]
+modulate = Color(0.9990196, 0.9990196, 0.9990196, 0.813)
+material = SubResource("ShaderMaterial_3blhv")
+position = Vector2(-0.6499996, -4.4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_dto77")
+centered = false
+
+[node name="ReburnPart6" type="Sprite2D" parent="Poses/Reburn" unique_id=126404716]
+material = SubResource("ShaderMaterial_naq7t")
+position = Vector2(-0.6499996, -4.4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_dto77")
+centered = false
+
+[node name="ReburnPart7" type="Sprite2D" parent="Poses/Reburn" unique_id=1903355438]
+modulate = Color(0.999, 0.999, 0.999, 1)
+material = SubResource("ShaderMaterial_vyicb")
+position = Vector2(-0.6499996, -4.4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_dto77")
+centered = false
+
+[node name="ReburnPart8" type="Sprite2D" parent="Poses/Reburn" unique_id=25500936]
+modulate = Color(0.998, 0.998, 0.998, 1)
+material = SubResource("ShaderMaterial_l46ce")
+position = Vector2(-0.6499996, -4.4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_dto77")
+centered = false
+
+[node name="ReburnPart9" type="Sprite2D" parent="Poses/Reburn" unique_id=1928605285]
+modulate = Color(1.002, 1.002, 1.002, 1)
+material = SubResource("ShaderMaterial_kvdix")
+position = Vector2(-0.6499996, -4.4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_dto77")
+centered = false
+
+[node name="ReburnPart10" type="Sprite2D" parent="Poses/Reburn" unique_id=12320165]
+modulate = Color(1.001, 1.001, 1.001, 1)
+material = SubResource("ShaderMaterial_gbibu")
+position = Vector2(-0.6499996, -4.4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_dto77")
+centered = false
+
+[node name="ReburnPart11" type="Sprite2D" parent="Poses/Reburn" unique_id=545116100]
+position = Vector2(-0.6499996, -4.4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("24_dto77")
+centered = false
+
+[node name="ReburnPart12" type="Sprite2D" parent="Poses/Reburn" unique_id=2019482374]
+modulate = Color(1, 1, 1, 0.25)
+material = SubResource("ShaderMaterial_tcgfx")
+position = Vector2(5.3401527, -44.48635)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("25_12uvd")
+centered = false
+
+[node name="ReburnPart13" type="Sprite2D" parent="Poses/Reburn" unique_id=1482045605]
+modulate = Color(1.0009804, 1.0009804, 1.0009804, 0.438)
+material = SubResource("ShaderMaterial_ljehj")
+position = Vector2(-0.22864914, -75.69195)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("26_jy8vw")
+centered = false
+
+[node name="ReburnPart14" type="Sprite2D" parent="Poses/Reburn" unique_id=2079606721]
+modulate = Color(1.0019608, 1.0019608, 1.0019608, 0.625)
+material = SubResource("ShaderMaterial_f1a5k")
+position = Vector2(5.3401527, -44.48635)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("25_12uvd")
+centered = false
+
+[node name="ReburnPart15" type="Sprite2D" parent="Poses/Reburn" unique_id=735728596]
+modulate = Color(0.9990196, 0.9990196, 0.9990196, 0.813)
+material = SubResource("ShaderMaterial_3blhv")
+position = Vector2(-0.22864914, -75.69195)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("26_jy8vw")
+centered = false
+
+[node name="ReburnPart16" type="Sprite2D" parent="Poses/Reburn" unique_id=203980928]
+material = SubResource("ShaderMaterial_naq7t")
+position = Vector2(5.3401527, -44.48635)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("25_12uvd")
+centered = false
+
+[node name="ReburnPart17" type="Sprite2D" parent="Poses/Reburn" unique_id=21929856]
+modulate = Color(0.999, 0.999, 0.999, 1)
+material = SubResource("ShaderMaterial_vyicb")
+position = Vector2(-0.22864914, -75.69195)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("26_jy8vw")
+centered = false
+
+[node name="ReburnPart18" type="Sprite2D" parent="Poses/Reburn" unique_id=1139723559]
+modulate = Color(0.998, 0.998, 0.998, 1)
+material = SubResource("ShaderMaterial_l46ce")
+position = Vector2(5.3401527, -44.48635)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("25_12uvd")
+centered = false
+
+[node name="ReburnPart19" type="Sprite2D" parent="Poses/Reburn" unique_id=1927792951]
+modulate = Color(1.002, 1.002, 1.002, 1)
+material = SubResource("ShaderMaterial_kvdix")
+position = Vector2(-0.22864914, -75.69195)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("26_jy8vw")
+centered = false
+
+[node name="ReburnPart20" type="Sprite2D" parent="Poses/Reburn" unique_id=254747563]
+modulate = Color(1.001, 1.001, 1.001, 1)
+material = SubResource("ShaderMaterial_gbibu")
+position = Vector2(5.3401527, -44.48635)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("25_12uvd")
+centered = false
+
+[node name="ReburnPart21" type="Sprite2D" parent="Poses/Reburn" unique_id=274833682]
+position = Vector2(-0.22864914, -75.69195)
+rotation = 0.0009999997
+scale = Vector2(0.50000024, 0.50000024)
+texture = ExtResource("26_jy8vw")
+centered = false
+
+[node name="ReburnPart22" type="Sprite2D" parent="Poses/Reburn" unique_id=9731825]
+modulate = Color(1, 1, 1, 0.25)
+material = SubResource("ShaderMaterial_tcgfx")
+position = Vector2(-88.15, -61.800003)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("27_1d7yt")
+centered = false
+
+[node name="ReburnPart23" type="Sprite2D" parent="Poses/Reburn" unique_id=629520]
+modulate = Color(1.0009804, 1.0009804, 1.0009804, 0.438)
+material = SubResource("ShaderMaterial_ljehj")
+position = Vector2(-88.15, -61.800003)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("27_1d7yt")
+centered = false
+
+[node name="ReburnPart24" type="Sprite2D" parent="Poses/Reburn" unique_id=198196060]
+modulate = Color(1.0019608, 1.0019608, 1.0019608, 0.625)
+material = SubResource("ShaderMaterial_f1a5k")
+position = Vector2(-88.15, -61.800003)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("27_1d7yt")
+centered = false
+
+[node name="ReburnPart25" type="Sprite2D" parent="Poses/Reburn" unique_id=215296613]
+modulate = Color(0.9990196, 0.9990196, 0.9990196, 0.813)
+material = SubResource("ShaderMaterial_3blhv")
+position = Vector2(-88.15, -61.800003)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("27_1d7yt")
+centered = false
+
+[node name="ReburnPart26" type="Sprite2D" parent="Poses/Reburn" unique_id=572780098]
+material = SubResource("ShaderMaterial_naq7t")
+position = Vector2(-88.15, -61.800003)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("27_1d7yt")
+centered = false
+
+[node name="ReburnPart27" type="Sprite2D" parent="Poses/Reburn" unique_id=1602171625]
+modulate = Color(0.999, 0.999, 0.999, 1)
+material = SubResource("ShaderMaterial_vyicb")
+position = Vector2(-88.15, -61.800003)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("27_1d7yt")
+centered = false
+
+[node name="ReburnPart28" type="Sprite2D" parent="Poses/Reburn" unique_id=673400277]
+modulate = Color(0.998, 0.998, 0.998, 1)
+material = SubResource("ShaderMaterial_l46ce")
+position = Vector2(-88.15, -61.800003)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("27_1d7yt")
+centered = false
+
+[node name="ReburnPart29" type="Sprite2D" parent="Poses/Reburn" unique_id=555731843]
+modulate = Color(1.002, 1.002, 1.002, 1)
+material = SubResource("ShaderMaterial_kvdix")
+position = Vector2(-88.15, -61.800003)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("27_1d7yt")
+centered = false
+
+[node name="ReburnPart30" type="Sprite2D" parent="Poses/Reburn" unique_id=992765044]
+modulate = Color(1.001, 1.001, 1.001, 1)
+material = SubResource("ShaderMaterial_gbibu")
+position = Vector2(-88.15, -61.800003)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("27_1d7yt")
+centered = false
+
+[node name="ReburnPart31" type="Sprite2D" parent="Poses/Reburn" unique_id=1102331720]
+position = Vector2(-88.15, -61.800003)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("27_1d7yt")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1548499902]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1617787986]
+shape = SubResource("RectangleShape2D_sx5nk")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=288213797]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=25584217]
+shape = SubResource("RectangleShape2D_h886a")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=918424619]
+callback_mode_process = 0
+libraries/ = ExtResource("29_smdjn")
