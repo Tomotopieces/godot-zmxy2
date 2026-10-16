@@ -1,0 +1,48 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/actors/actor_body.gd" id="1_8ci5u"]
+[ext_resource type="Texture2D" path="res://assets/rigs/fx_eyefix/tex/5_v7_3.png" id="2_2n1af"]
+[ext_resource type="AnimationLibrary" path="res://scenes/actors/fx_eyefix/fx_eyefix_actions.tres" id="3_a2awn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3dsbb"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5j06p"]
+resource_local_to_scene = true
+
+[node name="FxEyefix" type="Node2D" unique_id=465846024]
+script = ExtResource("1_8ci5u")
+actions = PackedStringArray("default")
+
+[node name="Poses" type="Node2D" parent="." unique_id=1090004666]
+
+[node name="Default" type="Node2D" parent="Poses" unique_id=1682232918]
+visible = false
+
+[node name="DefaultPart1" type="Sprite2D" parent="Poses/Default" unique_id=1824548826]
+position = Vector2(-46.3, -20.4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_2n1af")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=103882298]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1317640425]
+shape = SubResource("RectangleShape2D_3dsbb")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=697165601]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=741656255]
+shape = SubResource("RectangleShape2D_5j06p")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=443982515]
+callback_mode_process = 0
+libraries/ = ExtResource("3_a2awn")

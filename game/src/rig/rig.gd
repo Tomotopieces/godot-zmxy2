@@ -264,8 +264,10 @@ func hurt_rect() -> Rect2:
 static var _scenes := {}
 static var _loading := {}   ## rig name -> path being loaded in the background
 
+## The hand-editable scene (scenes/actors/<name>/<name>.tscn, an ActorBody) when it exists, else the generated rig.
 static func _path(rig_name: String) -> String:
-	return "res://assets/rigs/%s/%s.tscn" % [rig_name, rig_name]
+	var s := "res://scenes/actors/%s/%s.tscn" % [rig_name, rig_name]
+	return s if ResourceLoader.exists(s) else "res://assets/rigs/%s/%s.tscn" % [rig_name, rig_name]
 
 ## Rig scene by name, from res://assets/rigs/<name>/<name>.tscn (cached).
 static func scene(rig_name: String) -> PackedScene:

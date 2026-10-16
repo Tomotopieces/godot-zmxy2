@@ -1,0 +1,67 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/actors/actor_body.gd" id="1_3am0x"]
+[ext_resource type="Shader" path="res://src/rig/sprite_fx.gdshader" id="2_2cibg"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster47bullet1/tex/3_761.png" id="3_e4qr0"]
+[ext_resource type="AnimationLibrary" path="res://scenes/actors/monster47bullet1/monster47bullet1_actions.tres" id="4_qo7md"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0s5t1"]
+shader = ExtResource("2_2cibg")
+shader_parameter/matrix_on = true
+shader_parameter/color_matrix = Projection(-0.53830034, 0.4688859, -0.10367927, 0, 0.83822966, 0.5766095, 1.7186255, 0, 0.7000706, -0.04549542, -0.61494637, 0, 0, 0, 0, 1)
+shader_parameter/color_offset = Vector4(0.12549019, 0.1254902, 0.12549017, 0)
+shader_parameter/blur = null
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y00ry"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8bucm"]
+resource_local_to_scene = true
+
+[node name="Monster47Bullet1" type="Node2D" unique_id=1050072454]
+script = ExtResource("1_3am0x")
+actions = PackedStringArray("default")
+
+[node name="Poses" type="Node2D" parent="." unique_id=1022577810]
+
+[node name="Default" type="Node2D" parent="Poses" unique_id=66072726]
+visible = false
+
+[node name="DefaultPart1" type="Sprite2D" parent="Poses/Default" unique_id=555471134]
+material = SubResource("ShaderMaterial_0s5t1")
+position = Vector2(-16.5, -16.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_e4qr0")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1863735288]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1844989412]
+shape = SubResource("RectangleShape2D_y00ry")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=2034529870]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1750881818]
+shape = SubResource("RectangleShape2D_8bucm")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1641833401]
+callback_mode_process = 0
+libraries/ = ExtResource("4_qo7md")

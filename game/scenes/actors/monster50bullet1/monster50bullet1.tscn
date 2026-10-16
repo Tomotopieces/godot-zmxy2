@@ -1,0 +1,48 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/actors/actor_body.gd" id="1_fx0yf"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster50bullet1/tex/4_63.png" id="2_xk6d7"]
+[ext_resource type="AnimationLibrary" path="res://scenes/actors/monster50bullet1/monster50bullet1_actions.tres" id="3_6ka2p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bbdmi"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_11gxp"]
+resource_local_to_scene = true
+
+[node name="Monster50Bullet1" type="Node2D" unique_id=714357696]
+script = ExtResource("1_fx0yf")
+actions = PackedStringArray("default")
+
+[node name="Poses" type="Node2D" parent="." unique_id=1173407981]
+
+[node name="Default" type="Node2D" parent="Poses" unique_id=689902134]
+visible = false
+
+[node name="DefaultPart1" type="Sprite2D" parent="Poses/Default" unique_id=1595731381]
+position = Vector2(-30.7, -31.45)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_xk6d7")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=902364272]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=742462201]
+shape = SubResource("RectangleShape2D_bbdmi")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=722277987]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1822567095]
+shape = SubResource("RectangleShape2D_11gxp")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1316229481]
+callback_mode_process = 0
+libraries/ = ExtResource("3_6ka2p")

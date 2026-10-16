@@ -1,0 +1,52 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/actors/actor_body.gd" id="1_xbh4e"]
+[ext_resource type="Texture2D" path="res://assets/rigs/baigu_door/tex/zmxy2_game_316.png" id="2_bdn52"]
+[ext_resource type="AnimationLibrary" path="res://scenes/actors/baigu_door/baigu_door_actions.tres" id="3_rv8h7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b0blp"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uwsb3"]
+resource_local_to_scene = true
+
+[node name="BaiguDoor" type="Node2D" unique_id=1548092389]
+script = ExtResource("1_xbh4e")
+actions = PackedStringArray("default")
+markers = {
+"isBaiguDoor": Vector2(-32.05, 14)
+}
+
+[node name="Poses" type="Node2D" parent="." unique_id=1652476846]
+
+[node name="Default" type="Node2D" parent="Poses" unique_id=1565775751]
+visible = false
+
+[node name="DefaultPart1" type="Sprite2D" parent="Poses/Default" unique_id=1499642822]
+position = Vector2(-533, -173.1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_bdn52")
+centered = false
+region_enabled = true
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=545167703]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=70426044]
+shape = SubResource("RectangleShape2D_b0blp")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=2117379156]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1349262310]
+shape = SubResource("RectangleShape2D_uwsb3")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=66793453]
+callback_mode_process = 0
+libraries/ = ExtResource("3_rv8h7")

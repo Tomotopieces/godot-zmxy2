@@ -1,0 +1,53 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/actors/actor_body.gd" id="1_tfdik"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster61bullet1/tex/8_136.png" id="2_ucryu"]
+[ext_resource type="AnimationLibrary" path="res://scenes/actors/monster61bullet1/monster61bullet1_actions.tres" id="3_usndv"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ssqt1"]
+blend_mode = 1
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xxpl8"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qjoln"]
+resource_local_to_scene = true
+
+[node name="Monster61Bullet1" type="Node2D" unique_id=1933395126]
+script = ExtResource("1_tfdik")
+actions = PackedStringArray("default")
+
+[node name="Poses" type="Node2D" parent="." unique_id=859545042]
+
+[node name="Default" type="Node2D" parent="Poses" unique_id=743261849]
+visible = false
+
+[node name="DefaultPart1" type="Sprite2D" parent="Poses/Default" unique_id=5719749]
+material = SubResource("CanvasItemMaterial_ssqt1")
+position = Vector2(-39.65, -358.65)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_ucryu")
+centered = false
+region_enabled = true
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=2118142932]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1188178306]
+shape = SubResource("RectangleShape2D_xxpl8")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=674357222]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=938454310]
+shape = SubResource("RectangleShape2D_qjoln")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1620988418]
+callback_mode_process = 0
+libraries/ = ExtResource("3_usndv")

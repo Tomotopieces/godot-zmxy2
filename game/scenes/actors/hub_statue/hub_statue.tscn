@@ -1,0 +1,47 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/actors/actor_body.gd" id="1_gnu3r"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/zmxy2_game_356.png" id="2_3y4ic"]
+[ext_resource type="AnimationLibrary" path="res://scenes/actors/hub_statue/hub_statue_actions.tres" id="3_hwali"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o0esf"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4jl4a"]
+resource_local_to_scene = true
+
+[node name="HubStatue" type="Node2D" unique_id=543692346]
+script = ExtResource("1_gnu3r")
+actions = PackedStringArray("default")
+
+[node name="Poses" type="Node2D" parent="." unique_id=735694228]
+
+[node name="Default" type="Node2D" parent="Poses" unique_id=95649749]
+visible = false
+
+[node name="DefaultPart1" type="Sprite2D" parent="Poses/Default" unique_id=1706948192]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_3y4ic")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=179466510]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1789918644]
+shape = SubResource("RectangleShape2D_o0esf")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=735884334]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=399486075]
+shape = SubResource("RectangleShape2D_4jl4a")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1834543028]
+callback_mode_process = 0
+libraries/ = ExtResource("3_hwali")

@@ -1,0 +1,49 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/actors/actor_body.gd" id="1_7mdva"]
+[ext_resource type="Texture2D" path="res://assets/rigs/fx_stun/tex/Common_v7_497.png" id="2_3gxmu"]
+[ext_resource type="AnimationLibrary" path="res://scenes/actors/fx_stun/fx_stun_actions.tres" id="3_mmvdr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jgvrc"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_16fom"]
+resource_local_to_scene = true
+
+[node name="FxStun" type="Node2D" unique_id=185350872]
+script = ExtResource("1_7mdva")
+actions = PackedStringArray("default")
+
+[node name="Poses" type="Node2D" parent="." unique_id=382403847]
+
+[node name="Default" type="Node2D" parent="Poses" unique_id=947687624]
+visible = false
+
+[node name="DefaultPart1" type="Sprite2D" parent="Poses/Default" unique_id=1442397341]
+position = Vector2(-45.782, -51.007)
+scale = Vector2(0.2495, 0.2495)
+texture = ExtResource("2_3gxmu")
+centered = false
+region_enabled = true
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1327096755]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1789218770]
+shape = SubResource("RectangleShape2D_jgvrc")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=2060982989]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1981692499]
+shape = SubResource("RectangleShape2D_16fom")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=207755617]
+callback_mode_process = 0
+libraries/ = ExtResource("3_mmvdr")

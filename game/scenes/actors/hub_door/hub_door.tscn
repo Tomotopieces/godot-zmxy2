@@ -1,0 +1,54 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/actors/actor_body.gd" id="1_rw6ff"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/zmxy2_game_373.png" id="2_nganh"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/zmxy2_game_375.png" id="3_b8cru"]
+[ext_resource type="AnimationLibrary" path="res://scenes/actors/hub_door/hub_door_actions.tres" id="4_as477"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c4cdu"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_up4iw"]
+resource_local_to_scene = true
+
+[node name="HubDoor" type="Node2D" unique_id=1709246578]
+script = ExtResource("1_rw6ff")
+actions = PackedStringArray("default")
+
+[node name="Poses" type="Node2D" parent="." unique_id=1895408191]
+
+[node name="Default" type="Node2D" parent="Poses" unique_id=52127797]
+visible = false
+
+[node name="DefaultPart1" type="Sprite2D" parent="Poses/Default" unique_id=623816909]
+position = Vector2(-22.05, -4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_nganh")
+centered = false
+
+[node name="DefaultPart2" type="Sprite2D" parent="Poses/Default" unique_id=1505645526]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_b8cru")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=917819584]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1659325393]
+shape = SubResource("RectangleShape2D_c4cdu")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=400166271]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1996289039]
+shape = SubResource("RectangleShape2D_up4iw")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1454136170]
+callback_mode_process = 0
+libraries/ = ExtResource("4_as477")

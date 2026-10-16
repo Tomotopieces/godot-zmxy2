@@ -1,0 +1,48 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/actors/actor_body.gd" id="1_2v0ru"]
+[ext_resource type="Texture2D" path="res://assets/rigs/fx_monster_hurt1/tex/Role_v6_715.png" id="2_x0bct"]
+[ext_resource type="AnimationLibrary" path="res://scenes/actors/fx_monster_hurt1/fx_monster_hurt1_actions.tres" id="3_07nxb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qd6d3"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vxta0"]
+resource_local_to_scene = true
+
+[node name="FxMonsterHurt1" type="Node2D" unique_id=1421512855]
+script = ExtResource("1_2v0ru")
+actions = PackedStringArray("default")
+
+[node name="Poses" type="Node2D" parent="." unique_id=1560020166]
+
+[node name="Default" type="Node2D" parent="Poses" unique_id=638072370]
+visible = false
+
+[node name="DefaultPart1" type="Sprite2D" parent="Poses/Default" unique_id=101964476]
+position = Vector2(-79.5, -47.35)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_x0bct")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=199062857]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1342296543]
+shape = SubResource("RectangleShape2D_qd6d3")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1502410725]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1411182260]
+shape = SubResource("RectangleShape2D_vxta0")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1969612997]
+callback_mode_process = 0
+libraries/ = ExtResource("3_07nxb")

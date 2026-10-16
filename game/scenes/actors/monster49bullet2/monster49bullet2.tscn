@@ -1,0 +1,74 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/actors/actor_body.gd" id="1_px1g7"]
+[ext_resource type="Shader" path="res://src/rig/sprite_fx.gdshader" id="2_pvthb"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/3_480.png" id="3_h2mhk"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/3_7.png" id="4_b3euv"]
+[ext_resource type="AnimationLibrary" path="res://scenes/actors/monster49bullet2/monster49bullet2_actions.tres" id="5_bre7o"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_savu2"]
+shader = ExtResource("2_pvthb")
+shader_parameter/matrix_on = true
+shader_parameter/color_matrix = Projection(1.0250307, -0.021595743, 0.13989708, 0, 0.13502093, 0.97135943, -0.11329599, 0, -0.16005167, 0.05023628, 0.9733989, 0, 0, 0, 0, 1)
+shader_parameter/color_offset = Vector4(0, 0, 0, 0)
+shader_parameter/blur = null
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ohabt"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ob2dj"]
+resource_local_to_scene = true
+
+[node name="Monster49Bullet2" type="Node2D" unique_id=925027009]
+script = ExtResource("1_px1g7")
+actions = PackedStringArray("default")
+
+[node name="Poses" type="Node2D" parent="." unique_id=508218007]
+
+[node name="Default" type="Node2D" parent="Poses" unique_id=1925606235]
+visible = false
+
+[node name="DefaultPart1" type="Sprite2D" parent="Poses/Default" unique_id=2115301875]
+material = SubResource("ShaderMaterial_savu2")
+position = Vector2(-53.749996, -30.4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_h2mhk")
+centered = false
+
+[node name="DefaultPart2" type="Sprite2D" parent="Poses/Default" unique_id=1844147829]
+position = Vector2(-44.85, -19.494999)
+scale = Vector2(0.45, 0.6665)
+texture = ExtResource("4_b3euv")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1147328440]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1614282938]
+shape = SubResource("RectangleShape2D_ohabt")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=2053394394]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1727624905]
+shape = SubResource("RectangleShape2D_ob2dj")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1854733324]
+callback_mode_process = 0
+libraries/ = ExtResource("5_bre7o")
