@@ -71,6 +71,8 @@ func ev_set_vx_forward(v: float) -> void: _emit(&"set_vx_forward", [v])
 func ev_scale_vx(f: float) -> void: _emit(&"scale_vx", [f])
 func ev_call(fn: String, a1 = null, a2 = null) -> void: _emit(&"call", [fn] + _rest(a1, a2))
 func ev_grounded_call(fn: String, a1 = null, a2 = null) -> void: _emit(&"grounded_call", [fn] + _rest(a1, a2))
+func ev_boss_dead_fx() -> void: _emit(&"boss_dead_fx", [])
+func ev_shake(v: float) -> void: _emit(&"shake", [v])
 
 func _rest(a1, a2) -> Array:
 	var r := []
