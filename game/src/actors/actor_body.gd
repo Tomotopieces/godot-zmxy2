@@ -43,10 +43,24 @@ func play(a: StringName, restart := false) -> void:
 			if m.begins_with("ev_"):
 				event.emit(StringName(m.substr(3)), an.method_track_get_params(tr, k))
 
+## Emit only events whose key really sits at the current moment: keys at time 0 are emitted by play(), and the
+## AnimationPlayer also fires the nearest earlier key of every method track after a seek (seek_to_event): those are dropped.
 func _emit(n: StringName, args: Array) -> void:
-	if anim.current_animation_position <= 0.0:   # time-0 keys are emitted by play()
+	var pos := anim.current_animation_position
+	var an := anim.get_animation(action)
+	if an == null:
 		return
-	event.emit(n, args)
+	var want := StringName("ev_" + String(n))
+	for tr in an.get_track_count():
+		if an.track_get_type(tr) != Animation.TYPE_METHOD:
+			continue
+		for k in an.track_get_key_count(tr):
+			var t := an.track_get_key_time(tr, k)
+			if t > pos + 0.0001:
+				break
+			if t > 0.0001 and pos - t <= 0.1 and an.method_track_get_name(tr, k) == want and an.method_track_get_params(tr, k) == args:
+				event.emit(n, args)
+				return
 
 func ev_finished() -> void: _emit(&"finished", [])
 func ev_new_hit() -> void: _emit(&"new_hit", [])
