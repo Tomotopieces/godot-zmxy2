@@ -44,6 +44,7 @@ var _moon_glow: Sprite2D
 var _lit := {}          ## instance ids of the actors already given the stage's body light
 var _shadows := {}      ## instance id of an actor -> {holder, rig, mat, sig, floor_y}
 var _stars: Array = []      ## [star Sprite2D, phase, speed, alpha]
+var _motes_back: CPUParticles2D   ## the motes drawn behind the scenery ("back" share)
 var _motes: CPUParticles2D   ## the motes' emitter: it follows the view, the motes it lets go do not
 var _glows: Array = []      ## [glow Sprite2D, its entry of "glows", phase] - lights hung on pictures of the scene
 var _lamps: Array[Sprite2D] = []   ## the hall's lamps: additive glows that waver (one per "lamps" entry)
@@ -298,26 +299,27 @@ static var _ash_tex: ImageTexture
 static var _round_tex := {}
 
 ## Mote pictures: "square" (4 px, scaled), "dot" (a soft round dot, 16 px), "bubble" (a thin ring with a bright spot, 16 px).
-static func mote_texture(shape: String) -> Texture2D:
+static func mote_texture(shape: String, ring := 0.2) -> Texture2D:
 	if shape == "square":
 		return ash_texture()
-	if not _round_tex.has(shape):
-		var n := 16
+	var key := shape + str(ring)
+	if not _round_tex.has(key):
+		var n := 32
 		var img := Image.create_empty(n, n, false, Image.FORMAT_RGBA8)
 		for y in n:
 			for x in n:
 				var d := Vector2(x + 0.5 - n / 2.0, y + 0.5 - n / 2.0).length() / (n / 2.0)
 				var a := 0.0
 				if shape == "bubble":
-					a = clampf(1.0 - absf(d - 0.78) / 0.2, 0.0, 1.0) + 0.3 * clampf(1.0 - d, 0.0, 1.0)
+					a = clampf(1.0 - absf(d - (0.96 - ring)) / ring, 0.0, 1.0) * 0.85 + 0.12 * clampf(1.0 - d, 0.0, 1.0)
 					var spot := Vector2(x + 0.5 - n * 0.33, y + 0.5 - n * 0.33).length() / (n * 0.12)
 					a = maxf(a, clampf(1.0 - spot, 0.0, 1.0))
 				else:
 					a = clampf(1.0 - d, 0.0, 1.0)
 					a *= a
 				img.set_pixel(x, y, Color(1, 1, 1, clampf(a, 0.0, 1.0)))
-		_round_tex[shape] = ImageTexture.create_from_image(img)
-	return _round_tex[shape]
+		_round_tex[key] = ImageTexture.create_from_image(img)
+	return _round_tex[key]
 
 static func ash_texture() -> ImageTexture:
 	if _ash_tex == null:   # a 4x4 white square: a flake's own size is its scale (px = 4 * scale)
@@ -345,7 +347,7 @@ func _build_stars() -> void:
 		var s := Sprite2D.new()
 		s.texture = tex
 		s.position = Vector2(float(ar[0]) + rng.randf() * float(ar[2]), float(ar[1]) + rng.randf() * float(ar[3]))
-		s.scale = Vector2.ONE * rng.randf_range(float(st.size[0]), float(st.size[1])) / 16.0
+		s.scale = Vector2.ONE * rng.randf_range(float(st.size[0]), float(st.size[1])) / 32.0
 		s.modulate = Color(_color(st.color), float(st.alpha))
 		var add := CanvasItemMaterial.new()
 		add.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
@@ -435,10 +437,10 @@ func _build_ash() -> void:
 	p.initial_velocity_max = float(a.speed[1])
 	p.scale_amount_min = float(a.size[0]) / 4.0
 	p.scale_amount_max = float(a.size[1]) / 4.0
-	p.texture = mote_texture(String(a.get("shape", "square")))
+	p.texture = mote_texture(String(a.get("shape", "square")), float(a.get("ring", 0.2)))
 	if a.get("shape", "square") != "square":
-		p.scale_amount_min = float(a.size[0]) / 16.0   # the round textures are 16 px wide
-		p.scale_amount_max = float(a.size[1]) / 16.0
+		p.scale_amount_min = float(a.size[0]) / 32.0   # the round textures are 32 px wide
+		p.scale_amount_max = float(a.size[1]) / 32.0
 		if a.get("glow", false):
 			var add := CanvasItemMaterial.new()   # light that adds to what is behind (bubbles, dust glinting)
 			add.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
@@ -470,6 +472,24 @@ func _build_ash() -> void:
 		p.set_meta(&"base_dir", p.direction)
 	_lv.world.add_child(p)
 	_motes = p
+	var back := float(a.get("back", 0.0))
+	if back > 0.0:
+		# a share of them float in the background: over the painted scenery but behind every actor; smaller, dimmer, slower
+		var b := p.duplicate() as CPUParticles2D
+		b.name = "MotesBack"
+		var total := p.amount
+		b.amount = maxi(1, roundi(total * back))
+		p.amount = maxi(1, total - b.amount)
+		b.z_index = Layers.Z_ART + 1
+		b.scale_amount_min *= 0.6
+		b.scale_amount_max *= 0.6
+		b.initial_velocity_min *= 0.6
+		b.initial_velocity_max *= 0.6
+		b.color = Color(p.color, p.color.a * 0.55)
+		for k in p.get_meta_list():
+			b.set_meta(k, p.get_meta(k))
+		_lv.world.add_child(b)
+		_motes_back = b
 
 ## Lightning: now and then the screen flashes (a quick double or triple flicker) and a bolt shows in the sky.
 func _build_lightning() -> void:
@@ -592,17 +612,11 @@ func _physics_process(delta: float) -> void:
 			_shafts[i].modulate.a = 0.55 + 0.45 * sin(_t * (0.35 + 0.11 * i) + 1.7 * i)
 		_moon_glow.modulate.a = 0.26 + 0.05 * sin(_t * 0.6)
 	for e in _stars:
-		e[0].modulate.a = float(e[3]) * (0.55 + 0.45 * sin(_t * float(e[2]) + float(e[1])))
-	if _motes != null:
-		_motes.global_position = vr.get_center()
-		if _motes.has_meta(&"rise_y"):
-			_motes.global_position.y = vr.position.y + float(_motes.get_meta(&"rise_y"))
-		if _motes.has_meta(&"base_dir"):
-			# swing the emission direction (and the motes' sideways drift with it) slowly to and fro
-			var w := float(_motes.get_meta(&"wobble"))
-			_motes.direction = Vector2(sin(_t * float(_motes.get_meta(&"wobble_speed"))) * w, -1.0).normalized()
-			_motes.tangential_accel_min = -w * 30.0
-			_motes.tangential_accel_max = w * 30.0
+		var tw := 0.5 + 0.5 * sin(_t * float(e[2]) + float(e[1]))
+		e[0].modulate.a = float(e[3]) * (0.12 + 0.88 * tw * tw)   # deep twinkle: a star nearly goes out, then flares
+	for mo in [_motes, _motes_back]:
+		if mo != null:
+			_follow_motes(mo, vr)
 	if _rain_mat != null:
 		_rain_mat.set_shader_parameter("scroll", vr.position.x)   # the rain stays where it is in the world
 	if _flash != null:
@@ -674,6 +688,17 @@ func _update_actor(a: Actor) -> void:
 	var high := clampf(1.0 - (floor_y - feet_y) / 280.0, 0.25, 1.0)
 	(e.mat as ShaderMaterial).set_shader_parameter("shadow_color", Color(0.02, 0.03, 0.08, float(sh.alpha) * high * fade))
 	(e.mat as ShaderMaterial).set_shader_parameter("blur", float(sh.blur))
+
+## The motes' emitter goes with the view (the motes it lets go stay in the world); bubbles' emission swings to and fro.
+func _follow_motes(mo: CPUParticles2D, vr: Rect2) -> void:
+	mo.global_position = vr.get_center()
+	if mo.has_meta(&"rise_y"):
+		mo.global_position.y = vr.position.y + float(mo.get_meta(&"rise_y"))
+	if mo.has_meta(&"base_dir"):
+		var w := float(mo.get_meta(&"wobble"))
+		mo.direction = Vector2(sin(_t * float(mo.get_meta(&"wobble_speed"))) * w, -1.0).normalized()
+		mo.tangential_accel_min = -w * 30.0
+		mo.tangential_accel_max = w * 30.0
 
 ## A part drawn as light (additive blending) is not a solid thing: it casts no shadow.
 static func _is_light(m: Material) -> bool:
