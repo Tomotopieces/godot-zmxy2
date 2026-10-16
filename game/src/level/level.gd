@@ -638,7 +638,7 @@ func _lock_room() -> void:
 ## The camera never moves faster than this (the original follows at the hero's own speed): when a room opens the
 ## screen glides on instead of jumping to the hero.
 const CAMERA_MAX_SPEED := 720.0
-const CAMERA_SMOOTHING := 8.0   ## how fast the camera eases to its target (per second; higher = tighter)
+const CAMERA_SMOOTHING := 4.0   ## how fast the camera eases to its target (per second; higher = tighter)
 
 func _update_camera(delta: float) -> void:
 	if fixed_camera:

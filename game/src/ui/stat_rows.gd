@@ -15,7 +15,7 @@ const BOX_H := 20.0
 const GAP := 6.0
 const CAPTION_SIZE := 14
 const CAPTION_COLOR := Color("f3e3b0")
-const BOX_BG := Color(0, 0, 0, 0.55)
+const BOX_BG := Color(0, 0, 0, 0)
 const BOX_BORDER := Color("c9a45a")
 
 ## The box frame: black, 55% opaque, thin gold border, 3 px corners.

@@ -15,7 +15,8 @@ extends Node
 ##    a spray of small squares over everything);
 ##  - lights hung on pieces of the scene ("glows": a glow on every picture under a node, at a point of that picture's own
 ##    texture, so each style of lamp lights from its own flame and the glow moves with it: parallax layers, the boat);
-##  - flames that sway ("sway": every picture under a node rocks slowly about the middle of its bottom edge);
+##  - flames that waver like smoke ("sway": every picture under a node is bent by slow ripples growing towards its top
+##    and breathes a little wider and narrower - wisp.gdshader);
 ##  - a stage may take another stage's look as its base ("use": that stage's name): every other entry of its own file is
 ##    copied over it (shallow), so only what differs from that look has to be written.
 ## Draw order: far layer (-2), the moonlight layer (-1), world, the mist layer (1), the grade layer (2), the HUD (3).
@@ -23,6 +24,7 @@ extends Node
 const FOG := preload("res://src/level/fog.gdshader")
 const GRADE := preload("res://src/level/grade.gdshader")
 const CAST := preload("res://src/level/cast_shadow.gdshader")
+const WISP := preload("res://src/level/wisp.gdshader")
 const ART := preload("res://src/level/art_look.gdshader")
 const RAIN := preload("res://src/level/rain.gdshader")
 
@@ -36,10 +38,10 @@ var _fog_front_mat: ShaderMaterial
 var _moon: Node2D
 var _shafts: Array[Polygon2D] = []
 var _moon_glow: Sprite2D
+var _lit := {}          ## instance ids of the actors already given the stage's body light
 var _shadows := {}      ## instance id of an actor -> {holder, rig, mat, sig, floor_y}
 var _motes: CPUParticles2D   ## the motes' emitter: it follows the view, the motes it lets go do not
 var _glows: Array = []      ## [glow Sprite2D, its entry of "glows", phase] - lights hung on pictures of the scene
-var _swayers: Array = []    ## [picture, its entry of "sway", phase, rest rotation]
 var _lamps: Array[Sprite2D] = []   ## the hall's lamps: additive glows that waver (one per "lamps" entry)
 var _t := 0.0
 var _treasure_rig: Rig
@@ -334,20 +336,23 @@ func _build_glows() -> void:
 			_glows.append([s, g, float(i) * 1.7])
 			i += 1
 
-## Flames that rock: each picture turns slowly about the middle of its bottom edge ("deg" each way, "speed" swings per
-## second), every one at its own phase.
+## Flames that waver like smoke: each picture gets its own wisp material ("warp": sideways bend at the top as a share of
+## its width, "stretch": breathing in width, "speed": ripples per second), every one at its own phase.
 func _build_sway() -> void:
 	if not _cfg.has("sway"):
 		return
 	var i := 0
 	for w: Dictionary in _cfg.sway:
 		for p: Sprite2D in _pictures(String(w.node)):
-			# move the pivot to the bottom middle without moving the picture
+			var m := ShaderMaterial.new()
+			m.shader = WISP
+			m.set_shader_parameter("warp", float(w.warp))
+			m.set_shader_parameter("stretch", float(w.stretch))
+			m.set_shader_parameter("speed", float(w.speed))
+			m.set_shader_parameter("phase", float(i) * 2.3)
 			var sz := _picture_size(p)
-			var pivot := Vector2(sz.x / 2.0, sz.y) if not p.centered else Vector2(0.0, sz.y / 2.0)
-			p.offset -= pivot
-			p.position += p.transform.basis_xform(pivot)
-			_swayers.append([p, w, float(i) * 2.3, p.rotation])
+			m.set_shader_parameter("pivot_x", (sz.x / 2.0 if not p.centered else 0.0) + p.offset.x)
+			p.material = m
 			i += 1
 
 ## Motes floating in the hall's air ("ash"): each drifts slowly in its own random direction for a short while and
@@ -495,9 +500,6 @@ func _physics_process(delta: float) -> void:
 		var f := float(g.get("flicker", 0.0))
 		var tt: float = _t * float(g.get("flicker_speed", 1.0)) + e[2]
 		e[0].modulate.a = float(g.alpha) * (1.0 - f * 0.5 + f * 0.5 * sin(tt * 5.0) * sin(tt * 2.3 + 1.1))
-	for e in _swayers:
-		var w: Dictionary = e[1]
-		e[0].rotation = e[3] + deg_to_rad(float(w.deg)) * sin(_t * TAU * float(w.speed) + e[2]) * (0.7 + 0.3 * sin(_t * 0.9 + e[2] * 1.3))
 	for i in _lamps.size():
 		var l: Dictionary = _cfg.lamps[i]
 		var f := float(l.flicker)
@@ -529,6 +531,9 @@ func _physics_process(delta: float) -> void:
 		var b: Dictionary = _cfg.body
 		var mid := _color(b.shade).lerp(_color(b.lit), 0.5)
 		_treasure_rig.set_light(mid, mid, float(b.height), float(b.rim_strength), float(b.rim_width))
+	for id in _lit.keys():
+		if not seen.has(id):
+			_lit.erase(id)
 	for id in _shadows.keys():
 		if not seen.has(id):
 			(_shadows[id].holder as Node2D).queue_free()
@@ -538,8 +543,12 @@ func _update_actor(a: Actor) -> void:
 	var rig: Rig = a.rig
 	var id := a.get_instance_id()
 	var b: Dictionary = _cfg.body
-	if not _shadows.has(id):
+	if not _lit.has(id):
+		_lit[id] = true
 		rig.set_light(_color(b.shade), _color(b.lit), float(b.height), float(b.rim_strength), float(b.rim_width))
+	if not _cfg.has("shadow"):
+		return   # a stage without cast shadows (3-1: the floor is water)
+	if not _shadows.has(id):
 		_shadows[id] = _make_shadow(a)
 	# an actor's origin is not at its feet: the feet are the bottom of its body shape
 	var feet_off := a.body_shape.position.y + (a.body_shape.shape as RectangleShape2D).size.y / 2.0
@@ -551,7 +560,9 @@ func _update_actor(a: Actor) -> void:
 		e.floor_y = feet_y
 	var holder: Node2D = e.holder
 	var srig: Rig = e.rig
-	var shown := a.is_visible_in_tree() and rig.is_visible_in_tree()
+	# an actor that has faded (夜叉 turning invisible) takes its shadow with it
+	var fade := a.modulate.a * rig.modulate.a
+	var shown := a.is_visible_in_tree() and rig.is_visible_in_tree() and fade > 0.01
 	holder.visible = shown
 	if not shown:
 		return
@@ -564,7 +575,7 @@ func _update_actor(a: Actor) -> void:
 		for sp: Sprite2D in srig.find_children("*", "Sprite2D", true, false):
 			sp.material = e.mat
 	var high := clampf(1.0 - (floor_y - feet_y) / 280.0, 0.25, 1.0)
-	(e.mat as ShaderMaterial).set_shader_parameter("shadow_color", Color(0.02, 0.03, 0.08, float(sh.alpha) * high))
+	(e.mat as ShaderMaterial).set_shader_parameter("shadow_color", Color(0.02, 0.03, 0.08, float(sh.alpha) * high * fade))
 	(e.mat as ShaderMaterial).set_shader_parameter("blur", float(sh.blur))
 
 func _make_shadow(a: Actor) -> Dictionary:
