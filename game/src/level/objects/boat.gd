@@ -26,6 +26,7 @@ func _ready() -> void:
 	sync_to_physics = false             # moved directly in the physics step
 	process_physics_priority = 5        # after the level and the actors, as the stage script used to be
 	z_index = Layers.Z_PICKUP           # drawn over whoever stands on it (its rail and water cover their feet)
+	add_to_group(&"lit_scenery")   # the hull is scenery under the stage's light
 
 ## Half of the deck's width.
 func half_width() -> float:
