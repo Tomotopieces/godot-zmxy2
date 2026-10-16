@@ -1,13 +1,20 @@
 extends Node
-## Press a skill and log the hero state every physics tick: godot ... -- <keys comma separated> [air]
+## Press a skill and log the hero state every physics tick: godot ... -- <keys comma separated> [air] [role=<name>]
 var _t := 0.0
 var _keys: PackedStringArray
 var _air := false
 func _ready() -> void:
 	var a := OS.get_cmdline_user_args()
-	_keys = a[0].split(",")
-	_air = a.size() > 1 and a[1] == "air"
-	GameState.new_game()
+	var role := "wukong"
+	var rest := PackedStringArray()
+	for arg in a:
+		if arg.begins_with("role="):
+			role = arg.substr("role=".length())
+		else:
+			rest.append(arg)
+	_keys = rest[0].split(",")
+	_air = rest.size() > 1 and rest[1] == "air"
+	GameState.new_game(role)
 	for s in GameState.hero_data.learn_active:
 		GameState.skills[StringName(s)] = true
 	add_child(PlayScreen.create(Vector2i(1, 1)))

@@ -1,0 +1,2980 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/actors/actor_body.gd" id="1_du3dg"]
+[ext_resource type="Script" path="res://src/rig/equip_slot.gd" id="2_77546"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot116_2.tscn" id="3_i5oji"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot116_3.tscn" id="4_bssql"]
+[ext_resource type="Texture2D" path="res://assets/shared/mixed/3_494.png" id="5_fkbxp"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_944.png" id="6_kv4yi"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot862_1.tscn" id="7_d6vv4"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot862_3.tscn" id="8_q1mq8"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot862_4.tscn" id="9_v0h3x"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot862_5.tscn" id="10_buyyt"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot862_6.tscn" id="11_r5f41"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot862_7.tscn" id="12_o0o33"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot862_8.tscn" id="13_1wo7n"]
+[ext_resource type="Texture2D" path="res://assets/shared/mixed/3_498.png" id="14_1uw5m"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot866_2.tscn" id="15_k3e8k"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_999.png" id="16_fdobc"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_945.png" id="17_buiqv"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot951_2.tscn" id="18_nl3bj"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot907_3.tscn" id="19_vxoov"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot907_4.tscn" id="20_w7ll7"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot907_5.tscn" id="21_clj82"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot907_6.tscn" id="22_1d1ry"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot907_7.tscn" id="23_vd2fa"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot907_8.tscn" id="24_o1bxa"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot907_9.tscn" id="25_8abs2"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot907_10.tscn" id="26_dlov1"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot907_11.tscn" id="27_vd1wt"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot907_12.tscn" id="28_0xkuo"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot877_3.tscn" id="29_vll16"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot877_4.tscn" id="30_lbjgt"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot877_5.tscn" id="31_kdt8f"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot877_6.tscn" id="32_mi3n7"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot877_7.tscn" id="33_7s1v2"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot877_8.tscn" id="34_hmkth"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot877_9.tscn" id="35_e6t34"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot877_10.tscn" id="36_874kb"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot877_11.tscn" id="37_o2hyq"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot877_12.tscn" id="38_1g5gu"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot891_3.tscn" id="39_m8xgv"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot891_4.tscn" id="40_g6mw6"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot891_5.tscn" id="41_m0gk1"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot891_6.tscn" id="42_57pbe"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot891_7.tscn" id="43_q54pb"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot891_8.tscn" id="44_nybh1"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot891_9.tscn" id="45_jmqxt"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot891_10.tscn" id="46_fub06"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot891_11.tscn" id="47_84u4r"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot891_12.tscn" id="48_kftau"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot896_3.tscn" id="49_bt0wb"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot896_4.tscn" id="50_u0l5k"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot896_5.tscn" id="51_58036"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot896_6.tscn" id="52_7sl00"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot896_7.tscn" id="53_d5sls"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot896_10.tscn" id="54_o00ns"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot896_12.tscn" id="55_b1uir"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot997_3.tscn" id="56_m4yuy"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot997_4.tscn" id="57_166lg"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot997_5.tscn" id="58_ljm5i"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot997_6.tscn" id="59_wps1m"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot997_7.tscn" id="60_p8vlg"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot997_8.tscn" id="61_vgm8j"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot997_9.tscn" id="62_pqo3d"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot997_10.tscn" id="63_bofe4"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot997_11.tscn" id="64_j0f05"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot997_12.tscn" id="65_7eeyv"]
+[ext_resource type="Texture2D" path="res://assets/shared/mixed/Role_v6_1004.png" id="66_c6hwx"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot918_2.tscn" id="67_ekhut"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot918_3.tscn" id="68_tr2ke"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot918_4.tscn" id="69_vcxqg"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot918_5.tscn" id="70_mxmqx"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot918_6.tscn" id="71_swyis"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot918_7.tscn" id="72_txeop"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot918_9.tscn" id="73_rmefy"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot918_10.tscn" id="74_qvhn6"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot918_12.tscn" id="75_o3hpb"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/3_526.png" id="76_squgt"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_1006.png" id="77_x0puk"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/3_529.png" id="78_74hbj"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/3_527.png" id="79_wnlsy"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/3_532.png" id="80_pimdd"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/3_518.png" id="81_y7l4h"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1013_2.tscn" id="82_6w8vg"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_1022.png" id="83_58jby"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_1017.png" id="84_5jfds"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/3_525.png" id="85_klrga"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_1024.png" id="86_qrjx8"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1027_2.tscn" id="87_jv0kt"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1038_3.tscn" id="88_1r1la"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1038_4.tscn" id="89_1rs50"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1038_5.tscn" id="90_yq0et"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1038_6.tscn" id="91_k23pk"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1038_7.tscn" id="92_x4x6c"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1038_8.tscn" id="93_v36tt"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1038_9.tscn" id="94_j2tj6"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1038_10.tscn" id="95_qesxl"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1038_11.tscn" id="96_p86fq"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1038_12.tscn" id="97_7fvk7"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_1039.png" id="98_xje0y"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/3_535.png" id="99_621hr"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1050_2.tscn" id="100_yhhpv"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_1051.png" id="101_3nkci"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_1058.png" id="102_hl0uo"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_1059.png" id="103_mnc1e"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_1060.png" id="104_lo1mv"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_1052.png" id="105_5k0a7"]
+[ext_resource type="Shader" path="res://src/rig/sprite_fx.gdshader" id="106_jvg4u"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/3_564.png" id="107_nsb7l"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/3_549.png" id="108_0sdwu"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/3_558.png" id="109_c6hu0"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/3_578.png" id="110_a7p0g"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/3_550.png" id="111_a2fwa"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1069_2.tscn" id="112_p5ji6"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_1075.png" id="113_jqj4c"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/3_559.png" id="114_bd55w"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_1073.png" id="115_k31mh"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/3_557.png" id="116_ubvc3"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_1099.png" id="117_cx3jq"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1103_2.tscn" id="118_1g8pp"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_1104.png" id="119_xqluc"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1109_3.tscn" id="120_ea3cx"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1109_4.tscn" id="121_6arrd"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1109_5.tscn" id="122_eopnf"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1109_6.tscn" id="123_omwwo"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_1110.png" id="124_4w5mv"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_1124.png" id="125_g2juc"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1126_2.tscn" id="126_4geog"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/3_581.png" id="127_28lyt"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1097_2.tscn" id="128_88gcd"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1122_2.tscn" id="129_53og2"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_1127.png" id="130_krex1"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/3_487.png" id="131_k3i3m"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_1115.png" id="132_jvpsr"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/3_490.png" id="133_nseo1"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/3_598.png" id="134_awht2"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_1130.png" id="135_f5ph0"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1134_2.tscn" id="136_ymor3"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_1174.png" id="137_0nm5i"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1171_3.tscn" id="138_1ba7n"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1171_4.tscn" id="139_drvnf"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1171_5.tscn" id="140_urp24"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1171_6.tscn" id="141_0ps12"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1171_7.tscn" id="142_dh6d0"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1171_8.tscn" id="143_3yeb8"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1171_9.tscn" id="144_1cj12"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1171_10.tscn" id="145_smipm"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1171_11.tscn" id="146_fse4c"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1171_12.tscn" id="147_qtmcg"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_1172.png" id="148_vbywb"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/3_542.png" id="149_8rlmy"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_1055.png" id="150_3avio"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_1185.png" id="151_7jsk4"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_1056.png" id="152_wagk8"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_1189.png" id="153_nopwb"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_1190.png" id="154_7fjj0"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1193_2.tscn" id="155_2rv0u"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_1194.png" id="156_adav0"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_1196.png" id="157_hnrvs"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_1197.png" id="158_umshe"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1200_2.tscn" id="159_ivpgo"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_1201.png" id="160_pu1pw"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_1204.png" id="161_3qoah"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_1205.png" id="162_garo2"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1207_2.tscn" id="163_6l8kn"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_1208.png" id="164_v5s4t"]
+[ext_resource type="Texture2D" path="res://assets/rigs/tangseng/tex/Role_v6_1214.png" id="165_find7"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/3_621.png" id="166_xjshu"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/3_613.png" id="167_plb8r"]
+[ext_resource type="PackedScene" path="res://assets/rigs/tangseng/slots/slot1212_2.tscn" id="168_0b8xg"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/3_616.png" id="169_feq11"]
+[ext_resource type="AnimationLibrary" path="res://scenes/actors/tangseng/tangseng_actions.tres" id="170_taced"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_858ag"]
+shader = ExtResource("106_jvg4u")
+shader_parameter/matrix_on = true
+shader_parameter/color_matrix = Projection(-0.566087, 0.42087963, 0.45333612, 0, 1.4545176, 0.42528763, 1.4046113, 0, 0.111569434, 0.15383267, -0.8579474, 0, 0, 0, 0, 1)
+shader_parameter/color_offset = Vector4(0, 0, 0, 0)
+shader_parameter/blur = null
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p4rdk"]
+shader = ExtResource("106_jvg4u")
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = 3.0
+shader_parameter/glow_on = true
+shader_parameter/glow_color = Color(0, 0.8, 1, 1)
+shader_parameter/glow_blur = 13.0
+shader_parameter/glow_strength = 1.6679688
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 14.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nrap8"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s8snb"]
+resource_local_to_scene = true
+
+[node name="Tangseng" type="Node2D" unique_id=480453121]
+script = ExtResource("1_du3dg")
+actions = PackedStringArray("wait", "walk", "run", "hit1", "hit3", "hit4", "hit5", "hit2", "jump1", "jump2", "jump3", "hurt")
+markers = {
+"levelupmc": Vector2(3.55, 36.85)
+}
+
+[node name="Poses" type="Node2D" parent="." unique_id=856614702]
+
+[node name="Wait" type="Node2D" parent="Poses" unique_id=57513662]
+visible = false
+
+[node name="WaitSlot1" type="Node2D" parent="Poses/Wait" unique_id=1465132705]
+position = Vector2(-17.8, -77.45)
+rotation = -0.100166164
+scale = Vector2(1.0000125, 1.0000125)
+script = ExtResource("2_77546")
+kind = "wing"
+variants = {
+2: ExtResource("3_i5oji"),
+3: ExtResource("4_bssql")
+}
+
+[node name="WaitPart1" type="Sprite2D" parent="Poses/Wait" unique_id=505893611]
+position = Vector2(-14.65, -19)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_fkbxp")
+centered = false
+
+[node name="WaitPart2" type="Sprite2D" parent="Poses/Wait" unique_id=1151226461]
+position = Vector2(-23.55, -10.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_kv4yi")
+centered = false
+
+[node name="WaitSlot2" type="Node2D" parent="Poses/Wait" unique_id=1742682359]
+position = Vector2(-5.6, 15.7)
+script = ExtResource("2_77546")
+kind = "weapon"
+variants = {
+1: ExtResource("7_d6vv4"),
+3: ExtResource("8_q1mq8"),
+4: ExtResource("9_v0h3x"),
+5: ExtResource("10_buyyt"),
+6: ExtResource("11_r5f41"),
+7: ExtResource("12_o0o33"),
+8: ExtResource("13_1wo7n")
+}
+
+[node name="WaitPart3" type="Sprite2D" parent="Poses/Wait" unique_id=861990328]
+position = Vector2(-16.85, -26.699999)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("14_1uw5m")
+centered = false
+
+[node name="WaitSlot3" type="Node2D" parent="Poses/Wait" unique_id=609792223]
+position = Vector2(0.6, 7.75)
+script = ExtResource("2_77546")
+variants = {
+2: ExtResource("15_k3e8k")
+}
+
+[node name="WaitPart4" type="Sprite2D" parent="Poses/Wait" unique_id=1250224299]
+position = Vector2(-16.4, -17.4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("16_fdobc")
+centered = false
+
+[node name="WaitPart5" type="Sprite2D" parent="Poses/Wait" unique_id=1368345580]
+position = Vector2(-11.799999, -26.699999)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("17_buiqv")
+centered = false
+
+[node name="WaitSlot4" type="Node2D" parent="Poses/Wait" unique_id=1712094234]
+position = Vector2(1.85, 9.5)
+script = ExtResource("2_77546")
+variants = {
+2: ExtResource("18_nl3bj")
+}
+
+[node name="WaitSlot5" type="Node2D" parent="Poses/Wait" unique_id=885511035]
+position = Vector2(-8.6, -2.1)
+rotation = 1.419287
+scale = Vector2(1.000461, 1.000461)
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("19_vxoov"),
+4: ExtResource("20_w7ll7"),
+5: ExtResource("21_clj82"),
+6: ExtResource("22_1d1ry"),
+7: ExtResource("23_vd2fa"),
+8: ExtResource("24_o1bxa"),
+9: ExtResource("25_8abs2"),
+10: ExtResource("26_dlov1"),
+11: ExtResource("27_vd1wt"),
+12: ExtResource("28_0xkuo")
+}
+
+[node name="WaitSlot6" type="Node2D" parent="Poses/Wait" unique_id=582289179]
+position = Vector2(5.2, 26.4)
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("29_vll16"),
+4: ExtResource("30_lbjgt"),
+5: ExtResource("31_kdt8f"),
+6: ExtResource("32_mi3n7"),
+7: ExtResource("33_7s1v2"),
+8: ExtResource("34_hmkth"),
+9: ExtResource("35_e6t34"),
+10: ExtResource("36_874kb"),
+11: ExtResource("37_o2hyq"),
+12: ExtResource("38_1g5gu")
+}
+
+[node name="WaitSlot7" type="Node2D" parent="Poses/Wait" unique_id=1327690185]
+position = Vector2(3.5, 13.55)
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("39_m8xgv"),
+4: ExtResource("40_g6mw6"),
+5: ExtResource("41_m0gk1"),
+6: ExtResource("42_57pbe"),
+7: ExtResource("43_q54pb"),
+8: ExtResource("44_nybh1"),
+9: ExtResource("45_jmqxt"),
+10: ExtResource("46_fub06"),
+11: ExtResource("47_84u4r"),
+12: ExtResource("48_kftau")
+}
+
+[node name="WaitSlot8" type="Node2D" parent="Poses/Wait" unique_id=693659639]
+position = Vector2(3.65, 13.5)
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("49_bt0wb"),
+4: ExtResource("50_u0l5k"),
+5: ExtResource("51_58036"),
+6: ExtResource("52_7sl00"),
+7: ExtResource("53_d5sls"),
+10: ExtResource("54_o00ns"),
+12: ExtResource("55_b1uir")
+}
+
+[node name="WaitSlot9" type="Node2D" parent="Poses/Wait" unique_id=1782619293]
+position = Vector2(13.2, 1.25)
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("19_vxoov"),
+4: ExtResource("20_w7ll7"),
+5: ExtResource("21_clj82"),
+6: ExtResource("22_1d1ry"),
+7: ExtResource("23_vd2fa"),
+8: ExtResource("24_o1bxa"),
+9: ExtResource("25_8abs2"),
+10: ExtResource("26_dlov1"),
+11: ExtResource("27_vd1wt"),
+12: ExtResource("28_0xkuo")
+}
+
+[node name="WaitSlot10" type="Node2D" parent="Poses/Wait" unique_id=921312628]
+position = Vector2(3.65, -0.5)
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("56_m4yuy"),
+4: ExtResource("57_166lg"),
+5: ExtResource("58_ljm5i"),
+6: ExtResource("59_wps1m"),
+7: ExtResource("60_p8vlg"),
+8: ExtResource("61_vgm8j"),
+9: ExtResource("62_pqo3d"),
+10: ExtResource("63_bofe4"),
+11: ExtResource("64_j0f05"),
+12: ExtResource("65_7eeyv")
+}
+
+[node name="WaitPart6" type="Sprite2D" parent="Poses/Wait" unique_id=378350927]
+position = Vector2(-23.800001, -51.2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("66_c6hwx")
+centered = false
+
+[node name="WaitPart7" type="Sprite2D" parent="Poses/Wait" unique_id=1184150245]
+position = Vector2(-23.800001, -51.2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("66_c6hwx")
+centered = false
+
+[node name="WaitSlot11" type="Node2D" parent="Poses/Wait" unique_id=1050922904]
+position = Vector2(-3.35, -46.4)
+script = ExtResource("2_77546")
+variants = {
+2: ExtResource("67_ekhut"),
+3: ExtResource("68_tr2ke"),
+4: ExtResource("69_vcxqg"),
+5: ExtResource("70_mxmqx"),
+6: ExtResource("71_swyis"),
+7: ExtResource("72_txeop"),
+9: ExtResource("73_rmefy"),
+10: ExtResource("74_qvhn6"),
+12: ExtResource("75_o3hpb")
+}
+
+[node name="Walk" type="Node2D" parent="Poses" unique_id=473533987]
+visible = false
+
+[node name="WalkSlot1" type="Node2D" parent="Poses/Walk" unique_id=738994542]
+position = Vector2(-20.6, -82.35)
+rotation = -0.100166164
+scale = Vector2(1.0000125, 1.0000125)
+script = ExtResource("2_77546")
+kind = "wing"
+variants = {
+2: ExtResource("3_i5oji"),
+3: ExtResource("4_bssql")
+}
+
+[node name="WalkPart1" type="Sprite2D" parent="Poses/Walk" unique_id=1296564719]
+position = Vector2(-4.95, 30.45)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("76_squgt")
+centered = false
+
+[node name="WalkPart2" type="Sprite2D" parent="Poses/Walk" unique_id=2027098721]
+position = Vector2(-6.5, -16.1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("77_x0puk")
+centered = false
+
+[node name="WalkPart3" type="Sprite2D" parent="Poses/Walk" unique_id=1630493586]
+position = Vector2(-18.05, -28.95)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("78_74hbj")
+centered = false
+
+[node name="WalkSlot2" type="Node2D" parent="Poses/Walk" unique_id=278626566]
+position = Vector2(14.85, 10)
+rotation = -0.78469145
+scale = Vector2(1.0005563, 1.0005563)
+script = ExtResource("2_77546")
+kind = "weapon"
+variants = {
+1: ExtResource("7_d6vv4"),
+3: ExtResource("8_q1mq8"),
+4: ExtResource("9_v0h3x"),
+5: ExtResource("10_buyyt"),
+6: ExtResource("11_r5f41"),
+7: ExtResource("12_o0o33"),
+8: ExtResource("13_1wo7n")
+}
+
+[node name="WalkPart4" type="Sprite2D" parent="Poses/Walk" unique_id=1495288827]
+position = Vector2(-9.5, -16.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("79_wnlsy")
+centered = false
+
+[node name="WalkPart5" type="Sprite2D" parent="Poses/Walk" unique_id=1357895681]
+position = Vector2(-9.5, -17.7)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("80_pimdd")
+centered = false
+
+[node name="WalkPart6" type="Sprite2D" parent="Poses/Walk" unique_id=861320107]
+position = Vector2(-14.85, -28.95)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("81_y7l4h")
+centered = false
+
+[node name="WalkSlot3" type="Node2D" parent="Poses/Walk" unique_id=1551879599]
+position = Vector2(2.4, 9.1)
+script = ExtResource("2_77546")
+variants = {
+2: ExtResource("82_6w8vg")
+}
+
+[node name="WalkSlot4" type="Node2D" parent="Poses/Walk" unique_id=353677060]
+position = Vector2(2.7, 22.8)
+rotation = -0.11289658
+scale = Vector2(0.88765085, 1.14)
+skew = 0.11289656
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("29_vll16"),
+4: ExtResource("30_lbjgt"),
+5: ExtResource("31_kdt8f"),
+6: ExtResource("32_mi3n7"),
+7: ExtResource("33_7s1v2"),
+8: ExtResource("34_hmkth"),
+9: ExtResource("35_e6t34"),
+10: ExtResource("36_874kb"),
+11: ExtResource("37_o2hyq"),
+12: ExtResource("38_1g5gu")
+}
+
+[node name="WalkSlot5" type="Node2D" parent="Poses/Walk" unique_id=1548726123]
+position = Vector2(1.25, 9.75)
+scale = Vector2(0.906, 1)
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("39_m8xgv"),
+4: ExtResource("40_g6mw6"),
+5: ExtResource("41_m0gk1"),
+6: ExtResource("42_57pbe"),
+7: ExtResource("43_q54pb"),
+8: ExtResource("44_nybh1"),
+9: ExtResource("45_jmqxt"),
+10: ExtResource("46_fub06"),
+11: ExtResource("47_84u4r"),
+12: ExtResource("48_kftau")
+}
+
+[node name="WalkSlot6" type="Node2D" parent="Poses/Walk" unique_id=1989676634]
+position = Vector2(1.2, 10.35)
+scale = Vector2(0.899, 1)
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("49_bt0wb"),
+4: ExtResource("50_u0l5k"),
+5: ExtResource("51_58036"),
+6: ExtResource("52_7sl00"),
+7: ExtResource("53_d5sls"),
+10: ExtResource("54_o00ns"),
+12: ExtResource("55_b1uir")
+}
+
+[node name="WalkSlot7" type="Node2D" parent="Poses/Walk" unique_id=335784710]
+position = Vector2(-6.65, -0.55)
+rotation = 0.85962725
+scale = Vector2(0.8104548, 0.8104548)
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("19_vxoov"),
+4: ExtResource("20_w7ll7"),
+5: ExtResource("21_clj82"),
+6: ExtResource("22_1d1ry"),
+7: ExtResource("23_vd2fa"),
+8: ExtResource("24_o1bxa"),
+9: ExtResource("25_8abs2"),
+10: ExtResource("26_dlov1"),
+11: ExtResource("27_vd1wt"),
+12: ExtResource("28_0xkuo")
+}
+
+[node name="WalkSlot8" type="Node2D" parent="Poses/Walk" unique_id=1752830491]
+position = Vector2(2.7, 22.8)
+rotation = -0.11289658
+scale = Vector2(0.88765085, 1.14)
+skew = 0.11289656
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("29_vll16"),
+4: ExtResource("30_lbjgt"),
+5: ExtResource("31_kdt8f"),
+6: ExtResource("32_mi3n7"),
+7: ExtResource("33_7s1v2"),
+8: ExtResource("34_hmkth"),
+9: ExtResource("35_e6t34"),
+10: ExtResource("36_874kb"),
+11: ExtResource("37_o2hyq"),
+12: ExtResource("38_1g5gu")
+}
+
+[node name="WalkSlot9" type="Node2D" parent="Poses/Walk" unique_id=1364862584]
+position = Vector2(1.25, 9.75)
+scale = Vector2(0.906, 1)
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("39_m8xgv"),
+4: ExtResource("40_g6mw6"),
+5: ExtResource("41_m0gk1"),
+6: ExtResource("42_57pbe"),
+7: ExtResource("43_q54pb"),
+8: ExtResource("44_nybh1"),
+9: ExtResource("45_jmqxt"),
+10: ExtResource("46_fub06"),
+11: ExtResource("47_84u4r"),
+12: ExtResource("48_kftau")
+}
+
+[node name="WalkPart7" type="Sprite2D" parent="Poses/Walk" unique_id=1630550079]
+position = Vector2(-27.4, -50.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("83_58jby")
+centered = false
+
+[node name="WalkSlot10" type="Node2D" parent="Poses/Walk" unique_id=732997190]
+position = Vector2(1.2, 10.35)
+scale = Vector2(0.899, 1)
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("49_bt0wb"),
+4: ExtResource("50_u0l5k"),
+5: ExtResource("51_58036"),
+6: ExtResource("52_7sl00"),
+7: ExtResource("53_d5sls"),
+10: ExtResource("54_o00ns"),
+12: ExtResource("55_b1uir")
+}
+
+[node name="WalkSlot11" type="Node2D" parent="Poses/Walk" unique_id=659390735]
+position = Vector2(7.5, -1.55)
+rotation = -0.50477433
+scale = Vector2(0.79402834, 0.79402834)
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("19_vxoov"),
+4: ExtResource("20_w7ll7"),
+5: ExtResource("21_clj82"),
+6: ExtResource("22_1d1ry"),
+7: ExtResource("23_vd2fa"),
+8: ExtResource("24_o1bxa"),
+9: ExtResource("25_8abs2"),
+10: ExtResource("26_dlov1"),
+11: ExtResource("27_vd1wt"),
+12: ExtResource("28_0xkuo")
+}
+
+[node name="WalkSlot12" type="Node2D" parent="Poses/Walk" unique_id=370338884]
+position = Vector2(3.25, 24)
+rotation = -0.11289658
+scale = Vector2(0.88765085, 1.057)
+skew = 0.11289656
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("29_vll16"),
+4: ExtResource("30_lbjgt"),
+5: ExtResource("31_kdt8f"),
+6: ExtResource("32_mi3n7"),
+7: ExtResource("33_7s1v2"),
+8: ExtResource("34_hmkth"),
+9: ExtResource("35_e6t34"),
+10: ExtResource("36_874kb"),
+11: ExtResource("37_o2hyq"),
+12: ExtResource("38_1g5gu")
+}
+
+[node name="WalkSlot13" type="Node2D" parent="Poses/Walk" unique_id=5515761]
+position = Vector2(1.75, 10.15)
+scale = Vector2(0.906, 1)
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("39_m8xgv"),
+4: ExtResource("40_g6mw6"),
+5: ExtResource("41_m0gk1"),
+6: ExtResource("42_57pbe"),
+7: ExtResource("43_q54pb"),
+8: ExtResource("44_nybh1"),
+9: ExtResource("45_jmqxt"),
+10: ExtResource("46_fub06"),
+11: ExtResource("47_84u4r"),
+12: ExtResource("48_kftau")
+}
+
+[node name="WalkPart8" type="Sprite2D" parent="Poses/Walk" unique_id=2108676848]
+position = Vector2(-27.4, -50.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("84_5jfds")
+centered = false
+
+[node name="WalkSlot14" type="Node2D" parent="Poses/Walk" unique_id=2107739531]
+position = Vector2(1.7, 10.75)
+scale = Vector2(0.899, 1)
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("49_bt0wb"),
+4: ExtResource("50_u0l5k"),
+5: ExtResource("51_58036"),
+6: ExtResource("52_7sl00"),
+7: ExtResource("53_d5sls"),
+10: ExtResource("54_o00ns"),
+12: ExtResource("55_b1uir")
+}
+
+[node name="WalkSlot15" type="Node2D" parent="Poses/Walk" unique_id=40390955]
+position = Vector2(-2.4, -0.8)
+rotation = 0.81864846
+scale = Vector2(0.99969447, 0.99969447)
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("19_vxoov"),
+4: ExtResource("20_w7ll7"),
+5: ExtResource("21_clj82"),
+6: ExtResource("22_1d1ry"),
+7: ExtResource("23_vd2fa"),
+8: ExtResource("24_o1bxa"),
+9: ExtResource("25_8abs2"),
+10: ExtResource("26_dlov1"),
+11: ExtResource("27_vd1wt"),
+12: ExtResource("28_0xkuo")
+}
+
+[node name="WalkPart9" type="Sprite2D" parent="Poses/Walk" unique_id=1277678764]
+position = Vector2(-27.8, -50.2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("85_klrga")
+centered = false
+
+[node name="WalkSlot16" type="Node2D" parent="Poses/Walk" unique_id=1798881453]
+position = Vector2(-7.55, -45.3)
+script = ExtResource("2_77546")
+variants = {
+2: ExtResource("67_ekhut"),
+3: ExtResource("68_tr2ke"),
+4: ExtResource("69_vcxqg"),
+5: ExtResource("70_mxmqx"),
+6: ExtResource("71_swyis"),
+7: ExtResource("72_txeop"),
+9: ExtResource("73_rmefy"),
+10: ExtResource("74_qvhn6"),
+12: ExtResource("75_o3hpb")
+}
+
+[node name="Run" type="Node2D" parent="Poses" unique_id=1521469175]
+visible = false
+
+[node name="RunSlot1" type="Node2D" parent="Poses/Run" unique_id=1187919730]
+position = Vector2(-36.05, -80.5)
+rotation = -0.27843696
+scale = Vector2(1.0005344, 1.0005344)
+script = ExtResource("2_77546")
+kind = "wing"
+variants = {
+2: ExtResource("3_i5oji"),
+3: ExtResource("4_bssql")
+}
+
+[node name="RunPart1" type="Sprite2D" parent="Poses/Run" unique_id=335154448]
+position = Vector2(-20.849998, -18.099998)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("86_qrjx8")
+centered = false
+
+[node name="RunSlot2" type="Node2D" parent="Poses/Run" unique_id=1944575023]
+position = Vector2(6.55, 6)
+script = ExtResource("2_77546")
+variants = {
+2: ExtResource("87_jv0kt")
+}
+
+[node name="RunSlot3" type="Node2D" parent="Poses/Run" unique_id=898384388]
+position = Vector2(9.45, -4.45)
+rotation = -0.6636022
+scale = Vector2(0.61692464, 0.61692464)
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("19_vxoov"),
+4: ExtResource("20_w7ll7"),
+5: ExtResource("21_clj82"),
+6: ExtResource("22_1d1ry"),
+7: ExtResource("23_vd2fa"),
+8: ExtResource("24_o1bxa"),
+9: ExtResource("25_8abs2"),
+10: ExtResource("26_dlov1"),
+11: ExtResource("27_vd1wt"),
+12: ExtResource("28_0xkuo")
+}
+
+[node name="RunSlot4" type="Node2D" parent="Poses/Run" unique_id=2123133188]
+position = Vector2(9.1, 18.25)
+rotation = -0.3652324
+scale = Vector2(0.8875416, 1.1399438)
+skew = 0.11344528
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("29_vll16"),
+4: ExtResource("30_lbjgt"),
+5: ExtResource("31_kdt8f"),
+6: ExtResource("32_mi3n7"),
+7: ExtResource("33_7s1v2"),
+8: ExtResource("34_hmkth"),
+9: ExtResource("35_e6t34"),
+10: ExtResource("36_874kb"),
+11: ExtResource("37_o2hyq"),
+12: ExtResource("38_1g5gu")
+}
+
+[node name="RunSlot5" type="Node2D" parent="Poses/Run" unique_id=594937179]
+position = Vector2(4.35, 5.7)
+rotation = -0.25648165
+scale = Vector2(0.9066582, 0.9998025)
+skew = -0.00038397312
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("39_m8xgv"),
+4: ExtResource("40_g6mw6"),
+5: ExtResource("41_m0gk1"),
+6: ExtResource("42_57pbe"),
+7: ExtResource("43_q54pb"),
+8: ExtResource("44_nybh1"),
+9: ExtResource("45_jmqxt"),
+10: ExtResource("46_fub06"),
+11: ExtResource("47_84u4r"),
+12: ExtResource("48_kftau")
+}
+
+[node name="RunSlot6" type="Node2D" parent="Poses/Run" unique_id=547972423]
+position = Vector2(4.45, 6.35)
+rotation = -0.2565872
+scale = Vector2(0.8984125, 0.9998025)
+skew = -0.0002783537
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("49_bt0wb"),
+4: ExtResource("50_u0l5k"),
+5: ExtResource("51_58036"),
+6: ExtResource("52_7sl00"),
+7: ExtResource("53_d5sls"),
+10: ExtResource("54_o00ns"),
+12: ExtResource("55_b1uir")
+}
+
+[node name="RunSlot7" type="Node2D" parent="Poses/Run" unique_id=888438470]
+position = Vector2(-0.7, -5.8)
+rotation = 0.24740289
+scale = Vector2(1.0004624, 1.0004624)
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("88_1r1la"),
+4: ExtResource("89_1rs50"),
+5: ExtResource("90_yq0et"),
+6: ExtResource("91_k23pk"),
+7: ExtResource("92_x4x6c"),
+8: ExtResource("93_v36tt"),
+9: ExtResource("94_j2tj6"),
+10: ExtResource("95_qesxl"),
+11: ExtResource("96_p86fq"),
+12: ExtResource("97_7fvk7")
+}
+
+[node name="RunPart2" type="Sprite2D" parent="Poses/Run" unique_id=2130873885]
+position = Vector2(-32.8, -50.45)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("98_xje0y")
+centered = false
+
+[node name="RunSlot8" type="Node2D" parent="Poses/Run" unique_id=963862364]
+position = Vector2(-12.55, -45.6)
+script = ExtResource("2_77546")
+variants = {
+2: ExtResource("67_ekhut"),
+3: ExtResource("68_tr2ke"),
+4: ExtResource("69_vcxqg"),
+5: ExtResource("70_mxmqx"),
+6: ExtResource("71_swyis"),
+7: ExtResource("72_txeop"),
+9: ExtResource("73_rmefy"),
+10: ExtResource("74_qvhn6"),
+12: ExtResource("75_o3hpb")
+}
+
+[node name="RunSlot9" type="Node2D" parent="Poses/Run" unique_id=978467824]
+position = Vector2(13.45, -6.7)
+rotation = -2.6891303
+scale = Vector2(0.9995849, 0.9995849)
+script = ExtResource("2_77546")
+kind = "weapon"
+variants = {
+1: ExtResource("7_d6vv4"),
+3: ExtResource("8_q1mq8"),
+4: ExtResource("9_v0h3x"),
+5: ExtResource("10_buyyt"),
+6: ExtResource("11_r5f41"),
+7: ExtResource("12_o0o33"),
+8: ExtResource("13_1wo7n")
+}
+
+[node name="Hit1" type="Node2D" parent="Poses" unique_id=429108975]
+visible = false
+
+[node name="Hit1Slot1" type="Node2D" parent="Poses/Hit1" unique_id=2113583555]
+position = Vector2(-19.5, -85.8)
+rotation = -0.100166164
+scale = Vector2(1.0000125, 1.0000125)
+script = ExtResource("2_77546")
+kind = "wing"
+variants = {
+2: ExtResource("3_i5oji"),
+3: ExtResource("4_bssql")
+}
+
+[node name="Hit1Part1" type="Sprite2D" parent="Poses/Hit1" unique_id=2099683677]
+position = Vector2(-16.949999, -30.2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("99_621hr")
+centered = false
+
+[node name="Hit1Slot2" type="Node2D" parent="Poses/Hit1" unique_id=55863443]
+position = Vector2(-0.45, 5)
+script = ExtResource("2_77546")
+variants = {
+2: ExtResource("100_yhhpv")
+}
+
+[node name="Hit1Slot3" type="Node2D" parent="Poses/Hit1" unique_id=68385337]
+position = Vector2(12.3, 14.15)
+rotation = -0.15264933
+scale = Vector2(0.9996239, 0.9997765)
+skew = -0.0009886026
+script = ExtResource("2_77546")
+kind = "weapon"
+variants = {
+1: ExtResource("7_d6vv4"),
+3: ExtResource("8_q1mq8"),
+4: ExtResource("9_v0h3x"),
+5: ExtResource("10_buyyt"),
+6: ExtResource("11_r5f41"),
+7: ExtResource("12_o0o33"),
+8: ExtResource("13_1wo7n")
+}
+
+[node name="Hit1Part2" type="Sprite2D" parent="Poses/Hit1" unique_id=768184972]
+position = Vector2(11, 9.299999)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("101_3nkci")
+centered = false
+
+[node name="Hit1Part3" type="Sprite2D" parent="Poses/Hit1" unique_id=442382248]
+position = Vector2(-42.4, -10.75)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("102_hl0uo")
+centered = false
+
+[node name="Hit1Slot4" type="Node2D" parent="Poses/Hit1" unique_id=238744090]
+position = Vector2(-8.95, -4.45)
+rotation = 0.88197964
+scale = Vector2(0.8432657, 0.8432657)
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("19_vxoov"),
+4: ExtResource("20_w7ll7"),
+5: ExtResource("21_clj82"),
+6: ExtResource("22_1d1ry"),
+7: ExtResource("23_vd2fa"),
+8: ExtResource("24_o1bxa"),
+9: ExtResource("25_8abs2"),
+10: ExtResource("26_dlov1"),
+11: ExtResource("27_vd1wt"),
+12: ExtResource("28_0xkuo")
+}
+
+[node name="Hit1Slot5" type="Node2D" parent="Poses/Hit1" unique_id=1667478169]
+position = Vector2(1.35, 22.45)
+rotation = -0.04192553
+scale = Vector2(0.8827758, 1.105)
+skew = 0.04192543
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("29_vll16"),
+4: ExtResource("30_lbjgt"),
+5: ExtResource("31_kdt8f"),
+6: ExtResource("32_mi3n7"),
+7: ExtResource("33_7s1v2"),
+8: ExtResource("34_hmkth"),
+9: ExtResource("35_e6t34"),
+10: ExtResource("36_874kb"),
+11: ExtResource("37_o2hyq"),
+12: ExtResource("38_1g5gu")
+}
+
+[node name="Hit1Slot6" type="Node2D" parent="Poses/Hit1" unique_id=745939700]
+position = Vector2(0.3, 7.95)
+scale = Vector2(0.906, 1)
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("39_m8xgv"),
+4: ExtResource("40_g6mw6"),
+5: ExtResource("41_m0gk1"),
+6: ExtResource("42_57pbe"),
+7: ExtResource("43_q54pb"),
+8: ExtResource("44_nybh1"),
+9: ExtResource("45_jmqxt"),
+10: ExtResource("46_fub06"),
+11: ExtResource("47_84u4r"),
+12: ExtResource("48_kftau")
+}
+
+[node name="Hit1Slot7" type="Node2D" parent="Poses/Hit1" unique_id=1528598791]
+position = Vector2(0.25, 8.55)
+scale = Vector2(0.899, 1)
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("49_bt0wb"),
+4: ExtResource("50_u0l5k"),
+5: ExtResource("51_58036"),
+6: ExtResource("52_7sl00"),
+7: ExtResource("53_d5sls"),
+10: ExtResource("54_o00ns"),
+12: ExtResource("55_b1uir")
+}
+
+[node name="Hit1Part4" type="Sprite2D" parent="Poses/Hit1" unique_id=158675167]
+position = Vector2(-34.949997, -13.85)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("103_mnc1e")
+centered = false
+
+[node name="Hit1Slot8" type="Node2D" parent="Poses/Hit1" unique_id=429476267]
+position = Vector2(-38.9, 2.85)
+rotation = -0.4332455
+scale = Vector2(1.0004319, 1.0004319)
+script = ExtResource("2_77546")
+kind = "weapon"
+variants = {
+1: ExtResource("7_d6vv4"),
+3: ExtResource("8_q1mq8"),
+4: ExtResource("9_v0h3x"),
+5: ExtResource("10_buyyt"),
+6: ExtResource("11_r5f41"),
+7: ExtResource("12_o0o33"),
+8: ExtResource("13_1wo7n")
+}
+
+[node name="Hit1Slot9" type="Node2D" parent="Poses/Hit1" unique_id=1795059186]
+position = Vector2(10.75, -2.7)
+rotation = -0.017998056
+scale = Vector2(1.000162, 1.000162)
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("19_vxoov"),
+4: ExtResource("20_w7ll7"),
+5: ExtResource("21_clj82"),
+6: ExtResource("22_1d1ry"),
+7: ExtResource("23_vd2fa"),
+8: ExtResource("24_o1bxa"),
+9: ExtResource("25_8abs2"),
+10: ExtResource("26_dlov1"),
+11: ExtResource("27_vd1wt"),
+12: ExtResource("28_0xkuo")
+}
+
+[node name="Hit1Slot10" type="Node2D" parent="Poses/Hit1" unique_id=2137637094]
+position = Vector2(12.3, 14.15)
+rotation = -0.15264933
+scale = Vector2(0.9996239, 0.9997765)
+skew = -0.0009886026
+script = ExtResource("2_77546")
+kind = "weapon"
+variants = {
+1: ExtResource("7_d6vv4"),
+3: ExtResource("8_q1mq8"),
+4: ExtResource("9_v0h3x"),
+5: ExtResource("10_buyyt"),
+6: ExtResource("11_r5f41"),
+7: ExtResource("12_o0o33"),
+8: ExtResource("13_1wo7n")
+}
+
+[node name="Hit1Part5" type="Sprite2D" parent="Poses/Hit1" unique_id=959803029]
+position = Vector2(-42.5, -52.1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("104_lo1mv")
+centered = false
+
+[node name="Hit1Part6" type="Sprite2D" parent="Poses/Hit1" unique_id=951754754]
+position = Vector2(-25.949999, -54.35)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("105_5k0a7")
+centered = false
+
+[node name="Hit1Slot11" type="Node2D" parent="Poses/Hit1" unique_id=1367306383]
+position = Vector2(-6.65, -49.95)
+rotation = -0.047012378
+scale = Vector2(1.000105, 1.000105)
+script = ExtResource("2_77546")
+variants = {
+2: ExtResource("67_ekhut"),
+3: ExtResource("68_tr2ke"),
+4: ExtResource("69_vcxqg"),
+5: ExtResource("70_mxmqx"),
+6: ExtResource("71_swyis"),
+7: ExtResource("72_txeop"),
+9: ExtResource("73_rmefy"),
+10: ExtResource("74_qvhn6"),
+12: ExtResource("75_o3hpb")
+}
+
+[node name="Hit3" type="Node2D" parent="Poses" unique_id=1959526404]
+visible = false
+
+[node name="Hit3Slot1" type="Node2D" parent="Poses/Hit3" unique_id=1186122491]
+position = Vector2(-21.4, -84.75)
+rotation = -0.100166164
+scale = Vector2(1.0000125, 1.0000125)
+script = ExtResource("2_77546")
+kind = "wing"
+variants = {
+2: ExtResource("3_i5oji"),
+3: ExtResource("4_bssql")
+}
+
+[node name="Hit3Part1" type="Sprite2D" parent="Poses/Hit3" unique_id=1888425919]
+material = SubResource("ShaderMaterial_858ag")
+position = Vector2(-79.05, 2.2980003)
+scale = Vector2(0.5, 0.1385)
+texture = ExtResource("107_nsb7l")
+centered = false
+
+[node name="Hit3Part2" type="Sprite2D" parent="Poses/Hit3" unique_id=1149709729]
+position = Vector2(-16.95, -30.2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("108_0sdwu")
+centered = false
+
+[node name="Hit3Slot2" type="Node2D" parent="Poses/Hit3" unique_id=864858226]
+position = Vector2(13.45, 14.15)
+rotation = -0.15264933
+scale = Vector2(0.9996239, 0.9997765)
+skew = -0.0009886026
+script = ExtResource("2_77546")
+kind = "weapon"
+variants = {
+1: ExtResource("7_d6vv4"),
+3: ExtResource("8_q1mq8"),
+4: ExtResource("9_v0h3x"),
+5: ExtResource("10_buyyt"),
+6: ExtResource("11_r5f41"),
+7: ExtResource("12_o0o33"),
+8: ExtResource("13_1wo7n")
+}
+
+[node name="Hit3Part3" type="Sprite2D" parent="Poses/Hit3" unique_id=352865415]
+position = Vector2(-28.7, -31.25)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("109_c6hu0")
+centered = false
+
+[node name="Hit3Part4" type="Sprite2D" parent="Poses/Hit3" unique_id=1864085473]
+position = Vector2(-21.099998, -1.6500001)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("110_a7p0g")
+centered = false
+
+[node name="Hit3Slot3" type="Node2D" parent="Poses/Hit3" unique_id=2058156950]
+position = Vector2(-18.2, 36.5)
+rotation = -0.36602542
+scale = Vector2(1.00026, 1.00026)
+script = ExtResource("2_77546")
+kind = "weapon"
+variants = {
+1: ExtResource("7_d6vv4"),
+3: ExtResource("8_q1mq8"),
+4: ExtResource("9_v0h3x"),
+5: ExtResource("10_buyyt"),
+6: ExtResource("11_r5f41"),
+7: ExtResource("12_o0o33"),
+8: ExtResource("13_1wo7n")
+}
+
+[node name="Hit3Part5" type="Sprite2D" parent="Poses/Hit3" unique_id=733503699]
+position = Vector2(6.2999997, -17.45)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("111_a2fwa")
+centered = false
+
+[node name="Hit3Slot4" type="Node2D" parent="Poses/Hit3" unique_id=660304863]
+position = Vector2(-0.25, 5.15)
+script = ExtResource("2_77546")
+variants = {
+2: ExtResource("112_p5ji6")
+}
+
+[node name="Hit3Slot5" type="Node2D" parent="Poses/Hit3" unique_id=874508085]
+position = Vector2(-4.45, 6.4)
+rotation = -1.0597146
+scale = Vector2(0.9997524, 1.1493359)
+skew = 0.00083363056
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("19_vxoov"),
+4: ExtResource("20_w7ll7"),
+5: ExtResource("21_clj82"),
+6: ExtResource("22_1d1ry"),
+7: ExtResource("23_vd2fa"),
+8: ExtResource("24_o1bxa"),
+9: ExtResource("25_8abs2"),
+10: ExtResource("26_dlov1"),
+11: ExtResource("27_vd1wt"),
+12: ExtResource("28_0xkuo")
+}
+
+[node name="Hit3Slot6" type="Node2D" parent="Poses/Hit3" unique_id=1053641639]
+position = Vector2(6.15, 21.2)
+rotation = -0.04164258
+scale = Vector2(0.9368121, 1.173)
+skew = 0.041642547
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("29_vll16"),
+4: ExtResource("30_lbjgt"),
+5: ExtResource("31_kdt8f"),
+6: ExtResource("32_mi3n7"),
+7: ExtResource("33_7s1v2"),
+8: ExtResource("34_hmkth"),
+9: ExtResource("35_e6t34"),
+10: ExtResource("36_874kb"),
+11: ExtResource("37_o2hyq"),
+12: ExtResource("38_1g5gu")
+}
+
+[node name="Hit3Slot7" type="Node2D" parent="Poses/Hit3" unique_id=63196013]
+position = Vector2(4.05, 6.65)
+rotation = -0.29557854
+scale = Vector2(0.9063029, 1.0005563)
+skew = -0.00056910515
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("39_m8xgv"),
+4: ExtResource("40_g6mw6"),
+5: ExtResource("41_m0gk1"),
+6: ExtResource("42_57pbe"),
+7: ExtResource("43_q54pb"),
+8: ExtResource("44_nybh1"),
+9: ExtResource("45_jmqxt"),
+10: ExtResource("46_fub06"),
+11: ExtResource("47_84u4r"),
+12: ExtResource("48_kftau")
+}
+
+[node name="Hit3Slot8" type="Node2D" parent="Poses/Hit3" unique_id=121120146]
+position = Vector2(-0.2, 13.7)
+rotation = -0.8113561
+scale = Vector2(0.89903563, 0.9994844)
+skew = -0.00022149086
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("49_bt0wb"),
+4: ExtResource("50_u0l5k"),
+5: ExtResource("51_58036"),
+6: ExtResource("52_7sl00"),
+7: ExtResource("53_d5sls"),
+10: ExtResource("54_o00ns"),
+12: ExtResource("55_b1uir")
+}
+
+[node name="Hit3Slot9" type="Node2D" parent="Poses/Hit3" unique_id=23967342]
+position = Vector2(-15.5, 15.1)
+rotation = 0.039019223
+scale = Vector2(0.999761, 0.999761)
+script = ExtResource("2_77546")
+kind = "weapon"
+variants = {
+1: ExtResource("7_d6vv4"),
+3: ExtResource("8_q1mq8"),
+4: ExtResource("9_v0h3x"),
+5: ExtResource("10_buyyt"),
+6: ExtResource("11_r5f41"),
+7: ExtResource("12_o0o33"),
+8: ExtResource("13_1wo7n")
+}
+
+[node name="Hit3Slot10" type="Node2D" parent="Poses/Hit3" unique_id=1816704317]
+position = Vector2(4.6, 6.75)
+rotation = -0.10476048
+scale = Vector2(0.8989282, 1.0005249)
+skew = -0.00037813187
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("49_bt0wb"),
+4: ExtResource("50_u0l5k"),
+5: ExtResource("51_58036"),
+6: ExtResource("52_7sl00"),
+7: ExtResource("53_d5sls"),
+10: ExtResource("54_o00ns"),
+12: ExtResource("55_b1uir")
+}
+
+[node name="Hit3Slot11" type="Node2D" parent="Poses/Hit3" unique_id=1394182502]
+position = Vector2(-8.25, -17.05)
+rotation = 2.6613991
+scale = Vector2(1.0001065, 0.99964494)
+skew = 0.00088715553
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("19_vxoov"),
+4: ExtResource("20_w7ll7"),
+5: ExtResource("21_clj82"),
+6: ExtResource("22_1d1ry"),
+7: ExtResource("23_vd2fa"),
+8: ExtResource("24_o1bxa"),
+9: ExtResource("25_8abs2"),
+10: ExtResource("26_dlov1"),
+11: ExtResource("27_vd1wt"),
+12: ExtResource("28_0xkuo")
+}
+
+[node name="Hit3Slot12" type="Node2D" parent="Poses/Hit3" unique_id=794766001]
+position = Vector2(1.45, 23.4)
+rotation = -0.04192553
+scale = Vector2(0.8827758, 1.105)
+skew = 0.04192543
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("29_vll16"),
+4: ExtResource("30_lbjgt"),
+5: ExtResource("31_kdt8f"),
+6: ExtResource("32_mi3n7"),
+7: ExtResource("33_7s1v2"),
+8: ExtResource("34_hmkth"),
+9: ExtResource("35_e6t34"),
+10: ExtResource("36_874kb"),
+11: ExtResource("37_o2hyq"),
+12: ExtResource("38_1g5gu")
+}
+
+[node name="Hit3Slot13" type="Node2D" parent="Poses/Hit3" unique_id=26568881]
+position = Vector2(0.4, 8.9)
+scale = Vector2(0.906, 1)
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("39_m8xgv"),
+4: ExtResource("40_g6mw6"),
+5: ExtResource("41_m0gk1"),
+6: ExtResource("42_57pbe"),
+7: ExtResource("43_q54pb"),
+8: ExtResource("44_nybh1"),
+9: ExtResource("45_jmqxt"),
+10: ExtResource("46_fub06"),
+11: ExtResource("47_84u4r"),
+12: ExtResource("48_kftau")
+}
+
+[node name="Hit3Part6" type="Sprite2D" parent="Poses/Hit3" unique_id=691687435]
+position = Vector2(-41.55, -40.45)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("113_jqj4c")
+centered = false
+
+[node name="Hit3Slot14" type="Node2D" parent="Poses/Hit3" unique_id=486059255]
+position = Vector2(0.35, 9.5)
+scale = Vector2(0.899, 1)
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("49_bt0wb"),
+4: ExtResource("50_u0l5k"),
+5: ExtResource("51_58036"),
+6: ExtResource("52_7sl00"),
+7: ExtResource("53_d5sls"),
+10: ExtResource("54_o00ns"),
+12: ExtResource("55_b1uir")
+}
+
+[node name="Hit3Slot15" type="Node2D" parent="Poses/Hit3" unique_id=257445743]
+position = Vector2(13.45, 14.15)
+rotation = -0.15264933
+scale = Vector2(0.9996239, 0.9997765)
+skew = -0.0009886026
+script = ExtResource("2_77546")
+kind = "weapon"
+variants = {
+1: ExtResource("7_d6vv4"),
+3: ExtResource("8_q1mq8"),
+4: ExtResource("9_v0h3x"),
+5: ExtResource("10_buyyt"),
+6: ExtResource("11_r5f41"),
+7: ExtResource("12_o0o33"),
+8: ExtResource("13_1wo7n")
+}
+
+[node name="Hit3Slot16" type="Node2D" parent="Poses/Hit3" unique_id=575284402]
+position = Vector2(10.35, -3.7)
+rotation = -0.017998056
+scale = Vector2(1.000162, 1.000162)
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("19_vxoov"),
+4: ExtResource("20_w7ll7"),
+5: ExtResource("21_clj82"),
+6: ExtResource("22_1d1ry"),
+7: ExtResource("23_vd2fa"),
+8: ExtResource("24_o1bxa"),
+9: ExtResource("25_8abs2"),
+10: ExtResource("26_dlov1"),
+11: ExtResource("27_vd1wt"),
+12: ExtResource("28_0xkuo")
+}
+
+[node name="Hit3Part7" type="Sprite2D" parent="Poses/Hit3" unique_id=455163747]
+position = Vector2(-23.5, -55.2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("114_bd55w")
+centered = false
+
+[node name="Hit3Slot17" type="Node2D" parent="Poses/Hit3" unique_id=135282267]
+position = Vector2(-5.9, -36.35)
+rotation = 2.0509899
+scale = Vector2(1.0001065, 1.0001065)
+script = ExtResource("2_77546")
+kind = "weapon"
+variants = {
+1: ExtResource("7_d6vv4"),
+3: ExtResource("8_q1mq8"),
+4: ExtResource("9_v0h3x"),
+5: ExtResource("10_buyyt"),
+6: ExtResource("11_r5f41"),
+7: ExtResource("12_o0o33"),
+8: ExtResource("13_1wo7n")
+}
+
+[node name="Hit3Part8" type="Sprite2D" parent="Poses/Hit3" unique_id=373372063]
+position = Vector2(-10.8, -39.95)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("115_k31mh")
+centered = false
+
+[node name="Hit3Slot18" type="Node2D" parent="Poses/Hit3" unique_id=1271681052]
+position = Vector2(1.25, -23.1)
+rotation = -3.1375928
+scale = Vector2(1.000008, 1.000008)
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("19_vxoov"),
+4: ExtResource("20_w7ll7"),
+5: ExtResource("21_clj82"),
+6: ExtResource("22_1d1ry"),
+7: ExtResource("23_vd2fa"),
+8: ExtResource("24_o1bxa"),
+9: ExtResource("25_8abs2"),
+10: ExtResource("26_dlov1"),
+11: ExtResource("27_vd1wt"),
+12: ExtResource("28_0xkuo")
+}
+
+[node name="Hit3Part9" type="Sprite2D" parent="Poses/Hit3" unique_id=1436453180]
+position = Vector2(-25.95, -54.35)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("116_ubvc3")
+centered = false
+
+[node name="Hit3Slot19" type="Node2D" parent="Poses/Hit3" unique_id=969291766]
+position = Vector2(-6.4, -49.7)
+rotation = -0.044015598
+scale = Vector2(0.9999685, 0.9999685)
+script = ExtResource("2_77546")
+variants = {
+2: ExtResource("67_ekhut"),
+3: ExtResource("68_tr2ke"),
+4: ExtResource("69_vcxqg"),
+5: ExtResource("70_mxmqx"),
+6: ExtResource("71_swyis"),
+7: ExtResource("72_txeop"),
+9: ExtResource("73_rmefy"),
+10: ExtResource("74_qvhn6"),
+12: ExtResource("75_o3hpb")
+}
+
+[node name="Hit4" type="Node2D" parent="Poses" unique_id=157240965]
+visible = false
+
+[node name="Hit4Slot1" type="Node2D" parent="Poses/Hit4" unique_id=1587829438]
+position = Vector2(-17.85, -88.4)
+rotation = -0.100166164
+scale = Vector2(1.0000125, 1.0000125)
+script = ExtResource("2_77546")
+kind = "wing"
+variants = {
+2: ExtResource("3_i5oji"),
+3: ExtResource("4_bssql")
+}
+
+[node name="Hit4Slot2" type="Node2D" parent="Poses/Hit4" unique_id=1391113441]
+position = Vector2(3.75, -95.55)
+rotation = 0.16169645
+scale = Vector2(1.000045, 1.000045)
+script = ExtResource("2_77546")
+kind = "wing"
+variants = {
+2: ExtResource("3_i5oji"),
+3: ExtResource("4_bssql")
+}
+
+[node name="Hit4Part1" type="Sprite2D" parent="Poses/Hit4" unique_id=128490512]
+position = Vector2(-6.3499985, -27.15)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("117_cx3jq")
+centered = false
+
+[node name="Hit4Slot3" type="Node2D" parent="Poses/Hit4" unique_id=2023529649]
+position = Vector2(6.9, 0.3)
+script = ExtResource("2_77546")
+variants = {
+2: ExtResource("118_1g8pp")
+}
+
+[node name="Hit4Slot4" type="Node2D" parent="Poses/Hit4" unique_id=1099570056]
+position = Vector2(7.5, 15.55)
+rotation = -0.152305
+scale = Vector2(0.88322425, 1.1839648)
+skew = -0.04061818
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("29_vll16"),
+4: ExtResource("30_lbjgt"),
+5: ExtResource("31_kdt8f"),
+6: ExtResource("32_mi3n7"),
+7: ExtResource("33_7s1v2"),
+8: ExtResource("34_hmkth"),
+9: ExtResource("35_e6t34"),
+10: ExtResource("36_874kb"),
+11: ExtResource("37_o2hyq"),
+12: ExtResource("38_1g5gu")
+}
+
+[node name="Hit4Part2" type="Sprite2D" parent="Poses/Hit4" unique_id=361490087]
+position = Vector2(21, -26.1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("119_xqluc")
+centered = false
+
+[node name="Hit4Slot5" type="Node2D" parent="Poses/Hit4" unique_id=1910691463]
+position = Vector2(19.1, -17.35)
+rotation = -1.3708606
+scale = Vector2(0.69484174, -0.69484174)
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("120_ea3cx"),
+4: ExtResource("121_6arrd"),
+5: ExtResource("122_eopnf"),
+6: ExtResource("123_omwwo")
+}
+
+[node name="Hit4Slot6" type="Node2D" parent="Poses/Hit4" unique_id=781622084]
+position = Vector2(5.35, 3.75)
+rotation = 0.22570151
+scale = Vector2(0.95625305, 1.0547417)
+skew = -3.9696693e-05
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("39_m8xgv"),
+4: ExtResource("40_g6mw6"),
+5: ExtResource("41_m0gk1"),
+6: ExtResource("42_57pbe"),
+7: ExtResource("43_q54pb"),
+8: ExtResource("44_nybh1"),
+9: ExtResource("45_jmqxt"),
+10: ExtResource("46_fub06"),
+11: ExtResource("47_84u4r"),
+12: ExtResource("48_kftau")
+}
+
+[node name="Hit4Slot7" type="Node2D" parent="Poses/Hit4" unique_id=853255]
+position = Vector2(5.05, 5.2)
+rotation = 0.1213263
+scale = Vector2(0.9419241, 1.0477256)
+skew = 0.000187397
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("49_bt0wb"),
+4: ExtResource("50_u0l5k"),
+5: ExtResource("51_58036"),
+6: ExtResource("52_7sl00"),
+7: ExtResource("53_d5sls"),
+10: ExtResource("54_o00ns"),
+12: ExtResource("55_b1uir")
+}
+
+[node name="Hit4Slot8" type="Node2D" parent="Poses/Hit4" unique_id=436467855]
+position = Vector2(23, -8.25)
+rotation = -0.7058367
+scale = Vector2(1.049839, 0.8412586)
+skew = -0.00046885014
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("19_vxoov"),
+4: ExtResource("20_w7ll7"),
+5: ExtResource("21_clj82"),
+6: ExtResource("22_1d1ry"),
+7: ExtResource("23_vd2fa"),
+8: ExtResource("24_o1bxa"),
+9: ExtResource("25_8abs2"),
+10: ExtResource("26_dlov1"),
+11: ExtResource("27_vd1wt"),
+12: ExtResource("28_0xkuo")
+}
+
+[node name="Hit4Part3" type="Sprite2D" parent="Poses/Hit4" unique_id=62231803]
+position = Vector2(-8.75, -58.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("124_4w5mv")
+centered = false
+
+[node name="Hit4Slot9" type="Node2D" parent="Poses/Hit4" unique_id=230380697]
+position = Vector2(17.9, -52.25)
+rotation = 0.3834787
+scale = Vector2(0.99960244, 0.99960244)
+script = ExtResource("2_77546")
+variants = {
+2: ExtResource("67_ekhut"),
+3: ExtResource("68_tr2ke"),
+4: ExtResource("69_vcxqg"),
+5: ExtResource("70_mxmqx"),
+6: ExtResource("71_swyis"),
+7: ExtResource("72_txeop"),
+9: ExtResource("73_rmefy"),
+10: ExtResource("74_qvhn6"),
+12: ExtResource("75_o3hpb")
+}
+
+[node name="Hit4Part4" type="Sprite2D" parent="Poses/Hit4" unique_id=2127501333]
+position = Vector2(-13.95, -59.3)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("125_g2juc")
+centered = false
+
+[node name="Hit4Slot10" type="Node2D" parent="Poses/Hit4" unique_id=781550818]
+position = Vector2(12.45, -8)
+script = ExtResource("2_77546")
+variants = {
+2: ExtResource("126_4geog")
+}
+
+[node name="Hit4Part5" type="Sprite2D" parent="Poses/Hit4" unique_id=1398585835]
+position = Vector2(-15.95, -30.2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("127_28lyt")
+centered = false
+
+[node name="Hit4Slot11" type="Node2D" parent="Poses/Hit4" unique_id=1440684189]
+position = Vector2(0.1, 4.95)
+script = ExtResource("2_77546")
+variants = {
+2: ExtResource("128_88gcd")
+}
+
+[node name="Hit4Slot12" type="Node2D" parent="Poses/Hit4" unique_id=1791013425]
+position = Vector2(7.2, -32.3)
+script = ExtResource("2_77546")
+variants = {
+2: ExtResource("129_53og2")
+}
+
+[node name="Hit4Slot13" type="Node2D" parent="Poses/Hit4" unique_id=2111119325]
+position = Vector2(2.3, 23.1)
+rotation = 0.010203727
+scale = Vector2(0.8820459, 1.05708)
+skew = 0.0020946264
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("29_vll16"),
+4: ExtResource("30_lbjgt"),
+5: ExtResource("31_kdt8f"),
+6: ExtResource("32_mi3n7"),
+7: ExtResource("33_7s1v2"),
+8: ExtResource("34_hmkth"),
+9: ExtResource("35_e6t34"),
+10: ExtResource("36_874kb"),
+11: ExtResource("37_o2hyq"),
+12: ExtResource("38_1g5gu")
+}
+
+[node name="Hit4Slot14" type="Node2D" parent="Poses/Hit4" unique_id=85685231]
+script = ExtResource("2_77546")
+
+[node name="Hit4Slot15" type="Node2D" parent="Poses/Hit4" unique_id=1765780091]
+position = Vector2(0.9, 10.1)
+rotation = 0.04747811
+scale = Vector2(0.90602094, 1.000105)
+skew = -0.0004657507
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("39_m8xgv"),
+4: ExtResource("40_g6mw6"),
+5: ExtResource("41_m0gk1"),
+6: ExtResource("42_57pbe"),
+7: ExtResource("43_q54pb"),
+8: ExtResource("44_nybh1"),
+9: ExtResource("45_jmqxt"),
+10: ExtResource("46_fub06"),
+11: ExtResource("47_84u4r"),
+12: ExtResource("48_kftau")
+}
+
+[node name="Hit4Slot16" type="Node2D" parent="Poses/Hit4" unique_id=2009216657]
+position = Vector2(14.35, -34.35)
+rotation = -0.22704695
+scale = Vector2(0.9062588, 0.9996504)
+skew = 2.3126602e-05
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("39_m8xgv"),
+4: ExtResource("40_g6mw6"),
+5: ExtResource("41_m0gk1"),
+6: ExtResource("42_57pbe"),
+7: ExtResource("43_q54pb"),
+8: ExtResource("44_nybh1"),
+9: ExtResource("45_jmqxt"),
+10: ExtResource("46_fub06"),
+11: ExtResource("47_84u4r"),
+12: ExtResource("48_kftau")
+}
+
+[node name="Hit4Slot17" type="Node2D" parent="Poses/Hit4" unique_id=1351760058]
+position = Vector2(0.75, 9.25)
+rotation = 0.0122352075
+scale = Vector2(0.8990673, 1.000072)
+skew = -0.00023579597
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("49_bt0wb"),
+4: ExtResource("50_u0l5k"),
+5: ExtResource("51_58036"),
+6: ExtResource("52_7sl00"),
+7: ExtResource("53_d5sls"),
+10: ExtResource("54_o00ns"),
+12: ExtResource("55_b1uir")
+}
+
+[node name="Hit4Slot18" type="Node2D" parent="Poses/Hit4" unique_id=589036393]
+position = Vector2(11.95, -3.4)
+rotation = 0.07910867
+scale = Vector2(1.0502847, 1.0502847)
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("19_vxoov"),
+4: ExtResource("20_w7ll7"),
+5: ExtResource("21_clj82"),
+6: ExtResource("22_1d1ry"),
+7: ExtResource("23_vd2fa"),
+8: ExtResource("24_o1bxa"),
+9: ExtResource("25_8abs2"),
+10: ExtResource("26_dlov1"),
+11: ExtResource("27_vd1wt"),
+12: ExtResource("28_0xkuo")
+}
+
+[node name="Hit4Part6" type="Sprite2D" parent="Poses/Hit4" unique_id=2075482141]
+position = Vector2(-26.95, -87.8)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("130_krex1")
+centered = false
+
+[node name="Hit4Slot19" type="Node2D" parent="Poses/Hit4" unique_id=2127956298]
+position = Vector2(8.45, -15.9)
+rotation = -0.098766424
+scale = Vector2(0.88229984, 1.0579287)
+skew = 0.0022015572
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("29_vll16"),
+4: ExtResource("30_lbjgt"),
+5: ExtResource("31_kdt8f"),
+6: ExtResource("32_mi3n7"),
+7: ExtResource("33_7s1v2"),
+8: ExtResource("34_hmkth"),
+9: ExtResource("35_e6t34"),
+10: ExtResource("36_874kb"),
+11: ExtResource("37_o2hyq"),
+12: ExtResource("38_1g5gu")
+}
+
+[node name="Hit4Slot20" type="Node2D" parent="Poses/Hit4" unique_id=217152091]
+position = Vector2(6.3, -28.65)
+rotation = 0.04747811
+scale = Vector2(0.90602094, 1.000105)
+skew = -0.0004657507
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("39_m8xgv"),
+4: ExtResource("40_g6mw6"),
+5: ExtResource("41_m0gk1"),
+6: ExtResource("42_57pbe"),
+7: ExtResource("43_q54pb"),
+8: ExtResource("44_nybh1"),
+9: ExtResource("45_jmqxt"),
+10: ExtResource("46_fub06"),
+11: ExtResource("47_84u4r"),
+12: ExtResource("48_kftau")
+}
+
+[node name="Hit4Part7" type="Sprite2D" parent="Poses/Hit4" unique_id=933603801]
+position = Vector2(-24.95, -54.35)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("116_ubvc3")
+centered = false
+
+[node name="Hit4Slot21" type="Node2D" parent="Poses/Hit4" unique_id=283576716]
+position = Vector2(-5.15, -49.8)
+script = ExtResource("2_77546")
+variants = {
+2: ExtResource("67_ekhut"),
+3: ExtResource("68_tr2ke"),
+4: ExtResource("69_vcxqg"),
+5: ExtResource("70_mxmqx"),
+6: ExtResource("71_swyis"),
+7: ExtResource("72_txeop"),
+9: ExtResource("73_rmefy"),
+10: ExtResource("74_qvhn6"),
+12: ExtResource("75_o3hpb")
+}
+
+[node name="Hit4Slot22" type="Node2D" parent="Poses/Hit4" unique_id=662234425]
+position = Vector2(6.65, -28.05)
+rotation = 0.0122352075
+scale = Vector2(0.8990673, 1.000072)
+skew = -0.00023579597
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("49_bt0wb"),
+4: ExtResource("50_u0l5k"),
+5: ExtResource("51_58036"),
+6: ExtResource("52_7sl00"),
+7: ExtResource("53_d5sls"),
+10: ExtResource("54_o00ns"),
+12: ExtResource("55_b1uir")
+}
+
+[node name="Hit4Slot23" type="Node2D" parent="Poses/Hit4" unique_id=1044872299]
+position = Vector2(-4.35, -82.05)
+rotation = 0.13539262
+scale = Vector2(1.000153, 1.000153)
+script = ExtResource("2_77546")
+variants = {
+2: ExtResource("67_ekhut"),
+3: ExtResource("68_tr2ke"),
+4: ExtResource("69_vcxqg"),
+5: ExtResource("70_mxmqx"),
+6: ExtResource("71_swyis"),
+7: ExtResource("72_txeop"),
+9: ExtResource("73_rmefy"),
+10: ExtResource("74_qvhn6"),
+12: ExtResource("75_o3hpb")
+}
+
+[node name="Hit4Part8" type="Sprite2D" parent="Poses/Hit4" unique_id=105229583]
+material = SubResource("ShaderMaterial_p4rdk")
+position = Vector2(-140.75, 29.0234)
+scale = Vector2(0.5, 0.094)
+texture = ExtResource("131_k3i3m")
+centered = false
+
+[node name="Hit4Part9" type="Sprite2D" parent="Poses/Hit4" unique_id=1895063104]
+material = SubResource("ShaderMaterial_p4rdk")
+position = Vector2(-101.25, 35.7174)
+scale = Vector2(0.5, 0.094)
+texture = ExtResource("132_jvpsr")
+centered = false
+
+[node name="Hit4Part10" type="Sprite2D" parent="Poses/Hit4" unique_id=1737871570]
+material = SubResource("ShaderMaterial_p4rdk")
+position = Vector2(-148.9, 5.6892014)
+scale = Vector2(0.5, 0.094)
+texture = ExtResource("133_nseo1")
+centered = false
+
+[node name="Hit4Slot24" type="Node2D" parent="Poses/Hit4" unique_id=1201815389]
+position = Vector2(15.3, -51.1)
+rotation = -0.18283348
+scale = Vector2(1.0505093, 0.449542)
+skew = -0.00060141087
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("19_vxoov"),
+4: ExtResource("20_w7ll7"),
+5: ExtResource("21_clj82"),
+6: ExtResource("22_1d1ry"),
+7: ExtResource("23_vd2fa"),
+8: ExtResource("24_o1bxa"),
+9: ExtResource("25_8abs2"),
+10: ExtResource("26_dlov1"),
+11: ExtResource("27_vd1wt"),
+12: ExtResource("28_0xkuo")
+}
+
+[node name="Hit4Part11" type="Sprite2D" parent="Poses/Hit4" unique_id=850759950]
+position = Vector2(-18, -95.3)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("134_awht2")
+centered = false
+
+[node name="Hit4Slot25" type="Node2D" parent="Poses/Hit4" unique_id=949940787]
+position = Vector2(4.4, -89.7)
+rotation = 0.13539262
+scale = Vector2(1.000153, 1.000153)
+script = ExtResource("2_77546")
+variants = {
+2: ExtResource("67_ekhut"),
+3: ExtResource("68_tr2ke"),
+4: ExtResource("69_vcxqg"),
+5: ExtResource("70_mxmqx"),
+6: ExtResource("71_swyis"),
+7: ExtResource("72_txeop"),
+9: ExtResource("73_rmefy"),
+10: ExtResource("74_qvhn6"),
+12: ExtResource("75_o3hpb")
+}
+
+[node name="Hit5" type="Node2D" parent="Poses" unique_id=639769543]
+visible = false
+
+[node name="Hit5Slot1" type="Node2D" parent="Poses/Hit5" unique_id=1091210008]
+position = Vector2(-19.9, -85.8)
+rotation = -0.100166164
+scale = Vector2(1.0000125, 1.0000125)
+script = ExtResource("2_77546")
+kind = "wing"
+variants = {
+2: ExtResource("3_i5oji"),
+3: ExtResource("4_bssql")
+}
+
+[node name="Hit5Part1" type="Sprite2D" parent="Poses/Hit5" unique_id=1525367121]
+position = Vector2(-15, -28.349998)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("135_f5ph0")
+centered = false
+
+[node name="Hit5Slot2" type="Node2D" parent="Poses/Hit5" unique_id=162369323]
+position = Vector2(3.05, 7.1)
+script = ExtResource("2_77546")
+variants = {
+2: ExtResource("136_ymor3")
+}
+
+[node name="Hit5Slot3" type="Node2D" parent="Poses/Hit5" unique_id=1075389583]
+position = Vector2(6.1, 24.6)
+rotation = -0.033984564
+scale = Vector2(0.8534928, 1.023)
+skew = 0.033984542
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("29_vll16"),
+4: ExtResource("30_lbjgt"),
+5: ExtResource("31_kdt8f"),
+6: ExtResource("32_mi3n7"),
+7: ExtResource("33_7s1v2"),
+8: ExtResource("34_hmkth"),
+9: ExtResource("35_e6t34"),
+10: ExtResource("36_874kb"),
+11: ExtResource("37_o2hyq"),
+12: ExtResource("38_1g5gu")
+}
+
+[node name="Hit5Slot4" type="Node2D" parent="Poses/Hit5" unique_id=1589371997]
+position = Vector2(-1.6, -6.3)
+rotation = 1.3349582
+scale = Vector2(0.6633626, 0.6633626)
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("19_vxoov"),
+4: ExtResource("20_w7ll7"),
+5: ExtResource("21_clj82"),
+6: ExtResource("22_1d1ry"),
+7: ExtResource("23_vd2fa"),
+8: ExtResource("24_o1bxa"),
+9: ExtResource("25_8abs2"),
+10: ExtResource("26_dlov1"),
+11: ExtResource("27_vd1wt"),
+12: ExtResource("28_0xkuo")
+}
+
+[node name="Hit5Slot5" type="Node2D" parent="Poses/Hit5" unique_id=336417305]
+position = Vector2(4.3, 12.45)
+rotation = 0.04852699
+scale = Vector2(0.90706784, 0.9994209)
+skew = -0.019506216
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("39_m8xgv"),
+4: ExtResource("40_g6mw6"),
+5: ExtResource("41_m0gk1"),
+6: ExtResource("42_57pbe"),
+7: ExtResource("43_q54pb"),
+8: ExtResource("44_nybh1"),
+9: ExtResource("45_jmqxt"),
+10: ExtResource("46_fub06"),
+11: ExtResource("47_84u4r"),
+12: ExtResource("48_kftau")
+}
+
+[node name="Hit5Slot6" type="Node2D" parent="Poses/Hit5" unique_id=252686869]
+position = Vector2(4.65, 14.05)
+scale = Vector2(0.899, 1)
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("49_bt0wb"),
+4: ExtResource("50_u0l5k"),
+5: ExtResource("51_58036"),
+6: ExtResource("52_7sl00"),
+7: ExtResource("53_d5sls"),
+10: ExtResource("54_o00ns"),
+12: ExtResource("55_b1uir")
+}
+
+[node name="Hit5Part2" type="Sprite2D" parent="Poses/Hit5" unique_id=1013793591]
+position = Vector2(-12.65, -15.05)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("137_0nm5i")
+centered = false
+
+[node name="Hit5Slot7" type="Node2D" parent="Poses/Hit5" unique_id=29068762]
+position = Vector2(2.6, 1)
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("138_1ba7n"),
+4: ExtResource("139_drvnf"),
+5: ExtResource("140_urp24"),
+6: ExtResource("141_0ps12"),
+7: ExtResource("142_dh6d0"),
+8: ExtResource("143_3yeb8"),
+9: ExtResource("144_1cj12"),
+10: ExtResource("145_smipm"),
+11: ExtResource("146_fse4c"),
+12: ExtResource("147_qtmcg")
+}
+
+[node name="Hit5Part3" type="Sprite2D" parent="Poses/Hit5" unique_id=232028136]
+position = Vector2(-23.449999, -52.1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("148_vbywb")
+centered = false
+
+[node name="Hit5Slot8" type="Node2D" parent="Poses/Hit5" unique_id=1806750481]
+position = Vector2(-4.95, -46.65)
+rotation = -0.112202816
+scale = Vector2(1.00029, 1.00029)
+script = ExtResource("2_77546")
+variants = {
+2: ExtResource("67_ekhut"),
+3: ExtResource("68_tr2ke"),
+4: ExtResource("69_vcxqg"),
+5: ExtResource("70_mxmqx"),
+6: ExtResource("71_swyis"),
+7: ExtResource("72_txeop"),
+9: ExtResource("73_rmefy"),
+10: ExtResource("74_qvhn6"),
+12: ExtResource("75_o3hpb")
+}
+
+[node name="Hit2" type="Node2D" parent="Poses" unique_id=2091299171]
+visible = false
+
+[node name="Hit2Slot1" type="Node2D" parent="Poses/Hit2" unique_id=9815320]
+position = Vector2(-24.05, -81.9)
+rotation = -0.100166164
+scale = Vector2(1.0000125, 1.0000125)
+script = ExtResource("2_77546")
+kind = "wing"
+variants = {
+2: ExtResource("3_i5oji"),
+3: ExtResource("4_bssql")
+}
+
+[node name="Hit2Part1" type="Sprite2D" parent="Poses/Hit2" unique_id=181308442]
+position = Vector2(-22.300001, -20)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("149_8rlmy")
+centered = false
+
+[node name="Hit2Slot2" type="Node2D" parent="Poses/Hit2" unique_id=36660644]
+position = Vector2(16, 11)
+rotation = -0.54333496
+scale = Vector2(1.0000125, 1.0005299)
+skew = -0.0008555651
+script = ExtResource("2_77546")
+kind = "weapon"
+variants = {
+1: ExtResource("7_d6vv4"),
+3: ExtResource("8_q1mq8"),
+4: ExtResource("9_v0h3x"),
+5: ExtResource("10_buyyt"),
+6: ExtResource("11_r5f41"),
+7: ExtResource("12_o0o33"),
+8: ExtResource("13_1wo7n")
+}
+
+[node name="Hit2Part2" type="Sprite2D" parent="Poses/Hit2" unique_id=154408305]
+position = Vector2(12.050001, 6.5499997)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("150_3avio")
+centered = false
+
+[node name="Hit2Part3" type="Sprite2D" parent="Poses/Hit2" unique_id=298205770]
+position = Vector2(-43.7, -9.8)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("151_7jsk4")
+centered = false
+
+[node name="Hit2Slot3" type="Node2D" parent="Poses/Hit2" unique_id=339530868]
+position = Vector2(-1.75, 5.95)
+script = ExtResource("2_77546")
+variants = {
+2: ExtResource("100_yhhpv")
+}
+
+[node name="Hit2Slot4" type="Node2D" parent="Poses/Hit2" unique_id=366466526]
+position = Vector2(-10.25, -3.5)
+rotation = 0.88197964
+scale = Vector2(0.8432657, 0.8432657)
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("19_vxoov"),
+4: ExtResource("20_w7ll7"),
+5: ExtResource("21_clj82"),
+6: ExtResource("22_1d1ry"),
+7: ExtResource("23_vd2fa"),
+8: ExtResource("24_o1bxa"),
+9: ExtResource("25_8abs2"),
+10: ExtResource("26_dlov1"),
+11: ExtResource("27_vd1wt"),
+12: ExtResource("28_0xkuo")
+}
+
+[node name="Hit2Slot5" type="Node2D" parent="Poses/Hit2" unique_id=271534574]
+position = Vector2(-0.75, 23.45)
+rotation = -0.04192553
+scale = Vector2(0.8827758, 1.105)
+skew = 0.04192543
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("29_vll16"),
+4: ExtResource("30_lbjgt"),
+5: ExtResource("31_kdt8f"),
+6: ExtResource("32_mi3n7"),
+7: ExtResource("33_7s1v2"),
+8: ExtResource("34_hmkth"),
+9: ExtResource("35_e6t34"),
+10: ExtResource("36_874kb"),
+11: ExtResource("37_o2hyq"),
+12: ExtResource("38_1g5gu")
+}
+
+[node name="Hit2Slot6" type="Node2D" parent="Poses/Hit2" unique_id=1732598405]
+position = Vector2(-2.1, 10.4)
+rotation = 0.020968229
+scale = Vector2(0.9061992, 1.0002204)
+skew = 2.861023e-05
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("39_m8xgv"),
+4: ExtResource("40_g6mw6"),
+5: ExtResource("41_m0gk1"),
+6: ExtResource("42_57pbe"),
+7: ExtResource("43_q54pb"),
+8: ExtResource("44_nybh1"),
+9: ExtResource("45_jmqxt"),
+10: ExtResource("46_fub06"),
+11: ExtResource("47_84u4r"),
+12: ExtResource("48_kftau")
+}
+
+[node name="Hit2Slot7" type="Node2D" parent="Poses/Hit2" unique_id=2016309782]
+position = Vector2(-1.65, 9.7)
+scale = Vector2(0.899, 1)
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("49_bt0wb"),
+4: ExtResource("50_u0l5k"),
+5: ExtResource("51_58036"),
+6: ExtResource("52_7sl00"),
+7: ExtResource("53_d5sls"),
+10: ExtResource("54_o00ns"),
+12: ExtResource("55_b1uir")
+}
+
+[node name="Hit2Part4" type="Sprite2D" parent="Poses/Hit2" unique_id=1055022239]
+position = Vector2(-36.25, -12.9)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("103_mnc1e")
+centered = false
+
+[node name="Hit2Slot8" type="Node2D" parent="Poses/Hit2" unique_id=1489212172]
+position = Vector2(-40, 2.85)
+rotation = -0.4005594
+scale = Vector2(1.0001705, 1.0001705)
+script = ExtResource("2_77546")
+kind = "weapon"
+variants = {
+1: ExtResource("7_d6vv4"),
+3: ExtResource("8_q1mq8"),
+4: ExtResource("9_v0h3x"),
+5: ExtResource("10_buyyt"),
+6: ExtResource("11_r5f41"),
+7: ExtResource("12_o0o33"),
+8: ExtResource("13_1wo7n")
+}
+
+[node name="Hit2Slot9" type="Node2D" parent="Poses/Hit2" unique_id=1378058913]
+position = Vector2(9.75, -5.9)
+rotation = -0.35654664
+scale = Vector2(0.99988496, 0.99988496)
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("19_vxoov"),
+4: ExtResource("20_w7ll7"),
+5: ExtResource("21_clj82"),
+6: ExtResource("22_1d1ry"),
+7: ExtResource("23_vd2fa"),
+8: ExtResource("24_o1bxa"),
+9: ExtResource("25_8abs2"),
+10: ExtResource("26_dlov1"),
+11: ExtResource("27_vd1wt"),
+12: ExtResource("28_0xkuo")
+}
+
+[node name="Hit2Slot10" type="Node2D" parent="Poses/Hit2" unique_id=2028024331]
+position = Vector2(16, 11)
+rotation = -0.54333496
+scale = Vector2(1.0000125, 1.0005299)
+skew = -0.0008555651
+script = ExtResource("2_77546")
+kind = "weapon"
+variants = {
+1: ExtResource("7_d6vv4"),
+3: ExtResource("8_q1mq8"),
+4: ExtResource("9_v0h3x"),
+5: ExtResource("10_buyyt"),
+6: ExtResource("11_r5f41"),
+7: ExtResource("12_o0o33"),
+8: ExtResource("13_1wo7n")
+}
+
+[node name="Hit2Part5" type="Sprite2D" parent="Poses/Hit2" unique_id=1810637112]
+position = Vector2(-43.800003, -51.15)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("104_lo1mv")
+centered = false
+
+[node name="Hit2Part6" type="Sprite2D" parent="Poses/Hit2" unique_id=9784795]
+position = Vector2(-31.150002, -51.15)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("152_wagk8")
+centered = false
+
+[node name="Hit2Slot11" type="Node2D" parent="Poses/Hit2" unique_id=1742422833]
+position = Vector2(-10.55, -46.2)
+rotation = 0.0049999584
+scale = Vector2(1.0000125, 1.0000125)
+script = ExtResource("2_77546")
+variants = {
+2: ExtResource("67_ekhut"),
+3: ExtResource("68_tr2ke"),
+4: ExtResource("69_vcxqg"),
+5: ExtResource("70_mxmqx"),
+6: ExtResource("71_swyis"),
+7: ExtResource("72_txeop"),
+9: ExtResource("73_rmefy"),
+10: ExtResource("74_qvhn6"),
+12: ExtResource("75_o3hpb")
+}
+
+[node name="Jump1" type="Node2D" parent="Poses" unique_id=1547436921]
+visible = false
+
+[node name="Jump1Slot1" type="Node2D" parent="Poses/Jump1" unique_id=728557550]
+position = Vector2(-41.55, -63.65)
+rotation = -0.4314296
+scale = Vector2(0.9995939, 0.9995939)
+script = ExtResource("2_77546")
+kind = "wing"
+variants = {
+2: ExtResource("3_i5oji"),
+3: ExtResource("4_bssql")
+}
+
+[node name="Jump1Part1" type="Sprite2D" parent="Poses/Jump1" unique_id=496234012]
+position = Vector2(-5.6000004, -10.25)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("153_nopwb")
+centered = false
+
+[node name="Jump1Slot2" type="Node2D" parent="Poses/Jump1" unique_id=1446895529]
+position = Vector2(17.15, 9.65)
+rotation = -1.0574807
+scale = Vector2(0.999861, 0.999861)
+script = ExtResource("2_77546")
+kind = "weapon"
+variants = {
+1: ExtResource("7_d6vv4"),
+3: ExtResource("8_q1mq8"),
+4: ExtResource("9_v0h3x"),
+5: ExtResource("10_buyyt"),
+6: ExtResource("11_r5f41"),
+7: ExtResource("12_o0o33"),
+8: ExtResource("13_1wo7n")
+}
+
+[node name="Jump1Part2" type="Sprite2D" parent="Poses/Jump1" unique_id=1664996135]
+position = Vector2(-11.700001, -13.1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("154_7fjj0")
+centered = false
+
+[node name="Jump1Slot3" type="Node2D" parent="Poses/Jump1" unique_id=1547612113]
+position = Vector2(5.25, 11)
+script = ExtResource("2_77546")
+variants = {
+2: ExtResource("155_2rv0u")
+}
+
+[node name="Jump1Slot4" type="Node2D" parent="Poses/Jump1" unique_id=1067646484]
+position = Vector2(11.15, 24.8)
+rotation = -0.5019546
+scale = Vector2(0.8874756, 1.0740136)
+skew = 0.208179
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("29_vll16"),
+4: ExtResource("30_lbjgt"),
+5: ExtResource("31_kdt8f"),
+6: ExtResource("32_mi3n7"),
+7: ExtResource("33_7s1v2"),
+8: ExtResource("34_hmkth"),
+9: ExtResource("35_e6t34"),
+10: ExtResource("36_874kb"),
+11: ExtResource("37_o2hyq"),
+12: ExtResource("38_1g5gu")
+}
+
+[node name="Jump1Slot5" type="Node2D" parent="Poses/Jump1" unique_id=254118218]
+position = Vector2(6.2, 14.2)
+rotation = -0.32349575
+scale = Vector2(0.90599394, 0.999914)
+skew = -0.00015246868
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("39_m8xgv"),
+4: ExtResource("40_g6mw6"),
+5: ExtResource("41_m0gk1"),
+6: ExtResource("42_57pbe"),
+7: ExtResource("43_q54pb"),
+8: ExtResource("44_nybh1"),
+9: ExtResource("45_jmqxt"),
+10: ExtResource("46_fub06"),
+11: ExtResource("47_84u4r"),
+12: ExtResource("48_kftau")
+}
+
+[node name="Jump1Slot6" type="Node2D" parent="Poses/Jump1" unique_id=1359468661]
+position = Vector2(6.65, 15.45)
+rotation = -0.3749256
+scale = Vector2(0.89840806, 0.9997945)
+skew = -0.00093746185
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("49_bt0wb"),
+4: ExtResource("50_u0l5k"),
+5: ExtResource("51_58036"),
+6: ExtResource("52_7sl00"),
+7: ExtResource("53_d5sls"),
+10: ExtResource("54_o00ns"),
+12: ExtResource("55_b1uir")
+}
+
+[node name="Jump1Slot7" type="Node2D" parent="Poses/Jump1" unique_id=1763091883]
+position = Vector2(12.85, 1.75)
+rotation = -0.5644286
+scale = Vector2(1.000125, 1.1668642)
+skew = 0.00019705296
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("19_vxoov"),
+4: ExtResource("20_w7ll7"),
+5: ExtResource("21_clj82"),
+6: ExtResource("22_1d1ry"),
+7: ExtResource("23_vd2fa"),
+8: ExtResource("24_o1bxa"),
+9: ExtResource("25_8abs2"),
+10: ExtResource("26_dlov1"),
+11: ExtResource("27_vd1wt"),
+12: ExtResource("28_0xkuo")
+}
+
+[node name="Jump1Part3" type="Sprite2D" parent="Poses/Jump1" unique_id=73890720]
+position = Vector2(-32.6, -44.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("156_adav0")
+centered = false
+
+[node name="Jump1Slot8" type="Node2D" parent="Poses/Jump1" unique_id=1837806475]
+position = Vector2(-7.8, -39.85)
+rotation = 0.26607668
+scale = Vector2(1.0001969, 1.0001969)
+script = ExtResource("2_77546")
+variants = {
+2: ExtResource("67_ekhut"),
+3: ExtResource("68_tr2ke"),
+4: ExtResource("69_vcxqg"),
+5: ExtResource("70_mxmqx"),
+6: ExtResource("71_swyis"),
+7: ExtResource("72_txeop"),
+9: ExtResource("73_rmefy"),
+10: ExtResource("74_qvhn6"),
+12: ExtResource("75_o3hpb")
+}
+
+[node name="Jump2" type="Node2D" parent="Poses" unique_id=1619330878]
+visible = false
+
+[node name="Jump2Slot1" type="Node2D" parent="Poses/Jump2" unique_id=1080749022]
+position = Vector2(-33.05, -70.8)
+rotation = -0.2003373
+scale = Vector2(1.0000005, 1.0000005)
+script = ExtResource("2_77546")
+kind = "wing"
+variants = {
+2: ExtResource("3_i5oji"),
+3: ExtResource("4_bssql")
+}
+
+[node name="Jump2Part1" type="Sprite2D" parent="Poses/Jump2" unique_id=1181833039]
+position = Vector2(-16.2, -1.7499999)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("157_hnrvs")
+centered = false
+
+[node name="Jump2Slot2" type="Node2D" parent="Poses/Jump2" unique_id=1306986212]
+position = Vector2(-0.1, 4.8)
+rotation = -1.2942824
+scale = Vector2(0.99998647, 0.99998647)
+script = ExtResource("2_77546")
+kind = "weapon"
+variants = {
+1: ExtResource("7_d6vv4"),
+3: ExtResource("8_q1mq8"),
+4: ExtResource("9_v0h3x"),
+5: ExtResource("10_buyyt"),
+6: ExtResource("11_r5f41"),
+7: ExtResource("12_o0o33"),
+8: ExtResource("13_1wo7n")
+}
+
+[node name="Jump2Part2" type="Sprite2D" parent="Poses/Jump2" unique_id=669303199]
+position = Vector2(-16.25, -11.099999)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("158_umshe")
+centered = false
+
+[node name="Jump2Slot3" type="Node2D" parent="Poses/Jump2" unique_id=707911994]
+position = Vector2(-0.2, 11)
+script = ExtResource("2_77546")
+variants = {
+2: ExtResource("159_ivpgo")
+}
+
+[node name="Jump2Slot4" type="Node2D" parent="Poses/Jump2" unique_id=630990191]
+position = Vector2(1.75, 17.75)
+rotation = -0.6055447
+scale = Vector2(0.75894666, 1.073851)
+skew = 0.20774496
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("29_vll16"),
+4: ExtResource("30_lbjgt"),
+5: ExtResource("31_kdt8f"),
+6: ExtResource("32_mi3n7"),
+7: ExtResource("33_7s1v2"),
+8: ExtResource("34_hmkth"),
+9: ExtResource("35_e6t34"),
+10: ExtResource("36_874kb"),
+11: ExtResource("37_o2hyq"),
+12: ExtResource("38_1g5gu")
+}
+
+[node name="Jump2Slot5" type="Node2D" parent="Poses/Jump2" unique_id=67647358]
+position = Vector2(1.65, 10.55)
+rotation = 0.13940173
+scale = Vector2(0.9067966, 0.9997105)
+skew = 9.036064e-05
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("39_m8xgv"),
+4: ExtResource("40_g6mw6"),
+5: ExtResource("41_m0gk1"),
+6: ExtResource("42_57pbe"),
+7: ExtResource("43_q54pb"),
+8: ExtResource("44_nybh1"),
+9: ExtResource("45_jmqxt"),
+10: ExtResource("46_fub06"),
+11: ExtResource("47_84u4r"),
+12: ExtResource("48_kftau")
+}
+
+[node name="Jump2Slot6" type="Node2D" parent="Poses/Jump2" unique_id=1835589240]
+position = Vector2(1.75, 9.25)
+rotation = 0.08240227
+scale = Vector2(0.89905065, 1.0003664)
+skew = -0.0003402233
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("49_bt0wb"),
+4: ExtResource("50_u0l5k"),
+5: ExtResource("51_58036"),
+6: ExtResource("52_7sl00"),
+7: ExtResource("53_d5sls"),
+10: ExtResource("54_o00ns"),
+12: ExtResource("55_b1uir")
+}
+
+[node name="Jump2Slot7" type="Node2D" parent="Poses/Jump2" unique_id=2061415064]
+position = Vector2(-1.7, 1.55)
+rotation = 0.8735835
+scale = Vector2(0.9313431, 0.8979271)
+skew = -0.000662446
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("19_vxoov"),
+4: ExtResource("20_w7ll7"),
+5: ExtResource("21_clj82"),
+6: ExtResource("22_1d1ry"),
+7: ExtResource("23_vd2fa"),
+8: ExtResource("24_o1bxa"),
+9: ExtResource("25_8abs2"),
+10: ExtResource("26_dlov1"),
+11: ExtResource("27_vd1wt"),
+12: ExtResource("28_0xkuo")
+}
+
+[node name="Jump2Part3" type="Sprite2D" parent="Poses/Jump2" unique_id=1460180611]
+position = Vector2(-29.85, -36.600002)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("160_pu1pw")
+centered = false
+
+[node name="Jump2Slot8" type="Node2D" parent="Poses/Jump2" unique_id=251206039]
+position = Vector2(-18.8, -28.4)
+rotation = -0.56718963
+scale = Vector2(0.99950886, 0.99950886)
+script = ExtResource("2_77546")
+variants = {
+2: ExtResource("67_ekhut"),
+3: ExtResource("68_tr2ke"),
+4: ExtResource("69_vcxqg"),
+5: ExtResource("70_mxmqx"),
+6: ExtResource("71_swyis"),
+7: ExtResource("72_txeop"),
+9: ExtResource("73_rmefy"),
+10: ExtResource("74_qvhn6"),
+12: ExtResource("75_o3hpb")
+}
+
+[node name="Jump3" type="Node2D" parent="Poses" unique_id=117274143]
+visible = false
+
+[node name="Jump3Slot1" type="Node2D" parent="Poses/Jump3" unique_id=2068138415]
+position = Vector2(-2.6, -80.05)
+rotation = 0.16169645
+scale = Vector2(1.000045, 1.000045)
+script = ExtResource("2_77546")
+kind = "wing"
+variants = {
+2: ExtResource("3_i5oji"),
+3: ExtResource("4_bssql")
+}
+
+[node name="Jump3Part1" type="Sprite2D" parent="Poses/Jump3" unique_id=1020084301]
+position = Vector2(-18.749998, -6.25)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("161_3qoah")
+centered = false
+
+[node name="Jump3Slot2" type="Node2D" parent="Poses/Jump3" unique_id=1222930814]
+position = Vector2(21.85, 11.4)
+rotation = -1.0274614
+scale = Vector2(1.0000125, 1.0000125)
+script = ExtResource("2_77546")
+kind = "weapon"
+variants = {
+1: ExtResource("7_d6vv4"),
+3: ExtResource("8_q1mq8"),
+4: ExtResource("9_v0h3x"),
+5: ExtResource("10_buyyt"),
+6: ExtResource("11_r5f41"),
+7: ExtResource("12_o0o33"),
+8: ExtResource("13_1wo7n")
+}
+
+[node name="Jump3Part2" type="Sprite2D" parent="Poses/Jump3" unique_id=1146881490]
+position = Vector2(-21.949999, -15.05)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("162_garo2")
+centered = false
+
+[node name="Jump3Slot3" type="Node2D" parent="Poses/Jump3" unique_id=1354663813]
+position = Vector2(-9, 9.65)
+script = ExtResource("2_77546")
+variants = {
+2: ExtResource("163_6l8kn")
+}
+
+[node name="Jump3Slot4" type="Node2D" parent="Poses/Jump3" unique_id=220661338]
+position = Vector2(8.25, 1.45)
+rotation = -0.3952539
+scale = Vector2(0.83107704, 0.9436154)
+skew = 0.0003812313
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("19_vxoov"),
+4: ExtResource("20_w7ll7"),
+5: ExtResource("21_clj82"),
+6: ExtResource("22_1d1ry"),
+7: ExtResource("23_vd2fa"),
+8: ExtResource("24_o1bxa"),
+9: ExtResource("25_8abs2"),
+10: ExtResource("26_dlov1"),
+11: ExtResource("27_vd1wt"),
+12: ExtResource("28_0xkuo")
+}
+
+[node name="Jump3Slot5" type="Node2D" parent="Poses/Jump3" unique_id=781463895]
+position = Vector2(-6.45, 24.4)
+rotation = 0.18907233
+scale = Vector2(0.8246969, 1.1323448)
+skew = -0.008823872
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("29_vll16"),
+4: ExtResource("30_lbjgt"),
+5: ExtResource("31_kdt8f"),
+6: ExtResource("32_mi3n7"),
+7: ExtResource("33_7s1v2"),
+8: ExtResource("34_hmkth"),
+9: ExtResource("35_e6t34"),
+10: ExtResource("36_874kb"),
+11: ExtResource("37_o2hyq"),
+12: ExtResource("38_1g5gu")
+}
+
+[node name="Jump3Slot6" type="Node2D" parent="Poses/Jump3" unique_id=753169776]
+position = Vector2(-5.35, 14.25)
+rotation = 0.4266275
+scale = Vector2(0.9062284, 0.999748)
+skew = 0.0003310442
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("39_m8xgv"),
+4: ExtResource("40_g6mw6"),
+5: ExtResource("41_m0gk1"),
+6: ExtResource("42_57pbe"),
+7: ExtResource("43_q54pb"),
+8: ExtResource("44_nybh1"),
+9: ExtResource("45_jmqxt"),
+10: ExtResource("46_fub06"),
+11: ExtResource("47_84u4r"),
+12: ExtResource("48_kftau")
+}
+
+[node name="Jump3Slot7" type="Node2D" parent="Poses/Jump3" unique_id=902680054]
+position = Vector2(-4.75, 13.9)
+rotation = 0.42285392
+scale = Vector2(0.8992002, 1.0003325)
+skew = 0.0005469322
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("49_bt0wb"),
+4: ExtResource("50_u0l5k"),
+5: ExtResource("51_58036"),
+6: ExtResource("52_7sl00"),
+7: ExtResource("53_d5sls"),
+10: ExtResource("54_o00ns"),
+12: ExtResource("55_b1uir")
+}
+
+[node name="Jump3Slot8" type="Node2D" parent="Poses/Jump3" unique_id=1482112543]
+position = Vector2(15.4, 2.35)
+rotation = -0.40283906
+scale = Vector2(0.8315654, 0.9435698)
+skew = -0.00010454655
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("19_vxoov"),
+4: ExtResource("20_w7ll7"),
+5: ExtResource("21_clj82"),
+6: ExtResource("22_1d1ry"),
+7: ExtResource("23_vd2fa"),
+8: ExtResource("24_o1bxa"),
+9: ExtResource("25_8abs2"),
+10: ExtResource("26_dlov1"),
+11: ExtResource("27_vd1wt"),
+12: ExtResource("28_0xkuo")
+}
+
+[node name="Jump3Part3" type="Sprite2D" parent="Poses/Jump3" unique_id=1227219031]
+position = Vector2(-21.449999, -46.4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("164_v5s4t")
+centered = false
+
+[node name="Jump3Slot9" type="Node2D" parent="Poses/Jump3" unique_id=2140343809]
+position = Vector2(3.55, -41.2)
+rotation = 0.26607668
+scale = Vector2(1.0001969, 1.0001969)
+script = ExtResource("2_77546")
+variants = {
+2: ExtResource("67_ekhut"),
+3: ExtResource("68_tr2ke"),
+4: ExtResource("69_vcxqg"),
+5: ExtResource("70_mxmqx"),
+6: ExtResource("71_swyis"),
+7: ExtResource("72_txeop"),
+9: ExtResource("73_rmefy"),
+10: ExtResource("74_qvhn6"),
+12: ExtResource("75_o3hpb")
+}
+
+[node name="Hurt" type="Node2D" parent="Poses" unique_id=784469268]
+visible = false
+
+[node name="HurtSlot1" type="Node2D" parent="Poses/Hurt" unique_id=2032102563]
+position = Vector2(10.6, -81.9)
+rotation = 0.3151114
+scale = Vector2(1.0002505, 0.99994093)
+skew = -0.0009508133
+script = ExtResource("2_77546")
+kind = "wing"
+variants = {
+2: ExtResource("3_i5oji"),
+3: ExtResource("4_bssql")
+}
+
+[node name="HurtPart1" type="Sprite2D" parent="Poses/Hurt" unique_id=1373085679]
+position = Vector2(-22.8, -23.8)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("165_find7")
+centered = false
+
+[node name="HurtSlot2" type="Node2D" parent="Poses/Hurt" unique_id=1440515298]
+position = Vector2(2.85, -18.6)
+rotation = 2.5447137
+scale = Vector2(0.9998865, 0.9998865)
+script = ExtResource("2_77546")
+kind = "weapon"
+variants = {
+1: ExtResource("7_d6vv4"),
+3: ExtResource("8_q1mq8"),
+4: ExtResource("9_v0h3x"),
+5: ExtResource("10_buyyt"),
+6: ExtResource("11_r5f41"),
+7: ExtResource("12_o0o33"),
+8: ExtResource("13_1wo7n")
+}
+
+[node name="HurtPart2" type="Sprite2D" parent="Poses/Hurt" unique_id=1125952562]
+position = Vector2(-26.099998, -14.549999)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("166_xjshu")
+centered = false
+
+[node name="HurtPart3" type="Sprite2D" parent="Poses/Hurt" unique_id=616607863]
+position = Vector2(-26.099998, -23.8)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("167_plb8r")
+centered = false
+
+[node name="HurtSlot3" type="Node2D" parent="Poses/Hurt" unique_id=1451386947]
+position = Vector2(-5, 11.1)
+script = ExtResource("2_77546")
+variants = {
+2: ExtResource("168_0b8xg")
+}
+
+[node name="HurtSlot4" type="Node2D" parent="Poses/Hurt" unique_id=1444878851]
+position = Vector2(0.65, -21.35)
+rotation = -2.4328358
+scale = Vector2(0.83116907, 0.943973)
+skew = -0.0005902052
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("19_vxoov"),
+4: ExtResource("20_w7ll7"),
+5: ExtResource("21_clj82"),
+6: ExtResource("22_1d1ry"),
+7: ExtResource("23_vd2fa"),
+8: ExtResource("24_o1bxa"),
+9: ExtResource("25_8abs2"),
+10: ExtResource("26_dlov1"),
+11: ExtResource("27_vd1wt"),
+12: ExtResource("28_0xkuo")
+}
+
+[node name="HurtSlot5" type="Node2D" parent="Poses/Hurt" unique_id=660951048]
+position = Vector2(-7.95, 26.15)
+rotation = 0.18907233
+scale = Vector2(0.8246969, 1.1419005)
+skew = 0.13073969
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("29_vll16"),
+4: ExtResource("30_lbjgt"),
+5: ExtResource("31_kdt8f"),
+6: ExtResource("32_mi3n7"),
+7: ExtResource("33_7s1v2"),
+8: ExtResource("34_hmkth"),
+9: ExtResource("35_e6t34"),
+10: ExtResource("36_874kb"),
+11: ExtResource("37_o2hyq"),
+12: ExtResource("38_1g5gu")
+}
+
+[node name="HurtSlot6" type="Node2D" parent="Poses/Hurt" unique_id=1443702567]
+position = Vector2(-5.15, 15.6)
+rotation = 0.4266275
+scale = Vector2(0.9062284, 0.999748)
+skew = 0.0003310442
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("39_m8xgv"),
+4: ExtResource("40_g6mw6"),
+5: ExtResource("41_m0gk1"),
+6: ExtResource("42_57pbe"),
+7: ExtResource("43_q54pb"),
+8: ExtResource("44_nybh1"),
+9: ExtResource("45_jmqxt"),
+10: ExtResource("46_fub06"),
+11: ExtResource("47_84u4r"),
+12: ExtResource("48_kftau")
+}
+
+[node name="HurtSlot7" type="Node2D" parent="Poses/Hurt" unique_id=1436758607]
+position = Vector2(-5.6, 16.55)
+rotation = 0.42285392
+scale = Vector2(0.8992002, 1.0003325)
+skew = 0.0005469322
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("49_bt0wb"),
+4: ExtResource("50_u0l5k"),
+5: ExtResource("51_58036"),
+6: ExtResource("52_7sl00"),
+7: ExtResource("53_d5sls"),
+10: ExtResource("54_o00ns"),
+12: ExtResource("55_b1uir")
+}
+
+[node name="HurtSlot8" type="Node2D" parent="Poses/Hurt" unique_id=1186107844]
+position = Vector2(13.75, 5.15)
+rotation = -0.24176888
+scale = Vector2(0.8311739, 0.9434681)
+skew = -0.00012505054
+script = ExtResource("2_77546")
+kind = "cloth_ex"
+variants = {
+3: ExtResource("19_vxoov"),
+4: ExtResource("20_w7ll7"),
+5: ExtResource("21_clj82"),
+6: ExtResource("22_1d1ry"),
+7: ExtResource("23_vd2fa"),
+8: ExtResource("24_o1bxa"),
+9: ExtResource("25_8abs2"),
+10: ExtResource("26_dlov1"),
+11: ExtResource("27_vd1wt"),
+12: ExtResource("28_0xkuo")
+}
+
+[node name="HurtPart4" type="Sprite2D" parent="Poses/Hurt" unique_id=839408165]
+position = Vector2(-16.4, -45.75)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("169_feq11")
+centered = false
+
+[node name="HurtSlot9" type="Node2D" parent="Poses/Hurt" unique_id=88392604]
+position = Vector2(10.7, -39.65)
+rotation = 0.4050231
+scale = Vector2(0.9998985, 0.9998985)
+script = ExtResource("2_77546")
+variants = {
+2: ExtResource("67_ekhut"),
+3: ExtResource("68_tr2ke"),
+4: ExtResource("69_vcxqg"),
+5: ExtResource("70_mxmqx"),
+6: ExtResource("71_swyis"),
+7: ExtResource("72_txeop"),
+9: ExtResource("73_rmefy"),
+10: ExtResource("74_qvhn6"),
+12: ExtResource("75_o3hpb")
+}
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1451212584]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=933821962]
+shape = SubResource("RectangleShape2D_nrap8")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1549084736]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1073416581]
+shape = SubResource("RectangleShape2D_s8snb")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1465190388]
+callback_mode_process = 0
+libraries/ = ExtResource("170_taced")
