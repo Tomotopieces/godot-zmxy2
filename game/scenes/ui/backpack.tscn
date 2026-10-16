@@ -77,6 +77,7 @@
 [ext_resource type="Texture2D" uid="uid://dyrcgyd0ly34p" path="res://assets/shared/mixed/Pig9_212.png" id="81_n1o2a"]
 [ext_resource type="Texture2D" uid="uid://co6gehv1xfujq" path="res://assets/shared/ui/backpack_v5_415.png" id="82_3nogg"]
 [ext_resource type="PackedScene" uid="uid://bhb50stuk56mg" path="res://scenes/ui/backpack/equipment_slot.tscn" id="82_gye66"]
+[ext_resource type="PackedScene" uid="uid://bjfpq7vfs33b3" path="res://scenes/ui/backpack/slot.tscn" id="slot"]
 [node name="backpack" type="Control" unique_id=1004764809]
 layout_mode = 3
 anchors_preset = 0
@@ -1706,6 +1707,204 @@ offset_right = 280.0
 offset_bottom = 383.0
 caption = "回蓝"
 piece = "txt_hl"
+
+[node name="Grid" type="Control" parent="." unique_id=371986125]
+layout_mode = 0
+offset_left = 484.3
+offset_top = 120.35
+offset_right = 484.3
+offset_bottom = 120.35
+mouse_filter = 2
+
+[node name="Cell1" parent="Grid" unique_id=967300072 instance=ExtResource("slot")]
+mouse_filter = 2
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 100.0
+
+[node name="Cell2" parent="Grid" unique_id=2092613422 instance=ExtResource("slot")]
+mouse_filter = 2
+layout_mode = 0
+offset_left = 57.0
+offset_right = 157.0
+offset_bottom = 100.0
+
+[node name="Cell3" parent="Grid" unique_id=89727172 instance=ExtResource("slot")]
+mouse_filter = 2
+layout_mode = 0
+offset_left = 114.0
+offset_right = 214.0
+offset_bottom = 100.0
+
+[node name="Cell4" parent="Grid" unique_id=1005284180 instance=ExtResource("slot")]
+mouse_filter = 2
+layout_mode = 0
+offset_left = 171.0
+offset_right = 271.0
+offset_bottom = 100.0
+
+[node name="Cell5" parent="Grid" unique_id=1977029954 instance=ExtResource("slot")]
+mouse_filter = 2
+layout_mode = 0
+offset_left = 228.0
+offset_right = 328.0
+offset_bottom = 100.0
+
+[node name="Cell6" parent="Grid" unique_id=1148554682 instance=ExtResource("slot")]
+mouse_filter = 2
+layout_mode = 0
+offset_top = 57.0
+offset_right = 100.0
+offset_bottom = 157.0
+
+[node name="Cell7" parent="Grid" unique_id=1856402573 instance=ExtResource("slot")]
+mouse_filter = 2
+layout_mode = 0
+offset_left = 57.0
+offset_top = 57.0
+offset_right = 157.0
+offset_bottom = 157.0
+
+[node name="Cell8" parent="Grid" unique_id=1231679571 instance=ExtResource("slot")]
+mouse_filter = 2
+layout_mode = 0
+offset_left = 114.0
+offset_top = 57.0
+offset_right = 214.0
+offset_bottom = 157.0
+
+[node name="Cell9" parent="Grid" unique_id=296583699 instance=ExtResource("slot")]
+mouse_filter = 2
+layout_mode = 0
+offset_left = 171.0
+offset_top = 57.0
+offset_right = 271.0
+offset_bottom = 157.0
+
+[node name="Cell10" parent="Grid" unique_id=1504466236 instance=ExtResource("slot")]
+mouse_filter = 2
+layout_mode = 0
+offset_left = 228.0
+offset_top = 57.0
+offset_right = 328.0
+offset_bottom = 157.0
+
+[node name="Cell11" parent="Grid" unique_id=52116358 instance=ExtResource("slot")]
+mouse_filter = 2
+layout_mode = 0
+offset_top = 114.0
+offset_right = 100.0
+offset_bottom = 214.0
+
+[node name="Cell12" parent="Grid" unique_id=1688941950 instance=ExtResource("slot")]
+mouse_filter = 2
+layout_mode = 0
+offset_left = 57.0
+offset_top = 114.0
+offset_right = 157.0
+offset_bottom = 214.0
+
+[node name="Cell13" parent="Grid" unique_id=1282346452 instance=ExtResource("slot")]
+mouse_filter = 2
+layout_mode = 0
+offset_left = 114.0
+offset_top = 114.0
+offset_right = 214.0
+offset_bottom = 214.0
+
+[node name="Cell14" parent="Grid" unique_id=1174969467 instance=ExtResource("slot")]
+mouse_filter = 2
+layout_mode = 0
+offset_left = 171.0
+offset_top = 114.0
+offset_right = 271.0
+offset_bottom = 214.0
+
+[node name="Cell15" parent="Grid" unique_id=1939688874 instance=ExtResource("slot")]
+mouse_filter = 2
+layout_mode = 0
+offset_left = 228.0
+offset_top = 114.0
+offset_right = 328.0
+offset_bottom = 214.0
+
+[node name="Cell16" parent="Grid" unique_id=1428575506 instance=ExtResource("slot")]
+mouse_filter = 2
+layout_mode = 0
+offset_top = 171.0
+offset_right = 100.0
+offset_bottom = 271.0
+
+[node name="Cell17" parent="Grid" unique_id=219101205 instance=ExtResource("slot")]
+mouse_filter = 2
+layout_mode = 0
+offset_left = 57.0
+offset_top = 171.0
+offset_right = 157.0
+offset_bottom = 271.0
+
+[node name="Cell18" parent="Grid" unique_id=705472783 instance=ExtResource("slot")]
+mouse_filter = 2
+layout_mode = 0
+offset_left = 114.0
+offset_top = 171.0
+offset_right = 214.0
+offset_bottom = 271.0
+
+[node name="Cell19" parent="Grid" unique_id=219103249 instance=ExtResource("slot")]
+mouse_filter = 2
+layout_mode = 0
+offset_left = 171.0
+offset_top = 171.0
+offset_right = 271.0
+offset_bottom = 271.0
+
+[node name="Cell20" parent="Grid" unique_id=1648907673 instance=ExtResource("slot")]
+mouse_filter = 2
+layout_mode = 0
+offset_left = 228.0
+offset_top = 171.0
+offset_right = 328.0
+offset_bottom = 271.0
+
+[node name="Cell21" parent="Grid" unique_id=2125912482 instance=ExtResource("slot")]
+mouse_filter = 2
+layout_mode = 0
+offset_top = 228.0
+offset_right = 100.0
+offset_bottom = 328.0
+
+[node name="Cell22" parent="Grid" unique_id=1987656573 instance=ExtResource("slot")]
+mouse_filter = 2
+layout_mode = 0
+offset_left = 57.0
+offset_top = 228.0
+offset_right = 157.0
+offset_bottom = 328.0
+
+[node name="Cell23" parent="Grid" unique_id=782427232 instance=ExtResource("slot")]
+mouse_filter = 2
+layout_mode = 0
+offset_left = 114.0
+offset_top = 228.0
+offset_right = 214.0
+offset_bottom = 328.0
+
+[node name="Cell24" parent="Grid" unique_id=1833184578 instance=ExtResource("slot")]
+mouse_filter = 2
+layout_mode = 0
+offset_left = 171.0
+offset_top = 228.0
+offset_right = 271.0
+offset_bottom = 328.0
+
+[node name="Cell25" parent="Grid" unique_id=15722113 instance=ExtResource("slot")]
+mouse_filter = 2
+layout_mode = 0
+offset_left = 228.0
+offset_top = 228.0
+offset_right = 328.0
+offset_bottom = 328.0
 
 [node name="txt_name" type="Label" parent="." unique_id=332687760]
 layout_mode = 0

@@ -223,10 +223,16 @@ func _refresh() -> void:
 
 func _icon(item: Item, pos: Vector2, on_click: Callable) -> TextureRect:
 	var t := TextureRect.new()
-	t.texture = GameState.item_data(item).icon
-	t.position = pos + Vector2(0, -2)
+	var d := GameState.item_data(item)
+	var ground := d.ground_icon != null
+	t.texture = d.ground_icon if ground else d.icon
+	t.position = pos if ground else pos + Vector2(0, -2)
 	t.size = Vector2(CELL, CELL)
-	t.stretch_mode = TextureRect.STRETCH_KEEP_CENTERED
+	if ground:
+		t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		t.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	else:
+		t.stretch_mode = TextureRect.STRETCH_KEEP_CENTERED
 	t.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	t.mouse_entered.connect(_show_tip.bind(item, t))
 	t.mouse_exited.connect(_hide_tip)
