@@ -110,6 +110,7 @@ func _light_scenery(scene: Dictionary) -> void:
 	for n in (_lv.world.get_node("Art") as Node2D).get_children():
 		if n is Node2D and not n is Sprite2D:
 			groups[n.name] = [n, layers.get(String(n.name), {})]
+	var mats := {}
 	for name_ in groups:
 		var node: Node2D = groups[name_][0]
 		var o: Dictionary = groups[name_][1]
@@ -129,6 +130,17 @@ func _light_scenery(scene: Dictionary) -> void:
 		for pic: CanvasItem in pics:
 			if (pic is Sprite2D or pic is TextureRect) and pic.material == null:
 				pic.material = m
+		mats[name_] = m
+	# mechanisms that stand in the world (Objects) but are drawn like scenery (group "lit_scenery": 刑天门 ...): the
+	# scenery's dimming and the material of the "Near" layer (or of Art when the scene has no Near)
+	var near: ShaderMaterial = mats.get("Near", mats["Art"])
+	for n in get_tree().get_nodes_in_group(&"lit_scenery"):
+		if (_lv.world.get_node("Art") as Node).is_ancestor_of(n):
+			continue   # already lit as a piece of its layer
+		(n as CanvasItem).modulate = _color(scene.art)
+		for pic in n.find_children("*", "Sprite2D", true, false):
+			if pic.material == null:
+				pic.material = near
 
 func _build_fog() -> void:
 	var f: Dictionary = _cfg.fog

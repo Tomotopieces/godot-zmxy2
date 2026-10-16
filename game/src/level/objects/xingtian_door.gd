@@ -23,11 +23,24 @@ var _open := false
 
 func _ready() -> void:
 	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF   # keyed frames must not be smeared between physics ticks
-	z_index = Layers.Z_MECHANISM
+	add_to_group(&"lit_scenery")   # the stage's lighting treats it as scenery
+	# placed among the scenery (inside a layer of Art, as in 2-3) it keeps the stage's draw order and lighting there;
+	# placed in Objects (in the world) it sits at the mechanism depth
+	if not _in_scenery():
+		z_index = Layers.Z_MECHANISM
 	$Open.visible = false
 	$Anim.animation_finished.connect(_on_anim_finished)
 	_touch_left = touch_time
 	_choose_open_door()
+
+## True when this door is a piece of a stage's scenery (a descendant of Art), not a world object.
+func _in_scenery() -> bool:
+	var p := get_parent()
+	while p != null:
+		if p.name == &"Art":
+			return true
+		p = p.get_parent()
+	return false
 
 ## A stage may hold several 刑天门 (2-2, 2-3): one Rng draw picks the door that can be opened, the others stay the
 ## closed picture. The first door of the parent by name does the picking and writes `can_open` on every sibling.
