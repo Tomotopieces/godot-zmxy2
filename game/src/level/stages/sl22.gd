@@ -61,6 +61,8 @@ func _physics_process(delta: float) -> void:
 	if not is_instance_valid(_boss) or _boss.state == Monster.State.DEAD:
 		_douse_fires()
 		return
+	if _t < 0.0 and _lose_t < 0.0:
+		return   # the fires are still flying to their braziers: the countdown starts when the first one arrives (_start_fight)
 	if _lose_t >= 0.0:
 		_lose_t -= delta
 		if _lose_t < 0.0:
