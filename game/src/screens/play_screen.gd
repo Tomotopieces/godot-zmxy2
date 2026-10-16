@@ -13,6 +13,7 @@ const TEST_GEAR := ["ptxzg", "gtq", "tsyj", "gwj", "ryjgb", "ptxzf", "dsyj", "bs
 	"dslj", "dsqz", "dsyj"]
 const TEST_SOULS := 50000
 const TEST_MERIT := 5000
+const HUD_SCENE := preload("res://scenes/screens/hud.tscn")
 const RESULT_DELAY := 1.0   ## wait before the fail / ending screens (original: 1 s)
 const CLEAR_FADE := 0.5     ## stage clear: fade to white (the original fades to white for 1 s)
 
@@ -47,7 +48,7 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	if stage != Level.ARENA:   # the debug boss arena is not a place a save should remember
 		GameState.stage = stage
-	hud = Hud.new()
+	hud = HUD_SCENE.instantiate()
 	add_child(hud)
 	hud.open_bag.connect(_open_bag)
 	hud.open_menu.connect(_open_pause)

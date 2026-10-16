@@ -2,42 +2,26 @@ class_name Hud
 extends CanvasLayer
 ## Player panel built from the original RoleInfo layout (assets/ui/role_info/ui.json): portrait,
 ## HP / MP / EXP bars, rage bar, level, skill icons. Polls the hero every frame.
+## The panel is hand-arranged in scenes/screens/hud.tscn (this script only drives those nodes).
 
 signal open_bag
 signal open_menu
 signal open_skills
 signal open_treasure
 
-var _ui: UiLayout
-var _banner: Label
-var _buffs: Control
+@onready var _ui: UiLayout = $RoleInfo
+@onready var _banner: Label = $Banner
+@onready var _buffs: Control = $Buffs
 var _buff_rows := {}   ## buff name -> Label
 
 func _ready() -> void:
-	layer = 3   # over a stage's lighting layers (1, 2)
-	_ui = UiLayout.create("role_info")
-	add_child(_ui)
 	_ui.show_frame("head", GameState.hero_data.role_index)
 	_setup_rage_glow()
 	_ui.button_pressed.connect(_on_button)
-	_banner = Label.new()
-	_banner.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	_banner.add_theme_font_size_override("font_size", 40)
-	_banner.add_theme_color_override("font_outline_color", Color.BLACK)
-	_banner.add_theme_constant_override("outline_size", 6)
-	_banner.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_banner.position = Vector2(0, 230)
-	_banner.size = Vector2(940, 120)
-	add_child(_banner)
-	_buffs = Control.new()
-	_buffs.position = BUFF_POS
-	_buffs.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(_buffs)
 	GameState.buffs_changed.connect(_rebuild_buffs)
 	_rebuild_buffs()
 
 ## Running item buffs (export.HeroBuff): one row each, small icon + red time left.
-const BUFF_POS := Vector2(0, 80)
 const BUFF_ROW := 30.0
 
 static var _buff_icons := {}
@@ -105,7 +89,7 @@ func play_rage_transform() -> void:
 	r.play(r.actions[0])
 	get_tree().create_timer(r.anim.current_animation_length, true).timeout.connect(r.queue_free)
 
-## Boss gauges stack under each other at the top centre (x 465, y 50 + 50 per bar).
+## Boss gauges stack under each other at the top centre ($BossBars sits at x 465, y 50; one bar every 50 px).
 var _boss_bars: Array[BossBar] = []
 
 func add_boss_bar(m: Monster) -> void:
@@ -116,22 +100,17 @@ func add_boss_bar(m: Monster) -> void:
 			old.boss = m
 			return
 	var b := BossBar.create(m)
-	b.position = Vector2(465, 50 + 50 * _boss_bars.size())
-	add_child(b)
+	b.position = Vector2(0, 50 * _boss_bars.size())
+	$BossBars.add_child(b)
 	_boss_bars.append(b)
 
 ## Combo counter (export.Batter): shown from 2 hits, fades out over 3.5 s after the last hit.
-const COMBO_POS := Vector2(694.95, 234.95)
-const COMBO_SCENE := preload("res://scenes/ui/combo_counter.tscn")
-var _combo: ComboCounter
+@onready var _combo: ComboCounter = $Combo
 
 func show_combo(count: int) -> void:
 	if count < 2:
 		return
-	if _combo == null:
-		_combo = COMBO_SCENE.instantiate()
-		_combo.position = COMBO_POS
-		add_child(_combo)
+	_combo.visible = true
 	_combo.show_count(count)
 
 ## "GO GO" arrow shown when a camera stop is cleared (StopPoint.destroy).
