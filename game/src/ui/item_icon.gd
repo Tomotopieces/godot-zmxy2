@@ -1,11 +1,12 @@
 class_name ItemIcon
 extends TextureRect
 ## An item in a cell (bag, worn slot, forge, shop): its ground picture (掉落物, no frame) fitted inside the cell with a
-## margin, on a soft glow in the colour of its quality (优秀 green, 精良 blue, 史诗 purple, 传说 orange; 普通 none).
+## margin, with a thin glow along its outline in the colour of its quality (优秀 green, 精良 blue, 史诗 purple, 传说 orange;
+## 普通 none).
 
 const GLOW := preload("res://src/ui/item_glow.gdshader")
 const MARGIN := 0.12        ## share of the cell left free on each side, so no picture reaches the frame
-const GLOW_ALPHA := 0.75
+const GLOW_ALPHA := 0.6
 
 static func create(item: Item, cell: float) -> ItemIcon:
 	var d := GameState.item_data(item)
@@ -22,16 +23,10 @@ static func create(item: Item, cell: float) -> ItemIcon:
 	t.pivot_offset = t.size / 2.0
 	t.set_meta(&"inset", m)
 	if d.color.a > 0.0 and d.color != Color.WHITE:
-		var g := ColorRect.new()
-		g.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		g.show_behind_parent = true
-		g.position = Vector2(-m, -m)
-		g.size = Vector2(cell, cell)
 		var mat := ShaderMaterial.new()
 		mat.shader = GLOW
 		mat.set_shader_parameter("glow_color", Color(d.color, GLOW_ALPHA))
-		g.material = mat
-		t.add_child(g)
+		t.material = mat
 	return t
 
 ## Put the icon on the cell whose top left corner is `pos` (in the icon's parent).
