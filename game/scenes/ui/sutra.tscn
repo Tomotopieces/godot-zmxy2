@@ -34,7 +34,6 @@
 [ext_resource type="Texture2D" uid="uid://c2ap1tvyjfcc0" path="res://assets/shared/ui/Common_v7_547.png" id="31_plfqd"]
 [ext_resource type="Texture2D" uid="uid://b5ggciq2dtt7d" path="res://assets/shared/ui/Common_v7_549.png" id="32_ad4e2"]
 [ext_resource type="PackedScene" uid="uid://bn7cu4s02f7m0" path="res://scenes/ui/backpack/stat.tscn" id="33_stat"]
-[ext_resource type="PackedScene" uid="uid://cc8hr3t5hdisi" path="res://scenes/ui/backpack/currency.tscn" id="34_curr"]
 
 [sub_resource type="Gradient" id="Gradient_cr8vu"]
 colors = PackedColorArray(0.4862745, 0.0627451, 0.45490196, 1, 0.91764706, 0.5294118, 0.9098039, 1)
@@ -117,6 +116,7 @@ position = Vector2(470.5, 280)
 texture = ExtResource("8_hqo6y")
 
 [node name="lhmc" type="Node2D" parent="." unique_id=1380205481]
+visible = false
 position = Vector2(318.9, 417.75)
 metadata/ui_bar = {
 "empty": Vector2(-244.65, -7.65),
@@ -128,8 +128,10 @@ metadata/ui_piece = ["lhmc"]
 clip_contents = true
 layout_mode = 3
 anchors_preset = 0
-offset_right = 162.95
-offset_bottom = 18.0
+offset_left = -82.0
+offset_top = -5.0
+offset_right = 82.100006
+offset_bottom = 16.25
 mouse_filter = 2
 
 [node name="Content" type="Node2D" parent="lhmc/Clip" unique_id=1281024382]
@@ -553,7 +555,17 @@ caption = "防御"
 width = 80
 piece = "txt_fbdef"
 
-[node name="CurrencyFblh" parent="StatRows" unique_id=242989214 instance=ExtResource("34_curr")]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="StatRows" unique_id=342475261]
+layout_mode = 0
+offset_left = 237.0
+offset_top = 412.5
+offset_right = 301.0
+offset_bottom = 476.5
+scale = Vector2(2.516, 0.3)
+value = 50.0
+texture_progress = SubResource("GradientTexture2D_tspwb")
+
+[node name="CurrencyFblh" parent="StatRows" unique_id=1539476760 instance=ExtResource("33_stat")]
 layout_mode = 0
 offset_left = 195.0
 offset_top = 412.0

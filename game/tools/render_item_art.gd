@@ -2,10 +2,12 @@ extends Node
 ## Renders the bag picture (assets/items/fall_<id>.png) of equipment that has no ground picture in the original, from the
 ## art the game already shows for it: a weapon or wing as the hero holds / wears it (the rig's equipment slot), a
 ## fashion on the bag portrait, a treasure as it follows the hero. Run once after changing such art:
-##   godot --path game --position 6000,6000 res://tools/render_item_art.tscn
-## (non-headless: it renders through a SubViewport).
+##   godot --path game --position 6000,6000 res://tools/render_item_art.tscn -- <raw dir>
+##   godot --headless --path game res://tools/fit_item_art.tscn -- <raw dir>
+## (non-headless: it renders through a SubViewport). This writes the art straight, as the game shows it, to <raw dir>;
+## fit_item_art then turns and places each one like the item's original framed icon and writes assets/items/fall_<id>.png.
 
-const SIZE := 96            ## px of the saved picture (shown at about 38 px in a cell)
+const SIZE := 256           ## px of the raw picture
 const MARGIN := 4.0
 
 ## id -> [kind, what]: "scene" = a PackedScene path, "portrait" = [role rig, cloth variant], "rig" = [rig, action]
@@ -61,7 +63,7 @@ func _ready() -> void:
 		holder.position = Vector2(SIZE, SIZE) / 2.0 - box.get_center() * k
 		await RenderingServer.frame_post_draw
 		var img := vp.get_texture().get_image()
-		img.save_png(ProjectSettings.globalize_path("res://assets/items/fall_%s.png" % id))
+		img.save_png(OS.get_cmdline_user_args()[0].path_join("%s.png" % id))
 		print("rendered ", id, " box ", box)
 		holder.queue_free()
 		await get_tree().process_frame
