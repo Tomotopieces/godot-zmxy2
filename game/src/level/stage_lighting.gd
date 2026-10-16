@@ -328,38 +328,37 @@ static func ash_texture() -> ImageTexture:
 		_ash_tex = ImageTexture.create_from_image(img)
 	return _ash_tex
 
-## Stars over the sky ("stars": "count", "color", "size": [a, b] px, "alpha", "twinkle" speed, "area": [x, y, w, h] of the
-## view's height where they may be, default the top half): soft dots that twinkle, behind all scenery. They belong to the
-## world like the far backdrop: a parallax layer that scrolls with the camera ("scroll", default 0.8 like the Far layer),
-## spread over the stage's whole width.
+## Stars over the sky ("stars": "count" per screen, "color", "size": [a, b] px, "alpha", "twinkle" speed, "area": [x, y, w, h]
+## - only y and h are used: the band of the sky where they may be, default the top half): soft dots that twinkle. They are
+## pinned to the sky picture itself (children of the far backdrop), spread over its whole width, so they move exactly
+## with it.
 func _build_stars() -> void:
 	if not _cfg.has("stars"):
 		return
 	var st: Dictionary = _cfg.stars
-	var layer := Parallax2D.new()
-	layer.name = "Stars"
-	var k := float(st.get("scroll", 0.8))
-	layer.scroll_scale = Vector2(k, 1.0)
-	layer.z_index = Layers.Z_BEHIND_ART - 1   # over the sky, behind every piece of scenery
-	layer.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
-	_lv.world.add_child(layer)
+	var sky := _lv.far_sprite()
+	if sky == null or sky.texture == null:
+		return
+	var holder := Node2D.new()
+	holder.name = "Stars"
+	sky.add_child(holder)
+	var sc := sky.scale.x if sky.scale.x != 0.0 else 1.0
 	var ar: Array = st.get("area", [0.0, 0.0, Layers.VIEW.x, Layers.VIEW.y * 0.5])
-	# the layer moves k as fast as the camera: over the stage it shows (stage width - view) * k + view of itself
-	var span := maxf(float(ar[2]), (_lv.size.x - Layers.VIEW.x) * k + Layers.VIEW.x)
-	var count := int(round(float(st.count) * span / float(ar[2])))   # "count" is per screen
+	var width := float(sky.texture.get_width())
+	var count := int(round(float(st.count) * width * sc / Layers.VIEW.x))
 	var tex := mote_texture("dot")
+	var add := CanvasItemMaterial.new()
+	add.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
 	var rng := RandomNumberGenerator.new()
 	rng.seed = 7
 	for i in count:
 		var s := Sprite2D.new()
 		s.texture = tex
-		s.position = Vector2(float(ar[0]) + rng.randf() * span, float(ar[1]) + rng.randf() * float(ar[3]))
-		s.scale = Vector2.ONE * rng.randf_range(float(st.size[0]), float(st.size[1])) / 32.0
+		s.position = Vector2(rng.randf() * width, (float(ar[1]) + rng.randf() * float(ar[3])) / sc)
+		s.scale = Vector2.ONE * rng.randf_range(float(st.size[0]), float(st.size[1])) / 32.0 / sc
 		s.modulate = Color(_color(st.color), float(st.alpha))
-		var add := CanvasItemMaterial.new()
-		add.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
 		s.material = add
-		layer.add_child(s)
+		holder.add_child(s)
 		_stars.append([s, rng.randf() * TAU, rng.randf_range(0.6, 1.4) * float(st.get("twinkle", 1.0)), float(st.alpha)])
 
 ## The pictures a "glows" / "sway" entry names: "node" is a path in the world (a picture, or a node whose pictures are

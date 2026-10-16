@@ -1,12 +1,13 @@
 [gd_scene format=3 uid="uid://dkixsyr7axskg"]
 
 [ext_resource type="Script" uid="uid://ddmuwy06fmabu" path="res://src/ui/ui_layout.gd" id="1_50ls0"]
-[ext_resource type="Texture2D" uid="uid://b8pqv88dfekhu" path="res://assets/ui/sutra/tex/backpack_v5_462.png" id="2_tm8mg"]
+[ext_resource type="Texture2D" uid="uid://dl7iep1bu8pbf" path="res://assets/ui/sutra/tex/2.png" id="2_tspwb"]
+[ext_resource type="Texture2D" uid="uid://cxpxw4hxa6gmv" path="res://assets/ui/sutra/tex/459.png" id="3_1acjm"]
 [ext_resource type="Texture2D" uid="uid://cqh8gwrplgqok" path="res://assets/ui/sutra/tex/backpack_v5_464.png" id="3_r735v"]
 [ext_resource type="Texture2D" uid="uid://cs1lbtqumfcri" path="res://assets/ui/sutra/tex/backpack_v5_466.png" id="4_cr8vu"]
-[ext_resource type="Texture2D" uid="uid://cyfs6jo2tkf3o" path="res://assets/ui/sutra/tex/backpack_v5_470_clean.png" id="5_tm8mg"]
-[ext_resource type="Texture2D" uid="uid://c3o6wi5nopcso" path="res://assets/ui/sutra/tex/backpack_v5_472.png" id="6_1acjm"]
-[ext_resource type="Texture2D" uid="uid://b3xfsjbfr8lef" path="res://assets/ui/sutra/tex/backpack_v5_476.png" id="7_gcbsr"]
+[ext_resource type="Texture2D" uid="uid://ua7xt1n10mgo" path="res://assets/ui/sutra/tex/460.png" id="4_gcbsr"]
+[ext_resource type="Texture2D" uid="uid://d1ihr222eevkr" path="res://assets/ui/sutra/tex/469.png" id="7_ihqu3"]
+[ext_resource type="Texture2D" uid="uid://bxlwae2iidv5c" path="res://assets/ui/sutra/tex/4.png" id="8_hqo6y"]
 [ext_resource type="Texture2D" uid="uid://bwectugmow2jd" path="res://assets/ui/sutra/tex/backpack_v5_478.png" id="8_ihqu3"]
 [ext_resource type="Texture2D" uid="uid://ex444j6obvc8" path="res://assets/ui/sutra/tex/backpack_v5_481.png" id="9_hqo6y"]
 [ext_resource type="Texture2D" uid="uid://d4mxj7bsjk33a" path="res://assets/ui/sutra/tex/backpack_v5_484.png" id="10_t0cq7"]
@@ -35,6 +36,14 @@
 [ext_resource type="PackedScene" uid="uid://bn7cu4s02f7m0" path="res://scenes/ui/backpack/stat.tscn" id="33_stat"]
 [ext_resource type="PackedScene" uid="uid://cc8hr3t5hdisi" path="res://scenes/ui/backpack/currency.tscn" id="34_curr"]
 
+[sub_resource type="Gradient" id="Gradient_cr8vu"]
+colors = PackedColorArray(0.4862745, 0.0627451, 0.45490196, 1, 0.91764706, 0.5294118, 0.9098039, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tspwb"]
+gradient = SubResource("Gradient_cr8vu")
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
+
 [node name="sutra" type="Control" unique_id=104091820]
 layout_mode = 3
 anchors_preset = 0
@@ -43,18 +52,25 @@ script = ExtResource("1_50ls0")
 
 [node name="Art" type="Node2D" parent="." unique_id=1581375574]
 
-[node name="backpack_v5_462" type="Sprite2D" parent="Art" unique_id=471732295]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_tm8mg")
-centered = false
-metadata/tex_key = "backpack_v5:462"
+[node name="2" type="Sprite2D" parent="Art" unique_id=942943849]
+position = Vector2(460.45, 285.83)
+scale = Vector2(0.78291386, 0.85605866)
+texture = ExtResource("2_tspwb")
+
+[node name="459" type="Sprite2D" parent="Art" unique_id=1589459685]
+position = Vector2(521, 138)
+texture = ExtResource("3_1acjm")
+
+[node name="460" type="Sprite2D" parent="Art" unique_id=2068596555]
+position = Vector2(323, 141)
+texture = ExtResource("4_gcbsr")
 
 [node name="btn_sj" type="Control" parent="." unique_id=1700010866]
 anchors_preset = 0
 offset_left = 400.4
-offset_top = 405.75
+offset_top = 409.75
 offset_right = 457.4
-offset_bottom = 434.75
+offset_bottom = 438.75
 mouse_default_cursor_shape = 2
 metadata/ui_piece = ["btn_sj"]
 metadata/ui_button = "btn_sj"
@@ -92,12 +108,13 @@ metadata/tex_key = "backpack_v5:466"
 
 [node name="Art2" type="Node2D" parent="." unique_id=591659017]
 
-[node name="backpack_v5_470" type="Sprite2D" parent="Art2" unique_id=1178953119]
-position = Vector2(204.4, 93.35)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_tm8mg")
-centered = false
-metadata/tex_key = "backpack_v5:470"
+[node name="SkillPanel" type="Sprite2D" parent="Art2" unique_id=716425723]
+position = Vector2(596, 297)
+texture = ExtResource("7_ihqu3")
+
+[node name="Separator" type="Sprite2D" parent="Art2" unique_id=15208349]
+position = Vector2(470.5, 280)
+texture = ExtResource("8_hqo6y")
 
 [node name="lhmc" type="Node2D" parent="." unique_id=1380205481]
 position = Vector2(318.9, 417.75)
@@ -106,15 +123,6 @@ metadata/ui_bar = {
 "full": Vector2(-85, -7.65)
 }
 metadata/ui_piece = ["lhmc"]
-
-[node name="Art" type="Node2D" parent="lhmc" unique_id=933984124]
-
-[node name="backpack_v5_472" type="Sprite2D" parent="lhmc/Art" unique_id=348249899]
-position = Vector2(-82.65, -9.65)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_1acjm")
-centered = false
-metadata/tex_key = "backpack_v5:472"
 
 [node name="Clip" type="Control" parent="lhmc" unique_id=589248079]
 clip_contents = true
@@ -127,9 +135,9 @@ mouse_filter = 2
 [node name="Content" type="Node2D" parent="lhmc/Clip" unique_id=1281024382]
 
 [node name="backpack_v5_476" type="Sprite2D" parent="lhmc/Clip/Content" unique_id=352492730]
-position = Vector2(-82.95, -9.65)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("7_gcbsr")
+position = Vector2(-81.89999, -4.75)
+scale = Vector2(2.5156248, 0.2812503)
+texture = SubResource("GradientTexture2D_tspwb")
 centered = false
 metadata/tex_key = "backpack_v5:476"
 
@@ -552,7 +560,7 @@ offset_top = 412.0
 offset_right = 195.0
 offset_bottom = 412.0
 caption = "灵魂"
-width = 210
+width = 163
 piece = "txt_fblh"
 
 [node name="txt_fbname" type="Label" parent="." unique_id=7344340]
@@ -588,9 +596,9 @@ metadata/ui_piece = ["txt_fbname"]
 [node name="btn_close" type="Control" parent="." unique_id=957281849]
 anchors_preset = 0
 offset_left = 709.9
-offset_top = 82.95
+offset_top = 90.95
 offset_right = 749.9
-offset_bottom = 122.95
+offset_bottom = 130.95
 mouse_default_cursor_shape = 2
 metadata/ui_piece = ["btn_close"]
 metadata/ui_button = "btn_close"
