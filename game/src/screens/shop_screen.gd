@@ -147,17 +147,8 @@ func _refresh() -> void:
 		var cell := UiLayout.create("pack_cell")
 		cell.position = t.position + Vector2(4, 5)
 		_icons.add_child(cell)
-		var icon := TextureRect.new()
-		var ground := d.ground_icon != null
-		icon.texture = d.ground_icon if ground else d.icon
-		icon.position = cell.position if ground else cell.position + Vector2(0, -2)
-		icon.size = Vector2(50, 50)
-		if ground:
-			icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-			icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		else:
-			icon.stretch_mode = TextureRect.STRETCH_KEEP_CENTERED
 		var item := GameState.make_item(id)
+		var icon := ItemIcon.create(item, 50.0).place(cell.position)
 		icon.mouse_entered.connect(func(): _tip.show_for(item, icon))
 		icon.mouse_exited.connect(func(): _tip.visible = false)
 		PadNav.mark(icon)   # reachable with the pad for its tooltip

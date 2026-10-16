@@ -12,7 +12,9 @@ extends Node
 ##    flashes and a bolt shows in the sky behind the scenery);
 ##  - a screen grade: cool shadows, a little less colour, a vignette, optionally darker ("brightness").
 ##  - the lamps of a hall ("lamps": a soft additive glow each, wavering) and motes floating in the air in random directions ("ash",
-##    a spray of small squares over everything);
+##    a spray of small squares over everything). "rise" makes them rise instead (sparks from the floor, bubbles: born low,
+##    up a short way while drifting sideways); "shape": "bubble" draws rings, "dot" soft round dots;
+##  - stars ("stars": twinkling points scattered over the sky, behind all scenery);
 ##  - lights hung on pieces of the scene ("glows": a glow on every picture under a node, at a point of that picture's own
 ##    texture, so each style of lamp lights from its own flame and the glow moves with it: parallax layers, the boat);
 ##  - flames that waver like smoke ("sway": every picture under a node is bent by slow ripples running up it, growing
@@ -41,6 +43,7 @@ var _shafts: Array[Polygon2D] = []
 var _moon_glow: Sprite2D
 var _lit := {}          ## instance ids of the actors already given the stage's body light
 var _shadows := {}      ## instance id of an actor -> {holder, rig, mat, sig, floor_y}
+var _stars: Array = []      ## [star Sprite2D, phase, speed, alpha]
 var _motes: CPUParticles2D   ## the motes' emitter: it follows the view, the motes it lets go do not
 var _glows: Array = []      ## [glow Sprite2D, its entry of "glows", phase] - lights hung on pictures of the scene
 var _lamps: Array[Sprite2D] = []   ## the hall's lamps: additive glows that waver (one per "lamps" entry)
@@ -104,6 +107,7 @@ func _ready() -> void:
 	_build_fog()
 	_build_effects()
 	_build_lamps()
+	_build_stars()
 	_build_glows()
 	_build_sway()
 	_build_rain()
@@ -291,12 +295,63 @@ func _build_lamps() -> void:
 
 static var _ash_tex: ImageTexture
 
+static var _round_tex := {}
+
+## Mote pictures: "square" (4 px, scaled), "dot" (a soft round dot, 16 px), "bubble" (a thin ring with a bright spot, 16 px).
+static func mote_texture(shape: String) -> Texture2D:
+	if shape == "square":
+		return ash_texture()
+	if not _round_tex.has(shape):
+		var n := 16
+		var img := Image.create_empty(n, n, false, Image.FORMAT_RGBA8)
+		for y in n:
+			for x in n:
+				var d := Vector2(x + 0.5 - n / 2.0, y + 0.5 - n / 2.0).length() / (n / 2.0)
+				var a := 0.0
+				if shape == "bubble":
+					a = clampf(1.0 - absf(d - 0.78) / 0.2, 0.0, 1.0) + 0.3 * clampf(1.0 - d, 0.0, 1.0)
+					var spot := Vector2(x + 0.5 - n * 0.33, y + 0.5 - n * 0.33).length() / (n * 0.12)
+					a = maxf(a, clampf(1.0 - spot, 0.0, 1.0))
+				else:
+					a = clampf(1.0 - d, 0.0, 1.0)
+					a *= a
+				img.set_pixel(x, y, Color(1, 1, 1, clampf(a, 0.0, 1.0)))
+		_round_tex[shape] = ImageTexture.create_from_image(img)
+	return _round_tex[shape]
+
 static func ash_texture() -> ImageTexture:
 	if _ash_tex == null:   # a 4x4 white square: a flake's own size is its scale (px = 4 * scale)
 		var img := Image.create_empty(4, 4, false, Image.FORMAT_RGBA8)
 		img.fill(Color.WHITE)
 		_ash_tex = ImageTexture.create_from_image(img)
 	return _ash_tex
+
+## Stars over the sky ("stars": "count", "color", "size": [a, b] px, "alpha", "twinkle" speed, "area": [x, y, w, h] of the
+## view where they may be, default the top half): soft dots that twinkle, on a layer behind all scenery (they stay put on
+## the screen, as far away as the sky).
+func _build_stars() -> void:
+	if not _cfg.has("stars"):
+		return
+	var st: Dictionary = _cfg.stars
+	var layer := CanvasLayer.new()
+	layer.name = "Stars"
+	layer.layer = -1   # over the sky (-2), under the world
+	add_child(layer)
+	var ar: Array = st.get("area", [0.0, 0.0, Layers.VIEW.x, Layers.VIEW.y * 0.5])
+	var tex := mote_texture("dot")
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 7
+	for i in int(st.count):
+		var s := Sprite2D.new()
+		s.texture = tex
+		s.position = Vector2(float(ar[0]) + rng.randf() * float(ar[2]), float(ar[1]) + rng.randf() * float(ar[3]))
+		s.scale = Vector2.ONE * rng.randf_range(float(st.size[0]), float(st.size[1])) / 16.0
+		s.modulate = Color(_color(st.color), float(st.alpha))
+		var add := CanvasItemMaterial.new()
+		add.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+		s.material = add
+		layer.add_child(s)
+		_stars.append([s, rng.randf() * TAU, rng.randf_range(0.6, 1.4) * float(st.get("twinkle", 1.0)), float(st.alpha)])
 
 ## The pictures a "glows" / "sway" entry names: "node" is a path in the world (a picture, or a node whose pictures are
 ## taken, nested ones too). A path the stage does not have is skipped (a look shared by several stages).
@@ -380,7 +435,27 @@ func _build_ash() -> void:
 	p.initial_velocity_max = float(a.speed[1])
 	p.scale_amount_min = float(a.size[0]) / 4.0
 	p.scale_amount_max = float(a.size[1]) / 4.0
-	p.texture = ash_texture()
+	p.texture = mote_texture(String(a.get("shape", "square")))
+	if a.get("shape", "square") != "square":
+		p.scale_amount_min = float(a.size[0]) / 16.0   # the round textures are 16 px wide
+		p.scale_amount_max = float(a.size[1]) / 16.0
+		if a.get("glow", false):
+			var add := CanvasItemMaterial.new()   # light that adds to what is behind (bubbles, dust glinting)
+			add.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+			p.material = add
+	if a.has("rise"):
+		# rising: born in a band near the bottom ("from": px of the view, from its top), up at "speed", wandering sideways
+		var r: Dictionary = a.rise
+		var band := Vector2(Layers.VIEW.x * 0.5 + 40.0, float(r.get("band", 60.0)) * 0.5)
+		p.emission_rect_extents = band
+		p.direction = Vector2(0.0, -1.0)
+		p.spread = float(r.get("spread", 15.0))
+		p.gravity = Vector2(0.0, -float(r.get("lift", 0.0)))
+		p.set_meta(&"rise_y", float(r.get("from", Layers.VIEW.y - 60.0)))
+		p.tangential_accel_min = 0.0
+		p.tangential_accel_max = 0.0
+		p.set_meta(&"wobble", float(r.get("wobble", 0.0)))
+		p.set_meta(&"wobble_speed", float(r.get("wobble_speed", 2.0)))
 	p.color = Color(_color(a.color), float(a.alpha))
 	var g := Gradient.new()   # fading in and out: a mote is never born or gone at full strength
 	g.offsets = PackedFloat32Array([0.0, 0.3, 0.7, 1.0])
@@ -388,6 +463,11 @@ func _build_ash() -> void:
 	p.color_ramp = g
 	p.tangential_accel_min = -float(a.sway)   # a lazy curve rather than a straight line
 	p.tangential_accel_max = float(a.sway)
+	if p.has_meta(&"wobble") and float(p.get_meta(&"wobble")) > 0.0:
+		# a bubble wavers left and right as it rises: a sideways swing in the particle's own velocity
+		p.orbit_velocity_min = 0.0
+		p.orbit_velocity_max = 0.0
+		p.set_meta(&"base_dir", p.direction)
 	_lv.world.add_child(p)
 	_motes = p
 
@@ -511,8 +591,18 @@ func _physics_process(delta: float) -> void:
 		for i in _shafts.size():
 			_shafts[i].modulate.a = 0.55 + 0.45 * sin(_t * (0.35 + 0.11 * i) + 1.7 * i)
 		_moon_glow.modulate.a = 0.26 + 0.05 * sin(_t * 0.6)
+	for e in _stars:
+		e[0].modulate.a = float(e[3]) * (0.55 + 0.45 * sin(_t * float(e[2]) + float(e[1])))
 	if _motes != null:
 		_motes.global_position = vr.get_center()
+		if _motes.has_meta(&"rise_y"):
+			_motes.global_position.y = vr.position.y + float(_motes.get_meta(&"rise_y"))
+		if _motes.has_meta(&"base_dir"):
+			# swing the emission direction (and the motes' sideways drift with it) slowly to and fro
+			var w := float(_motes.get_meta(&"wobble"))
+			_motes.direction = Vector2(sin(_t * float(_motes.get_meta(&"wobble_speed"))) * w, -1.0).normalized()
+			_motes.tangential_accel_min = -w * 30.0
+			_motes.tangential_accel_max = w * 30.0
 	if _rain_mat != null:
 		_rain_mat.set_shader_parameter("scroll", vr.position.x)   # the rain stays where it is in the world
 	if _flash != null:
@@ -577,10 +667,33 @@ func _update_actor(a: Actor) -> void:
 	if e.sig != sig:
 		e.sig = sig
 		for sp: Sprite2D in srig.find_children("*", "Sprite2D", true, false):
-			sp.material = e.mat
+			# a glowing effect part (additive light, e.g. the leech's revival flash on its black frame) casts no shadow
+			sp.material = NO_SHADOW if _is_light(sp.material) or sp.has_meta(&"no_shadow") else e.mat
+			if sp.material == NO_SHADOW:
+				sp.set_meta(&"no_shadow", true)
 	var high := clampf(1.0 - (floor_y - feet_y) / 280.0, 0.25, 1.0)
 	(e.mat as ShaderMaterial).set_shader_parameter("shadow_color", Color(0.02, 0.03, 0.08, float(sh.alpha) * high * fade))
 	(e.mat as ShaderMaterial).set_shader_parameter("blur", float(sh.blur))
+
+## A part drawn as light (additive blending) is not a solid thing: it casts no shadow.
+static func _is_light(m: Material) -> bool:
+	if m is CanvasItemMaterial:
+		return (m as CanvasItemMaterial).blend_mode == CanvasItemMaterial.BLEND_MODE_ADD
+	if m is ShaderMaterial and (m as ShaderMaterial).shader != null:
+		return (m as ShaderMaterial).shader.code.contains("blend_add")
+	return false
+
+static var NO_SHADOW: ShaderMaterial:
+	get:
+		if _no_shadow == null:
+			var sh := Shader.new()
+			sh.code = "shader_type canvas_item;
+void fragment() { discard; }
+"
+			_no_shadow = ShaderMaterial.new()
+			_no_shadow.shader = sh
+		return _no_shadow
+static var _no_shadow: ShaderMaterial
 
 func _make_shadow(a: Actor) -> Dictionary:
 	var holder := Node2D.new()

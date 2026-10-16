@@ -11,7 +11,6 @@ const GRID_ROWS := 5
 const CELL := 50.0
 const CELL_GAP := 7.0
 const SLOT_SCENE := "res://scenes/ui/backpack/slot.tscn"   ## the 25 bag cells are scene instances of it
-const ICON_OFFSET := Vector2(0, -2)
 const MENU_OFFSET := Vector2(25, 25)
 const MOON_MENU_HEIGHT := 142.0   ## the exchange menu is taller than the plain one: keep it on screen
 const SLOT_PIECES := {&"weapon": "zbwq", &"cloth": "zbfj", &"accessory": "zbsp", &"treasure": "zbfb", &"fashion": "zbsz", &"wing": "zbcb"}
@@ -161,17 +160,7 @@ func _count_label(n: int, pos: Vector2) -> Label:
 
 ## The item's drop picture (掉落物), fitted into the 50x50 cell; without one the old framed icon is centred as before.
 func _icon(item: Item, pos: Vector2, on_click: Callable) -> TextureRect:
-	var d := GameState.item_data(item)
-	var t := TextureRect.new()
-	var ground := d.ground_icon != null
-	t.texture = d.ground_icon if ground else d.icon
-	t.position = pos if ground else pos + ICON_OFFSET
-	t.size = Vector2(CELL, CELL)
-	if ground:
-		t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		t.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	else:
-		t.stretch_mode = TextureRect.STRETCH_KEEP_CENTERED
+	var t := ItemIcon.create(item, CELL).place(pos)
 	t.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	t.mouse_entered.connect(_show_tip.bind(item, t))
 	t.mouse_exited.connect(_hide_tip)
