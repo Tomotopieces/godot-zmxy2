@@ -32,8 +32,6 @@
 [ext_resource type="Texture2D" path="res://assets/ui/stage_map/tex/OtherMat_v10_457.png" id="30_1eqrx"]
 [ext_resource type="Texture2D" path="res://assets/ui/stage_map/tex/OtherMat_v10_460.png" id="31_kdab4"]
 [ext_resource type="Texture2D" path="res://assets/ui/stage_map/tex/OtherMat_v10_462.png" id="32_d323h"]
-[ext_resource type="Texture2D" path="res://assets/ui/stage_map/tex/OtherMat_v10_465.png" id="33_wcerw"]
-[ext_resource type="Texture2D" path="res://assets/ui/stage_map/tex/OtherMat_v10_467.png" id="34_nog8c"]
 [ext_resource type="Texture2D" path="res://assets/ui/stage_map/tex/OtherMat_v10_470.png" id="35_7dwo2"]
 [ext_resource type="Texture2D" path="res://assets/ui/stage_map/tex/OtherMat_v10_472.png" id="36_ln7ge"]
 [ext_resource type="Texture2D" path="res://assets/ui/stage_map/tex/OtherMat_v10_475.png" id="37_1l261"]
@@ -58,6 +56,7 @@ centered = false
 metadata/tex_key = "OtherMat_v10:363"
 
 [node name="arena" type="Node2D" parent="." unique_id=1685328832]
+visible = false
 position = Vector2(-114.6, 445.4)
 metadata/labels = {}
 metadata/ui_piece = ["arena"]
@@ -92,10 +91,12 @@ centered = false
 metadata/tex_key = "OtherMat_v10:365"
 
 [node name="s4_3" type="Node2D" parent="." unique_id=876837989]
+visible = false
 position = Vector2(552.1, 722.2)
 metadata/ui_piece = ["s4_3"]
 
 [node name="s4_2" type="Node2D" parent="." unique_id=1078801028]
+visible = false
 position = Vector2(453.7, 722.2)
 metadata/ui_piece = ["s4_2"]
 
@@ -440,6 +441,7 @@ centered = false
 metadata/tex_key = "OtherMat_v10:440"
 
 [node name="saveInterval" type="Label" parent="." unique_id=177413750]
+visible = false
 layout_mode = 0
 offset_left = 547.1
 offset_top = 560.98004
@@ -472,9 +474,9 @@ metadata/ui_piece = ["saveInterval"]
 
 [node name="scgm" type="Control" parent="." unique_id=1708021140]
 anchors_preset = 0
-offset_left = 481.1
+offset_left = 544.1
 offset_top = 506.95
-offset_right = 540.1
+offset_right = 603.1
 offset_bottom = 567.95
 mouse_default_cursor_shape = 2
 metadata/ui_piece = ["scgm"]
@@ -513,9 +515,9 @@ metadata/tex_key = "OtherMat_v10:445"
 
 [node name="savebtn" type="Control" parent="." unique_id=348871336]
 anchors_preset = 0
-offset_left = 544.1
+offset_left = 607.1
 offset_top = 506.95
-offset_right = 603.1
+offset_right = 666.1
 offset_bottom = 567.95
 mouse_default_cursor_shape = 2
 metadata/ui_piece = ["savebtn"]
@@ -554,9 +556,9 @@ metadata/tex_key = "OtherMat_v10:450"
 
 [node name="ldl" type="Control" parent="." unique_id=1052171528]
 anchors_preset = 0
-offset_left = 608.1
+offset_left = 671.1
 offset_top = 506.95
-offset_right = 667.1
+offset_right = 730.1
 offset_bottom = 567.95
 mouse_default_cursor_shape = 2
 metadata/ui_piece = ["ldl"]
@@ -595,9 +597,9 @@ metadata/tex_key = "OtherMat_v10:455"
 
 [node name="showBuySkill" type="Control" parent="." unique_id=1989928311]
 anchors_preset = 0
-offset_left = 671.1
+offset_left = 734.1
 offset_top = 506.95
-offset_right = 730.1
+offset_right = 793.1
 offset_bottom = 567.95
 mouse_default_cursor_shape = 2
 metadata/ui_piece = ["showBuySkill"]
@@ -633,47 +635,6 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("31_kdab4")
 centered = false
 metadata/tex_key = "OtherMat_v10:460"
-
-[node name="submitbtn" type="Control" parent="." unique_id=1792115779]
-anchors_preset = 0
-offset_left = 735.1
-offset_top = 506.95
-offset_right = 794.1
-offset_bottom = 567.95
-mouse_default_cursor_shape = 2
-metadata/ui_piece = ["submitbtn"]
-metadata/ui_button = "submitbtn"
-metadata/pad_seq = 70
-
-[node name="Up" type="Node2D" parent="submitbtn" unique_id=1363484480]
-position = Vector2(0, -2)
-
-[node name="OtherMat_v10_465" type="Sprite2D" parent="submitbtn/Up" unique_id=2052530890]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("33_wcerw")
-centered = false
-metadata/tex_key = "OtherMat_v10:465"
-
-[node name="Over" type="Node2D" parent="submitbtn" unique_id=675266666]
-visible = false
-position = Vector2(0, -2)
-
-[node name="OtherMat_v10_467" type="Sprite2D" parent="submitbtn/Over" unique_id=1585830754]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("34_nog8c")
-centered = false
-metadata/tex_key = "OtherMat_v10:467"
-
-[node name="Down" type="Node2D" parent="submitbtn" unique_id=30017995]
-visible = false
-position = Vector2(0, -2)
-
-[node name="OtherMat_v10_465" type="Sprite2D" parent="submitbtn/Down" unique_id=823332850]
-position = Vector2(0, 2)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("33_wcerw")
-centered = false
-metadata/tex_key = "OtherMat_v10:465"
 
 [node name="huodongbtn" type="Control" parent="." unique_id=1388381567]
 anchors_preset = 0

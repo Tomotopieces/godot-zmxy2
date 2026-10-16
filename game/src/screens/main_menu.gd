@@ -12,8 +12,10 @@ var _ui: UiLayout
 var _popup: Node
 
 func _ready() -> void:
-	_ui = UiLayout.create("game_menu")
-	add_child(_ui)
+	_ui = get_node_or_null("Menu") as UiLayout   # the layout instanced in title_screen.tscn
+	if _ui == null:
+		_ui = UiLayout.create("game_menu")
+		add_child(_ui)
 	for p in HIDDEN:
 		_ui.set_visible_piece(p, false)
 	_ui.set_text("txt_version", "V2.4")

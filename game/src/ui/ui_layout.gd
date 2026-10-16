@@ -32,7 +32,8 @@ static func create(ui_name: String) -> UiLayout:
 	return u
 
 func _ready() -> void:
-	if _from_scene:
+	# also wired when placed by hand in another scene: such an instance was not made by create() and has no _d
+	if _from_scene or _d.is_empty():
 		_wire_from_scene()
 
 func build(path: String) -> void:

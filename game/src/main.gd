@@ -1,7 +1,11 @@
 extends Node
 ## Game root: switches between title, stage map and play screens.
 
+const TITLE := preload("res://scenes/screens/title_screen.tscn")
+const STAGE_MAP := preload("res://scenes/screens/stage_map.tscn")
+
 var _screen: Node
+var _title_in_scene := true   ## main.tscn holds a title already (so opening it in the editor shows the title screen)
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -27,10 +31,17 @@ func _swap(n: Node) -> void:
 	add_child(n)
 
 func show_menu() -> void:
-	var m := MainMenu.new()
+	var m: MainMenu
+	if _title_in_scene:
+		# the TitleScreen main.tscn already holds: adopted, not added again
+		_title_in_scene = false
+		m = $TitleScreen
+		_screen = m
+	else:
+		m = TITLE.instantiate()
+		_swap(m)
 	m.new_game.connect(show_select_role)
 	m.continued.connect(show_map)
-	_swap(m)
 
 ## New game, step 1: choose the hero.
 func show_select_role() -> void:
@@ -52,7 +63,7 @@ func _after_new_game() -> void:
 	_swap(c)
 
 func show_map() -> void:
-	var m := StageMap.new()
+	var m: StageMap = STAGE_MAP.instantiate()
 	m.play.connect(start_stage)
 	m.to_menu.connect(show_menu)
 	_swap(m)
