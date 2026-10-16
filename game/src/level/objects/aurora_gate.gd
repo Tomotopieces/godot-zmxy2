@@ -13,6 +13,7 @@ extends Node2D
 const HERO_BOUNDS_MARGIN := 3.0   ## the original tests the hero's whole display bounds, a few px larger than its hurt box
 
 func _ready() -> void:
+	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF   # keyed frames must not be smeared between physics ticks
 	z_index = Layers.Z_AURORA
 	var actions: PackedStringArray = $Anim.get_animation_list()
 	if actions.size() > 0:

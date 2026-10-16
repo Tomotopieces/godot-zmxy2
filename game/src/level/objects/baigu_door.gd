@@ -24,6 +24,7 @@ var _open := false
 var _enter_left := 0.0
 
 func _ready() -> void:
+	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF   # keyed frames must not be smeared between physics ticks
 	$Guides.queue_free()
 	$Opened.visible = false
 	_weak_at = Vector2(Rng.randf_range(weak_dx.x, weak_dx.y), Rng.randf_range(weak_dy.x, weak_dy.y))

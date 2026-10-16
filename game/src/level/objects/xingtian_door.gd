@@ -22,6 +22,7 @@ var _touch_left := 0.0
 var _open := false
 
 func _ready() -> void:
+	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF   # keyed frames must not be smeared between physics ticks
 	z_index = Layers.Z_MECHANISM
 	$Open.visible = false
 	$Anim.animation_finished.connect(_on_anim_finished)

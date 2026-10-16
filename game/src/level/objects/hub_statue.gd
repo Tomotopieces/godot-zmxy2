@@ -14,6 +14,7 @@ var ready_to_enter := false   ## the slot has opened: up inside enter_rect now e
 var _open := false
 
 func _ready() -> void:
+	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF   # keyed frames must not be smeared between physics ticks
 	$Open.visible = false
 	$Anim.animation_finished.connect(_on_anim_finished)
 
