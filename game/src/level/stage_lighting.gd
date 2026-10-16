@@ -13,6 +13,9 @@ extends Node
 ##  - a screen grade: cool shadows, a little less colour, a vignette, optionally darker ("brightness").
 ##  - the lamps of a hall ("lamps": a soft additive glow each, wavering) and motes floating in the air in random directions ("ash",
 ##    a spray of small squares over everything);
+##  - lights hung on pieces of the scene ("glows": a glow on every picture under a node, at a point of that picture's own
+##    texture, so each style of lamp lights from its own flame and the glow moves with it: parallax layers, the boat);
+##  - flames that sway ("sway": every picture under a node rocks slowly about the middle of its bottom edge);
 ##  - a stage may take another stage's look as its base ("use": that stage's name): every other entry of its own file is
 ##    copied over it (shallow), so only what differs from that look has to be written.
 ## Draw order: far layer (-2), the moonlight layer (-1), world, the mist layer (1), the grade layer (2), the HUD (3).
@@ -35,6 +38,8 @@ var _shafts: Array[Polygon2D] = []
 var _moon_glow: Sprite2D
 var _shadows := {}      ## instance id of an actor -> {holder, rig, mat, sig, floor_y}
 var _motes: CPUParticles2D   ## the motes' emitter: it follows the view, the motes it lets go do not
+var _glows: Array = []      ## [glow Sprite2D, its entry of "glows", phase] - lights hung on pictures of the scene
+var _swayers: Array = []    ## [picture, its entry of "sway", phase, rest rotation]
 var _lamps: Array[Sprite2D] = []   ## the hall's lamps: additive glows that waver (one per "lamps" entry)
 var _t := 0.0
 var _treasure_rig: Rig
@@ -96,6 +101,8 @@ func _ready() -> void:
 	_build_fog()
 	_build_effects()
 	_build_lamps()
+	_build_glows()
+	_build_sway()
 	_build_rain()
 	_build_ash()
 	_build_lightning()
@@ -288,6 +295,61 @@ static func ash_texture() -> ImageTexture:
 		_ash_tex = ImageTexture.create_from_image(img)
 	return _ash_tex
 
+## The pictures a "glows" / "sway" entry names: "node" is a path in the world (a picture, or a node whose pictures are
+## taken, nested ones too). A path the stage does not have is skipped (a look shared by several stages).
+func _pictures(path: String) -> Array:
+	var n := _lv.world.get_node_or_null(NodePath(path))
+	if n == null:
+		return []
+	if n is Sprite2D:
+		return [n]
+	return n.find_children("*", "Sprite2D", true, false)
+
+## Size of what a picture shows (its region, or the whole texture).
+static func _picture_size(p: Sprite2D) -> Vector2:
+	return p.region_rect.size if p.region_enabled else p.texture.get_size()
+
+## Lights on the scene's own lamps: an additive glow is hung on each picture, at "at" (px of that picture's texture), so
+## the glow sits on the flame of that style of lamp and travels with its layer. Every number is in the entry.
+func _build_glows() -> void:
+	if not _cfg.has("glows"):
+		return
+	var add := CanvasItemMaterial.new()
+	add.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+	var i := 0
+	for g: Dictionary in _cfg.glows:
+		for p: Sprite2D in _pictures(String(g.node)):
+			var s := Sprite2D.new()
+			s.name = "Glow"
+			s.texture = glow_texture()
+			var at := Vector2(float(g.at[0]), float(g.at[1]))
+			s.position = (at if not p.centered else at - _picture_size(p) / 2.0) + p.offset
+			# the picture's own scale must not stretch the light: radius is in world px
+			var ps := p.global_scale.abs()
+			s.scale = Vector2.ONE * (float(g.radius) / (glow_texture().width / 2.0)) / Vector2(maxf(ps.x, 0.0001), maxf(ps.y, 0.0001))
+			s.modulate = Color(_color(g.color), float(g.alpha))
+			s.material = add
+			s.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
+			p.add_child(s)
+			_glows.append([s, g, float(i) * 1.7])
+			i += 1
+
+## Flames that rock: each picture turns slowly about the middle of its bottom edge ("deg" each way, "speed" swings per
+## second), every one at its own phase.
+func _build_sway() -> void:
+	if not _cfg.has("sway"):
+		return
+	var i := 0
+	for w: Dictionary in _cfg.sway:
+		for p: Sprite2D in _pictures(String(w.node)):
+			# move the pivot to the bottom middle without moving the picture
+			var sz := _picture_size(p)
+			var pivot := Vector2(sz.x / 2.0, sz.y) if not p.centered else Vector2(0.0, sz.y / 2.0)
+			p.offset -= pivot
+			p.position += p.transform.basis_xform(pivot)
+			_swayers.append([p, w, float(i) * 2.3, p.rotation])
+			i += 1
+
 ## Motes floating in the hall's air ("ash"): each drifts slowly in its own random direction for a short while and
 ## fades. They belong to the world, not to the screen: the emitter covers the view but every mote stays where it was
 ## born when the camera moves. Every number is in the "ash" entry.
@@ -428,6 +490,14 @@ func _physics_process(delta: float) -> void:
 		_fog_back.global_position = vr.position
 		_fog_back_mat.set_shader_parameter("scroll", Vector2(vr.position.x * 0.85, 0.0))
 		_fog_front_mat.set_shader_parameter("scroll", Vector2(vr.position.x * 1.25, 0.0))
+	for e in _glows:
+		var g: Dictionary = e[1]
+		var f := float(g.get("flicker", 0.0))
+		var tt: float = _t * float(g.get("flicker_speed", 1.0)) + e[2]
+		e[0].modulate.a = float(g.alpha) * (1.0 - f * 0.5 + f * 0.5 * sin(tt * 5.0) * sin(tt * 2.3 + 1.1))
+	for e in _swayers:
+		var w: Dictionary = e[1]
+		e[0].rotation = e[3] + deg_to_rad(float(w.deg)) * sin(_t * TAU * float(w.speed) + e[2]) * (0.7 + 0.3 * sin(_t * 0.9 + e[2] * 1.3))
 	for i in _lamps.size():
 		var l: Dictionary = _cfg.lamps[i]
 		var f := float(l.flicker)

@@ -1,10 +1,84 @@
 {
-  "_doc": "黄泉路 (3-2, also 3-3): the road through the underworld's rock - cold, dim stone under a dull red glow from below, embers rising, no mist.",
-  "scene": {"art": [0.6, 0.52, 0.56], "ground": [0.52, 0.46, 0.5], "far": [0.58, 0.48, 0.54],
-    "fade_height": 150, "fade_dark": 0.25, "ground_y": 497, "rim_color": [1.0, 0.5, 0.28], "rim_strength": 0.45, "rim_width": 1.8, "rim_sides": true},
-  "layers": {"Far": {"blur": 1.8, "tint": [1.05, 0.92, 0.95], "fade": 0, "rim": 0}, "Middle": {"blur": 0.7}, "Middle2": {"blur": 0.4}, "Near": {}},
-  "body": {"shade": [0.52, 0.46, 0.6], "lit": [1.1, 0.88, 0.74], "height": 130, "rim_strength": 0.45, "rim_width": 1.6},
-  "shadow": {"alpha": 0.55, "shear": 0.2, "squash": 0.3, "blur": 3.5, "floor_y": 497},
-  "grade": {"vignette": 0.52, "saturation": 0.88},
-  "ash": {"color": [1.0, 0.55, 0.25], "alpha": 0.75, "amount": 16, "lifetime": 5.0, "speed": [4.0, 10.0], "size": [1.5, 2.8], "sway": 3.0}
+  "_doc": "黄泉路 (3-2): the road through the underworld's rock - stone under a dull red glow, its own lamps lit, a light mist.",
+  "scene": {
+    "art": [0.74, 0.66, 0.7],
+    "ground": [0.66, 0.6, 0.64],
+    "far": [0.7, 0.6, 0.66],
+    "fade_height": 150,
+    "fade_dark": 0.35,
+    "ground_y": 497,
+    "rim_color": [1, 0.5, 0.28],
+    "rim_strength": 0.22,
+    "rim_width": 1.8,
+    "rim_sides": true
+  },
+  "layers": {
+    "Far": {
+      "blur": 1.8,
+      "tint": [1.05, 0.92, 0.95],
+      "fade": 0,
+      "rim": 0
+    },
+    "Middle": {
+      "blur": 0.7
+    },
+    "Middle2": {
+      "blur": 0.4
+    },
+    "Near": {}
+  },
+  "body": {
+    "shade": [0.52, 0.46, 0.6],
+    "lit": [1.1, 0.88, 0.74],
+    "height": 130,
+    "rim_strength": 0.3,
+    "rim_width": 1.6
+  },
+  "shadow": {
+    "alpha": 0.55,
+    "shear": 0.2,
+    "squash": 0.3,
+    "blur": 3.5,
+    "floor_y": 497
+  },
+  "grade": {
+    "vignette": 0.52,
+    "saturation": 0.88,
+    "brightness": 1
+  },
+  "fog": {
+    "color": [0.72, 0.6, 0.66],
+    "density": 0.45,
+    "max_alpha": 0.22,
+    "ground_bias": 0.8,
+    "speed": 8,
+    "front_density": 0.08
+  },
+  "glows": [
+    {
+      "node": "Art/Near/Streetlight",
+      "at": [88, 94],
+      "radius": 110,
+      "color": [0.5, 0.95, 1],
+      "alpha": 0.45,
+      "flicker": 0.25,
+      "flicker_speed": 0.35
+    },
+    {
+      "node": "Art/Middle2/Wildfire",
+      "at": [17, 30],
+      "radius": 70,
+      "color": [0.45, 0.9, 1],
+      "alpha": 0.35,
+      "flicker": 0.3,
+      "flicker_speed": 0.3
+    }
+  ],
+  "sway": [
+    {
+      "node": "Art/Middle2/Wildfire",
+      "deg": 6,
+      "speed": 0.25
+    }
+  ]
 }
