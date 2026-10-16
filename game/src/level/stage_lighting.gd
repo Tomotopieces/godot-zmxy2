@@ -11,6 +11,10 @@ extends Node
 ##  - rain ("rain": streaks that splash where they land on the floor) and, for a storm, lightning ("lightning": the screen
 ##    flashes and a bolt shows in the sky behind the scenery);
 ##  - a screen grade: cool shadows, a little less colour, a vignette, optionally darker ("brightness").
+##  - the lamps of a hall ("lamps": a soft additive glow each, wavering) and ash drifting down through the frame ("ash",
+##    a spray of small squares over everything);
+##  - a stage may take another stage's look as its base ("use": that stage's name): every other entry of its own file is
+##    copied over it (shallow), so only what differs from that look has to be written.
 ## Draw order: far layer (-2), the moonlight layer (-1), world, the mist layer (1), the grade layer (2), the HUD (3).
 
 const FOG := preload("res://src/level/fog.gdshader")
@@ -30,6 +34,7 @@ var _moon: Node2D
 var _shafts: Array[Polygon2D] = []
 var _moon_glow: Sprite2D
 var _shadows := {}      ## instance id of an actor -> {holder, rig, mat, sig, floor_y}
+var _lamps: Array[Sprite2D] = []   ## the hall's lamps: additive glows that waver (one per "lamps" entry)
 var _t := 0.0
 var _treasure_rig: Rig
 var _sky: CanvasLayer           ## behind the world: the moon's light and the lightning bolt
@@ -48,6 +53,14 @@ static func attach(lv: Level) -> StageLighting:
 		return null
 	var s := StageLighting.new()
 	s._cfg = JSON.parse_string(FileAccess.get_file_as_string(path))
+	var use: String = s._cfg.get("use", "")
+	if use != "":   # this stage is the other one's look with a few entries replaced
+		var base_path := "res://data/lighting/%s.json" % use
+		var base: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(base_path)) if ResourceLoader.exists(base_path) else {}
+		for k in s._cfg:
+			if k != "use":
+				base[k] = s._cfg[k]
+		s._cfg = base
 	s._lv = lv
 	s.process_physics_priority = 20   # after the level and the actors have moved
 	lv.add_child(s)
@@ -81,7 +94,9 @@ func _ready() -> void:
 	_light_scenery(scene)
 	_build_fog()
 	_build_effects()
+	_build_lamps()
 	_build_rain()
+	_build_ash()
 	_build_lightning()
 	_build_grade()
 
@@ -223,6 +238,71 @@ func _build_rain() -> void:
 	_rain_mat = m
 	layer.add_child(rect)
 
+## The hall's lamps: an additive radial glow each, sized by its radius and wavering on its own. Numbers in the "lamps" entries.
+func _build_lamps() -> void:
+	if not _cfg.has("lamps"):
+		return
+	var add := CanvasItemMaterial.new()
+	add.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+	for l: Dictionary in _cfg.lamps:
+		var s := Sprite2D.new()
+		s.texture = glow_texture()   # 256 px: the glow reaches its radius at half of that
+		s.scale = Vector2.ONE * (float(l.radius) / (glow_texture().width / 2.0))
+		s.modulate = Color(_color(l.color), float(l.alpha))
+		s.material = add
+		s.z_index = -6   # over the scenery (-10) and the floor (-7), under every actor
+		s.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
+		s.position = Vector2(float(l.x), float(l.y))
+		_lv.world.add_child(s)
+		_lamps.append(s)
+
+static var _ash_tex: ImageTexture
+
+static func ash_texture() -> ImageTexture:
+	if _ash_tex == null:   # a 4x4 white square: a flake's own size is its scale (px = 4 * scale)
+		var img := Image.create_empty(4, 4, false, Image.FORMAT_RGBA8)
+		img.fill(Color.WHITE)
+		_ash_tex = ImageTexture.create_from_image(img)
+	return _ash_tex
+
+## Ash drifting down through the frame (a screen-space CPUParticles2D): a slow sideways sway, a small square each.
+## Every number is in the "ash" entry.
+func _build_ash() -> void:
+	if not _cfg.has("ash"):
+		return
+	var a: Dictionary = _cfg.ash
+	var layer := CanvasLayer.new()
+	layer.layer = 1
+	add_child(layer)
+	var p := CPUParticles2D.new()
+	p.emitting = true
+	p.amount = int(a.amount)
+	p.lifetime = float(a.lifetime)
+	p.preprocess = float(a.lifetime)   # the air is already full of ash when the stage opens
+	p.emission_shape = CPUParticles2D.EMISSION_SHAPE_RECTANGLE
+	p.emission_rect_extents = Vector2(Layers.VIEW.x * 0.6, 10.0)
+	p.position = Vector2(Layers.VIEW.x * 0.5, -20.0)   # above the top of the frame, so the flakes drift into it
+	p.direction = Vector2(0.0, 1.0)
+	p.spread = 25.0
+	p.gravity = Vector2.ZERO   # they fall at their own slow pace, not the world's
+	p.initial_velocity_min = float(a.speed[0])
+	p.initial_velocity_max = float(a.speed[1])
+	p.scale_amount_min = float(a.size[0]) / 4.0
+	p.scale_amount_max = float(a.size[1]) / 4.0
+	p.texture = ash_texture()
+	p.color = Color(_color(a.color), float(a.alpha))
+	var g := Gradient.new()   # fading in over the first tenth of a flake's fall, out over its last quarter
+	g.offsets = PackedFloat32Array([0.0, 0.1, 0.75, 1.0])
+	g.colors = PackedColorArray([Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)])
+	p.color_ramp = g
+	p.orbit_velocity_min = 0.0
+	p.orbit_velocity_max = 0.0
+	p.angular_velocity_min = 0.0
+	p.angular_velocity_max = 0.0
+	p.tangential_accel_min = -float(a.sway)   # a slow sway to the sides as it falls
+	p.tangential_accel_max = float(a.sway)
+	layer.add_child(p)
+
 ## Lightning: now and then the screen flashes (a quick double or triple flicker) and a bolt shows in the sky.
 func _build_lightning() -> void:
 	if not _cfg.has("lightning"):
@@ -326,6 +406,10 @@ func _physics_process(delta: float) -> void:
 	_fog_back.global_position = vr.position
 	_fog_back_mat.set_shader_parameter("scroll", Vector2(vr.position.x * 0.85, 0.0))
 	_fog_front_mat.set_shader_parameter("scroll", Vector2(vr.position.x * 1.25, 0.0))
+	for i in _lamps.size():
+		var l: Dictionary = _cfg.lamps[i]
+		var f := float(l.flicker)
+		_lamps[i].modulate.a = float(l.alpha) * (1.0 - f * 0.5 + f * 0.5 * sin(_t * (5.0 + 1.3 * i) + 2.1 * i) * sin(_t * (2.3 + 0.7 * i)))
 	if _moon != null:
 		var far := _lv.far_sprite()
 		_moon.position = far.position + Vector2(float(_cfg.moon.x), float(_cfg.moon.y))
