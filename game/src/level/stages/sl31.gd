@@ -49,6 +49,12 @@ func _jumpers(delta: float) -> void:
 			var m := Monster.create(md)
 			m.position = fx.position + Vector2(0, 10)
 			level.add_monster(m)
+			# feet just above the deck: the deck is a one-way platform, a body that starts inside it drops through
+			var shape := _boat.get_node("Shape") as CollisionShape2D
+			var deck := _boat.global_position.y + shape.position.y - (shape.shape as RectangleShape2D).size.y / 2.0
+			var feet_off := m.body_shape.position.y + (m.body_shape.shape as RectangleShape2D).size.y / 2.0
+			m.global_position.y = minf(m.global_position.y, deck - feet_off - 2.0)
+			m.reset_physics_interpolation()
 		fx.queue_free())
 
 func _fish(delta: float) -> void:

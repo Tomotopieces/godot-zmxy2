@@ -15,11 +15,12 @@ extends Node
 ##    a spray of small squares over everything);
 ##  - lights hung on pieces of the scene ("glows": a glow on every picture under a node, at a point of that picture's own
 ##    texture, so each style of lamp lights from its own flame and the glow moves with it: parallax layers, the boat);
-##  - flames that waver like smoke ("sway": every picture under a node is bent by slow ripples growing towards its top
-##    and breathes a little wider and narrower - wisp.gdshader);
+##  - flames that waver like smoke ("sway": every picture under a node is bent by slow ripples running up it, growing
+##    towards its top - wisp.gdshader);
 ##  - a stage may take another stage's look as its base ("use": that stage's name): every other entry of its own file is
 ##    copied over it (shallow), so only what differs from that look has to be written.
-## Draw order: far layer (-2), the moonlight layer (-1), world, the mist layer (1), the grade layer (2), the HUD (3).
+## Draw order: far layer (-2), the moonlight layer (-1), world, the mist layers (1: all of the mist is in front of the
+## world), the grade layer (2), the HUD (3).
 
 const FOG := preload("res://src/level/fog.gdshader")
 const GRADE := preload("res://src/level/grade.gdshader")
@@ -157,10 +158,10 @@ func _build_fog() -> void:
 	if not _cfg.has("fog"):
 		return   # a stage without mist
 	var f: Dictionary = _cfg.fog
-	var holder := Node2D.new()
+	var holder := CanvasLayer.new()
 	holder.name = "Fog"
-	holder.z_index = -5   # over the scenery and the floor, under every actor
-	_lv.world.add_child(holder)
+	holder.layer = 1   # in front of the whole world (scenery, actors, effects), under the grade and the HUD
+	add_child(holder)
 	_fog_back = ColorRect.new()
 	_fog_back.size = Layers.VIEW
 	_fog_back.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -336,8 +337,8 @@ func _build_glows() -> void:
 			_glows.append([s, g, float(i) * 1.7])
 			i += 1
 
-## Flames that waver like smoke: each picture gets its own wisp material ("warp": sideways bend at the top as a share of
-## its width, "stretch": breathing in width, "speed": ripples per second), every one at its own phase.
+## Flames that waver like smoke: each picture gets its own wisp material ("warp": sideways bend at the tip as a share of
+## its width, "speed": ripples per second), every one at its own phase.
 func _build_sway() -> void:
 	if not _cfg.has("sway"):
 		return
@@ -347,7 +348,6 @@ func _build_sway() -> void:
 			var m := ShaderMaterial.new()
 			m.shader = WISP
 			m.set_shader_parameter("warp", float(w.warp))
-			m.set_shader_parameter("stretch", float(w.stretch))
 			m.set_shader_parameter("speed", float(w.speed))
 			m.set_shader_parameter("phase", float(i) * 2.3)
 			var sz := _picture_size(p)
@@ -492,7 +492,6 @@ func _physics_process(delta: float) -> void:
 	_t += delta
 	var vr := _lv.view_rect()
 	if _fog_back != null:
-		_fog_back.global_position = vr.position
 		_fog_back_mat.set_shader_parameter("scroll", Vector2(vr.position.x * 0.85, 0.0))
 		_fog_front_mat.set_shader_parameter("scroll", Vector2(vr.position.x * 1.25, 0.0))
 	for e in _glows:
@@ -558,11 +557,16 @@ func _update_actor(a: Actor) -> void:
 	var sh: Dictionary = _cfg.shadow
 	if a.is_on_floor():
 		e.floor_y = feet_y
+	else:
+		# in the air (jumping, knocked up, a flyer that never lands): the floor straight below its feet
+		var q := PhysicsRayQueryParameters2D.create(Vector2(a.global_position.x, feet_y - 1.0), Vector2(a.global_position.x, feet_y + 1200.0), Actor.LAYER_WORLD | Actor.LAYER_ONEWAY, [a.get_rid()])
+		var hit := _lv.get_world_2d().direct_space_state.intersect_ray(q)
+		e.floor_y = (hit.position as Vector2).y if not hit.is_empty() else INF
 	var holder: Node2D = e.holder
 	var srig: Rig = e.rig
 	# an actor that has faded (夜叉 turning invisible) takes its shadow with it
 	var fade := a.modulate.a * rig.modulate.a
-	var shown := a.is_visible_in_tree() and rig.is_visible_in_tree() and fade > 0.01
+	var shown := a.is_visible_in_tree() and rig.is_visible_in_tree() and fade > 0.01 and is_finite(float(e.floor_y))
 	holder.visible = shown
 	if not shown:
 		return

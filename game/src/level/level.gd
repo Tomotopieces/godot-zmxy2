@@ -553,8 +553,7 @@ func _update_stops(delta: float) -> void:
 	s.done = true
 	stop_index += 1
 	if stop_index < stops.size() and not fixed_camera:   # a fixed-camera room has nowhere to go on to
-		auto_scroll = true
-		gogo.emit()
+		gogo.emit()   # the way on opens; the camera keeps following the hero (no forced scroll)
 	elif not _has_boss_spawner():
 		open_door()   # stages without a boss open as soon as the last stop is cleared
 
@@ -599,8 +598,7 @@ func boss_destroyed(m: Monster) -> void:
 ##    back (Camera2D drag margins);
 ##  - a room closes the screen on its stop: the camera cannot show anything right of the stop until the room is cleared
 ##    (limit_right), and the hero can only go back a set distance from where the room closed (limit_left);
-##  - once a room is cleared the camera runs ahead on its own (hero speed + 240 px/s) until the hero is back at the
-##    auto line, so the way on opens by itself (limit_left rising);
+##  - once a room is cleared the way on opens (GOGO) and the camera simply follows the hero again;
 ##  - the last room's right edge is the stage's end;
 ##  - it does not snap to its target: it eases towards it (Camera2D position smoothing, an exponential lerp), so starts and
 ##    stops of the hero and the room opening / closing move the view softly. The limits still hold at every frame.
