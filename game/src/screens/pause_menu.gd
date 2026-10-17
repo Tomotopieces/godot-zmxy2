@@ -1,6 +1,6 @@
 class_name PauseMenu
 extends CanvasLayer
-## In-stage menu (export.setmenu.SetMenu): continue, back to map, back to main menu, help, sound on / off.
+## In-stage menu (export.setmenu.SetMenu): continue, back to map, back to main menu, sound on / off.
 ## Pauses the game while open.
 
 signal closed
@@ -8,7 +8,6 @@ signal to_map
 signal to_menu
 
 var _ui: UiLayout
-var _help: Node
 
 func _ready() -> void:
 	layer = 15
@@ -30,7 +29,6 @@ func _on_button(b: String) -> void:
 		"btn_x", "btn_continue": close()
 		"btn_back_selectmap": to_map.emit()
 		"btn_back_menu": to_menu.emit()
-		"btn_help": _show_help()
 		"btn_sound_open":
 			Snd.set_muted(false)
 			_sync_sound()
@@ -42,17 +40,6 @@ func _on_button(b: String) -> void:
 func _sync_sound() -> void:
 	_ui.set_visible_piece("btn_sound_open", Snd.muted)
 	_ui.set_visible_piece("btn_sound_close", not Snd.muted)
-
-func _show_help() -> void:
-	if _help:
-		return
-	var h := UiLayout.create("help")
-	_help = h
-	PadNav.modal(h)
-	h.button_pressed.connect(func(b): if b == "btnback":
-		h.queue_free()
-		_help = null)
-	add_child(h)
 
 func close() -> void:
 	get_tree().paused = false

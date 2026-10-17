@@ -3,8 +3,8 @@ extends RefCounted
 ## Very quick fade of a full-screen panel (a CanvasLayer has no modulate: its CanvasItem children fade).
 ## Runs while the game is paused and ignores bullet time.
 
-const IN_TIME := 0.2
-const OUT_TIME := 0.2
+const IN_TIME := 0.1
+const OUT_TIME := 0.1
 
 ## Call at the end of the panel's _ready().
 static func fade_in(panel: CanvasLayer) -> void:

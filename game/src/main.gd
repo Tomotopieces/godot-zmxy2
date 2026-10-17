@@ -75,7 +75,7 @@ func show_map() -> void:
 
 func start_stage(s: Vector2i) -> void:
 	var p := PlayScreen.create(s)
-	p.to_map.connect(show_map)
-	p.to_menu.connect(show_menu)
-	p.play.connect(start_stage)
+	p.to_map.connect(func(): _fade.play(show_map))
+	p.to_menu.connect(func(): _fade.play(show_menu))
+	p.play.connect(func(st: Vector2i): _fade.play(start_stage.bind(st)))
 	_swap(p)

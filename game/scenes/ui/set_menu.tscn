@@ -10,8 +10,6 @@
 [ext_resource type="Texture2D" path="res://assets/ui/set_menu/tex/OtherMat_v10_166.png" id="8_12aaq"]
 [ext_resource type="Texture2D" path="res://assets/ui/set_menu/tex/OtherMat_v10_167.png" id="9_llj5d"]
 [ext_resource type="Texture2D" path="res://assets/ui/set_menu/tex/OtherMat_v10_168.png" id="10_s2kw6"]
-[ext_resource type="Texture2D" path="res://assets/shared/ui/OtherMat_v10_110.png" id="11_mhx32"]
-[ext_resource type="Texture2D" path="res://assets/shared/ui/OtherMat_v10_111.png" id="12_vanbf"]
 [ext_resource type="Texture2D" path="res://assets/ui/set_menu/tex/OtherMat_v10_173.png" id="13_dcbwn"]
 [ext_resource type="Texture2D" path="res://assets/ui/set_menu/tex/OtherMat_v10_174.png" id="14_eh40h"]
 [ext_resource type="Texture2D" path="res://assets/ui/set_menu/tex/OtherMat_v10_177.png" id="15_quu53"]
@@ -158,53 +156,12 @@ texture = ExtResource("10_s2kw6")
 centered = false
 metadata/tex_key = "OtherMat_v10:168"
 
-[node name="btn_help" type="Control" parent="." unique_id=811009991]
-anchors_preset = 0
-offset_left = 411.35
-offset_top = 289.7
-offset_right = 516.35
-offset_bottom = 320.7
-mouse_default_cursor_shape = 2
-metadata/ui_piece = ["btn_help"]
-metadata/ui_button = "btn_help"
-metadata/pad_seq = 46
-
-[node name="Up" type="Node2D" parent="btn_help" unique_id=1759223979]
-position = Vector2(4, 4)
-
-[node name="OtherMat_v10_110" type="Sprite2D" parent="btn_help/Up" unique_id=372157834]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("11_mhx32")
-centered = false
-metadata/tex_key = "OtherMat_v10:110"
-
-[node name="Over" type="Node2D" parent="btn_help" unique_id=487809857]
-visible = false
-position = Vector2(4, 4)
-
-[node name="OtherMat_v10_111" type="Sprite2D" parent="btn_help/Over" unique_id=274118584]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("12_vanbf")
-centered = false
-metadata/tex_key = "OtherMat_v10:111"
-
-[node name="Down" type="Node2D" parent="btn_help" unique_id=951988721]
-visible = false
-position = Vector2(4, 4)
-
-[node name="OtherMat_v10_111" type="Sprite2D" parent="btn_help/Down" unique_id=1647639960]
-position = Vector2(0, 2)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("12_vanbf")
-centered = false
-metadata/tex_key = "OtherMat_v10:111"
-
 [node name="btn_back_menu" type="Control" parent="." unique_id=2105349301]
 anchors_preset = 0
 offset_left = 397.6
-offset_top = 340.15
+offset_top = 287.95
 offset_right = 529.6
-offset_bottom = 372.15
+offset_bottom = 319.95
 mouse_default_cursor_shape = 2
 metadata/ui_piece = ["btn_back_menu"]
 metadata/ui_button = "btn_back_menu"
