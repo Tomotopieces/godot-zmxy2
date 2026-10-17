@@ -652,12 +652,12 @@ func add_rage(amount: float) -> void:
 		return
 	rage = clampf(rage + amount, 0.0, float(data.rage_max))
 
-## RoleInfo.addWarriors (a white soul): added even in the rage form, where it lengthens the time left; as in the
-## original, nothing is added when it would go past the maximum.
+## RoleInfo.addWarriors (a white soul): added even in the rage form, where it lengthens the time left; capped at the
+## maximum (the original added nothing at all when it would have gone past it).
 func add_orb_rage(amount: float) -> void:
-	if state == State.DEAD or rage + amount > float(data.rage_max):
+	if state == State.DEAD:
 		return
-	rage += amount
+	rage = minf(rage + amount, float(data.rage_max))
 
 func _update_rage(delta: float) -> void:
 	_rage_t += delta
