@@ -1,28 +1,29 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://c3bsw6nhf3rfu"]
 
-[ext_resource type="Script" path="res://src/ui/ui_layout.gd" id="1_h3ix2"]
-[ext_resource type="Texture2D" path="res://assets/ui/pack_menu/tex/backpack_v5_565.png" id="2_ny8mw"]
-[ext_resource type="Texture2D" path="res://assets/ui/pack_menu/tex/backpack_v5_567.png" id="3_e52gg"]
-[ext_resource type="Texture2D" path="res://assets/ui/pack_menu/tex/backpack_v5_569.png" id="4_h8bdk"]
-[ext_resource type="Texture2D" path="res://assets/ui/pack_menu/tex/backpack_v5_572.png" id="5_lm0n2"]
-[ext_resource type="Texture2D" path="res://assets/ui/pack_menu/tex/backpack_v5_574.png" id="6_ri532"]
-[ext_resource type="Texture2D" path="res://assets/ui/pack_menu/tex/backpack_v5_577.png" id="7_mmm10"]
-[ext_resource type="Texture2D" path="res://assets/ui/pack_menu/tex/backpack_v5_579.png" id="8_yyru5"]
+[ext_resource type="Script" uid="uid://ddmuwy06fmabu" path="res://src/ui/ui_layout.gd" id="1_h3ix2"]
+[ext_resource type="Texture2D" uid="uid://dovdqiwsmf3i7" path="res://assets/ui/pack_menu/tex/backpack_v5_567.png" id="3_e52gg"]
+[ext_resource type="Texture2D" uid="uid://brlu2a0x2bs0q" path="res://assets/ui/pack_menu/tex/backpack_v5_569.png" id="4_h8bdk"]
+[ext_resource type="Texture2D" uid="uid://b2pjc4eaisomn" path="res://assets/ui/pack_menu/tex/backpack_v5_577.png" id="7_mmm10"]
+[ext_resource type="Texture2D" uid="uid://bwfuo5jip1pqu" path="res://assets/ui/pack_menu/tex/backpack_v5_579.png" id="8_yyru5"]
 
-[node name="pack_menu" type="Control" unique_id=1736151640]
-layout_mode = 3
-anchors_preset = 0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wvhbo"]
+bg_color = Color(0, 0, 0, 0.8)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="pack_menu" type="Panel" unique_id=606058136]
+offset_right = 83.0
+offset_bottom = 75.0
 mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wvhbo")
 script = ExtResource("1_h3ix2")
-
-[node name="Art" type="Node2D" parent="." unique_id=667161790]
-
-[node name="backpack_v5_565" type="Sprite2D" parent="Art" unique_id=405878489]
-position = Vector2(-1.5, -1.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_ny8mw")
-centered = false
-metadata/tex_key = "backpack_v5:565"
 
 [node name="bzb" type="Node2D" parent="." unique_id=1107209461]
 position = Vector2(2.25, 4.2)
@@ -46,30 +47,8 @@ texture = ExtResource("4_h8bdk")
 centered = false
 metadata/tex_key = "backpack_v5:569"
 
-[node name="bgy" type="Node2D" parent="." unique_id=1418116332]
-position = Vector2(2.6, 40.1)
-metadata/labels = {}
-metadata/ui_piece = ["bgy"]
-
-[node name="Frame0" type="Node2D" parent="bgy" unique_id=593225908]
-
-[node name="backpack_v5_572" type="Sprite2D" parent="bgy/Frame0" unique_id=945594153]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_lm0n2")
-centered = false
-metadata/tex_key = "backpack_v5:572"
-
-[node name="Frame1" type="Node2D" parent="bgy" unique_id=342622900]
-visible = false
-
-[node name="backpack_v5_574" type="Sprite2D" parent="bgy/Frame1" unique_id=2123338283]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_ri532")
-centered = false
-metadata/tex_key = "backpack_v5:574"
-
 [node name="bmd" type="Node2D" parent="." unique_id=256812899]
-position = Vector2(3.1, 78.1)
+position = Vector2(3.1, 40.1)
 metadata/labels = {}
 metadata/ui_piece = ["bmd"]
 

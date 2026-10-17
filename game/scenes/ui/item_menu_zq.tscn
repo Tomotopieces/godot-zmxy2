@@ -1,30 +1,33 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://c1uq4tx2315gs"]
 
-[ext_resource type="Script" path="res://src/ui/ui_layout.gd" id="1_0flwa"]
-[ext_resource type="Texture2D" path="res://assets/ui/item_menu_zq/tex/backpack_v5_841.png" id="2_7kra1"]
-[ext_resource type="Texture2D" path="res://assets/ui/item_menu_zq/tex/backpack_v5_843.png" id="3_rsx5s"]
-[ext_resource type="Texture2D" path="res://assets/ui/item_menu_zq/tex/backpack_v5_845.png" id="4_j8gs5"]
-[ext_resource type="Texture2D" path="res://assets/ui/item_menu_zq/tex/backpack_v5_848.png" id="5_t0yva"]
-[ext_resource type="Texture2D" path="res://assets/ui/item_menu_zq/tex/backpack_v5_850.png" id="6_cnuyk"]
-[ext_resource type="Texture2D" path="res://assets/shared/ui/backpack_v5_449.png" id="7_euikp"]
-[ext_resource type="Texture2D" path="res://assets/shared/ui/backpack_v5_451.png" id="8_ycevt"]
-[ext_resource type="Texture2D" path="res://assets/shared/ui/backpack_v5_454.png" id="9_2yi5f"]
-[ext_resource type="Texture2D" path="res://assets/shared/ui/backpack_v5_456.png" id="10_ly0g3"]
+[ext_resource type="Script" uid="uid://ddmuwy06fmabu" path="res://src/ui/ui_layout.gd" id="1_0flwa"]
+[ext_resource type="Texture2D" uid="uid://jj6u3hffcsid" path="res://assets/ui/item_menu_zq/tex/backpack_v5_843.png" id="3_rsx5s"]
+[ext_resource type="Texture2D" uid="uid://iv7mus3avirl" path="res://assets/ui/item_menu_zq/tex/backpack_v5_845.png" id="4_j8gs5"]
+[ext_resource type="Texture2D" uid="uid://c1ijtxylsggvs" path="res://assets/ui/item_menu_zq/tex/backpack_v5_848.png" id="5_t0yva"]
+[ext_resource type="Texture2D" uid="uid://bpysqh2my11d6" path="res://assets/ui/item_menu_zq/tex/backpack_v5_850.png" id="6_cnuyk"]
+[ext_resource type="Texture2D" uid="uid://s2fh3d6wfs00" path="res://assets/shared/ui/backpack_v5_449.png" id="7_euikp"]
+[ext_resource type="Texture2D" uid="uid://c4eopxwk2eoav" path="res://assets/shared/ui/backpack_v5_451.png" id="8_ycevt"]
+[ext_resource type="Texture2D" uid="uid://cmbexfni4yk6t" path="res://assets/shared/ui/backpack_v5_454.png" id="9_2yi5f"]
+[ext_resource type="Texture2D" uid="uid://bs8i1hpjsqjox" path="res://assets/shared/ui/backpack_v5_456.png" id="10_ly0g3"]
 
-[node name="item_menu_zq" type="Control" unique_id=652254222]
-layout_mode = 3
-anchors_preset = 0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wvhbo"]
+bg_color = Color(0, 0, 0, 0.8)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="item_menu_zq" type="Panel" unique_id=1454061535]
+offset_right = 87.0
+offset_bottom = 138.0
 mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wvhbo")
 script = ExtResource("1_0flwa")
-
-[node name="Art" type="Node2D" parent="." unique_id=671988552]
-
-[node name="backpack_v5_841" type="Sprite2D" parent="Art" unique_id=2020031032]
-position = Vector2(-0.5, -0.8)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_7kra1")
-centered = false
-metadata/tex_key = "backpack_v5:841"
 
 [node name="sbmooncake" type="Node2D" parent="." unique_id=2016192108]
 position = Vector2(5, 38)
@@ -34,6 +37,7 @@ metadata/ui_piece = ["sbmooncake"]
 [node name="Frame0" type="Node2D" parent="sbmooncake" unique_id=1837788356]
 
 [node name="backpack_v5_843" type="Sprite2D" parent="sbmooncake/Frame0" unique_id=1334650472]
+position = Vector2(0, -1)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_rsx5s")
 centered = false
@@ -56,6 +60,7 @@ metadata/ui_piece = ["smoonweapon"]
 [node name="Frame0" type="Node2D" parent="smoonweapon" unique_id=1967714848]
 
 [node name="backpack_v5_848" type="Sprite2D" parent="smoonweapon/Frame0" unique_id=1710280915]
+position = Vector2(0, -1)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("5_t0yva")
 centered = false

@@ -191,7 +191,7 @@ func _fill_stats() -> void:
 
 # ------------------------------------------------------------------ actions
 
-## Item menu (threebtn): 装备 / 赠送 / 出售, or for the 道具 page (simplebtn): 使用 / 丢弃.
+## Item menu: 装备 / 出售 (the original's 赠送 is a 2P feature, not made), or for the 道具 page: 使用 / 丢弃.
 ## A row shows its second frame when unavailable.
 func _on_bag_click(icon: Control, index: int) -> void:
 	_close_menu()
@@ -199,7 +199,7 @@ func _on_bag_click(icon: Control, index: int) -> void:
 	_menu_index = index
 	var item := GameState.bag[index]
 	var d := GameState.item_data(item)
-	var enabled := {"bzb": GameState.can_wear(item), "bgy": false, "bmd": true}   # 赠送 is 2P only
+	var enabled := {"bzb": GameState.can_wear(item), "bmd": true}
 	var moon: bool = item.id == EquipmentCatalog.get_catalog().moon.cake   # 小月饼: the menu also exchanges them
 	if TABS[_tab] == "item":
 		enabled = {"buse": GameState.usable(item), "bthrow": true}

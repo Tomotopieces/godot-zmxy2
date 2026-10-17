@@ -1,12 +1,9 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://c765nkv66a3ps"]
 
-[ext_resource type="Script" path="res://src/ui/ui_layout.gd" id="1_ea18h"]
-[ext_resource type="Texture2D" path="res://assets/shared/ui/OtherMat_v10_341.png" id="2_qt5gl"]
-[ext_resource type="Texture2D" path="res://assets/shared/ui/OtherMat_v10_343.png" id="3_0o8o7"]
-[ext_resource type="Texture2D" path="res://assets/shared/ui/OtherMat_v10_349.png" id="4_njmo7"]
-[ext_resource type="Texture2D" path="res://assets/shared/ui/OtherMat_v10_236.png" id="5_w2f1g"]
-[ext_resource type="Texture2D" path="res://assets/shared/ui/OtherMat_v10_237.png" id="6_we6y7"]
-[ext_resource type="Texture2D" path="res://assets/shared/ui/OtherMat_v10_355.png" id="7_ql07l"]
+[ext_resource type="Script" uid="uid://ddmuwy06fmabu" path="res://src/ui/ui_layout.gd" id="1_ea18h"]
+[ext_resource type="Texture2D" uid="uid://3g0bgb1k1le5" path="res://assets/shared/ui/OtherMat_v10_341.png" id="2_qt5gl"]
+[ext_resource type="Texture2D" uid="uid://bxsnoyk0w7w8r" path="res://assets/shared/ui/OtherMat_v10_236.png" id="5_w2f1g"]
+[ext_resource type="Texture2D" uid="uid://dm4u0mcpur1xt" path="res://assets/shared/ui/OtherMat_v10_237.png" id="6_we6y7"]
 
 [node name="buy_skill" type="Control" unique_id=576290882]
 layout_mode = 3
@@ -21,68 +18,6 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_qt5gl")
 centered = false
 metadata/tex_key = "OtherMat_v10:341"
-
-[node name="player1" type="Node2D" parent="." unique_id=1920180859]
-position = Vector2(89.35, 6.85)
-metadata/labels = {}
-metadata/ui_piece = ["player1"]
-
-[node name="Frame0" type="Node2D" parent="player1" unique_id=402608525]
-
-[node name="OtherMat_v10_343" type="Sprite2D" parent="player1/Frame0" unique_id=681032658]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_0o8o7")
-centered = false
-metadata/tex_key = "OtherMat_v10:343"
-
-[node name="Frame1" type="Node2D" parent="player1" unique_id=1293935574]
-visible = false
-
-[node name="OtherMat_v10_345" type="Sprite2D" parent="player1/Frame1" unique_id=1754741212]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_0o8o7")
-centered = false
-metadata/tex_key = "OtherMat_v10:345"
-
-[node name="Frame2" type="Node2D" parent="player1" unique_id=1991882991]
-visible = false
-
-[node name="OtherMat_v10_343" type="Sprite2D" parent="player1/Frame2" unique_id=1373105048]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_0o8o7")
-centered = false
-metadata/tex_key = "OtherMat_v10:343"
-
-[node name="player2" type="Node2D" parent="." unique_id=646282321]
-position = Vector2(180.35, 5.85)
-metadata/labels = {}
-metadata/ui_piece = ["player2"]
-
-[node name="Frame0" type="Node2D" parent="player2" unique_id=611016430]
-
-[node name="OtherMat_v10_349" type="Sprite2D" parent="player2/Frame0" unique_id=1732955206]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_njmo7")
-centered = false
-metadata/tex_key = "OtherMat_v10:349"
-
-[node name="Frame1" type="Node2D" parent="player2" unique_id=540380252]
-visible = false
-
-[node name="OtherMat_v10_351" type="Sprite2D" parent="player2/Frame1" unique_id=1187329849]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_njmo7")
-centered = false
-metadata/tex_key = "OtherMat_v10:351"
-
-[node name="Frame2" type="Node2D" parent="player2" unique_id=1826623741]
-visible = false
-
-[node name="OtherMat_v10_349" type="Sprite2D" parent="player2/Frame2" unique_id=789674280]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_njmo7")
-centered = false
-metadata/tex_key = "OtherMat_v10:349"
 
 [node name="btnback" type="Control" parent="." unique_id=1562965823]
 anchors_preset = 0
@@ -126,34 +61,3 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("5_w2f1g")
 centered = false
 metadata/tex_key = "OtherMat_v10:236"
-
-[node name="player3" type="Node2D" parent="." unique_id=585220816]
-position = Vector2(267.85, 11)
-metadata/labels = {}
-metadata/ui_piece = ["player3"]
-
-[node name="Frame0" type="Node2D" parent="player3" unique_id=285649849]
-
-[node name="OtherMat_v10_355" type="Sprite2D" parent="player3/Frame0" unique_id=2139445971]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("7_ql07l")
-centered = false
-metadata/tex_key = "OtherMat_v10:355"
-
-[node name="Frame1" type="Node2D" parent="player3" unique_id=1292431167]
-visible = false
-
-[node name="OtherMat_v10_357" type="Sprite2D" parent="player3/Frame1" unique_id=1086288748]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("7_ql07l")
-centered = false
-metadata/tex_key = "OtherMat_v10:357"
-
-[node name="Frame2" type="Node2D" parent="player3" unique_id=330160208]
-visible = false
-
-[node name="OtherMat_v10_359" type="Sprite2D" parent="player3/Frame2" unique_id=1336073621]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("7_ql07l")
-centered = false
-metadata/tex_key = "OtherMat_v10:359"

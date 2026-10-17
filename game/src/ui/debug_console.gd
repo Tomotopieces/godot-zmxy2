@@ -165,11 +165,12 @@ func _row(d: EquipmentData) -> Button:
 	var b := Button.new()
 	b.alignment = HORIZONTAL_ALIGNMENT_LEFT
 	b.focus_mode = Control.FOCUS_NONE
-	b.icon = d.icon
-	b.expand_icon = true
-	b.add_theme_constant_override("icon_max_width", 34)
 	b.custom_minimum_size = Vector2(0, 38)
-	b.text = "%s    [%s]  %s · %s · %s" % [d.display_name, d.id, TYPE_NAMES.get(String(d.type), String(d.type)), d.quality,
+	var pic := ItemIcon.create(GameState.make_item(String(d.id)), 34.0).place(Vector2(2, 2))   # as in the bag
+	pic.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	b.add_child(pic)
+	b.add_theme_constant_override("h_separation", 0)
+	b.text = "          %s    [%s]  %s · %s · %s" % [d.display_name, d.id, TYPE_NAMES.get(String(d.type), String(d.type)), d.quality,
 		d.user if d.user != "" else "通用"]
 	b.add_theme_color_override("font_color", d.color if d.color.get_luminance() > 0.25 else Color.WHITE)
 	b.add_theme_color_override("font_hover_color", d.color.lightened(0.3) if d.color.get_luminance() > 0.25 else Color(1, 1, 0.7))

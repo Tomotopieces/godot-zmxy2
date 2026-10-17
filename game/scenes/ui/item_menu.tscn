@@ -1,26 +1,29 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://nxdabyiail25"]
 
-[ext_resource type="Script" path="res://src/ui/ui_layout.gd" id="1_0a1f0"]
-[ext_resource type="Texture2D" path="res://assets/ui/item_menu/tex/backpack_v5_447.png" id="2_qngf2"]
-[ext_resource type="Texture2D" path="res://assets/shared/ui/backpack_v5_449.png" id="3_hh5tn"]
-[ext_resource type="Texture2D" path="res://assets/shared/ui/backpack_v5_451.png" id="4_8ylbe"]
-[ext_resource type="Texture2D" path="res://assets/shared/ui/backpack_v5_454.png" id="5_nrryd"]
-[ext_resource type="Texture2D" path="res://assets/shared/ui/backpack_v5_456.png" id="6_4ndew"]
+[ext_resource type="Script" uid="uid://ddmuwy06fmabu" path="res://src/ui/ui_layout.gd" id="1_0a1f0"]
+[ext_resource type="Texture2D" uid="uid://s2fh3d6wfs00" path="res://assets/shared/ui/backpack_v5_449.png" id="3_hh5tn"]
+[ext_resource type="Texture2D" uid="uid://c4eopxwk2eoav" path="res://assets/shared/ui/backpack_v5_451.png" id="4_8ylbe"]
+[ext_resource type="Texture2D" uid="uid://cmbexfni4yk6t" path="res://assets/shared/ui/backpack_v5_454.png" id="5_nrryd"]
+[ext_resource type="Texture2D" uid="uid://bs8i1hpjsqjox" path="res://assets/shared/ui/backpack_v5_456.png" id="6_4ndew"]
 
-[node name="item_menu" type="Control" unique_id=736665142]
-layout_mode = 3
-anchors_preset = 0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wvhbo"]
+bg_color = Color(0, 0, 0, 0.8)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="item_menu" type="Panel" unique_id=476550283]
+offset_right = 87.0
+offset_bottom = 74.0
 mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wvhbo")
 script = ExtResource("1_0a1f0")
-
-[node name="Art" type="Node2D" parent="." unique_id=765691091]
-
-[node name="backpack_v5_447" type="Sprite2D" parent="Art" unique_id=262351228]
-position = Vector2(-0.5, -0.4)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_qngf2")
-centered = false
-metadata/tex_key = "backpack_v5:447"
 
 [node name="buse" type="Node2D" parent="." unique_id=541981623]
 position = Vector2(43.5, 18.5)
