@@ -17,12 +17,6 @@ const ITEMS := {
 	"myz": ["scene", "res://assets/rigs/tangseng/slots/slot862_8.tscn"],
 	"syc": ["scene", "res://assets/rigs/bajie/slots/slot30_6.tscn"],
 	"ttzy": ["scene", "res://assets/rigs/wukong/slots/slot116_3.tscn"],
-	"wkmrz": ["portrait", ["bag_wukong", 7]], "tsmrz": ["portrait", ["bag_tangseng", 7]], "bjmrz": ["portrait", ["bag_bajie", 7]],
-	"wkwdg": ["portrait", ["bag_wukong", 8]], "tswdg": ["portrait", ["bag_tangseng", 8]], "bjwdg": ["portrait", ["bag_bajie", 8]],
-	"wkbsz": ["portrait", ["bag_wukong", 9]], "tsbsz": ["portrait", ["bag_tangseng", 9]], "bjbsz": ["portrait", ["bag_bajie", 9]],
-	"wkzyf": ["portrait", ["bag_wukong", 10]], "tszyf": ["portrait", ["bag_tangseng", 10]], "bjzyf": ["portrait", ["bag_bajie", 10]],
-	"jwkwdg": ["portrait", ["bag_wukong", 11]], "jtswdg": ["portrait", ["bag_tangseng", 11]], "jbjwdg": ["portrait", ["bag_bajie", 11]],
-	"jwkzyf": ["portrait", ["bag_wukong", 12]], "jtszyf": ["portrait", ["bag_tangseng", 12]], "jbjzyf": ["portrait", ["bag_bajie", 12]],
 }
 
 func _ready() -> void:
