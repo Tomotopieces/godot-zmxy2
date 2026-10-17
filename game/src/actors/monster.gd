@@ -57,7 +57,7 @@ func _update_debug_glow() -> void:
 		return
 	if _debug_glow == null:
 		_debug_glow_mat = SpriteFx.glow_material(Color(1, 0.9, 0), 8.0, 1.5, true)
-		_debug_glow = Actor.make_body(data.rig)
+		_debug_glow = Rig.create(data.rig)
 		add_child(_debug_glow)
 		move_child(_debug_glow, rig.get_index())   # behind the body
 		_debug_glow.play(rig.action, true)

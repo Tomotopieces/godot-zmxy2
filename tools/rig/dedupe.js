@@ -1,9 +1,8 @@
 // Identical PNGs (same md5) are stored once. Every extractor writes its textures next to the thing it builds, so the same
 // image shows up under many rigs / UIs / levels; this pass moves each group of identical files to
 // game/assets/shared/<md5>.png (organize_shared.js then names and files them), rewrites the "res" paths of the *.json it was extracted into, and sends the copies
-// (and their .import files) to the Recycle Bin. Run it after any extraction, then rebuild the rigs:
-//   node tools/rig/dedupe.js [--dry]          then   bash tools/rig/rebuild_all.sh
-// (batch.sh runs both for the rigs it builds.)
+// (and their .import files) to the Recycle Bin. Run it after any extraction:
+//   node tools/rig/dedupe.js [--dry]
 'use strict';
 const fs = require('fs');
 const path = require('path');

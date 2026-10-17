@@ -4,7 +4,7 @@ extends Node2D
 ## Touching its box for `touch_time` seconds (the time is not reset when stepping away) opens it: the closed door is
 ## hidden, the open one shown and its "open" animation plays. Once it has swung open, walking into the doorway uses up
 ## the key and leads to 刑天 (7-1).
-## A scene of its own (scenes/objects/xingtian_door.tscn, built by tools/rig_to_object.gd) placed in the stage scene
+## A scene of its own (scenes/objects/xingtian_door.tscn) placed in the stage scene
 ## (Objects/XingtianDoor): the numbers are exports.
 
 @export var key := "yll"                                            ## the item the hero must carry

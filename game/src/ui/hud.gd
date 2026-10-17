@@ -1,7 +1,7 @@
 class_name Hud
 extends CanvasLayer
-## Player panel built from the original RoleInfo layout (assets/ui/role_info/ui.json): portrait,
-## HP / MP / EXP bars, rage bar, level, skill icons. Polls the hero every frame.
+## Player panel of the original RoleInfo layout: portrait, HP / MP / EXP bars, rage bar, level, skill icons.
+## Polls the hero every frame.
 ## The panel is hand-arranged in scenes/screens/hud.tscn (this script only drives those nodes).
 
 signal open_bag
@@ -10,7 +10,6 @@ signal open_skills
 signal open_treasure
 
 @onready var _ui: UiLayout = $RoleInfo
-@onready var _banner: Label = $Banner
 @onready var _buffs: Control = $Buffs
 var _buff_rows := {}   ## buff name -> Label
 
@@ -73,9 +72,6 @@ func _on_button(b: String) -> void:
 		"btn_set": open_menu.emit()
 		"btn_study": open_skills.emit()
 		"btn_fb": open_treasure.emit()
-
-func banner(text: String) -> void:
-	_banner.text = text
 
 ## Notice in the original style (Toast).
 func toast(text: String) -> void:

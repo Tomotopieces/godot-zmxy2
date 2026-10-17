@@ -3,7 +3,7 @@ extends SceneTree
 ##
 ##   godot --headless --path game -s res://tools/bake_data.gd
 ##
-## The frame rate comes from the SWF header recorded in each rig.json, so no game code ever sees it.
+## The frame rate is the SWF header's (tools/data/monsters.json "swf_fps"), so no game code ever sees it.
 
 const OUT := "res://data"
 
@@ -11,6 +11,7 @@ var _fps := 0.0
 
 func _init() -> void:
 	var src := ProjectSettings.globalize_path("res://").path_join("../tools/data")
+	_fps = float(_json(src.path_join("monsters.json")).swf_fps)
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(OUT + "/monsters"))
 	for role in ["wukong", "tangseng", "bajie"]:
 		_bake_hero(_json(src.path_join("%s.json" % role)), role)
@@ -21,7 +22,6 @@ func _init() -> void:
 
 ## Stage script numbers, units converted, as plain JSON (res://data/stages.json).
 func _bake_stages(d: Dictionary) -> void:
-	_fps = _rig_fps("wukong")
 	var out := {}
 	for k in d:
 		if not k.begins_with("_"):
@@ -34,7 +34,6 @@ func _bake_stages(d: Dictionary) -> void:
 const STRENGTHEN_KEYS := {"att": "atk", "ehp": "hp_regen", "emp": "mp_regen", "ebol": "lifesteal", "dhit": "deephit"}
 
 func _bake_equipment(d: Dictionary) -> void:
-	_fps = _rig_fps("wukong")
 	var c := EquipmentCatalog.new()
 	var r: Dictionary = d.rules
 	c.regen_interval = _sec(r.regen_frames)
@@ -87,8 +86,6 @@ func _json(path: String) -> Dictionary:
 	assert(d is Dictionary, "bad json " + path)
 	return d
 
-func _rig_fps(rig: String) -> float:
-	return float(_json(ProjectSettings.globalize_path("res://assets/rigs/%s/rig.json" % rig)).fps)
 
 func _sec(frames) -> float:
 	return float(frames) / _fps
@@ -144,7 +141,6 @@ func _attack(a: Dictionary) -> AttackData:
 	return r
 
 func _bake_hero(d: Dictionary, rig: String) -> void:
-	_fps = _rig_fps(rig)
 	var m: Dictionary = d.move
 	var h := HeroData.new()
 	h.rig = rig
@@ -167,7 +163,6 @@ func _bake_hero(d: Dictionary, rig: String) -> void:
 	h.rage_speed_mul = m.rage_speed_mul
 	h.double_tap_window = m.double_tap_ms / 1000.0
 	h.drop_through = m.drop_through_px
-	h.spawn_invincible = _sec(m.spawn_invincible_frames)
 	var s: Dictionary = d.stats
 	for k in ["hp_base", "hp_per_level", "mp_base", "mp_per_level", "atk_base", "atk_rand", "atk_per_level",
 			"def_base", "def_per_level", "def_cap_level", "def_per_level_after"]:
@@ -216,7 +211,6 @@ func _bake_hero(d: Dictionary, rig: String) -> void:
 
 func _bake_monsters(d: Dictionary, auto: Dictionary) -> void:
 	var c: Dictionary = d.common
-	_fps = _rig_fps("wukong")
 	var dr: Dictionary = c.drops
 	var t := DropTable.new()
 	t.potion_roll = dr.potion_chance
@@ -251,9 +245,8 @@ func _bake_monsters(d: Dictionary, auto: Dictionary) -> void:
 			push_warning("monster %s: %s" % [id, a.base.error])
 			continue
 		var rig := "monster%s" % id
-		if not FileAccess.file_exists(ProjectSettings.globalize_path("res://assets/rigs/%s/rig.json" % rig)):
+		if not ResourceLoader.exists("res://scenes/actors/%s/%s.tscn" % [rig, rig]):
 			continue   # art not exported yet
-		_fps = _rig_fps(rig)
 		var o: Dictionary = ov.get(id, {})
 		# "outside": overrides for the constructor's default branch only (scenes without their own numbers)
 		var base := _merged(_merged(a.base, o, rig), o.get("outside", {}), rig)
@@ -307,7 +300,6 @@ func _monster(id: int, m: Dictionary, c: Dictionary) -> MonsterData:
 		md.attack_check = _sec(c.attack_check_frames)
 	md.think_walk_at = _sec(c.think_walk_frame)
 	md.walk_times = PackedFloat32Array(c.walk_frames.map(_sec))
-	md.turn_pause = _sec(c.turn_pause_frames)
 	md.wander_rest = _sec(c.wander_rest_frames)
 	md.knockback_decay = pow(c.knockback_decay_per_frame, _fps)
 	md.gravity = _pps(_pps(c.gravity))

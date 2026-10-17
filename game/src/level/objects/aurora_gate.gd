@@ -2,10 +2,9 @@ class_name AuroraGate
 extends Node2D
 ## The aurora of 3-1 (StageListener31's AuroraLight): a permanent gate hanging over the water. A hero carrying the 避水珠
 ## (bsz) who touches its glow dives to 楚江王 (8-1).
-## A scene of its own (scenes/objects/aurora_gate.tscn, built by tools/rig_to_object.gd) placed in the stage scene
-## (Objects/AuroraGate) at the point the original put it (1000, 600): the numbers are exports.
-## The gameplay rectangle is the rig's hit box, stored on the root as the `hit_rect_glow` meta (moved by the node's
-## position), since the glow has no Hitbox of its own any more.
+## A scene of its own (scenes/objects/aurora_gate.tscn) placed in the stage scene (Objects/AuroraGate) at the point the
+## original put it (1000, 600): the numbers are exports. The gameplay rectangle is the root's `hit_rect_glow` meta (moved
+## by the node's position).
 
 @export var key := "bsz"                    ## the item the hero must carry
 @export var destination := Vector2i(8, 1)   ## stage entered

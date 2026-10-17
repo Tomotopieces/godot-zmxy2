@@ -26,7 +26,6 @@ extends Resource
 @export var rage_speed_mul := 1.0
 @export var double_tap_window := 0.5
 @export var drop_through := 20.0
-@export var spawn_invincible := 0.0
 
 @export_group("Stats")
 @export var hp_base := 80

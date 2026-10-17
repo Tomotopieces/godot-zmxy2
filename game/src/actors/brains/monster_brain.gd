@@ -12,7 +12,6 @@ var p: Dictionary            ## MonsterData.brain parameters
 var _cycle := 0.0
 var _stop_at := 3.0
 var _attack_t := 0.0
-var _pause := 0.0
 var _reviving := false       ## between two lives (45 reburns, 61 waits for a leech): cannot be hit, does nothing
 
 static var _scripts := {}   ## monster id -> brain script (or null = the base brain)
@@ -162,9 +161,6 @@ func cooldown_ready(key: String, seconds: float) -> bool:
 # ------------------------------------------------------------------ base AI pieces
 
 func base_ai(delta: float) -> void:
-	if _pause > 0.0:
-		_pause -= delta
-		return
 	if m.target == null:
 		wander(delta)
 		select_target()
@@ -210,11 +206,6 @@ func wander(delta: float) -> void:
 		if _cycle >= _stop_at + Rng.randf() * m.data.wander_rest:
 			_cycle = 0.0
 			m.dir = 0
-
-## Turn around (isTurnBack markers).
-func turn_back() -> void:
-	m.dir = -m.dir
-	_pause = m.data.turn_pause
 
 ## attackTarget: face the target and swing hit1.
 func attack(action: StringName = &"hit1") -> void:

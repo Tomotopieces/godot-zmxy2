@@ -53,12 +53,6 @@ func _visible_fill_left() -> float:
 			if used.size.x > 0:
 				x = float(used.position.x)   # centered = false, so pixel 0 is the sprite's origin
 		left = minf(left, to_local(sp.to_global(Vector2(x, 0))).x)
-	if is_inf(left):   # unreadable texture: fall back to the fill's own left edge
-		for c: Node2D in _mask.get_children():
-			if c is Sprite2D:
-				left = minf(left, to_local(c.to_global(Vector2.ZERO)).x)
-	if is_inf(left):
-		left = _mask_x   # last resort: the old behaviour (the mask's left edge), already in BossBar space
 	return left
 
 func _process(_dt: float) -> void:

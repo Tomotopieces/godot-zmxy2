@@ -748,7 +748,7 @@ func _update_tint(delta: float) -> void:
 
 func _make_glow() -> void:
 	_glow_mat = SpriteFx.glow_material(Color.WHITE, GLOW_BLUR.x, GLOW_STRENGTH, true)
-	_glow_rig = Actor.make_body(data.rig)
+	_glow_rig = Rig.create(data.rig)
 	add_child(_glow_rig)
 	move_child(_glow_rig, rig.get_index())   # behind the body
 	_glow_rig.play(rig.action, true)

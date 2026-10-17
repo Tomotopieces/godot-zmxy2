@@ -21,8 +21,7 @@
   "rage_jump_mul": 1.5,
   "double_tap_ms": 250,
   "combo_reset_ms": 1000,
-  "drop_through_px": 20,
-  "spawn_invincible_frames": 48
+  "drop_through_px": 20
  },
  "stats": {
   "_doc": "level L: hp=80+50(L-1), mp=50+20(L-1), atk=10+5(L-1)+0..1 (getPower() overwrites the roll in upGrade with baselowerpower + baseadd*(L-1) + rand), def=2+2(L-1) for L<15, then 28 for every level: Role1.upGrade writes the +(L-14)*5 outside the setDefense call, so it is lost (kept as in the original)",

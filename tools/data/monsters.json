@@ -1,4 +1,5 @@
 {
+  "swf_fps": 24,
   "_doc": "Hand-written monster data. common = BaseMonster rules (original frames, px/frame). overrides = merged over tools/data/monsters_auto.json (generated from the AS3 constructors) for behaviour the constructors don't carry: projectiles, lunges, think rates. Attack keys match the rig actions.",
   "common": {
     "_doc": "BaseMonster: knock-back speed decays x0.8 per frame down to walk speed; AI thinks on a 240-frame counter.",
@@ -11,7 +12,6 @@
       96
     ],
     "attack_check_frames": 36,
-    "turn_pause_frames": 24,
     "hp_bar_show_frames": 48,
     "fade_out_frames": 24,
     "drops": {

@@ -22,7 +22,6 @@ extends Resource
 @export var attack_check := 1.5    ## seconds between attack decisions in range
 @export var think_walk_at := 0.5   ## wander: seconds into the cycle when a direction is picked
 @export var walk_times := PackedFloat32Array([3.0, 4.0])
-@export var turn_pause := 1.0
 @export var wander_rest := 1.0     ## random extra idle after a walk
 @export var knockback_decay := 0.0 ## velocity multiplier per second while faster than walk speed
 @export var gravity := 0.0

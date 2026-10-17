@@ -1,6 +1,7 @@
 class_name Level
 extends Node2D
-## One stage built from assets/levels/<name>/level.json: art, walls, camera stops, spawners, exit door.
+## One stage: its scene scenes/levels/<name>.tscn (art, ground, mechanisms) and the gameplay data of
+## assets/levels/<name>/level.json (walls, camera stops, spawners, exit door).
 ## Camera follows the original side-scroller rules (ViewControllor): push-scroll at 2/3 screen,
 ## lock at stop points until their spawns are cleared, then auto-scroll to the next one.
 
@@ -39,7 +40,6 @@ var door: Node2D                 ## exit portal (hidden until the stage is clear
 var door_rect := Rect2()
 var walls: Array[AnimatableBody2D] = []   ## scene walls / platforms (meta "wall" = level.json entry)
 var params := {}                 ## this stage's script numbers (data/stages.json)
-var features: Array = []         ## other scene objects (white-bone door, Xingtian door, fires...) for stage scripts
 var script_node: StageScript     ## this stage's special rules (src/level/stages/<level_name>.gd), if any
 var fixed_camera := false        ## single-screen boss rooms (5-1, 6-1, 7-1, stage 10)
 var debug_boxes := false
@@ -231,21 +231,10 @@ func freeze(seconds: float) -> void:
 
 # ------------------------------------------------------------------ build
 
-func _xf(m: Array, info: Dictionary) -> Transform2D:
-	var t := Transform2D(Vector2(m[0], m[1]), Vector2(m[2], m[3]), Vector2(m[4], m[5]))
-	var s := 1.0 / float(info.scale)
-	return t * Transform2D(Vector2(s, 0), Vector2(0, s), Vector2(info.ox, info.oy))
-
-## The stage's scenery as a scene made in the editor, if there is one: a root with the children "Art" (behind the
-## actors) and "Ground" (the floor), and optionally "Guides" (reference lines for the editor: dropped here) and "Objects"
-## (the stage's working mechanisms, each a scene of its own with its own script, e.g. scenes/objects/baigu_door.tscn: they go
-## into the world as they are; mechanisms are not parallax art, their positions are world positions).
-## Depth layers are Parallax2D nodes inside "Art" (see scenes/levels/README.md).
+## The stage's scene: "Art" (behind the actors), "Ground" (the floor), optionally "Background/Sky", "Guides" (reference
+## lines for the editor: dropped here) and "Objects" (mechanisms, each a scene with its own script; world positions).
 func _scenery_scene() -> Node:
-	var path := "res://scenes/levels/%s.tscn" % level_name
-	if not ResourceLoader.exists(path):
-		return null
-	var s: Node = load(path).instantiate()
+	var s: Node = load("res://scenes/levels/%s.tscn" % level_name).instantiate()
 	var guides := s.get_node_or_null("Guides")
 	if guides != null:
 		s.remove_child(guides)
@@ -255,8 +244,7 @@ func _scenery_scene() -> Node:
 func _build(d: Dictionary) -> void:
 	size = Vector2(d.size[0], d.size[1])
 	var scenery := _scenery_scene()
-	var hand_made := scenery != null
-	var sky := scenery.get_node_or_null("Background/Sky") as Sprite2D if hand_made else null
+	var sky := scenery.get_node_or_null("Background/Sky") as Sprite2D
 	if sky != null:
 		# the sky picture is part of the hand-made scene: its Background layer (-2) goes into the level as it is
 		var bg := scenery.get_node("Background")
@@ -277,45 +265,17 @@ func _build(d: Dictionary) -> void:
 	world = Node2D.new()
 	world.name = "World"
 	add_child(world)
-	var art := Node2D.new()
-	art.name = "Art"
-	art.z_index = Layers.Z_ART
-	var ground := Node2D.new()
-	ground.name = "Ground"
-	ground.z_index = Layers.Z_GROUND
-	if hand_made:
-		# a hand-made scene (res://scenes/levels/<stage>.tscn) stands in for the art of level.json
-		art.free()
-		ground.free()
-		art = scenery.get_node("Art")
-		ground = scenery.get_node("Ground")
-		scenery.remove_child(art)
-		scenery.remove_child(ground)
-		var objects := scenery.get_node_or_null("Objects")
-		if objects != null:
-			scenery.remove_child(objects)
-			world.add_child(objects)
-		scenery.free()
+	var art := scenery.get_node("Art")
+	var ground := scenery.get_node("Ground")
+	scenery.remove_child(art)
+	scenery.remove_child(ground)
+	var objects := scenery.get_node_or_null("Objects")
+	if objects != null:
+		scenery.remove_child(objects)
+		world.add_child(objects)
+	scenery.free()
 	world.add_child(art)
 	world.add_child(ground)
-	for leaf in [] if hand_made else d.art:
-		var info: Dictionary = d.textures[leaf[0]]
-		var sp := Sprite2D.new()
-		sp.centered = false
-		sp.texture = load(info.res)
-		sp.transform = _xf(leaf[1], info)
-		if leaf.size() > 4:
-			# a piece of a bitmap (or a strip of the same tile repeating): the artist's own tiles, not a rasterised shape
-			var r: Array = leaf[4]
-			sp.region_enabled = true
-			sp.region_rect = Rect2(r[0], r[1], r[2], r[3])
-			if int(r[4]) == 1:
-				sp.texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
-		if leaf[2] != null:
-			var ct: Array = leaf[2]
-			sp.modulate = Color(ct[0] + ct[4] / 255.0, ct[1] + ct[5] / 255.0, ct[2] + ct[6] / 255.0, clampf(ct[3] + ct[7] / 255.0, 0, 1))
-		(ground if leaf.size() > 3 and leaf[3] == 1 else art).add_child(sp)
-
 	_build_ground(d.walls)
 	for w in d.walls:
 		if _is_ground(w):
@@ -346,9 +306,6 @@ func _build(d: Dictionary) -> void:
 	for s in sorted:
 		stops.append({"x": float(s.x), "back": float(s.back), "spawners": [], "done": false})
 	_end_x = minf(size.x, float(stops[-1].x)) if not stops.is_empty() else size.x
-	if not hand_made:
-		_close_edge_slivers(art)
-		_close_edge_slivers(ground)
 	if stage == ARENA and arena_boss != null and not stops.is_empty():
 		var boss := arena_boss.duplicate()
 		boss.is_boss = true
@@ -367,8 +324,7 @@ func _build(d: Dictionary) -> void:
 
 	for dd in d.doors:
 		if dd.kind != "exit_door":
-			features.append(dd)
-			continue
+			continue   # (the other doors are mechanism scenes in the stage scene's Objects)
 		door = Rig.create("exit_door")
 		door.z_index = Layers.Z_EXIT   # in front of the floor art (9-1: the bridge rail would cover it) but behind the actors
 		door.position = Vector2(dd.pos[0], dd.pos[1])
@@ -454,36 +410,13 @@ func _warm_rigs(d: Dictionary) -> void:
 				if a.projectile != "":
 					bodies[a.projectile] = true
 	var names: Array = WARM_COMMON.duplicate()
-	var all := DirAccess.get_directories_at("res://assets/rigs")
+	var all := DirAccess.get_directories_at("res://scenes/actors")
 	for b in bodies:
 		for r in all:
 			if r == b or r.begins_with(b):
 				names.append(r)
 	Rig.warm(names)
 
-## Some stages' art stops a few pixels short of the playable view (5-3: 4 px at the left, 1 px under the floor),
-## letting the far background show as a thin line. Pieces spanning the view whose edge falls just inside it are
-## stretched by those few pixels to reach the edge.
-const EDGE_SLIVER := 6.0
-
-func _close_edge_slivers(art: Node2D) -> void:
-	for sp: Sprite2D in art.get_children():
-		var r: Rect2 = sp.transform * Rect2(Vector2.ZERO, sp.region_rect.size if sp.region_enabled else sp.texture.get_size())
-		if r.size.x < Layers.VIEW.x:
-			continue
-		var grow := Rect2(r)
-		if r.position.x > 0.0 and r.position.x <= EDGE_SLIVER:
-			grow = grow.expand(Vector2(0.0, r.position.y))
-		if r.end.x < _end_x and r.end.x >= _end_x - EDGE_SLIVER:
-			grow = grow.expand(Vector2(_end_x, r.position.y))
-		if r.end.y < Layers.VIEW.y and r.end.y >= Layers.VIEW.y - EDGE_SLIVER:
-			grow = grow.expand(Vector2(r.position.x, Layers.VIEW.y))
-		if grow != r:
-			# map the old rect onto the grown one (a tiny stretch, invisible on art this size)
-			var k := grow.size / r.size
-			sp.transform = Transform2D(0.0, k, 0.0, grow.position - r.position * k) * sp.transform
-
-## Monster numbers for this scene (a scene may make a monster its boss with different stats).
 func monster_data(id: int) -> MonsterData:
 	for p in ["res://data/monsters/monster_%d_%s.tres" % [id, level_name], "res://data/monsters/monster_%d.tres" % id]:
 		if ResourceLoader.exists(p):

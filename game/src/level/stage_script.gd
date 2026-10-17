@@ -19,18 +19,6 @@ func on_monster_added(_m: Monster) -> void:
 func param(key: String, fallback = 0.0):
 	return p.get(key, fallback)
 
-static var _all := {}
-
-## Numbers shared by several stages (top-level keys of data/stages.json).
-static func shared(key: String) -> Dictionary:
-	if _all.is_empty():
-		_all = JSON.parse_string(FileAccess.get_file_as_string("res://data/stages.json"))
-	return _all.get(key, {})
-
-## Scene object of a kind exported in level.json "doors" (white-bone door, fires...).
-func features(kind: String) -> Array:
-	return level.features.filter(func(f): return f.kind == kind)
-
 ## Hero touching an area of the world.
 const HERO_BOUNDS_MARGIN := 3.0
 
