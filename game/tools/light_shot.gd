@@ -10,8 +10,12 @@ func _ready() -> void:
 	lv.hero.global_position = Vector2(float(a[2]) + 330.0, 470.0)
 	if a.size() > 3:
 		var x := float(a[2]) + 560.0
-		for id in a[3].split(","):
-			var m := Monster.create(lv.monster_data(int(id)))
+		for id in a[3].split(",", false):   # ("" = none: the arg is only a placeholder before the wait)
+			var md := lv.monster_data(int(id))
+			if md == null:
+				push_warning("light_shot: no monster %s" % id)
+				continue
+			var m := Monster.create(md)
 			lv.add_monster(m)
 			m.global_position = Vector2(x, 440.0)
 			x += 170.0

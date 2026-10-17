@@ -49,7 +49,7 @@ var _drop_t := 0.0
 var debuffs := HeroDebuffs.new()   ## status effects set by monsters
 var _poison := [0.0, 1.0, 0.0]   ## power, tick (s), elapsed
 var held_by: Node = null   ## grabbed (setStatic + setLostKeyboard by a monster): no input, no own movement
-var _lock_glow := 0.0   ## anti-lock protection time left (the only invincibility the original shows)
+var _lock_glow := 0.0   ## anti-lock protection time left
 var treasure: Treasure  ## worn magic treasure following the hero (H)
 var controls_locked := false   ## stage over: no more input
 
@@ -703,14 +703,15 @@ var _glow_rig: Rig   ## the halo: a copy of the hero drawn behind, every sprite 
 var _glow_mat: ShaderMaterial
 var _glow_t := 0.0
 
-## BaseAddEffect.step: the glow exists while the rage form lasts or the anti-lock protection is on; both end it at once
-## (cancelGlow). The short invincible windows of skills show none.
+## BaseAddEffect.step: the glow exists while the rage form lasts (white) or while the hero cannot be hurt - the anti-lock
+## protection, and (unlike the original, which showed only that one) every other invincible window too: skills,
+## spawning, revival - all in the hero's colour.
 func _update_tint(delta: float) -> void:
 	var color := Color.TRANSPARENT
 	if state != State.DEAD:
 		if transformed:
 			color = Color.WHITE
-		elif _lock_glow > 0.0:
+		elif _lock_glow > 0.0 or invincible > 0.0:
 			color = GLOW_COLORS.get(data.sound_prefix, Color.WHITE)
 	if _lock_glow > 0.0:
 		_lock_glow -= delta
