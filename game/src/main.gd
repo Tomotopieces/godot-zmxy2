@@ -4,16 +4,18 @@ extends Node
 const STAGE_MAP := preload("res://scenes/screens/stage_map.tscn")
 
 var _screen: Node
+var _fade := ScreenFade.new()
 @onready var _title: MainMenu = $Title   ## the title screen lives in main.tscn itself; hidden while another screen is up
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	Controls.add_gamepad_defaults()
 	add_child(PadNav.new())
+	add_child(_fade)
 	if OS.is_debug_build():   # debug aids are not part of exported (release) builds
 		add_child(DebugConsole.new())   # ~ lists every item
-	_title.new_game.connect(show_select_role)
-	_title.continued.connect(show_map)
+	_title.new_game.connect(func(): _fade.play(show_select_role))
+	_title.continued.connect(func(): _fade.play(show_map))
 
 func _unhandled_key_input(e: InputEvent) -> void:
 	if e is InputEventKey and e.pressed and not e.echo and e.keycode == KEY_F11:
@@ -51,7 +53,7 @@ func show_select_role() -> void:
 	var s := SelectRole.new()
 	s.chosen.connect(func(role: String):
 		GameState.new_game(role)
-		_after_new_game())
+		_fade.play(_after_new_game))
 	s.cancelled.connect(show_menu)
 	_swap(s)
 
@@ -62,12 +64,12 @@ func _after_new_game() -> void:
 		return
 	GameState.opening_seen = true
 	var c := Cartoon.create("开场")
-	c.finished.connect(show_map)
+	c.finished.connect(func(): _fade.play(show_map))
 	_swap(c)
 
 func show_map() -> void:
 	var m: StageMap = STAGE_MAP.instantiate()
-	m.play.connect(start_stage)
+	m.play.connect(func(st: Vector2i): _fade.play(start_stage.bind(st)))
 	m.to_menu.connect(show_menu)
 	_swap(m)
 

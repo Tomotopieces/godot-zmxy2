@@ -36,7 +36,7 @@ func _item() -> Item:
 	return GameState.worn[&"treasure"]
 
 func _unhandled_input(e: InputEvent) -> void:
-	if e.is_action_pressed("pause"):
+	if e.is_action_pressed("pause") or e.is_action_pressed("open_treasure"):
 		get_viewport().set_input_as_handled()
 		UiFade.close(self)
 

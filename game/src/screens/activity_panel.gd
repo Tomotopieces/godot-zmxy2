@@ -58,6 +58,7 @@ func _ready() -> void:
 	_label.add_theme_constant_override("outline_size", 5)
 	add_child(_label)
 	_show_page()
+	UiFade.fade_in(self)
 
 func _turn(d: int) -> void:
 	_page = posmod(_page + d, PAGES.size())
@@ -73,7 +74,7 @@ func _show_page() -> void:
 
 func _on_button(b: String) -> void:
 	if b == "btn_x":
-		queue_free()
+		UiFade.close(self)
 		return
 	if b != "btn_go" or not PAGES[_page].has("stage"):
 		return
@@ -87,7 +88,7 @@ func _on_button(b: String) -> void:
 func _unhandled_input(e: InputEvent) -> void:
 	if e.is_action_pressed("pause"):
 		get_viewport().set_input_as_handled()
-		queue_free()
+		UiFade.close(self)
 	elif e.is_action_pressed("move_left"):
 		_turn(-1)
 	elif e.is_action_pressed("move_right"):

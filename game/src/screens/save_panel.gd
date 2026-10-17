@@ -36,6 +36,7 @@ func _ready() -> void:
 					l.position.y -= 9.0
 		_ui.make_clickable(SLOT_PIECES[i], 1, 0)
 	_ui.button_pressed.connect(_on_button)
+	UiFade.fade_in(self)
 
 func _on_button(b: String) -> void:
 	if b == "btn_x":
@@ -55,7 +56,7 @@ func _on_button(b: String) -> void:
 
 func _finish(i: int) -> void:
 	done.emit(i)
-	queue_free()
+	UiFade.close(self)
 
 func _unhandled_input(e: InputEvent) -> void:
 	if e.is_action_pressed("pause"):

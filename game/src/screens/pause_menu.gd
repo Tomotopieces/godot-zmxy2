@@ -23,6 +23,7 @@ func _ready() -> void:
 	_sync_sound()
 	Snd.volume_changed.connect(func(_v, _m): _sync_sound())   # M key while the menu is open
 	_ui.button_pressed.connect(_on_button)
+	UiFade.fade_in(self)
 
 func _on_button(b: String) -> void:
 	match b:
@@ -56,7 +57,7 @@ func _show_help() -> void:
 func close() -> void:
 	get_tree().paused = false
 	closed.emit()
-	queue_free()
+	UiFade.close(self)
 
 func _unhandled_input(e: InputEvent) -> void:
 	if e.is_action_pressed("pause"):

@@ -187,6 +187,8 @@ func _unhandled_input(e: InputEvent) -> void:
 		_open_pause()
 	elif e.is_action_pressed("open_skills"):
 		_open_skills()
+	elif e.is_action_pressed("open_treasure"):
+		_open_treasure()
 	elif OS.is_debug_build() and e.is_action_pressed("debug_give_items"):
 		for id in _test_gear():
 			GameState.add_to_bag(EquipmentCatalog.find(id).roll())

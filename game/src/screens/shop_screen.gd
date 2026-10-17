@@ -44,9 +44,10 @@ func _ready() -> void:
 	_tip = ItemTip.new()
 	add_child(_tip)
 	_show_tab("btn_buyzb")
+	UiFade.fade_in(self)
 
 func close() -> void:
-	queue_free()
+	UiFade.close(self)
 
 func _unhandled_input(e: InputEvent) -> void:
 	if e.is_action_pressed("pause"):
