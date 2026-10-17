@@ -62,4 +62,4 @@ Rim light / moon exist because 1-1…1-3 have a moon — they are not a general 
 - Docs of the original's analysis were removed from the tree; they live in git history (`git log --diff-filter=D --name-only -- docs`).
 
 ## Branches
-`main` — released remake (v1.3.1). `visual` — art/look work (stage, actor and UI scenes, lighting); nothing here is merged into `main` yet.
+`main` — released remake (remake 0.1: the scene-based remake with the new stage looks; earlier releases were v1.0…v1.3.1).
