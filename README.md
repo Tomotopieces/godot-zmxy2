@@ -14,8 +14,7 @@ Answers to the user: Simplified Chinese. Deleting files: Recycle Bin (`bash tool
 | `game/scenes/objects/*.tscn` | stage mechanisms as scenes with a script on the root (`baigu_door`, `boat`, `aurora_gate`, `river_water`, `xingtian_door`, `hub_door`, `hub_statue`) |
 | `game/scenes/ui/<name>.tscn` | UI layouts (see "UI scenes"); `scenes/main.tscn` is the title screen |
 | `game/assets/` | textures and sounds: `rigs/<name>/` (`tex/`, `slots/` = equipment variants of the actor scenes), `levels/<stage>/` (level.json + `tex/`), `ui/`, `items/`, `sounds/`, `shared/` (textures several things use) |
-| `game/data/` | baked gameplay data (`.tres`, `stages.json`) and `lighting/<stage>.json` (per-stage look) |
-| `tools/data/*.json` | source of the gameplay numbers → `game/tools/bake_data.gd` → `game/data/` |
+| `game/data/` | gameplay numbers (`.tres` resources, `stages.json`; px and seconds) and `lighting/<stage>.json` (per-stage look) — edit them directly |
 | `tools/rig/*.js` | level extraction from the decompiled SWF (`decomp/`, not in git) → `game/assets/levels/**`. Texture names are `<flash library>_<symbol id>.png` |
 | `.claude/skills/stage-rework/` | how to rework a stage's scene and design its look |
 
@@ -30,8 +29,7 @@ Answers to the user: Simplified Chinese. Deleting files: Recycle Bin (`bash tool
 - Live debugging (godot-ai MCP plugin, editor open): `project_run` the game, then `game_manage` ops `suspend` / `next_frame` / `resume` (pause and step frames), `get_scene_tree` / `get_node_info` (runtime state), `input_action` / `input_sequence` (frame-timed input), `editor_manage` op `game_eval` (run GDScript in the running game), `editor_screenshot` source `game`, `logs_read` source `game`.
 
 ## Data
-- The scenes (stages, actors, UI, objects) are hand-edited and are the source of truth: there is no generator for them any more.
-- Gameplay numbers: edit `tools/data/*.json`, run `godot --headless --path game -s res://tools/bake_data.gd` (frame rate of the original: `swf_fps` in `monsters.json`). Check the diff of `game/data/`: values tuned in the baked files by hand must also be in `tools/data/` or the bake undoes them.
+- The scenes (stages, actors, UI, objects) and `game/data/` are hand-edited and are the source of truth: there are no generators for them any more.
 - New original art for a stage: `node tools/rig/extract_level.js <area> <level> game/assets/levels/sl<area><level>` → `level.json` (walls, stops, spawners, doors, sky) + `tex/`; `drop_overlays.js` removes the bitmaps that are only the "4399" logo or a grey "fake mist" strip; `dedupe.js` stores identical PNGs once (`organize_shared.js` names/places them); `fix_scene_uids.js --fix` refreshes stale texture uids ("missing dependency"). Never scrub the 4399 logo embedded inside a texture.
 
 ## Stage scenes

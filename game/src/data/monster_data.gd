@@ -1,6 +1,6 @@
 class_name MonsterData
 extends Resource
-## Monster tuning baked from tools/data/monsters.json. Units: px, seconds.
+## Monster tuning (data/monsters/monster_<id>.tres). Units: px, seconds.
 
 @export var id := 0
 @export var display_name := ""

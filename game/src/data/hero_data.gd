@@ -1,6 +1,6 @@
 class_name HeroData
 extends Resource
-## Hero tuning baked from tools/data/<hero>.json by tools/bake_data.gd. Units: px, seconds.
+## Hero tuning (data/<hero>.tres). Units: px, seconds.
 
 ## Who this is: id (file name / save key), index (HUD portrait, shop and bag pages), names, rig and sound prefix.
 @export var role := "wukong"
@@ -63,7 +63,7 @@ extends Resource
 
 @export var attacks: Dictionary = {}     ## action name -> AttackData
 
-@export var treasures := {}   ## magic treasure behaviour numbers (converted), see tools/data/wukong.json
+@export var treasures := {}   ## magic treasure behaviour numbers
 
 @export_group("Learning")
 @export var learn_active: PackedStringArray      ## skill actions in shop order

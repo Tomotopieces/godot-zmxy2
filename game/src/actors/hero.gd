@@ -2,7 +2,7 @@ class_name Hero
 extends Actor
 ## A playable hero. This base class is Wukong: input, movement, 5-hit combo, skills (hit6-hit10), rage transform,
 ## getting hit. 唐僧 and 八戒 extend it (src/actors/heroes/) and override the hooks marked "virtual".
-## Numbers come from HeroData (baked from the original, px / seconds).
+## Numbers come from HeroData (data/<hero>.tres, px / seconds).
 
 enum State { MOVE, ATTACK, HURT, DEAD }
 

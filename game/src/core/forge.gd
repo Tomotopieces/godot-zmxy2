@@ -1,7 +1,7 @@
 class_name Forge
 extends RefCounted
 ## Rules of the 炼丹炉 (strengthening, fusion), magic treasure growth and the shop, on plain item dictionaries.
-## Numbers come from the equipment catalogue (tools/data/equipment.json -> rules).
+## Numbers come from the equipment catalogue (data/equipment.tres, `rules`).
 
 const ELEMENT_NAMES := {"jin": "金", "mu": "木", "shui": "水", "huo": "火", "tu": "土"}
 

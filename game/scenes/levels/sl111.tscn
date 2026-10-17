@@ -1,9 +1,8 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cqc3u1cvwcv1j"]
 
-[ext_resource type="Texture2D" path="res://assets/levels/sl111/tex/11_37.png" id="1_tcfth"]
-[ext_resource type="Texture2D" path="res://assets/shared/levels/11_1.png" id="2_ksclm"]
-[ext_resource type="Texture2D" path="res://assets/levels/sl111/tex/zmxy2_game_186.png" id="3_d5u0e"]
-
+[ext_resource type="Texture2D" uid="uid://djs1sb7he16m5" path="res://assets/levels/sl111/tex/11_37.png" id="1_tcfth"]
+[ext_resource type="Texture2D" uid="uid://7dealx7sv4k2" path="res://assets/shared/levels/11_1.png" id="2_ksclm"]
+[ext_resource type="Texture2D" uid="uid://ccfeapit0m073" path="res://assets/levels/sl111/tex/zmxy2_game_186.png" id="3_d5u0e"]
 [ext_resource type="PackedScene" path="res://scenes/objects/xingtian_door.tscn" id="xingtian_door"]
 
 [node name="Scenery" type="Node2D" unique_id=1574270229]
@@ -32,7 +31,7 @@ scroll_scale = Vector2(0.9, 1)
 [node name="Near" type="Parallax2D" parent="Art" unique_id=660025374]
 
 [node name="11_37_00" type="Sprite2D" parent="Art/Near" unique_id=1662116200]
-position = Vector2(-12, -3)
+position = Vector2(0, -3)
 texture = ExtResource("1_tcfth")
 centered = false
 region_enabled = true
@@ -49,13 +48,13 @@ centered = false
 z_index = -7
 
 [node name="zmxy2_game_186_01" type="Sprite2D" parent="Ground" unique_id=1897229764]
-position = Vector2(-44, 496)
+position = Vector2(0, 496)
 texture = ExtResource("3_d5u0e")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 1923, 94)
 
-[node name="Objects" type="Node2D" parent="."]
+[node name="Objects" type="Node2D" parent="." unique_id=292001126]
 
-[node name="XingtianDoor" type="Node2D" parent="Objects" instance=ExtResource("xingtian_door")]
-position = Vector2(460.05, 277.7)
+[node name="XingtianDoor" parent="Objects" unique_id=215034384 instance=ExtResource("xingtian_door")]
+position = Vector2(1443, 199)
