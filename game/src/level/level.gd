@@ -114,6 +114,7 @@ func _ready() -> void:
 		script_node.setup()
 
 func _exit_tree() -> void:
+	_end_bullet_time()
 	if current == self:
 		current = null
 		DamageNumber.clear_pool()
@@ -573,8 +574,43 @@ func add_monster(m: Monster) -> void:
 	add_object(m)
 	if m.data.is_boss:
 		boss_spawned.emit(m)
+		m.died.connect(func(_m): bullet_time())   # (a boss that revives or changes form has not died yet)
 	if script_node:
 		script_node.on_monster_added(m)
+
+# ------------------------------------------------------------------ bullet time
+## Slow motion when a boss dies: the game drops to BULLET_TIME_SCALE at once, holds it, then eases back. Every boss
+## that dies starts it again from the start (several bosses in a room each get theirs). Real-time, so the slow-down
+## does not lengthen itself; it scales whatever time scale was set before (debug fast-forward stays as it was).
+const BULLET_TIME_SCALE := 0.2
+const BULLET_TIME_HOLD := 0.7   ## seconds of real time at full slow-down
+const BULLET_TIME_EASE := 0.8   ## seconds of real time to come back to normal speed
+
+static var bullet_time_on := true   ## off for frame-exact test runs (tools/ai_trace)
+
+var _bt_base := 1.0
+var _bt_tween: Tween
+
+func bullet_time() -> void:
+	if not bullet_time_on:
+		return
+	if _bt_tween == null:
+		_bt_base = Engine.time_scale
+	else:
+		_bt_tween.kill()
+	Engine.time_scale = _bt_base * BULLET_TIME_SCALE
+	_bt_tween = create_tween().set_ignore_time_scale(true).set_process_mode(Tween.TWEEN_PROCESS_IDLE)
+	_bt_tween.tween_interval(BULLET_TIME_HOLD)
+	_bt_tween.tween_method(func(k: float): Engine.time_scale = _bt_base * k, BULLET_TIME_SCALE, 1.0, BULLET_TIME_EASE) 		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	_bt_tween.tween_callback(_end_bullet_time)
+
+func _end_bullet_time() -> void:
+	if _bt_tween == null:
+		return
+	if _bt_tween.is_valid():
+		_bt_tween.kill()
+	_bt_tween = null
+	Engine.time_scale = _bt_base
 
 ## A boss finished dying: the exit opens once no other boss is left (Monster33/34 share a room).
 func boss_destroyed(m: Monster) -> void:
