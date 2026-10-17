@@ -19,7 +19,8 @@ extends Node
 ##    texture, so each style of lamp lights from its own flame and the glow moves with it: parallax layers, the boat);
 ##  - flames that waver like smoke ("sway": every picture under a node is bent by slow ripples running up it, growing
 ##    towards its top - wisp.gdshader);
-##  - a stage may take another stage's look as its base ("use": that stage's name): every other entry of its own file is
+##  - a stage may take another stage's look as its base ("use": that stage's name; an entry set to null removes that
+##    part of the base): every other entry of its own file is
 ##    copied over it (shallow), so only what differs from that look has to be written.
 ## Draw order: far layer (-2), the moonlight layer (-1), world, the mist layers (1: all of the mist is in front of the
 ## world), the grade layer (2), the HUD (3).
@@ -71,7 +72,11 @@ static func attach(lv: Level) -> StageLighting:
 		var base_path := "res://data/lighting/%s.json" % use
 		var base: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(base_path)) if ResourceLoader.exists(base_path) else {}
 		for k in s._cfg:
-			if k != "use":
+			if k == "use":
+				continue
+			if s._cfg[k] == null:
+				base.erase(k)   # "key": null drops that part of the base look
+			else:
 				base[k] = s._cfg[k]
 		s._cfg = base
 	s._lv = lv
