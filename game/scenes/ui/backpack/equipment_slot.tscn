@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bhb50stuk56mg"]
+
+[ext_resource type="PackedScene" uid="uid://bjfpq7vfs33b3" path="res://scenes/ui/backpack/slot.tscn" id="1_ypi2r"]
+[ext_resource type="Script" uid="uid://bd55ka7r6ww4j" path="res://src/ui/equip_slot.gd" id="2_2kagb"]
+
+[node name="EquipmentSlot" unique_id=1143507433 instance=ExtResource("1_ypi2r")]
+layout_mode = 0
+script = ExtResource("2_2kagb")
+
+[node name="Caption" type="Label" parent="." index="1" unique_id=1105694067]
+layout_mode = 0
+offset_top = 28.0
+offset_right = 100.0
+offset_bottom = 72.0
+theme_override_colors/font_color = Color(0.77254903, 0.77254903, 0.77254903, 1)
+theme_override_font_sizes/font_size = 36
+text = "装备"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -9,25 +9,19 @@ signal to_menu
 
 const MAIN_STAGES := ["s1_1", "s1_2", "s1_3", "s2_1", "s2_2", "s2_3", "s3_1", "s3_2", "s3_3", "s4_1"]
 const SIDE_STAGES := {"btnnmg": Vector2i(6, 1), "lxdy": Vector2i(10, 1)}
-const HIDDEN := ["s4_2", "s4_3", "arena", "submitbtn"]
 ## the next stage's pulse: GlowFilter 0x9900CC, blur 0 -> 12 -> 0, strength 0 -> 1.82, over 19 frames
 const NEXT_GLOW_COLOR := Color8(153, 0, 204)
 const NEXT_GLOW_BLUR := Vector2(0.0, 12.0)
 const NEXT_GLOW_STRENGTH := Vector2(0.0, 1.82)
 const NEXT_GLOW_HALF := 9.0 / 24.0
-## bottom-right buttons; with 提交分数 gone the others close up to the right
-const BOTTOM_ROW := ["scgm", "savebtn", "ldl", "showBuySkill"]
-const BOTTOM_SHIFT_FROM := "submitbtn"   ## the first hidden slot: the row moves right by one slot
-const BOTTOM_SHIFT_TO := "btnback"
-
 var _ui: UiLayout
 var _popup: Node
 
 func _ready() -> void:
-	_ui = UiLayout.create("stage_map")
-	add_child(_ui)
-	for p in HIDDEN:
-		_ui.set_visible_piece(p, false)
+	_ui = get_node_or_null("Map") as UiLayout   # the layout instanced in stage_map.tscn
+	if _ui == null:
+		_ui = UiLayout.create("stage_map")
+		add_child(_ui)
 	for p in MAIN_STAGES:
 		var s := _stage_of(p)
 		var current: bool = s == GameState.progress
@@ -38,16 +32,8 @@ func _ready() -> void:
 			_ui.make_clickable(p, 2, 1 if current else 0)
 	for p in SIDE_STAGES:
 		_ui.make_clickable(p, 2, 0)
-	_close_up_buttons()
-	_ui.set_visible_piece("saveInterval", false)   # the original counted down 30 s between saves (a web-game guard)
 	_ui.button_pressed.connect(_on_button)
 	Snd.music("begin")
-
-func _close_up_buttons() -> void:
-	var slot: float = (_ui.get_piece(BOTTOM_SHIFT_TO).position.x - _ui.get_piece(BOTTOM_SHIFT_FROM).position.x) / 2.0
-	var shift := slot
-	for p in BOTTOM_ROW:
-		_ui.get_piece(p).position.x += shift
 
 static func _stage_of(piece: String) -> Vector2i:
 	return Vector2i(int(piece[1]), int(piece[3]))

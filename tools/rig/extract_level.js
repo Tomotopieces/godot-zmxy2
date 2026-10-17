@@ -13,7 +13,7 @@ const fs = require('fs');
 const path = require('path');
 const fixSeams = require('./fix_seams');
 const { tag } = require('./tag_ground');
-const { decompose } = require('./shape_tiles');
+const { decompose, decomposeLoose } = require('./shape_tiles');
 const { FlashLib, ROOT, I, mul, rectXf, union, CT_ID, ctMul } = require('./flash_data');
 
 const MARKERS = {
@@ -46,7 +46,26 @@ function main(stage, level, outDir) {
     const b = fs.readFileSync(t.file);
     return { w: b.readUInt32BE(16), h: b.readUInt32BE(20) };
   };
-  const tilePieces = (lib, c) => {
+  // The stage's decoration (the art library's bg<stage><level>): a shape made of the artist's bitmaps, one rectangle per
+  // object, some mirrored or scaled. Each rectangle stays a piece of its own (never merged into a strip), in painting order.
+  const loosePieces = (lib, c) => {
+    const r = decomposeLoose(lib.name, c);
+    if (!r) return null;
+    if (r.skipped.length) console.warn('  shape', c, ': skipped', r.skipped.length, 'record(s) that are not bitmap rectangles', JSON.stringify(r.skipped.slice(0, 3)));
+    const out = [];
+    for (const p of r.pieces) {
+      const img = imgSize(lib, p.bitmap);
+      if (!img) { console.warn('  no picture for bitmap', p.bitmap); continue; }
+      // the bitmap pixels the rectangle shows (a mirrored bitmap runs backwards)
+      const ua = p.u, ub = p.u + p.w * p.su, va = p.v, vb = p.v + p.h * p.sv;
+      const ulo = Math.max(Math.min(ua, ub), 0), uhi = Math.min(Math.max(ua, ub), img.w);
+      const vlo = Math.max(Math.min(va, vb), 0), vhi = Math.min(Math.max(va, vb), img.h);
+      out.push({ key: texKey(lib, p.bitmap), x: p.x + (ulo - p.u) / p.su, y: p.y + (vlo - p.v) / p.sv, sx: 1 / p.su, sy: 1 / p.sv, region: [ulo, vlo, uhi - ulo, vhi - vlo, 0] });
+    }
+    return out;
+  };
+  const tilePieces = (lib, c, loose) => {
+    if (loose) return loosePieces(lib, c);
     const rs = decompose(lib.name, c);
     if (!rs) return null;
     for (const r of rs) if (!imgSize(lib, r.bitmap)) return null;
@@ -74,10 +93,10 @@ function main(stage, level, outDir) {
     });
   };
   // flatten a character (frame 0) to [texKey, m, ct] leaves
-  const flatten = (lib, c, m, ct, acc) => {
+  const flatten = (lib, c, m, ct, acc, loose) => {
     const s = lib.sprite(c);
     if (!s && lib.isShape(c)) {
-      const pieces = tilePieces(lib, c);
+      const pieces = tilePieces(lib, c, loose);
       if (pieces) { for (const p of pieces) acc.push([p.key, mul(m, [p.sx, 0, 0, p.sy, p.x, p.y]).map((v) => Math.round(v * 10000) / 10000), ct.every((v, i) => v === CT_ID[i]) ? null : ct.map(r2), 0, p.region]); return acc; }
     }
     if (!s) { const k = texKey(lib, c); if (k) acc.push([k, m.map(r2), ct.every((v, i) => v === CT_ID[i]) ? null : ct.map(r2)]); return acc; }
@@ -85,7 +104,7 @@ function main(stage, level, outDir) {
       if (e.clip) continue;
       if (e.name && MARKERS[e.name]) continue;     // marker shapes are invisible gameplay helpers
       if (e.name === 'colipse') continue;
-      flatten(lib, e.c, mul(m, e.m), e.ct ? ctMul(ct, e.ct) : ct, acc);
+      flatten(lib, e.c, mul(m, e.m), e.ct ? ctMul(ct, e.ct) : ct, acc, loose);
     }
     return acc;
   };
@@ -127,7 +146,7 @@ function main(stage, level, outDir) {
     if (e.name === 'bgContainer') {
       // BaseGameSence puts bg<stage><level> (art library) at y = 65 inside bgContainer
       const bgId = art.byClass[`bg${stage}${level}`];
-      if (bgId !== undefined) flatten(art, bgId, mul(e.m, [1, 0, 0, 1, 0, 65]), CT_ID, out.art);
+      if (bgId !== undefined) flatten(art, bgId, mul(e.m, [1, 0, 0, 1, 0, 65]), CT_ID, out.art, true);
       continue;
     }
     const b = boundsOf(game, e.c);

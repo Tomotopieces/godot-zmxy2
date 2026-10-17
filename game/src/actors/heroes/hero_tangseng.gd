@@ -3,7 +3,6 @@ extends Hero
 ## 唐僧 (Role2). No melee box: every attack is a bullet or an effect.
 ##   J  光弹 (hit1); hold J through its first frames to charge a piercing 蓄力弹 (hit2, 20 MP)
 ##   U  冰柱 (hit3)   I  分身 (swap places when it exists)   O  群体回血 (hit5)   L  落柱 (hit4, a second L drops it)
-## docs/analysis/08_tangseng.md
 
 const NO_AFTERIMAGE := [&"hit4", &"hit5"]
 

@@ -1,0 +1,312 @@
+[gd_scene format=3 uid="uid://dtchw2s6sxigj"]
+
+[ext_resource type="Script" uid="uid://c3eorora6gm6e" path="res://src/level/objects/hub_door.gd" id="1_rgjrf"]
+[ext_resource type="Texture2D" uid="uid://bpll6d6km8cgu" path="res://assets/shared/rigs/zmxy2_game_373.png" id="2_jn3nl"]
+[ext_resource type="Texture2D" uid="uid://c0espp1hgsphp" path="res://assets/shared/rigs/zmxy2_game_375.png" id="3_xno3t"]
+[ext_resource type="Texture2D" uid="uid://df7g04xfsf8ql" path="res://assets/shared/rigs/zmxy2_game_198.png" id="4_amfjp"]
+[ext_resource type="Texture2D" uid="uid://bxyk1ibergg5o" path="res://assets/shared/rigs/zmxy2_game_200.png" id="5_e5j8k"]
+[ext_resource type="Texture2D" uid="uid://bqltun602txbs" path="res://assets/shared/rigs/zmxy2_game_202.png" id="6_eg0k6"]
+[ext_resource type="Texture2D" uid="uid://r6c53pl57te7" path="res://assets/shared/rigs/zmxy2_game_204.png" id="7_b2g2w"]
+[ext_resource type="Texture2D" uid="uid://ih8da0huxmbw" path="res://assets/shared/rigs/zmxy2_game_206.png" id="8_2s7yf"]
+[ext_resource type="Texture2D" uid="uid://dwoux6tm22muj" path="res://assets/shared/rigs/zmxy2_game_208.png" id="9_l12sw"]
+[ext_resource type="Texture2D" uid="uid://cs1ngif3kfvmd" path="res://assets/shared/rigs/zmxy2_game_210.png" id="10_0o24a"]
+[ext_resource type="Texture2D" uid="uid://b1pp36fdjti1f" path="res://assets/shared/rigs/zmxy2_game_212.png" id="11_pb58v"]
+[ext_resource type="Texture2D" uid="uid://n61kkpp64dpf" path="res://assets/shared/rigs/zmxy2_game_214.png" id="12_1nml3"]
+[ext_resource type="Texture2D" uid="uid://bymlgjy35mewo" path="res://assets/shared/rigs/zmxy2_game_216.png" id="13_217wc"]
+[ext_resource type="Texture2D" uid="uid://dtmvshuoc3uko" path="res://assets/shared/rigs/zmxy2_game_218.png" id="14_la5er"]
+
+[sub_resource type="Animation" id="Animation_o0mj1"]
+length = 0.08333333333333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Closed/ClosedPart1:visible")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Closed/ClosedPart1:texture")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_jn3nl")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Closed/ClosedPart1:transform")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Transform2D(0.5, 0, 0, 0.5, -22.05, -4)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Closed/ClosedPart1:modulate")
+tracks/3/interp = 0
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Closed/ClosedPart2:visible")
+tracks/4/interp = 0
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Closed/ClosedPart2:texture")
+tracks/5/interp = 0
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_xno3t")]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Closed/ClosedPart2:transform")
+tracks/6/interp = 0
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Transform2D(0.5, 0, 0, 0.5, 0, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Closed/ClosedPart2:modulate")
+tracks/7/interp = 0
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Color(1, 1, 1, 1)]
+}
+metadata/start_events = []
+
+[sub_resource type="Animation" id="Animation_540rm"]
+length = 1.4166666666666667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Open/OpenPart1:visible")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Open/OpenPart1:texture")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_jn3nl")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Open/OpenPart1:transform")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Transform2D(0.5, 0, 0, 0.5, -22.05, -4)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Open/OpenPart1:modulate")
+tracks/3/interp = 0
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Open/OpenPart2:visible")
+tracks/4/interp = 0
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667, 0.20833333, 0.25, 0.29166666, 0.33333334, 0.375, 0.41666666, 0.45833334, 0.5, 0.5416667, 0.5833333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Open/OpenPart2:texture")
+tracks/5/interp = 0
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667, 0.20833333, 0.25, 0.29166666, 0.33333334, 0.375, 0.41666666, 0.45833334, 0.5, 0.5416667, 0.5833333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("3_xno3t"), ExtResource("3_xno3t"), ExtResource("3_xno3t"), ExtResource("3_xno3t"), ExtResource("3_xno3t"), ExtResource("3_xno3t"), ExtResource("3_xno3t"), ExtResource("3_xno3t"), ExtResource("3_xno3t"), ExtResource("3_xno3t"), ExtResource("3_xno3t"), ExtResource("3_xno3t"), ExtResource("3_xno3t"), ExtResource("3_xno3t"), ExtResource("3_xno3t")]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Open/OpenPart2:transform")
+tracks/6/interp = 0
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667, 0.20833333, 0.25, 0.29166666, 0.33333334, 0.375, 0.41666666, 0.45833334, 0.5, 0.5416667, 0.5833333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Transform2D(0.5, 0, 0, 0.5, 0, 0), Transform2D(0.5, 0, 0, 0.5, 0, -35.449997), Transform2D(0.5, 0, 0, 0.5, 0, -70.850006), Transform2D(0.5, 0, 0, 0.5, 0, -106.3), Transform2D(0.5, 0, 0, 0.5, 0, -141.7), Transform2D(0.5, 0, 0, 0.5, 0, -177.15), Transform2D(0.5, 0, 0, 0.5, 0, -212.55), Transform2D(0.5, 0, 0, 0.5, 0, -248), Transform2D(0.5, 0, 0, 0.5, 0, -283.45), Transform2D(0.5, 0, 0, 0.5, 0, -318.85), Transform2D(0.5, 0, 0, 0.5, 0, -354.3), Transform2D(0.5, 0, 0, 0.5, 0, -389.7), Transform2D(0.5, 0, 0, 0.5, 0, -425.15), Transform2D(0.5, 0, 0, 0.5, 0, -460.55), Transform2D(0.5, 0, 0, 0.5, 0, -496)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Open/OpenPart2:modulate")
+tracks/7/interp = 0
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667, 0.20833333, 0.25, 0.29166666, 0.33333334, 0.375, 0.41666666, 0.45833334, 0.5, 0.5416667, 0.5833333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Open/OpenPart3:visible")
+tracks/8/interp = 0
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.5833333, 0.625, 0.6666667, 0.7083333, 0.75, 0.7916667, 0.8333333, 0.875, 0.9166667, 0.9583333, 1, 1.0416666, 1.0833334, 1.125, 1.1666666, 1.2083334, 1.25, 1.2916666, 1.3333334, 1.375),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Open/OpenPart3:texture")
+tracks/9/interp = 0
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0.5833333, 0.625, 0.6666667, 0.7083333, 0.75, 0.7916667, 0.8333333, 0.875, 0.9166667, 0.9583333, 1, 1.0416666, 1.0833334, 1.125, 1.1666666, 1.2083334, 1.25, 1.2916666, 1.3333334, 1.375),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("4_amfjp"), ExtResource("5_e5j8k"), ExtResource("6_eg0k6"), ExtResource("7_b2g2w"), ExtResource("8_2s7yf"), ExtResource("9_l12sw"), ExtResource("10_0o24a"), ExtResource("11_pb58v"), ExtResource("12_1nml3"), ExtResource("13_217wc"), ExtResource("14_la5er"), ExtResource("13_217wc"), ExtResource("12_1nml3"), ExtResource("11_pb58v"), ExtResource("10_0o24a"), ExtResource("9_l12sw"), ExtResource("8_2s7yf"), ExtResource("7_b2g2w"), ExtResource("6_eg0k6"), ExtResource("5_e5j8k")]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Open/OpenPart3:transform")
+tracks/10/interp = 0
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0.5833333, 0.625, 0.6666667, 0.7083333, 0.75, 0.7916667, 0.8333333, 0.875, 0.9166667, 0.9583333, 1, 1.0416666, 1.0833334, 1.125, 1.1666666, 1.2083334, 1.25, 1.2916666, 1.3333334, 1.375),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Transform2D(0.5, 0, 0, 1.578, -26.5, 7.001831), Transform2D(0.5, 0, 0, 1.578, -23.5, 13.471619), Transform2D(0.5, 0, 0, 1.578, -19, 5.423828), Transform2D(0.5, 0, 0, 1.578, -18.5, 2.1099854), Transform2D(0.5, 0, 0, 1.578, -13.5, 2.1099854), Transform2D(0.5, 0, 0, 1.578, -10.699997, 2.1099854), Transform2D(0.5, 0, 0, 1.578, -33.5, 7.001831), Transform2D(0.5, 0, 0, 1.578, -32, 10.315613), Transform2D(0.5, 0, 0, 1.578, -30, 7.001831), Transform2D(0.5, 0, 0, 1.578, -26.5, 8.579773), Transform2D(0.5, 0, 0, 1.578, -23.5, 11.893616), Transform2D(0.5, 0, 0, 1.578, -26.5, 8.579773), Transform2D(0.5, 0, 0, 1.578, -30, 7.001831), Transform2D(0.5, 0, 0, 1.578, -32, 10.315613), Transform2D(0.5, 0, 0, 1.578, -33.5, 7.001831), Transform2D(0.5, 0, 0, 1.578, -10.699997, 2.1099854), Transform2D(0.5, 0, 0, 1.578, -13.5, 2.1099854), Transform2D(0.5, 0, 0, 1.578, -18.5, 2.1099854), Transform2D(0.5, 0, 0, 1.578, -19, 5.423828), Transform2D(0.5, 0, 0, 1.578, -23.5, 13.471619)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Open/OpenPart3:modulate")
+tracks/11/interp = 0
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0.5833333, 0.625, 0.6666667, 0.7083333, 0.75, 0.7916667, 0.8333333, 0.875, 0.9166667, 0.9583333, 1, 1.0416666, 1.0833334, 1.125, 1.1666666, 1.2083334, 1.25, 1.2916666, 1.3333334, 1.375),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+metadata/loop_from = 0.5833333333333334
+metadata/start_events = []
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_stokc"]
+_data = {
+&"closed": SubResource("Animation_o0mj1"),
+&"open": SubResource("Animation_540rm")
+}
+
+[node name="HubDoor" type="Node2D" unique_id=815503377]
+script = ExtResource("1_rgjrf")
+metadata/hit_rect_closed = Rect2(-22, -4, 162, 526)
+metadata/hit_rect_open = Rect2(-22, -35.399994, 162, 557.5)
+
+[node name="Closed" type="Node2D" parent="." unique_id=1408788197]
+
+[node name="ClosedPart1" type="Sprite2D" parent="Closed" unique_id=623816909]
+position = Vector2(-22.05, -4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_jn3nl")
+centered = false
+
+[node name="ClosedPart2" type="Sprite2D" parent="Closed" unique_id=1505645526]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_xno3t")
+centered = false
+
+[node name="Open" type="Node2D" parent="." unique_id=924291642]
+
+[node name="OpenPart1" type="Sprite2D" parent="Open" unique_id=2101263061]
+position = Vector2(-22.05, -4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_jn3nl")
+centered = false
+
+[node name="OpenPart2" type="Sprite2D" parent="Open" unique_id=1389699907]
+position = Vector2(0, -496)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_xno3t")
+centered = false
+
+[node name="OpenPart3" type="Sprite2D" parent="Open" unique_id=542446144]
+position = Vector2(-23.5, 13.471619)
+scale = Vector2(0.5, 1.578)
+texture = ExtResource("5_e5j8k")
+centered = false
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=340693479]
+libraries/ = SubResource("AnimationLibrary_stokc")

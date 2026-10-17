@@ -1,0 +1,109 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://bcpy8tnbo8vos" path="res://src/rig/rig.gd" id="1_ld4yn"]
+[ext_resource type="Shader" path="res://src/rig/sprite_fx.gdshader" id="2_1jneo"]
+[ext_resource type="Texture2D" path="res://assets/rigs/hero_tomb/tex/Common_v7_147.png" id="3_rmlpf"]
+[ext_resource type="Texture2D" path="res://assets/rigs/hero_tomb/tex/Common_v7_148.png" id="4_rj7gm"]
+[ext_resource type="Texture2D" path="res://assets/rigs/hero_tomb/tex/Common_v7_151.png" id="5_3cerl"]
+[ext_resource type="Texture2D" path="res://assets/rigs/hero_tomb/tex/Common_v7_165.png" id="6_2n3bu"]
+[ext_resource type="AnimationLibrary" path="res://scenes/actors/hero_tomb/hero_tomb_actions.tres" id="7_g1m6w"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_41ler"]
+shader = ExtResource("2_1jneo")
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = null
+shader_parameter/glow_on = true
+shader_parameter/glow_color = Color(0.4, 0.2, 0.4, 1)
+shader_parameter/glow_blur = 11.0
+shader_parameter/glow_strength = 2.75
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 12.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hoqia"]
+shader = ExtResource("2_1jneo")
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = null
+shader_parameter/glow_on = true
+shader_parameter/glow_color = Color(0.4, 0.2, 0.4, 1)
+shader_parameter/glow_blur = 11.0
+shader_parameter/glow_strength = 2.75
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 12.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4b6vi"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ndpm"]
+resource_local_to_scene = true
+
+[node name="HeroTomb" type="Node2D" unique_id=117171910]
+script = ExtResource("1_ld4yn")
+actions = PackedStringArray("default")
+
+[node name="Poses" type="Node2D" parent="." unique_id=413254983]
+
+[node name="Default" type="Node2D" parent="Poses" unique_id=398415178]
+visible = false
+
+[node name="DefaultPart1" type="Sprite2D" parent="Poses/Default" unique_id=560800146]
+material = SubResource("ShaderMaterial_41ler")
+position = Vector2(-32.2704, -259.1828)
+scale = Vector2(0.3735, 0.3735)
+texture = ExtResource("3_rmlpf")
+centered = false
+
+[node name="DefaultPart2" type="Sprite2D" parent="Poses/Default" unique_id=1323147956]
+material = SubResource("ShaderMaterial_hoqia")
+position = Vector2(-14.3026495, -244.05515)
+scale = Vector2(0.3735, 0.3735)
+texture = ExtResource("4_rj7gm")
+centered = false
+
+[node name="DefaultPart3" type="Sprite2D" parent="Poses/Default" unique_id=2034894607]
+position = Vector2(-26.064602, 60.00255)
+rotation = -1.6655818
+scale = Vector2(0.1426403, 0.23458154)
+skew = -0.0012776852
+texture = ExtResource("5_3cerl")
+centered = false
+
+[node name="DefaultPart4" type="Sprite2D" parent="Poses/Default" unique_id=1133226474]
+modulate = Color(1, 1, 1, 0.172)
+position = Vector2(-31.45, -32.649998)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_2n3bu")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=519946610]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=784026387]
+shape = SubResource("RectangleShape2D_4b6vi")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1960568189]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=989513430]
+shape = SubResource("RectangleShape2D_1ndpm")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=61129280]
+callback_mode_process = 0
+libraries/ = ExtResource("7_g1m6w")

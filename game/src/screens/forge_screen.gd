@@ -222,11 +222,7 @@ func _refresh() -> void:
 		_page.set_text("txt_needlh", "0")
 
 func _icon(item: Item, pos: Vector2, on_click: Callable) -> TextureRect:
-	var t := TextureRect.new()
-	t.texture = GameState.item_data(item).icon
-	t.position = pos + Vector2(0, -2)
-	t.size = Vector2(CELL, CELL)
-	t.stretch_mode = TextureRect.STRETCH_KEEP_CENTERED
+	var t := ItemIcon.create(item, CELL).place(pos)
 	t.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	t.mouse_entered.connect(_show_tip.bind(item, t))
 	t.mouse_exited.connect(_hide_tip)

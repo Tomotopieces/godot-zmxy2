@@ -1,0 +1,143 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/level/objects/baigu_door.gd" id="1_hqfna"]
+[ext_resource type="Texture2D" path="res://assets/rigs/baigu_door/tex/zmxy2_game_316.png" id="2_7wiro"]
+[ext_resource type="Texture2D" path="res://assets/rigs/baigu_door_open/tex/zmxy2_game_324.png" id="3_4hrqi"]
+[ext_resource type="Texture2D" path="res://assets/rigs/baigu_door_open/tex/zmxy2_game_325.png" id="4_wvs0t"]
+[ext_resource type="Texture2D" path="res://assets/rigs/baigu_door_open/tex/zmxy2_game_332.png" id="5_6urys"]
+[ext_resource type="Texture2D" path="res://assets/rigs/baigu_door_open/tex/zmxy2_game_326.png" id="6_2uy71"]
+[ext_resource type="Texture2D" path="res://assets/rigs/baigu_door_open/tex/zmxy2_game_327.png" id="7_4s1q6"]
+[ext_resource type="Texture2D" path="res://assets/rigs/baigu_door_open/tex/zmxy2_game_328.png" id="8_h2vxh"]
+[ext_resource type="Texture2D" path="res://assets/rigs/baigu_door_open/tex/zmxy2_game_329.png" id="9_13qlt"]
+[ext_resource type="Texture2D" path="res://assets/rigs/baigu_door_open/tex/zmxy2_game_330.png" id="10_jjemt"]
+
+[sub_resource type="Animation" id="Animation_hqfna"]
+length = 2.0416666666666665
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Opened/Door:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.083333336, 0.16666667, 0.25, 0.33333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("4_wvs0t"), ExtResource("6_2uy71"), ExtResource("7_4s1q6"), ExtResource("8_h2vxh"), ExtResource("9_13qlt")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Opened/Door:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.083333336, 0.16666667, 0.25, 0.33333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(-508.95, -156.5), Vector2(-533.4, -119.15), Vector2(-541, -76.7), Vector2(-541, 2.3), Vector2(-519.75, 85.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Opened/Door:region_rect")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.083333336, 0.16666667, 0.25, 0.33333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(0, 0, 1728, 664.2), Rect2(0.800049, 0, 1880.2, 589.5), Rect2(16, 0, 2030, 504.6), Rect2(16, 0, 2118, 346.6), Rect2(0, 0, 2105.5, 180.2)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Opened/Door:offset")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.083333336, 0.16666667, 0.25, 0.33333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(0, 0), Vector2(0.800049, 0), Vector2(16, 0), Vector2(16, 0), Vector2(0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Opened/Door:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.41666666),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Opened/Light:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u0h6n"]
+_data = {
+&"open": SubResource("Animation_hqfna")
+}
+
+[node name="BaiguDoor" type="Node2D" unique_id=1574346883]
+z_index = -8
+script = ExtResource("1_hqfna")
+
+[node name="Closed" type="Sprite2D" parent="." unique_id=418909855]
+position = Vector2(-533, -173.1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_7wiro")
+centered = false
+
+[node name="Opened" type="Node2D" parent="." unique_id=1566566353]
+visible = false
+
+[node name="Back" type="Sprite2D" parent="Opened" unique_id=1171188719]
+position = Vector2(-533, -173.1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_4hrqi")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 2132, 697.4)
+
+[node name="Door" type="Sprite2D" parent="Opened" unique_id=827443688]
+position = Vector2(-508.95, -156.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("10_jjemt")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 1728, 664.2)
+
+[node name="Light" type="Sprite2D" parent="Opened" unique_id=1508892349]
+visible = false
+position = Vector2(-106, -8.1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_6urys")
+centered = false
+
+[node name="Guides" type="Node2D" parent="." unique_id=339321674]
+
+[node name="WeakSpotRange" type="Line2D" parent="Guides" unique_id=492215943]
+points = PackedVector2Array(-220.5, -90.5, 220.5, -90.5, 220.5, 0.5, -220.5, 0.5, -220.5, -90.5)
+width = 2.0
+default_color = Color(1, 0.8, 0.2, 0.8)
+
+[node name="EnterRect" type="Line2D" parent="Guides" unique_id=1250069802]
+points = PackedVector2Array(-106, -8.1, 68, -8.1, 68, 92.9, -106, 92.9, -106, -8.1)
+width = 2.0
+default_color = Color(0.3, 0.8, 1, 0.8)
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1075221011]
+libraries/ = SubResource("AnimationLibrary_u0h6n")

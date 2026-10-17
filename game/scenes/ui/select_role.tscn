@@ -1,0 +1,321 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/ui/ui_layout.gd" id="1_osof8"]
+[ext_resource type="Texture2D" path="res://assets/ui/select_role/tex/OtherMat_v10_494.png" id="2_l4e3s"]
+[ext_resource type="Texture2D" path="res://assets/ui/select_role/tex/OtherMat_v10_497.png" id="3_00h1l"]
+[ext_resource type="Texture2D" path="res://assets/ui/select_role/tex/OtherMat_v10_498.png" id="4_2oa6x"]
+[ext_resource type="Texture2D" path="res://assets/ui/select_role/tex/OtherMat_v10_502.png" id="5_apunm"]
+[ext_resource type="Texture2D" path="res://assets/ui/select_role/tex/OtherMat_v10_505.png" id="6_4ti0u"]
+[ext_resource type="Texture2D" path="res://assets/ui/select_role/tex/OtherMat_v10_507.png" id="7_8iphx"]
+[ext_resource type="Texture2D" path="res://assets/ui/select_role/tex/OtherMat_v10_511.png" id="8_vemgg"]
+
+[node name="select_role" type="Control" unique_id=332687142]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_osof8")
+
+[node name="btn1" type="Control" parent="." unique_id=1816823548]
+anchors_preset = 0
+offset_left = -9.949997
+offset_top = -16.0
+offset_right = 323.75
+offset_bottom = 593.45
+mouse_default_cursor_shape = 2
+metadata/ui_piece = ["btn1"]
+metadata/ui_button = "btn1"
+metadata/pad_seq = 40
+
+[node name="Up" type="Node2D" parent="btn1" unique_id=1180374176]
+position = Vector2(127.85, 309.45)
+
+[node name="Art" type="Node2D" parent="btn1/Up" unique_id=204700382]
+
+[node name="OtherMat_v10_494" type="Sprite2D" parent="btn1/Up/Art" unique_id=1336523953]
+clip_children = 1
+position = Vector2(-117.1, -296.1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_l4e3s")
+centered = false
+metadata/tex_key = "OtherMat_v10:494"
+
+[node name="OtherMat_v10_497" type="Sprite2D" parent="btn1/Up/Art/OtherMat_v10_494" unique_id=236175964]
+position = Vector2(-21.5, -26.700012)
+texture = ExtResource("3_00h1l")
+centered = false
+metadata/tex_key = "OtherMat_v10:497"
+
+[node name="OtherMat_v10_498" type="Sprite2D" parent="btn1/Up" unique_id=970269752]
+position = Vector2(-117.9, -296.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_2oa6x")
+centered = false
+metadata/tex_key = "OtherMat_v10:498"
+
+[node name="Over" type="Node2D" parent="btn1" unique_id=1191010958]
+visible = false
+modulate = Color(1.3, 1.15, 1, 1)
+position = Vector2(127.85, 309.45)
+
+[node name="Art" type="Node2D" parent="btn1/Over" unique_id=1232407473]
+
+[node name="OtherMat_v10_494" type="Sprite2D" parent="btn1/Over/Art" unique_id=1571762248]
+clip_children = 1
+position = Vector2(-117.1, -296.1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_l4e3s")
+centered = false
+metadata/tex_key = "OtherMat_v10:494"
+
+[node name="OtherMat_v10_497" type="Sprite2D" parent="btn1/Over/Art/OtherMat_v10_494" unique_id=224769234]
+position = Vector2(-21.5, -26.700012)
+texture = ExtResource("3_00h1l")
+centered = false
+metadata/tex_key = "OtherMat_v10:497"
+
+[node name="OtherMat_v10_498" type="Sprite2D" parent="btn1/Over" unique_id=1213092383]
+position = Vector2(-117.9, -296.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_2oa6x")
+centered = false
+metadata/tex_key = "OtherMat_v10:498"
+
+[node name="Down" type="Node2D" parent="btn1" unique_id=683658085]
+visible = false
+position = Vector2(127.85, 309.45)
+
+[node name="Art" type="Node2D" parent="btn1/Down" unique_id=447978102]
+
+[node name="OtherMat_v10_494" type="Sprite2D" parent="btn1/Down/Art" unique_id=72646892]
+clip_children = 1
+position = Vector2(-117.1, -296.1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_l4e3s")
+centered = false
+metadata/tex_key = "OtherMat_v10:494"
+
+[node name="OtherMat_v10_497" type="Sprite2D" parent="btn1/Down/Art/OtherMat_v10_494" unique_id=923693424]
+position = Vector2(-21.5, -26.700012)
+texture = ExtResource("3_00h1l")
+centered = false
+metadata/tex_key = "OtherMat_v10:497"
+
+[node name="OtherMat_v10_498" type="Sprite2D" parent="btn1/Down" unique_id=413137642]
+position = Vector2(-117.9, -296.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_2oa6x")
+centered = false
+metadata/tex_key = "OtherMat_v10:498"
+
+[node name="btn2" type="Control" parent="." unique_id=976125362]
+anchors_preset = 0
+offset_left = 213.00002
+offset_top = -15.950012
+offset_right = 529.4
+offset_bottom = 601.05
+mouse_default_cursor_shape = 2
+metadata/ui_piece = ["btn2"]
+metadata/ui_button = "btn2"
+metadata/pad_seq = 41
+
+[node name="Up" type="Node2D" parent="btn2" unique_id=1727046372]
+position = Vector2(139.7, 308.5)
+
+[node name="Art" type="Node2D" parent="btn2/Up" unique_id=1315787378]
+
+[node name="OtherMat_v10_494" type="Sprite2D" parent="btn2/Up/Art" unique_id=1500795987]
+clip_children = 1
+position = Vector2(-117.1, -295.15)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_l4e3s")
+centered = false
+metadata/tex_key = "OtherMat_v10:494"
+
+[node name="OtherMat_v10_502" type="Sprite2D" parent="btn2/Up/Art/OtherMat_v10_494" unique_id=1370454827]
+position = Vector2(-45.200027, -26.700012)
+texture = ExtResource("5_apunm")
+centered = false
+metadata/tex_key = "OtherMat_v10:502"
+
+[node name="OtherMat_v10_498" type="Sprite2D" parent="btn2/Up" unique_id=1190441299]
+position = Vector2(-117.9, -295.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_2oa6x")
+centered = false
+metadata/tex_key = "OtherMat_v10:498"
+
+[node name="Over" type="Node2D" parent="btn2" unique_id=384235108]
+visible = false
+modulate = Color(1.3, 1.15, 1, 1)
+position = Vector2(139.7, 308.5)
+
+[node name="Art" type="Node2D" parent="btn2/Over" unique_id=1009675594]
+
+[node name="OtherMat_v10_494" type="Sprite2D" parent="btn2/Over/Art" unique_id=1152471477]
+clip_children = 1
+position = Vector2(-117.1, -295.15)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_l4e3s")
+centered = false
+metadata/tex_key = "OtherMat_v10:494"
+
+[node name="OtherMat_v10_502" type="Sprite2D" parent="btn2/Over/Art/OtherMat_v10_494" unique_id=209342597]
+position = Vector2(-45.200027, -26.700012)
+texture = ExtResource("5_apunm")
+centered = false
+metadata/tex_key = "OtherMat_v10:502"
+
+[node name="OtherMat_v10_498" type="Sprite2D" parent="btn2/Over" unique_id=820993041]
+position = Vector2(-117.9, -295.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_2oa6x")
+centered = false
+metadata/tex_key = "OtherMat_v10:498"
+
+[node name="Down" type="Node2D" parent="btn2" unique_id=272115724]
+visible = false
+position = Vector2(139.7, 308.5)
+
+[node name="Art" type="Node2D" parent="btn2/Down" unique_id=841084318]
+
+[node name="OtherMat_v10_494" type="Sprite2D" parent="btn2/Down/Art" unique_id=1796156599]
+clip_children = 1
+position = Vector2(-117.1, -295.15)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_l4e3s")
+centered = false
+metadata/tex_key = "OtherMat_v10:494"
+
+[node name="OtherMat_v10_502" type="Sprite2D" parent="btn2/Down/Art/OtherMat_v10_494" unique_id=1059856283]
+position = Vector2(-45.200027, -26.700012)
+texture = ExtResource("5_apunm")
+centered = false
+metadata/tex_key = "OtherMat_v10:502"
+
+[node name="OtherMat_v10_498" type="Sprite2D" parent="btn2/Down" unique_id=1829145142]
+position = Vector2(-117.9, -295.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_2oa6x")
+centered = false
+metadata/tex_key = "OtherMat_v10:498"
+
+[node name="btn3" type="Control" parent="." unique_id=241509416]
+anchors_preset = 0
+offset_left = 432.25
+offset_top = -185.9
+offset_right = 835.45
+offset_bottom = 880.5
+mouse_default_cursor_shape = 2
+metadata/ui_piece = ["btn3"]
+metadata/ui_button = "btn3"
+metadata/pad_seq = 42
+
+[node name="Up" type="Node2D" parent="btn3" unique_id=1870790204]
+position = Vector2(154.75, 479.35)
+
+[node name="Art" type="Node2D" parent="btn3/Up" unique_id=308896088]
+
+[node name="OtherMat_v10_505" type="Sprite2D" parent="btn3/Up/Art" unique_id=657430850]
+clip_children = 1
+position = Vector2(-117.1, -479.35)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_4ti0u")
+centered = false
+metadata/tex_key = "OtherMat_v10:505"
+
+[node name="OtherMat_v10_507" type="Sprite2D" parent="btn3/Up/Art/OtherMat_v10_505" unique_id=134810906]
+position = Vector2(-75.3, 361.80005)
+texture = ExtResource("7_8iphx")
+centered = false
+metadata/tex_key = "OtherMat_v10:507"
+
+[node name="OtherMat_v10_498" type="Sprite2D" parent="btn3/Up" unique_id=325468167]
+position = Vector2(-117.9, -295.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_2oa6x")
+centered = false
+metadata/tex_key = "OtherMat_v10:498"
+
+[node name="Over" type="Node2D" parent="btn3" unique_id=1812217288]
+visible = false
+modulate = Color(1.3, 1.15, 1, 1)
+position = Vector2(154.75, 479.35)
+
+[node name="Art" type="Node2D" parent="btn3/Over" unique_id=1044852370]
+
+[node name="OtherMat_v10_505" type="Sprite2D" parent="btn3/Over/Art" unique_id=1231111622]
+clip_children = 1
+position = Vector2(-117.1, -479.35)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_4ti0u")
+centered = false
+metadata/tex_key = "OtherMat_v10:505"
+
+[node name="OtherMat_v10_507" type="Sprite2D" parent="btn3/Over/Art/OtherMat_v10_505" unique_id=645214542]
+position = Vector2(-75.3, 361.80005)
+texture = ExtResource("7_8iphx")
+centered = false
+metadata/tex_key = "OtherMat_v10:507"
+
+[node name="OtherMat_v10_498" type="Sprite2D" parent="btn3/Over" unique_id=366633178]
+position = Vector2(-117.9, -295.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_2oa6x")
+centered = false
+metadata/tex_key = "OtherMat_v10:498"
+
+[node name="Down" type="Node2D" parent="btn3" unique_id=1717520885]
+visible = false
+position = Vector2(154.75, 479.35)
+
+[node name="Art" type="Node2D" parent="btn3/Down" unique_id=863158823]
+
+[node name="OtherMat_v10_505" type="Sprite2D" parent="btn3/Down/Art" unique_id=1113216733]
+clip_children = 1
+position = Vector2(-117.1, -479.35)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_4ti0u")
+centered = false
+metadata/tex_key = "OtherMat_v10:505"
+
+[node name="OtherMat_v10_507" type="Sprite2D" parent="btn3/Down/Art/OtherMat_v10_505" unique_id=588164227]
+position = Vector2(-75.3, 361.80005)
+texture = ExtResource("7_8iphx")
+centered = false
+metadata/tex_key = "OtherMat_v10:507"
+
+[node name="OtherMat_v10_498" type="Sprite2D" parent="btn3/Down" unique_id=143902794]
+position = Vector2(-117.9, -295.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_2oa6x")
+centered = false
+metadata/tex_key = "OtherMat_v10:498"
+
+[node name="Art" type="Node2D" parent="." unique_id=1334004906]
+
+[node name="Art" type="Node2D" parent="Art" unique_id=1721827942]
+
+[node name="OtherMat_v10_494" type="Sprite2D" parent="Art/Art" unique_id=731895492]
+clip_children = 1
+position = Vector2(705.75, -2.649994)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_l4e3s")
+centered = false
+metadata/tex_key = "OtherMat_v10:494"
+
+[node name="OtherMat_v10_511" type="Sprite2D" parent="Art/Art/OtherMat_v10_494" unique_id=1353262603]
+position = Vector2(-47.5, -26.700012)
+texture = ExtResource("8_vemgg")
+centered = false
+metadata/tex_key = "OtherMat_v10:511"
+
+[node name="OtherMat_v10_498" type="Sprite2D" parent="Art" unique_id=1896990697]
+position = Vector2(704.95, -3.0499878)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_2oa6x")
+centered = false
+metadata/tex_key = "OtherMat_v10:498"
+
+[node name="lockmc" type="Node2D" parent="." unique_id=1754694887]
+position = Vector2(584.65, 311.5)
+metadata/ui_piece = ["lockmc"]

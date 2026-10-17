@@ -1,0 +1,88 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://bcpy8tnbo8vos" path="res://src/rig/rig.gd" id="1_7y81e"]
+[ext_resource type="Texture2D" path="res://assets/rigs/hub_pointer/tex/10_7.png" id="2_gujfk"]
+[ext_resource type="Texture2D" path="res://assets/rigs/hub_pointer/tex/10_8.png" id="3_6cfx3"]
+[ext_resource type="Texture2D" path="res://assets/rigs/hub_pointer/tex/10_9.png" id="4_nbhis"]
+[ext_resource type="Texture2D" path="res://assets/rigs/hub_pointer/tex/10_10.png" id="5_u6nas"]
+[ext_resource type="Texture2D" path="res://assets/rigs/hub_pointer/tex/10_11.png" id="6_67p3h"]
+[ext_resource type="AnimationLibrary" path="res://scenes/actors/hub_pointer/hub_pointer_actions.tres" id="7_wjyjm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_303rb"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cgfx0"]
+resource_local_to_scene = true
+
+[node name="HubPointer" type="Node2D" unique_id=1521973129]
+script = ExtResource("1_7y81e")
+actions = PackedStringArray("f0", "f1", "f2", "f3", "f4")
+
+[node name="Poses" type="Node2D" parent="." unique_id=1976969138]
+
+[node name="F0" type="Node2D" parent="Poses" unique_id=2137741241]
+visible = false
+
+[node name="F0Part1" type="Sprite2D" parent="Poses/F0" unique_id=950375718]
+position = Vector2(-20.1, -29.2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_gujfk")
+centered = false
+
+[node name="F1" type="Node2D" parent="Poses" unique_id=1261534405]
+visible = false
+
+[node name="F1Part1" type="Sprite2D" parent="Poses/F1" unique_id=196472059]
+position = Vector2(-9.3, -21.15)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_6cfx3")
+centered = false
+
+[node name="F2" type="Node2D" parent="Poses" unique_id=49543462]
+visible = false
+
+[node name="F2Part1" type="Sprite2D" parent="Poses/F2" unique_id=1997000166]
+position = Vector2(-9.3, -7)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_nbhis")
+centered = false
+
+[node name="F3" type="Node2D" parent="Poses" unique_id=1011187024]
+visible = false
+
+[node name="F3Part1" type="Sprite2D" parent="Poses/F3" unique_id=407548553]
+position = Vector2(-22.1, -8.1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_u6nas")
+centered = false
+
+[node name="F4" type="Node2D" parent="Poses" unique_id=1630573289]
+visible = false
+
+[node name="F4Part1" type="Sprite2D" parent="Poses/F4" unique_id=1445584037]
+position = Vector2(-28.6, -22.15)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_67p3h")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1297474633]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=762710929]
+shape = SubResource("RectangleShape2D_303rb")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=389766994]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1851539885]
+shape = SubResource("RectangleShape2D_cgfx0")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=724359507]
+callback_mode_process = 0
+libraries/ = ExtResource("7_wjyjm")

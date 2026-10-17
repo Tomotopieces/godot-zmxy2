@@ -1,0 +1,115 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://bcpy8tnbo8vos" path="res://src/rig/rig.gd" id="1_qj81f"]
+[ext_resource type="Texture2D" path="res://assets/rigs/bajie_stab/tex/Pig9_1.png" id="2_ityps"]
+[ext_resource type="Shader" path="res://src/rig/sprite_fx.gdshader" id="3_6wiv2"]
+[ext_resource type="Texture2D" path="res://assets/rigs/bajie_stab/tex/Pig9_2.png" id="4_qmwdk"]
+[ext_resource type="AnimationLibrary" path="res://scenes/actors/bajie_stab/bajie_stab_actions.tres" id="5_h7tdw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yp8gc"]
+shader = ExtResource("3_6wiv2")
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = 2.0
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 3.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pak6x"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hxqok"]
+resource_local_to_scene = true
+
+[node name="BajieStab" type="Node2D" unique_id=811194546]
+script = ExtResource("1_qj81f")
+actions = PackedStringArray("default")
+
+[node name="Poses" type="Node2D" parent="." unique_id=469200881]
+
+[node name="Default" type="Node2D" parent="Poses" unique_id=1004610070]
+visible = false
+
+[node name="DefaultPart1" type="Sprite2D" parent="Poses/Default" unique_id=1706094950]
+position = Vector2(-3.85, -17.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_ityps")
+centered = false
+
+[node name="DefaultPart2" type="Sprite2D" parent="Poses/Default" unique_id=1444197254]
+modulate = Color(1, 1, 1, 0.449)
+material = SubResource("ShaderMaterial_yp8gc")
+position = Vector2(-8.8589, 3.5405998)
+scale = Vector2(0.0635, 0.0635)
+texture = ExtResource("4_qmwdk")
+centered = false
+
+[node name="DefaultPart3" type="Sprite2D" parent="Poses/Default" unique_id=410916462]
+modulate = Color(1, 1, 1, 0.449)
+material = SubResource("ShaderMaterial_yp8gc")
+position = Vector2(-12.7909, 10.094601)
+scale = Vector2(0.0635, 0.0635)
+texture = ExtResource("4_qmwdk")
+centered = false
+
+[node name="DefaultPart4" type="Sprite2D" parent="Poses/Default" unique_id=707612242]
+modulate = Color(1, 1, 1, 0.449)
+material = SubResource("ShaderMaterial_yp8gc")
+position = Vector2(-7.2929, 19.3786)
+scale = Vector2(0.0635, 0.0635)
+texture = ExtResource("4_qmwdk")
+centered = false
+
+[node name="DefaultPart5" type="Sprite2D" parent="Poses/Default" unique_id=670348201]
+modulate = Color(1, 1, 1, 0.449)
+material = SubResource("ShaderMaterial_yp8gc")
+position = Vector2(-19.1259, 26.733599)
+scale = Vector2(0.0635, 0.0635)
+texture = ExtResource("4_qmwdk")
+centered = false
+
+[node name="DefaultPart6" type="Sprite2D" parent="Poses/Default" unique_id=1908084467]
+modulate = Color(1, 1, 1, 0.449)
+material = SubResource("ShaderMaterial_yp8gc")
+position = Vector2(-0.95790005, 11.1866)
+scale = Vector2(0.0635, 0.0635)
+texture = ExtResource("4_qmwdk")
+centered = false
+
+[node name="DefaultPart7" type="Sprite2D" parent="Poses/Default" unique_id=2064408403]
+modulate = Color(1, 1, 1, 0.449)
+material = SubResource("ShaderMaterial_yp8gc")
+position = Vector2(-7.6939, 41.078598)
+scale = Vector2(0.0635, 0.0635)
+texture = ExtResource("4_qmwdk")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1244477790]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=2065543342]
+shape = SubResource("RectangleShape2D_pak6x")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=414880385]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=416549273]
+shape = SubResource("RectangleShape2D_hxqok")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1878573511]
+callback_mode_process = 0
+libraries/ = ExtResource("5_h7tdw")

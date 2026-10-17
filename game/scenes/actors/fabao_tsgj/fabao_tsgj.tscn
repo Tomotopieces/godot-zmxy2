@@ -1,0 +1,59 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://bcpy8tnbo8vos" path="res://src/rig/rig.gd" id="1_l4pjh"]
+[ext_resource type="Texture2D" path="res://assets/rigs/fabao_tsgj/tex/Common_v7_317.png" id="2_qb7yu"]
+[ext_resource type="AnimationLibrary" path="res://scenes/actors/fabao_tsgj/fabao_tsgj_actions.tres" id="3_ajy06"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1yitv"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i8dkl"]
+resource_local_to_scene = true
+
+[node name="FabaoTsgj" type="Node2D" unique_id=1528377568]
+script = ExtResource("1_l4pjh")
+actions = PackedStringArray("walk", "hit1")
+
+[node name="Poses" type="Node2D" parent="." unique_id=593783184]
+
+[node name="Walk" type="Node2D" parent="Poses" unique_id=734049575]
+visible = false
+
+[node name="WalkPart1" type="Sprite2D" parent="Poses/Walk" unique_id=1408345930]
+position = Vector2(-5.6094513, -56.12355)
+rotation = 0.26195496
+scale = Vector2(0.50005925, 0.50005925)
+texture = ExtResource("2_qb7yu")
+centered = false
+
+[node name="Hit1" type="Node2D" parent="Poses" unique_id=1231355437]
+visible = false
+
+[node name="Hit1Part1" type="Sprite2D" parent="Poses/Hit1" unique_id=270503907]
+position = Vector2(-5.6094513, -56.17355)
+rotation = 0.26195496
+scale = Vector2(0.50005925, 0.50005925)
+texture = ExtResource("2_qb7yu")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=285499987]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=690602601]
+shape = SubResource("RectangleShape2D_1yitv")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=67052354]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1536358120]
+shape = SubResource("RectangleShape2D_i8dkl")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=720014975]
+callback_mode_process = 0
+libraries/ = ExtResource("3_ajy06")

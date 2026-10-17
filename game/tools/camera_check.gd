@@ -48,6 +48,7 @@ func _ready() -> void:
 	Input.action_press("move_left")
 	for i in 600: await get_tree().physics_frame
 	print("after walking back: view ", snappedf(lv.view_x, 1), " hero x ", snappedf(h.global_position.x, 1))
-	if locks < 5 or autos < 3: fails.append("flow incomplete")
+	if locks < 5: fails.append("flow incomplete")
+	if autos > 0: fails.append("forced scroll after a room")
 	print("CAMERA CHECK ", "FAILED " + str(fails) if not fails.is_empty() else "OK")
 	get_tree().quit(1 if not fails.is_empty() else 0)

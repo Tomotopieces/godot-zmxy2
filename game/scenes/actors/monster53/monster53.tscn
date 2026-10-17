@@ -1,0 +1,113 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://bcpy8tnbo8vos" path="res://src/rig/rig.gd" id="1_geffr"]
+[ext_resource type="Shader" path="res://src/rig/sprite_fx.gdshader" id="2_fv6ld"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/2_140.png" id="3_0t2p7"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/2_170.png" id="4_egdrm"]
+[ext_resource type="AnimationLibrary" path="res://scenes/actors/monster53/monster53_actions.tres" id="5_xbf1t"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vai1u"]
+shader = ExtResource("2_fv6ld")
+shader_parameter/matrix_on = true
+shader_parameter/color_matrix = Projection(1.18086, 0.030859996, 0.030859996, 0, 0.060939983, 1.21094, 0.060939983, 0, 0.008199998, 0.008199998, 1.1582, 0, 0, 0, 0, 1)
+shader_parameter/color_offset = Vector4(-0.20441177, -0.20441177, -0.20441176, 0)
+shader_parameter/blur = null
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5efui"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m5q8n"]
+resource_local_to_scene = true
+
+[node name="Monster53" type="Node2D" unique_id=102102827]
+script = ExtResource("1_geffr")
+actions = PackedStringArray("walk", "wait", "dead")
+
+[node name="Poses" type="Node2D" parent="." unique_id=1259957038]
+
+[node name="Walk" type="Node2D" parent="Poses" unique_id=805757804]
+visible = false
+
+[node name="WalkPart1" type="Sprite2D" parent="Poses/Walk" unique_id=1935721958]
+material = SubResource("ShaderMaterial_vai1u")
+position = Vector2(-155.65001, -103.6)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_0t2p7")
+centered = false
+region_enabled = true
+
+[node name="WalkPart2" type="Sprite2D" parent="Poses/Walk" unique_id=2053416742]
+position = Vector2(-136.65, -162.15)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_egdrm")
+centered = false
+
+[node name="Wait" type="Node2D" parent="Poses" unique_id=1355304569]
+visible = false
+
+[node name="WaitPart1" type="Sprite2D" parent="Poses/Wait" unique_id=204612999]
+material = SubResource("ShaderMaterial_vai1u")
+position = Vector2(-155.65001, -103.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_0t2p7")
+centered = false
+region_enabled = true
+
+[node name="WaitPart2" type="Sprite2D" parent="Poses/Wait" unique_id=584337678]
+position = Vector2(-136.65, -162.1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_egdrm")
+centered = false
+
+[node name="Dead" type="Node2D" parent="Poses" unique_id=470220471]
+visible = false
+
+[node name="DeadPart1" type="Sprite2D" parent="Poses/Dead" unique_id=1143881002]
+material = SubResource("ShaderMaterial_vai1u")
+position = Vector2(-155.65001, -103.6)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_0t2p7")
+centered = false
+region_enabled = true
+
+[node name="DeadPart2" type="Sprite2D" parent="Poses/Dead" unique_id=1982975648]
+centered = false
+region_enabled = true
+
+[node name="DeadPart3" type="Sprite2D" parent="Poses/Dead" unique_id=1090641123]
+position = Vector2(-136.65, -162.15)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_egdrm")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=2145273514]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1783126979]
+shape = SubResource("RectangleShape2D_5efui")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1575232297]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=611921783]
+shape = SubResource("RectangleShape2D_m5q8n")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1280733535]
+callback_mode_process = 0
+libraries/ = ExtResource("5_xbf1t")

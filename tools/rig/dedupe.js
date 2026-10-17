@@ -1,9 +1,8 @@
 // Identical PNGs (same md5) are stored once. Every extractor writes its textures next to the thing it builds, so the same
 // image shows up under many rigs / UIs / levels; this pass moves each group of identical files to
-// game/assets/shared/<md5>.png, rewrites the "res" paths of the *.json it was extracted into, and sends the copies
-// (and their .import files) to the Recycle Bin. Run it after any extraction, then rebuild the rigs:
-//   node tools/rig/dedupe.js [--dry]          then   bash tools/rig/rebuild_all.sh
-// (batch.sh runs both for the rigs it builds.)
+// game/assets/shared/<md5>.png (organize_shared.js then names and files them), rewrites the "res" paths of the *.json it was extracted into, and sends the copies
+// (and their .import files) to the Recycle Bin. Run it after any extraction:
+//   node tools/rig/dedupe.js [--dry]
 'use strict';
 const fs = require('fs');
 const path = require('path');
@@ -68,3 +67,6 @@ fs.writeFileSync(list, trash.join('\n'));
 const ps = `Add-Type -AssemblyName Microsoft.VisualBasic; Get-Content -LiteralPath '${list}' -Encoding UTF8 | ForEach-Object { if (Test-Path -LiteralPath $_) { [Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile($_, 'OnlyErrorDialogs', 'SendToRecycleBin') } }`;
 cp.execFileSync('powershell', ['-NoProfile', '-Command', ps], { stdio: 'inherit' });
 console.log('moved', trash.length, 'files to the Recycle Bin');
+
+// md5 names -> readable names, each texture in its owner's folder or assets/shared/<kind>/
+cp.execFileSync(process.execPath, [path.join(__dirname, 'organize_shared.js')], { stdio: 'inherit' });

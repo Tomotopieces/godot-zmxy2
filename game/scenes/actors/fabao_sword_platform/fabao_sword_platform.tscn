@@ -1,0 +1,48 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://bcpy8tnbo8vos" path="res://src/rig/rig.gd" id="1_4vmx7"]
+[ext_resource type="Texture2D" path="res://assets/rigs/fabao_sword_platform/tex/Common_v7_321.png" id="2_qmq5b"]
+[ext_resource type="AnimationLibrary" path="res://scenes/actors/fabao_sword_platform/fabao_sword_platform_actions.tres" id="3_vpo6y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i7sva"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u4i7y"]
+resource_local_to_scene = true
+
+[node name="FabaoSwordPlatform" type="Node2D" unique_id=368270435]
+script = ExtResource("1_4vmx7")
+actions = PackedStringArray("default")
+
+[node name="Poses" type="Node2D" parent="." unique_id=1717179484]
+
+[node name="Default" type="Node2D" parent="Poses" unique_id=1057728691]
+visible = false
+
+[node name="DefaultPart1" type="Sprite2D" parent="Poses/Default" unique_id=374168988]
+position = Vector2(-56.85, -13.25)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_qmq5b")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=525215748]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1594122024]
+shape = SubResource("RectangleShape2D_i7sva")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1063213743]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=342982336]
+shape = SubResource("RectangleShape2D_u4i7y")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1242794697]
+callback_mode_process = 0
+libraries/ = ExtResource("3_vpo6y")

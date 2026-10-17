@@ -1,0 +1,19 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/ui/ui_layout.gd" id="1_oco5m"]
+[ext_resource type="Texture2D" path="res://assets/shared/mixed/zmxy2_game_353.png" id="2_s4uwu"]
+
+[node name="fly_floor" type="Control" unique_id=1177057944]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_oco5m")
+
+[node name="Art" type="Node2D" parent="." unique_id=1131900048]
+
+[node name="zmxy2_game_353" type="Sprite2D" parent="Art" unique_id=1952560104]
+position = Vector2(-117.5, -28.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_s4uwu")
+centered = false
+metadata/tex_key = "zmxy2_game:353"

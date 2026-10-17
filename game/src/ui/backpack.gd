@@ -6,12 +6,11 @@ extends CanvasLayer
 
 signal closed
 
-const GRID_ORIGIN := Vector2(484.3, 120.35)
 const GRID_COLS := 5
 const GRID_ROWS := 5
 const CELL := 50.0
 const CELL_GAP := 7.0
-const ICON_OFFSET := Vector2(0, -2)
+const SLOT_SCENE := "res://scenes/ui/backpack/slot.tscn"   ## the 25 bag cells are scene instances of it
 const MENU_OFFSET := Vector2(25, 25)
 const MOON_MENU_HEIGHT := 142.0   ## the exchange menu is taller than the plain one: keep it on screen
 const SLOT_PIECES := {&"weapon": "zbwq", &"cloth": "zbfj", &"accessory": "zbsp", &"treasure": "zbfb", &"fashion": "zbsz", &"wing": "zbcb"}
@@ -40,10 +39,8 @@ func _ready() -> void:
 	add_child(_ui)
 	_build_portrait()
 	_ui.button_pressed.connect(_on_button)
-	_grid = Control.new()
-	_grid.position = GRID_ORIGIN
-	_grid.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(_grid)
+	_grid = _ui.get_node("Grid")   # the scene's own 5x5 cells: nothing is created here
+
 	_worn = Control.new()
 	_worn.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_worn)
@@ -113,29 +110,40 @@ func _refresh() -> void:
 	_hide_tip()
 	_fill_stats()
 	for c in _grid.get_children():
-		c.queue_free()
+		if not _is_cell(c):      # the cells stay: only the icons and count labels of the last refresh go
+			c.queue_free()
 	for c in _worn.get_children():
 		c.queue_free()
-	# bag cells (only items of the current tab, in bag order)
+	# the items of the current tab, one per scene cell, in bag order (the cells' own positions are their grid slots)
 	var shown := GameState.tab_items(TABS[_tab])
-	for k in GRID_COLS * GRID_ROWS:
-		var pos := Vector2(k % GRID_COLS, k / GRID_COLS) * (CELL + CELL_GAP)
-		var cell := UiLayout.create("pack_cell")
-		cell.position = pos
-		_grid.add_child(cell)
+	var k := 0
+	for cell in _grid.get_children():
+		if not _is_cell(cell):
+			continue
+		var pos: Vector2 = (cell as Control).position
 		if k < shown.size():
 			var idx: int = shown[k]
 			_grid.add_child(_icon(GameState.bag[idx], pos, _on_bag_click.bind(idx)))
 			var n := GameState.bag[idx].n
 			if n > 1:
 				_grid.add_child(_count_label(n, pos))
-	# worn gear on the slot frames
+		k += 1
+	# worn gear on the slot frames (an empty slot keeps its caption, an occupied one hides it)
 	for slot in SLOT_PIECES:
 		var item: Item = GameState.worn[slot]
 		var piece: Node2D = _ui.get_piece(SLOT_PIECES[slot])
-		if item == null or piece == null:
+		if piece == null:
+			continue
+		var caption := piece.find_child("Caption", true, false) as Label
+		if caption:
+			caption.visible = item == null
+		if item == null:
 			continue
 		_worn.add_child(_icon(item, piece.position, _on_worn_click.bind(slot)))
+
+## A bag cell is one of the Slot instances put in the scene's Grid by hand.
+func _is_cell(c: Node) -> bool:
+	return c.scene_file_path == SLOT_SCENE
 
 ## Stack size in the cell corner (PackThings.txtname).
 func _count_label(n: int, pos: Vector2) -> Label:
@@ -150,13 +158,9 @@ func _count_label(n: int, pos: Vector2) -> Label:
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return l
 
+## The item's drop picture (掉落物), fitted into the 50x50 cell; without one the old framed icon is centred as before.
 func _icon(item: Item, pos: Vector2, on_click: Callable) -> TextureRect:
-	var d := GameState.item_data(item)
-	var t := TextureRect.new()
-	t.texture = d.icon
-	t.position = pos + ICON_OFFSET
-	t.size = Vector2(CELL, CELL)
-	t.stretch_mode = TextureRect.STRETCH_KEEP_CENTERED
+	var t := ItemIcon.create(item, CELL).place(pos)
 	t.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	t.mouse_entered.connect(_show_tip.bind(item, t))
 	t.mouse_exited.connect(_hide_tip)
@@ -180,14 +184,14 @@ func _fill_stats() -> void:
 	_ui.set_text("txt_sb", "%d %%" % roundi(GameState.miss() * 100))
 	_ui.set_text("txt_hx", str(GameState.hp_regen()))
 	_ui.set_text("txt_hl", str(GameState.mp_regen()))
-	_ui.set_text("txt_lh", " " + str(GameState.souls))   # a space of padding: the field art starts right at the text
-	_ui.set_text("txt_zg", " " + str(GameState.merit))
+	_ui.set_text("txt_lh", str(GameState.souls))   # no padding space: the gradient caption's value box follows the text now
+	_ui.set_text("txt_zg", str(GameState.merit))
 	_ui.show_frame("levelmc", clampi(GameState.level - 1, 0, 39))
 	_ui.show_frame("mc_exp", clampi(roundi(30.0 * GameState.exp / maxf(GameState.exp_to_next(), 1.0)) - 1, 0, 29))
 
 # ------------------------------------------------------------------ actions
 
-## Item menu (threebtn): 装备 / 赠送 / 出售, or for the 道具 page (simplebtn): 使用 / 丢弃.
+## Item menu: 装备 / 出售 (the original's 赠送 is a 2P feature, not made), or for the 道具 page: 使用 / 丢弃.
 ## A row shows its second frame when unavailable.
 func _on_bag_click(icon: Control, index: int) -> void:
 	_close_menu()
@@ -195,7 +199,7 @@ func _on_bag_click(icon: Control, index: int) -> void:
 	_menu_index = index
 	var item := GameState.bag[index]
 	var d := GameState.item_data(item)
-	var enabled := {"bzb": GameState.can_wear(item), "bgy": false, "bmd": true}   # 赠送 is 2P only
+	var enabled := {"bzb": GameState.can_wear(item), "bmd": true}
 	var moon: bool = item.id == EquipmentCatalog.get_catalog().moon.cake   # 小月饼: the menu also exchanges them
 	if TABS[_tab] == "item":
 		enabled = {"buse": GameState.usable(item), "bthrow": true}

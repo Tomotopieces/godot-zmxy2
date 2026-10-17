@@ -1,6 +1,7 @@
 class_name Level
 extends Node2D
-## One stage built from assets/levels/<name>/level.json: art, walls, camera stops, spawners, exit door.
+## One stage: its scene scenes/levels/<name>.tscn (art, ground, mechanisms) and the gameplay data of
+## assets/levels/<name>/level.json (walls, camera stops, spawners, exit door).
 ## Camera follows the original side-scroller rules (ViewControllor): push-scroll at 2/3 screen,
 ## lock at stop points until their spawns are cleared, then auto-scroll to the next one.
 
@@ -39,7 +40,6 @@ var door: Node2D                 ## exit portal (hidden until the stage is clear
 var door_rect := Rect2()
 var walls: Array[AnimatableBody2D] = []   ## scene walls / platforms (meta "wall" = level.json entry)
 var params := {}                 ## this stage's script numbers (data/stages.json)
-var features: Array = []         ## other scene objects (white-bone door, Xingtian door, fires...) for stage scripts
 var script_node: StageScript     ## this stage's special rules (src/level/stages/<level_name>.gd), if any
 var fixed_camera := false        ## single-screen boss rooms (5-1, 6-1, 7-1, stage 10)
 var debug_boxes := false
@@ -50,6 +50,7 @@ static var arena_boss: MonsterData
 
 var _far: Sprite2D
 var _far_width := 0.0
+var _far_x0 := 0.0         ## where the sky picture stands before the stage scrolls it
 var _room_view := 0.0        ## where the camera stood when the current room locked
 var _room_back := 0.0        ## how far back from there the hero may scroll
 var _drag_right := 0.0
@@ -103,6 +104,7 @@ func _ready() -> void:
 	if params.has("auto_touch"):
 		# boss rooms: the first stop is touched after a delay, wherever the camera is
 		get_tree().create_timer(float(params.auto_touch), false).timeout.connect(_touch_stop)
+	StageLighting.attach(self)
 	var sp := "res://src/level/stages/%s.gd" % level_name
 	if ResourceLoader.exists(sp):
 		script_node = load(sp).new()
@@ -112,6 +114,7 @@ func _ready() -> void:
 		script_node.setup()
 
 func _exit_tree() -> void:
+	_end_bullet_time()
 	if current == self:
 		current = null
 		DamageNumber.clear_pool()
@@ -127,6 +130,10 @@ func after(sec: float, fn: Callable) -> void:
 	var tw := create_tween()
 	tw.tween_interval(sec)
 	tw.tween_callback(fn)
+
+## The far background picture (it scrolls slower than the world).
+func far_sprite() -> Sprite2D:
+	return _far
 
 func monsters() -> Array:
 	return get_tree().get_nodes_in_group(&"monsters")
@@ -224,55 +231,57 @@ func freeze(seconds: float) -> void:
 
 # ------------------------------------------------------------------ build
 
-func _xf(m: Array, info: Dictionary) -> Transform2D:
-	var t := Transform2D(Vector2(m[0], m[1]), Vector2(m[2], m[3]), Vector2(m[4], m[5]))
-	var s := 1.0 / float(info.scale)
-	return t * Transform2D(Vector2(s, 0), Vector2(0, s), Vector2(info.ox, info.oy))
+## The stage's scene: "Art" (behind the actors), "Ground" (the floor), optionally "Background/Sky", "Guides" (reference
+## lines for the editor: dropped here) and "Objects" (mechanisms, each a scene with its own script; world positions).
+func _scenery_scene() -> Node:
+	var s: Node = load("res://scenes/levels/%s.tscn" % level_name).instantiate()
+	var guides := s.get_node_or_null("Guides")
+	if guides != null:
+		s.remove_child(guides)
+		guides.free()
+	return s
 
 func _build(d: Dictionary) -> void:
 	size = Vector2(d.size[0], d.size[1])
-	var far_layer := CanvasLayer.new()
-	far_layer.layer = -1
-	add_child(far_layer)
-	_far = Sprite2D.new()
-	_far.centered = false
-	_far.texture = load(d.textures[d.far.tex].res)
+	var scenery := _scenery_scene()
+	var sky := scenery.get_node_or_null("Background/Sky") as Sprite2D
+	if sky != null:
+		# the sky picture is part of the hand-made scene: its Background layer (-2) goes into the level as it is
+		var bg := scenery.get_node("Background")
+		scenery.remove_child(bg)
+		add_child(bg)
+		_far = sky
+	else:
+		var far_layer := CanvasLayer.new()
+		far_layer.layer = -2   # (a stage's lighting puts its mist between this and the world)
+		add_child(far_layer)
+		_far = Sprite2D.new()
+		_far.centered = false
+		_far.texture = load(d.textures[d.far.tex].res)
+		far_layer.add_child(_far)
 	_far_width = _far.texture.get_width()
-	far_layer.add_child(_far)
+	_far_x0 = _far.position.x
 
 	world = Node2D.new()
 	world.name = "World"
 	add_child(world)
-	var art := Node2D.new()
-	art.name = "Art"
-	art.z_index = Layers.Z_ART
+	var art := scenery.get_node("Art")
+	var ground := scenery.get_node("Ground")
+	scenery.remove_child(art)
+	scenery.remove_child(ground)
+	var objects := scenery.get_node_or_null("Objects")
+	if objects != null:
+		scenery.remove_child(objects)
+		world.add_child(objects)
+	scenery.free()
 	world.add_child(art)
-	var ground := Node2D.new()
-	ground.name = "Ground"
-	ground.z_index = Layers.Z_GROUND
 	world.add_child(ground)
-	for leaf in d.art:
-		var info: Dictionary = d.textures[leaf[0]]
-		var sp := Sprite2D.new()
-		sp.centered = false
-		sp.texture = load(info.res)
-		sp.transform = _xf(leaf[1], info)
-		if leaf.size() > 4:
-			# a piece of a bitmap (or a strip of the same tile repeating): the artist's own tiles, not a rasterised shape
-			var r: Array = leaf[4]
-			sp.region_enabled = true
-			sp.region_rect = Rect2(r[0], r[1], r[2], r[3])
-			if int(r[4]) == 1:
-				sp.texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
-		if leaf[2] != null:
-			var ct: Array = leaf[2]
-			sp.modulate = Color(ct[0] + ct[4] / 255.0, ct[1] + ct[5] / 255.0, ct[2] + ct[6] / 255.0, clampf(ct[3] + ct[7] / 255.0, 0, 1))
-		(ground if leaf.size() > 3 and leaf[3] == 1 else art).add_child(sp)
-
 	_build_ground(d.walls)
 	for w in d.walls:
 		if _is_ground(w):
 			continue
+		if w.cls == "export.Boat" and world.has_node("Objects/Boat"):
+			continue   # the stage scene has its own boat (scenes/objects/boat.tscn)
 		var body := AnimatableBody2D.new()   # static unless a stage script moves it
 		body.z_index = Layers.Z_MECHANISM            # art a stage script hangs on it (boat, platforms)
 		body.sync_to_physics = false         # scripts move it directly in the physics step
@@ -297,8 +306,6 @@ func _build(d: Dictionary) -> void:
 	for s in sorted:
 		stops.append({"x": float(s.x), "back": float(s.back), "spawners": [], "done": false})
 	_end_x = minf(size.x, float(stops[-1].x)) if not stops.is_empty() else size.x
-	_close_edge_slivers(art)
-	_close_edge_slivers(ground)
 	if stage == ARENA and arena_boss != null and not stops.is_empty():
 		var boss := arena_boss.duplicate()
 		boss.is_boss = true
@@ -317,8 +324,7 @@ func _build(d: Dictionary) -> void:
 
 	for dd in d.doors:
 		if dd.kind != "exit_door":
-			features.append(dd)
-			continue
+			continue   # (the other doors are mechanism scenes in the stage scene's Objects)
 		door = Rig.create("exit_door")
 		door.z_index = Layers.Z_EXIT   # in front of the floor art (9-1: the bridge rail would cover it) but behind the actors
 		door.position = Vector2(dd.pos[0], dd.pos[1])
@@ -404,36 +410,13 @@ func _warm_rigs(d: Dictionary) -> void:
 				if a.projectile != "":
 					bodies[a.projectile] = true
 	var names: Array = WARM_COMMON.duplicate()
-	var all := DirAccess.get_directories_at("res://assets/rigs")
+	var all := DirAccess.get_directories_at("res://scenes/actors")
 	for b in bodies:
 		for r in all:
 			if r == b or r.begins_with(b):
 				names.append(r)
 	Rig.warm(names)
 
-## Some stages' art stops a few pixels short of the playable view (5-3: 4 px at the left, 1 px under the floor),
-## letting the far background show as a thin line. Pieces spanning the view whose edge falls just inside it are
-## stretched by those few pixels to reach the edge.
-const EDGE_SLIVER := 6.0
-
-func _close_edge_slivers(art: Node2D) -> void:
-	for sp: Sprite2D in art.get_children():
-		var r: Rect2 = sp.transform * Rect2(Vector2.ZERO, sp.region_rect.size if sp.region_enabled else sp.texture.get_size())
-		if r.size.x < Layers.VIEW.x:
-			continue
-		var grow := Rect2(r)
-		if r.position.x > 0.0 and r.position.x <= EDGE_SLIVER:
-			grow = grow.expand(Vector2(0.0, r.position.y))
-		if r.end.x < _end_x and r.end.x >= _end_x - EDGE_SLIVER:
-			grow = grow.expand(Vector2(_end_x, r.position.y))
-		if r.end.y < Layers.VIEW.y and r.end.y >= Layers.VIEW.y - EDGE_SLIVER:
-			grow = grow.expand(Vector2(r.position.x, Layers.VIEW.y))
-		if grow != r:
-			# map the old rect onto the grown one (a tiny stretch, invisible on art this size)
-			var k := grow.size / r.size
-			sp.transform = Transform2D(0.0, k, 0.0, grow.position - r.position * k) * sp.transform
-
-## Monster numbers for this scene (a scene may make a monster its boss with different stats).
 func monster_data(id: int) -> MonsterData:
 	for p in ["res://data/monsters/monster_%d_%s.tres" % [id, level_name], "res://data/monsters/monster_%d.tres" % id]:
 		if ResourceLoader.exists(p):
@@ -480,6 +463,9 @@ func _unhandled_input(e: InputEvent) -> void:
 	elif e.is_action_pressed("debug_invincible"):
 		GameState.debug_god = not GameState.debug_god
 		toast("无敌：" + ("开（不扣血、不被击退）" if GameState.debug_god else "关"))
+	elif e.is_action_pressed("debug_monster_glow"):
+		GameState.debug_monster_glow = not GameState.debug_monster_glow
+		toast("敌人无敌辉光：" + ("开" if GameState.debug_monster_glow else "关"))
 	elif e.is_action_pressed("debug_refill") and is_instance_valid(hero):
 		hero.refill()
 		hero.rage = hero.data.rage_max
@@ -504,8 +490,7 @@ func _update_stops(delta: float) -> void:
 	s.done = true
 	stop_index += 1
 	if stop_index < stops.size() and not fixed_camera:   # a fixed-camera room has nowhere to go on to
-		auto_scroll = true
-		gogo.emit()
+		gogo.emit()   # the way on opens; the camera keeps following the hero (no forced scroll)
 	elif not _has_boss_spawner():
 		open_door()   # stages without a boss open as soon as the last stop is cleared
 
@@ -522,8 +507,43 @@ func add_monster(m: Monster) -> void:
 	add_object(m)
 	if m.data.is_boss:
 		boss_spawned.emit(m)
+		m.died.connect(func(_m): bullet_time())   # (a boss that revives or changes form has not died yet)
 	if script_node:
 		script_node.on_monster_added(m)
+
+# ------------------------------------------------------------------ bullet time
+## Slow motion when a boss dies: the game drops to BULLET_TIME_SCALE at once, holds it, then eases back. Every boss
+## that dies starts it again from the start (several bosses in a room each get theirs). Real-time, so the slow-down
+## does not lengthen itself; it scales whatever time scale was set before (debug fast-forward stays as it was).
+const BULLET_TIME_SCALE := 0.2
+const BULLET_TIME_HOLD := 0.7   ## seconds of real time at full slow-down
+const BULLET_TIME_EASE := 0.8   ## seconds of real time to come back to normal speed
+
+static var bullet_time_on := true   ## off for frame-exact test runs (tools/ai_trace)
+
+var _bt_base := 1.0
+var _bt_tween: Tween
+
+func bullet_time() -> void:
+	if not bullet_time_on:
+		return
+	if _bt_tween == null:
+		_bt_base = Engine.time_scale
+	else:
+		_bt_tween.kill()
+	Engine.time_scale = _bt_base * BULLET_TIME_SCALE
+	_bt_tween = create_tween().set_ignore_time_scale(true).set_process_mode(Tween.TWEEN_PROCESS_IDLE)
+	_bt_tween.tween_interval(BULLET_TIME_HOLD)
+	_bt_tween.tween_method(func(k: float): Engine.time_scale = _bt_base * k, BULLET_TIME_SCALE, 1.0, BULLET_TIME_EASE) 		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	_bt_tween.tween_callback(_end_bullet_time)
+
+func _end_bullet_time() -> void:
+	if _bt_tween == null:
+		return
+	if _bt_tween.is_valid():
+		_bt_tween.kill()
+	_bt_tween = null
+	Engine.time_scale = _bt_base
 
 ## A boss finished dying: the exit opens once no other boss is left (Monster33/34 share a room).
 func boss_destroyed(m: Monster) -> void:
@@ -550,9 +570,10 @@ func boss_destroyed(m: Monster) -> void:
 ##    back (Camera2D drag margins);
 ##  - a room closes the screen on its stop: the camera cannot show anything right of the stop until the room is cleared
 ##    (limit_right), and the hero can only go back a set distance from where the room closed (limit_left);
-##  - once a room is cleared the camera runs ahead on its own (hero speed + 240 px/s) until the hero is back at the
-##    auto line, so the way on opens by itself (limit_left rising);
-##  - the last room's right edge is the stage's end.
+##  - once a room is cleared the way on opens (GOGO) and the camera simply follows the hero again;
+##  - the last room's right edge is the stage's end;
+##  - it does not snap to its target: it eases towards it (Camera2D position smoothing, an exponential lerp), so starts and
+##    stops of the hero and the room opening / closing move the view softly. The limits still hold at every frame.
 
 func _make_camera() -> void:
 	camera = Camera2D.new()
@@ -567,6 +588,8 @@ func _make_camera() -> void:
 	camera.limit_top = 0
 	camera.limit_bottom = int(Layers.VIEW.y)
 	camera.limit_smoothed = false
+	camera.position_smoothing_enabled = true   # the camera eases towards where it wants to be (lerp), instead of snapping to the hero
+	camera.position_smoothing_speed = CAMERA_SMOOTHING
 	# the stage opens on its first screen: no glide in from wherever the hero was placed
 	_right_cap = minf(Layers.VIEW.x, size.x)
 	camera.limit_left = 0
@@ -585,6 +608,7 @@ func _lock_room() -> void:
 ## The camera never moves faster than this (the original follows at the hero's own speed): when a room opens the
 ## screen glides on instead of jumping to the hero.
 const CAMERA_MAX_SPEED := 720.0
+const CAMERA_SMOOTHING := 4.0   ## how fast the camera eases to its target (per second; higher = tighter)
 
 func _update_camera(delta: float) -> void:
 	if fixed_camera:
@@ -622,7 +646,7 @@ func _update_camera(delta: float) -> void:
 	camera.offset.x = _shake
 	_shake = 0.0
 	if _end_x > Layers.VIEW.x:
-		_far.position.x = -view_x * (_far_width - Layers.VIEW.x) / (_end_x - Layers.VIEW.x)
+		_far.position.x = _far_x0 - view_x * (_far_width - Layers.VIEW.x) / (_end_x - Layers.VIEW.x)
 
 func _draw_debug() -> void:
 	if not debug_boxes:

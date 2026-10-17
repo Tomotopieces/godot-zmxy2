@@ -1,0 +1,48 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://bcpy8tnbo8vos" path="res://src/rig/rig.gd" id="1_sdeu8"]
+[ext_resource type="Texture2D" path="res://assets/rigs/fabao_wudu_thunder_big/tex/Common_v7_196.png" id="2_jbpso"]
+[ext_resource type="AnimationLibrary" path="res://scenes/actors/fabao_wudu_thunder_big/fabao_wudu_thunder_big_actions.tres" id="3_jt1yf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ydoy"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yqbeo"]
+resource_local_to_scene = true
+
+[node name="FabaoWuduThunderBig" type="Node2D" unique_id=1319694366]
+script = ExtResource("1_sdeu8")
+actions = PackedStringArray("default")
+
+[node name="Poses" type="Node2D" parent="." unique_id=221502483]
+
+[node name="Default" type="Node2D" parent="Poses" unique_id=2083639458]
+visible = false
+
+[node name="DefaultPart1" type="Sprite2D" parent="Poses/Default" unique_id=273414866]
+position = Vector2(-409, -113.95599)
+scale = Vector2(0.34, 0.34)
+texture = ExtResource("2_jbpso")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=897730193]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1205397533]
+shape = SubResource("RectangleShape2D_4ydoy")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=382449947]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1786611877]
+shape = SubResource("RectangleShape2D_yqbeo")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=103771362]
+callback_mode_process = 0
+libraries/ = ExtResource("3_jt1yf")

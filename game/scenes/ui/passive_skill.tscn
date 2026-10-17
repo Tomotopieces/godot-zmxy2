@@ -1,0 +1,188 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/ui/ui_layout.gd" id="1_ul20n"]
+[ext_resource type="Texture2D" path="res://assets/shared/ui/OtherMat_v10_588.png" id="2_vjf1f"]
+[ext_resource type="Texture2D" path="res://assets/shared/ui/OtherMat_v10_590.png" id="3_3koa5"]
+
+[node name="passive_skill" type="Control" unique_id=808704861]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_ul20n")
+
+[node name="Art" type="Node2D" parent="." unique_id=1594192437]
+
+[node name="OtherMat_v10_588" type="Sprite2D" parent="Art" unique_id=222180983]
+position = Vector2(16, 5.1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_vjf1f")
+centered = false
+metadata/tex_key = "OtherMat_v10:588"
+
+[node name="btn" type="Control" parent="." unique_id=1549745905]
+anchors_preset = 0
+offset_left = 555.95
+offset_top = -2.25
+offset_right = 603.95
+offset_bottom = 23.75
+mouse_default_cursor_shape = 2
+metadata/ui_piece = ["btn"]
+metadata/ui_button = "btn"
+metadata/pad_seq = 34
+
+[node name="Up" type="Node2D" parent="btn" unique_id=1637547030]
+position = Vector2(24, 13)
+
+[node name="OtherMat_v10_590" type="Sprite2D" parent="btn/Up" unique_id=1643405027]
+position = Vector2(-24, -13)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_3koa5")
+centered = false
+metadata/tex_key = "OtherMat_v10:590"
+
+[node name="Over" type="Node2D" parent="btn" unique_id=1409879682]
+visible = false
+modulate = Color(1.3, 1.15, 1, 1)
+position = Vector2(24, 13)
+
+[node name="OtherMat_v10_590" type="Sprite2D" parent="btn/Over" unique_id=1430918778]
+position = Vector2(-24, -13)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_3koa5")
+centered = false
+metadata/tex_key = "OtherMat_v10:590"
+
+[node name="Down" type="Node2D" parent="btn" unique_id=629176704]
+visible = false
+position = Vector2(24, 13)
+
+[node name="OtherMat_v10_590" type="Sprite2D" parent="btn/Down" unique_id=1170774550]
+position = Vector2(-24, -13)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_3koa5")
+centered = false
+metadata/tex_key = "OtherMat_v10:590"
+
+[node name="wantlh" type="Label" parent="." unique_id=646087092]
+layout_mode = 0
+offset_left = 650.95
+offset_top = -4.55
+offset_right = 730.9
+offset_bottom = 23.75
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+horizontal_alignment = 1
+metadata/rec = {
+"align": "center",
+"b": {
+"h": 28.3,
+"w": 79.95,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"m": [1.0, 0.0, 0.0, 1.0, 652.95, -1.95],
+"multiline": true,
+"name": "wantlh",
+"size": 15.0,
+"text": "",
+"type": "text",
+"var": "",
+"wrap": true
+}
+metadata/ui_piece = ["wantlh"]
+
+[node name="curslevel" type="Label" parent="." unique_id=1962116253]
+layout_mode = 0
+offset_left = 87.0
+offset_top = -0.5000001
+offset_right = 145.0
+offset_bottom = 27.8
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+horizontal_alignment = 1
+metadata/rec = {
+"align": "center",
+"b": {
+"h": 28.3,
+"w": 58.0,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"m": [1.0, 0.0, 0.0, 1.0, 89.0, 2.1],
+"multiline": true,
+"name": "curslevel",
+"size": 15.0,
+"text": "",
+"type": "text",
+"var": "",
+"wrap": true
+}
+metadata/ui_piece = ["curslevel"]
+
+[node name="attvalue" type="Label" parent="." unique_id=734258676]
+layout_mode = 0
+offset_left = 353.95
+offset_top = 0.15
+offset_right = 533.95
+offset_bottom = 21.8
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+horizontal_alignment = 1
+metadata/rec = {
+"align": "center",
+"b": {
+"h": 21.65,
+"w": 180.0,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"m": [1.0, 0.0, 0.0, 1.0, 355.95, 2.75],
+"multiline": true,
+"name": "attvalue",
+"size": 15.0,
+"text": "",
+"type": "text",
+"var": "",
+"wrap": true
+}
+metadata/ui_piece = ["attvalue"]
+
+[node name="lastvalue" type="Label" parent="." unique_id=1480265532]
+layout_mode = 0
+offset_left = 170.0
+offset_top = -0.5000001
+offset_right = 336.95
+offset_bottom = 21.15
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+horizontal_alignment = 1
+metadata/rec = {
+"align": "center",
+"b": {
+"h": 21.65,
+"w": 166.95,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"m": [1.0, 0.0, 0.0, 1.0, 172.0, 2.1],
+"multiline": true,
+"name": "lastvalue",
+"size": 15.0,
+"text": "",
+"type": "text",
+"var": "",
+"wrap": true
+}
+metadata/ui_piece = ["lastvalue"]

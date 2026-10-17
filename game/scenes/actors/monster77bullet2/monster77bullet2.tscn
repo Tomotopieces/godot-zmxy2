@@ -1,0 +1,84 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://bcpy8tnbo8vos" path="res://src/rig/rig.gd" id="1_bywd6"]
+[ext_resource type="Shader" path="res://src/rig/sprite_fx.gdshader" id="2_auv86"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/10_270.png" id="3_83hg0"]
+[ext_resource type="AnimationLibrary" path="res://scenes/actors/monster77bullet2/monster77bullet2_actions.tres" id="4_rlg77"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wrlmr"]
+shader = ExtResource("2_auv86")
+shader_parameter/matrix_on = true
+shader_parameter/color_matrix = Projection(0.38050616, 0.24371396, -0.5849221, 0, -0.24667287, 0.9691282, 1.0274664, 0, 0.8661667, -0.21284215, 0.55745566, 0, 0, 0, 0, 1)
+shader_parameter/color_offset = Vector4(0, 0, 0, 0)
+shader_parameter/blur = null
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jlg8f"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k882u"]
+resource_local_to_scene = true
+
+[node name="Monster77Bullet2" type="Node2D" unique_id=690825677]
+script = ExtResource("1_bywd6")
+actions = PackedStringArray("default")
+
+[node name="Poses" type="Node2D" parent="." unique_id=1708395343]
+
+[node name="Default" type="Node2D" parent="Poses" unique_id=1133269027]
+visible = false
+
+[node name="DefaultPart1" type="Sprite2D" parent="Poses/Default" unique_id=1893508516]
+material = SubResource("ShaderMaterial_wrlmr")
+position = Vector2(-39, 54.4)
+rotation = -1.5707964
+scale = Vector2(0.3845, 0.3845)
+texture = ExtResource("3_83hg0")
+centered = false
+
+[node name="DefaultPart2" type="Sprite2D" parent="Poses/Default" unique_id=1758355668]
+material = SubResource("ShaderMaterial_wrlmr")
+position = Vector2(-41.988, -24.229)
+rotation = -1.1914963
+scale = Vector2(0.38485387, 0.38485387)
+texture = ExtResource("3_83hg0")
+centered = false
+
+[node name="DefaultPart3" type="Sprite2D" parent="Poses/Default" unique_id=1110366151]
+material = SubResource("ShaderMaterial_wrlmr")
+position = Vector2(-41.988, 31.929)
+rotation = 1.1914963
+scale = Vector2(0.38485387, -0.38485387)
+texture = ExtResource("3_83hg0")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1666910149]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1777224401]
+shape = SubResource("RectangleShape2D_jlg8f")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=106303488]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1384762598]
+shape = SubResource("RectangleShape2D_k882u")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=472802367]
+callback_mode_process = 0
+libraries/ = ExtResource("4_rlg77")

@@ -1,7 +1,10 @@
 extends Node
 ## Game root: switches between title, stage map and play screens.
 
+const STAGE_MAP := preload("res://scenes/screens/stage_map.tscn")
+
 var _screen: Node
+@onready var _title: MainMenu = $Title   ## the title screen lives in main.tscn itself; hidden while another screen is up
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -9,7 +12,8 @@ func _ready() -> void:
 	add_child(PadNav.new())
 	if OS.is_debug_build():   # debug aids are not part of exported (release) builds
 		add_child(DebugConsole.new())   # ~ lists every item
-	show_menu()
+	_title.new_game.connect(show_select_role)
+	_title.continued.connect(show_map)
 
 func _unhandled_key_input(e: InputEvent) -> void:
 	if e is InputEventKey and e.pressed and not e.echo and e.keycode == KEY_F11:
@@ -23,14 +27,24 @@ func _swap(n: Node) -> void:
 	if _screen:
 		_screen.queue_free()
 	get_tree().paused = false
+	_set_title(false)
 	_screen = n
 	add_child(n)
 
 func show_menu() -> void:
-	var m := MainMenu.new()
-	m.new_game.connect(show_select_role)
-	m.continued.connect(show_map)
-	_swap(m)
+	if _screen:
+		_screen.queue_free()
+		_screen = null
+	get_tree().paused = false
+	_set_title(true)
+	_title.shown()
+
+func _set_title(on: bool) -> void:
+	if not on:
+		_title.close_popup()
+	_title.visible = on
+	_title.get_node("Menu").visible = on   # (a hidden CanvasLayer still counts its Controls as visible: the pad would find them)
+	_title.process_mode = Node.PROCESS_MODE_INHERIT if on else Node.PROCESS_MODE_DISABLED
 
 ## New game, step 1: choose the hero.
 func show_select_role() -> void:
@@ -52,7 +66,7 @@ func _after_new_game() -> void:
 	_swap(c)
 
 func show_map() -> void:
-	var m := StageMap.new()
+	var m: StageMap = STAGE_MAP.instantiate()
 	m.play.connect(start_stage)
 	m.to_menu.connect(show_menu)
 	_swap(m)

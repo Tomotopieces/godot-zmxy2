@@ -1,0 +1,447 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://bcpy8tnbo8vos" path="res://src/rig/rig.gd" id="1_7i88x"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster52/tex/1_v6_91.png" id="2_n81g5"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster52/tex/1_v6_92.png" id="3_1tehy"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster52/tex/1_v6_96.png" id="4_l070k"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster52/tex/1_v6_97.png" id="5_jyhsq"]
+[ext_resource type="AnimationLibrary" path="res://scenes/actors/monster52/monster52_actions.tres" id="6_3b0yj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vb00t"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_twqrd"]
+resource_local_to_scene = true
+
+[node name="Monster52" type="Node2D" unique_id=1208920650]
+script = ExtResource("1_7i88x")
+actions = PackedStringArray("walk", "wait1", "wait2", "wait3", "wait4", "wait5", "hurt", "dead", "wait")
+
+[node name="Poses" type="Node2D" parent="." unique_id=1400461716]
+
+[node name="Walk" type="Node2D" parent="Poses" unique_id=961020268]
+visible = false
+
+[node name="WalkPart1" type="Sprite2D" parent="Poses/Walk" unique_id=742853313]
+position = Vector2(-298.8, -105.75)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_n81g5")
+centered = false
+
+[node name="WalkPart2" type="Sprite2D" parent="Poses/Walk" unique_id=1658065879]
+position = Vector2(-124.09509, 73.8049)
+scale = Vector2(0.3065, 0.3065)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="WalkPart3" type="Sprite2D" parent="Poses/Walk" unique_id=1815437309]
+position = Vector2(258.9067, 61.779495)
+scale = Vector2(0.4395, 0.4575)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="WalkPart4" type="Sprite2D" parent="Poses/Walk" unique_id=1062883309]
+position = Vector2(-64.4433, -77.5705)
+scale = Vector2(0.4395, 0.4575)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="WalkPart5" type="Sprite2D" parent="Poses/Walk" unique_id=503705689]
+position = Vector2(23.306702, 32.3795)
+scale = Vector2(0.4395, 0.4575)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="WalkPart6" type="Sprite2D" parent="Poses/Walk" unique_id=178309725]
+position = Vector2(-312.6933, 32.3795)
+scale = Vector2(0.4395, 0.4575)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="WalkPart7" type="Sprite2D" parent="Poses/Walk" unique_id=560427982]
+position = Vector2(-484.5, -210.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_l070k")
+centered = false
+
+[node name="Wait1" type="Node2D" parent="Poses" unique_id=500978037]
+visible = false
+
+[node name="Wait1Part1" type="Sprite2D" parent="Poses/Wait1" unique_id=1491924623]
+position = Vector2(-296.69998, -107.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_n81g5")
+centered = false
+
+[node name="Wait1Part2" type="Sprite2D" parent="Poses/Wait1" unique_id=1727018841]
+position = Vector2(-296.2305, 26.555756)
+scale = Vector2(0.3575, 0.3575)
+texture = ExtResource("5_jyhsq")
+centered = false
+
+[node name="Wait1Part3" type="Sprite2D" parent="Poses/Wait1" unique_id=155782438]
+position = Vector2(-121.9951, 72.0049)
+scale = Vector2(0.3065, 0.3065)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="Wait1Part4" type="Sprite2D" parent="Poses/Wait1" unique_id=1967024322]
+position = Vector2(261.0067, 59.979492)
+scale = Vector2(0.4395, 0.4575)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="Wait1Part5" type="Sprite2D" parent="Poses/Wait1" unique_id=1988826821]
+position = Vector2(-62.3433, -79.3705)
+scale = Vector2(0.4395, 0.4575)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="Wait1Part6" type="Sprite2D" parent="Poses/Wait1" unique_id=189956135]
+position = Vector2(25.4067, 30.579498)
+scale = Vector2(0.4395, 0.4575)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="Wait1Part7" type="Sprite2D" parent="Poses/Wait1" unique_id=2050610612]
+position = Vector2(-484.5, -210.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_l070k")
+centered = false
+
+[node name="Wait2" type="Node2D" parent="Poses" unique_id=569590161]
+visible = false
+
+[node name="Wait2Part1" type="Sprite2D" parent="Poses/Wait2" unique_id=1054284604]
+position = Vector2(-295.34998, -107.2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_n81g5")
+centered = false
+
+[node name="Wait2Part2" type="Sprite2D" parent="Poses/Wait2" unique_id=1805588798]
+position = Vector2(-126.9305, 64.555756)
+scale = Vector2(0.3575, 0.3575)
+texture = ExtResource("5_jyhsq")
+centered = false
+
+[node name="Wait2Part3" type="Sprite2D" parent="Poses/Wait2" unique_id=987336325]
+position = Vector2(-300.8822, 24.917805)
+scale = Vector2(0.343, 0.343)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="Wait2Part4" type="Sprite2D" parent="Poses/Wait2" unique_id=1841512567]
+position = Vector2(262.3567, 60.3295)
+scale = Vector2(0.4395, 0.4575)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="Wait2Part5" type="Sprite2D" parent="Poses/Wait2" unique_id=1120010453]
+position = Vector2(-60.993298, -79.0205)
+scale = Vector2(0.4395, 0.4575)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="Wait2Part6" type="Sprite2D" parent="Poses/Wait2" unique_id=2111581183]
+position = Vector2(26.756699, 30.929497)
+scale = Vector2(0.4395, 0.4575)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="Wait2Part7" type="Sprite2D" parent="Poses/Wait2" unique_id=41677126]
+position = Vector2(-484.5, -210.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_l070k")
+centered = false
+
+[node name="Wait3" type="Node2D" parent="Poses" unique_id=520448338]
+visible = false
+
+[node name="Wait3Part1" type="Sprite2D" parent="Poses/Wait3" unique_id=87317145]
+position = Vector2(-296.4, -106.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_n81g5")
+centered = false
+
+[node name="Wait3Part2" type="Sprite2D" parent="Poses/Wait3" unique_id=1091460829]
+position = Vector2(-68.0699, -100.14215)
+scale = Vector2(0.4185, 0.4185)
+texture = ExtResource("5_jyhsq")
+centered = false
+
+[node name="Wait3Part3" type="Sprite2D" parent="Poses/Wait3" unique_id=1321748253]
+position = Vector2(-301.9322, 25.567806)
+scale = Vector2(0.343, 0.343)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="Wait3Part4" type="Sprite2D" parent="Poses/Wait3" unique_id=934758198]
+position = Vector2(261.3067, 60.979492)
+scale = Vector2(0.4395, 0.4575)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="Wait3Part5" type="Sprite2D" parent="Poses/Wait3" unique_id=1716905511]
+position = Vector2(-119.0679, 80.630005)
+scale = Vector2(0.2885, 0.3)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="Wait3Part6" type="Sprite2D" parent="Poses/Wait3" unique_id=1162261098]
+position = Vector2(25.706703, 31.579498)
+scale = Vector2(0.4395, 0.4575)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="Wait3Part7" type="Sprite2D" parent="Poses/Wait3" unique_id=1446601224]
+position = Vector2(-484.5, -210.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_l070k")
+centered = false
+
+[node name="Wait4" type="Node2D" parent="Poses" unique_id=1664498688]
+visible = false
+
+[node name="Wait4Part1" type="Sprite2D" parent="Poses/Wait4" unique_id=212174871]
+position = Vector2(-298.4, -104.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_n81g5")
+centered = false
+
+[node name="Wait4Part2" type="Sprite2D" parent="Poses/Wait4" unique_id=463568501]
+position = Vector2(22.893005, 21.8255)
+scale = Vector2(0.455, 0.455)
+texture = ExtResource("5_jyhsq")
+centered = false
+
+[node name="Wait4Part3" type="Sprite2D" parent="Poses/Wait4" unique_id=945898417]
+position = Vector2(-303.9322, 27.567806)
+scale = Vector2(0.343, 0.343)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="Wait4Part4" type="Sprite2D" parent="Poses/Wait4" unique_id=1682652808]
+position = Vector2(259.3067, 62.979492)
+scale = Vector2(0.4395, 0.4575)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="Wait4Part5" type="Sprite2D" parent="Poses/Wait4" unique_id=99092969]
+position = Vector2(-121.0679, 82.630005)
+scale = Vector2(0.2885, 0.3)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="Wait4Part6" type="Sprite2D" parent="Poses/Wait4" unique_id=1671105078]
+position = Vector2(-62.293297, -89.970505)
+scale = Vector2(0.4395, 0.4575)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="Wait4Part7" type="Sprite2D" parent="Poses/Wait4" unique_id=1945419331]
+position = Vector2(-484.5, -210.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_l070k")
+centered = false
+
+[node name="Wait5" type="Node2D" parent="Poses" unique_id=1117230061]
+visible = false
+
+[node name="Wait5Part1" type="Sprite2D" parent="Poses/Wait5" unique_id=1448289875]
+position = Vector2(-301.4, -110.35)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_n81g5")
+centered = false
+
+[node name="Wait5Part2" type="Sprite2D" parent="Poses/Wait5" unique_id=1136837687]
+position = Vector2(256.893, 61.525505)
+scale = Vector2(0.455, 0.455)
+texture = ExtResource("5_jyhsq")
+centered = false
+
+[node name="Wait5Part3" type="Sprite2D" parent="Poses/Wait5" unique_id=808975050]
+position = Vector2(-306.9322, 21.767803)
+scale = Vector2(0.343, 0.343)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="Wait5Part4" type="Sprite2D" parent="Poses/Wait5" unique_id=2106524046]
+position = Vector2(31.306702, 30.179497)
+scale = Vector2(0.4395, 0.4575)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="Wait5Part5" type="Sprite2D" parent="Poses/Wait5" unique_id=1264477794]
+position = Vector2(-124.0679, 76.83)
+scale = Vector2(0.2885, 0.3)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="Wait5Part6" type="Sprite2D" parent="Poses/Wait5" unique_id=1389401739]
+position = Vector2(-65.2933, -95.7705)
+scale = Vector2(0.4395, 0.4575)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="Wait5Part7" type="Sprite2D" parent="Poses/Wait5" unique_id=1874800299]
+position = Vector2(-484.5, -210.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_l070k")
+centered = false
+
+[node name="Hurt" type="Node2D" parent="Poses" unique_id=1388361226]
+visible = false
+
+[node name="HurtPart1" type="Sprite2D" parent="Poses/Hurt" unique_id=1444645493]
+position = Vector2(-299.94998, -106.9)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_n81g5")
+centered = false
+
+[node name="HurtPart2" type="Sprite2D" parent="Poses/Hurt" unique_id=1077443925]
+position = Vector2(-125.2451, 72.65491)
+scale = Vector2(0.3065, 0.3065)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="HurtPart3" type="Sprite2D" parent="Poses/Hurt" unique_id=569120691]
+position = Vector2(257.7567, 60.6295)
+scale = Vector2(0.4395, 0.4575)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="HurtPart4" type="Sprite2D" parent="Poses/Hurt" unique_id=701616085]
+position = Vector2(-65.5933, -78.720505)
+scale = Vector2(0.4395, 0.4575)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="HurtPart5" type="Sprite2D" parent="Poses/Hurt" unique_id=1339563900]
+position = Vector2(22.1567, 31.2295)
+scale = Vector2(0.4395, 0.4575)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="HurtPart6" type="Sprite2D" parent="Poses/Hurt" unique_id=447848553]
+position = Vector2(-313.8433, 31.2295)
+scale = Vector2(0.4395, 0.4575)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="HurtPart7" type="Sprite2D" parent="Poses/Hurt" unique_id=790004880]
+position = Vector2(-484.5, -210.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_l070k")
+centered = false
+
+[node name="Dead" type="Node2D" parent="Poses" unique_id=1999790383]
+visible = false
+
+[node name="DeadPart1" type="Sprite2D" parent="Poses/Dead" unique_id=347670237]
+position = Vector2(-297.94998, -104.95)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_n81g5")
+centered = false
+
+[node name="DeadPart2" type="Sprite2D" parent="Poses/Dead" unique_id=2129123606]
+position = Vector2(-123.2451, 74.604904)
+scale = Vector2(0.3065, 0.3065)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="DeadPart3" type="Sprite2D" parent="Poses/Dead" unique_id=1548787447]
+position = Vector2(259.7567, 62.5795)
+scale = Vector2(0.4395, 0.4575)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="DeadPart4" type="Sprite2D" parent="Poses/Dead" unique_id=317486571]
+position = Vector2(-63.5933, -76.7705)
+scale = Vector2(0.4395, 0.4575)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="DeadPart5" type="Sprite2D" parent="Poses/Dead" unique_id=1798309772]
+position = Vector2(24.1567, 33.179497)
+scale = Vector2(0.4395, 0.4575)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="DeadPart6" type="Sprite2D" parent="Poses/Dead" unique_id=2028942430]
+position = Vector2(-311.8433, 33.179497)
+scale = Vector2(0.4395, 0.4575)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="DeadPart7" type="Sprite2D" parent="Poses/Dead" unique_id=819095264]
+position = Vector2(-484.5, -210.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_l070k")
+centered = false
+
+[node name="Wait" type="Node2D" parent="Poses" unique_id=1679259890]
+visible = false
+
+[node name="WaitPart1" type="Sprite2D" parent="Poses/Wait" unique_id=432306388]
+position = Vector2(-297.94998, -104.95)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_n81g5")
+centered = false
+
+[node name="WaitPart2" type="Sprite2D" parent="Poses/Wait" unique_id=1160213944]
+position = Vector2(-123.2451, 74.604904)
+scale = Vector2(0.3065, 0.3065)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="WaitPart3" type="Sprite2D" parent="Poses/Wait" unique_id=744080619]
+position = Vector2(259.7567, 62.5795)
+scale = Vector2(0.4395, 0.4575)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="WaitPart4" type="Sprite2D" parent="Poses/Wait" unique_id=1018563056]
+position = Vector2(-63.5933, -76.7705)
+scale = Vector2(0.4395, 0.4575)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="WaitPart5" type="Sprite2D" parent="Poses/Wait" unique_id=1378143738]
+position = Vector2(24.1567, 33.179497)
+scale = Vector2(0.4395, 0.4575)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="WaitPart6" type="Sprite2D" parent="Poses/Wait" unique_id=1323258407]
+position = Vector2(-311.8433, 33.179497)
+scale = Vector2(0.4395, 0.4575)
+texture = ExtResource("3_1tehy")
+centered = false
+
+[node name="WaitPart7" type="Sprite2D" parent="Poses/Wait" unique_id=1336352679]
+position = Vector2(-484.5, -210.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_l070k")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1825360764]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=595114063]
+shape = SubResource("RectangleShape2D_vb00t")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=950273524]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1378747668]
+shape = SubResource("RectangleShape2D_twqrd")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=921072034]
+callback_mode_process = 0
+libraries/ = ExtResource("6_3b0yj")

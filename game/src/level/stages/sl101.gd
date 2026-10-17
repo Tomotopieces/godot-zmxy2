@@ -3,23 +3,23 @@ extends StageScript
 ## its pointer; hitting both stones at (nearly) the same time opens what the pointer shows: door 1-4 lead to
 ## 10-2 .. 10-5, the fifth position opens the statue to 10-6. Press up in an open door to go.
 
-## The doors sit behind the hall art and show through its arches (added under the scene in the original); the statue stands in front of it.
-const BEHIND_ART := Layers.Z_BEHIND_ART
+## The doors are scenes of their own (scenes/objects/hub_door.tscn) placed in the stage scene (Objects/HubDoor1..4) behind
+## the hall art, so they show through its arches; the statue (Objects/HubStatue) stands in front of it. Their z_index and
+## their open timings are the scene's business, here only the selector / stones are still built from data/stages.json.
 
-var _doors: Array[Rig] = []      ## closed or open door rigs
-var _ready_doors := {}           ## door index -> true once it can be entered
-var _statue: Rig
-var _statue_ready := false
+var _doors: Array[HubDoor] = []  ## the four doors, in the selector's order
+var _statue: HubStatue
 var _selector: Monster
 var _stones: Array[Monster] = []
 var _cfg: Dictionary
 
 func setup() -> void:
 	_cfg = param("hub", {})
-	var y := float(_cfg.get("doors_y", 5))
-	for x in _cfg.get("doors_x", []):
-		_doors.append(place_rig("hub_door", Vector2(x, y), BEHIND_ART))
-	_statue = place_rig("hub_statue", Vector2(float(_cfg.get("statue_x", 220)), float(_cfg.get("statue_y", 5))), Layers.Z_MECHANISM)
+	for i in _cfg.get("levels", [2, 3, 4, 5]).size():
+		var door := level.world.get_node_or_null("Objects/HubDoor%d" % (i + 1)) as HubDoor
+		if door != null:
+			_doors.append(door)
+	_statue = level.world.get_node_or_null("Objects/HubStatue") as HubStatue
 	var sel: Array = _cfg.get("selector", [70, 450, 423])
 	_selector = _prop(sel)
 	for st in _cfg.get("stones", []):
@@ -47,31 +47,24 @@ func _physics_process(_delta: float) -> void:
 		_open_statue()
 
 func _open_door(i: int) -> void:
-	if _ready_doors.has(i):
+	if _doors[i].is_open():
 		return
-	_ready_doors[i] = false
-	var pos := _doors[i].position
-	_doors[i].queue_free()
-	_doors[i] = place_rig("hub_door_open", pos, BEHIND_ART)
-	get_tree().create_timer(float(_cfg.get("door_open", 0.65)), false).timeout.connect(func(): _ready_doors[i] = true)
+	_doors[i].open()
 
 func _open_statue() -> void:
-	if _statue_ready or _statue == null or not _statue.is_inside_tree():
+	if _statue == null or _statue.is_open():
 		return
 	if is_instance_valid(_selector):
 		_selector.queue_free()
-	var pos := _statue.position
-	_statue.queue_free()
-	_statue = place_rig("hub_statue_open", pos, Layers.Z_MECHANISM)
-	get_tree().create_timer(float(_cfg.get("statue_open", 1.0)), false).timeout.connect(func(): _statue_ready = true)
+	_statue.open()
 
 func on_up(_hero: Hero) -> bool:
 	var levels: Array = _cfg.get("levels", [2, 3, 4, 5])
-	for i in _doors.size():
-		if _ready_doors.get(i, false) and hero_in(_doors[i].hit_rect()):
-			level.go_to(Vector2i(10, int(levels[i])))
+	for door in _doors:
+		if door.ready_to_enter and door.index < levels.size() and hero_in(door.enter_world_rect()):
+			level.go_to(Vector2i(10, int(levels[door.index])))
 			return true
-	if _statue_ready and hero_in(_statue.hurt_rect()):   # its "colipse" box is the central slot
+	if _statue != null and _statue.ready_to_enter and hero_in(_statue.enter_world_rect()):   # its "colipse" box is the central slot
 		level.go_to(Vector2i(10, int(_cfg.get("statue_level", 6))))
 		return true
 	return false

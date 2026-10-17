@@ -20,8 +20,7 @@ func attack(_action: StringName = &"hit1") -> void:
 	m.attack_with(MELEE[Rng.randi() % MELEE.size()])
 
 func use_skill(action: StringName) -> void:
-	m.invuln = maxf(m.invuln, float(param("invuln_" + String(action), 0.0)))
-	m.attack_with(action)
+	act(action)   # (its invulnerable window ends when the move does: invuln_until_stand)
 	if action == &"hit2":
 		m.velocity.x = m.facing * float(param("dash_speed", 720))
 

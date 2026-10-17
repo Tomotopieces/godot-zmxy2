@@ -1,0 +1,74 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://bcpy8tnbo8vos" path="res://src/rig/rig.gd" id="1_ff4mu"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster32bullet1/tex/1_v6_147.png" id="2_wmjmu"]
+[ext_resource type="Shader" path="res://src/rig/sprite_fx.gdshader" id="3_kql6k"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster32bullet1/tex/1_v6_148.png" id="4_yqoeb"]
+[ext_resource type="AnimationLibrary" path="res://scenes/actors/monster32bullet1/monster32bullet1_actions.tres" id="5_d74m4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2qowc"]
+shader = ExtResource("3_kql6k")
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = 2.0
+shader_parameter/glow_on = true
+shader_parameter/glow_color = Color(1, 0, 0, 1)
+shader_parameter/glow_blur = 9.0
+shader_parameter/glow_strength = 1.4765625
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 10.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gl6tx"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xkw8n"]
+resource_local_to_scene = true
+
+[node name="Monster32Bullet1" type="Node2D" unique_id=327539570]
+script = ExtResource("1_ff4mu")
+actions = PackedStringArray("default")
+
+[node name="Poses" type="Node2D" parent="." unique_id=1907267981]
+
+[node name="Default" type="Node2D" parent="Poses" unique_id=1640582656]
+visible = false
+
+[node name="DefaultPart1" type="Sprite2D" parent="Poses/Default" unique_id=1407058871]
+position = Vector2(-0.6, -5.2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_wmjmu")
+centered = false
+
+[node name="DefaultPart2" type="Sprite2D" parent="Poses/Default" unique_id=980050218]
+material = SubResource("ShaderMaterial_2qowc")
+position = Vector2(-16.05, -25.3)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_yqoeb")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=367695765]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=485757972]
+shape = SubResource("RectangleShape2D_gl6tx")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1084925144]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1564061279]
+shape = SubResource("RectangleShape2D_xkw8n")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1886178112]
+callback_mode_process = 0
+libraries/ = ExtResource("5_d74m4")

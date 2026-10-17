@@ -14,7 +14,7 @@ enum Mode { ITEMS, TELEPORT, BOSS }
 const MODES := [["物品", Mode.ITEMS], ["传送", Mode.TELEPORT], ["Boss 战", Mode.BOSS]]
 ## [stage, what is there]: the stage rooms, with the boss each one ends on
 const STAGES := [
-	[Vector2i(1, 1), "鬼门关 · 守夜人"], [Vector2i(1, 2), "无常巷 · 黑白无常"], [Vector2i(1, 3), "鬼城"],
+	[Vector2i(1, 1), "鬼城 · 守夜人"], [Vector2i(1, 2), "无常巷 · 黑白无常"], [Vector2i(1, 3), "鬼门关"],
 	[Vector2i(2, 1), "秦广王"], [Vector2i(2, 2), "判官"], [Vector2i(2, 3), "阎罗王"],
 	[Vector2i(3, 1), "忘川河"], [Vector2i(3, 2), "夜叉"], [Vector2i(3, 3), "孟婆"],
 	[Vector2i(4, 1), "转轮王"], [Vector2i(5, 1), "白骨精"], [Vector2i(6, 1), "牛魔谷 · 红孩儿"],
@@ -165,11 +165,12 @@ func _row(d: EquipmentData) -> Button:
 	var b := Button.new()
 	b.alignment = HORIZONTAL_ALIGNMENT_LEFT
 	b.focus_mode = Control.FOCUS_NONE
-	b.icon = d.icon
-	b.expand_icon = true
-	b.add_theme_constant_override("icon_max_width", 34)
 	b.custom_minimum_size = Vector2(0, 38)
-	b.text = "%s    [%s]  %s · %s · %s" % [d.display_name, d.id, TYPE_NAMES.get(String(d.type), String(d.type)), d.quality,
+	var pic := ItemIcon.create(GameState.make_item(String(d.id)), 34.0).place(Vector2(2, 2))   # as in the bag
+	pic.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	b.add_child(pic)
+	b.add_theme_constant_override("h_separation", 0)
+	b.text = "          %s    [%s]  %s · %s · %s" % [d.display_name, d.id, TYPE_NAMES.get(String(d.type), String(d.type)), d.quality,
 		d.user if d.user != "" else "通用"]
 	b.add_theme_color_override("font_color", d.color if d.color.get_luminance() > 0.25 else Color.WHITE)
 	b.add_theme_color_override("font_hover_color", d.color.lightened(0.3) if d.color.get_luminance() > 0.25 else Color(1, 1, 0.7))

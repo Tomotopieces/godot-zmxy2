@@ -2,13 +2,14 @@ class_name Hero
 extends Actor
 ## A playable hero. This base class is Wukong: input, movement, 5-hit combo, skills (hit6-hit10), rage transform,
 ## getting hit. 唐僧 and 八戒 extend it (src/actors/heroes/) and override the hooks marked "virtual".
-## Numbers come from HeroData (baked from the original, px / seconds).
+## Numbers come from HeroData (data/<hero>.tres, px / seconds).
 
 enum State { MOVE, ATTACK, HURT, DEAD }
 
 const HERO_DIR := "res://src/actors/heroes/hero_%s.gd"
 const COMBO := [&"hit1", &"hit2", &"hit3", &"hit4", &"hit5"]
 const CANCEL_INTO_HIT8 := [&"hit1", &"hit2", &"hit3", &"hit4"]
+const HIT7_HOLD := 99.0   ## 烈焰闪: "until the dash stops" (cleared by its stop event, or when the move ends)
 const SCRIPTED_MOTION := [&"hit6", &"hit7", &"hit10"]   ## velocity comes from animation events
 const SOUNDS := {&"hit1": "Role1_hit1AndHit2", &"hit2": "Role1_hit1AndHit2", &"hit3": "Role1_hit3AndHit4",
 	&"hit4": "Role1_hit3AndHit4", &"hit5": "Role1_hit5", &"hit6": "Role1_hit6", &"hit7": "Role1_hit7",
@@ -41,6 +42,7 @@ var _last_attack_at := -100.0
 var _no_gravity := false
 var _no_input := false
 var _hit10_down := false
+var _hit10_land := false   ## 火魔斩's animation has run out while he is still falling: the move waits for the landing
 var _lock_count := 0
 var _last_hurt_at := -100.0
 var _rage_t := 0.0
@@ -48,7 +50,7 @@ var _drop_t := 0.0
 var debuffs := HeroDebuffs.new()   ## status effects set by monsters
 var _poison := [0.0, 1.0, 0.0]   ## power, tick (s), elapsed
 var held_by: Node = null   ## grabbed (setStatic + setLostKeyboard by a monster): no input, no own movement
-var _lock_glow := 0.0   ## anti-lock protection time left (the only invincibility the original shows)
+var _lock_glow := 0.0   ## anti-lock protection time left
 var treasure: Treasure  ## worn magic treasure following the hero (H)
 var controls_locked := false   ## stage over: no more input
 
@@ -67,7 +69,6 @@ func _ready() -> void:
 	_apply_appearance()
 	facing = 1
 	refill()
-	invincible = data.spawn_invincible
 	GameState.leveled_up.connect(_on_level_up)
 	GameState.equipment_changed.connect(_on_equipment_changed)
 	_sync_treasure.call_deferred()
@@ -127,6 +128,8 @@ func _physics_process(delta: float) -> void:
 	dealer.tick(delta)
 	cooldown = maxf(cooldown - delta, 0.0)
 	invincible = maxf(invincible - delta, 0.0)
+	if invincible > HIT7_HOLD / 2.0 and attack_action != &"hit7":
+		invincible = 0.0   # 烈焰闪's open-ended invincibility never outlives the move
 	_update_rage(delta)
 	_update_regen(delta)
 	debuffs.tick(delta)
@@ -302,6 +305,8 @@ func _begin(action: StringName) -> void:
 		&"hit6":
 			velocity.x = facing * (attack.rage_dash_speed if transformed else attack.dash_speed)
 			running = false   # the dash ends in a walk
+		&"hit7":
+			invincible = maxf(invincible, HIT7_HOLD)   # from the key press until the dash stops (set_vx 0 below)
 		&"hit10":
 			invincible = maxf(invincible, attack.invincible)
 
@@ -331,6 +336,9 @@ func _after_move() -> void:
 		jump_count = 0
 		if _hit10_down:
 			_hit10_slam()
+		if _hit10_land:   # the slam has come out: now the move is over
+			_hit10_land = false
+			_finish_action(attack_action)
 	if state == State.MOVE:
 		_pick_move_anim()
 
@@ -360,6 +368,8 @@ func _on_rig_event(n: StringName, args: Array) -> void:
 			_finish_action(rig.action)
 		&"set_vx":
 			velocity.x = args[0]
+			if attack_action == &"hit7" and float(args[0]) == 0.0:
+				invincible = 0.0   # 烈焰闪 stops: the invincibility ends before he stands
 		&"set_vy":
 			velocity.y = args[0]
 		&"set_vx_forward":
@@ -380,7 +390,6 @@ func _on_rig_event(n: StringName, args: Array) -> void:
 						return
 					Fx.spawn("fx_hit7_fire", global_position, facing)   # mirrors with the hero
 					velocity.x = facing * attack.dash_speed
-					invincible = maxf(invincible, attack.invincible)
 				"set_lost_graity":
 					_no_gravity = true
 				"set_lost_keyboard":
@@ -395,7 +404,8 @@ func _on_rig_event(n: StringName, args: Array) -> void:
 					invincible = maxf(invincible, data.attacks[&"hit10"].extra.flush_invincible)
 					_hit10_down = true
 				"add_hit10_and2":
-					_hit10_slam()
+					if is_on_floor():   # in the air the slam waits for the landing (see _hit10_land)
+						_hit10_slam()
 				_:
 					_on_hero_call(String(args[0]), args)
 
@@ -440,6 +450,7 @@ func _hit10_slam() -> void:
 	var ex: Dictionary = data.attacks[&"hit10"].extra
 	Snd.sfx("Role1_hit10_3")
 	var p := _skill_projectile("wukong_hit10_2", &"hit10_2", global_position)
+	invincible = 0.0   # the move's invincibility lasts until he lands
 	var s: float = ex.rage_slam_scale if transformed else ex.slam_scale
 	p.rig.scale = Vector2(s, s)
 	cooldown = ex.slam_cooldown
@@ -449,6 +460,11 @@ func _finish_action(action: StringName) -> void:
 		return
 	match state:
 		State.ATTACK:
+			if action == &"hit10" and _hit10_down and not is_on_floor():
+				# dived from so high that the animation ended in the air: hold the last frame until he lands, then slam
+				_hit10_land = true
+				return
+			_hit10_land = false
 			_no_gravity = false
 			_no_input = false
 			_hit10_down = false
@@ -512,6 +528,7 @@ func take_hit(h: Hit) -> bool:
 	hp = maxi(hp - dmg, 0)
 	DamageNumber.spawn("pnum", dmg, global_position + Vector2(-20, -60))
 	_apply_effects(h.attack.effects)
+	rig.flash(Color(1.0, 0.35, 0.3), 0.12)
 	Fx.spawn("fx_hero_hurt", center())
 	Snd.sfx(data.sound_prefix + "_beAttack")
 	add_rage(rage_for_damage(dmg))
@@ -528,6 +545,8 @@ func take_hit(h: Hit) -> bool:
 	else:
 		state = State.HURT
 		end_attack()
+		_hit10_down = false
+		_hit10_land = false
 		_no_gravity = false
 		_no_input = false
 		rig.play(&"hurt", true)
@@ -633,6 +652,13 @@ func add_rage(amount: float) -> void:
 		return
 	rage = clampf(rage + amount, 0.0, float(data.rage_max))
 
+## RoleInfo.addWarriors (a white soul): added even in the rage form, where it lengthens the time left; capped at the
+## maximum (the original added nothing at all when it would have gone past it).
+func add_orb_rage(amount: float) -> void:
+	if state == State.DEAD:
+		return
+	rage = minf(rage + amount, float(data.rage_max))
+
 func _update_rage(delta: float) -> void:
 	_rage_t += delta
 	if transformed:
@@ -690,14 +716,15 @@ var _glow_rig: Rig   ## the halo: a copy of the hero drawn behind, every sprite 
 var _glow_mat: ShaderMaterial
 var _glow_t := 0.0
 
-## BaseAddEffect.step: the glow exists while the rage form lasts or the anti-lock protection is on; both end it at once
-## (cancelGlow). The short invincible windows of skills show none.
+## BaseAddEffect.step: the glow exists while the rage form lasts (white) or while the hero cannot be hurt - the anti-lock
+## protection, and (unlike the original, which showed only that one) every other invincible window too: skills,
+## spawning, revival - all in the hero's colour.
 func _update_tint(delta: float) -> void:
 	var color := Color.TRANSPARENT
 	if state != State.DEAD:
 		if transformed:
 			color = Color.WHITE
-		elif _lock_glow > 0.0:
+		elif _lock_glow > 0.0 or invincible > 0.0:
 			color = GLOW_COLORS.get(data.sound_prefix, Color.WHITE)
 	if _lock_glow > 0.0:
 		_lock_glow -= delta

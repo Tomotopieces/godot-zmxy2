@@ -1,0 +1,76 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://bcpy8tnbo8vos" path="res://src/rig/rig.gd" id="1_qv64a"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/2_417.png" id="2_ub7yi"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/2_421.png" id="3_0y3jm"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/2_414.png" id="4_qbyi2"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/2_422.png" id="5_yebi6"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/2_425.png" id="6_fkaoi"]
+[ext_resource type="AnimationLibrary" path="res://scenes/actors/monster39_ready/monster39_ready_actions.tres" id="7_agxjx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hyuj4"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bwjh7"]
+resource_local_to_scene = true
+
+[node name="Monster39Ready" type="Node2D" unique_id=926213961]
+script = ExtResource("1_qv64a")
+actions = PackedStringArray("default")
+
+[node name="Poses" type="Node2D" parent="." unique_id=1887031994]
+
+[node name="Default" type="Node2D" parent="Poses" unique_id=852472064]
+visible = false
+
+[node name="DefaultPart1" type="Sprite2D" parent="Poses/Default" unique_id=1488385186]
+position = Vector2(-38.6, -5.1000004)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_ub7yi")
+centered = false
+
+[node name="DefaultPart2" type="Sprite2D" parent="Poses/Default" unique_id=1982151354]
+position = Vector2(-18.1, -55.75)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_0y3jm")
+centered = false
+
+[node name="DefaultPart3" type="Sprite2D" parent="Poses/Default" unique_id=1889697377]
+position = Vector2(-64.8, 15.550001)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_qbyi2")
+centered = false
+
+[node name="DefaultPart4" type="Sprite2D" parent="Poses/Default" unique_id=1126718887]
+position = Vector2(-23.2, 7.1000004)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_yebi6")
+centered = false
+
+[node name="DefaultPart5" type="Sprite2D" parent="Poses/Default" unique_id=853136720]
+position = Vector2(-25.75, -68.85)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_fkaoi")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=669305478]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1267965511]
+shape = SubResource("RectangleShape2D_hyuj4")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=332470126]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1677982466]
+shape = SubResource("RectangleShape2D_bwjh7")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=843409179]
+callback_mode_process = 0
+libraries/ = ExtResource("7_agxjx")

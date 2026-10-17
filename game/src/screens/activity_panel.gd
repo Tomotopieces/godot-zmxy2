@@ -5,8 +5,8 @@ extends CanvasLayer
 ##   国庆: 11-1 劈天斧 / 风神盾 (one of the two), once a day; each leaves a 1级强化石, 劈天斧 gives 攻击 +100 and 风神盾
 ##         防御 +50 for an hour. The way on is 刑天 -> 战神刑天 (刑天之翼).
 ##   中秋: no stage - every boss drops 小月饼 (the bag exchanges them); this page explains it and switches it on and off.
-## The 七夕 page is the original picture. The other two pages had no picture of their own in the files (国庆 follows the
-## later "战神刑天来袭" window), so they are laid out from the stage art, the monsters' own rigs and the items' icons.
+## 国庆 too shows the original picture (the later "战神刑天来袭" window). 中秋 had none, so its page is drawn
+## from the items' icons.
 
 signal play(stage: Vector2i)
 
@@ -17,7 +17,6 @@ const PAGES := [
 ]
 const FRAME := Rect2(85, 32, 773, 520)   ## the picture's frame, in layout space
 const DONE_TEXT := "您已经参加过活动了，请明天再来吧"
-const ORANGE := Color("e8581a")
 const BLUE := Color("4a63c8")
 const DARK_BLUE := Color("1c2260")
 
@@ -135,24 +134,6 @@ func _dashes(rect: Rect2, color: Color) -> Control:
 			c.draw_dashed_line(pts[i], pts[i + 1], color, 2.0, 9.0))
 	return c
 
-## The striped ribbon across the top-right corner.
-func _ribbon(corner: Vector2, a: Color, b: Color) -> Control:
-	var c := Control.new()
-	c.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	c.draw.connect(func():
-		for k in 5:
-			var c0 := 26.0 + 11.0 * k
-			var c1 := c0 + 11.0
-			c.draw_colored_polygon(PackedVector2Array([corner + Vector2(-c1, 0), corner + Vector2(-c0, 0), corner + Vector2(0, c0), corner + Vector2(0, c1)]), a if k % 2 == 0 else b))
-	return c
-
-## A red hint box with its little "温馨提示" tag on top.
-func _tip_box(page: Control, rect: Rect2, fill: Color, border: Color, tag_fill: Color, tag_text: Color, tag_outline: Color) -> void:
-	page.add_child(_box(rect, fill, border, 12, 2))
-	var tag := Rect2(rect.position.x + 14, rect.position.y - 24, 98, 30)
-	page.add_child(_box(tag, tag_fill, border, 8, 2))
-	page.add_child(_text("温馨提示", tag.position, tag.size, 18, tag_text, tag_outline, 3))
-
 func _icon(id: String, pos: Vector2, size: float) -> TextureRect:
 	var t := TextureRect.new()
 	t.texture = EquipmentCatalog.find(id).icon
@@ -163,59 +144,15 @@ func _icon(id: String, pos: Vector2, size: float) -> TextureRect:
 	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return t
 
-func _rig(id: String, pos: Vector2, scale: float, tint := Color.WHITE) -> Rig:
-	var r := Rig.create(id)
-	r.position = pos
-	r.scale = Vector2.ONE * scale
-	r.modulate = tint
-	r.ready.connect(r.play.bind(&"wait"))
-	return r
-
 # ------------------------------------------------------------------ 国庆: 战神刑天来袭
 
 func _build_guoqing() -> Control:
-	var page := Control.new()
-	page.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	page.add_child(_box(FRAME, ORANGE, Color("3a1206"), 22, 4))
-	var inner := Rect2(FRAME.position + Vector2(16, 16), FRAME.size - Vector2(32, 32))
-	# the hall of 11-1 behind everything, darkened and clipped to the window
-	var clip := Control.new()
-	clip.position = inner.position
-	clip.size = inner.size
-	clip.clip_contents = true
-	clip.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var bg := TextureRect.new()
-	bg.texture = load("res://assets/ui/activity/guoqing_bg.png")
-	bg.position = -inner.position
-	bg.modulate = Color(0.55, 0.42, 0.42)
-	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	clip.add_child(bg)
-	# 战神刑天: a black shape with a red glow, huge, behind the title
-	for e in [[Color(1.0, 0.18, 0.05, 0.85), Vector2(3, 3)], [Color(0.02, 0.0, 0.0), Vector2.ZERO]]:
-		clip.add_child(_rig("monster81", Vector2(470, 440) - inner.position + e[1], 2.6, e[0]))
-	page.add_child(clip)
-	page.add_child(_box(inner, Color(0, 0, 0, 0), Color("3a1206"), 14, 3))
-	page.add_child(_dashes(inner.grow(-6), Color("2a0c04")))
-	page.add_child(_ribbon(Vector2(FRAME.end.x - 4, FRAME.position.y + 4), Color("e8321c"), Color("ffd23a")))
-	page.add_child(_text("战神刑天来袭", Vector2(180, 52), Vector2(580, 100), 84, Color("ffc21a"), Color("5a1a06"), 14))
-	# the two guardians
-	for e in [["monster79", Vector2(215, 305), 1.15, "劈天斧", Vector2(150, 318)], ["monster80", Vector2(735, 290), 1.2, "风神盾", Vector2(690, 330)]]:
-		page.add_child(_rig(e[0], e[1], e[2]))
-		page.add_child(_text(e[3], e[4], Vector2(100, 34), 26, Color("ffd24a"), Color("3a1206"), 6))
-	_tip_box(page, Rect2(106, 424, 604, 104), Color("d6431a"), Color("ffe6a0"), Color("e8761a"), Color("fff0b0"), Color("5a1a06"))
-	var tip := RichTextLabel.new()
-	tip.bbcode_enabled = true
-	tip.scroll_active = false
-	tip.position = Vector2(120, 430)
-	tip.size = Vector2(580, 94)
-	tip.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	tip.add_theme_font_size_override("normal_font_size", 17)
-	tip.add_theme_color_override("default_color", Color.WHITE)
-	tip.add_theme_color_override("font_outline_color", Color("5a1a06"))
-	tip.add_theme_constant_override("outline_size", 4)
-	tip.text = "每天只能进入一次副本，击败风神盾和劈天斧获得相应BUFF和强化石。击败刑天后出现超级BOSS战神刑天。击杀战神刑天有概率获得 [img=22]res://assets/items/xtzy.png[/img] 刑天之翼。"
-	page.add_child(tip)
-	return page
+	var art := TextureRect.new()
+	art.name = "GuoqingArt"
+	art.texture = load("res://assets/ui/activity/guoqing.png")   # the original 战神刑天来袭 window
+	art.position = Vector2(83, 29)   # the 七夕 picture (Art/Common_v7_709) draws its art at (84, 29.5) inside a 940x590 canvas
+	art.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return art
 
 # ------------------------------------------------------------------ 中秋
 

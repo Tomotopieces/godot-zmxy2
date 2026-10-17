@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://c75q2xvrodce"]
+
+[ext_resource type="Texture2D" uid="uid://by57na1wh1ywi" path="res://assets/levels/sl41/tex/4_308.png" id="1_tpdm6"]
+[ext_resource type="Texture2D" uid="uid://cw1ckhiyvo4x3" path="res://assets/levels/sl41/tex/4_305.png" id="2_7507p"]
+[ext_resource type="Texture2D" uid="uid://cfhv7sudevbny" path="res://assets/levels/sl41/tex/4_304.png" id="3_0lurf"]
+[ext_resource type="Texture2D" uid="uid://bftpphloumgu8" path="res://assets/levels/sl41/tex/4_1.png" id="4_ltofb"]
+[ext_resource type="Texture2D" uid="uid://btke1u7vhq7wf" path="res://assets/levels/sl41/tex/zmxy2_game_275.png" id="5_ur0da"]
+[ext_resource type="Texture2D" uid="uid://c13n8pchyhcqe" path="res://assets/levels/sl41/tex/zmxy2_game_276.png" id="6_7m5l4"]
+[ext_resource type="Texture2D" uid="uid://dp6qcic6jh77a" path="res://assets/levels/sl41/tex/zmxy2_game_274.png" id="7_nyuwd"]
+
+[node name="Scenery" type="Node2D" unique_id=478673716]
+
+[node name="Guides" type="Node2D" parent="." unique_id=713686439]
+
+[node name="Floor" type="Line2D" parent="Guides" unique_id=177973116]
+points = PackedVector2Array(-200, 497, 2393.43, 497)
+width = 2.0
+default_color = Color(1, 0.3, 0.2, 0.8)
+
+[node name="FirstScreen" type="Line2D" parent="Guides" unique_id=1882512992]
+points = PackedVector2Array(0, 0, 940, 0, 940, 590, 0, 590, 0, 0)
+width = 2.0
+default_color = Color(0.3, 1, 0.4, 0.8)
+
+[node name="Art" type="Node2D" parent="." unique_id=2003098920]
+z_index = -10
+
+[node name="Far" type="Parallax2D" parent="Art" unique_id=155712240]
+scroll_scale = Vector2(0.8, 1)
+
+[node name="Middle" type="Parallax2D" parent="Art" unique_id=308542634]
+scroll_scale = Vector2(0.9, 1)
+
+[node name="Near" type="Parallax2D" parent="Art" unique_id=1163800280]
+
+[node name="4_308_00" type="Sprite2D" parent="Art/Near" unique_id=320410806]
+position = Vector2(0, 92.2)
+texture = ExtResource("1_tpdm6")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 1104, 511)
+
+[node name="4_305_Tiles" type="TextureRect" parent="Art/Near" unique_id=770181973]
+texture_filter = 1
+texture_repeat = 2
+offset_top = 392.85
+offset_right = 1047.9
+offset_bottom = 478.85
+texture = ExtResource("2_7507p")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="4_304_06" type="Sprite2D" parent="Art/Near" unique_id=592259693]
+position = Vector2(900.95, 0)
+texture = ExtResource("3_0lurf")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 1035, 531)
+
+[node name="Background" type="CanvasLayer" parent="." unique_id=1240420729]
+layer = -2
+
+[node name="Sky" type="Sprite2D" parent="Background" unique_id=989443165]
+texture = ExtResource("4_ltofb")
+centered = false
+
+[node name="Ground" type="Node2D" parent="." unique_id=1424430834]
+z_index = -7
+
+[node name="zmxy2_game_275_07" type="Sprite2D" parent="Ground" unique_id=955450121]
+position = Vector2(450.7, 451.75)
+texture = ExtResource("5_ur0da")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 144, 111)
+
+[node name="zmxy2_game_276_08" type="Sprite2D" parent="Ground" unique_id=1896347703]
+position = Vector2(0, 450.65)
+texture = ExtResource("6_7m5l4")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 450, 196)
+
+[node name="zmxy2_game_275_09" type="Sprite2D" parent="Ground" unique_id=980842028]
+texture_repeat = 2
+position = Vector2(594.25, 449.6)
+texture = ExtResource("5_ur0da")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 285.4, 111)
+
+[node name="zmxy2_game_274_10" type="Sprite2D" parent="Ground" unique_id=603626777]
+position = Vector2(878.05, 445.15)
+scale = Vector2(1.1765, 1)
+texture = ExtResource("7_nyuwd")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 1020, 150)

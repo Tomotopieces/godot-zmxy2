@@ -1,0 +1,116 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://bcpy8tnbo8vos" path="res://src/rig/rig.gd" id="1_0hinc"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45bullet1/tex/5_16.png" id="2_8fk20"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45bullet1/tex/5_18.png" id="3_rqukr"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster45bullet1/tex/5_20.png" id="4_xecor"]
+[ext_resource type="AnimationLibrary" path="res://scenes/actors/monster45bullet1/monster45bullet1_actions.tres" id="5_ls6a0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_itlw3"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qgf2e"]
+resource_local_to_scene = true
+
+[node name="Monster45Bullet1" type="Node2D" unique_id=272632705]
+script = ExtResource("1_0hinc")
+actions = PackedStringArray("default")
+
+[node name="Poses" type="Node2D" parent="." unique_id=1869468123]
+
+[node name="Default" type="Node2D" parent="Poses" unique_id=1949820]
+visible = false
+
+[node name="DefaultPart1" type="Sprite2D" parent="Poses/Default" unique_id=788465941]
+position = Vector2(-113.75, -80.524796)
+scale = Vector2(0.5, 0.2895)
+texture = ExtResource("2_8fk20")
+centered = false
+
+[node name="DefaultPart2" type="Sprite2D" parent="Poses/Default" unique_id=393055957]
+position = Vector2(-115.75, -87.55965)
+scale = Vector2(0.5, 0.2895)
+texture = ExtResource("3_rqukr")
+centered = false
+
+[node name="DefaultPart3" type="Sprite2D" parent="Poses/Default" unique_id=1018610216]
+position = Vector2(-118.25, -109.6485)
+scale = Vector2(0.5, 0.2895)
+texture = ExtResource("4_xecor")
+centered = false
+
+[node name="DefaultPart4" type="Sprite2D" parent="Poses/Default" unique_id=1574738017]
+position = Vector2(-201.75, -80.524796)
+scale = Vector2(0.5, 0.2895)
+texture = ExtResource("2_8fk20")
+centered = false
+
+[node name="DefaultPart5" type="Sprite2D" parent="Poses/Default" unique_id=1014669637]
+position = Vector2(-203.75, -87.55965)
+scale = Vector2(0.5, 0.2895)
+texture = ExtResource("3_rqukr")
+centered = false
+
+[node name="DefaultPart6" type="Sprite2D" parent="Poses/Default" unique_id=233138575]
+position = Vector2(-206.25, -109.6485)
+scale = Vector2(0.5, 0.2895)
+texture = ExtResource("4_xecor")
+centered = false
+
+[node name="DefaultPart7" type="Sprite2D" parent="Poses/Default" unique_id=1208478639]
+position = Vector2(-292.3, -80.524796)
+scale = Vector2(0.5, 0.2895)
+texture = ExtResource("2_8fk20")
+centered = false
+
+[node name="DefaultPart8" type="Sprite2D" parent="Poses/Default" unique_id=1748407190]
+position = Vector2(-294.3, -87.55965)
+scale = Vector2(0.5, 0.2895)
+texture = ExtResource("3_rqukr")
+centered = false
+
+[node name="DefaultPart9" type="Sprite2D" parent="Poses/Default" unique_id=1420659681]
+position = Vector2(-296.8, -109.6485)
+scale = Vector2(0.5, 0.2895)
+texture = ExtResource("4_xecor")
+centered = false
+
+[node name="DefaultPart10" type="Sprite2D" parent="Poses/Default" unique_id=720121200]
+position = Vector2(-385.35, -80.524796)
+scale = Vector2(0.5, 0.2895)
+texture = ExtResource("2_8fk20")
+centered = false
+
+[node name="DefaultPart11" type="Sprite2D" parent="Poses/Default" unique_id=2035011999]
+position = Vector2(-387.35, -87.55965)
+scale = Vector2(0.5, 0.2895)
+texture = ExtResource("3_rqukr")
+centered = false
+
+[node name="DefaultPart12" type="Sprite2D" parent="Poses/Default" unique_id=610053294]
+position = Vector2(-389.85, -109.6485)
+scale = Vector2(0.5, 0.2895)
+texture = ExtResource("4_xecor")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=426645549]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1803693333]
+shape = SubResource("RectangleShape2D_itlw3")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=404489610]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=661465630]
+shape = SubResource("RectangleShape2D_qgf2e")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1130489536]
+callback_mode_process = 0
+libraries/ = ExtResource("5_ls6a0")

@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://bjfpq7vfs33b3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_abi3o"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.56078434, 0.56078434, 0.56078434, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 10
+
+[sub_resource type="Gradient" id="Gradient_dckgf"]
+colors = PackedColorArray(0.28627452, 0.28627452, 0.28627452, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ifow5"]
+gradient = SubResource("Gradient_dckgf")
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
+
+[node name="Slot" type="Panel" unique_id=1143507433]
+clip_children = 2
+offset_right = 100.0
+offset_bottom = 100.0
+scale = Vector2(0.5, 0.5)
+theme_override_styles/panel = SubResource("StyleBoxFlat_abi3o")
+
+[node name="GradientBackground" type="TextureRect" parent="." unique_id=849473742]
+layout_mode = 0
+offset_left = 1.9999999
+offset_top = 12.0
+offset_right = 1.9999999
+offset_bottom = 12.0
+scale = Vector2(1.5000001, 0.59374994)
+texture = SubResource("GradientTexture2D_ifow5")

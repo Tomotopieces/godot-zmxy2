@@ -1,0 +1,48 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/levels/sl51/tex/5_v7_137.png" id="1_kqb3g"]
+[ext_resource type="Texture2D" path="res://assets/shared/levels/11_1.png" id="1_y1gr7"]
+[ext_resource type="Texture2D" path="res://assets/levels/sl13/tex/zmxy2_game_308.png" id="2_kqb3g"]
+
+[node name="Scenery" type="Node2D" unique_id=1018630056]
+
+[node name="Guides" type="Node2D" parent="." unique_id=1089831433]
+
+[node name="Floor" type="Line2D" parent="Guides" unique_id=1918009588]
+points = PackedVector2Array(-200, 497, 1288.15, 497)
+width = 2.0
+default_color = Color(1, 0.3, 0.2, 0.8)
+
+[node name="FirstScreen" type="Line2D" parent="Guides" unique_id=1058160045]
+points = PackedVector2Array(0, 0, 940, 0, 940, 590, 0, 590, 0, 0)
+width = 2.0
+default_color = Color(0.3, 1, 0.4, 0.8)
+
+[node name="Background" type="CanvasLayer" parent="." unique_id=1018797503]
+layer = -2
+
+[node name="Sky" type="Sprite2D" parent="Background" unique_id=1463630568]
+texture = ExtResource("1_y1gr7")
+centered = false
+
+[node name="Art" type="Node2D" parent="." unique_id=1023717304]
+z_index = -10
+
+[node name="5_v7_137_00" type="Sprite2D" parent="Art" unique_id=451610905]
+texture = ExtResource("1_kqb3g")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 940, 590)
+
+[node name="Ground" type="Node2D" parent="." unique_id=1107201217]
+z_index = -7
+
+[node name="Tile" type="TextureRect" parent="Ground" unique_id=614009163]
+texture_filter = 1
+texture_repeat = 2
+offset_top = 490.15
+offset_right = 944.0
+offset_bottom = 588.15
+texture = ExtResource("2_kqb3g")
+expand_mode = 1
+stretch_mode = 1

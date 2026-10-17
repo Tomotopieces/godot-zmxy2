@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://c3bsw6nhf3rfu"]
+
+[ext_resource type="Script" uid="uid://ddmuwy06fmabu" path="res://src/ui/ui_layout.gd" id="1_h3ix2"]
+[ext_resource type="Texture2D" uid="uid://dovdqiwsmf3i7" path="res://assets/ui/pack_menu/tex/backpack_v5_567.png" id="3_e52gg"]
+[ext_resource type="Texture2D" uid="uid://brlu2a0x2bs0q" path="res://assets/ui/pack_menu/tex/backpack_v5_569.png" id="4_h8bdk"]
+[ext_resource type="Texture2D" uid="uid://b2pjc4eaisomn" path="res://assets/ui/pack_menu/tex/backpack_v5_577.png" id="7_mmm10"]
+[ext_resource type="Texture2D" uid="uid://bwfuo5jip1pqu" path="res://assets/ui/pack_menu/tex/backpack_v5_579.png" id="8_yyru5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wvhbo"]
+bg_color = Color(0, 0, 0, 0.8)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="pack_menu" type="Panel" unique_id=606058136]
+offset_right = 83.0
+offset_bottom = 75.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wvhbo")
+script = ExtResource("1_h3ix2")
+
+[node name="bzb" type="Node2D" parent="." unique_id=1107209461]
+position = Vector2(2.25, 4.2)
+metadata/labels = {}
+metadata/ui_piece = ["bzb"]
+
+[node name="Frame0" type="Node2D" parent="bzb" unique_id=1216209473]
+
+[node name="backpack_v5_567" type="Sprite2D" parent="bzb/Frame0" unique_id=1572112239]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_e52gg")
+centered = false
+metadata/tex_key = "backpack_v5:567"
+
+[node name="Frame1" type="Node2D" parent="bzb" unique_id=37363928]
+visible = false
+
+[node name="backpack_v5_569" type="Sprite2D" parent="bzb/Frame1" unique_id=155341535]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_h8bdk")
+centered = false
+metadata/tex_key = "backpack_v5:569"
+
+[node name="bmd" type="Node2D" parent="." unique_id=256812899]
+position = Vector2(3.1, 40.1)
+metadata/labels = {}
+metadata/ui_piece = ["bmd"]
+
+[node name="Frame0" type="Node2D" parent="bmd" unique_id=759191013]
+
+[node name="backpack_v5_577" type="Sprite2D" parent="bmd/Frame0" unique_id=1888145112]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_mmm10")
+centered = false
+metadata/tex_key = "backpack_v5:577"
+
+[node name="Frame1" type="Node2D" parent="bmd" unique_id=872242455]
+visible = false
+
+[node name="backpack_v5_579" type="Sprite2D" parent="bmd/Frame1" unique_id=447242721]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_yyru5")
+centered = false
+metadata/tex_key = "backpack_v5:579"

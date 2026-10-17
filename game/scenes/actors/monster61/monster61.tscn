@@ -1,0 +1,157 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://bcpy8tnbo8vos" path="res://src/rig/rig.gd" id="1_vql0u"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster61/tex/8_54.png" id="2_4kk2g"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster61/tex/8_53.png" id="3_c6q7s"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster61/tex/8_58.png" id="4_oy40v"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster61/tex/8_65.png" id="5_qbsex"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster61/tex/8_88.png" id="6_tm0qc"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster61/tex/8_68.png" id="7_2jjub"]
+[ext_resource type="Shader" path="res://src/rig/sprite_fx.gdshader" id="8_pltxv"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster61/tex/8_71.png" id="9_8gm7i"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster61/tex/8_84.png" id="10_4xsuf"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster61/tex/8_92.png" id="11_vkkkd"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster61/tex/8_97.png" id="12_xmyva"]
+[ext_resource type="Texture2D" path="res://assets/rigs/monster61/tex/8_102.png" id="13_hv374"]
+[ext_resource type="AnimationLibrary" path="res://scenes/actors/monster61/monster61_actions.tres" id="14_h3k27"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dmitf"]
+shader = ExtResource("8_pltxv")
+shader_parameter/matrix_on = true
+shader_parameter/color_matrix = Projection(-0.574, 0.426, 0.42599994, 0, 1.4299998, 0.42999995, 1.4300001, 0, 0.14400007, 0.14399996, -0.85599995, 0, 0, 0, 0, 1)
+shader_parameter/color_offset = Vector4(0, 0, 0, 0)
+shader_parameter/blur = null
+shader_parameter/glow_on = null
+shader_parameter/glow_color = null
+shader_parameter/glow_blur = null
+shader_parameter/glow_strength = null
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_krryx"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7n680"]
+resource_local_to_scene = true
+
+[node name="Monster61" type="Node2D" unique_id=541332137]
+script = ExtResource("1_vql0u")
+actions = PackedStringArray("walk", "wait", "hurt", "hit1", "hit2", "hit3", "dead")
+
+[node name="Poses" type="Node2D" parent="." unique_id=985900220]
+
+[node name="Walk" type="Node2D" parent="Poses" unique_id=1768403174]
+visible = false
+
+[node name="WalkPart1" type="Sprite2D" parent="Poses/Walk" unique_id=1615216887]
+position = Vector2(-112.2, -81.95)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_4kk2g")
+centered = false
+
+[node name="WalkPart2" type="Sprite2D" parent="Poses/Walk" unique_id=1759075707]
+position = Vector2(-106.65, -83.95)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_c6q7s")
+centered = false
+
+[node name="Wait" type="Node2D" parent="Poses" unique_id=757835732]
+visible = false
+
+[node name="WaitPart1" type="Sprite2D" parent="Poses/Wait" unique_id=939515923]
+position = Vector2(-103.5, -83.15)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_oy40v")
+centered = false
+
+[node name="Hurt" type="Node2D" parent="Poses" unique_id=2059357130]
+visible = false
+
+[node name="HurtPart1" type="Sprite2D" parent="Poses/Hurt" unique_id=1864874281]
+position = Vector2(-47.05, -108.2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_qbsex")
+centered = false
+
+[node name="Hit1" type="Node2D" parent="Poses" unique_id=893291141]
+visible = false
+
+[node name="Hit1Part1" type="Sprite2D" parent="Poses/Hit1" unique_id=1387771924]
+position = Vector2(-111.9, -69.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_tm0qc")
+centered = false
+
+[node name="Hit1Part2" type="Sprite2D" parent="Poses/Hit1" unique_id=726205859]
+position = Vector2(-95.1, -107.45)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_2jjub")
+centered = false
+
+[node name="Hit1Part3" type="Sprite2D" parent="Poses/Hit1" unique_id=753842809]
+material = SubResource("ShaderMaterial_dmitf")
+position = Vector2(-225, -144.05)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_8gm7i")
+centered = false
+
+[node name="Hit1Part4" type="Sprite2D" parent="Poses/Hit1" unique_id=627178201]
+modulate = Color(1, 1, 1, 0.672)
+material = SubResource("ShaderMaterial_dmitf")
+position = Vector2(-192.397, -29.801)
+scale = Vector2(0.8735, 0.8735)
+texture = ExtResource("10_4xsuf")
+centered = false
+
+[node name="Hit2" type="Node2D" parent="Poses" unique_id=1364486694]
+visible = false
+
+[node name="Hit2Part1" type="Sprite2D" parent="Poses/Hit2" unique_id=521984492]
+position = Vector2(-138.65, -81.4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_vkkkd")
+centered = false
+
+[node name="Hit3" type="Node2D" parent="Poses" unique_id=1896586019]
+visible = false
+
+[node name="Hit3Part1" type="Sprite2D" parent="Poses/Hit3" unique_id=355920672]
+position = Vector2(-113.5, -84.15)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("12_xmyva")
+centered = false
+
+[node name="Dead" type="Node2D" parent="Poses" unique_id=861184030]
+visible = false
+
+[node name="DeadPart1" type="Sprite2D" parent="Poses/Dead" unique_id=637089874]
+position = Vector2(-48.8, -106.1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("13_hv374")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=488939347]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=787269496]
+shape = SubResource("RectangleShape2D_krryx")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=2145304271]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=896081006]
+shape = SubResource("RectangleShape2D_7n680")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=111080955]
+callback_mode_process = 0
+libraries/ = ExtResource("14_h3k27")

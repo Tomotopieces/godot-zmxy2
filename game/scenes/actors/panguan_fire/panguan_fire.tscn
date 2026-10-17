@@ -1,0 +1,51 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://bcpy8tnbo8vos" path="res://src/rig/rig.gd" id="1_ivxgb"]
+[ext_resource type="Texture2D" path="res://assets/rigs/panguan_fire/tex/zmxy2_game_302.png" id="2_lp22s"]
+[ext_resource type="AnimationLibrary" path="res://scenes/actors/panguan_fire/panguan_fire_actions.tres" id="3_e1bsh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x154f"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c28a8"]
+resource_local_to_scene = true
+
+[node name="PanguanFire" type="Node2D" unique_id=1754184035]
+script = ExtResource("1_ivxgb")
+actions = PackedStringArray("default")
+markers = {
+"isPanguanFire": Vector2(0, -16.05)
+}
+
+[node name="Poses" type="Node2D" parent="." unique_id=817704103]
+
+[node name="Default" type="Node2D" parent="Poses" unique_id=79259016]
+visible = false
+
+[node name="DefaultPart1" type="Sprite2D" parent="Poses/Default" unique_id=1457034604]
+position = Vector2(-30, -50)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_lp22s")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1307712623]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=2102655133]
+shape = SubResource("RectangleShape2D_x154f")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=514595355]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=2007689451]
+shape = SubResource("RectangleShape2D_c28a8")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=228042360]
+callback_mode_process = 0
+libraries/ = ExtResource("3_e1bsh")

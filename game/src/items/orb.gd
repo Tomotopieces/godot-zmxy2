@@ -65,5 +65,5 @@ func _collect() -> void:
 		Kind.BLUE:
 			target.restore_mp(power)
 		Kind.WHITE:
-			target.add_rage(power)
+			target.add_orb_rage(power)
 	queue_free()

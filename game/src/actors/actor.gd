@@ -37,6 +37,7 @@ var facing := -1:
 		if rig:
 			rig.scale.x = -facing
 
+## The actor's art: its hand-edited scene scenes/actors/<name>/<name>.tscn (README "Actor scenes").
 func setup_rig(rig_name: String) -> void:
 	rig = Rig.create(rig_name)
 	add_child(rig)
@@ -53,7 +54,7 @@ func setup_rig(rig_name: String) -> void:
 	var cs := rig.hurtbox.get_child(0) as CollisionShape2D
 	var body := CollisionShape2D.new()
 	var shape := RectangleShape2D.new()
-	shape.size = cs.shape.size
+	shape.size = cs.shape.get_rect().size   # (whatever shape the hurt box was given in the scene)
 	body.shape = shape
 	body.position = Vector2(cs.position.x * rig.scale.x, cs.position.y)
 	add_child(body)

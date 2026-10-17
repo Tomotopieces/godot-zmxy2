@@ -1,0 +1,29 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/level/objects/river_water.gd" id="1_water"]
+[ext_resource type="Shader" path="res://src/level/water.gdshader" id="2_water"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_water"]
+shader = ExtResource("2_water")
+shader_parameter/size = Vector2(4992.95, 200)
+shader_parameter/surface_color = Color(0.32, 0.6, 0.68, 1)
+shader_parameter/deep_color = Color(0.02, 0.1, 0.16, 1)
+shader_parameter/foam_color = Color(0.8, 0.94, 0.96, 1)
+shader_parameter/alpha = 0.9
+shader_parameter/wave_height = 8.0
+shader_parameter/wave_length = 180.0
+shader_parameter/wave_speed = 0.8
+shader_parameter/flow_speed = 30.0
+
+[node name="RiverWater" type="Node2D"]
+script = ExtResource("1_water")
+size = Vector2(4992.95, 200)
+surface_color = Color(0.32, 0.6, 0.68, 1)
+deep_color = Color(0.02, 0.1, 0.16, 1)
+foam_color = Color(0.8, 0.94, 0.96, 1)
+alpha = 0.9
+
+[node name="Surface" type="ColorRect" parent="."]
+offset_right = 4992.95
+offset_bottom = 200.0
+material = SubResource("ShaderMaterial_water")

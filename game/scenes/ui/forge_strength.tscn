@@ -1,0 +1,192 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/ui/ui_layout.gd" id="1_0xjyc"]
+[ext_resource type="Texture2D" path="res://assets/ui/forge_strength/tex/OtherMat_v10_709.png" id="2_gq8pi"]
+[ext_resource type="Texture2D" path="res://assets/ui/forge_strength/tex/OtherMat_v10_711.png" id="3_oxgis"]
+[ext_resource type="Texture2D" path="res://assets/ui/forge_strength/tex/OtherMat_v10_717.png" id="4_wyyvx"]
+[ext_resource type="Texture2D" path="res://assets/ui/forge_strength/tex/OtherMat_v10_719.png" id="5_m1b0b"]
+[ext_resource type="Texture2D" path="res://assets/ui/forge_strength/tex/OtherMat_v10_722.png" id="6_gj7vy"]
+[ext_resource type="Texture2D" path="res://assets/ui/forge_strength/tex/OtherMat_v10_725.png" id="7_1s4gm"]
+[ext_resource type="Texture2D" path="res://assets/ui/forge_strength/tex/OtherMat_v10_728.png" id="8_qowbd"]
+
+[node name="forge_strength" type="Control" unique_id=1324375966]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_0xjyc")
+
+[node name="qhbtn" type="Control" parent="." unique_id=823571443]
+anchors_preset = 0
+offset_left = 206.4
+offset_top = 438.5
+offset_right = 400.4
+offset_bottom = 507.5
+mouse_default_cursor_shape = 2
+metadata/ui_piece = ["qhbtn"]
+metadata/ui_button = "qhbtn"
+metadata/pad_seq = 16
+
+[node name="Up" type="Node2D" parent="qhbtn" unique_id=192547868]
+
+[node name="OtherMat_v10_709" type="Sprite2D" parent="qhbtn/Up" unique_id=1115287012]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_gq8pi")
+centered = false
+metadata/tex_key = "OtherMat_v10:709"
+
+[node name="Over" type="Node2D" parent="qhbtn" unique_id=1597586022]
+visible = false
+
+[node name="OtherMat_v10_711" type="Sprite2D" parent="qhbtn/Over" unique_id=494642134]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_oxgis")
+centered = false
+metadata/tex_key = "OtherMat_v10:711"
+
+[node name="Down" type="Node2D" parent="qhbtn" unique_id=524064170]
+visible = false
+
+[node name="OtherMat_v10_711" type="Sprite2D" parent="qhbtn/Down" unique_id=1875097790]
+position = Vector2(0, 2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_oxgis")
+centered = false
+metadata/tex_key = "OtherMat_v10:711"
+
+[node name="txt_needlh" type="Label" parent="." unique_id=143081341]
+layout_mode = 0
+offset_left = 308.95
+offset_top = 410.49
+offset_right = 381.95
+offset_bottom = 436.84
+theme_override_font_sizes/font_size = 19
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+metadata/rec = {
+"align": "left",
+"b": {
+"h": 26.35,
+"w": 73.0,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"m": [1.0, 0.0, 0.0, 1.0, 310.95, 411.95],
+"multiline": true,
+"name": "txt_needlh",
+"nudge": [0.0, 1.3],
+"size": 19.0,
+"text": "",
+"type": "text",
+"var": "",
+"wrap": true
+}
+metadata/ui_piece = ["txt_needlh"]
+
+[node name="txt_success" type="Label" parent="." unique_id=1222821799]
+layout_mode = 0
+offset_left = 449.95
+offset_top = 410.5
+offset_right = 522.95
+offset_bottom = 440.9
+theme_override_font_sizes/font_size = 19
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+metadata/rec = {
+"align": "left",
+"b": {
+"h": 26.35,
+"w": 73.0,
+"x": -2.0,
+"y": -2.0
+},
+"color": "#ffffff",
+"fit": [-0.5, 26.5],
+"m": [1.0, 0.0, 0.0, 1.0, 451.95, 411.95],
+"multiline": true,
+"name": "txt_success",
+"nudge": [0.0, -2.0],
+"size": 19.0,
+"text": "",
+"type": "text",
+"var": "",
+"wrap": true
+}
+metadata/ui_piece = ["txt_success"]
+
+[node name="Art" type="Node2D" parent="." unique_id=822817439]
+
+[node name="OtherMat_v10_717" type="Sprite2D" parent="Art" unique_id=835856609]
+position = Vector2(217.4, 405.15)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_wyyvx")
+centered = false
+metadata/tex_key = "OtherMat_v10:717"
+
+[node name="qhmc2" type="Node2D" parent="." unique_id=1979732292]
+position = Vector2(423.55, 227.05)
+metadata/ui_piece = ["qhmc2"]
+
+[node name="OtherMat_v10_719" type="Sprite2D" parent="qhmc2" unique_id=1598624605]
+position = Vector2(-16.5, -17)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_m1b0b")
+centered = false
+metadata/tex_key = "OtherMat_v10:719"
+
+[node name="qhmc3" type="Node2D" parent="." unique_id=339326596]
+position = Vector2(315.1, 331.75)
+metadata/ui_piece = ["qhmc3"]
+
+[node name="OtherMat_v10_719" type="Sprite2D" parent="qhmc3" unique_id=1210389108]
+position = Vector2(-16.5, -17)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_m1b0b")
+centered = false
+metadata/tex_key = "OtherMat_v10:719"
+
+[node name="zbmc" type="Node2D" parent="." unique_id=1968620818]
+position = Vector2(315.1, 229.05)
+metadata/ui_piece = ["zbmc"]
+
+[node name="OtherMat_v10_722" type="Sprite2D" parent="zbmc" unique_id=1197083873]
+position = Vector2(-16.5, -17)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_gj7vy")
+centered = false
+metadata/tex_key = "OtherMat_v10:722"
+
+[node name="qhmc1" type="Node2D" parent="." unique_id=667439585]
+position = Vector2(316.1, 124.05)
+metadata/ui_piece = ["qhmc1"]
+
+[node name="OtherMat_v10_719" type="Sprite2D" parent="qhmc1" unique_id=1458669078]
+position = Vector2(-16.5, -17)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_m1b0b")
+centered = false
+metadata/tex_key = "OtherMat_v10:719"
+
+[node name="baodimc" type="Node2D" parent="." unique_id=1574592444]
+position = Vector2(202.55, 293.05)
+metadata/ui_piece = ["baodimc"]
+
+[node name="OtherMat_v10_725" type="Sprite2D" parent="baodimc" unique_id=994680220]
+position = Vector2(-17.5, -18)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_1s4gm")
+centered = false
+metadata/tex_key = "OtherMat_v10:725"
+
+[node name="luckmc" type="Node2D" parent="." unique_id=541312735]
+position = Vector2(201.55, 185.05)
+metadata/ui_piece = ["luckmc"]
+
+[node name="OtherMat_v10_728" type="Sprite2D" parent="luckmc" unique_id=368701778]
+position = Vector2(-16.5, -17)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_qowbd")
+centered = false
+metadata/tex_key = "OtherMat_v10:728"

@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://src/ui/hud.gd" id="1_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/role_info.tscn" id="2_role_info"]
+[ext_resource type="PackedScene" path="res://scenes/ui/combo_counter.tscn" id="3_combo_counter"]
+
+[node name="Hud" type="CanvasLayer"]
+layer = 3
+script = ExtResource("1_hud")
+
+[node name="RoleInfo" parent="." instance=ExtResource("2_role_info")]
+
+[node name="Buffs" type="Control" parent="."]
+offset_top = 80.0
+mouse_filter = 2
+
+[node name="BossBars" type="Node2D" parent="."]
+position = Vector2(465, 50)
+
+[node name="Combo" parent="." instance=ExtResource("3_combo_counter")]
+visible = false
+position = Vector2(694.95, 234.95)

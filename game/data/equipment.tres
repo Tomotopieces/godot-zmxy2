@@ -1,5 +1,10 @@
 [gd_resource type="Resource" script_class="EquipmentCatalog" format=3]
 
+[ext_resource type="Texture2D" path="res://assets/items/fall_myz.png" id="fall_gen_myz"]
+[ext_resource type="Texture2D" path="res://assets/items/fall_nyd.png" id="fall_gen_nyd"]
+[ext_resource type="Texture2D" path="res://assets/items/fall_syc.png" id="fall_gen_syc"]
+[ext_resource type="Texture2D" path="res://assets/items/fall_wds.png" id="fall_gen_wds"]
+[ext_resource type="Texture2D" path="res://assets/items/fall_ttzy.png" id="fall_gen_ttzy"]
 [ext_resource type="Texture2D" path="res://assets/items/fall_ptxzf.png" id="1_q2p6o"]
 [ext_resource type="Texture2D" path="res://assets/items/ptxzf.png" id="2_jeeu3"]
 [ext_resource type="Script" path="res://src/data/equipment_data.gd" id="3_wi3ie"]
@@ -150,7 +155,6 @@
 [ext_resource type="Texture2D" path="res://assets/items/wpxyf.png" id="148_vrstd"]
 [ext_resource type="Texture2D" path="res://assets/items/fall_wpbdf.png" id="149_7p4kg"]
 [ext_resource type="Texture2D" path="res://assets/items/wpbdf.png" id="150_dwqb3"]
-[ext_resource type="Texture2D" path="res://assets/items/fall_sbbl.png" id="151_wl4d8"]
 [ext_resource type="Texture2D" path="res://assets/items/sbbl.png" id="152_36e3j"]
 [ext_resource type="Texture2D" path="res://assets/items/wdd.png" id="153_awo8t"]
 [ext_resource type="Texture2D" path="res://assets/items/wkmrz.png" id="154_lxwcf"]
@@ -1320,7 +1324,7 @@ strengthen = {
 "atk": 30.0
 }
 icon = ExtResource("125_xgm8k")
-ground_icon = ExtResource("125_xgm8k")
+ground_icon = ExtResource("fall_gen_myz")
 
 [sub_resource type="Resource" id="Resource_todjn"]
 script = ExtResource("3_wi3ie")
@@ -1340,7 +1344,7 @@ strengthen = {
 "atk": 20.0
 }
 icon = ExtResource("126_vacju")
-ground_icon = ExtResource("126_vacju")
+ground_icon = ExtResource("fall_gen_nyd")
 
 [sub_resource type="Resource" id="Resource_mrxmk"]
 script = ExtResource("3_wi3ie")
@@ -1361,7 +1365,7 @@ strengthen = {
 "atk": 25.0
 }
 icon = ExtResource("127_2xma3")
-ground_icon = ExtResource("127_2xma3")
+ground_icon = ExtResource("fall_gen_syc")
 
 [sub_resource type="Resource" id="Resource_sbcyi"]
 script = ExtResource("3_wi3ie")
@@ -1460,7 +1464,7 @@ stats = {
 &"mp": Vector2(250, 250)
 }
 icon = ExtResource("140_e2esv")
-ground_icon = ExtResource("140_e2esv")
+ground_icon = ExtResource("fall_gen_wds")
 
 [sub_resource type="Resource" id="Resource_w5orc"]
 script = ExtResource("3_wi3ie")
@@ -1556,7 +1560,7 @@ quality = "普通"
 value = 20
 desc = "提高物品的掉落概率,持续一小时"
 icon = ExtResource("152_36e3j")
-ground_icon = ExtResource("151_wl4d8")
+ground_icon = ExtResource("152_36e3j")
 
 [sub_resource type="Resource" id="Resource_q6kas"]
 script = ExtResource("3_wi3ie")
@@ -1833,7 +1837,7 @@ strengthen = {
 "mp_regen": 1.0
 }
 icon = ExtResource("173_62eyd")
-ground_icon = ExtResource("173_62eyd")
+ground_icon = ExtResource("fall_gen_ttzy")
 
 [resource]
 script = ExtResource("174_yb018")

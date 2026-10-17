@@ -1,0 +1,61 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/ui/ui_layout.gd" id="1_hdjx1"]
+[ext_resource type="Texture2D" path="res://assets/ui/forge_help/tex/OtherMat_v10_186.png" id="2_drxj5"]
+[ext_resource type="Texture2D" path="res://assets/shared/ui/Common_v7_547.png" id="3_qj8y1"]
+[ext_resource type="Texture2D" path="res://assets/shared/ui/Common_v7_549.png" id="4_4wwkf"]
+
+[node name="forge_help" type="Control" unique_id=1454957409]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_hdjx1")
+
+[node name="Art" type="Node2D" parent="." unique_id=1494860309]
+
+[node name="OtherMat_v10_186" type="Sprite2D" parent="Art" unique_id=85535072]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_drxj5")
+centered = false
+metadata/tex_key = "OtherMat_v10:186"
+
+[node name="btn_x" type="Control" parent="." unique_id=281468946]
+anchors_preset = 0
+offset_left = 372.45
+offset_top = 14.0
+offset_right = 412.45
+offset_bottom = 54.0
+mouse_default_cursor_shape = 2
+metadata/ui_piece = ["btn_x"]
+metadata/ui_button = "btn_x"
+metadata/pad_seq = 10
+
+[node name="Up" type="Node2D" parent="btn_x" unique_id=254380839]
+position = Vector2(0, -2)
+
+[node name="OtherMat_v10_157" type="Sprite2D" parent="btn_x/Up" unique_id=2002142014]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_qj8y1")
+centered = false
+metadata/tex_key = "OtherMat_v10:157"
+
+[node name="Over" type="Node2D" parent="btn_x" unique_id=1931163890]
+visible = false
+position = Vector2(0, -2)
+
+[node name="OtherMat_v10_159" type="Sprite2D" parent="btn_x/Over" unique_id=1598751865]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_4wwkf")
+centered = false
+metadata/tex_key = "OtherMat_v10:159"
+
+[node name="Down" type="Node2D" parent="btn_x" unique_id=129752723]
+visible = false
+position = Vector2(0, -2)
+
+[node name="OtherMat_v10_157" type="Sprite2D" parent="btn_x/Down" unique_id=1602044024]
+position = Vector2(0, 2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_qj8y1")
+centered = false
+metadata/tex_key = "OtherMat_v10:157"

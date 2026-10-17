@@ -1,0 +1,48 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://bcpy8tnbo8vos" path="res://src/rig/rig.gd" id="1_17rwu"]
+[ext_resource type="Texture2D" path="res://assets/rigs/potion_SmallHP/tex/OtherMat_v10_222.png" id="2_euy07"]
+[ext_resource type="AnimationLibrary" path="res://scenes/actors/potion_SmallHP/potion_SmallHP_actions.tres" id="3_tlrxr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t65xy"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1dofa"]
+resource_local_to_scene = true
+
+[node name="PotionSmallHp" type="Node2D" unique_id=1563037894]
+script = ExtResource("1_17rwu")
+actions = PackedStringArray("default")
+
+[node name="Poses" type="Node2D" parent="." unique_id=1990091587]
+
+[node name="Default" type="Node2D" parent="Poses" unique_id=1110197917]
+visible = false
+
+[node name="DefaultPart1" type="Sprite2D" parent="Poses/Default" unique_id=2097100446]
+position = Vector2(-23.5, -19.45)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_euy07")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=95935995]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1281665295]
+shape = SubResource("RectangleShape2D_t65xy")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1420235020]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1398671056]
+shape = SubResource("RectangleShape2D_1dofa")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1576611742]
+callback_mode_process = 0
+libraries/ = ExtResource("3_tlrxr")

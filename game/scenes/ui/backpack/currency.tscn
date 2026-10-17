@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://cc8hr3t5hdisi"]
+
+[ext_resource type="PackedScene" uid="uid://bn7cu4s02f7m0" path="res://scenes/ui/backpack/stat.tscn" id="1_e7ncl"]
+[ext_resource type="Texture2D" uid="uid://b5oktqg3cye6a" path="res://assets/textures/yellow_orange_gradient.tres" id="2_qnlj4"]
+
+[node name="Currency" unique_id=1539476760 instance=ExtResource("1_e7ncl")]
+
+[node name="Caption" parent="." index="0" unique_id=996189393]
+clip_children = 2
+text = "装备"
+
+[node name="TextureRect" type="TextureRect" parent="Caption" index="0" unique_id=65566549]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("2_qnlj4")
+expand_mode = 1
+
+[node name="StatValue" parent="Box" parent_id_path=PackedInt32Array(388413975) index="0" unique_id=1557036840]
+horizontal_alignment = 0

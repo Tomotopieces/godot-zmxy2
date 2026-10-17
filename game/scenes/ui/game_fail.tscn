@@ -1,0 +1,104 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://src/ui/ui_layout.gd" id="1_snayk"]
+[ext_resource type="Texture2D" path="res://assets/ui/game_fail/tex/OtherMat_v10_758.png" id="2_3l7yf"]
+[ext_resource type="Texture2D" path="res://assets/ui/game_fail/tex/OtherMat_v10_760.png" id="3_5od18"]
+[ext_resource type="Texture2D" path="res://assets/ui/game_fail/tex/OtherMat_v10_762.png" id="4_brs70"]
+[ext_resource type="Texture2D" path="res://assets/shared/ui/OtherMat_v10_747.png" id="5_33oln"]
+[ext_resource type="Texture2D" path="res://assets/shared/ui/OtherMat_v10_749.png" id="6_2qr7w"]
+
+[node name="game_fail" type="Control" unique_id=726345786]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_snayk")
+
+[node name="Art" type="Node2D" parent="." unique_id=291438163]
+
+[node name="OtherMat_v10_758" type="Sprite2D" parent="Art" unique_id=2144132333]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_3l7yf")
+centered = false
+metadata/tex_key = "OtherMat_v10:758"
+
+[node name="rePlayButton" type="Control" parent="." unique_id=1653946558]
+anchors_preset = 0
+offset_left = 305.95
+offset_top = 396.0
+offset_right = 427.95
+offset_bottom = 427.0
+mouse_default_cursor_shape = 2
+metadata/ui_piece = ["rePlayButton"]
+metadata/ui_button = "rePlayButton"
+metadata/pad_seq = 17
+
+[node name="Up" type="Node2D" parent="rePlayButton" unique_id=638528788]
+position = Vector2(0, -2)
+
+[node name="OtherMat_v10_760" type="Sprite2D" parent="rePlayButton/Up" unique_id=148948086]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_5od18")
+centered = false
+metadata/tex_key = "OtherMat_v10:760"
+
+[node name="Over" type="Node2D" parent="rePlayButton" unique_id=1934013632]
+visible = false
+position = Vector2(0, -2)
+
+[node name="OtherMat_v10_762" type="Sprite2D" parent="rePlayButton/Over" unique_id=245118898]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_brs70")
+centered = false
+metadata/tex_key = "OtherMat_v10:762"
+
+[node name="Down" type="Node2D" parent="rePlayButton" unique_id=745953085]
+visible = false
+position = Vector2(0, -2)
+
+[node name="OtherMat_v10_760" type="Sprite2D" parent="rePlayButton/Down" unique_id=1952122707]
+position = Vector2(0, 2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_5od18")
+centered = false
+metadata/tex_key = "OtherMat_v10:760"
+
+[node name="backTochooseButton" type="Control" parent="." unique_id=1116428509]
+anchors_preset = 0
+offset_left = 470.95
+offset_top = 396.0
+offset_right = 591.95
+offset_bottom = 427.0
+mouse_default_cursor_shape = 2
+metadata/ui_piece = ["backTochooseButton"]
+metadata/ui_button = "backTochooseButton"
+metadata/pad_seq = 18
+
+[node name="Up" type="Node2D" parent="backTochooseButton" unique_id=1197130332]
+position = Vector2(0, -2)
+
+[node name="OtherMat_v10_747" type="Sprite2D" parent="backTochooseButton/Up" unique_id=884425724]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_33oln")
+centered = false
+metadata/tex_key = "OtherMat_v10:747"
+
+[node name="Over" type="Node2D" parent="backTochooseButton" unique_id=1058586621]
+visible = false
+position = Vector2(0, -2)
+
+[node name="OtherMat_v10_749" type="Sprite2D" parent="backTochooseButton/Over" unique_id=1206597047]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_2qr7w")
+centered = false
+metadata/tex_key = "OtherMat_v10:749"
+
+[node name="Down" type="Node2D" parent="backTochooseButton" unique_id=1925368112]
+visible = false
+position = Vector2(0, -2)
+
+[node name="OtherMat_v10_747" type="Sprite2D" parent="backTochooseButton/Down" unique_id=197501984]
+position = Vector2(0, 2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_33oln")
+centered = false
+metadata/tex_key = "OtherMat_v10:747"

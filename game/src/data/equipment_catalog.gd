@@ -1,6 +1,6 @@
 class_name EquipmentCatalog
 extends Resource
-## All equipment definitions, baked from tools/data/equipment.json.
+## All equipment definitions (data/equipment.tres).
 
 const PATH := "res://data/equipment.tres"
 

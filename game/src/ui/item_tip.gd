@@ -130,7 +130,7 @@ func _label(text: String, pos: Vector2, color: Color, size: int, bold := false, 
 	_w = maxf(_w, pos.x + l.get_minimum_size().x)
 	return l
 
-const BOLD_FONT := preload("res://assets/fonts/SourceHanSansSC-Bold.otf")
+const BOLD_FONT := preload("res://assets/fonts/LXGW975HeiSC-400W.ttf")
 
 static func _bold_font() -> Font:
 	return BOLD_FONT

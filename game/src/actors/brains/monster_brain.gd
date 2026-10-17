@@ -12,7 +12,6 @@ var p: Dictionary            ## MonsterData.brain parameters
 var _cycle := 0.0
 var _stop_at := 3.0
 var _attack_t := 0.0
-var _pause := 0.0
 var _reviving := false       ## between two lives (45 reburns, 61 waits for a leech): cannot be hit, does nothing
 
 static var _scripts := {}   ## monster id -> brain script (or null = the base brain)
@@ -162,9 +161,6 @@ func cooldown_ready(key: String, seconds: float) -> bool:
 # ------------------------------------------------------------------ base AI pieces
 
 func base_ai(delta: float) -> void:
-	if _pause > 0.0:
-		_pause -= delta
-		return
 	if m.target == null:
 		wander(delta)
 		select_target()
@@ -211,20 +207,26 @@ func wander(delta: float) -> void:
 			_cycle = 0.0
 			m.dir = 0
 
-## Turn around (isTurnBack markers).
-func turn_back() -> void:
-	m.dir = -m.dir
-	_pause = m.data.turn_pause
-
 ## attackTarget: face the target and swing hit1.
 func attack(action: StringName = &"hit1") -> void:
 	m.face_target()
 	act(action)
 
-## Play an attack action with its invulnerable window (param "invuln_<action>", seconds).
+## Play an attack action with its invulnerable window (param "invuln_<action>", seconds). With "invuln_until_stand"
+## the window is cut when the move ends (the monster stands again), however long the original's count was.
+var _act_invuln := false
+
 func act(action: StringName) -> bool:
-	m.invuln = maxf(m.invuln, float(param("invuln_" + String(action), 0.0)))
+	var t := float(param("invuln_" + String(action), 0.0))
+	m.invuln = maxf(m.invuln, t)
+	_act_invuln = t > 0.0 and bool(param("invuln_until_stand", false))
 	return m.attack_with(action)
+
+## Called by the monster when an attack ends.
+func end_act_invuln() -> void:
+	if _act_invuln:
+		_act_invuln = false
+		m.invuln = 0.0
 
 ## Every hero is pulled to the monster over `time` (no damage).
 func pull_heroes(time: float) -> void:

@@ -1,0 +1,51 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://bcpy8tnbo8vos" path="res://src/rig/rig.gd" id="1_onucy"]
+[ext_resource type="Texture2D" path="res://assets/shared/rigs/zmxy2_game_225.png" id="2_18wfq"]
+[ext_resource type="AnimationLibrary" path="res://scenes/actors/xingtian_door/xingtian_door_actions.tres" id="3_noebi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j0bkh"]
+resource_local_to_scene = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b0vig"]
+resource_local_to_scene = true
+
+[node name="XingtianDoor" type="Node2D" unique_id=1834709045]
+script = ExtResource("1_onucy")
+actions = PackedStringArray("default")
+markers = {
+"isXingtianDoor": Vector2(35, -96)
+}
+
+[node name="Poses" type="Node2D" parent="." unique_id=988405315]
+
+[node name="Default" type="Node2D" parent="Poses" unique_id=775335655]
+visible = false
+
+[node name="DefaultPart1" type="Sprite2D" parent="Poses/Default" unique_id=225740108]
+position = Vector2(-286.5, -210.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_18wfq")
+centered = false
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=2026165985]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=445953162]
+shape = SubResource("RectangleShape2D_j0bkh")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=2080112112]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1727067100]
+shape = SubResource("RectangleShape2D_b0vig")
+disabled = true
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1615209270]
+callback_mode_process = 0
+libraries/ = ExtResource("3_noebi")
