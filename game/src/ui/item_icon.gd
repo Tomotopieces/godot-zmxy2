@@ -31,7 +31,7 @@ static func create(item: Item, cell: float) -> ItemIcon:
 	t.size = Vector2(cell - 2.0 * m, cell - 2.0 * m)
 	t.pivot_offset = t.size / 2.0
 	t.set_meta(&"inset", m)
-	if d.color.a > 0.0 and d.color != Color.WHITE:
+	if not framed and d.color.a > 0.0 and d.color != Color.WHITE:   # a framed icon shows its quality as it always did
 		t.material = SpriteFx.glow_material(Color(d.color, 1.0), GLOW_REACH, GLOW_STRENGTH)
 	return t
 
