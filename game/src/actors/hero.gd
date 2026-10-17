@@ -9,6 +9,7 @@ enum State { MOVE, ATTACK, HURT, DEAD }
 const HERO_DIR := "res://src/actors/heroes/hero_%s.gd"
 const COMBO := [&"hit1", &"hit2", &"hit3", &"hit4", &"hit5"]
 const CANCEL_INTO_HIT8 := [&"hit1", &"hit2", &"hit3", &"hit4"]
+const HIT7_HOLD := 99.0   ## 烈焰闪: "until the dash stops" (cleared by its stop event, or when the move ends)
 const SCRIPTED_MOTION := [&"hit6", &"hit7", &"hit10"]   ## velocity comes from animation events
 const SOUNDS := {&"hit1": "Role1_hit1AndHit2", &"hit2": "Role1_hit1AndHit2", &"hit3": "Role1_hit3AndHit4",
 	&"hit4": "Role1_hit3AndHit4", &"hit5": "Role1_hit5", &"hit6": "Role1_hit6", &"hit7": "Role1_hit7",
@@ -68,7 +69,6 @@ func _ready() -> void:
 	_apply_appearance()
 	facing = 1
 	refill()
-	invincible = data.spawn_invincible
 	GameState.leveled_up.connect(_on_level_up)
 	GameState.equipment_changed.connect(_on_equipment_changed)
 	_sync_treasure.call_deferred()
@@ -128,6 +128,8 @@ func _physics_process(delta: float) -> void:
 	dealer.tick(delta)
 	cooldown = maxf(cooldown - delta, 0.0)
 	invincible = maxf(invincible - delta, 0.0)
+	if invincible > HIT7_HOLD / 2.0 and attack_action != &"hit7":
+		invincible = 0.0   # 烈焰闪's open-ended invincibility never outlives the move
 	_update_rage(delta)
 	_update_regen(delta)
 	debuffs.tick(delta)
@@ -303,6 +305,8 @@ func _begin(action: StringName) -> void:
 		&"hit6":
 			velocity.x = facing * (attack.rage_dash_speed if transformed else attack.dash_speed)
 			running = false   # the dash ends in a walk
+		&"hit7":
+			invincible = maxf(invincible, HIT7_HOLD)   # from the key press until the dash stops (set_vx 0 below)
 		&"hit10":
 			invincible = maxf(invincible, attack.invincible)
 
@@ -364,6 +368,8 @@ func _on_rig_event(n: StringName, args: Array) -> void:
 			_finish_action(rig.action)
 		&"set_vx":
 			velocity.x = args[0]
+			if attack_action == &"hit7" and float(args[0]) == 0.0:
+				invincible = 0.0   # 烈焰闪 stops: the invincibility ends before he stands
 		&"set_vy":
 			velocity.y = args[0]
 		&"set_vx_forward":
@@ -384,7 +390,6 @@ func _on_rig_event(n: StringName, args: Array) -> void:
 						return
 					Fx.spawn("fx_hit7_fire", global_position, facing)   # mirrors with the hero
 					velocity.x = facing * attack.dash_speed
-					invincible = maxf(invincible, attack.invincible)
 				"set_lost_graity":
 					_no_gravity = true
 				"set_lost_keyboard":
@@ -445,6 +450,7 @@ func _hit10_slam() -> void:
 	var ex: Dictionary = data.attacks[&"hit10"].extra
 	Snd.sfx("Role1_hit10_3")
 	var p := _skill_projectile("wukong_hit10_2", &"hit10_2", global_position)
+	invincible = 0.0   # the move's invincibility lasts until he lands
 	var s: float = ex.rage_slam_scale if transformed else ex.slam_scale
 	p.rig.scale = Vector2(s, s)
 	cooldown = ex.slam_cooldown

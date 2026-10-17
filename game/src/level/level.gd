@@ -529,6 +529,9 @@ func _unhandled_input(e: InputEvent) -> void:
 	elif e.is_action_pressed("debug_invincible"):
 		GameState.debug_god = not GameState.debug_god
 		toast("无敌：" + ("开（不扣血、不被击退）" if GameState.debug_god else "关"))
+	elif e.is_action_pressed("debug_monster_glow"):
+		GameState.debug_monster_glow = not GameState.debug_monster_glow
+		toast("敌人无敌辉光：" + ("开" if GameState.debug_monster_glow else "关"))
 	elif e.is_action_pressed("debug_refill") and is_instance_valid(hero):
 		hero.refill()
 		hero.rage = hero.data.rage_max

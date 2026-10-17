@@ -45,6 +45,28 @@ func _ready() -> void:
 		rig.play(&"walk")
 	brain.setup()
 
+## Debug (key 7): a yellow halo while the monster cannot be hurt, to check its invincible windows. Temporary.
+var _debug_glow: Rig
+var _debug_glow_mat: ShaderMaterial
+
+func _update_debug_glow() -> void:
+	var on := GameState.debug_monster_glow and state != State.DEAD and not can_be_hit()
+	if not on:
+		if _debug_glow != null:
+			_debug_glow.visible = false
+		return
+	if _debug_glow == null:
+		_debug_glow_mat = SpriteFx.glow_material(Color(1, 0.9, 0), 8.0, 1.5, true)
+		_debug_glow = Actor.make_body(data.rig)
+		add_child(_debug_glow)
+		move_child(_debug_glow, rig.get_index())   # behind the body
+		_debug_glow.play(rig.action, true)
+		_debug_glow.anim.pause()
+	_debug_glow.mirror(rig)
+	for sp: Sprite2D in _debug_glow.find_children("*", "Sprite2D", true, false):
+		if sp.material != _debug_glow_mat:
+			sp.material = _debug_glow_mat
+
 var _stun_t := 0.0
 var _stun_fx: Rig
 
@@ -71,6 +93,8 @@ func can_be_hit() -> bool:
 func _physics_process(delta: float) -> void:
 	dealer.tick(delta)
 	invuln = maxf(invuln - delta, 0.0)
+	if OS.is_debug_build():
+		_update_debug_glow()
 	for k in cds:
 		cds[k] = maxf(cds[k] - delta, 0.0)
 	if _hp_bar_t > 0.0:

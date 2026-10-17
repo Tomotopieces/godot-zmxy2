@@ -22,6 +22,7 @@ var hero_data: HeroData
 var level := 1
 var exp := 0
 var souls := 0
+var debug_monster_glow := false     ## debug (key 7): invulnerable monsters glow yellow
 var debug_god := false               ## debug (key 6): heroes take no damage and no knockback
 var strip_trick := false             ## 脱衣回蓝: the original's equipment HP / MP bookkeeping bug, on only while the player switches it on (F)
 var attack := 0          ## rolled once per level (original: 10 + rand(0..4) + 5(L-1))

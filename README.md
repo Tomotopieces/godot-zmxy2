@@ -19,7 +19,7 @@ Answers to the user: Simplified Chinese. Deleting files: Recycle Bin (`bash tool
 | `.claude/skills/stage-rework/` | the procedure for turning a stage into an editor scene + designing its look |
 
 ## Run / test / export
-- Run: open `game/` in Godot 4.7 (F5). Debug builds: `~` console (items, teleport, boss fight), keys 1 refill / 2 hit boxes / 3 test gear / 4 kill all / 5 restart / 6 invincible. F11 fullscreen.
+- Run: open `game/` in Godot 4.7 (F5). Debug builds: `~` console (items, teleport, boss fight), keys 1 refill / 2 hit boxes / 3 test gear / 4 kill all / 5 restart / 6 invincible / 7 invulnerable monsters glow yellow (temporary). F11 fullscreen.
 - Checks (headless, exit code = result): `bash tools/run_checks.sh [filter]` — camera/walk/pad/role/bag/forge/treasure/smoke tests, `stage_test` (door12, hub), frame-exact AI traces of every monster (`ai_trace`, baselines `game/tools/ai_traces/`; regenerate with `-- --ids=…` after an intended AI change) and `loot_check`. Art work needs only targeted checks.
 - Screenshots: `godot --path game --position 6000,6000 res://tools/light_shot.tscn -- <area,level> <out.png> <camera x> [monster ids] [wait s] [strike s]` (stage with its lighting); also `game/tools/{ui_shot,stage_shot,rig_shot,rig_strip,seam_check,skill_shot,fx_gallery}`.
 - Export: `bash tools/build.sh` → `build/zmxy2_<branch>_v<version>.exe` (4.7.2 export templates).
