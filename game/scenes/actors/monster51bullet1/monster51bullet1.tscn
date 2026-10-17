@@ -1,32 +1,29 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://c6h5q8o5mujxm"]
 
-[ext_resource type="Script" path="res://src/actors/actor_body.gd" id="1_hyrei"]
-[ext_resource type="Shader" path="res://src/rig/sprite_fx.gdshader" id="2_40vbt"]
-[ext_resource type="Texture2D" path="res://assets/shared/rigs/4_66.png" id="3_83eic"]
-[ext_resource type="AnimationLibrary" path="res://scenes/actors/monster51bullet1/monster51bullet1_actions.tres" id="4_axnwj"]
+[ext_resource type="Script" uid="uid://dc0bjfto4ky0a" path="res://src/actors/actor_body.gd" id="1_hyrei"]
+[ext_resource type="Shader" uid="uid://ca7cq5fbwpytn" path="res://src/rig/sprite_fx.gdshader" id="2_40vbt"]
+[ext_resource type="Texture2D" uid="uid://bx4acq0in57lv" path="res://assets/shared/rigs/4_66.png" id="3_83eic"]
+[ext_resource type="AnimationLibrary" uid="uid://rfrxqkq81hdp" path="res://scenes/actors/monster51bullet1/monster51bullet1_actions.tres" id="4_axnwj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5ms4n"]
 shader = ExtResource("2_40vbt")
-shader_parameter/matrix_on = null
-shader_parameter/color_matrix = null
-shader_parameter/color_offset = null
+shader_parameter/matrix_on = false
+shader_parameter/color_matrix = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+shader_parameter/color_offset = Vector4(0, 0, 0, 0)
 shader_parameter/blur = 5.0
 shader_parameter/glow_on = true
 shader_parameter/glow_color = Color(1, 0.4, 0, 1)
 shader_parameter/glow_blur = 26.0
 shader_parameter/glow_strength = 0.83984375
-shader_parameter/glow2_on = null
-shader_parameter/glow2_color = null
-shader_parameter/glow2_blur = null
-shader_parameter/glow2_strength = null
-shader_parameter/solid = null
+shader_parameter/glow2_on = false
+shader_parameter/glow2_color = Color(1, 1, 1, 1)
+shader_parameter/glow2_blur = 0.0
+shader_parameter/glow2_strength = 1.0
+shader_parameter/solid = false
 shader_parameter/extend = 27.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gunij"]
-resource_local_to_scene = true
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4eexg"]
-resource_local_to_scene = true
+[sub_resource type="CircleShape2D" id="CircleShape2D_wvhbo"]
+radius = 60.0
 
 [node name="Monster51Bullet1" type="Node2D" unique_id=689172184]
 script = ExtResource("1_hyrei")
@@ -35,13 +32,12 @@ actions = PackedStringArray("default")
 [node name="Poses" type="Node2D" parent="." unique_id=1854923600]
 
 [node name="Default" type="Node2D" parent="Poses" unique_id=1474916795]
-visible = false
 
 [node name="DefaultPart1" type="Sprite2D" parent="Poses/Default" unique_id=411205715]
 material = SubResource("ShaderMaterial_5ms4n")
-position = Vector2(57.45, -57.45)
-rotation = 3.1415927
-scale = Vector2(0.25, -0.25)
+position = Vector2(77.442604, 23.899202)
+rotation = -2.0568616
+scale = Vector2(0.24938425, -0.24938425)
 texture = ExtResource("3_83eic")
 centered = false
 
@@ -51,17 +47,7 @@ collision_mask = 0
 monitorable = false
 
 [node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1912520576]
-shape = SubResource("RectangleShape2D_gunij")
-disabled = true
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=234218680]
-collision_layer = 0
-collision_mask = 0
-monitoring = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=82504915]
-shape = SubResource("RectangleShape2D_4eexg")
-disabled = true
+shape = SubResource("CircleShape2D_wvhbo")
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=1709323453]
 callback_mode_process = 0

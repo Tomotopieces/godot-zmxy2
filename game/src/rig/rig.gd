@@ -18,9 +18,9 @@ signal action_finished(action: StringName)
 var hitbox: Area2D:   ## what this rig hits with (animated per action)
 	get:
 		return get_node("Hitbox")
-var hurtbox: Area2D:   ## where this rig can be hit
+var hurtbox: Area2D:   ## where this rig can be hit (null when the scene has none, e.g. a bullet)
 	get:
-		return get_node("Hurtbox")
+		return get_node_or_null("Hurtbox")
 
 var action: StringName = &""
 var equipment := {}    ## slot kind -> variant id (cloth / cloth_ex / weapon / wing)
@@ -247,13 +247,15 @@ func _anim_events(events: Array) -> void:
 			return
 		event.emit(ev[0], ev[1])
 
-## Global AABB of an animated box (Hitbox / Hurtbox); empty Rect2 while the box is off.
+## Global AABB of a box (Hitbox / Hurtbox) of any shape (rectangle, circle, ... as set in the scene); empty Rect2
+## while the box is off or missing.
 func box_rect(area: Area2D) -> Rect2:
-	var cs := area.get_child(0) as CollisionShape2D
-	if cs.disabled:
+	if area == null or area.get_child_count() == 0:
 		return Rect2()
-	var size: Vector2 = cs.shape.size
-	return cs.global_transform * Rect2(-size / 2.0, size)
+	var cs := area.get_child(0) as CollisionShape2D
+	if cs == null or cs.disabled or cs.shape == null:
+		return Rect2()
+	return cs.global_transform * cs.shape.get_rect()
 
 func hit_rect() -> Rect2:
 	return box_rect(hitbox)

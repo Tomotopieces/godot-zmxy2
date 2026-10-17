@@ -221,10 +221,21 @@ func attack(action: StringName = &"hit1") -> void:
 	m.face_target()
 	act(action)
 
-## Play an attack action with its invulnerable window (param "invuln_<action>", seconds).
+## Play an attack action with its invulnerable window (param "invuln_<action>", seconds). With "invuln_until_stand"
+## the window is cut when the move ends (the monster stands again), however long the original's count was.
+var _act_invuln := false
+
 func act(action: StringName) -> bool:
-	m.invuln = maxf(m.invuln, float(param("invuln_" + String(action), 0.0)))
+	var t := float(param("invuln_" + String(action), 0.0))
+	m.invuln = maxf(m.invuln, t)
+	_act_invuln = t > 0.0 and bool(param("invuln_until_stand", false))
 	return m.attack_with(action)
+
+## Called by the monster when an attack ends.
+func end_act_invuln() -> void:
+	if _act_invuln:
+		_act_invuln = false
+		m.invuln = 0.0
 
 ## Every hero is pulled to the monster over `time` (no damage).
 func pull_heroes(time: float) -> void:

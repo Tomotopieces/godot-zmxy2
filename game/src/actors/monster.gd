@@ -338,6 +338,7 @@ func _on_action_finished(action: StringName) -> void:
 		State.ATTACK:
 			end_attack()
 			state = State.MOVE
+			brain.end_act_invuln()
 			brain.on_action_finished(action)
 		State.HURT:
 			if is_on_floor() or fly:
@@ -439,7 +440,7 @@ func _draw_hp_bar() -> void:
 	if data.is_boss:
 		return   # bosses show their bar on the HUD
 	var box := rig.hurtbox.get_child(0) as CollisionShape2D
-	var y: float = box.position.y - box.shape.size.y / 2.0 - 10.0
+	var y: float = box.position.y + box.shape.get_rect().position.y - 10.0
 	var w := 50.0
 	_hp_bar.draw_rect(Rect2(-w / 2.0, y, w, 5), Color(0, 0, 0, 0.8))
 	_hp_bar.draw_rect(Rect2(-w / 2.0 + 0.5, y + 0.5, (w - 1.0) * float(hp) / max_hp, 4), Color(0.9, 0.1, 0.1))
