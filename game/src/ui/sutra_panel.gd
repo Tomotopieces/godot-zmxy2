@@ -30,6 +30,7 @@ func _ready() -> void:
 	_ui.show_frame("showmc", d.display_name)
 	_ui.show_frame("introducemc", d.display_name)
 	_refresh()
+	UiFade.fade_in(self)
 
 func _item() -> Item:
 	return GameState.worn[&"treasure"]
@@ -37,12 +38,12 @@ func _item() -> Item:
 func _unhandled_input(e: InputEvent) -> void:
 	if e.is_action_pressed("pause"):
 		get_viewport().set_input_as_handled()
-		queue_free()
+		UiFade.close(self)
 
 func _on_button(b: String) -> void:
 	match b:
 		"btn_close":
-			queue_free()
+			UiFade.close(self)
 		"btn_sj":
 			var it := _item()
 			var cost := Forge.upgrade_cost(it)

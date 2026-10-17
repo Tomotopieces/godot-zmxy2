@@ -50,6 +50,7 @@ func _ready() -> void:
 	GameState.equipment_changed.connect(_refresh)
 	get_tree().paused = true
 	_refresh()
+	UiFade.fade_in(self)
 
 ## The portrait plays the original animated clips: the spotlight behind (symbol 137) and Wukong (personmc body)
 ## wearing the current gear. They replace the layout's frozen first frames.
@@ -85,7 +86,7 @@ func _exit_tree() -> void:
 
 func close() -> void:
 	closed.emit()
-	queue_free()
+	UiFade.close(self)
 
 func _unhandled_input(e: InputEvent) -> void:
 	if e.is_action_pressed("open_bag") or e.is_action_pressed("pause"):

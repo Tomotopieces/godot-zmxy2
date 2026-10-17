@@ -27,7 +27,7 @@ func _ready() -> void:
 	var role := GameState.hero_data.role_index
 	for i in 3:
 		back.set_visible_piece("player%d" % (i + 1), i == role)
-	back.button_pressed.connect(func(b): if b == "btnback": queue_free())
+	back.button_pressed.connect(func(b): if b == "btnback": UiFade.close(self))
 	add_child(back)
 	_ui = UiLayout.create("skill_control")
 	add_child(_ui)
@@ -46,6 +46,7 @@ func _ready() -> void:
 		_passive_rows.append(row)
 	_ui.button_pressed.connect(_on_button)
 	_show_page(false)
+	UiFade.fade_in(self)
 
 func _show_page(passive: bool) -> void:
 	_ui.show_frame("bgmc", 1 if passive else 0)
@@ -91,4 +92,4 @@ func _upgrade(i: int) -> void:
 func _unhandled_input(e: InputEvent) -> void:
 	if e.is_action_pressed("pause") or e.is_action_pressed("open_skills"):
 		get_viewport().set_input_as_handled()
-		queue_free()
+		UiFade.close(self)
