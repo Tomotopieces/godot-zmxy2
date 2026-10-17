@@ -1,9 +1,178 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene format=3]
 
-[ext_resource type="Script" path="res://src/main.gd" id="1"]
-[ext_resource type="PackedScene" path="res://scenes/screens/title_screen.tscn" id="2"]
+[ext_resource type="Script" path="res://src/main.gd" id="main"]
+[ext_resource type="Script" path="res://src/screens/main_menu.gd" id="title"]
+[ext_resource type="Script" path="res://src/ui/ui_layout.gd" id="layout"]
+[ext_resource type="Texture2D" path="res://assets/ui/game_menu/tex/OtherMat_v10_99.png" id="2_t4x84"]
+[ext_resource type="Texture2D" path="res://assets/ui/game_menu/tex/OtherMat_v10_118.png" id="12_5ah5m"]
+[ext_resource type="Texture2D" path="res://assets/ui/game_menu/tex/OtherMat_v10_102.png" id="4_eefm1"]
+[ext_resource type="Texture2D" path="res://assets/shared/ui/OtherMat_v10_122.png" id="13_iy466"]
+[ext_resource type="Texture2D" path="res://assets/ui/game_menu/tex/OtherMat_v10_132.png" id="15_d8ji8"]
+[ext_resource type="Texture2D" path="res://assets/ui/game_menu/tex/OtherMat_v10_133.png" id="16_5tohi"]
 
 [node name="Main" type="Node"]
-script = ExtResource("1")
+script = ExtResource("main")
 
-[node name="TitleScreen" parent="." instance=ExtResource("2")]
+[node name="Title" type="CanvasLayer" parent="."]
+script = ExtResource("title")
+
+[node name="Menu" type="Control" parent="Title"]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("layout")
+
+[node name="Background" type="Node2D" parent="Title/Menu"]
+
+
+[node name="Picture" type="Sprite2D" parent="Title/Menu/Background"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_t4x84")
+centered = false
+
+[node name="NewGame" type="Control" parent="Title/Menu"]
+anchors_preset = 0
+offset_left = 750.65
+offset_top = 207.15
+offset_right = 846.95
+offset_bottom = 234.15
+mouse_default_cursor_shape = 2
+metadata/ui_piece = ["newGame"]
+metadata/ui_button = "newGame"
+
+[node name="Up" type="Node2D" parent="Title/Menu/NewGame"]
+position = Vector2(0.5, 0.5)
+
+[node name="Caption" type="Sprite2D" parent="Title/Menu/NewGame/Up"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("12_5ah5m")
+centered = false
+
+[node name="Underline" type="Sprite2D" parent="Title/Menu/NewGame/Up"]
+position = Vector2(-74.5, 24.350002)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_eefm1")
+centered = false
+
+[node name="Over" type="Node2D" parent="Title/Menu/NewGame"]
+visible = false
+position = Vector2(0.5, 0.5)
+
+[node name="Caption" type="Sprite2D" parent="Title/Menu/NewGame/Over"]
+modulate = Color(1, 0.6, 0, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("12_5ah5m")
+centered = false
+
+[node name="Underline" type="Sprite2D" parent="Title/Menu/NewGame/Over"]
+position = Vector2(-74.5, 24.350002)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_eefm1")
+centered = false
+
+[node name="Down" type="Node2D" parent="Title/Menu/NewGame"]
+visible = false
+position = Vector2(0.5, 0.5)
+
+[node name="Caption" type="Sprite2D" parent="Title/Menu/NewGame/Down"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("12_5ah5m")
+centered = false
+
+[node name="Underline" type="Sprite2D" parent="Title/Menu/NewGame/Down"]
+position = Vector2(-74.5, 24.350002)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_eefm1")
+centered = false
+
+[node name="ContinueGame" type="Control" parent="Title/Menu"]
+anchors_preset = 0
+offset_left = 750.65
+offset_top = 254.5
+offset_right = 852.0
+offset_bottom = 283.2
+mouse_default_cursor_shape = 2
+metadata/ui_piece = ["continueGame"]
+metadata/ui_button = "continueGame"
+
+[node name="Up" type="Node2D" parent="Title/Menu/ContinueGame"]
+position = Vector2(0.5, 0.5)
+
+[node name="Caption" type="Sprite2D" parent="Title/Menu/ContinueGame/Up"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("13_iy466")
+centered = false
+
+[node name="Underline" type="Sprite2D" parent="Title/Menu/ContinueGame/Up"]
+position = Vector2(-74.5, 24.45)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_eefm1")
+centered = false
+
+[node name="Over" type="Node2D" parent="Title/Menu/ContinueGame"]
+visible = false
+position = Vector2(0.5, 0.5)
+
+[node name="Caption" type="Sprite2D" parent="Title/Menu/ContinueGame/Over"]
+modulate = Color(1, 0.6, 0, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("13_iy466")
+centered = false
+
+[node name="Underline" type="Sprite2D" parent="Title/Menu/ContinueGame/Over"]
+position = Vector2(-74.5, 24.45)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_eefm1")
+centered = false
+
+[node name="Down" type="Node2D" parent="Title/Menu/ContinueGame"]
+visible = false
+position = Vector2(0.5, 0.5)
+
+[node name="Caption" type="Sprite2D" parent="Title/Menu/ContinueGame/Down"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("13_iy466")
+centered = false
+
+[node name="Underline" type="Sprite2D" parent="Title/Menu/ContinueGame/Down"]
+position = Vector2(-74.5, 24.45)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_eefm1")
+centered = false
+
+[node name="QuitGame" type="Control" parent="Title/Menu"]
+anchors_preset = 0
+offset_left = 749.75
+offset_top = 398.75
+offset_right = 859.75
+offset_bottom = 438.75
+mouse_default_cursor_shape = 2
+metadata/ui_piece = ["btnquit"]
+metadata/ui_button = "btnquit"
+
+[node name="Up" type="Node2D" parent="Title/Menu/QuitGame"]
+position = Vector2(1.4, 3.8)
+
+[node name="Caption" type="Sprite2D" parent="Title/Menu/QuitGame/Up"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("15_d8ji8")
+centered = false
+
+[node name="Over" type="Node2D" parent="Title/Menu/QuitGame"]
+visible = false
+position = Vector2(1.4, 3.8)
+
+[node name="Caption" type="Sprite2D" parent="Title/Menu/QuitGame/Over"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("16_5tohi")
+centered = false
+
+[node name="Down" type="Node2D" parent="Title/Menu/QuitGame"]
+visible = false
+position = Vector2(1.4, 3.8)
+
+[node name="Caption" type="Sprite2D" parent="Title/Menu/QuitGame/Down"]
+position = Vector2(0, 3)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("16_5tohi")
+centered = false

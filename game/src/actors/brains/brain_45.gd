@@ -33,6 +33,7 @@ func _apply_form() -> void:
 func intercept_death() -> bool:
 	if _form >= 3:
 		return false
+	m.world.bullet_time()   # each form falls like a boss death (the last one through Monster.died)
 	begin_revive()
 	m.play_action(&"dead")   # its last frame calls check_re_burn
 	return true

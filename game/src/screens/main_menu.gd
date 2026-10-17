@@ -1,26 +1,28 @@
 class_name MainMenu
 extends CanvasLayer
-## Title screen (export.GameMenu): new game, continue (save slots), help, about, quit.
+## Title screen (main.tscn's Title node): 新的开始, 继续游戏 (save slots), 退出游戏.
 
 signal new_game
 signal continued
-
-## platform / 2P buttons of the original that have no use here
-const HIDDEN := ["simpleGame", "doubleGame", "backbtn", "btn_solution", "btn_forum", "btnCadpa", "btnGoBack"]
 
 var _ui: UiLayout
 var _popup: Node
 
 func _ready() -> void:
-	_ui = get_node_or_null("Menu") as UiLayout   # the layout instanced in title_screen.tscn
-	if _ui == null:
-		_ui = UiLayout.create("game_menu")
-		add_child(_ui)
-	for p in HIDDEN:
-		_ui.set_visible_piece(p, false)
-	_ui.set_text("txt_version", "V2.4")
+	_ui = $Menu
 	_ui.button_pressed.connect(_on_button)
+	shown()
+
+## The title comes back to the front (it is kept in main.tscn and only hidden while another screen is up).
+func shown() -> void:
+	close_popup()
 	Snd.music("begin")
+
+## Another screen takes over: a save panel left open on the title goes with it.
+func close_popup() -> void:
+	if is_instance_valid(_popup):
+		_popup.queue_free()
+	_popup = null
 
 func _on_button(b: String) -> void:
 	if _popup:
@@ -38,24 +40,5 @@ func _on_button(b: String) -> void:
 					continued.emit())
 			_popup = p
 			add_child(p)
-		"gameHelp":
-			_show_panel("help")
-		"aboutUs":
-			_show_panel("about")
 		"btnquit":
 			get_tree().quit()
-
-func _unhandled_input(e: InputEvent) -> void:
-	if e.is_action_pressed("pause") and _popup is UiLayout:   # B / Esc closes help and about
-		get_viewport().set_input_as_handled()
-		_popup.queue_free()
-		_popup = null
-
-func _show_panel(ui_name: String) -> void:
-	var h := UiLayout.create(ui_name)
-	_popup = h
-	PadNav.modal(h)
-	h.button_pressed.connect(func(_b):
-		h.queue_free()
-		_popup = null)
-	add_child(h)

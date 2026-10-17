@@ -19,7 +19,7 @@ func _ready() -> void:
 	add_child(_main)
 	await _wait(0.5)
 	await _shot("1_menu")
-	_main._screen.new_game.emit()
+	_main._title.new_game.emit()   # (the title lives in main.tscn, not as a swapped screen)
 	await _wait(0.3)
 	await _shot("1b_select")
 	_main._screen.chosen.emit("wukong")
