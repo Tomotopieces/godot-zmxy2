@@ -31,9 +31,13 @@ body { background: #000; color: #fff; overflow: hidden; touch-action: none; font
 		<div id="text">正在连接……</div>
 	</div>
 </div>
+<script>
+// the player site tells the game when its tab is hidden (read by src/core/web_host.gd)
+window.addEventListener('message', (e) => { if (e.data && e.data.zmxy2) window.__zmxy2Hidden = e.data.zmxy2 === 'hidden'; });
+</script>
 <script src="index.js"></script>
 <script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":159052612,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":159055064,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
 const GODOT_THREADS_ENABLED = false;
 (async function () {
 	const loading = document.getElementById('loading');

@@ -29,6 +29,10 @@ $GODOT_HEAD_INCLUDE
 		<div id="text">正在连接……</div>
 	</div>
 </div>
+<script>
+// the player site tells the game when its tab is hidden (read by src/core/web_host.gd)
+window.addEventListener('message', (e) => { if (e.data && e.data.zmxy2) window.__zmxy2Hidden = e.data.zmxy2 === 'hidden'; });
+</script>
 <script src="$GODOT_URL"></script>
 <script>
 const GODOT_CONFIG = $GODOT_CONFIG;

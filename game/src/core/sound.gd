@@ -90,9 +90,13 @@ func set_muted(v: bool) -> void:
 	_apply()
 	_save_settings()
 
+## Re-applies the bus volumes and mute (also when the web page hides or shows the game).
+func apply() -> void:
+	_apply()
+
 func _apply() -> void:
 	AudioServer.set_bus_volume_db(0, linear_to_db(master))
-	AudioServer.set_bus_mute(0, muted or master <= 0.0)
+	AudioServer.set_bus_mute(0, muted or master <= 0.0 or WebHost.hidden)
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), linear_to_db(music_volume))
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), linear_to_db(sfx_volume))
 	volume_changed.emit(master, muted)

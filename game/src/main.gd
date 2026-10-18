@@ -12,6 +12,8 @@ func _ready() -> void:
 	Controls.add_gamepad_defaults()
 	add_child(PadNav.new())
 	add_child(_fade)
+	if OS.has_feature("web"):
+		add_child(WebHost.new())
 	if OS.is_debug_build():   # debug aids are not part of exported (release) builds
 		add_child(DebugConsole.new())   # ~ lists every item
 	_title.new_game.connect(func(): _fade.play(show_select_role))

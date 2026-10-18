@@ -51,7 +51,7 @@ func _ready() -> void:
 	hud = HUD_SCENE.instantiate()
 	add_child(hud)
 	hud.open_bag.connect(_open_bag)
-	hud.open_menu.connect(_open_pause)
+	hud.open_menu.connect(open_pause)
 	hud.open_skills.connect(_open_skills)
 	hud.open_treasure.connect(_open_treasure)
 	level = Level.new()
@@ -157,7 +157,7 @@ func _open_treasure() -> void:
 		_menu = s
 		s.tree_exited.connect(func(): _menu = null)
 
-func _open_pause() -> void:
+func open_pause() -> void:
 	if _over or _bag or _menu or get_tree().paused:
 		return
 	var m := PauseMenu.new()
@@ -184,7 +184,7 @@ func _unhandled_input(e: InputEvent) -> void:
 	if e.is_action_pressed("open_bag"):
 		_open_bag()
 	elif e.is_action_pressed("pause"):
-		_open_pause()
+		open_pause()
 	elif e.is_action_pressed("open_skills"):
 		_open_skills()
 	elif e.is_action_pressed("open_treasure"):
