@@ -14,8 +14,11 @@ var sfx_volume := 1.0
 var muted := false
 
 var _music: AudioStreamPlayer
-var _players := {}   ## sound -> its AudioStreamPlayer (a few overlapping plays allowed: a new one never cuts the old)
-var _frame_of := {}  ## sound -> the engine frame it last started in
+const VOICES := 8          ## at most this many copies of one effect at once; more requests are dropped, none is cut
+const MIN_GAP := 0.045     ## seconds: the same effect asked again sooner is one sound (a blow on several enemies)
+
+var _players := {}   ## sound -> its AudioStreamPlayers, one per playing copy
+var _last_at := {}   ## sound -> time (s) it last started
 var _cache := {}
 
 func _ready() -> void:
@@ -49,20 +52,28 @@ func sfx(sound: String, pitch := 1.0) -> void:
 	var s := _stream(sound)
 	if s == null:
 		return
-	# The same effect asked for again in the same frame is one sound: a blow landing on several enemies asks once per
-	# enemy, and stacked copies were a roar (the original did stack them). Later requests overlap normally.
-	var frame := Engine.get_process_frames()
-	if _frame_of.get(sound, -1) == frame:
+	# A blow landing on several enemies asks once per enemy: requests close together are one sound (stacked copies were
+	# a roar). Every copy plays to its end on its own player: when all VOICES are busy the new request is dropped
+	# instead of cutting one that is still playing (a held 冰龙波 hitting a crowd stuttered).
+	var now := Time.get_ticks_msec() / 1000.0
+	if now - float(_last_at.get(sound, -100.0)) < MIN_GAP:
 		return
-	_frame_of[sound] = frame
-	var p: AudioStreamPlayer = _players.get(sound)
+	var pool: Array = _players.get(sound, [])
+	_players[sound] = pool
+	var p: AudioStreamPlayer = null
+	for q: AudioStreamPlayer in pool:
+		if not q.playing:
+			p = q
+			break
 	if p == null:
+		if pool.size() >= VOICES:
+			return
 		p = AudioStreamPlayer.new()
 		p.bus = "SFX"
 		p.stream = s
-		p.max_polyphony = 6   # the engine mixes overlapping plays of one player; none is cut until six are running
 		add_child(p)
-		_players[sound] = p
+		pool.append(p)
+	_last_at[sound] = now
 	p.pitch_scale = pitch
 	p.play()
 
