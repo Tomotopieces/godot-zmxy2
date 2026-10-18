@@ -13,9 +13,9 @@ body { background: #000; color: #fff; overflow: hidden; touch-action: none; font
 #loading { position: fixed; inset: 0; display: grid; place-items: center; background: #000; transition: opacity .3s; }
 #loading.done { opacity: 0; pointer-events: none; }
 #stage { position: relative; width: min(100vw, calc(100vh * 940 / 590)); aspect-ratio: 940 / 590; background: url(loading_bg.png) center / 100% 100% no-repeat; }
-#bar { position: absolute; left: 23.3%; top: 46.6%; width: 53.4%; aspect-ratio: 502 / 40; background: url(loading_bar_empty.png) center / 100% 100% no-repeat; }
+#bar { position: absolute; left: 23.3%; top: 79.7%; width: 53.4%; aspect-ratio: 502 / 40; background: url(loading_bar_empty.png) center / 100% 100% no-repeat; }
 #fill { position: absolute; inset: 0; background: url(loading_bar_full.png) left center / auto 100% no-repeat; clip-path: inset(0 100% 0 0); }
-#text { position: absolute; left: 0; right: 0; top: 55%; text-align: center; font-size: clamp(12px, 2vw, 18px); color: #f3d79a; text-shadow: 0 1px 3px #000, 0 0 6px #000; }
+#text { position: absolute; left: 0; right: 0; top: 88%; text-align: center; font-size: clamp(12px, 2vw, 18px); color: #f3d79a; text-shadow: 0 1px 3px #000, 0 0 6px #000; }
 #text.error { color: #ff8a7a; white-space: pre-line; }
 </style>
 $GODOT_HEAD_INCLUDE
