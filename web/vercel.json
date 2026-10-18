@@ -1,0 +1,6 @@
+{
+  "headers": [
+    { "source": "/(.*)\.wasm", "headers": [{ "key": "Content-Type", "value": "application/wasm" }] },
+    { "source": "/(.*)\.(pck|wasm|js)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600" }] }
+  ]
+}

@@ -1,6 +1,6 @@
-// Static server for build/web (Web export test): node tools/serve_web.js [port]  -> http://localhost:<port>/
+// Static server for web/ (Web export test): node tools/serve_web.js [port]  -> http://localhost:<port>/
 const http = require('http'), fs = require('fs'), path = require('path');
-const root = path.join(__dirname, '..', 'build', 'web');
+const root = path.join(__dirname, '..', 'web');
 const port = +process.argv[2] || 8060;
 const types = { '.html': 'text/html', '.js': 'application/javascript', '.wasm': 'application/wasm', '.pck': 'application/octet-stream', '.png': 'image/png' };
 http.createServer((req, res) => {
