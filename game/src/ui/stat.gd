@@ -21,9 +21,12 @@ func _ready() -> void:
 	_apply()
 
 func _apply() -> void:
+	# the value label's piece name is set as soon as the label exists: UiLayout.create() collects the pieces right after
+	# instancing, before any _ready()
+	var v := get_node_or_null(^"Box/StatValue")
+	if v and piece != "":
+		v.set_meta(&"ui_piece", [piece])
 	if not is_node_ready():
-		return   # _ready() applies the values once the children exist
+		return   # _ready() applies the rest once the children are ready
 	$Caption.text = caption
 	$Box.size.x = width
-	if piece != "":
-		$Box/StatValue.set_meta(&"ui_piece", [piece])
