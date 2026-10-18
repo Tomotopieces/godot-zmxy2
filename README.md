@@ -1,4 +1,4 @@
-# 造梦西游2：十殿阎罗篇 — Godot 重制
+# zmxy2-remake — 造梦西游2：十殿阎罗篇 Godot 重制版
 
 Godot 4.7 (Forward+, 2D MSAA) remake of the Flash game 《造梦西游2》. The original's numbers and behaviour are kept; everything is rebuilt natively.
 Playable: 孙悟空 / 唐僧 / 猪八戒 (八戒 unlocks with the first 红孩儿 kill). Stages are named `sl<area><level>`: `sl11` = 1-1 … `sl33`, `sl41`; hidden stages `sl51` (5-1 白骨精) … `sl111`; `sl01` = debug arena.
