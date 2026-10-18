@@ -21,7 +21,7 @@ static func spawn(id: String, pos: Vector2) -> GroundItem:
 	g.add_child(g._sprite)
 	var cs := CollisionShape2D.new()
 	var shape := RectangleShape2D.new()
-	shape.size = d.ground_icon.get_size() if d.ground_icon else Vector2(40, 40)
+	shape.size = d.ground_size
 	cs.shape = shape
 	g.add_child(cs)
 	g.collision_layer = 0

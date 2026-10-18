@@ -653,14 +653,33 @@ func _draw_debug() -> void:
 		return
 	var actors: Array = monsters() + heroes()
 	for a: Actor in actors:
-		_debug.draw_rect(a.hurt_rect(), Color(0, 1, 0, 0.8), false, 1.0)
-		var r := a.rig.hit_rect()
-		if r.size != Vector2.ZERO:
-			_debug.draw_rect(r, Color(1, 0, 0, 0.8), false, 1.0)
+		_draw_box(a.rig.hurtbox, Color(0, 1, 0, 0.8))
+		_draw_box(a.rig.hitbox, Color(1, 0, 0, 0.8))
 	for p in world.get_children():
 		if p is Projectile:
-			var r: Rect2 = p.rig.hit_rect()
-			if r.size != Vector2.ZERO:
-				_debug.draw_rect(r, Color(1, 0.5, 0, 0.8), false, 1.0)
+			_draw_box(p.rig.hitbox, Color(1, 0.5, 0, 0.8))
 	if door:
 		_debug.draw_rect(door_rect, Color(0, 0.5, 1, 0.8), false, 1.0)
+
+## Outline of a box with its real shape (circle, capsule, polygon, rotated rectangle), the shape the collision uses.
+func _draw_box(area: Area2D, col: Color) -> void:
+	if area == null or area.get_child_count() == 0:
+		return
+	var cs := area.get_child(0) as CollisionShape2D
+	if cs == null or cs.disabled or cs.shape == null:
+		return
+	_debug.draw_set_transform_matrix(_debug.global_transform.affine_inverse() * cs.global_transform)
+	var sh := cs.shape
+	if sh is CircleShape2D:
+		_debug.draw_arc(Vector2.ZERO, sh.radius, 0.0, TAU, 32, col, 1.0)
+	elif sh is ConvexPolygonShape2D:
+		_debug.draw_polyline(sh.points + PackedVector2Array([sh.points[0]]), col, 1.0)
+	elif sh is CapsuleShape2D:
+		var half: float = sh.height / 2.0 - sh.radius
+		_debug.draw_arc(Vector2(0, -half), sh.radius, PI, TAU, 16, col, 1.0)
+		_debug.draw_arc(Vector2(0, half), sh.radius, 0.0, PI, 16, col, 1.0)
+		_debug.draw_line(Vector2(-sh.radius, -half), Vector2(-sh.radius, half), col, 1.0)
+		_debug.draw_line(Vector2(sh.radius, -half), Vector2(sh.radius, half), col, 1.0)
+	else:
+		_debug.draw_rect(sh.get_rect(), col, false, 1.0)
+	_debug.draw_set_transform_matrix(Transform2D.IDENTITY)

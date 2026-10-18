@@ -20,6 +20,7 @@ const SLOTS := [&"weapon", &"cloth", &"accessory", &"treasure", &"fashion", &"wi
 @export_multiline var desc := ""
 @export var icon: Texture2D
 @export var ground_icon: Texture2D
+@export var ground_size := Vector2(40, 40)   ## pickup / landing box of the dropped item
 
 
 ## Items (道具) stack in the bag.

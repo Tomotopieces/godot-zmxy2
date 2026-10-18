@@ -12,6 +12,9 @@ var _age := 0.0
 var _stand_t := 0.0
 var _stopped := false
 
+## Standing surface of the platform: the top 8 px of its art (fabao_sword_platform spans (-56.85, -13.25) 111 x 30).
+const PLATFORM_TOP := Rect2(-56.85, -13.25, 111, 8)
+
 func begin() -> void:
 	visible = false
 	_dir = hero.facing
@@ -26,26 +29,17 @@ func begin() -> void:
 	_art = Rig.create("fabao_sword_platform")
 	_art.visible = false
 	_body.add_child(_art)
-	var r := _art_rect()
 	var cs := CollisionShape2D.new()
 	var shape := RectangleShape2D.new()
-	shape.size = Vector2(r.size.x, 8)
+	shape.size = PLATFORM_TOP.size
 	cs.shape = shape
-	cs.position = Vector2(r.get_center().x, r.position.y + 4)
+	cs.position = PLATFORM_TOP.get_center()
 	cs.one_way_collision = true
 	_body.add_child(cs)
 	_body.global_position = hero.global_position
 	world.add_object(_body)
 	_art.play(_art.actions[0])
 	_blade = shoot("fabao_sword_effect", &"fabao_sword", _body.global_position, -_dir, flat_roll(p.damage, p.per_level, p.spread))
-
-## Bounds of the platform art in its own space.
-func _art_rect() -> Rect2:
-	var r := Rect2()
-	for sp: Sprite2D in _art.find_children("*", "Sprite2D", true, false):
-		var sr := _art.global_transform.affine_inverse() * sp.global_transform * sp.get_rect()
-		r = sr if r.size == Vector2.ZERO else r.merge(sr)
-	return r
 
 func follows() -> bool:
 	return true
