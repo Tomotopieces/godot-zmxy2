@@ -1,7 +1,7 @@
 // Caches the web build on the player's machine: the engine and the 150 MB pack are downloaded once per build.
 // BUILD is replaced by tools/export_web.sh with a hash of index.pck + index.wasm; a new build gets a new cache and the
 // old one is deleted.
-const BUILD = '9f085db671e4';
+const BUILD = 'b41094f17488';
 const CACHE = 'zmxy2-remake-' + BUILD;
 const FILES = ['index.pck', 'index.wasm', 'index.js', 'index.audio.worklet.js', 'index.audio.position.worklet.js',
 	'loading_bg.png', 'loading_bar_empty.png', 'loading_bar_full.png'];
