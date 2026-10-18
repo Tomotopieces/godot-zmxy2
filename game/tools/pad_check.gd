@@ -62,6 +62,32 @@ func _ready() -> void:
 	_check("backpack takes the pad", nav.active())
 	await _btn(JOY_BUTTON_DPAD_DOWN)
 	_check("backpack highlight", nav._focus != null)
+	# an item menu: B closes the menu only; selling keeps the highlight on that cell when the next item moves in
+	ps._bag.close()
+	await get_tree().create_timer(0.3).timeout
+	for id in ["ptxzf", "ptxzf", "ptxzf"]:
+		var e := EquipmentCatalog.find(id)
+		if e:
+			GameState.add_to_bag(e.roll())
+	var shown_before := GameState.tab_items("equip").size()
+	ps._open_bag()
+	await get_tree().create_timer(0.4).timeout
+	var cells: Array = ps._bag._grid.get_children().filter(func(c): return c is TextureRect)
+	await _btn(JOY_BUTTON_DPAD_DOWN)
+	nav._gain(cells[0])
+	var cell_center: Vector2 = cells[0].get_global_rect().get_center()
+	await _btn(JOY_BUTTON_A)
+	await get_tree().create_timer(0.2).timeout
+	_check("A on an item opens its menu", ps._bag._menu != null)
+	await _btn(JOY_BUTTON_B)
+	await get_tree().create_timer(0.2).timeout
+	_check("B closes the item menu, not the backpack", ps._bag != null and is_instance_valid(ps._bag) and ps._bag._menu == null)
+	await _btn(JOY_BUTTON_A)
+	await get_tree().create_timer(0.2).timeout
+	ps._bag._menu_action("bmd")
+	await get_tree().create_timer(0.3).timeout
+	_check("after selling the highlight stays on that cell (%d items before)" % shown_before,
+		nav._focus != null and is_instance_valid(nav._focus) and nav._focus.get_global_rect().get_center().distance_to(cell_center) < 2.0)
 	await _btn(JOY_BUTTON_B)
 	await get_tree().create_timer(0.3).timeout
 	_check("B closes the backpack", ps._bag == null or not is_instance_valid(ps._bag))

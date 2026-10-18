@@ -196,7 +196,7 @@ func _read_input() -> void:
 		_dir = -1 if l else (1 if r else 0)
 	if _dir == 0:
 		running = false
-	elif Input.is_action_pressed("run"):   # gamepad: hold LB to run
+	elif Input.is_action_pressed("run"):   # gamepad: LB while moving runs until the direction is let go
 		running = true
 
 	if Input.is_action_just_pressed("jump"):

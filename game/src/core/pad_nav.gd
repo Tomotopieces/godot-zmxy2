@@ -17,6 +17,7 @@ static var _seq := 0
 
 var _focus: Control
 var _last_center := Vector2.ZERO
+var _modal_return := Vector2.ZERO   ## where the highlight was when a popup took it: it goes back there when the popup closes
 var _cursor: Node2D
 var _dir := Vector2i.ZERO        ## held direction (stick)
 var _repeat := 0.0
@@ -62,7 +63,7 @@ func _candidates() -> Array[Control]:
 	var top := -1000
 	for n in get_tree().get_nodes_in_group(GROUP):
 		var c := n as Control
-		if c == null or not c.is_visible_in_tree() or c.size.x < 2.0 or c.size.y < 2.0:
+		if c == null or c.is_queued_for_deletion() or not c.is_visible_in_tree() or c.size.x < 2.0 or c.size.y < 2.0:
 			continue
 		var l := _layer_of(c)
 		if l == null or l is Hud or l == self:
@@ -127,11 +128,17 @@ func _process(delta: float) -> void:
 	if cands.is_empty():
 		_hide()
 		_last_center = Vector2.ZERO
+		_modal_return = Vector2.ZERO
 		_dir = Vector2i.ZERO
 		return
 	if _focus != null and (not is_instance_valid(_focus) or not cands.has(_focus)):
+		# a popup opened: remember the control that opened it; otherwise another screen starts from its first control
+		# (a popup closing goes back to that spot in _pick_start)
+		if is_instance_valid(_focus) and _modal_of(_focus) == null and _modal_of(cands[0]) != null:
+			_modal_return = _center(_focus)
+		elif _modal_return == Vector2.ZERO or not is_instance_valid(_focus) or _modal_of(_focus) == null:
+			_last_center = Vector2.ZERO
 		_lose(false)
-		_last_center = Vector2.ZERO   # another screen: start from its first control
 	if _shown and _focus == null:
 		_pick_start(cands)
 	# the left stick as a repeating direction
@@ -160,6 +167,10 @@ func _center(c: Control) -> Vector2:
 	return c.get_global_rect().get_center()
 
 func _pick_start(cands: Array[Control]) -> void:
+	# a popup has closed: back to the control that opened it (a sold item's cell, even when the next item moves in)
+	if _modal_return != Vector2.ZERO and cands.all(func(c: Control) -> bool: return _modal_of(c) == null):
+		_last_center = _modal_return
+		_modal_return = Vector2.ZERO
 	var best: Control = null
 	for c in cands:
 		if best == null or _score_start(c) < _score_start(best):
@@ -173,7 +184,7 @@ func _score_start(c: Control) -> float:
 
 func _step(dir: Vector2i, cands: Array[Control]) -> void:
 	_shown = true
-	if _focus == null:
+	if _focus == null or not is_instance_valid(_focus):
 		_pick_start(cands)
 		return
 	var from := _center(_focus)
@@ -218,7 +229,7 @@ func _hide() -> void:
 # ------------------------------------------------------------------ acting
 
 func _activate(cands: Array[Control]) -> void:
-	if _focus == null or not cands.has(_focus):
+	if _focus == null or not is_instance_valid(_focus) or not cands.has(_focus):
 		_shown = true
 		_pick_start(cands)
 		return

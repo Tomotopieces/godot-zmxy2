@@ -12,11 +12,15 @@ const INK_MIDDLE := 0.55   ## where the middle of this font's glyphs lies below 
 var _named := {}     ## name -> Node (art / frames holder / Label / button Control)
 var _bars := {}      ## path -> {clip, content, full: Vector2, empty: Vector2}
 
+## Wired on creation, so texts and visibility can be set before the layout is added to the tree.
 static func create(ui_name: String) -> UiLayout:
-	return load("res://scenes/ui/%s.tscn" % ui_name).instantiate()
+	var u: UiLayout = load("res://scenes/ui/%s.tscn" % ui_name).instantiate()
+	u._wire_from_scene()
+	return u
 
 func _ready() -> void:
-	_wire_from_scene()
+	if _named.is_empty():   # instanced directly in another scene (main.tscn's title)
+		_wire_from_scene()
 
 func get_piece(piece: String) -> Node:
 	return _named.get(piece)

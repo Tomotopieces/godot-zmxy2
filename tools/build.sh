@@ -6,5 +6,8 @@ ver=$(grep -m1 '^application/file_version=' game/export_presets.cfg | sed -E 's/
 branch=$(git rev-parse --abbrev-ref HEAD)
 out="build/zmxy2_${branch}_v${ver}.exe"
 mkdir -p build
+# build id shown on the title: commit hash, plus "m" when the tree has uncommitted changes
+id=$(git rev-parse --short=7 HEAD)$(git diff --quiet HEAD -- game || echo m)
+echo "$id" > game/build_id.txt
 cd game && "$GODOT" --headless --path . --export-release Windows "../$out" > ../build/export.log 2>&1
 cd .. && ls -la "$out"

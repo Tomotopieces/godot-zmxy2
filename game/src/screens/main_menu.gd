@@ -11,7 +11,13 @@ var _popup: Node
 func _ready() -> void:
 	_ui = $Menu
 	_ui.button_pressed.connect(_on_button)
+	$Menu/Version.text = version_text()
 	shown()
+
+## v<config/version>-<build id>: the export scripts write the commit's short hash to res://build_id.txt ("dev" in the editor).
+static func version_text() -> String:
+	var id := FileAccess.get_file_as_string("res://build_id.txt").strip_edges()
+	return "v%s-%s" % [ProjectSettings.get_setting("application/config/version"), id if id != "" else "dev"]
 
 ## The title comes back to the front (it is kept in main.tscn and only hidden while another screen is up).
 func shown() -> void:

@@ -89,7 +89,10 @@ func close() -> void:
 	UiFade.close(self)
 
 func _unhandled_input(e: InputEvent) -> void:
-	if e.is_action_pressed("open_bag") or e.is_action_pressed("pause"):
+	if e.is_action_pressed("pause") and _menu:   # Esc / the pad's B: an open item menu closes first
+		get_viewport().set_input_as_handled()
+		_close_menu()
+	elif e.is_action_pressed("open_bag") or e.is_action_pressed("pause"):
 		get_viewport().set_input_as_handled()
 		close()
 
