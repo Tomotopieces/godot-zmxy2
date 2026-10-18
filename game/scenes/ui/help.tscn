@@ -1,0 +1,305 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://ddmuwy06fmabu" path="res://src/ui/ui_layout.gd" id="layout"]
+[ext_resource type="Texture2D" uid="uid://3g0bgb1k1le5" path="res://assets/shared/ui/OtherMat_v10_341.png" id="bg"]
+[ext_resource type="Texture2D" uid="uid://bxsnoyk0w7w8r" path="res://assets/shared/ui/OtherMat_v10_236.png" id="back_up"]
+[ext_resource type="Texture2D" uid="uid://dm4u0mcpur1xt" path="res://assets/shared/ui/OtherMat_v10_237.png" id="back_over"]
+
+[sub_resource type="StyleBoxFlat" id="PanelStyle"]
+bg_color = Color(0.07, 0.05, 0.06, 0.88)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.91, 0.72, 0.35, 0.75)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 12
+
+[sub_resource type="StyleBoxFlat" id="RuleStyle"]
+bg_color = Color(0.91, 0.72, 0.35, 0.35)
+
+[node name="Help" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("layout")
+
+[node name="Blocker" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 940.0
+offset_bottom = 590.0
+color = Color(0, 0, 0, 1)
+
+[node name="Background" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("bg")
+centered = false
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 95.0
+offset_top = 48.0
+offset_right = 845.0
+offset_bottom = 552.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("PanelStyle")
+
+[node name="Title" type="Label" parent="Panel"]
+layout_mode = 0
+offset_top = 12.0
+offset_right = 750.0
+offset_bottom = 48.0
+theme_override_colors/font_color = Color(0.91, 0.72, 0.35, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 26
+text = "操作说明"
+horizontal_alignment = 1
+
+[node name="Divider" type="Panel" parent="Panel"]
+layout_mode = 0
+offset_left = 400.0
+offset_top = 62.0
+offset_right = 401.0
+offset_bottom = 486.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("RuleStyle")
+
+[node name="Controls" type="Control" parent="Panel"]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 60.0
+offset_right = 386.0
+offset_bottom = 490.0
+mouse_filter = 2
+
+[node name="ActionHeader" type="Label" parent="Panel/Controls"]
+layout_mode = 0
+offset_left = 0.0
+offset_right = 120.0
+offset_bottom = 26.0
+theme_override_colors/font_color = Color(0.91, 0.72, 0.35, 1)
+theme_override_font_sizes/font_size = 17
+text = "操作"
+
+[node name="KeyboardHeader" type="Label" parent="Panel/Controls"]
+layout_mode = 0
+offset_left = 118.0
+offset_right = 238.0
+offset_bottom = 26.0
+theme_override_colors/font_color = Color(0.91, 0.72, 0.35, 1)
+theme_override_font_sizes/font_size = 17
+text = "键盘"
+
+[node name="GamepadHeader" type="Label" parent="Panel/Controls"]
+layout_mode = 0
+offset_left = 246.0
+offset_right = 366.0
+offset_bottom = 26.0
+theme_override_colors/font_color = Color(0.91, 0.72, 0.35, 1)
+theme_override_font_sizes/font_size = 17
+text = "手柄"
+
+[node name="Actions" type="Label" parent="Panel/Controls"]
+layout_mode = 0
+offset_top = 32.0
+offset_right = 110.0
+offset_bottom = 430.0
+theme_override_colors/font_color = Color(0.93, 0.9, 0.85, 1)
+theme_override_constants/line_spacing = 8
+theme_override_font_sizes/font_size = 15
+text = "移动
+跑步
+跳跃 / 二段跳
+从平台跳下
+普通攻击
+进入传送门
+技能
+无双（变身）
+法宝技能
+背包 / 技能 / 法宝
+暂停 / 返回
+音量 / 静音
+全屏"
+
+[node name="Keyboard" type="Label" parent="Panel/Controls"]
+layout_mode = 0
+offset_left = 118.0
+offset_top = 32.0
+offset_right = 238.0
+offset_bottom = 430.0
+theme_override_colors/font_color = Color(1, 0.82, 0.48, 1)
+theme_override_constants/line_spacing = 8
+theme_override_font_sizes/font_size = 15
+text = "A / D
+双击 A / D 并按住
+K（空中再按 K）
+S + K
+J
+W
+U / I / O / L
+空格
+H
+C / V / B
+Esc
+- / = / M
+F11"
+
+[node name="Gamepad" type="Label" parent="Panel/Controls"]
+layout_mode = 0
+offset_left = 246.0
+offset_top = 32.0
+offset_right = 366.0
+offset_bottom = 430.0
+theme_override_colors/font_color = Color(1, 0.82, 0.48, 1)
+theme_override_constants/line_spacing = 8
+theme_override_font_sizes/font_size = 15
+text = "左摇杆 / 十字键
+按住 LB
+A
+下 + A
+X
+上
+RB / Y / RT / R3
+LT
+B
+Back（背包）
+Start / B
+—
+—"
+
+[node name="Skills" type="Control" parent="Panel"]
+layout_mode = 0
+offset_left = 420.0
+offset_top = 60.0
+offset_right = 730.0
+offset_bottom = 490.0
+mouse_filter = 2
+
+[node name="Header" type="Label" parent="Panel/Skills"]
+layout_mode = 0
+offset_right = 310.0
+offset_bottom = 26.0
+theme_override_colors/font_color = Color(0.91, 0.72, 0.35, 1)
+theme_override_font_sizes/font_size = 17
+text = "技能（在技能面板用灵魂学习）"
+
+[node name="WukongName" type="Label" parent="Panel/Skills"]
+layout_mode = 0
+offset_top = 32.0
+offset_right = 310.0
+offset_bottom = 54.0
+theme_override_colors/font_color = Color(0.93, 0.9, 0.85, 1)
+theme_override_font_sizes/font_size = 16
+text = "孙悟空"
+
+[node name="WukongSkills" type="Label" parent="Panel/Skills"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 56.0
+offset_right = 310.0
+offset_bottom = 170.0
+theme_override_colors/font_color = Color(0.8, 0.76, 0.7, 1)
+theme_override_constants/line_spacing = 3
+theme_override_font_sizes/font_size = 14
+text = "W + J  升龙斩　　跑动中 J  火炎突击
+U  烈焰闪　　I  烈焰风暴　　O  火魔斩"
+
+[node name="TangsengName" type="Label" parent="Panel/Skills"]
+layout_mode = 0
+offset_top = 124.0
+offset_right = 310.0
+offset_bottom = 146.0
+theme_override_colors/font_color = Color(0.93, 0.9, 0.85, 1)
+theme_override_font_sizes/font_size = 16
+text = "唐僧"
+
+[node name="TangsengSkills" type="Label" parent="Panel/Skills"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 148.0
+offset_right = 310.0
+offset_bottom = 262.0
+theme_override_colors/font_color = Color(0.8, 0.76, 0.7, 1)
+theme_override_constants/line_spacing = 3
+theme_override_font_sizes/font_size = 14
+text = "按住 J  冰龙斩（蓄力）　　U  玄冰阵
+I  水幻影（再按 I 传送到幻影处）
+O  天降甘露　　L  水魔爆"
+
+[node name="BajieName" type="Label" parent="Panel/Skills"]
+layout_mode = 0
+offset_top = 240.0
+offset_right = 310.0
+offset_bottom = 262.0
+theme_override_colors/font_color = Color(0.93, 0.9, 0.85, 1)
+theme_override_font_sizes/font_size = 16
+text = "猪八戒"
+
+[node name="BajieSkills" type="Label" parent="Panel/Skills"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 264.0
+offset_right = 310.0
+offset_bottom = 378.0
+theme_override_colors/font_color = Color(0.8, 0.76, 0.7, 1)
+theme_override_constants/line_spacing = 3
+theme_override_font_sizes/font_size = 14
+text = "U  碎石破　　I  土流盾　　O  地滚战车
+W + J  战争怒吼
+L  土魔刺（再按 L 射出飞刺）"
+
+[node name="Note" type="Label" parent="Panel/Skills"]
+layout_mode = 0
+offset_top = 360.0
+offset_right = 310.0
+offset_bottom = 426.0
+theme_override_colors/font_color = Color(0.66, 0.6, 0.56, 1)
+theme_override_constants/line_spacing = 3
+theme_override_font_sizes/font_size = 13
+text = "手柄：RB = U，Y = I，RT = O，R3 = L。
+怒气满时按无双变身；法宝需先在法宝面板装备。"
+autowrap_mode = 3
+
+[node name="btnback" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 854.45
+offset_top = 19.5
+offset_right = 912.45
+offset_bottom = 45.5
+mouse_default_cursor_shape = 2
+metadata/ui_piece = ["btnback"]
+metadata/ui_button = "btnback"
+
+[node name="Up" type="Node2D" parent="btnback"]
+position = Vector2(-0.45, -4.45)
+
+[node name="Caption" type="Sprite2D" parent="btnback/Up"]
+position = Vector2(3, 5.65)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("back_up")
+centered = false
+
+[node name="Over" type="Node2D" parent="btnback"]
+visible = false
+position = Vector2(-0.45, -4.45)
+
+[node name="Caption" type="Sprite2D" parent="btnback/Over"]
+position = Vector2(3, 5.65)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("back_over")
+centered = false
+
+[node name="Down" type="Node2D" parent="btnback"]
+visible = false
+position = Vector2(-0.45, -4.45)
+
+[node name="Caption" type="Sprite2D" parent="btnback/Down"]
+position = Vector2(3, 7.65)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("back_up")
+centered = false

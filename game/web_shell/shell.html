@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+<title>$GODOT_PROJECT_NAME</title>
+<style>
+html, body, #canvas { margin: 0; padding: 0; border: 0; }
+body { background: #000; color: #fff; overflow: hidden; touch-action: none; font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; }
+#canvas { display: block; }
+#canvas:focus { outline: none; }
+/* loading screen: the original's loading picture and bar (940x590 art, scaled to fit) */
+#loading { position: fixed; inset: 0; display: grid; place-items: center; background: #000; transition: opacity .3s; }
+#loading.done { opacity: 0; pointer-events: none; }
+#stage { position: relative; width: min(100vw, calc(100vh * 940 / 590)); aspect-ratio: 940 / 590; background: url(loading_bg.png) center / 100% 100% no-repeat; }
+#bar { position: absolute; left: 23.3%; top: 46.6%; width: 53.4%; aspect-ratio: 502 / 40; background: url(loading_bar_empty.png) center / 100% 100% no-repeat; }
+#fill { position: absolute; inset: 0; background: url(loading_bar_full.png) left center / auto 100% no-repeat; clip-path: inset(0 100% 0 0); }
+#text { position: absolute; left: 0; right: 0; top: 55%; text-align: center; font-size: clamp(12px, 2vw, 18px); color: #f3d79a; text-shadow: 0 1px 3px #000, 0 0 6px #000; }
+#text.error { color: #ff8a7a; white-space: pre-line; }
+</style>
+$GODOT_HEAD_INCLUDE
+</head>
+<body>
+<canvas id="canvas">你的浏览器不支持 canvas。</canvas>
+<noscript>需要启用 JavaScript。</noscript>
+<div id="loading">
+	<div id="stage">
+		<div id="bar"><div id="fill"></div></div>
+		<div id="text">正在连接……</div>
+	</div>
+</div>
+<script src="$GODOT_URL"></script>
+<script>
+const GODOT_CONFIG = $GODOT_CONFIG;
+const GODOT_THREADS_ENABLED = $GODOT_THREADS_ENABLED;
+(async function () {
+	const loading = document.getElementById('loading');
+	const fill = document.getElementById('fill');
+	const text = document.getElementById('text');
+	const fail = (msg) => { text.className = 'error'; text.textContent = msg; };
+	const missing = Engine.getMissingFeatures({ threads: GODOT_THREADS_ENABLED });
+	if (missing.length) {
+		fail('浏览器缺少运行游戏所需的功能：\n' + missing.join('\n'));
+		return;
+	}
+	// The game files are cached by sw.js (written by tools/export_web.sh): after the first visit they load from disk.
+	if ('serviceWorker' in navigator) {
+		try {
+			await navigator.serviceWorker.register('sw.js');
+			await navigator.serviceWorker.ready;
+			if (!navigator.serviceWorker.controller) {
+				await new Promise((r) => { navigator.serviceWorker.addEventListener('controllerchange', r, { once: true }); setTimeout(r, 3000); });
+			}
+		} catch (e) {
+			console.warn('service worker unavailable, the game will not be cached', e);
+		}
+	}
+	const mb = (n) => (n / 1048576).toFixed(1);
+	const engine = new Engine(GODOT_CONFIG);
+	engine.startGame({
+		onProgress(current, total) {
+			if (current > 0 && total > 0) {
+				const p = Math.min(1, current / total);
+				fill.style.clipPath = `inset(0 ${(100 - p * 100).toFixed(2)}% 0 0)`;
+				text.textContent = p >= 1 ? '正在启动……' : `正在加载 ${Math.floor(p * 100)}%（${mb(current)} / ${mb(total)} MB）`;
+			}
+		},
+	}).then(() => {
+		loading.classList.add('done');
+		setTimeout(() => loading.remove(), 400);
+	}, (err) => {
+		console.error(err);
+		fail('加载失败：' + (err && err.message ? err.message : err) + '\n请刷新页面重试。');
+	});
+}());
+</script>
+</body>
+</html>

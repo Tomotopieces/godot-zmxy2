@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://dvwidm7xnd6cs" path="res://assets/shared/ui/OtherMat_v10_122.png" id="13_iy466"]
 [ext_resource type="Texture2D" uid="uid://b5sh7qfp4heje" path="res://assets/ui/game_menu/tex/OtherMat_v10_132.png" id="15_d8ji8"]
 [ext_resource type="Texture2D" uid="uid://d2eylnajy8fv8" path="res://assets/ui/game_menu/tex/OtherMat_v10_133.png" id="16_5tohi"]
+[ext_resource type="Texture2D" uid="uid://b4uohe7rv3vlp" path="res://assets/shared/ui/OtherMat_v10_110.png" id="help_up"]
+[ext_resource type="Texture2D" uid="uid://diu4m5hk0ikyg" path="res://assets/shared/ui/OtherMat_v10_111.png" id="help_over"]
 [ext_resource type="Script" uid="uid://ddmuwy06fmabu" path="res://src/ui/ui_layout.gd" id="layout"]
 [ext_resource type="Script" uid="uid://cm44xd6sys8yc" path="res://src/main.gd" id="main"]
 [ext_resource type="Script" uid="uid://cpcg8rodt1577" path="res://src/screens/main_menu.gd" id="title"]
@@ -135,6 +137,60 @@ centered = false
 
 [node name="Underline" type="Sprite2D" parent="Title/Menu/ContinueGame/Down" unique_id=24194275]
 position = Vector2(-74.5, 24.45)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_eefm1")
+centered = false
+
+[node name="GameHelp" type="Control" parent="Title/Menu"]
+anchors_preset = 0
+offset_left = 751.15
+offset_top = 302.7
+offset_right = 861.15
+offset_bottom = 342.7
+mouse_default_cursor_shape = 2
+metadata/ui_piece = ["gameHelp"]
+metadata/ui_button = "gameHelp"
+
+[node name="Up" type="Node2D" parent="Title/Menu/GameHelp"]
+
+[node name="Caption" type="Sprite2D" parent="Title/Menu/GameHelp/Up"]
+position = Vector2(0, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("help_up")
+centered = false
+
+[node name="Underline" type="Sprite2D" parent="Title/Menu/GameHelp/Up"]
+position = Vector2(-74.5, 30.45)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_eefm1")
+centered = false
+
+[node name="Over" type="Node2D" parent="Title/Menu/GameHelp"]
+visible = false
+
+[node name="Caption" type="Sprite2D" parent="Title/Menu/GameHelp/Over"]
+position = Vector2(0, 0)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("help_over")
+centered = false
+
+[node name="Underline" type="Sprite2D" parent="Title/Menu/GameHelp/Over"]
+position = Vector2(-74.5, 30.45)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_eefm1")
+centered = false
+
+[node name="Down" type="Node2D" parent="Title/Menu/GameHelp"]
+visible = false
+
+[node name="Caption" type="Sprite2D" parent="Title/Menu/GameHelp/Down"]
+position = Vector2(0, 2)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("help_over")
+centered = false
+
+[node name="Underline" type="Sprite2D" parent="Title/Menu/GameHelp/Down"]
+position = Vector2(-74.5, 30.45)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_eefm1")
 centered = false
