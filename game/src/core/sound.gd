@@ -1,5 +1,5 @@
 extends Node
-## Audio: Music / SFX buses, pooled one-shot players, volume settings persisted in user://settings.cfg.
+## Audio: Music / SFX buses (default_bus_layout.tres: the web build only plays on buses declared there), pooled one-shot players, volume settings persisted in user://settings.cfg.
 ## Hotkeys: volume_down / volume_up / mute.
 
 signal volume_changed(master: float, muted: bool)
@@ -20,12 +20,6 @@ var _cache := {}
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	for bus in ["Music", "SFX"]:
-		if AudioServer.get_bus_index(bus) == -1:
-			AudioServer.add_bus()
-			var i := AudioServer.bus_count - 1
-			AudioServer.set_bus_name(i, bus)
-			AudioServer.set_bus_send(i, "Master")
 	_music = AudioStreamPlayer.new()
 	_music.bus = "Music"
 	add_child(_music)
