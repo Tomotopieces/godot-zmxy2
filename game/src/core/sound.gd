@@ -41,6 +41,8 @@ func _unhandled_input(e: InputEvent) -> void:
 		set_muted(not muted)
 
 func _stream(sound: String) -> AudioStream:
+	if sound == "":   # an action without a sound
+		return null
 	if not _cache.has(sound):
 		var path := SOUND_DIR + sound + ".mp3"
 		_cache[sound] = load(path) if ResourceLoader.exists(path) else null

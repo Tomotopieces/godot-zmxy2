@@ -5,9 +5,9 @@ extends RefCounted
 
 const VERSION := 1
 
-## Saves live in a "saves" folder next to the exe (in the editor: user://saves).
+## Saves live in a "saves" folder next to the exe (editor and web: user://saves, the browser's IndexedDB).
 static func dir() -> String:
-	var d := "user://saves" if OS.has_feature("editor") else OS.get_executable_path().get_base_dir().path_join("saves")
+	var d := "user://saves" if OS.has_feature("editor") or OS.has_feature("web") else OS.get_executable_path().get_base_dir().path_join("saves")
 	DirAccess.make_dir_recursive_absolute(d)
 	return d
 
