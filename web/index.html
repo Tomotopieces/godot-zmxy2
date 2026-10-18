@@ -37,7 +37,7 @@ window.addEventListener('message', (e) => { if (e.data && e.data.zmxy2) window._
 </script>
 <script src="index.js"></script>
 <script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":159056652,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":159056716,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
 const GODOT_THREADS_ENABLED = false;
 (async function () {
 	const loading = document.getElementById('loading');
@@ -49,17 +49,25 @@ const GODOT_THREADS_ENABLED = false;
 		fail('浏览器缺少运行游戏所需的功能：\n' + missing.join('\n'));
 		return;
 	}
-	// The game files are cached by sw.js (written by tools/export_web.sh): after the first visit they load from disk.
-	if ('serviceWorker' in navigator) {
-		try {
-			await navigator.serviceWorker.register('sw.js');
-			await navigator.serviceWorker.ready;
-			if (!navigator.serviceWorker.controller) {
-				await new Promise((r) => { navigator.serviceWorker.addEventListener('controllerchange', r, { once: true }); setTimeout(r, 3000); });
-			}
-		} catch (e) {
-			console.warn('service worker unavailable, the game will not be cached', e);
+	// sw.js (written by tools/export_web.sh) serves the resource pack from its chunks, cached in the browser: a new
+	// build downloads only the chunks that changed. The page cannot load the game without it.
+	if (!('serviceWorker' in navigator)) {
+		fail('浏览器不支持 Service Worker（隐私模式下可能被禁用），无法加载游戏。');
+		return;
+	}
+	try {
+		await navigator.serviceWorker.register('sw.js');
+		await navigator.serviceWorker.ready;
+		if (!navigator.serviceWorker.controller) {
+			await new Promise((r) => { navigator.serviceWorker.addEventListener('controllerchange', r, { once: true }); setTimeout(r, 8000); });
 		}
+		if (!navigator.serviceWorker.controller) {   // (a hard reload bypasses the worker: load the page again normally)
+			location.reload();
+			return;
+		}
+	} catch (e) {
+		fail('Service Worker 注册失败：' + e.message);
+		return;
 	}
 	const mb = (n) => (n / 1048576).toFixed(1);
 	const engine = new Engine(GODOT_CONFIG);
