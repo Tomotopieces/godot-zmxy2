@@ -14,6 +14,7 @@ var sfx_volume := 1.0
 var muted := false
 
 var _music: AudioStreamPlayer
+var _amb: AudioStreamPlayer
 const VOICES := 24         ## players per effect; past this the copy nearest its end is taken over
 const DUCK_TIME := 0.03    ## seconds for overlapping copies to ease to their shared level
 
@@ -26,6 +27,9 @@ func _ready() -> void:
 	_music = AudioStreamPlayer.new()
 	_music.bus = "Music"
 	add_child(_music)
+	_amb = AudioStreamPlayer.new()
+	_amb.bus = "SFX"
+	add_child(_amb)
 	_load_settings()
 	_apply()
 
@@ -41,14 +45,17 @@ func _stream(sound: String) -> AudioStream:
 	if sound == "":   # an action without a sound
 		return null
 	if not _cache.has(sound):
-		var path := SOUND_DIR + sound + ".mp3"
-		_cache[sound] = load(path) if ResourceLoader.exists(path) else null
+		_cache[sound] = null
+		for ext in [".ogg", ".mp3"]:   # remastered files are .ogg; the rest are the original .mp3
+			if ResourceLoader.exists(SOUND_DIR + sound + ext):
+				_cache[sound] = load(SOUND_DIR + sound + ext)
+				break
 		if _cache[sound] == null:
 			push_warning("missing sound " + sound)
 	return _cache[sound]
 
 ## Play a one-shot effect by file name (without extension).
-func sfx(sound: String, pitch := 1.0) -> void:
+func sfx(sound: String, pitch := 1.0, volume_db := 0.0) -> void:
 	var s := _stream(sound)
 	if s == null:
 		return
@@ -77,9 +84,14 @@ func sfx(sound: String, pitch := 1.0) -> void:
 		add_child(p)
 		pool.append(p)
 	var n := pool.filter(func(q: AudioStreamPlayer) -> bool: return q.playing and q != p).size() + 1
-	p.volume_db = linear_to_db(1.0 / sqrt(n))
+	p.volume_db = linear_to_db(1.0 / sqrt(n)) + volume_db
+	p.set_meta(&"gain", db_to_linear(volume_db))
 	p.pitch_scale = pitch
 	p.play()
+
+## Whether any effect started in this frame (a button handler that played its own sound).
+func played_now() -> bool:
+	return _frame_of.values().has(Engine.get_process_frames())
 
 ## Overlapping copies of an effect ease towards 1/sqrt(n) each (n = copies playing), so their sum sounds like one.
 func _process(delta: float) -> void:
@@ -92,23 +104,39 @@ func _process(delta: float) -> void:
 				n += 1
 		if n == 0:
 			continue
-		var target := 1.0 / sqrt(n)
+		var share := 1.0 / sqrt(n)
 		for q: AudioStreamPlayer in pool:
 			if q.playing:
-				q.volume_linear = lerpf(q.volume_linear, target, k)
+				q.volume_linear = lerpf(q.volume_linear, share * float(q.get_meta(&"gain", 1.0)), k)
 
 ## loop: false for jingles (the game-over tune plays once).
 func music(sound: String, loop := true) -> void:
 	var s := _stream(sound)
 	if s == null or _music.stream == s and _music.playing:
 		return
-	if s is AudioStreamMP3:
+	if s is AudioStreamMP3 or s is AudioStreamOggVorbis:
 		s.loop = loop
 	_music.stream = s
 	_music.play()
 
 func stop_music() -> void:
 	_music.stop()
+
+## A quiet looping background sound of the stage (rain, river, fire...; "" = none). Plays on the SFX bus.
+func ambience(sound: String, volume_db := -18.0) -> void:
+	var s := _stream(sound)
+	if s == null:
+		_amb.stop()
+		_amb.stream = null
+		return
+	if _amb.stream == s and _amb.playing:
+		_amb.volume_db = volume_db
+		return
+	if s is AudioStreamOggVorbis or s is AudioStreamMP3:
+		s.loop = true
+	_amb.stream = s
+	_amb.volume_db = volume_db
+	_amb.play()
 
 func set_master(v: float) -> void:
 	master = clampf(snappedf(v, 0.01), 0.0, 1.0)

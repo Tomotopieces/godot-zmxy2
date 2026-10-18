@@ -120,6 +120,12 @@ func _ready() -> void:
 	_build_ash()
 	_build_lightning()
 	_build_grade()
+	# the stage's quiet background sound ("ambience": {"sound": <file>, "db": <volume>})
+	var amb: Dictionary = _cfg.get("ambience", {})
+	Snd.ambience(String(amb.get("sound", "")), float(amb.get("db", -18.0)))
+
+func _exit_tree() -> void:
+	Snd.ambience("")
 
 ## The art's own material: backlight rim; the decoration (not the floor) also fades to dark at its feet.
 func _light_scenery(scene: Dictionary) -> void:
@@ -563,6 +569,9 @@ func _update_lightning(delta: float) -> void:
 		if _strike_at <= 0.0:
 			_strike_t = 0.0
 			_new_bolt()
+			if l.has("thunder_db"):   # the rumble follows the flash
+				get_tree().create_timer(_dice.randf_range(0.15, 0.6), false).timeout.connect(
+					Snd.sfx.bind("thunder", _dice.randf_range(0.9, 1.05), float(l.thunder_db)))
 		return
 	_strike_t += delta
 	# pulses: (start, height, decay time) - the main flash, then flickers

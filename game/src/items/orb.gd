@@ -57,6 +57,7 @@ func _physics_process(delta: float) -> void:
 	_speed = minf(_speed + table.orb_accel * delta, table.orb_max_speed)
 
 func _collect() -> void:
+	Snd.sfx("pickup_orb", randf_range(0.95, 1.1), -8.0)
 	match kind:
 		Kind.RED:
 			GameState.add_souls(power)

@@ -8,6 +8,7 @@ const OUT_TIME := 0.1
 
 ## Call at the end of the panel's _ready().
 static func fade_in(panel: CanvasLayer) -> void:
+	Snd.sfx("ui_open")
 	var tw := _tween(panel)
 	for c in _items(panel):
 		c.modulate.a = 0.0
@@ -18,6 +19,7 @@ static func close(panel: CanvasLayer) -> void:
 	if panel.has_meta(&"closing"):
 		return
 	panel.set_meta(&"closing", true)
+	Snd.sfx("ui_close")
 	panel.process_mode = Node.PROCESS_MODE_DISABLED
 	var tw := _tween(panel)
 	for c in _items(panel):

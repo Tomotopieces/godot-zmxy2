@@ -47,6 +47,7 @@ func _physics_process(delta: float) -> void:
 	var h: Hero = Level.current.hero
 	if is_instance_valid(h) and h.is_alive() and _rect().intersects(h.hurt_rect()) and GameState.add_to_bag(item):
 		_taken = true
+		Snd.sfx("pickup_item")
 		var tw := create_tween().set_parallel().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 		tw.tween_property(self, "position:y", position.y - 100, 0.8)
 		tw.tween_property(self, "modulate:a", 0.0, 0.8)
