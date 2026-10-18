@@ -34,7 +34,7 @@ func _on_button(b: String) -> void:
 	if _popup:
 		return
 	if b in ["newGame", "continueGame"]:
-		Snd.sfx("SD_xz")
+		Snd.ui("SD_xz")
 	match b:
 		"newGame":
 			new_game.emit()

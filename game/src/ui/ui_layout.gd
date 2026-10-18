@@ -145,17 +145,14 @@ func _wire_button(b: Control, button_name: String) -> void:
 	var show := func(st: String):
 		for k in states:
 			states[k].visible = k == st
-	b.mouse_entered.connect(func():
-		show.call("over")
-		Snd.sfx("ui_hover"))
+	b.mouse_entered.connect(show.bind("over"))
 	b.mouse_exited.connect(show.bind("up"))
 	b.gui_input.connect(func(e: InputEvent):
 		if e is InputEventMouseButton and e.button_index == MOUSE_BUTTON_LEFT:
 			show.call("down" if e.pressed else "over")
 			if not e.pressed:
 				button_pressed.emit(button_name)
-				if not Snd.played_now():   # the handler played its own sound (the original 选择 / a tab)
-					Snd.sfx("ui_click"))
+				Snd.ui())   # skipped when the handler already played one
 
 ## Wires one bar holder (its ui_bar travel + its Clip / Content children) so set_bar() can slide it.
 func _wire_bar(holder: Node2D) -> void:

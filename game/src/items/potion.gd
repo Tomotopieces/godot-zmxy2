@@ -50,7 +50,6 @@ func _physics_process(delta: float) -> void:
 
 func _use(h: Hero) -> void:
 	_used = true
-	Snd.sfx("pickup_potion")
 	if kind == Kind.SMALL_MP:
 		h.restore_mp(amount)
 		DamageNumber.spawn("bulnum", amount, h.global_position + Vector2(-20, -60))

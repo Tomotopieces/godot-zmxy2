@@ -18,6 +18,9 @@ var _amb: AudioStreamPlayer
 const VOICES := 24         ## players per effect; past this the copy nearest its end is taken over
 const DUCK_TIME := 0.03    ## seconds for overlapping copies to ease to their shared level
 
+const UI_GAP_MS := 150      ## interface sounds closer than this are one action
+
+var _ui_at := -100000
 var _players := {}   ## sound -> its AudioStreamPlayers, one per playing copy
 var _frame_of := {}  ## sound -> the engine frame it last started in
 var _cache := {}
@@ -89,9 +92,14 @@ func sfx(sound: String, pitch := 1.0, volume_db := 0.0) -> void:
 	p.pitch_scale = pitch
 	p.play()
 
-## Whether any effect started in this frame (a button handler that played its own sound).
-func played_now() -> bool:
-	return _frame_of.values().has(Engine.get_process_frames())
+## An interface sound: one per player action - a click that opens a panel is one sound, not a click plus an open.
+## (ui_click is the generic one; SD_xz the original 选择.)
+func ui(sound := "ui_click") -> void:
+	var now := Time.get_ticks_msec()
+	if now - _ui_at < UI_GAP_MS:
+		return
+	_ui_at = now
+	sfx(sound)
 
 ## Overlapping copies of an effect ease towards 1/sqrt(n) each (n = copies playing), so their sum sounds like one.
 func _process(delta: float) -> void:

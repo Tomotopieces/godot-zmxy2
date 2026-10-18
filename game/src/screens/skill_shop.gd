@@ -81,12 +81,12 @@ func _on_button(b: String) -> void:
 			_show_page(true)
 	var i := _active.find(b)
 	if i >= 0 and GameState.learn(i):
-		Snd.sfx("SD_xz")
+		Snd.ui("SD_xz")
 		_refresh()
 
 func _upgrade(i: int) -> void:
 	if GameState.upgrade_passive(i):
-		Snd.sfx("SD_xz")
+		Snd.ui("SD_xz")
 		_refresh()
 
 func _unhandled_input(e: InputEvent) -> void:

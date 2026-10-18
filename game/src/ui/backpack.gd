@@ -100,7 +100,7 @@ func _on_button(b: String) -> void:
 	if b == "btn_close":
 		close()
 	elif TABS.has(b):
-		Snd.sfx("ui_tab")
+		Snd.ui()
 		_tab = b
 		_refresh()
 
@@ -232,11 +232,12 @@ func _menu_action(piece: String) -> void:
 	_close_menu()
 	match piece:
 		"bzb":
-			Snd.sfx("ui_equip" if GameState.wear(idx) else "ui_error")
+			GameState.wear(idx)
+			Snd.ui()
 		"bmd":
 			var d := GameState.item_data(GameState.bag[idx])
 			if GameState.sell(idx):
-				Snd.sfx("ui_sell")
+				Snd.ui()
 				_flash_tip("出售 %s，灵魂 +%d" % [d.display_name, d.value])
 		"buse":
 			_flash_tip(GameState.use_item(idx))
