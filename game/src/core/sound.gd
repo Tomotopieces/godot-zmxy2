@@ -14,11 +14,11 @@ var sfx_volume := 1.0
 var muted := false
 
 var _music: AudioStreamPlayer
-const VOICES := 8          ## at most this many copies of one effect at once; more requests are dropped, none is cut
-const MIN_GAP := 0.045     ## seconds: the same effect asked again sooner is one sound (a blow on several enemies)
+const VOICES := 24         ## players per effect; past this the copy nearest its end is taken over
+const DUCK_TIME := 0.03    ## seconds for overlapping copies to ease to their shared level
 
 var _players := {}   ## sound -> its AudioStreamPlayers, one per playing copy
-var _last_at := {}   ## sound -> time (s) it last started
+var _frame_of := {}  ## sound -> the engine frame it last started in
 var _cache := {}
 
 func _ready() -> void:
@@ -52,12 +52,14 @@ func sfx(sound: String, pitch := 1.0) -> void:
 	var s := _stream(sound)
 	if s == null:
 		return
-	# A blow landing on several enemies asks once per enemy: requests close together are one sound (stacked copies were
-	# a roar). Every copy plays to its end on its own player: when all VOICES are busy the new request is dropped
-	# instead of cutting one that is still playing (a held 冰龙波 hitting a crowd stuttered).
-	var now := Time.get_ticks_msec() / 1000.0
-	if now - float(_last_at.get(sound, -100.0)) < MIN_GAP:
+	# Every request plays to its end on its own player, so rapid hits (a held 冰龙波 on a crowd) are all heard.
+	# Loudness: overlapping copies of one effect are mixed down to the level of a single copy (each at 1/sqrt(n),
+	# eased in _process), and the SFX bus ends in a limiter for different effects piling up.
+	# Only a request in the same frame as the last one is merged: the same blow on several enemies at once.
+	var frame := Engine.get_process_frames()
+	if _frame_of.get(sound, -1) == frame:
 		return
+	_frame_of[sound] = frame
 	var pool: Array = _players.get(sound, [])
 	_players[sound] = pool
 	var p: AudioStreamPlayer = null
@@ -65,17 +67,35 @@ func sfx(sound: String, pitch := 1.0) -> void:
 		if not q.playing:
 			p = q
 			break
+	if p == null and pool.size() >= VOICES:   # (only a tail that is almost over is taken over)
+		p = pool.reduce(func(a: AudioStreamPlayer, b: AudioStreamPlayer) -> AudioStreamPlayer:
+			return a if a.get_playback_position() > b.get_playback_position() else b)
 	if p == null:
-		if pool.size() >= VOICES:
-			return
 		p = AudioStreamPlayer.new()
 		p.bus = "SFX"
 		p.stream = s
 		add_child(p)
 		pool.append(p)
-	_last_at[sound] = now
+	var n := pool.filter(func(q: AudioStreamPlayer) -> bool: return q.playing and q != p).size() + 1
+	p.volume_db = linear_to_db(1.0 / sqrt(n))
 	p.pitch_scale = pitch
 	p.play()
+
+## Overlapping copies of an effect ease towards 1/sqrt(n) each (n = copies playing), so their sum sounds like one.
+func _process(delta: float) -> void:
+	var k := minf(delta / DUCK_TIME, 1.0)
+	for sound in _players:
+		var pool: Array = _players[sound]
+		var n := 0
+		for q: AudioStreamPlayer in pool:
+			if q.playing:
+				n += 1
+		if n == 0:
+			continue
+		var target := 1.0 / sqrt(n)
+		for q: AudioStreamPlayer in pool:
+			if q.playing:
+				q.volume_linear = lerpf(q.volume_linear, target, k)
 
 ## loop: false for jingles (the game-over tune plays once).
 func music(sound: String, loop := true) -> void:
