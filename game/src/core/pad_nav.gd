@@ -142,7 +142,9 @@ func _process(delta: float) -> void:
 	if _shown and _focus == null:
 		_pick_start(cands)
 	# the left stick as a repeating direction
-	var v := Vector2(Input.get_joy_axis(0, JOY_AXIS_LEFT_X), Input.get_joy_axis(0, JOY_AXIS_LEFT_Y))
+	var pads := Input.get_connected_joypads()
+	var pad: int = pads[0] if not pads.is_empty() else 0
+	var v := Vector2(Input.get_joy_axis(pad, JOY_AXIS_LEFT_X), Input.get_joy_axis(pad, JOY_AXIS_LEFT_Y))
 	var d := Vector2i.ZERO
 	if v.length() > STICK_DEADZONE:
 		d = Vector2i(signi(roundi(v.x)), 0) if absf(v.x) > absf(v.y) else Vector2i(0, signi(roundi(v.y)))

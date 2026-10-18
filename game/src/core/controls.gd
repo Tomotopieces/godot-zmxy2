@@ -25,12 +25,14 @@ static func add_gamepad_defaults() -> void:
 			continue
 		for b in PAD_BUTTONS[action]:
 			var e := InputEventJoypadButton.new()
+			e.device = -1   # any pad: a new InputEvent is device 0 only, and a browser may number the pad 1 or more
 			e.button_index = b
 			InputMap.action_add_event(action, e)
 	for action in PAD_AXES:
 		if not InputMap.has_action(action):
 			continue
 		var a := InputEventJoypadMotion.new()
+		a.device = -1
 		a.axis = PAD_AXES[action][0]
 		a.axis_value = PAD_AXES[action][1]
 		InputMap.action_add_event(action, a)
