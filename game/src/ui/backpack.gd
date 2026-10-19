@@ -192,7 +192,7 @@ func _fill_stats() -> void:
 	_ui.set_text("txt_lh", str(GameState.souls))   # no padding space: the gradient caption's value box follows the text now
 	_ui.set_text("txt_zg", str(GameState.merit))
 	_ui.show_frame("levelmc", clampi(GameState.level - 1, 0, 39))
-	_ui.show_frame("mc_exp", clampi(roundi(30.0 * GameState.exp / maxf(GameState.exp_to_next(), 1.0)) - 1, 0, 29))
+	(_ui.get_piece("exp_progress") as Range).value = float(GameState.exp) / maxf(GameState.exp_to_next(), 1.0)
 
 # ------------------------------------------------------------------ actions
 

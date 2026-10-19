@@ -75,7 +75,7 @@ func _refresh() -> void:
 	_ui.set_text("txt_fbhx", str(int(st.get("hp", 0))))
 	_ui.set_text("txt_fbhl", str(int(st.get("mp", 0))))
 	_ui.set_text("txt_fblh", "%d/%s" % [GameState.souls, str(cost) if cost > 0 else "满级"])
-	_ui.set_bar("lhmc", 1.0 if cost == 0 else float(GameState.souls) / (cost + 1))
+	(_ui.get_piece("fblh_progress") as Range).value = 1.0 if cost == 0 else float(GameState.souls) / (cost + 1)
 	if it.id == "wds":
 		# the spell and the passive each have an icon clip and a text under it (introducemc skill1 / txt1, skill2 / txt2)
 		var spell: Array = SPELLS[[int(it.spell), it.strong]]

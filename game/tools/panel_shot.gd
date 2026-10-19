@@ -5,7 +5,8 @@ extends Node
 func _ready() -> void:
 	var out: String = OS.get_cmdline_user_args()[0]
 	GameState.new_game("wukong")
-	GameState.souls = 1000000
+	GameState.souls = 300
+	GameState.exp = int(GameState.exp_to_next() * 0.6)
 	var main: PlayScreen = PlayScreen.create(Vector2i(1, 1))
 	add_child(main)
 	await get_tree().create_timer(0.5).timeout
