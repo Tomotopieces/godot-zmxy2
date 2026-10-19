@@ -17,20 +17,15 @@ func on_call(method: String) -> void:
 		"hit1_over":
 			finish()
 
-## BaseHero.updateMagicWeapon: the poison is 50 + 15 x level x element roll, rolled once when the umbrella is (re)equipped
-## and shared by every dart.
-var _poison := 0
-
-func setup() -> void:
-	_poison = int(float(p.poison_base) + float(p.poison_per_level) * level() * element_mul("mul"))
-
 ## The darts always do the same small damage (the poison is what hurts).
 static func _fixed(v: int) -> Callable:
 	return func() -> int: return v
 
 func _stab(from: Vector2, dir: Vector2) -> void:
 	var pr := shoot("fabao_umbrella_stab", &"fabao_umbrella", from, -1, _fixed(int(p.damage)))
-	var poison := _poison
+	# each poison tick: (50 + 15 x level) x the element roll, rolled for every tick like the other treasures' damage
+	# (the original rolled once on equipping and left the base out of the 木 multiplier)
+	var poison := flat_roll(p.poison_base, p.poison_per_level, 0.0, "mul")
 	var poison_time: float = p.poison
 	var poison_tick: float = p.poison_tick
 	pr.on_hit = func(t): if t is Monster: t.add_poison(poison, poison_time, poison_tick)

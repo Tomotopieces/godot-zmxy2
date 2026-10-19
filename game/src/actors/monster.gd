@@ -222,10 +222,11 @@ func summon(id: int, pos: Vector2) -> Monster:
 var _poison := {}
 var _poison_icon: Rig
 
-func add_poison(power: int, seconds: float, tick: float) -> void:
+## Poison for `seconds`: every `tick` it hurts by what `roll` returns (rolled again each time).
+func add_poison(roll: Callable, seconds: float, tick: float) -> void:
 	if state == State.DEAD:
 		return
-	_poison = {"power": power, "left": seconds, "tick": tick, "t": 0.0}
+	_poison = {"roll": roll, "left": seconds, "tick": tick, "t": 0.0}
 	if _poison_icon == null:
 		_poison_icon = _status_icon("fx_poison_head", -70.0, true)
 		_status_icon("fx_poison_up", -50.0, false)
@@ -245,7 +246,7 @@ func _tick_poison(delta: float) -> void:
 	_poison.t += delta
 	if _poison.t >= _poison.tick:
 		_poison.t -= _poison.tick
-		hurt_directly(int(_poison.power))
+		hurt_directly(int(_poison.roll.call()))
 	if _poison.left <= 0.0 or state == State.DEAD:
 		_poison = {}
 		if is_instance_valid(_poison_icon):

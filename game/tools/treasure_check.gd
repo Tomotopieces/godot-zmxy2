@@ -69,6 +69,23 @@ func _ready() -> void:
 	s._on_button("btn_sj")
 	_check("upgrade from panel", w.lv == 3)
 	s.queue_free()
+	# 罗刹妖伞 poison: (50 + 15 x lv) x roll, rolled per tick; 木 multiplies the whole of it by 1.5..2
+	for wood in [false, true]:
+		var u := Forge.new_treasure("lsys")
+		u.lv = 4
+		u.elem = ["mu"] if wood else ["jin"]
+		var t := Treasure.create(main.level.hero, u)
+		var roll: Callable = t.flat_roll(t.p.poison_base, t.p.poison_per_level, 0.0, "mul")
+		var lo := 1e9
+		var hi := 0.0
+		for i in 200:
+			var v := float(roll.call())
+			lo = minf(lo, v)
+			hi = maxf(hi, v)
+		var base := 50.0 + 15.0 * 4
+		var r: Array = [1.5, 2.0] if wood else [0.9, 1.1]
+		_check("lsys poison %s %d..%d" % ["木" if wood else "金", lo, hi], lo >= floorf(base * r[0]) - 1 and hi <= base * r[1] and hi > lo)
+		t.free()
 	print("TREASURE CHECK %s" % ("OK" if _fails == 0 else "FAILED (%d)" % _fails))
 	get_tree().quit(1 if _fails else 0)
 
