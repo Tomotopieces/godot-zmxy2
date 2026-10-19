@@ -16,7 +16,6 @@ const SOUNDS := {&"hit1": "Role1_hit1AndHit2", &"hit2": "Role1_hit1AndHit2", &"h
 	&"hit8": "Role1_hit8", &"hit9": "Role1_hit9", &"hit10": "Role1_hit10_1"}
 const DROP_THROUGH_TIME := 0.3
 const SKILL_PITCH := 0.1    ## the hero's move sounds vary within ±10 %
-const HURT_STOP := 0.05     ## hero hit-stop when hit (debug key 8 switches it on)
 const HURT_SHAKE := 0.4     ## camera trauma when a boss's blow lands on the hero
 const FALL_DEATH_Y := 1500.0
 const AFTERIMAGE_FADE := 1.0
@@ -623,8 +622,6 @@ func take_hit(h: Hit) -> bool:
 		Feel.rumble(0.5, 0.15)
 	else:
 		Feel.rumble(0.3, 0.1)
-	if Feel.hero_hurt_stop:
-		world.hit_stop(HURT_STOP)
 	add_rage(rage_for_damage(dmg))
 	_count_lock()
 	if hp <= 0:

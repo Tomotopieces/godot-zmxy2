@@ -2,13 +2,11 @@ class_name Feel
 extends RefCounted
 ## Game-feel switches and the gamepad rumble.
 ## screen_shake / pad_rumble are player settings (pause menu, saved in user://settings.cfg [feel]);
-## hero_hurt_stop is a debug switch (key 8): the fight stops briefly when the hero is hit (like a hit-stop).
 
 const SETTINGS := "user://settings.cfg"
 
 static var screen_shake := true
 static var pad_rumble := true
-static var hero_hurt_stop := false
 static var hitstop_on := true   ## off for frame-exact test runs (tools/ai_trace)
 
 static func load_settings() -> void:

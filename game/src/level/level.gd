@@ -515,9 +515,6 @@ func _unhandled_input(e: InputEvent) -> void:
 	elif e.is_action_pressed("debug_monster_glow"):
 		GameState.debug_monster_glow = not GameState.debug_monster_glow
 		toast("敌人无敌辉光：" + ("开" if GameState.debug_monster_glow else "关"))
-	elif e.is_action_pressed("debug_hurt_stop"):
-		Feel.hero_hurt_stop = not Feel.hero_hurt_stop
-		toast("主角受击停顿：" + ("开" if Feel.hero_hurt_stop else "关"))
 	elif e.is_action_pressed("debug_refill") and is_instance_valid(hero):
 		hero.refill()
 		hero.rage = hero.data.rage_max
