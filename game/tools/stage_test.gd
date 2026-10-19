@@ -1,6 +1,6 @@
 extends Node
 ## Headless checks of stage scripts: godot --headless --path game res://tools/stage_test.tscn -- <case>
-## cases: door12, hub, fires, boat, pearls
+## cases: door12, door12_tangseng, hub, fires, boat, pearls
 var _case := ""
 var _ps: PlayScreen
 var _transfers: Array = []
@@ -8,10 +8,10 @@ var _failed := false
 
 func _ready() -> void:
 	_case = OS.get_cmdline_user_args()[0]
-	GameState.new_game()
+	GameState.new_game("tangseng" if _case == "door12_tangseng" else "wukong")
 	for s in GameState.hero_data.learn_active:
 		GameState.skills[StringName(s)] = true
-	var stage := {"door12": Vector2i(1, 2), "hub": Vector2i(10, 1), "fires": Vector2i(2, 2), "boat": Vector2i(3, 1), "pearls": Vector2i(3, 3)}
+	var stage := {"door12": Vector2i(1, 2), "door12_tangseng": Vector2i(1, 2), "hub": Vector2i(10, 1), "fires": Vector2i(2, 2), "boat": Vector2i(3, 1), "pearls": Vector2i(3, 3)}
 	_ps = PlayScreen.create(stage[_case])
 	add_child(_ps)
 	_ps.level.transfer.connect(func(to): _transfers.append(to))
@@ -38,7 +38,9 @@ func door12() -> void:
 	door.global_position = Vector2(480.0, 336.0)   # the first screen: the headless camera does not follow a hero teleported far away
 	var box: Rect2 = door.weak_rect()
 	_ps.level.stops.clear()
-	for i in 4:
+	for i in 8:   # (唐僧's attack has a cooldown: some presses are not attacks)
+		if door.is_open():
+			break
 		# stand left of the weak spot at its height (no gravity during the test)
 		_ps.level.hero.gravity = 0.0
 		await _attack_at(box.get_center() + Vector2(-70, -10))
@@ -48,6 +50,10 @@ func door12() -> void:
 	await _wait(6.0)
 	print("RESULT door12 transfers=", _transfers)
 	get_tree().quit()
+
+## 唐僧 hits only with bullets: they must break the weak spot too.
+func door12_tangseng() -> void:
+	await door12()
 
 func hub() -> void:
 	await _wait(1.0)

@@ -19,6 +19,7 @@ signal opened
 
 var _weak_at := Vector2()   ## where the weak spot is, from the door
 var _hits_left := 0
+var _bullet_hits := {}   ## [bullet id, its attack serial] already counted
 var _last_serial := -1
 var _open := false
 var _enter_left := 0.0
@@ -54,10 +55,17 @@ func _physics_process(delta: float) -> void:
 	if not _open:
 		if hero.dealer.serial != _last_serial and _hero_hits(hero, weak_rect()):
 			_last_serial = hero.dealer.serial
-			Fx.spawn("fx_monster_hurt1" if Rng.randf() < 0.5 else "fx_monster_hurt2", weak_rect().get_center())
-			_hits_left -= 1
-			if _hits_left <= 0:
-				_open_door()
+			_take_hit()
+		# the hero's bullets too (唐僧 attacks only with them): each attack of a bullet counts once
+		for p in level.world.get_children():
+			if _open:
+				break
+			if p is Projectile and p.source == hero and is_instance_valid(p.rig):
+				var key := [p.get_instance_id(), p.dealer.serial]
+				var hr: Rect2 = p.rig.hit_rect()
+				if not _bullet_hits.has(key) and hr.size != Vector2.ZERO and hr.intersects(weak_rect()):
+					_bullet_hits[key] = true
+					_take_hit()
 		return
 	if hero.is_alive() and enter_world_rect().intersects(hero.hurt_rect().grow(HERO_BOUNDS_MARGIN)):
 		_enter_left -= delta
@@ -65,6 +73,12 @@ func _physics_process(delta: float) -> void:
 			level.go_to(destination)
 	else:
 		_enter_left = enter_time
+
+func _take_hit() -> void:
+	Fx.spawn("fx_monster_hurt1" if Rng.randf() < 0.5 else "fx_monster_hurt2", weak_rect().get_center())
+	_hits_left -= 1
+	if _hits_left <= 0:
+		_open_door()
 
 func _open_door() -> void:
 	_open = true

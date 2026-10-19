@@ -63,8 +63,8 @@ func sfx(sound: String, pitch := 1.0, volume_db := 0.0) -> void:
 	if s == null:
 		return
 	# Every request plays to its end on its own player, so rapid hits (a held 冰龙波 on a crowd) are all heard.
-	# Loudness: overlapping copies of one effect are mixed down to the level of a single copy (each at 1/sqrt(n),
-	# eased in _process), and the SFX bus ends in a limiter for different effects piling up.
+	# Loudness: overlapping copies of one effect each play at _share(n) (eased in _process): a crowd of hits is a little
+	# louder than one, not n times; the SFX bus ends in a limiter.
 	# Only a request in the same frame as the last one is merged: the same blow on several enemies at once.
 	var frame := Engine.get_process_frames()
 	if _frame_of.get(sound, -1) == frame:
@@ -87,7 +87,7 @@ func sfx(sound: String, pitch := 1.0, volume_db := 0.0) -> void:
 		add_child(p)
 		pool.append(p)
 	var n := pool.filter(func(q: AudioStreamPlayer) -> bool: return q.playing and q != p).size() + 1
-	p.volume_db = linear_to_db(1.0 / sqrt(n)) + volume_db
+	p.volume_db = linear_to_db(_share(n)) + volume_db
 	p.set_meta(&"gain", db_to_linear(volume_db))
 	p.pitch_scale = pitch
 	p.play()
@@ -101,7 +101,14 @@ func ui(sound := "ui_click") -> void:
 	_ui_at = now
 	sfx(sound)
 
-## Overlapping copies of an effect ease towards 1/sqrt(n) each (n = copies playing), so their sum sounds like one.
+## Level of each of n overlapping copies of one effect. Measured on the hit sounds (ffmpeg, EBU R128 momentary max,
+## copies 50-100 ms apart, no attenuation): n copies are 10*log10(n) dB louder than one (2: +3 dB, 4: +6, 8: +9), the sum
+## of uncorrelated sounds. n^-1/4 each halves that rise: 2 copies +1.5 dB, 4: +3, 8: +4.5 - a crowd of hits is louder
+## than one, without the roar. The SFX bus limiter keeps the peaks under 0 dBFS.
+static func _share(n: int) -> float:
+	return pow(float(n), -0.25)
+
+## Overlapping copies of an effect ease towards _share(n) each (n = copies playing).
 func _process(delta: float) -> void:
 	var k := minf(delta / DUCK_TIME, 1.0)
 	for sound in _players:
@@ -112,7 +119,7 @@ func _process(delta: float) -> void:
 				n += 1
 		if n == 0:
 			continue
-		var share := 1.0 / sqrt(n)
+		var share := _share(n)
 		for q: AudioStreamPlayer in pool:
 			if q.playing:
 				q.volume_linear = lerpf(q.volume_linear, share * float(q.get_meta(&"gain", 1.0)), k)
