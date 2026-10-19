@@ -59,6 +59,22 @@ func _ready() -> void:
 	var hp: float = ring.stats.get("hp", 0.0)
 	var atk: float = ring.stats.get("atk", 0.0)
 	_check("dzjj sums its materials", ring.id == "dzjj" and ring.plus == 0 and hp >= 300 + 350 + 100 and hp <= 300 + 350 + 300 and atk >= 30 + 70 + 10 and atk <= 30 + 70 + 30)
+	# 白霜 three of a kind: the product rolls its own ranges, nothing of its materials (bsxj -> bszj)
+	var frost_ok := true
+	for i in 20:
+		var fm := [GameState.make_item("bsxj"), GameState.make_item("bsxj"), GameState.make_item("bsxj")]
+		for m in fm:
+			m.stats["hp"] = 9999.0
+			m.stats["def"] = 999.0
+		var fr := Forge.recipe_for(fm)
+		var fo := Forge.produce(fr, fm)
+		var d := GameState.item_data(fo)
+		for k in d.stats:
+			var rg: Vector2 = d.stats[k]
+			var v := float(fo.stats.get(k, 0.0))
+			if fo.id != "bszj" or v < rg.x - 0.001 or v > rg.y + 0.001:
+				frost_ok = false
+	_check("白霜 fusion rolls the product's own stats", frost_ok)
 	# equipment stat rolls cover the whole range, ends as often as the middle (the original's round(rand * k) halved the ends)
 	var counts := {}
 	for i in 6000:

@@ -70,6 +70,6 @@ Rim light / moon exist because 1-1…1-3 have a moon — they are not a general 
 
 - Input buffer: an attack / skill / jump press is kept `HeroData.input_buffer` (0.12 s) and done as soon as it can be (also a jump pressed just before landing). Hit, death and the rage transform clear it.
 - Turning: between moves the hero turns to the held direction at once, so a chained move goes the way the stick points (dashes keep their way).
-- Per attack (`AttackData`, group Feel): `hitstop` (s; melee freezes attacker and target, bullets the target; x1.5 on a crit), `hitstop_once` (multi-hit moves stop on their first hit only), `shake` (camera trauma 0..1, once per round of hits), `rumble` (gamepad). Hit-stop is per actor (`Actor.stop_t`), never `Engine.time_scale`, and is skipped during a boss's bullet time.
-- Camera shake: trauma model in `Level` (offset = 12 px × trauma², smooth noise, 1.8 trauma/s decay). Pause menu: 画面震动 / 手柄震动 switches (`src/core/feel.gd`, saved in user://settings.cfg).
-- Sounds: hero move sounds vary within ±4 %, hit sounds on monsters within ±6 % (`Snd.sfx_varied`).
+- Per attack (`AttackData`, group Feel): `hitstop` (s; x1.5 on a crit), `hitstop_once` (multi-hit moves stop on their first hit only), `shake` (camera trauma 0..1, once per round of hits), `rumble` (gamepad). Hit-stop freezes the whole fight (`Level.world`: actors, bullets, effects) while the level, camera shake, HUD and menus go on; it never touches `Engine.time_scale` and is skipped during a boss's bullet time. Debug key 8: the same stop when the hero is hit.
+- Camera shake: trauma model in `Level` (offset = 24 px × trauma², smooth noise, 1.8 trauma/s decay). Pause menu: 画面震动 / 手柄震动 switches (`src/core/feel.gd`, saved in user://settings.cfg); pad rumble runs at half strength (`Feel.RUMBLE_SCALE`).
+- Sounds: hero move sounds and hit sounds on monsters vary within ±10 % (`Snd.sfx_varied`).

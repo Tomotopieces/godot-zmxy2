@@ -15,9 +15,9 @@ const SOUNDS := {&"hit1": "Role1_hit1AndHit2", &"hit2": "Role1_hit1AndHit2", &"h
 	&"hit4": "Role1_hit3AndHit4", &"hit5": "Role1_hit5", &"hit6": "Role1_hit6", &"hit7": "Role1_hit7",
 	&"hit8": "Role1_hit8", &"hit9": "Role1_hit9", &"hit10": "Role1_hit10_1"}
 const DROP_THROUGH_TIME := 0.3
-const SKILL_PITCH := 0.04   ## the hero's move sounds vary within ±4 %
+const SKILL_PITCH := 0.1    ## the hero's move sounds vary within ±10 %
 const HURT_STOP := 0.05     ## hero hit-stop when hit (debug key 8 switches it on)
-const HURT_SHAKE := 0.25    ## camera trauma when a boss's blow lands on the hero
+const HURT_SHAKE := 0.4     ## camera trauma when a boss's blow lands on the hero
 const FALL_DEATH_Y := 1500.0
 const AFTERIMAGE_FADE := 1.0
 
@@ -132,9 +132,6 @@ func can_be_hit() -> bool:
 	return state != State.DEAD and invincible <= 0.0 and not GameState.debug_god
 
 func _physics_process(delta: float) -> void:
-	if tick_stop(delta):
-		_note_presses()   # a press during the stop comes out the moment it ends
-		return
 	_clock += delta
 	dealer.tick(delta)
 	cooldown = maxf(cooldown - delta, 0.0)
@@ -210,7 +207,7 @@ func _read_input() -> void:
 	elif Input.is_action_pressed("run"):   # gamepad: hold LB to run
 		running = true
 
-	_note_presses()
+	note_presses()
 	_turn_between_moves()
 	_use_buffer()
 	_read_attack_input()
@@ -225,7 +222,7 @@ func _read_input() -> void:
 const BUFFERED := [&"skill_u", &"skill_i", &"skill_o", &"skill_l", &"attack", &"jump"]
 
 ## Remembers this frame's press (the highest-priority one).
-func _note_presses() -> void:
+func note_presses() -> void:
 	for k: StringName in BUFFERED:
 		if Input.is_action_just_pressed(k):
 			_buffered = k
@@ -558,10 +555,9 @@ func _on_action_finished(action: StringName) -> void:
 # ------------------------------------------------------------------ damage
 
 ## A hit of this hero landed (melee, or one of its bullets): hit-stop, camera shake and rumble from the attack's numbers.
-## A melee hit freezes the hero with the target; a bullet only the target. Several targets in one swing stop once (the
-## stop takes the longest); shake and rumble come once per round of hits. Multi-hit moves with hitstop_once stop only
-## on their first hit.
-func feel_hit(target: Actor, a: AttackData, crit: bool, d: HitDealer, melee: bool) -> void:
+## Several targets in one swing stop once (the longest stop wins); shake and rumble come once per round of hits.
+## Multi-hit moves with hitstop_once stop only on their first hit.
+func feel_hit(a: AttackData, crit: bool, d: HitDealer) -> void:
 	if a == null:
 		return
 	if d.feel_serial != d.serial:
@@ -571,7 +567,7 @@ func feel_hit(target: Actor, a: AttackData, crit: bool, d: HitDealer, melee: boo
 		if a.rumble > 0.0:
 			Feel.rumble(a.rumble, 0.08 + a.hitstop)
 	if a.hitstop > 0.0 and (not a.hitstop_once or d.hits == 0):
-		world.hit_stop([target, self] if melee else [target], a.hitstop * (1.5 if crit else 1.0))
+		world.hit_stop(a.hitstop * (1.5 if crit else 1.0))
 
 ## Skill power x rage form (x1.5) x crit (x2), as Role1.getRealPower.
 func outgoing_damage(a: AttackData) -> int:
@@ -628,7 +624,7 @@ func take_hit(h: Hit) -> bool:
 	else:
 		Feel.rumble(0.3, 0.1)
 	if Feel.hero_hurt_stop:
-		world.hit_stop([self, h.source] if h.carrier == null and h.source is Actor else [self], HURT_STOP)
+		world.hit_stop(HURT_STOP)
 	add_rage(rage_for_damage(dmg))
 	_count_lock()
 	if hp <= 0:

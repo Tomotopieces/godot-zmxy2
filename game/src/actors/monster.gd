@@ -90,11 +90,9 @@ func stun(seconds: float) -> void:
 func can_be_hit() -> bool:
 	return state != State.DEAD and invuln <= 0.0 and brain.can_be_hit()
 
-const HIT_PITCH := 0.06   ## the hit sound on a monster varies within ±6 %
+const HIT_PITCH := 0.1    ## the hit sound on a monster varies within ±10 %
 
 func _physics_process(delta: float) -> void:
-	if tick_stop(delta):
-		return
 	dealer.tick(delta)
 	invuln = maxf(invuln - delta, 0.0)
 	if OS.is_debug_build():

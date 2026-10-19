@@ -65,6 +65,7 @@ func _ready() -> void:
 	await _wait(0.1)
 	Input.action_press("move_left")
 	await _until(func(): return h.state == Hero.State.MOVE or h.rig.progress() >= h.data.cancel_progress, 4.0)
+	await _until(func(): return h.cooldown <= 0.0, 2.0)
 	await _wait(0.05)
 	await _press("skill_u")
 	await _until(func(): return h.attack_action == &"hit7", 1.0)
@@ -89,18 +90,21 @@ func _ready() -> void:
 	for i in 5:
 		m.global_position = h.global_position + Vector2(60, 0)
 		m.velocity = Vector2.ZERO
+		h.combo_step = i   # (the chain itself depends on press timing; each step is set so the 5th hit is hit5)
+		h._last_attack_at = h._clock
+		h.cooldown = 0.0
 		await _press("attack")
 		for f in 30:
 			await get_tree().physics_frame
-			if h.stop_t > 0.0:
+			if lv.stop_t > 0.0:
 				stopped = true
-				stop_max = maxf(stop_max, h.stop_t)
-				both = both or m.stop_t > 0.0
+				stop_max = maxf(stop_max, lv.stop_t)
+				both = both or (lv.world.process_mode == Node.PROCESS_MODE_DISABLED and not h.can_process() and not m.can_process())
 			if lv._trauma > 0.0:
 				shook = true
 		print("  combo hit ", h.attack_action, " trauma ", lv._trauma, " monster hp ", m.hp, " dx ", m.global_position.x - h.global_position.x)
 		await _wait(0.25)
-	_check("melee hit-stop freezes hero and target (max %.3f s)" % stop_max, stopped and both and stop_max <= 0.2)
+	_check("hit-stop freezes the whole fight (max %.3f s)" % stop_max, stopped and both and stop_max <= 0.2)
 	_check("the 5th combo hit shakes the camera", shook)
 	await _wait(1.0)
 	lv.add_trauma(0.6)
@@ -109,6 +113,14 @@ func _ready() -> void:
 	await _wait(1.0)
 	_check("camera shake has faded", lv.camera.offset == Vector2.ZERO)
 	_check("no time_scale change", Engine.time_scale == 1.0)
+	# a menu still works during a hit-stop: the stop holds while the tree is paused and resumes after
+	lv.hit_stop(0.1)
+	get_tree().paused = true
+	await get_tree().create_timer(0.3, true, false, true).timeout
+	var held := lv.stop_t > 0.0
+	get_tree().paused = false
+	await _wait(0.2)
+	_check("a hit-stop waits while a menu is open, then ends", held and lv.stop_t == 0.0 and h.can_process())
 	print("FEEL CHECK ", "FAILED (%d)" % _fails if _fails else "OK")
 	get_tree().quit(1 if _fails else 0)
 

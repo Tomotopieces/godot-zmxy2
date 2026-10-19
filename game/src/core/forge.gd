@@ -69,6 +69,8 @@ static func _total(item: Item, stat: String) -> float:
 static func produce(recipe: Dictionary, mats: Array) -> Item:
 	if Rng.randf() >= fusion_chance(recipe):
 		return null
+	# every product starts from its own stat ranges ("fresh": the 白霜 three-of-a-kind keeps exactly that, nothing of
+	# its materials)
 	var out := EquipmentCatalog.find(recipe.out).roll()
 	match recipe.kind:
 		"sum":

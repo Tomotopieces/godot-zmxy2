@@ -2,7 +2,7 @@ class_name Feel
 extends RefCounted
 ## Game-feel switches and the gamepad rumble.
 ## screen_shake / pad_rumble are player settings (pause menu, saved in user://settings.cfg [feel]);
-## hero_hurt_stop is a debug switch (key 8): the hero and a melee attacker freeze briefly when the hero is hit.
+## hero_hurt_stop is a debug switch (key 8): the fight stops briefly when the hero is hit (like a hit-stop).
 
 const SETTINGS := "user://settings.cfg"
 
@@ -25,9 +25,12 @@ static func save_settings() -> void:
 	if cf.save(SETTINGS) != OK:
 		push_warning("settings could not be saved")
 
-## Rumbles every connected pad: strength 0..1 (the heavy motor; the light one at 60 %).
+const RUMBLE_SCALE := 0.5   ## overall pad rumble strength
+
+## Rumbles every connected pad: strength 0..1 before RUMBLE_SCALE (the heavy motor; the light one at 60 %).
 static func rumble(strength: float, seconds: float) -> void:
 	if not pad_rumble:
 		return
+	var s := strength * RUMBLE_SCALE
 	for d in Input.get_connected_joypads():
-		Input.start_joy_vibration(d, strength * 0.6, strength, seconds)
+		Input.start_joy_vibration(d, s * 0.6, s, seconds)

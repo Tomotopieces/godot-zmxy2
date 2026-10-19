@@ -89,7 +89,7 @@ func _deliver(target: Actor) -> bool:
 			h.direction = 1 if dx >= 0.0 else -1
 	var landed: bool = target.take_hit(h)
 	if landed and source is Hero:
-		(source as Hero).feel_hit(target, attack, h.crit, dealer, false)
+		(source as Hero).feel_hit(attack, h.crit, dealer)
 	if landed and on_hit.is_valid():
 		on_hit.call(target)
 	if landed and source is Monster and target is Hero:

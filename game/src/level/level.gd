@@ -222,7 +222,7 @@ func add_combo_hit() -> void:
 
 ## Camera shake, Eiserloh's "trauma": each call adds to a 0..1 trauma that fades linearly; the camera moves by
 ## SHAKE_MAX * trauma^2 along smooth noise (both axes), so small and big hits differ clearly and piles stay bounded.
-const SHAKE_MAX := 12.0       ## px at full trauma
+const SHAKE_MAX := 24.0       ## px at full trauma
 const SHAKE_DECAY := 1.8      ## trauma lost per second
 const SHAKE_FREQ := 28.0      ## noise speed
 
@@ -231,7 +231,7 @@ func add_trauma(amount: float) -> void:
 
 ## The original's shake (the push in px of its one-frame camera jolt): the same strength as trauma.
 func shake(px: float) -> void:
-	add_trauma(clampf(px / 30.0, 0.0, 1.0))
+	add_trauma(clampf(px / 20.0, 0.0, 1.0))
 
 func _shake_offset(delta: float) -> Vector2:
 	if _trauma <= 0.0:
@@ -240,17 +240,29 @@ func _shake_offset(delta: float) -> Vector2:
 	if not Feel.screen_shake:
 		return Vector2.ZERO
 	_shake_t += delta * SHAKE_FREQ
-	var k := SHAKE_MAX * _trauma * _trauma * 2.0   # (the noise stays within about ±0.5)
+	var k := SHAKE_MAX * _trauma * _trauma * 2.0   # (the noise stays within about ±0.5): 0.35 -> ~3 px, 0.5 -> 6, 0.75 -> 13
 	return Vector2(_shake_noise.get_noise_2d(_shake_t, 0.0), _shake_noise.get_noise_2d(0.0, _shake_t)) * k
 
-## Hit-stop: the actors freeze for a moment (their own clock; the rest of the world, the camera and bullet time are not
-## touched). Not during a boss's bullet time.
-func hit_stop(actors: Array, seconds: float) -> void:
+## Hit-stop: the whole fight (World: actors, bullets, effects) stands still for a moment - the "weight" of a blow.
+## The level itself goes on (camera shake, HUD, stage effects), and so do menus: the stop counts down in this node's
+## physics step, so a menu opened during it (tree paused) holds it too. Not during a boss's bullet time.
+var stop_t := 0.0
+
+func hit_stop(seconds: float) -> void:
 	if seconds <= 0.0 or not Feel.hitstop_on or _bt_tween != null:
 		return
-	for a in actors:
-		if is_instance_valid(a):
-			(a as Actor).hit_stop(seconds)
+	stop_t = maxf(stop_t, seconds)
+	world.process_mode = Node.PROCESS_MODE_DISABLED
+
+func _tick_stop(delta: float) -> void:
+	if stop_t <= 0.0:
+		return
+	if is_instance_valid(hero):
+		hero.note_presses()   # a key pressed during the stop comes out the moment it ends
+	stop_t -= delta
+	if stop_t <= 0.0:
+		stop_t = 0.0
+		world.process_mode = Node.PROCESS_MODE_INHERIT
 
 ## Short hit-stop (rage transform).
 ## Rage transform: the world freezes while the full-screen transform animation plays (MainGame.stopGame).
@@ -464,6 +476,7 @@ func monster_data(id: int) -> MonsterData:
 func _physics_process(delta: float) -> void:
 	if not is_instance_valid(hero):
 		return
+	_tick_stop(delta)
 	_update_stops(delta)
 	_update_camera(delta)
 	GameState.tick_buffs(delta)
