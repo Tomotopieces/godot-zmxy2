@@ -5,6 +5,7 @@ extends RefCounted
 ## Projectiles: a target can be hit again after `rehit_interval`, until `max_hits` are spent.
 
 var serial := 0
+var feel_serial := -1   ## the round whose hit feedback (shake, rumble) already played
 var hits := 0
 var _log := {}    ## target instance id -> [serial, cooldown left]
 

@@ -15,6 +15,9 @@ const SOUNDS := {&"hit1": "Role1_hit1AndHit2", &"hit2": "Role1_hit1AndHit2", &"h
 	&"hit4": "Role1_hit3AndHit4", &"hit5": "Role1_hit5", &"hit6": "Role1_hit6", &"hit7": "Role1_hit7",
 	&"hit8": "Role1_hit8", &"hit9": "Role1_hit9", &"hit10": "Role1_hit10_1"}
 const DROP_THROUGH_TIME := 0.3
+const SKILL_PITCH := 0.04   ## the hero's move sounds vary within ±4 %
+const HURT_STOP := 0.05     ## hero hit-stop when hit (debug key 8 switches it on)
+const HURT_SHAKE := 0.25    ## camera trauma when a boss's blow lands on the hero
 const FALL_DEATH_Y := 1500.0
 const AFTERIMAGE_FADE := 1.0
 
@@ -35,6 +38,11 @@ var cooldown := 0.0          ## attack input lockout (original `timers`)
 var combo_step := 0
 
 var _clock := 0.0
+## Input buffer: the last attack / skill / jump press and when it came. Tried again every frame until it works or is
+## older than data.input_buffer; cleared when the hero is hit, dies or transforms. Holds still during a hit-stop.
+var _buffered := &""
+var _buffered_at := -100.0
+var _buffered_up := false   ## W was held with the attack press
 var _dir := 0
 var _held := {-1: false, 1: false}
 var _pressed_at := {-1: -100.0, 1: -100.0}
@@ -124,6 +132,9 @@ func can_be_hit() -> bool:
 	return state != State.DEAD and invincible <= 0.0 and not GameState.debug_god
 
 func _physics_process(delta: float) -> void:
+	if tick_stop(delta):
+		_note_presses()   # a press during the stop comes out the moment it ends
+		return
 	_clock += delta
 	dealer.tick(delta)
 	cooldown = maxf(cooldown - delta, 0.0)
@@ -199,30 +210,90 @@ func _read_input() -> void:
 	elif Input.is_action_pressed("run"):   # gamepad: hold LB to run
 		running = true
 
-	if Input.is_action_just_pressed("jump"):
-		if Input.is_action_pressed("move_down"):
-			_try_drop_through()
-		else:
-			_try_jump()
+	_note_presses()
+	_turn_between_moves()
+	_use_buffer()
 	_read_attack_input()
 	if Input.is_action_just_pressed("rage"):
 		_try_transform()
 	if Input.is_action_just_pressed("treasure") and is_instance_valid(treasure):
 		treasure.use()
 
+# ------------------------------------------------------------------ input buffer
+
+## Keys that start moves, in priority order (a skill press wins over an attack, an attack over a jump).
+const BUFFERED := [&"skill_u", &"skill_i", &"skill_o", &"skill_l", &"attack", &"jump"]
+
+## Remembers this frame's press (the highest-priority one).
+func _note_presses() -> void:
+	for k: StringName in BUFFERED:
+		if Input.is_action_just_pressed(k):
+			_buffered = k
+			_buffered_at = _clock
+			_buffered_up = Input.is_action_pressed("move_up")
+			return
+
+func clear_buffer() -> void:
+	_buffered = &""
+
+## Tries the buffered press; it is used up once it started something (or once it is too old).
+func _use_buffer() -> void:
+	if _buffered == &"":
+		return
+	if _clock - _buffered_at > data.input_buffer:
+		_buffered = &""
+		return
+	if _do_press(_buffered, _buffered_up):
+		_buffered = &""
+
+## Starts what a press does; true when something started (virtual for the attack / skill keys: _press()).
+func _do_press(k: StringName, up: bool) -> bool:
+	if k == &"jump":
+		if Input.is_action_pressed("move_down"):
+			return _try_drop_through()
+		return _try_jump()
+	return _press(k, up)
+
+## Between moves the hero turns to the held direction at once, so the next move goes the way the stick points
+## (the original only turns while walking: a skill chained out of a skill kept the old facing).
+func _turn_between_moves() -> void:
+	if _dir == 0 or _dir == facing:
+		return
+	if state == State.MOVE or (state == State.ATTACK and _can_turn_now()):
+		facing = _dir
+
+## Mid-move turning (virtual): only where the next move may already start - a combo hit once the attack lock is
+## over (the next hit would cut it), or any move in its last part (cancel_progress). Dashes keep their way.
+func _can_turn_now() -> bool:
+	if attack_action in SCRIPTED_MOTION:
+		return false
+	if attack_action in _cancelable_actions() and cooldown <= 0.0:
+		return true
+	return rig.progress() >= data.cancel_progress
+
 ## Attack and skill keys (virtual).
+func _press(k: StringName, up: bool) -> bool:
+	match k:
+		&"attack":
+			# up+attack: nothing until 升龙斩 is learned (Role1 "0101"); without MP it falls back to a normal hit
+			if up:
+				if GameState.has_skill(&"hit8") and _try_skill(&"hit8", true):
+					return true
+				return GameState.has_skill(&"hit8") and _normal_attack()
+			if running and is_on_floor() and state == State.MOVE and _try_skill(&"hit6"):
+				return true
+			return _normal_attack()
+		&"skill_u":
+			return _try_skill(&"hit7")
+		&"skill_i":
+			return _try_skill(&"hit9")
+		&"skill_o":
+			return _try_skill(&"hit10")
+	return false
+
+## Held skill keys repeat the skill (the original gets key repeat from the keyboard): 烈焰风暴 and the others cast
+## again as soon as the move is over (virtual).
 func _read_attack_input() -> void:
-	if Input.is_action_just_pressed("attack"):
-		# up+attack: nothing until 升龙斩 is learned (Role1 "0101"); without MP it falls back to a normal hit
-		if Input.is_action_pressed("move_up"):
-			if GameState.has_skill(&"hit8") and not _try_skill(&"hit8", true):
-				_normal_attack()
-		elif running and is_on_floor() and state == State.MOVE and _try_skill(&"hit6"):
-			pass
-		else:
-			_normal_attack()
-	# holding a skill key repeats it (the original gets key repeat from the keyboard): 烈焰风暴 and the others
-	# cast again as soon as the move is over
 	if Input.is_action_pressed("skill_u"):
 		_try_skill(&"hit7")
 	elif Input.is_action_pressed("skill_i"):
@@ -230,16 +301,17 @@ func _read_attack_input() -> void:
 	elif Input.is_action_pressed("skill_o"):
 		_try_skill(&"hit10")
 
-func _try_jump() -> void:
+func _try_jump() -> bool:
 	if state != State.MOVE or jump_count >= 2:
-		return
+		return false
 	jump_count += 1
 	velocity.y = data.rage_jump_velocity if transformed else data.jump_velocity
 	rig.play(&"jump1" if jump_count == 1 else &"jump2", true)
+	return true
 
-func _try_drop_through() -> void:
+func _try_drop_through() -> bool:
 	if state != State.MOVE or not is_on_floor():
-		return
+		return false
 	for i in get_slide_collision_count():
 		var c := get_slide_collision(i).get_collider()
 		if c is CollisionObject2D and c.collision_layer & LAYER_ONEWAY:
@@ -248,7 +320,8 @@ func _try_drop_through() -> void:
 			position.y += data.drop_through
 			jump_count = 1
 			rig.play(&"jump1")
-			return
+			return true
+	return false
 
 # ------------------------------------------------------------------ attacks
 
@@ -260,14 +333,14 @@ func _cancelable_actions() -> Array:
 func _can_act() -> bool:
 	return cooldown <= 0.0 and (state == State.MOVE or (state == State.ATTACK and attack_action in _cancelable_actions()))
 
-func _normal_attack() -> void:
+func _normal_attack() -> bool:
 	if not _can_act():
-		return
+		return false
 	if not is_on_floor():
 		cooldown = data.air_cooldown
 		combo_step = 0
 		_begin(&"hit3")
-		return
+		return true
 	if _clock - _last_attack_at > data.combo_reset:
 		combo_step = 0
 	_last_attack_at = _clock
@@ -275,6 +348,7 @@ func _normal_attack() -> void:
 	var action: StringName = combo_actions[combo_step]
 	combo_step = (combo_step + 1) % combo_actions.size()
 	_begin(action)
+	return true
 
 func _try_skill(action: StringName, cancel := false) -> bool:
 	var a: AttackData = data.attacks.get(action)
@@ -300,7 +374,7 @@ func _begin(action: StringName) -> void:
 	state = State.ATTACK
 	_last_attack_data = data.attacks.get(action)
 	start_attack(action, data.attacks.get(action))
-	Snd.sfx(sounds.get(action, ""))
+	Snd.sfx_varied(sounds.get(action, ""), SKILL_PITCH)
 	match action:
 		&"hit6":
 			velocity.x = facing * (attack.rage_dash_speed if transformed else attack.dash_speed)
@@ -434,7 +508,7 @@ func _hit10_seek() -> void:
 		var r: Rect2 = m.hurt_rect()
 		if r.position.x > v.position.x + 20 and r.position.x < v.end.x - 20 \
 				and m.global_position.distance_to(global_position) <= ex.seek_radius:
-			Snd.sfx("Role1_hit10_2")
+			Snd.sfx_varied("Role1_hit10_2", SKILL_PITCH)
 			_skill_projectile("wukong_hit10_1", &"hit10_1", m.global_position).push_dir = facing   # the combo drives the target the way he faces
 			global_position = m.global_position + Vector2(0, -2)
 			reset_physics_interpolation()
@@ -448,7 +522,7 @@ func _hit10_slam() -> void:
 	_hit10_down = false
 	_no_gravity = false
 	var ex: Dictionary = data.attacks[&"hit10"].extra
-	Snd.sfx("Role1_hit10_3")
+	Snd.sfx_varied("Role1_hit10_3", SKILL_PITCH)
 	var p := _skill_projectile("wukong_hit10_2", &"hit10_2", global_position)
 	invincible = 0.0   # the move's invincibility lasts until he lands
 	var s: float = ex.rage_slam_scale if transformed else ex.slam_scale
@@ -482,6 +556,22 @@ func _on_action_finished(action: StringName) -> void:
 	_finish_action(action)
 
 # ------------------------------------------------------------------ damage
+
+## A hit of this hero landed (melee, or one of its bullets): hit-stop, camera shake and rumble from the attack's numbers.
+## A melee hit freezes the hero with the target; a bullet only the target. Several targets in one swing stop once (the
+## stop takes the longest); shake and rumble come once per round of hits. Multi-hit moves with hitstop_once stop only
+## on their first hit.
+func feel_hit(target: Actor, a: AttackData, crit: bool, d: HitDealer, melee: bool) -> void:
+	if a == null:
+		return
+	if d.feel_serial != d.serial:
+		d.feel_serial = d.serial
+		if a.shake > 0.0:
+			world.add_trauma(a.shake)
+		if a.rumble > 0.0:
+			Feel.rumble(a.rumble, 0.08 + a.hitstop)
+	if a.hitstop > 0.0 and (not a.hitstop_once or d.hits == 0):
+		world.hit_stop([target, self] if melee else [target], a.hitstop * (1.5 if crit else 1.0))
 
 ## Skill power x rage form (x1.5) x crit (x2), as Role1.getRealPower.
 func outgoing_damage(a: AttackData) -> int:
@@ -531,6 +621,14 @@ func take_hit(h: Hit) -> bool:
 	rig.flash(Color(1.0, 0.35, 0.3), 0.12)
 	Fx.spawn("fx_hero_hurt", center())
 	Snd.sfx(data.sound_prefix + "_beAttack")
+	clear_buffer()
+	if h.source is Monster and (h.source as Monster).data.is_boss:
+		world.add_trauma(HURT_SHAKE)
+		Feel.rumble(0.5, 0.15)
+	else:
+		Feel.rumble(0.3, 0.1)
+	if Feel.hero_hurt_stop:
+		world.hit_stop([self, h.source] if h.carrier == null and h.source is Actor else [self], HURT_STOP)
 	add_rage(rage_for_damage(dmg))
 	_count_lock()
 	if hp <= 0:
@@ -677,6 +775,7 @@ func _try_transform() -> void:
 	if transformed or rage < data.rage_max or state == State.DEAD:
 		return
 	transformed = true
+	clear_buffer()
 	gravity = data.rage_gravity
 	world.rage_transform(data.rage_freeze)
 
@@ -768,6 +867,7 @@ func _die() -> void:
 	if _try_revive():
 		return
 	state = State.DEAD
+	clear_buffer()
 	end_attack()
 	velocity = Vector2.ZERO
 	Snd.sfx(data.sound_prefix + "_dead")

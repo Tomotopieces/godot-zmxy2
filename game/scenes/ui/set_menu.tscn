@@ -19,6 +19,18 @@
 [ext_resource type="Texture2D" path="res://assets/ui/set_menu/tex/OtherMat_v10_181.png" id="17_ktvkw"]
 [ext_resource type="Texture2D" path="res://assets/ui/set_menu/tex/OtherMat_v10_182.png" id="18_c28it"]
 
+[sub_resource type="StyleBoxFlat" id="OptionsStyle"]
+bg_color = Color(0.07, 0.05, 0.06, 0.85)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.91, 0.72, 0.35, 0.6)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
 [node name="set_menu" type="Control" unique_id=1936660815]
 layout_mode = 3
 anchors_preset = 0
@@ -321,3 +333,74 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("18_c28it")
 centered = false
 metadata/tex_key = "OtherMat_v10:182"
+
+[node name="Options" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 340.0
+offset_top = 422.0
+offset_right = 600.0
+offset_bottom = 494.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("OptionsStyle")
+
+[node name="ScreenShake" type="Control" parent="Options"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 250.0
+offset_bottom = 36.0
+mouse_default_cursor_shape = 2
+
+[node name="Caption" type="Label" parent="Options/ScreenShake"]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 150.0
+offset_bottom = 28.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.93, 0.89, 0.82, 1)
+theme_override_font_sizes/font_size = 17
+text = "画面震动"
+vertical_alignment = 1
+
+[node name="State" type="Label" parent="Options/ScreenShake"]
+layout_mode = 0
+offset_left = 150.0
+offset_right = 232.0
+offset_bottom = 28.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.91, 0.72, 0.35, 1)
+theme_override_font_sizes/font_size = 17
+text = "开"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="PadRumble" type="Control" parent="Options"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 36.0
+offset_right = 250.0
+offset_bottom = 64.0
+mouse_default_cursor_shape = 2
+
+[node name="Caption" type="Label" parent="Options/PadRumble"]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 150.0
+offset_bottom = 28.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.93, 0.89, 0.82, 1)
+theme_override_font_sizes/font_size = 17
+text = "手柄震动"
+vertical_alignment = 1
+
+[node name="State" type="Label" parent="Options/PadRumble"]
+layout_mode = 0
+offset_left = 150.0
+offset_right = 232.0
+offset_bottom = 28.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.91, 0.72, 0.35, 1)
+theme_override_font_sizes/font_size = 17
+text = "开"
+horizontal_alignment = 2
+vertical_alignment = 1

@@ -12,6 +12,12 @@ enum Kind { PHYSICS, MAGIC, TRUE }
 @export var rehit_interval := 0.0     ## projectiles: seconds until the same target can be hit again (0 = never)
 @export var max_hits := 1             ## projectiles: total hits before it is spent
 
+@export_group("Feel")
+@export var hitstop := 0.0            ## seconds the attacker (melee) and the target freeze when it lands (x1.5 on a crit)
+@export var hitstop_once := false     ## multi-hit moves: only the first round of hits stops
+@export var shake := 0.0              ## camera trauma (0..1) added by the first target of each round
+@export var rumble := 0.0             ## gamepad rumble strength (0..1) of each round
+
 @export_group("Skill")
 @export var mp_cost := 0
 @export var cooldown := 0.0           ## seconds before the next attack input is accepted

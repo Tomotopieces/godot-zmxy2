@@ -24,24 +24,31 @@ func _ready() -> void:
 
 # ------------------------------------------------------------------ input
 
+func _press(k: StringName, _up: bool) -> bool:
+	match k:
+		&"attack":
+			return _normal_attack()
+		&"skill_u":
+			return _cast_ice()
+		&"skill_i":
+			return _cast_shadow()
+		&"skill_o":
+			return _cast_cure()
+		&"skill_l":
+			return _cast_fall()
+	return false
+
+## (唐僧's skills do not repeat while held.)
 func _read_attack_input() -> void:
-	if Input.is_action_just_pressed("attack"):
-		_normal_attack()
-	if Input.is_action_just_pressed("skill_u"):
-		_cast_ice()
-	elif Input.is_action_just_pressed("skill_i"):
-		_cast_shadow()
-	elif Input.is_action_just_pressed("skill_o"):
-		_cast_cure()
-	elif Input.is_action_just_pressed("skill_l"):
-		_cast_fall()
+	pass
 
 ## One bullet; no chain, the input lock is the only limit (also in the air).
-func _normal_attack() -> void:
+func _normal_attack() -> bool:
 	if state != State.MOVE or cooldown > 0.0:
-		return
+		return false
 	cooldown = data.combo_cooldowns[0]
 	_begin(&"hit1")
+	return true
 
 func _ready_to_cast(skill: StringName, action: StringName) -> bool:
 	var a: AttackData = data.attacks.get(action)
@@ -54,43 +61,46 @@ func _hover(action: StringName) -> void:
 
 # ------------------------------------------------------------------ skills
 
-func _cast_ice() -> void:
+func _cast_ice() -> bool:
 	if not _ready_to_cast(&"hit3", &"hit3"):
-		return
+		return false
 	mp -= data.attacks[&"hit3"].mp_cost
 	_hover(&"hit3")
 	if is_instance_valid(_shadow):
 		_shadow.do_hit3()
 		_shadow = null
+	return true
 
-func _cast_shadow() -> void:
+func _cast_shadow() -> bool:
 	if state != State.MOVE or not GameState.has_skill(&"shadow"):
-		return
+		return false
 	if is_instance_valid(_shadow):
-		Snd.sfx("Role2_hit6")
+		Snd.sfx_varied("Role2_hit6", Hero.SKILL_PITCH)
 		global_position = _shadow.global_position
 		reset_physics_interpolation()
 		_shadow.queue_free()
 		_shadow = null
-		return
+		return true
 	var cost: int = data.attacks[&"shadow"].mp_cost
 	if mp < cost:
-		return
+		return false
 	mp -= cost
-	Snd.sfx("Role2_hit6")
+	Snd.sfx_varied("Role2_hit6", Hero.SKILL_PITCH)
 	_shadow = TangShadow.create(self)
 	world.add_object(_shadow)
+	return true
 
-func _cast_cure() -> void:
+func _cast_cure() -> bool:
 	if not _ready_to_cast(&"hit5", &"hit5"):
-		return
+		return false
 	mp -= data.attacks[&"hit5"].mp_cost
-	Snd.sfx("Role2_hit5")
+	Snd.sfx_varied("Role2_hit5", Hero.SKILL_PITCH)
 	_hover(&"hit5")
 	cure_at(global_position + Vector2(0, -60), true)
 	if is_instance_valid(_shadow):
 		_shadow.do_hit5()
 		_shadow = null
+	return true
 
 ## The healing light at `pos`: heals the hero when its animation ends (the shadow's never crits).
 func cure_at(pos: Vector2, can_crit: bool) -> void:
@@ -117,7 +127,7 @@ func _cure_amount(can_crit: bool) -> int:
 		v *= 2.0
 	return int(v)
 
-func _cast_fall() -> void:
+func _cast_fall() -> bool:
 	var f: Dictionary = data.kit.fall
 	if state == State.ATTACK and attack_action == &"hit4":
 		# the second press, while the marker ball is out: the pillar falls on it for free
@@ -128,14 +138,16 @@ func _cast_fall() -> void:
 			var p := _skill_projectile("hit4falldown", &"hit4_1",
 				global_position + Vector2(facing * -ball_x, float(f.ball_y) - float(f.drop_height)))
 			p.facing = facing
-			get_tree().create_timer(float(f.sound_delay), false).timeout.connect(Snd.sfx.bind("Role2_hit4"))
+			get_tree().create_timer(float(f.sound_delay), false).timeout.connect(Snd.sfx_varied.bind("Role2_hit4", Hero.SKILL_PITCH))
 			rig.anim.seek(float(f.resume), false)
-		return
+			return true
+		return false
 	if not is_on_floor() or not _ready_to_cast(&"hit4", &"hit4"):
-		return
+		return false
 	mp -= data.attacks[&"hit4"].mp_cost
 	_dropped = false
 	_begin(&"hit4")
+	return true
 
 # ------------------------------------------------------------------ frame events
 
@@ -152,7 +164,7 @@ func _on_hero_call(n: String, _args: Array) -> void:
 			if attack_action == &"hit2":
 				_fire_charge()
 		"special_attack":
-			Snd.sfx("Role2_hit3")
+			Snd.sfx_varied("Role2_hit3", Hero.SKILL_PITCH)
 			_spawn_ice(global_position, null)
 
 func _begin_charge() -> void:
@@ -169,7 +181,7 @@ func _fire_charge() -> void:
 	_charge_t = 0.0
 	_bar.set_value(0.0)
 	if full:
-		Snd.sfx("Role2_hit2")
+		Snd.sfx_varied("Role2_hit2", Hero.SKILL_PITCH)
 		mp -= int(data.kit.charge_mp)
 		_shoot(&"hit2")
 	else:
@@ -177,7 +189,7 @@ func _fire_charge() -> void:
 
 func _shoot(action: StringName) -> void:
 	if action == &"hit1":
-		Snd.sfx("Role2_hit1")
+		Snd.sfx_varied("Role2_hit1", Hero.SKILL_PITCH)
 	var a: AttackData = data.attacks[action]
 	var p := Projectile.create(a.projectile, self, a, action)
 	p.position = global_position + Vector2(a.spawn_offset.x * facing, a.spawn_offset.y)

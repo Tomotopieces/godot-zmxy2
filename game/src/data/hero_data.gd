@@ -56,6 +56,7 @@ extends Resource
 @export var lock_invincible := 2.0
 
 @export_group("Combo")
+@export var input_buffer := 0.12   ## seconds an early attack / skill / jump press is kept until it can be done
 @export var combo_cooldowns: PackedFloat32Array  ## cooldown set when starting hit N+1, indexed by previous step
 @export var air_cooldown := 0.0
 @export var combo_reset := 1.0

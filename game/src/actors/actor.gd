@@ -60,6 +60,22 @@ func setup_rig(rig_name: String) -> void:
 	add_child(body)
 	body_shape = body
 
+## Hit-stop (Level.hit_stop): the actor's logic and animation hold still for a moment.
+var stop_t := 0.0
+
+func hit_stop(seconds: float) -> void:
+	stop_t = maxf(stop_t, seconds)
+	rig.anim.speed_scale = 0.0
+
+## Counts the hit-stop down; true while the actor is held (its _physics_process does nothing else).
+func tick_stop(delta: float) -> bool:
+	if stop_t <= 0.0:
+		return false
+	stop_t -= delta
+	if stop_t <= 0.0:
+		rig.anim.speed_scale = 1.0
+	return true
+
 func is_alive() -> bool:
 	return hp > 0
 
@@ -103,6 +119,8 @@ func _deliver(target: Actor) -> bool:
 	if landed and self is Monster and target is Hero:
 		(self as Monster).brain.on_hit_hero(target, attack_action)
 	if landed:
+		if self is Hero:
+			(self as Hero).feel_hit(target, attack, h.crit, dealer, true)
 		_on_landed(target)
 	return landed
 

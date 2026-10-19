@@ -90,7 +90,11 @@ func stun(seconds: float) -> void:
 func can_be_hit() -> bool:
 	return state != State.DEAD and invuln <= 0.0 and brain.can_be_hit()
 
+const HIT_PITCH := 0.06   ## the hit sound on a monster varies within ±6 %
+
 func _physics_process(delta: float) -> void:
+	if tick_stop(delta):
+		return
 	dealer.tick(delta)
 	invuln = maxf(invuln - delta, 0.0)
 	if OS.is_debug_build():
@@ -362,7 +366,7 @@ func take_hit(h: Hit) -> bool:
 		h.source.add_rage((h.source as Hero).rage_for_damage(dmg))
 		if h.attack.kind == AttackData.Kind.PHYSICS and GameState.bonus("lifesteal") > 0.0:
 			h.source.heal(int(dmg * GameState.bonus("lifesteal")))   # (BaseHero.cureHp: the green number over the hero)
-	Snd.sfx(h.source.hit_sound if h.source is Hero else "BeattackByRole1")
+	Snd.sfx_varied(h.source.hit_sound if h.source is Hero else "BeattackByRole1", HIT_PITCH)
 	rig.flash(Color.WHITE, 0.09)
 	Fx.spawn("fx_monster_hurt1" if Rng.randf() < 0.5 else "fx_monster_hurt2", center())
 	if not data.is_prop:

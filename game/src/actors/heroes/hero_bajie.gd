@@ -17,20 +17,23 @@ func _init() -> void:
 
 # ------------------------------------------------------------------ input
 
+func _press(k: StringName, up: bool) -> bool:
+	match k:
+		&"attack":
+			return _cast_pull() if up else _normal_attack()
+		&"skill_u":
+			return _cast(&"hit4", &"hit4", true)
+		&"skill_i":
+			return _cast(&"hit6", &"hit6")
+		&"skill_o":
+			return _cast(&"hit5", &"hit5")
+		&"skill_l":
+			return _cast_stance()
+	return false
+
+## (八戒's skills do not repeat while held.)
 func _read_attack_input() -> void:
-	if Input.is_action_just_pressed("attack"):
-		if Input.is_action_pressed("move_up"):
-			_cast_pull()
-		else:
-			_normal_attack()
-	if Input.is_action_just_pressed("skill_u"):
-		_cast(&"hit4", &"hit4", true)
-	elif Input.is_action_just_pressed("skill_i"):
-		_cast(&"hit6", &"hit6")
-	elif Input.is_action_just_pressed("skill_o"):
-		_cast(&"hit5", &"hit5")
-	elif Input.is_action_just_pressed("skill_l"):
-		_cast_stance()
+	pass
 
 func _cancelable_actions() -> Array:
 	return CANCELABLE
@@ -48,23 +51,23 @@ func _cast(skill: StringName, action: StringName, ground_only := false) -> bool:
 	return true
 
 ## W+J. Not learned: nothing. Learned but short of MP: an ordinary attack.
-func _cast_pull() -> void:
+func _cast_pull() -> bool:
 	if state != State.MOVE or not GameState.has_skill(&"hit8"):
-		return
-	if not _cast(&"hit8", &"hit8"):
-		_normal_attack()
+		return false
+	return _cast(&"hit8", &"hit8") or _normal_attack()
 
-func _cast_stance() -> void:
+func _cast_stance() -> bool:
 	if not GameState.has_skill(&"hit7"):
-		return
+		return false
 	if state == State.ATTACK and attack_action == STANCE:
 		var a: AttackData = data.attacks[STAB]
 		if rig.time() > float(data.kit.reflect.recast_after) and mp >= a.mp_cost:
 			mp -= a.mp_cost
 			cooldown = a.cooldown
 			_begin(STAB)
-		return
-	_cast(&"hit7", STANCE)
+			return true
+		return false
+	return _cast(&"hit7", STANCE)
 
 # ------------------------------------------------------------------ motion
 
@@ -135,7 +138,7 @@ func _on_hero_call(n: String, _args: Array) -> void:
 ## 碎石破: every segment sounds again.
 func _on_new_hit() -> void:
 	if attack_action == &"hit4":
-		Snd.sfx("Role3_hit4")
+		Snd.sfx_varied("Role3_hit4", Hero.SKILL_PITCH)
 
 ## 聚怪: every monster is dragged to just above the hero over a second.
 func _pull_monsters() -> void:

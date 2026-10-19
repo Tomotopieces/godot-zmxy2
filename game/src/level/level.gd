@@ -56,7 +56,14 @@ var _room_back := 0.0        ## how far back from there the hero may scroll
 var _drag_right := 0.0
 var _right_cap := 0.0        ## the right edge the camera may show now (it grows at CAMERA_MAX_SPEED at most)
 var _end_x := 0.0     ## right edge the camera may show: the last stop (the art may end before the scene bounds)
-var _shake := 0.0
+var _trauma := 0.0      ## camera shake: 0..1, decays linearly; the offset grows with its square
+var _shake_t := 0.0
+var _shake_noise := _make_shake_noise()
+
+static func _make_shake_noise() -> FastNoiseLite:
+	var n := FastNoiseLite.new()
+	n.frequency = 1.0   # one unit of _shake_t is one noise feature
+	return n
 var _freeze_t := 0.0
 var _debug: Node2D
 var _done := false
@@ -213,8 +220,37 @@ func add_combo_hit() -> void:
 	best_combo = maxi(best_combo, combo)
 	combo_changed.emit(combo)
 
+## Camera shake, Eiserloh's "trauma": each call adds to a 0..1 trauma that fades linearly; the camera moves by
+## SHAKE_MAX * trauma^2 along smooth noise (both axes), so small and big hits differ clearly and piles stay bounded.
+const SHAKE_MAX := 12.0       ## px at full trauma
+const SHAKE_DECAY := 1.8      ## trauma lost per second
+const SHAKE_FREQ := 28.0      ## noise speed
+
+func add_trauma(amount: float) -> void:
+	_trauma = clampf(_trauma + amount, 0.0, 1.0)
+
+## The original's shake (the push in px of its one-frame camera jolt): the same strength as trauma.
 func shake(px: float) -> void:
-	_shake = px
+	add_trauma(clampf(px / 30.0, 0.0, 1.0))
+
+func _shake_offset(delta: float) -> Vector2:
+	if _trauma <= 0.0:
+		return Vector2.ZERO
+	_trauma = maxf(_trauma - SHAKE_DECAY * delta, 0.0)
+	if not Feel.screen_shake:
+		return Vector2.ZERO
+	_shake_t += delta * SHAKE_FREQ
+	var k := SHAKE_MAX * _trauma * _trauma * 2.0   # (the noise stays within about ±0.5)
+	return Vector2(_shake_noise.get_noise_2d(_shake_t, 0.0), _shake_noise.get_noise_2d(0.0, _shake_t)) * k
+
+## Hit-stop: the actors freeze for a moment (their own clock; the rest of the world, the camera and bullet time are not
+## touched). Not during a boss's bullet time.
+func hit_stop(actors: Array, seconds: float) -> void:
+	if seconds <= 0.0 or not Feel.hitstop_on or _bt_tween != null:
+		return
+	for a in actors:
+		if is_instance_valid(a):
+			(a as Actor).hit_stop(seconds)
 
 ## Short hit-stop (rage transform).
 ## Rage transform: the world freezes while the full-screen transform animation plays (MainGame.stopGame).
@@ -466,6 +502,9 @@ func _unhandled_input(e: InputEvent) -> void:
 	elif e.is_action_pressed("debug_monster_glow"):
 		GameState.debug_monster_glow = not GameState.debug_monster_glow
 		toast("敌人无敌辉光：" + ("开" if GameState.debug_monster_glow else "关"))
+	elif e.is_action_pressed("debug_hurt_stop"):
+		Feel.hero_hurt_stop = not Feel.hero_hurt_stop
+		toast("主角受击停顿：" + ("开" if Feel.hero_hurt_stop else "关"))
 	elif e.is_action_pressed("debug_refill") and is_instance_valid(hero):
 		hero.refill()
 		hero.rage = hero.data.rage_max
@@ -614,8 +653,7 @@ func _update_camera(delta: float) -> void:
 	if fixed_camera:
 		camera.limit_left = 0
 		camera.limit_right = int(Layers.VIEW.x)
-		camera.offset.x = _shake
-		_shake = 0.0
+		camera.offset = _shake_offset(delta)
 		view_x = 0.0
 		return
 	view_x = camera.get_screen_center_position().x - Layers.VIEW.x / 2.0
@@ -643,8 +681,7 @@ func _update_camera(delta: float) -> void:
 	_right_cap = minf(target_right, maxf(_right_cap, view_right) + speed_cap * delta)
 	camera.limit_right = ceili(_right_cap)
 	camera.limit_left = mini(floori(left_edge), camera.limit_right - int(Layers.VIEW.x))
-	camera.offset.x = _shake
-	_shake = 0.0
+	camera.offset = _shake_offset(delta)
 	if _end_x > Layers.VIEW.x:
 		_far.position.x = _far_x0 - view_x * (_far_width - Layers.VIEW.x) / (_end_x - Layers.VIEW.x)
 

@@ -1,25 +1,27 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cwpjfjpv5d6f4"]
 
 [ext_resource type="Script" uid="uid://bcpy8tnbo8vos" path="res://src/rig/rig.gd" id="1_w0im0"]
-[ext_resource type="Texture2D" path="res://assets/rigs/monster34/tex/Common_v6_272.png" id="2_inivr"]
-[ext_resource type="Texture2D" path="res://assets/rigs/monster34/tex/Common_v6_270.png" id="3_nc4w2"]
-[ext_resource type="Texture2D" path="res://assets/rigs/monster34/tex/Common_v6_275.png" id="4_q4qre"]
-[ext_resource type="Texture2D" path="res://assets/rigs/monster34/tex/Common_v6_285.png" id="5_6r2e0"]
-[ext_resource type="Texture2D" path="res://assets/rigs/monster34/tex/Common_v6_281.png" id="6_d2n68"]
-[ext_resource type="Texture2D" path="res://assets/rigs/monster34/tex/Common_v6_283.png" id="7_2k0vk"]
-[ext_resource type="Texture2D" path="res://assets/rigs/monster34/tex/Common_v6_277.png" id="8_rhk54"]
-[ext_resource type="Texture2D" path="res://assets/rigs/monster34/tex/Common_v6_287.png" id="9_iyvo6"]
-[ext_resource type="Texture2D" path="res://assets/rigs/monster34/tex/Common_v6_295.png" id="10_bbkkx"]
-[ext_resource type="Texture2D" path="res://assets/rigs/monster34/tex/Common_v6_290.png" id="11_wben8"]
-[ext_resource type="Texture2D" path="res://assets/rigs/monster34/tex/Common_v6_297.png" id="12_2nkuy"]
-[ext_resource type="Texture2D" path="res://assets/rigs/monster34/tex/Common_v6_300.png" id="13_jjg7n"]
-[ext_resource type="AnimationLibrary" path="res://scenes/actors/monster34/monster34_actions.tres" id="14_3n552"]
+[ext_resource type="Texture2D" uid="uid://bkxns1p8a27db" path="res://assets/rigs/monster34/tex/Common_v6_272.png" id="2_inivr"]
+[ext_resource type="Texture2D" uid="uid://be622ocotea6g" path="res://assets/rigs/monster34/tex/Common_v6_270.png" id="3_nc4w2"]
+[ext_resource type="Texture2D" uid="uid://b4jiqedunja58" path="res://assets/rigs/monster34/tex/Common_v6_275.png" id="4_q4qre"]
+[ext_resource type="Texture2D" uid="uid://cld0dw73cijcg" path="res://assets/rigs/monster34/tex/Common_v6_285.png" id="5_6r2e0"]
+[ext_resource type="Texture2D" uid="uid://gt5ky35l4o1r" path="res://assets/rigs/monster34/tex/Common_v6_281.png" id="6_d2n68"]
+[ext_resource type="Texture2D" uid="uid://ubw66qjmgw5m" path="res://assets/rigs/monster34/tex/Common_v6_283.png" id="7_2k0vk"]
+[ext_resource type="Texture2D" uid="uid://cvpy5xua5x40i" path="res://assets/rigs/monster34/tex/Common_v6_279.png" id="8_w0im0"]
+[ext_resource type="Texture2D" uid="uid://yr8dbehj5tgh" path="res://assets/rigs/monster34/tex/Common_v6_287.png" id="9_iyvo6"]
+[ext_resource type="Texture2D" uid="uid://kt2p05ngci53" path="res://assets/rigs/monster34/tex/Common_v6_295.png" id="10_bbkkx"]
+[ext_resource type="Texture2D" uid="uid://5q64d2cqgv4h" path="res://assets/rigs/monster34/tex/Common_v6_290.png" id="11_wben8"]
+[ext_resource type="Texture2D" uid="uid://ctd3x5skmvuc0" path="res://assets/rigs/monster34/tex/Common_v6_297.png" id="12_2nkuy"]
+[ext_resource type="Texture2D" uid="uid://dnal0e6b15fiw" path="res://assets/rigs/monster34/tex/Common_v6_300.png" id="13_jjg7n"]
+[ext_resource type="AnimationLibrary" uid="uid://d002h1kwuqxk" path="res://scenes/actors/monster34/monster34_actions.tres" id="14_3n552"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_86vc0"]
 resource_local_to_scene = true
+size = Vector2(64.85, 64.38)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a7xl7"]
 resource_local_to_scene = true
+size = Vector2(25, 80)
 
 [node name="Monster34" type="Node2D" unique_id=1469229283]
 script = ExtResource("1_w0im0")
@@ -46,6 +48,7 @@ centered = false
 visible = false
 
 [node name="Hit1Part1" type="Sprite2D" parent="Poses/Hit1" unique_id=913382069]
+visible = false
 position = Vector2(-54.15, -50.05)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_q4qre")
@@ -58,21 +61,24 @@ texture = ExtResource("5_6r2e0")
 centered = false
 
 [node name="Hit1Part3" type="Sprite2D" parent="Poses/Hit1" unique_id=1700374797]
+visible = false
 position = Vector2(-63.85, -47.45)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_d2n68")
 centered = false
 
 [node name="Hit1Part4" type="Sprite2D" parent="Poses/Hit1" unique_id=825597727]
-position = Vector2(-63.95, -12.2)
-scale = Vector2(0.5, 0.5)
+position = Vector2(-275.8195, 50.333504)
+rotation = -2.6954086
+scale = Vector2(0.49939013, 0.49939013)
 texture = ExtResource("7_2k0vk")
 centered = false
 
 [node name="Hit1Part5" type="Sprite2D" parent="Poses/Hit1" unique_id=446101749]
-position = Vector2(-74.5, -40.15)
+visible = false
+position = Vector2(-59.55, -22.45)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("8_rhk54")
+texture = ExtResource("8_w0im0")
 centered = false
 
 [node name="Hurt" type="Node2D" parent="Poses" unique_id=1936291054]
@@ -88,9 +94,11 @@ centered = false
 visible = false
 
 [node name="DeadPart1" type="Sprite2D" parent="Poses/Dead" unique_id=2004014898]
+visible = false
 centered = false
 
 [node name="DeadPart2" type="Sprite2D" parent="Poses/Dead" unique_id=378184449]
+visible = false
 position = Vector2(-14.4, -49.9)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("10_bbkkx")
@@ -103,6 +111,7 @@ texture = ExtResource("11_wben8")
 centered = false
 
 [node name="DeadPart4" type="Sprite2D" parent="Poses/Dead" unique_id=492635378]
+visible = false
 position = Vector2(-17.45, -25)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("12_2nkuy")
@@ -123,8 +132,8 @@ collision_mask = 0
 monitorable = false
 
 [node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1080224097]
+position = Vector2(-287.55, 18.15)
 shape = SubResource("RectangleShape2D_86vc0")
-disabled = true
 
 [node name="Hurtbox" type="Area2D" parent="." unique_id=1588504266]
 collision_layer = 0
@@ -132,8 +141,8 @@ collision_mask = 0
 monitoring = false
 
 [node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=454207771]
+position = Vector2(0.4, 2)
 shape = SubResource("RectangleShape2D_a7xl7")
-disabled = true
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=402255757]
 callback_mode_process = 0

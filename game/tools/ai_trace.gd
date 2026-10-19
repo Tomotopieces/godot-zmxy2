@@ -29,6 +29,7 @@ var _secs := 75.0
 
 func _ready() -> void:
 	Level.bullet_time_on = false   # the baselines are frame-exact game time: no slow motion on boss deaths
+	Feel.hitstop_on = false        # ... and no hit-stop
 	var ids: Array[int] = []
 	var out := ""
 	var check := false

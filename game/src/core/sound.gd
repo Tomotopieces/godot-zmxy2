@@ -21,6 +21,7 @@ const DUCK_TIME := 0.03    ## seconds for overlapping copies to ease to their sh
 const UI_GAP_MS := 150      ## interface sounds closer than this are one action
 
 var _ui_at := -100000
+var _last_pitch := {}
 var _players := {}   ## sound -> its AudioStreamPlayers, one per playing copy
 var _frame_of := {}  ## sound -> the engine frame it last started in
 var _cache := {}
@@ -34,6 +35,7 @@ func _ready() -> void:
 	_amb.bus = "SFX"
 	add_child(_amb)
 	_load_settings()
+	Feel.load_settings()
 	_apply()
 
 func _unhandled_input(e: InputEvent) -> void:
@@ -91,6 +93,16 @@ func sfx(sound: String, pitch := 1.0, volume_db := 0.0) -> void:
 	p.set_meta(&"gain", db_to_linear(volume_db))
 	p.pitch_scale = pitch
 	p.play()
+
+## An effect with a small random pitch (spread 0.04 = within ±4 %), never close to the pitch it had last time, so a
+## move repeated in a combo does not sound mechanical.
+func sfx_varied(sound: String, spread: float) -> void:
+	var last := float(_last_pitch.get(sound, 1.0))
+	var p := 1.0 + randf_range(-spread, spread)
+	if absf(p - last) < spread * 0.5:
+		p = 1.0 + (spread * 0.75 if p <= 1.0 else -spread * 0.75) * randf_range(0.7, 1.0)
+	_last_pitch[sound] = p
+	sfx(sound, p)
 
 ## An interface sound: one per player action - a click that opens a panel is one sound, not a click plus an open.
 ## (ui_click is the generic one; SD_xz the original 选择.)

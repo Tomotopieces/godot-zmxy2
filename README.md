@@ -19,7 +19,7 @@ Answers to the user: Simplified Chinese. Deleting files: Recycle Bin (`bash tool
 | `.claude/skills/stage-rework/` | how to rework a stage's scene and design its look |
 
 ## Run / test / export
-- Run: open `game/` in Godot 4.7 (F5). Debug builds: `~` console (items, teleport, boss fight), keys 1 refill / 2 hit boxes / 3 test gear / 4 kill all / 5 restart / 6 invincible / 7 invulnerable monsters glow yellow (temporary). F11 fullscreen. In a stage: C bag, V skills, B treasure.
+- Run: open `game/` in Godot 4.7 (F5). Debug builds: `~` console (items, teleport, boss fight), keys 1 refill / 2 hit boxes / 3 test gear / 4 kill all / 5 restart / 6 invincible / 7 invulnerable monsters glow yellow (temporary) / 8 hero hit-stop when hit (feel test). F11 fullscreen. In a stage: C bag, V skills, B treasure.
 - Web build: `bash tools/export_web.sh` (preset "Web", single-threaded, saves in the browser's IndexedDB). It uses the loading shell `game/web_shell/shell.html` (the original loading picture and bar) and splits the pack into content-defined chunks (`tools/web_chunks.js` → `web/chunks/*.bin` + `web/pck.json`) and writes `web/sw.js`, a service worker that rebuilds `index.pck` from the chunks in the browser cache: an update downloads only the chunks that changed (a script edit is ~1 MB); test with `node tools/serve_web.js` → http://localhost:8060/. `web/` is committed (pck / wasm via LFS) and is published to GitHub Pages by `.github/workflows/pages.yml` on every push that changes it. The web export templates are in the 4.7.2 template bundle.
 - Panels fade in/out with `UiFade` (`src/ui/ui_fade.gd`); screen changes (title → role select → map → stage) go through `ScreenFade` in `main.gd`.
 - Checks (headless, exit code = result): `bash tools/run_checks.sh [filter]` — camera/walk/pad/role/bag/forge/treasure/smoke tests, `stage_test` (door12, hub), frame-exact AI traces of every monster (`ai_trace`, baselines `game/tools/ai_traces/`; regenerate with `-- --ids=…` after an intended AI change) and `loot_check`. Art work needs only targeted checks.
@@ -65,3 +65,11 @@ Rim light / moon exist because 1-1…1-3 have a moon — they are not a general 
 
 ## Branches
 `main` — released remake (remake 0.1: the scene-based remake with the new stage looks; earlier releases were v1.0…v1.3.1).
+
+## Game feel
+
+- Input buffer: an attack / skill / jump press is kept `HeroData.input_buffer` (0.12 s) and done as soon as it can be (also a jump pressed just before landing). Hit, death and the rage transform clear it.
+- Turning: between moves the hero turns to the held direction at once, so a chained move goes the way the stick points (dashes keep their way).
+- Per attack (`AttackData`, group Feel): `hitstop` (s; melee freezes attacker and target, bullets the target; x1.5 on a crit), `hitstop_once` (multi-hit moves stop on their first hit only), `shake` (camera trauma 0..1, once per round of hits), `rumble` (gamepad). Hit-stop is per actor (`Actor.stop_t`), never `Engine.time_scale`, and is skipped during a boss's bullet time.
+- Camera shake: trauma model in `Level` (offset = 12 px × trauma², smooth noise, 1.8 trauma/s decay). Pause menu: 画面震动 / 手柄震动 switches (`src/core/feel.gd`, saved in user://settings.cfg).
+- Sounds: hero move sounds vary within ±4 %, hit sounds on monsters within ±6 % (`Snd.sfx_varied`).
