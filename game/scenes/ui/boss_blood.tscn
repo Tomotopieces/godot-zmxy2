@@ -1,54 +1,57 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://curel463u85p8"]
 
-[ext_resource type="Script" path="res://src/ui/ui_layout.gd" id="1_moaef"]
-[ext_resource type="Texture2D" path="res://assets/ui/boss_blood/tex/zmxy2_game_139.png" id="2_ul0wx"]
-[ext_resource type="Texture2D" path="res://assets/ui/boss_blood/tex/zmxy2_game_125.png" id="3_xm3x5"]
-[ext_resource type="Texture2D" path="res://assets/ui/boss_blood/tex/zmxy2_game_142.png" id="4_31bg5"]
+[ext_resource type="Script" uid="uid://ddmuwy06fmabu" path="res://src/ui/ui_layout.gd" id="1_moaef"]
+[ext_resource type="Texture2D" uid="uid://vj003o3gwoo5" path="res://assets/ui/boss_blood/tex/zmxy2_game_139.png" id="frame"]
 [ext_resource type="FontFile" uid="uid://yg5bujyaiqj" path="res://assets/fonts/GBai851Marker.ttf" id="name_font"]
+[ext_resource type="Texture2D" uid="uid://lc6dkqlqbt1d" path="res://assets/ui/boss_blood/tex/zmxy2_game_142.png" id="red"]
 
-[node name="boss_blood" type="Control" unique_id=907597755]
+[sub_resource type="AtlasTexture" id="RedBar"]
+atlas = ExtResource("red")
+region = Rect2(32, 24, 632, 16)
+
+[node name="BossBlood" type="Control" unique_id=382879792]
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("1_moaef")
 
-[node name="Art" type="Node2D" parent="." unique_id=1894092903]
-
-[node name="zmxy2_game_139" type="Sprite2D" parent="Art" unique_id=214757012]
-position = Vector2(-169.5, -14)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_ul0wx")
-centered = false
-metadata/tex_key = "zmxy2_game:139"
-
-[node name="Art" type="Node2D" parent="Art" unique_id=15106798]
-
-[node name="zmxy2_game_125" type="Sprite2D" parent="Art/Art" unique_id=1919617566]
-clip_children = 1
-position = Vector2(-232.9, -20.2)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_xm3x5")
-centered = false
-metadata/tex_key = "zmxy2_game:125"
-
-[node name="zmxy2_game_142" type="Sprite2D" parent="Art/Art/zmxy2_game_125" unique_id=1863543971]
-position = Vector2(120.899994, 8.400002)
-texture = ExtResource("4_31bg5")
-centered = false
-metadata/tex_key = "zmxy2_game:142"
-
-[node name="BossName" type="Label" parent="."]
-offset_left = -251.35
-offset_top = -14.75
-offset_right = -150.05
-offset_bottom = 13.6
+[node name="Frame" type="TextureRect" parent="." unique_id=396058879]
+layout_mode = 0
+offset_left = -169.5
+offset_top = -14.0
+offset_right = 169.5
+offset_bottom = 14.0
 mouse_filter = 2
+texture = ExtResource("frame")
+expand_mode = 1
+
+[node name="Gauge" type="TextureProgressBar" parent="." unique_id=2050230165]
+layout_mode = 0
+offset_left = -156.45
+offset_top = -4.0
+offset_right = 159.55
+offset_bottom = 4.0
+mouse_filter = 2
+max_value = 1.0
+step = 0.0
+value = 1.0
+nine_patch_stretch = true
+texture_progress = SubResource("RedBar")
+metadata/ui_piece = ["gauge"]
+
+[node name="BossName" type="Label" parent="." unique_id=1230024531]
+layout_mode = 0
+offset_left = -207.1
+offset_top = -14.75
+offset_right = -105.8
+offset_bottom = 13.6
+grow_horizontal = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 6
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 0
 theme_override_constants/shadow_offset_y = 0
+theme_override_constants/outline_size = 6
 theme_override_constants/shadow_outline_size = 8
 theme_override_fonts/font = ExtResource("name_font")
 theme_override_font_sizes/font_size = 28
