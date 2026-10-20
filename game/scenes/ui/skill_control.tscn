@@ -42,60 +42,7 @@
 [ext_resource type="Texture2D" path="res://assets/ui/skill_control/tex/OtherMat_v10_689.png" id="40_mrs58"]
 [ext_resource type="Texture2D" path="res://assets/ui/skill_control/tex/OtherMat_v10_691.png" id="41_po5ax"]
 [ext_resource type="Texture2D" path="res://assets/ui/skill_control/tex/OtherMat_v10_696.png" id="42_noglp"]
-[ext_resource type="Texture2D" path="res://assets/shared/ui/OtherMat_v10_588.png" id="43_xv1vu"]
-[ext_resource type="Texture2D" path="res://assets/shared/ui/OtherMat_v10_590.png" id="44_llb32"]
-[ext_resource type="Texture2D" path="res://assets/ui/skill_control/tex/OtherMat_v10_596.png" id="45_x3f7f"]
-[ext_resource type="Texture2D" path="res://assets/ui/skill_control/tex/OtherMat_v10_597.png" id="46_yxyjr"]
-[ext_resource type="Texture2D" path="res://assets/ui/skill_control/tex/OtherMat_v10_598.png" id="47_eawb7"]
-[ext_resource type="Texture2D" path="res://assets/ui/skill_control/tex/OtherMat_v10_599.png" id="48_dpk0d"]
-[ext_resource type="Texture2D" path="res://assets/ui/skill_control/tex/OtherMat_v10_698.png" id="49_e5aay"]
-[ext_resource type="Texture2D" path="res://assets/ui/skill_control/tex/OtherMat_v10_699.png" id="50_uav61"]
-[ext_resource type="Texture2D" path="res://assets/ui/skill_control/tex/OtherMat_v10_702.png" id="51_1408v"]
-[ext_resource type="Texture2D" path="res://assets/ui/skill_control/tex/OtherMat_v10_703.png" id="52_js7hw"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_btnfocus"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_passivebtnUp0"]
-texture = ExtResource("49_e5aay")
-expand_margin_left = -4.6
-expand_margin_top = -5.5
-expand_margin_right = -28.85
-expand_margin_bottom = -1.5
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_passivebtnOver1"]
-texture = ExtResource("50_uav61")
-expand_margin_left = -4.6
-expand_margin_top = -5.5
-expand_margin_right = -28.85
-expand_margin_bottom = -1.5
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_passivebtnDown2"]
-texture = ExtResource("50_uav61")
-expand_margin_left = -4.6
-expand_margin_top = -7.5
-expand_margin_right = -28.85
-expand_margin_bottom = 0.5
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_activebtnUp3"]
-texture = ExtResource("51_1408v")
-expand_margin_left = -14.5
-expand_margin_top = -3.5
-expand_margin_right = -10
-expand_margin_bottom = -3.5
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_activebtnOver4"]
-texture = ExtResource("52_js7hw")
-expand_margin_left = -14.5
-expand_margin_top = -3.5
-expand_margin_right = -10
-expand_margin_bottom = -3.5
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_activebtnDown5"]
-texture = ExtResource("52_js7hw")
-expand_margin_left = -14.5
-expand_margin_top = -5.5
-expand_margin_right = -10
-expand_margin_bottom = -1.5
+[ext_resource type="PackedScene" uid="uid://cw8asul3mo0ir" path="res://scenes/ui/components/set_btn.tscn" id="set_btn"]
 
 [node name="skill_control" type="Control" unique_id=239743358]
 layout_mode = 3
@@ -595,20 +542,6 @@ metadata/ui_piece = ["instrmc/pskill1", "instrmc/pskill1@3"]
 
 [node name="Frame0" type="Node2D" parent="instrmc/Frame3/Node2D" unique_id=966728692]
 
-[node name="OtherMat_v10_588" type="Sprite2D" parent="instrmc/Frame3/Node2D/Frame0" unique_id=820712255]
-position = Vector2(16, 5.1)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("43_xv1vu")
-centered = false
-metadata/tex_key = "OtherMat_v10:588"
-
-[node name="OtherMat_v10_590" type="Sprite2D" parent="instrmc/Frame3/Node2D/Frame0" unique_id=1921156080]
-position = Vector2(555.95, -2.25)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("44_llb32")
-centered = false
-metadata/tex_key = "OtherMat_v10:590"
-
 [node name="wantlh" type="Label" parent="instrmc/Frame3/Node2D/Frame0" unique_id=1066460358]
 offset_left = 650.95
 offset_top = -4.55
@@ -715,20 +648,6 @@ metadata/rec = {
 
 [node name="Frame1" type="Node2D" parent="instrmc/Frame3/Node2D" unique_id=1676577102]
 visible = false
-
-[node name="OtherMat_v10_596" type="Sprite2D" parent="instrmc/Frame3/Node2D/Frame1" unique_id=523893036]
-position = Vector2(19, 4.8)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("45_x3f7f")
-centered = false
-metadata/tex_key = "OtherMat_v10:596"
-
-[node name="OtherMat_v10_590" type="Sprite2D" parent="instrmc/Frame3/Node2D/Frame1" unique_id=1573700264]
-position = Vector2(555.95, -2.25)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("44_llb32")
-centered = false
-metadata/tex_key = "OtherMat_v10:590"
 
 [node name="wantlh" type="Label" parent="instrmc/Frame3/Node2D/Frame1" unique_id=413583117]
 offset_left = 650.95
@@ -837,20 +756,6 @@ metadata/rec = {
 [node name="Frame2" type="Node2D" parent="instrmc/Frame3/Node2D" unique_id=244492390]
 visible = false
 
-[node name="OtherMat_v10_597" type="Sprite2D" parent="instrmc/Frame3/Node2D/Frame2" unique_id=1625967794]
-position = Vector2(20, 4.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("46_yxyjr")
-centered = false
-metadata/tex_key = "OtherMat_v10:597"
-
-[node name="OtherMat_v10_590" type="Sprite2D" parent="instrmc/Frame3/Node2D/Frame2" unique_id=1348597176]
-position = Vector2(555.95, -2.25)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("44_llb32")
-centered = false
-metadata/tex_key = "OtherMat_v10:590"
-
 [node name="wantlh" type="Label" parent="instrmc/Frame3/Node2D/Frame2" unique_id=252186467]
 offset_left = 650.95
 offset_top = -4.55
@@ -957,19 +862,6 @@ metadata/rec = {
 
 [node name="Frame3" type="Node2D" parent="instrmc/Frame3/Node2D" unique_id=1414281422]
 visible = false
-
-[node name="OtherMat_v10_598" type="Sprite2D" parent="instrmc/Frame3/Node2D/Frame3" unique_id=1217268350]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("47_eawb7")
-centered = false
-metadata/tex_key = "OtherMat_v10:598"
-
-[node name="OtherMat_v10_590" type="Sprite2D" parent="instrmc/Frame3/Node2D/Frame3" unique_id=1959700046]
-position = Vector2(555.95, -2.25)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("44_llb32")
-centered = false
-metadata/tex_key = "OtherMat_v10:590"
 
 [node name="wantlh" type="Label" parent="instrmc/Frame3/Node2D/Frame3" unique_id=1565070502]
 offset_left = 650.95
@@ -1078,19 +970,6 @@ metadata/rec = {
 [node name="Frame4" type="Node2D" parent="instrmc/Frame3/Node2D" unique_id=1028353620]
 visible = false
 
-[node name="OtherMat_v10_599" type="Sprite2D" parent="instrmc/Frame3/Node2D/Frame4" unique_id=1067347819]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("48_dpk0d")
-centered = false
-metadata/tex_key = "OtherMat_v10:599"
-
-[node name="OtherMat_v10_590" type="Sprite2D" parent="instrmc/Frame3/Node2D/Frame4" unique_id=1146515697]
-position = Vector2(555.95, -2.25)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("44_llb32")
-centered = false
-metadata/tex_key = "OtherMat_v10:590"
-
 [node name="wantlh" type="Label" parent="instrmc/Frame3/Node2D/Frame4" unique_id=48013102]
 offset_left = 650.95
 offset_top = -4.55
@@ -1197,13 +1076,6 @@ metadata/rec = {
 
 [node name="Frame5" type="Node2D" parent="instrmc/Frame3/Node2D" unique_id=1485878165]
 visible = false
-
-[node name="OtherMat_v10_590" type="Sprite2D" parent="instrmc/Frame3/Node2D/Frame5" unique_id=596601426]
-position = Vector2(555.95, -2.25)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("44_llb32")
-centered = false
-metadata/tex_key = "OtherMat_v10:590"
 
 [node name="wantlh" type="Label" parent="instrmc/Frame3/Node2D/Frame5" unique_id=1761625358]
 offset_left = 650.95
@@ -1316,20 +1188,6 @@ metadata/ui_piece = ["instrmc/pskill2", "instrmc/pskill2@3"]
 
 [node name="Frame0" type="Node2D" parent="instrmc/Frame3/Node2D2" unique_id=1932440722]
 
-[node name="OtherMat_v10_588" type="Sprite2D" parent="instrmc/Frame3/Node2D2/Frame0" unique_id=557850657]
-position = Vector2(16, 5.1)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("43_xv1vu")
-centered = false
-metadata/tex_key = "OtherMat_v10:588"
-
-[node name="OtherMat_v10_590" type="Sprite2D" parent="instrmc/Frame3/Node2D2/Frame0" unique_id=942613009]
-position = Vector2(555.95, -2.25)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("44_llb32")
-centered = false
-metadata/tex_key = "OtherMat_v10:590"
-
 [node name="wantlh" type="Label" parent="instrmc/Frame3/Node2D2/Frame0" unique_id=865770006]
 offset_left = 650.95
 offset_top = -4.55
@@ -1437,20 +1295,6 @@ metadata/rec = {
 
 [node name="Frame1" type="Node2D" parent="instrmc/Frame3/Node2D2" unique_id=224037405]
 visible = false
-
-[node name="OtherMat_v10_596" type="Sprite2D" parent="instrmc/Frame3/Node2D2/Frame1" unique_id=1964699095]
-position = Vector2(19, 4.8)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("45_x3f7f")
-centered = false
-metadata/tex_key = "OtherMat_v10:596"
-
-[node name="OtherMat_v10_590" type="Sprite2D" parent="instrmc/Frame3/Node2D2/Frame1" unique_id=984126290]
-position = Vector2(555.95, -2.25)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("44_llb32")
-centered = false
-metadata/tex_key = "OtherMat_v10:590"
 
 [node name="wantlh" type="Label" parent="instrmc/Frame3/Node2D2/Frame1" unique_id=2144080880]
 offset_left = 650.95
@@ -1560,20 +1404,6 @@ metadata/rec = {
 [node name="Frame2" type="Node2D" parent="instrmc/Frame3/Node2D2" unique_id=792167508]
 visible = false
 
-[node name="OtherMat_v10_597" type="Sprite2D" parent="instrmc/Frame3/Node2D2/Frame2" unique_id=1178279573]
-position = Vector2(20, 4.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("46_yxyjr")
-centered = false
-metadata/tex_key = "OtherMat_v10:597"
-
-[node name="OtherMat_v10_590" type="Sprite2D" parent="instrmc/Frame3/Node2D2/Frame2" unique_id=55005825]
-position = Vector2(555.95, -2.25)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("44_llb32")
-centered = false
-metadata/tex_key = "OtherMat_v10:590"
-
 [node name="wantlh" type="Label" parent="instrmc/Frame3/Node2D2/Frame2" unique_id=1855720411]
 offset_left = 650.95
 offset_top = -4.55
@@ -1681,19 +1511,6 @@ metadata/rec = {
 
 [node name="Frame3" type="Node2D" parent="instrmc/Frame3/Node2D2" unique_id=1370126618]
 visible = false
-
-[node name="OtherMat_v10_598" type="Sprite2D" parent="instrmc/Frame3/Node2D2/Frame3" unique_id=1164499521]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("47_eawb7")
-centered = false
-metadata/tex_key = "OtherMat_v10:598"
-
-[node name="OtherMat_v10_590" type="Sprite2D" parent="instrmc/Frame3/Node2D2/Frame3" unique_id=2111953755]
-position = Vector2(555.95, -2.25)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("44_llb32")
-centered = false
-metadata/tex_key = "OtherMat_v10:590"
 
 [node name="wantlh" type="Label" parent="instrmc/Frame3/Node2D2/Frame3" unique_id=1157702902]
 offset_left = 650.95
@@ -1803,19 +1620,6 @@ metadata/rec = {
 [node name="Frame4" type="Node2D" parent="instrmc/Frame3/Node2D2" unique_id=1612881159]
 visible = false
 
-[node name="OtherMat_v10_599" type="Sprite2D" parent="instrmc/Frame3/Node2D2/Frame4" unique_id=707882769]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("48_dpk0d")
-centered = false
-metadata/tex_key = "OtherMat_v10:599"
-
-[node name="OtherMat_v10_590" type="Sprite2D" parent="instrmc/Frame3/Node2D2/Frame4" unique_id=848603494]
-position = Vector2(555.95, -2.25)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("44_llb32")
-centered = false
-metadata/tex_key = "OtherMat_v10:590"
-
 [node name="wantlh" type="Label" parent="instrmc/Frame3/Node2D2/Frame4" unique_id=1577930029]
 offset_left = 650.95
 offset_top = -4.55
@@ -1923,13 +1727,6 @@ metadata/rec = {
 
 [node name="Frame5" type="Node2D" parent="instrmc/Frame3/Node2D2" unique_id=134845486]
 visible = false
-
-[node name="OtherMat_v10_590" type="Sprite2D" parent="instrmc/Frame3/Node2D2/Frame5" unique_id=1576980503]
-position = Vector2(555.95, -2.25)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("44_llb32")
-centered = false
-metadata/tex_key = "OtherMat_v10:590"
 
 [node name="wantlh" type="Label" parent="instrmc/Frame3/Node2D2/Frame5" unique_id=138502226]
 offset_left = 650.95
@@ -2043,20 +1840,6 @@ metadata/ui_piece = ["instrmc/pskill3", "instrmc/pskill3@3"]
 
 [node name="Frame0" type="Node2D" parent="instrmc/Frame3/Node2D3" unique_id=463523863]
 
-[node name="OtherMat_v10_588" type="Sprite2D" parent="instrmc/Frame3/Node2D3/Frame0" unique_id=856523865]
-position = Vector2(16, 5.1)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("43_xv1vu")
-centered = false
-metadata/tex_key = "OtherMat_v10:588"
-
-[node name="OtherMat_v10_590" type="Sprite2D" parent="instrmc/Frame3/Node2D3/Frame0" unique_id=1765038958]
-position = Vector2(555.95, -2.25)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("44_llb32")
-centered = false
-metadata/tex_key = "OtherMat_v10:590"
-
 [node name="wantlh" type="Label" parent="instrmc/Frame3/Node2D3/Frame0" unique_id=1241032819]
 offset_left = 650.95
 offset_top = -3.7
@@ -2165,20 +1948,6 @@ metadata/rec = {
 
 [node name="Frame1" type="Node2D" parent="instrmc/Frame3/Node2D3" unique_id=1005349855]
 visible = false
-
-[node name="OtherMat_v10_596" type="Sprite2D" parent="instrmc/Frame3/Node2D3/Frame1" unique_id=1254770406]
-position = Vector2(19, 4.8)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("45_x3f7f")
-centered = false
-metadata/tex_key = "OtherMat_v10:596"
-
-[node name="OtherMat_v10_590" type="Sprite2D" parent="instrmc/Frame3/Node2D3/Frame1" unique_id=1334443598]
-position = Vector2(555.95, -2.25)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("44_llb32")
-centered = false
-metadata/tex_key = "OtherMat_v10:590"
 
 [node name="wantlh" type="Label" parent="instrmc/Frame3/Node2D3/Frame1" unique_id=330392622]
 offset_left = 650.95
@@ -2289,20 +2058,6 @@ metadata/rec = {
 [node name="Frame2" type="Node2D" parent="instrmc/Frame3/Node2D3" unique_id=2119681505]
 visible = false
 
-[node name="OtherMat_v10_597" type="Sprite2D" parent="instrmc/Frame3/Node2D3/Frame2" unique_id=1279956189]
-position = Vector2(20, 4.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("46_yxyjr")
-centered = false
-metadata/tex_key = "OtherMat_v10:597"
-
-[node name="OtherMat_v10_590" type="Sprite2D" parent="instrmc/Frame3/Node2D3/Frame2" unique_id=1316539292]
-position = Vector2(555.95, -2.25)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("44_llb32")
-centered = false
-metadata/tex_key = "OtherMat_v10:590"
-
 [node name="wantlh" type="Label" parent="instrmc/Frame3/Node2D3/Frame2" unique_id=1131230144]
 offset_left = 650.95
 offset_top = -3.7
@@ -2411,19 +2166,6 @@ metadata/rec = {
 
 [node name="Frame3" type="Node2D" parent="instrmc/Frame3/Node2D3" unique_id=1233467498]
 visible = false
-
-[node name="OtherMat_v10_598" type="Sprite2D" parent="instrmc/Frame3/Node2D3/Frame3" unique_id=1916603083]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("47_eawb7")
-centered = false
-metadata/tex_key = "OtherMat_v10:598"
-
-[node name="OtherMat_v10_590" type="Sprite2D" parent="instrmc/Frame3/Node2D3/Frame3" unique_id=227359389]
-position = Vector2(555.95, -2.25)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("44_llb32")
-centered = false
-metadata/tex_key = "OtherMat_v10:590"
 
 [node name="wantlh" type="Label" parent="instrmc/Frame3/Node2D3/Frame3" unique_id=992575668]
 offset_left = 650.95
@@ -2534,19 +2276,6 @@ metadata/rec = {
 [node name="Frame4" type="Node2D" parent="instrmc/Frame3/Node2D3" unique_id=2094243198]
 visible = false
 
-[node name="OtherMat_v10_599" type="Sprite2D" parent="instrmc/Frame3/Node2D3/Frame4" unique_id=962677192]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("48_dpk0d")
-centered = false
-metadata/tex_key = "OtherMat_v10:599"
-
-[node name="OtherMat_v10_590" type="Sprite2D" parent="instrmc/Frame3/Node2D3/Frame4" unique_id=371875272]
-position = Vector2(555.95, -2.25)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("44_llb32")
-centered = false
-metadata/tex_key = "OtherMat_v10:590"
-
 [node name="wantlh" type="Label" parent="instrmc/Frame3/Node2D3/Frame4" unique_id=1331997549]
 offset_left = 650.95
 offset_top = -3.7
@@ -2655,13 +2384,6 @@ metadata/rec = {
 
 [node name="Frame5" type="Node2D" parent="instrmc/Frame3/Node2D3" unique_id=83961321]
 visible = false
-
-[node name="OtherMat_v10_590" type="Sprite2D" parent="instrmc/Frame3/Node2D3/Frame5" unique_id=19227582]
-position = Vector2(555.95, -2.25)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("44_llb32")
-centered = false
-metadata/tex_key = "OtherMat_v10:590"
 
 [node name="wantlh" type="Label" parent="instrmc/Frame3/Node2D3/Frame5" unique_id=473684865]
 offset_left = 650.95
@@ -2776,20 +2498,6 @@ metadata/ui_piece = ["instrmc/pskill4", "instrmc/pskill4@3"]
 
 [node name="Frame0" type="Node2D" parent="instrmc/Frame3/Node2D4" unique_id=1699653289]
 
-[node name="OtherMat_v10_588" type="Sprite2D" parent="instrmc/Frame3/Node2D4/Frame0" unique_id=1235019266]
-position = Vector2(16, 5.1)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("43_xv1vu")
-centered = false
-metadata/tex_key = "OtherMat_v10:588"
-
-[node name="OtherMat_v10_590" type="Sprite2D" parent="instrmc/Frame3/Node2D4/Frame0" unique_id=1237261286]
-position = Vector2(555.95, -2.25)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("44_llb32")
-centered = false
-metadata/tex_key = "OtherMat_v10:590"
-
 [node name="wantlh" type="Label" parent="instrmc/Frame3/Node2D4/Frame0" unique_id=1101893274]
 offset_left = 650.95
 offset_top = -3.7
@@ -2897,20 +2605,6 @@ metadata/rec = {
 
 [node name="Frame1" type="Node2D" parent="instrmc/Frame3/Node2D4" unique_id=533366959]
 visible = false
-
-[node name="OtherMat_v10_596" type="Sprite2D" parent="instrmc/Frame3/Node2D4/Frame1" unique_id=1527748410]
-position = Vector2(19, 4.8)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("45_x3f7f")
-centered = false
-metadata/tex_key = "OtherMat_v10:596"
-
-[node name="OtherMat_v10_590" type="Sprite2D" parent="instrmc/Frame3/Node2D4/Frame1" unique_id=225404328]
-position = Vector2(555.95, -2.25)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("44_llb32")
-centered = false
-metadata/tex_key = "OtherMat_v10:590"
 
 [node name="wantlh" type="Label" parent="instrmc/Frame3/Node2D4/Frame1" unique_id=1577076930]
 offset_left = 650.95
@@ -3020,20 +2714,6 @@ metadata/rec = {
 [node name="Frame2" type="Node2D" parent="instrmc/Frame3/Node2D4" unique_id=645817465]
 visible = false
 
-[node name="OtherMat_v10_597" type="Sprite2D" parent="instrmc/Frame3/Node2D4/Frame2" unique_id=954105451]
-position = Vector2(20, 4.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("46_yxyjr")
-centered = false
-metadata/tex_key = "OtherMat_v10:597"
-
-[node name="OtherMat_v10_590" type="Sprite2D" parent="instrmc/Frame3/Node2D4/Frame2" unique_id=1281896283]
-position = Vector2(555.95, -2.25)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("44_llb32")
-centered = false
-metadata/tex_key = "OtherMat_v10:590"
-
 [node name="wantlh" type="Label" parent="instrmc/Frame3/Node2D4/Frame2" unique_id=1187044312]
 offset_left = 650.95
 offset_top = -3.7
@@ -3141,19 +2821,6 @@ metadata/rec = {
 
 [node name="Frame3" type="Node2D" parent="instrmc/Frame3/Node2D4" unique_id=306600416]
 visible = false
-
-[node name="OtherMat_v10_598" type="Sprite2D" parent="instrmc/Frame3/Node2D4/Frame3" unique_id=1461804278]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("47_eawb7")
-centered = false
-metadata/tex_key = "OtherMat_v10:598"
-
-[node name="OtherMat_v10_590" type="Sprite2D" parent="instrmc/Frame3/Node2D4/Frame3" unique_id=440693786]
-position = Vector2(555.95, -2.25)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("44_llb32")
-centered = false
-metadata/tex_key = "OtherMat_v10:590"
 
 [node name="wantlh" type="Label" parent="instrmc/Frame3/Node2D4/Frame3" unique_id=51080237]
 offset_left = 650.95
@@ -3263,19 +2930,6 @@ metadata/rec = {
 [node name="Frame4" type="Node2D" parent="instrmc/Frame3/Node2D4" unique_id=1348756740]
 visible = false
 
-[node name="OtherMat_v10_599" type="Sprite2D" parent="instrmc/Frame3/Node2D4/Frame4" unique_id=631620651]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("48_dpk0d")
-centered = false
-metadata/tex_key = "OtherMat_v10:599"
-
-[node name="OtherMat_v10_590" type="Sprite2D" parent="instrmc/Frame3/Node2D4/Frame4" unique_id=848332294]
-position = Vector2(555.95, -2.25)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("44_llb32")
-centered = false
-metadata/tex_key = "OtherMat_v10:590"
-
 [node name="wantlh" type="Label" parent="instrmc/Frame3/Node2D4/Frame4" unique_id=263518592]
 offset_left = 650.95
 offset_top = -3.7
@@ -3383,13 +3037,6 @@ metadata/rec = {
 
 [node name="Frame5" type="Node2D" parent="instrmc/Frame3/Node2D4" unique_id=1979601166]
 visible = false
-
-[node name="OtherMat_v10_590" type="Sprite2D" parent="instrmc/Frame3/Node2D4/Frame5" unique_id=874178035]
-position = Vector2(555.95, -2.25)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("44_llb32")
-centered = false
-metadata/tex_key = "OtherMat_v10:590"
 
 [node name="wantlh" type="Label" parent="instrmc/Frame3/Node2D4/Frame5" unique_id=359433743]
 offset_left = 650.95
@@ -3503,20 +3150,6 @@ metadata/ui_piece = ["instrmc/pskill5", "instrmc/pskill5@3"]
 
 [node name="Frame0" type="Node2D" parent="instrmc/Frame3/Node2D5" unique_id=168109617]
 
-[node name="OtherMat_v10_588" type="Sprite2D" parent="instrmc/Frame3/Node2D5/Frame0" unique_id=1355747180]
-position = Vector2(16, 5.1)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("43_xv1vu")
-centered = false
-metadata/tex_key = "OtherMat_v10:588"
-
-[node name="OtherMat_v10_590" type="Sprite2D" parent="instrmc/Frame3/Node2D5/Frame0" unique_id=1777037130]
-position = Vector2(555.95, -2.25)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("44_llb32")
-centered = false
-metadata/tex_key = "OtherMat_v10:590"
-
 [node name="wantlh" type="Label" parent="instrmc/Frame3/Node2D5/Frame0" unique_id=776314028]
 offset_left = 650.95
 offset_top = 1.3
@@ -3625,20 +3258,6 @@ metadata/rec = {
 
 [node name="Frame1" type="Node2D" parent="instrmc/Frame3/Node2D5" unique_id=920722487]
 visible = false
-
-[node name="OtherMat_v10_596" type="Sprite2D" parent="instrmc/Frame3/Node2D5/Frame1" unique_id=195861454]
-position = Vector2(19, 4.8)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("45_x3f7f")
-centered = false
-metadata/tex_key = "OtherMat_v10:596"
-
-[node name="OtherMat_v10_590" type="Sprite2D" parent="instrmc/Frame3/Node2D5/Frame1" unique_id=1038368163]
-position = Vector2(555.95, -2.25)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("44_llb32")
-centered = false
-metadata/tex_key = "OtherMat_v10:590"
 
 [node name="wantlh" type="Label" parent="instrmc/Frame3/Node2D5/Frame1" unique_id=1958678770]
 offset_left = 650.95
@@ -3749,20 +3368,6 @@ metadata/rec = {
 [node name="Frame2" type="Node2D" parent="instrmc/Frame3/Node2D5" unique_id=711209480]
 visible = false
 
-[node name="OtherMat_v10_597" type="Sprite2D" parent="instrmc/Frame3/Node2D5/Frame2" unique_id=579408897]
-position = Vector2(20, 4.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("46_yxyjr")
-centered = false
-metadata/tex_key = "OtherMat_v10:597"
-
-[node name="OtherMat_v10_590" type="Sprite2D" parent="instrmc/Frame3/Node2D5/Frame2" unique_id=1750932105]
-position = Vector2(555.95, -2.25)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("44_llb32")
-centered = false
-metadata/tex_key = "OtherMat_v10:590"
-
 [node name="wantlh" type="Label" parent="instrmc/Frame3/Node2D5/Frame2" unique_id=1705312242]
 offset_left = 650.95
 offset_top = 1.3
@@ -3871,19 +3476,6 @@ metadata/rec = {
 
 [node name="Frame3" type="Node2D" parent="instrmc/Frame3/Node2D5" unique_id=602350659]
 visible = false
-
-[node name="OtherMat_v10_598" type="Sprite2D" parent="instrmc/Frame3/Node2D5/Frame3" unique_id=320109585]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("47_eawb7")
-centered = false
-metadata/tex_key = "OtherMat_v10:598"
-
-[node name="OtherMat_v10_590" type="Sprite2D" parent="instrmc/Frame3/Node2D5/Frame3" unique_id=1412901082]
-position = Vector2(555.95, -2.25)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("44_llb32")
-centered = false
-metadata/tex_key = "OtherMat_v10:590"
 
 [node name="wantlh" type="Label" parent="instrmc/Frame3/Node2D5/Frame3" unique_id=1662731085]
 offset_left = 650.95
@@ -3994,19 +3586,6 @@ metadata/rec = {
 [node name="Frame4" type="Node2D" parent="instrmc/Frame3/Node2D5" unique_id=1681773414]
 visible = false
 
-[node name="OtherMat_v10_599" type="Sprite2D" parent="instrmc/Frame3/Node2D5/Frame4" unique_id=55529979]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("48_dpk0d")
-centered = false
-metadata/tex_key = "OtherMat_v10:599"
-
-[node name="OtherMat_v10_590" type="Sprite2D" parent="instrmc/Frame3/Node2D5/Frame4" unique_id=100627622]
-position = Vector2(555.95, -2.25)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("44_llb32")
-centered = false
-metadata/tex_key = "OtherMat_v10:590"
-
 [node name="wantlh" type="Label" parent="instrmc/Frame3/Node2D5/Frame4" unique_id=1303777487]
 offset_left = 650.95
 offset_top = 1.3
@@ -4116,13 +3695,6 @@ metadata/rec = {
 [node name="Frame5" type="Node2D" parent="instrmc/Frame3/Node2D5" unique_id=1566790070]
 visible = false
 
-[node name="OtherMat_v10_590" type="Sprite2D" parent="instrmc/Frame3/Node2D5/Frame5" unique_id=2146145090]
-position = Vector2(555.95, -2.25)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("44_llb32")
-centered = false
-metadata/tex_key = "OtherMat_v10:590"
-
 [node name="wantlh" type="Label" parent="instrmc/Frame3/Node2D5/Frame5" unique_id=1632988052]
 offset_left = 650.95
 offset_top = 1.3
@@ -4229,36 +3801,24 @@ metadata/rec = {
 "wrap": true
 }
 
-[node name="passivebtn" type="Button" parent="." unique_id=1852388487]
+[node name="passivebtn" parent="." unique_id=1852388487 instance=ExtResource("set_btn")]
 layout_mode = 0
 offset_left = 206.55
 offset_top = 546.5
 offset_right = 318.5
 offset_bottom = 572.5
-mouse_default_cursor_shape = 2
-focus_mode = 0
-theme_override_styles/normal = SubResource("StyleBoxTexture_passivebtnUp0")
-theme_override_styles/hover = SubResource("StyleBoxTexture_passivebtnOver1")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_passivebtnDown2")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_passivebtnDown2")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_passivebtnUp0")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
+theme_override_font_sizes/font_size = 20
+text = "被动技能"
 metadata/ui_piece = ["passivebtn"]
 metadata/ui_button = "passivebtn"
 
-[node name="activebtn" type="Button" parent="." unique_id=1810241447]
+[node name="activebtn" parent="." unique_id=1810241447 instance=ExtResource("set_btn")]
 layout_mode = 0
 offset_left = 85.5
 offset_top = 547.5
 offset_right = 188.5
 offset_bottom = 573.5
-mouse_default_cursor_shape = 2
-focus_mode = 0
-theme_override_styles/normal = SubResource("StyleBoxTexture_activebtnUp3")
-theme_override_styles/hover = SubResource("StyleBoxTexture_activebtnOver4")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_activebtnDown5")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_activebtnDown5")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_activebtnUp3")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
+theme_override_font_sizes/font_size = 20
+text = "主动技能"
 metadata/ui_piece = ["activebtn"]
 metadata/ui_button = "activebtn"

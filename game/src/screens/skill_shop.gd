@@ -5,6 +5,7 @@ extends CanvasLayer
 
 const PASSIVE := ["instrmc/pskill1", "instrmc/pskill2", "instrmc/pskill3", "instrmc/pskill4", "instrmc/pskill5"]
 const PASSIVE_FRAME := 3              ## instrmc frame of the passive page
+const PASSIVE_NAME := {"hp": "热血", "mp": "魔泉", "crit": "狂暴", "hp_regen": "光之永恒", "mp_regen": "月之辉煌"}
 const STAT_FORMAT := {"hp": "生命上限 +%d", "mp": "魔法上限 +%d", "crit": "暴击 +%d%%", "hp_regen": "每秒回血 +%d", "mp_regen": "每秒回魔 +%d"}
 
 var _ui: UiLayout
@@ -34,12 +35,13 @@ func _ready() -> void:
 	for i in 5:
 		_active.append("instrmc/skill%d@%d" % [i + 1, role])
 		_active_hits.append(_ui.make_clickable(_active[i]))
-	# passive rows: the nested PassiveSkill clip shows the art of its type (frame = index); a PassiveSkill
-	# layout without its art on top provides the texts and the upgrade button
+	# passive rows: the nested PassiveSkill clip keeps the row's frame; a passive_skill row on top provides the name,
+	# the texts and the upgrade button
 	for i in PASSIVE.size():
 		_ui.show_frame(PASSIVE[i], i)
 		var row := UiLayout.create("passive_skill")
 		row.hide_unnamed()
+		row.set_text("name", PASSIVE_NAME[GameState.hero_data.learn_passive[i]])
 		row.position = _ui.piece_position(PASSIVE[i]) - _ui.piece_position("instrmc")
 		row.button_pressed.connect(func(_b): _upgrade(i))
 		_ui.get_piece("instrmc").get_child(PASSIVE_FRAME).add_child(row)

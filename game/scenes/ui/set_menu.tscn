@@ -1,184 +1,23 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://d1vw2bko5kwyu"]
 
-[ext_resource type="Script" path="res://src/ui/ui_layout.gd" id="1_hsykp"]
-[ext_resource type="Texture2D" path="res://assets/ui/set_menu/tex/OtherMat_v10_155.png" id="2_dkv3n"]
-[ext_resource type="Texture2D" path="res://assets/shared/ui/Common_v7_547.png" id="3_trlx3"]
-[ext_resource type="Texture2D" path="res://assets/shared/ui/Common_v7_549.png" id="4_ugj66"]
-[ext_resource type="Texture2D" path="res://assets/shared/ui/OtherMat_v10_122.png" id="5_xeaqf"]
-[ext_resource type="Texture2D" path="res://assets/ui/set_menu/tex/OtherMat_v10_162.png" id="6_rkjcw"]
-[ext_resource type="Texture2D" path="res://assets/ui/set_menu/tex/OtherMat_v10_163.png" id="7_4bhvk"]
-[ext_resource type="Texture2D" path="res://assets/ui/set_menu/tex/OtherMat_v10_166.png" id="8_12aaq"]
-[ext_resource type="Texture2D" path="res://assets/ui/set_menu/tex/OtherMat_v10_167.png" id="9_llj5d"]
-[ext_resource type="Texture2D" path="res://assets/ui/set_menu/tex/OtherMat_v10_168.png" id="10_s2kw6"]
-[ext_resource type="Texture2D" path="res://assets/shared/ui/OtherMat_v10_110.png" id="11_mhx32"]
-[ext_resource type="Texture2D" path="res://assets/shared/ui/OtherMat_v10_111.png" id="12_vanbf"]
-[ext_resource type="Texture2D" path="res://assets/ui/set_menu/tex/OtherMat_v10_173.png" id="13_dcbwn"]
-[ext_resource type="Texture2D" path="res://assets/ui/set_menu/tex/OtherMat_v10_174.png" id="14_eh40h"]
-[ext_resource type="Texture2D" path="res://assets/ui/set_menu/tex/OtherMat_v10_177.png" id="15_quu53"]
-[ext_resource type="Texture2D" path="res://assets/ui/set_menu/tex/OtherMat_v10_178.png" id="16_gflnp"]
-[ext_resource type="Texture2D" path="res://assets/ui/set_menu/tex/OtherMat_v10_181.png" id="17_ktvkw"]
-[ext_resource type="Texture2D" path="res://assets/ui/set_menu/tex/OtherMat_v10_182.png" id="18_c28it"]
-
-[sub_resource type="StyleBoxFlat" id="OptionsStyle"]
-bg_color = Color(0.07, 0.05, 0.06, 0.85)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.91, 0.72, 0.35, 0.6)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_btnfocus"]
+[ext_resource type="Script" uid="uid://ddmuwy06fmabu" path="res://src/ui/ui_layout.gd" id="1_hsykp"]
+[ext_resource type="Texture2D" uid="uid://cqmoqnvo013a4" path="res://assets/ui/set_menu/tex/OtherMat_v10_155.png" id="2_dkv3n"]
+[ext_resource type="Texture2D" uid="uid://c2ap1tvyjfcc0" path="res://assets/shared/ui/Common_v7_547.png" id="3_trlx3"]
+[ext_resource type="Texture2D" uid="uid://b5ggciq2dtt7d" path="res://assets/shared/ui/Common_v7_549.png" id="4_ugj66"]
+[ext_resource type="PackedScene" uid="uid://cw8asul3mo0ir" path="res://scenes/ui/components/set_btn.tscn" id="5_mav51"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnxUp0"]
 texture = ExtResource("3_trlx3")
-expand_margin_left = 0
-expand_margin_top = 0
-expand_margin_right = 0
-expand_margin_bottom = 0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnxOver1"]
-texture = ExtResource("4_ugj66")
-expand_margin_left = 0
-expand_margin_top = -4
-expand_margin_right = 0
-expand_margin_bottom = 4
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnxDown2"]
 texture = ExtResource("3_trlx3")
-expand_margin_left = 0
-expand_margin_top = 0
-expand_margin_right = 0
-expand_margin_bottom = 0
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btncontinueUp3"]
-texture = ExtResource("5_xeaqf")
-expand_margin_left = -11.4
-expand_margin_top = -7.1
-expand_margin_right = -14.6
-expand_margin_bottom = -10.9
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnxOver1"]
+texture = ExtResource("4_ugj66")
+expand_margin_top = -4.0
+expand_margin_bottom = 4.0
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btncontinueOver4"]
-texture = ExtResource("6_rkjcw")
-expand_margin_left = -11.4
-expand_margin_top = -7.1
-expand_margin_right = -14.6
-expand_margin_bottom = -10.9
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btncontinueDown5"]
-texture = ExtResource("7_4bhvk")
-expand_margin_left = -11.4
-expand_margin_top = -9.1
-expand_margin_right = -14.6
-expand_margin_bottom = -8.9
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnbackselectmapUp6"]
-texture = ExtResource("8_12aaq")
-expand_margin_left = -4
-expand_margin_top = -7
-expand_margin_right = -4
-expand_margin_bottom = -4.5
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnbackselectmapOver7"]
-texture = ExtResource("9_llj5d")
-expand_margin_left = -4
-expand_margin_top = -7
-expand_margin_right = -4
-expand_margin_bottom = -4.5
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnbackselectmapDown8"]
-texture = ExtResource("10_s2kw6")
-expand_margin_left = -4
-expand_margin_top = -9
-expand_margin_right = -4
-expand_margin_bottom = -2.5
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnhelpUp9"]
-texture = ExtResource("11_mhx32")
-expand_margin_left = -4
-expand_margin_top = -4
-expand_margin_right = -3.5
-expand_margin_bottom = -3.5
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnhelpOver10"]
-texture = ExtResource("12_vanbf")
-expand_margin_left = -4
-expand_margin_top = -4
-expand_margin_right = -3.5
-expand_margin_bottom = -3.5
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnhelpDown11"]
-texture = ExtResource("12_vanbf")
-expand_margin_left = -4
-expand_margin_top = -6
-expand_margin_right = -3.5
-expand_margin_bottom = -1.5
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnbackmenuUp12"]
-texture = ExtResource("13_dcbwn")
-expand_margin_left = -5
-expand_margin_top = -5
-expand_margin_right = -4
-expand_margin_bottom = -3
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnbackmenuOver13"]
-texture = ExtResource("14_eh40h")
-expand_margin_left = -5
-expand_margin_top = -5
-expand_margin_right = -4
-expand_margin_bottom = -3
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnbackmenuDown14"]
-texture = ExtResource("14_eh40h")
-expand_margin_left = -5
-expand_margin_top = -7
-expand_margin_right = -4
-expand_margin_bottom = -1
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnsoundopenUp15"]
-texture = ExtResource("15_quu53")
-expand_margin_left = -5.2
-expand_margin_top = -7.65
-expand_margin_right = -7.8
-expand_margin_bottom = -5.85
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnsoundopenOver16"]
-texture = ExtResource("16_gflnp")
-expand_margin_left = -5.2
-expand_margin_top = -7.65
-expand_margin_right = -7.8
-expand_margin_bottom = -5.85
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnsoundopenDown17"]
-texture = ExtResource("16_gflnp")
-expand_margin_left = -5.2
-expand_margin_top = -9.65
-expand_margin_right = -7.8
-expand_margin_bottom = -3.85
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnsoundcloseUp18"]
-texture = ExtResource("17_ktvkw")
-expand_margin_left = 0
-expand_margin_top = 2
-expand_margin_right = 0.35
-expand_margin_bottom = -1.6
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnsoundcloseOver19"]
-texture = ExtResource("18_c28it")
-expand_margin_left = 0
-expand_margin_top = 2
-expand_margin_right = 0.35
-expand_margin_bottom = -1.6
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnsoundcloseDown20"]
-texture = ExtResource("18_c28it")
-expand_margin_left = 0
-expand_margin_top = 0
-expand_margin_right = 0.35
-expand_margin_bottom = 0.4
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_btnfocus"]
 
 [node name="set_menu" type="Control" unique_id=1936660815]
 layout_mode = 3
@@ -194,192 +33,71 @@ texture = ExtResource("2_dkv3n")
 centered = false
 metadata/tex_key = "OtherMat_v10:155"
 
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=91808366]
+layout_mode = 0
+offset_left = 393.0
+offset_top = 123.0
+offset_right = 549.0
+offset_bottom = 421.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+mouse_filter = 2
+theme_override_constants/separation = 6
+
+[node name="BtnContinue" parent="VBoxContainer" unique_id=1077589236 instance=ExtResource("5_mav51")]
+layout_mode = 2
+text = "继续游戏"
+metadata/ui_piece = ["btn_continue"]
+metadata/ui_button = "btn_continue"
+
+[node name="BtnGameSound" parent="VBoxContainer" unique_id=1017656085 instance=ExtResource("5_mav51")]
+layout_mode = 2
+text = "游戏声音：开"
+metadata/ui_piece = ["btn_sound"]
+metadata/ui_button = "btn_sound"
+
+[node name="BtnScreenShake" parent="VBoxContainer" unique_id=1771928406 instance=ExtResource("5_mav51")]
+layout_mode = 2
+text = "画面震动：开"
+metadata/ui_piece = ["btn_shake"]
+metadata/ui_button = "btn_shake"
+
+[node name="BtnControllerShake" parent="VBoxContainer" unique_id=1366698965 instance=ExtResource("5_mav51")]
+layout_mode = 2
+text = "手柄震动：开"
+metadata/ui_piece = ["btn_rumble"]
+metadata/ui_button = "btn_rumble"
+
+[node name="BtnBackToMap" parent="VBoxContainer" unique_id=244647597 instance=ExtResource("5_mav51")]
+layout_mode = 2
+text = "返回地图"
+metadata/ui_piece = ["btn_back_selectmap"]
+metadata/ui_button = "btn_back_selectmap"
+
+[node name="BtnHelp" parent="VBoxContainer" unique_id=725303521 instance=ExtResource("5_mav51")]
+layout_mode = 2
+text = "操作说明"
+metadata/ui_piece = ["btn_help"]
+metadata/ui_button = "btn_help"
+
+[node name="BtnBackToTitle" parent="VBoxContainer" unique_id=1836558054 instance=ExtResource("5_mav51")]
+layout_mode = 2
+text = "返回标题界面"
+metadata/ui_piece = ["btn_back_menu"]
+metadata/ui_button = "btn_back_menu"
+
 [node name="btn_x" type="Button" parent="." unique_id=131064502]
 layout_mode = 0
 offset_left = 577.95
 offset_top = 82.95
 offset_right = 617.95
 offset_bottom = 122.95
-mouse_default_cursor_shape = 2
 focus_mode = 0
+mouse_default_cursor_shape = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_btnxUp0")
-theme_override_styles/hover = SubResource("StyleBoxTexture_btnxOver1")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_btnxDown2")
+theme_override_styles/hover = SubResource("StyleBoxTexture_btnxOver1")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btnxDown2")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_btnxUp0")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
 metadata/ui_piece = ["btn_x"]
 metadata/ui_button = "btn_x"
-
-[node name="btn_continue" type="Button" parent="." unique_id=518112481]
-layout_mode = 0
-offset_left = 403.65
-offset_top = 132.0
-offset_right = 527.65
-offset_bottom = 174.0
-mouse_default_cursor_shape = 2
-focus_mode = 0
-theme_override_styles/normal = SubResource("StyleBoxTexture_btncontinueUp3")
-theme_override_styles/hover = SubResource("StyleBoxTexture_btncontinueOver4")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_btncontinueDown5")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btncontinueDown5")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_btncontinueUp3")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
-metadata/ui_piece = ["btn_continue"]
-metadata/ui_button = "btn_continue"
-
-[node name="btn_back_selectmap" type="Button" parent="." unique_id=1245150037]
-layout_mode = 0
-offset_left = 411.5
-offset_top = 235.95
-offset_right = 516.5
-offset_bottom = 269.95
-mouse_default_cursor_shape = 2
-focus_mode = 0
-theme_override_styles/normal = SubResource("StyleBoxTexture_btnbackselectmapUp6")
-theme_override_styles/hover = SubResource("StyleBoxTexture_btnbackselectmapOver7")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_btnbackselectmapDown8")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btnbackselectmapDown8")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_btnbackselectmapUp6")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
-metadata/ui_piece = ["btn_back_selectmap"]
-metadata/ui_button = "btn_back_selectmap"
-
-[node name="btn_help" type="Button" parent="." unique_id=811009991]
-layout_mode = 0
-offset_left = 411.35
-offset_top = 289.7
-offset_right = 516.35
-offset_bottom = 320.7
-mouse_default_cursor_shape = 2
-focus_mode = 0
-theme_override_styles/normal = SubResource("StyleBoxTexture_btnhelpUp9")
-theme_override_styles/hover = SubResource("StyleBoxTexture_btnhelpOver10")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_btnhelpDown11")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btnhelpDown11")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_btnhelpUp9")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
-metadata/ui_piece = ["btn_help"]
-metadata/ui_button = "btn_help"
-
-[node name="btn_back_menu" type="Button" parent="." unique_id=2105349301]
-layout_mode = 0
-offset_left = 397.6
-offset_top = 340.15
-offset_right = 529.6
-offset_bottom = 372.15
-mouse_default_cursor_shape = 2
-focus_mode = 0
-theme_override_styles/normal = SubResource("StyleBoxTexture_btnbackmenuUp12")
-theme_override_styles/hover = SubResource("StyleBoxTexture_btnbackmenuOver13")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_btnbackmenuDown14")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btnbackmenuDown14")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_btnbackmenuUp12")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
-metadata/ui_piece = ["btn_back_menu"]
-metadata/ui_button = "btn_back_menu"
-
-[node name="btn_sound_open" type="Button" parent="." unique_id=542942086]
-layout_mode = 0
-offset_left = 409.65
-offset_top = 182.65001
-offset_right = 520.65
-offset_bottom = 219.65001
-mouse_default_cursor_shape = 2
-focus_mode = 0
-theme_override_styles/normal = SubResource("StyleBoxTexture_btnsoundopenUp15")
-theme_override_styles/hover = SubResource("StyleBoxTexture_btnsoundopenOver16")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_btnsoundopenDown17")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btnsoundopenDown17")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_btnsoundopenUp15")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
-metadata/ui_piece = ["btn_sound_open"]
-metadata/ui_button = "btn_sound_open"
-
-[node name="btn_sound_close" type="Button" parent="." unique_id=2020872767]
-layout_mode = 0
-offset_left = 414.85
-offset_top = 192.2
-offset_right = 512.5
-offset_bottom = 215.8
-mouse_default_cursor_shape = 2
-focus_mode = 0
-theme_override_styles/normal = SubResource("StyleBoxTexture_btnsoundcloseUp18")
-theme_override_styles/hover = SubResource("StyleBoxTexture_btnsoundcloseOver19")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_btnsoundcloseDown20")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btnsoundcloseDown20")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_btnsoundcloseUp18")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
-metadata/ui_piece = ["btn_sound_close"]
-metadata/ui_button = "btn_sound_close"
-
-[node name="Options" type="Panel" parent="."]
-layout_mode = 0
-offset_left = 340.0
-offset_top = 422.0
-offset_right = 600.0
-offset_bottom = 494.0
-mouse_filter = 2
-theme_override_styles/panel = SubResource("OptionsStyle")
-
-[node name="ScreenShake" type="Control" parent="Options"]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 8.0
-offset_right = 250.0
-offset_bottom = 36.0
-mouse_default_cursor_shape = 2
-
-[node name="Caption" type="Label" parent="Options/ScreenShake"]
-layout_mode = 0
-offset_left = 8.0
-offset_right = 150.0
-offset_bottom = 28.0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.93, 0.89, 0.82, 1)
-theme_override_font_sizes/font_size = 17
-text = "画面震动"
-vertical_alignment = 1
-
-[node name="State" type="Label" parent="Options/ScreenShake"]
-layout_mode = 0
-offset_left = 150.0
-offset_right = 232.0
-offset_bottom = 28.0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.91, 0.72, 0.35, 1)
-theme_override_font_sizes/font_size = 17
-text = "开"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="PadRumble" type="Control" parent="Options"]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 36.0
-offset_right = 250.0
-offset_bottom = 64.0
-mouse_default_cursor_shape = 2
-
-[node name="Caption" type="Label" parent="Options/PadRumble"]
-layout_mode = 0
-offset_left = 8.0
-offset_right = 150.0
-offset_bottom = 28.0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.93, 0.89, 0.82, 1)
-theme_override_font_sizes/font_size = 17
-text = "手柄震动"
-vertical_alignment = 1
-
-[node name="State" type="Label" parent="Options/PadRumble"]
-layout_mode = 0
-offset_left = 150.0
-offset_right = 232.0
-offset_bottom = 28.0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.91, 0.72, 0.35, 1)
-theme_override_font_sizes/font_size = 17
-text = "开"
-horizontal_alignment = 2
-vertical_alignment = 1

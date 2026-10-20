@@ -2,103 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://0f6fotthkmc3" path="res://assets/ui/game_menu/tex/OtherMat_v10_99.png" id="2_t4x84"]
 [ext_resource type="Texture2D" uid="uid://b0hbfanwpua4p" path="res://assets/ui/game_menu/tex/OtherMat_v10_102.png" id="4_eefm1"]
-[ext_resource type="Texture2D" uid="uid://c5iituaw1suyh" path="res://assets/ui/game_menu/tex/OtherMat_v10_118.png" id="12_5ah5m"]
-[ext_resource type="Texture2D" uid="uid://dvwidm7xnd6cs" path="res://assets/shared/ui/OtherMat_v10_122.png" id="13_iy466"]
-[ext_resource type="Texture2D" uid="uid://b5sh7qfp4heje" path="res://assets/ui/game_menu/tex/OtherMat_v10_132.png" id="15_d8ji8"]
-[ext_resource type="Texture2D" uid="uid://d2eylnajy8fv8" path="res://assets/ui/game_menu/tex/OtherMat_v10_133.png" id="16_5tohi"]
-[ext_resource type="Texture2D" uid="uid://b4uohe7rv3vlp" path="res://assets/shared/ui/OtherMat_v10_110.png" id="help_up"]
-[ext_resource type="Texture2D" uid="uid://diu4m5hk0ikyg" path="res://assets/shared/ui/OtherMat_v10_111.png" id="help_over"]
 [ext_resource type="Script" uid="uid://ddmuwy06fmabu" path="res://src/ui/ui_layout.gd" id="layout"]
 [ext_resource type="Script" uid="uid://cm44xd6sys8yc" path="res://src/main.gd" id="main"]
 [ext_resource type="Script" uid="uid://cpcg8rodt1577" path="res://src/screens/main_menu.gd" id="title"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_btnfocus"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_NewGameUp0"]
-texture = ExtResource("12_5ah5m")
-expand_margin_left = -0.5
-expand_margin_top = -0.5
-expand_margin_right = 2.7
-expand_margin_bottom = -3
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_NewGameOver1"]
-texture = ExtResource("12_5ah5m")
-expand_margin_left = -0.5
-expand_margin_top = -0.5
-expand_margin_right = 2.7
-expand_margin_bottom = -3
-modulate_color = Color(1, 0.6, 0, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_NewGameDown2"]
-texture = ExtResource("12_5ah5m")
-expand_margin_left = -0.5
-expand_margin_top = -0.5
-expand_margin_right = 2.7
-expand_margin_bottom = -3
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ContinueGameUp3"]
-texture = ExtResource("13_iy466")
-expand_margin_left = -0.5
-expand_margin_top = -0.5
-expand_margin_right = -2.85
-expand_margin_bottom = -4.2
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ContinueGameOver4"]
-texture = ExtResource("13_iy466")
-expand_margin_left = -0.5
-expand_margin_top = -0.5
-expand_margin_right = -2.85
-expand_margin_bottom = -4.2
-modulate_color = Color(1, 0.6, 0, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ContinueGameDown5"]
-texture = ExtResource("13_iy466")
-expand_margin_left = -0.5
-expand_margin_top = -0.5
-expand_margin_right = -2.85
-expand_margin_bottom = -4.2
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_GameHelpUp6"]
-texture = ExtResource("help_up")
-expand_margin_left = 0
-expand_margin_top = 0
-expand_margin_right = -12.5
-expand_margin_bottom = -16.5
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_GameHelpOver7"]
-texture = ExtResource("help_over")
-expand_margin_left = 0
-expand_margin_top = 0
-expand_margin_right = -12.5
-expand_margin_bottom = -16.5
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_GameHelpDown8"]
-texture = ExtResource("help_over")
-expand_margin_left = 0
-expand_margin_top = -2
-expand_margin_right = -12.5
-expand_margin_bottom = -14.5
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_QuitGameUp9"]
-texture = ExtResource("15_d8ji8")
-expand_margin_left = -1.4
-expand_margin_top = -3.8
-expand_margin_right = -10.6
-expand_margin_bottom = -12.7
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_QuitGameOver10"]
-texture = ExtResource("16_5tohi")
-expand_margin_left = -1.4
-expand_margin_top = -3.8
-expand_margin_right = -10.6
-expand_margin_bottom = -12.7
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_QuitGameDown11"]
-texture = ExtResource("16_5tohi")
-expand_margin_left = -1.4
-expand_margin_top = -6.8
-expand_margin_right = -10.6
-expand_margin_bottom = -9.7
+[ext_resource type="PackedScene" uid="uid://cw8asul3mo0ir" path="res://scenes/ui/components/set_btn.tscn" id="set_btn"]
 
 [node name="Main" type="Node" unique_id=1393650541]
 script = ExtResource("main")
@@ -119,20 +26,13 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_t4x84")
 centered = false
 
-[node name="NewGame" type="Button" parent="Title/Menu" unique_id=338406046]
+[node name="NewGame" parent="Title/Menu" unique_id=338406046 instance=ExtResource("set_btn")]
 layout_mode = 0
 offset_left = 750.65
 offset_top = 207.15
 offset_right = 846.95
 offset_bottom = 234.15
-mouse_default_cursor_shape = 2
-focus_mode = 0
-theme_override_styles/normal = SubResource("StyleBoxTexture_NewGameUp0")
-theme_override_styles/hover = SubResource("StyleBoxTexture_NewGameOver1")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_NewGameDown2")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_NewGameDown2")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_NewGameUp0")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
+text = "新的开始"
 metadata/ui_piece = ["newGame"]
 metadata/ui_button = "newGame"
 
@@ -142,20 +42,13 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_eefm1")
 centered = false
 
-[node name="ContinueGame" type="Button" parent="Title/Menu" unique_id=190598820]
+[node name="ContinueGame" parent="Title/Menu" unique_id=190598820 instance=ExtResource("set_btn")]
 layout_mode = 0
 offset_left = 750.65
 offset_top = 254.5
 offset_right = 852.0
 offset_bottom = 283.2
-mouse_default_cursor_shape = 2
-focus_mode = 0
-theme_override_styles/normal = SubResource("StyleBoxTexture_ContinueGameUp3")
-theme_override_styles/hover = SubResource("StyleBoxTexture_ContinueGameOver4")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_ContinueGameDown5")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_ContinueGameDown5")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_ContinueGameUp3")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
+text = "继续游戏"
 metadata/ui_piece = ["continueGame"]
 metadata/ui_button = "continueGame"
 
@@ -165,20 +58,13 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_eefm1")
 centered = false
 
-[node name="GameHelp" type="Button" parent="Title/Menu"]
+[node name="GameHelp" parent="Title/Menu"  instance=ExtResource("set_btn")]
 layout_mode = 0
 offset_left = 751.15
 offset_top = 302.7
 offset_right = 861.15
 offset_bottom = 342.7
-mouse_default_cursor_shape = 2
-focus_mode = 0
-theme_override_styles/normal = SubResource("StyleBoxTexture_GameHelpUp6")
-theme_override_styles/hover = SubResource("StyleBoxTexture_GameHelpOver7")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_GameHelpDown8")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_GameHelpDown8")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_GameHelpUp6")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
+text = "游戏帮助"
 metadata/ui_piece = ["gameHelp"]
 metadata/ui_button = "gameHelp"
 
@@ -201,20 +87,13 @@ theme_override_font_sizes/font_size = 13
 text = "v0.1.0-dev"
 horizontal_alignment = 2
 
-[node name="QuitGame" type="Button" parent="Title/Menu" unique_id=1156146258]
+[node name="QuitGame" parent="Title/Menu" unique_id=1156146258 instance=ExtResource("set_btn")]
 layout_mode = 0
 offset_left = 749.75
 offset_top = 398.75
 offset_right = 859.75
 offset_bottom = 438.75
-mouse_default_cursor_shape = 2
-focus_mode = 0
-theme_override_styles/normal = SubResource("StyleBoxTexture_QuitGameUp9")
-theme_override_styles/hover = SubResource("StyleBoxTexture_QuitGameOver10")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_QuitGameDown11")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_QuitGameDown11")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_QuitGameUp9")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
+text = "退出游戏"
 metadata/ui_piece = ["btnquit"]
 metadata/ui_button = "btnquit"
 
