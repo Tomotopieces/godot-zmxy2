@@ -186,11 +186,10 @@ func _on_bag_click(icon: Control, index: int) -> void:
 		var piece := String(b.get_meta(&"ui_button"))
 		b.visible = enabled.has(piece)
 		b.disabled = not enabled.get(piece, false)
-	box.size = box.get_combined_minimum_size()
-	_menu.size = box.size + box.position * 2.0
+	add_child(_menu)
+	_menu.reset_size()   # the frame shrinks to the shown buttons (fonts are only known in the tree)
 	_menu.position = icon.position + _grid.position + MENU_OFFSET
 	_menu.position.y = minf(_menu.position.y, Layers.VIEW.y - _menu.size.y)
-	add_child(_menu)
 	PadNav.modal(_menu)
 	_menu.button_pressed.connect(_menu_action)
 
