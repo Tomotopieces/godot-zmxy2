@@ -76,7 +76,10 @@ func _show_tab(b: String) -> void:
 	_goods.clear()
 	var pages: Dictionary = EquipmentCatalog.get_catalog().shop.pages
 	for p in PAGES[b]:
-		_goods.append_array(pages[p])
+		for id: String in pages[p]:   # outfits of the other characters are not sold to this one
+			var u := EquipmentCatalog.find(id).user
+			if u == "" or u == GameState.hero_data.character:
+				_goods.append(id)
 	_refresh()
 
 func _page_count() -> int:

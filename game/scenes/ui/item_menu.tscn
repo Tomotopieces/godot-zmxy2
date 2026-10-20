@@ -1,10 +1,7 @@
 [gd_scene format=3 uid="uid://nxdabyiail25"]
 
 [ext_resource type="Script" uid="uid://ddmuwy06fmabu" path="res://src/ui/ui_layout.gd" id="1_0a1f0"]
-[ext_resource type="Texture2D" uid="uid://s2fh3d6wfs00" path="res://assets/shared/ui/backpack_v5_449.png" id="3_hh5tn"]
-[ext_resource type="Texture2D" uid="uid://c4eopxwk2eoav" path="res://assets/shared/ui/backpack_v5_451.png" id="4_8ylbe"]
-[ext_resource type="Texture2D" uid="uid://cmbexfni4yk6t" path="res://assets/shared/ui/backpack_v5_454.png" id="5_nrryd"]
-[ext_resource type="Texture2D" uid="uid://bs8i1hpjsqjox" path="res://assets/shared/ui/backpack_v5_456.png" id="6_4ndew"]
+[ext_resource type="PackedScene" uid="uid://bqe4kf3igvsji" path="res://scenes/ui/components/yellow_button.tscn" id="yellow_button"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wvhbo"]
 bg_color = Color(0, 0, 0, 0.8)
@@ -18,57 +15,60 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="item_menu" type="Panel" unique_id=476550283]
-offset_right = 87.0
-offset_bottom = 74.0
+[node name="ItemMenu" type="Panel"]
+offset_right = 112.0
+offset_bottom = 192.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wvhbo")
 script = ExtResource("1_0a1f0")
 
-[node name="buse" type="Node2D" parent="." unique_id=541981623]
-position = Vector2(43.5, 18.5)
-metadata/labels = {}
+[node name="Buttons" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 106.0
+offset_bottom = 186.0
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="Wear" parent="Buttons" instance=ExtResource("yellow_button")]
+custom_minimum_size = Vector2(76, 26)
+layout_mode = 2
+text = "装 备"
+metadata/ui_piece = ["bzb"]
+metadata/ui_button = "bzb"
+
+[node name="Sell" parent="Buttons" instance=ExtResource("yellow_button")]
+custom_minimum_size = Vector2(76, 26)
+layout_mode = 2
+text = "出 售"
+metadata/ui_piece = ["bmd"]
+metadata/ui_button = "bmd"
+
+[node name="Use" parent="Buttons" instance=ExtResource("yellow_button")]
+custom_minimum_size = Vector2(76, 26)
+layout_mode = 2
+text = "使 用"
 metadata/ui_piece = ["buse"]
+metadata/ui_button = "buse"
 
-[node name="Frame0" type="Node2D" parent="buse" unique_id=2005594883]
+[node name="BigMooncake" parent="Buttons" instance=ExtResource("yellow_button")]
+custom_minimum_size = Vector2(76, 26)
+layout_mode = 2
+text = "兑换大月饼"
+metadata/ui_piece = ["sbmooncake"]
+metadata/ui_button = "sbmooncake"
 
-[node name="backpack_v5_449" type="Sprite2D" parent="buse/Frame0" unique_id=1378646886]
-position = Vector2(-38.5, -15.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_hh5tn")
-centered = false
-metadata/tex_key = "backpack_v5:449"
+[node name="MoonWeapon" parent="Buttons" instance=ExtResource("yellow_button")]
+custom_minimum_size = Vector2(76, 26)
+layout_mode = 2
+text = "兑换中秋武器"
+metadata/ui_piece = ["smoonweapon"]
+metadata/ui_button = "smoonweapon"
 
-[node name="Frame1" type="Node2D" parent="buse" unique_id=1930410858]
-visible = false
-
-[node name="backpack_v5_451" type="Sprite2D" parent="buse/Frame1" unique_id=924057160]
-position = Vector2(-38.5, -15.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_8ylbe")
-centered = false
-metadata/tex_key = "backpack_v5:451"
-
-[node name="bthrow" type="Node2D" parent="." unique_id=558884395]
-position = Vector2(43.5, 54)
-metadata/labels = {}
+[node name="Throw" parent="Buttons" instance=ExtResource("yellow_button")]
+custom_minimum_size = Vector2(76, 26)
+layout_mode = 2
+text = "丢 弃"
 metadata/ui_piece = ["bthrow"]
-
-[node name="Frame0" type="Node2D" parent="bthrow" unique_id=1781726632]
-
-[node name="backpack_v5_454" type="Sprite2D" parent="bthrow/Frame0" unique_id=995303095]
-position = Vector2(-38.5, -15.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_nrryd")
-centered = false
-metadata/tex_key = "backpack_v5:454"
-
-[node name="Frame1" type="Node2D" parent="bthrow" unique_id=1202436644]
-visible = false
-
-[node name="backpack_v5_456" type="Sprite2D" parent="bthrow/Frame1" unique_id=667604738]
-position = Vector2(-38.5, -15.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_4ndew")
-centered = false
-metadata/tex_key = "backpack_v5:456"
+metadata/ui_button = "bthrow"

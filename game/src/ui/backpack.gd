@@ -12,7 +12,6 @@ const CELL := 50.0
 const CELL_GAP := 7.0
 const SLOT_SCENE := "res://scenes/ui/backpack/slot.tscn"   ## the 25 bag cells are scene instances of it
 const MENU_OFFSET := Vector2(25, 25)
-const MOON_MENU_HEIGHT := 142.0   ## the exchange menu is taller than the plain one: keep it on screen
 const SLOT_PIECES := {&"weapon": "zbwq", &"cloth": "zbfj", &"accessory": "zbsp", &"treasure": "zbfb", &"fashion": "zbsz", &"wing": "zbcb"}
 const TABS := {"btn_zb": "equip", "btn_dj": "item", "btn_rw": "look"}   ## page button -> bag page
 
@@ -168,36 +167,32 @@ func _fill_stats() -> void:
 
 # ------------------------------------------------------------------ actions
 
-## Item menu: 装备 / 出售 (the original's 赠送 is a 2P feature, not made), or for the 道具 page: 使用 / 丢弃.
-## A row shows its second frame when unavailable.
+## Item menu (scenes/ui/item_menu.tscn, the same for every page): 装备 / 出售 (the original's 赠送 is a 2P feature, not
+## made), or on the 道具 page 使用 / 丢弃 and the 小月饼 exchanges. Only the item's buttons show; unavailable ones are
+## disabled.
 func _on_bag_click(icon: Control, index: int) -> void:
 	_close_menu()
 	_hide_tip()
 	_menu_index = index
 	var item := GameState.bag[index]
-	var d := GameState.item_data(item)
 	var enabled := {"bzb": GameState.can_wear(item), "bmd": true}
-	var moon: bool = item.id == EquipmentCatalog.get_catalog().moon.cake   # 小月饼: the menu also exchanges them
 	if TABS[_tab] == "item":
 		enabled = {"buse": GameState.usable(item), "bthrow": true}
-		if moon:
+		if item.id == EquipmentCatalog.get_catalog().moon.cake:   # 小月饼: the menu also exchanges them
 			enabled.merge({"sbmooncake": true, "smoonweapon": true})
-	_menu = UiLayout.create("item_menu_zq" if moon else "item_menu" if TABS[_tab] == "item" else "pack_menu")
+	_menu = UiLayout.create("item_menu")
+	var box: Control = _menu.get_node("Buttons")
+	for b: Button in box.get_children():
+		var piece := String(b.get_meta(&"ui_button"))
+		b.visible = enabled.has(piece)
+		b.disabled = not enabled.get(piece, false)
+	box.size = box.get_combined_minimum_size()
+	_menu.size = box.size + box.position * 2.0
 	_menu.position = icon.position + _grid.position + MENU_OFFSET
-	if moon:
-		_menu.position.y = minf(_menu.position.y, Layers.VIEW.y - MOON_MENU_HEIGHT)
+	_menu.position.y = minf(_menu.position.y, Layers.VIEW.y - _menu.size.y)
 	add_child(_menu)
 	PadNav.modal(_menu)
 	_menu.button_pressed.connect(_menu_action)
-	for p in enabled:
-		_menu.show_frame(p, 0 if enabled[p] else 1)
-		if enabled[p]:
-			_highlight_on_hover(_menu.make_clickable(p), _menu.get_piece(p))
-
-## Rows light up under the mouse. (The click area is the art's own bounds: the rows' origins are their centres.)
-func _highlight_on_hover(hit: Control, art: Node2D) -> void:
-	hit.mouse_entered.connect(func(): art.modulate = Color(1.25, 1.25, 1.25))
-	hit.mouse_exited.connect(func(): art.modulate = Color.WHITE)
 
 func _menu_action(piece: String) -> void:
 	var idx := _menu_index
