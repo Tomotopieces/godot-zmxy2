@@ -2,8 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ddmuwy06fmabu" path="res://src/ui/ui_layout.gd" id="layout"]
 [ext_resource type="Texture2D" uid="uid://3g0bgb1k1le5" path="res://assets/shared/ui/OtherMat_v10_341.png" id="bg"]
-[ext_resource type="Texture2D" uid="uid://bxsnoyk0w7w8r" path="res://assets/shared/ui/OtherMat_v10_236.png" id="back_up"]
-[ext_resource type="Texture2D" uid="uid://dm4u0mcpur1xt" path="res://assets/shared/ui/OtherMat_v10_237.png" id="back_over"]
+[ext_resource type="PackedScene" uid="uid://cw8asul3mo0ir" path="res://scenes/ui/components/set_btn.tscn" id="set_btn"]
 
 [sub_resource type="StyleBoxFlat" id="PanelStyle"]
 bg_color = Color(0.07, 0.05, 0.06, 0.88)
@@ -21,29 +20,6 @@ shadow_size = 12
 
 [sub_resource type="StyleBoxFlat" id="RuleStyle"]
 bg_color = Color(0.91, 0.72, 0.35, 0.35)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_btnfocus"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnbackUp0"]
-texture = ExtResource("back_up")
-expand_margin_left = -2.55
-expand_margin_top = -1.2
-expand_margin_right = -1.95
-expand_margin_bottom = -5.3
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnbackOver1"]
-texture = ExtResource("back_over")
-expand_margin_left = -2.55
-expand_margin_top = -1.2
-expand_margin_right = -1.95
-expand_margin_bottom = -5.3
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnbackDown2"]
-texture = ExtResource("back_up")
-expand_margin_left = -2.55
-expand_margin_top = -3.2
-expand_margin_right = -1.95
-expand_margin_bottom = -3.3
 
 [node name="Help" type="Control"]
 layout_mode = 3
@@ -288,19 +264,13 @@ text = "手柄：RB = U，Y = I，RT = O，R3 = L。
 怒气满时按无双变身；法宝需先在法宝面板装备。"
 autowrap_mode = 3
 
-[node name="btnback" type="Button" parent="."]
+[node name="btnback" parent="."  instance=ExtResource("set_btn")]
 layout_mode = 0
 offset_left = 854.45
 offset_top = 19.5
 offset_right = 912.45
 offset_bottom = 45.5
-mouse_default_cursor_shape = 2
-focus_mode = 0
-theme_override_styles/normal = SubResource("StyleBoxTexture_btnbackUp0")
-theme_override_styles/hover = SubResource("StyleBoxTexture_btnbackOver1")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_btnbackDown2")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btnbackDown2")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_btnbackUp0")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
+theme_override_font_sizes/font_size = 20
+text = "返回"
 metadata/ui_piece = ["btnback"]
 metadata/ui_button = "btnback"

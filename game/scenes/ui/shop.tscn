@@ -18,8 +18,6 @@
 [ext_resource type="Texture2D" uid="uid://ts84c15lx05i" path="res://assets/shared/ui/backpack_v5_607.png" id="27_0te1m"]
 [ext_resource type="Texture2D" uid="uid://bt2jxuyd702ar" path="res://assets/shared/ui/backpack_v5_613.png" id="28_uqgat"]
 [ext_resource type="Texture2D" uid="uid://7sehuraxct61" path="res://assets/shared/ui/backpack_v5_618.png" id="29_v8cfp"]
-[ext_resource type="Texture2D" uid="uid://bxsnoyk0w7w8r" path="res://assets/shared/ui/OtherMat_v10_236.png" id="30_q6q0u"]
-[ext_resource type="Texture2D" uid="uid://dm4u0mcpur1xt" path="res://assets/shared/ui/OtherMat_v10_237.png" id="31_o0fa1"]
 [ext_resource type="Texture2D" uid="uid://bp8cqwf7b7adm" path="res://assets/shared/mixed/Role_v6_485.png" id="35_owbao"]
 [ext_resource type="Texture2D" uid="uid://bi2sjc11x58l0" path="res://assets/shared/mixed/3_137.png" id="36_6qsi8"]
 [ext_resource type="Texture2D" uid="uid://dbgamihdmp82y" path="res://assets/shared/ui/backpack_v5_162.png" id="37_ongk7"]
@@ -38,6 +36,7 @@
 [ext_resource type="Texture2D" uid="uid://co6gehv1xfujq" path="res://assets/shared/ui/backpack_v5_415.png" id="50_jrabd"]
 [ext_resource type="Texture2D" uid="uid://bsrtp6xopcud5" path="res://assets/ui/shop/tex/backpack_v5_643.png" id="gx_over"]
 [ext_resource type="PackedScene" uid="uid://vt17isp8tb0t" path="res://scenes/actors/bag_glow/bag_glow.tscn" id="bag_glow"]
+[ext_resource type="PackedScene" uid="uid://cw8asul3mo0ir" path="res://scenes/ui/components/set_btn.tscn" id="set_btn"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnbuydjUp0"]
 texture = ExtResource("3_oej5v")
@@ -85,27 +84,6 @@ texture = ExtResource("13_iuwpo")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnnextPageOver13"]
 texture = ExtResource("14_y0qbn")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnbackUp15"]
-texture = ExtResource("30_q6q0u")
-expand_margin_left = -10.55
-expand_margin_top = -6.2
-expand_margin_right = -19.95
-expand_margin_bottom = -5.3
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnbackDown17"]
-texture = ExtResource("30_q6q0u")
-expand_margin_left = -10.55
-expand_margin_top = -8.2
-expand_margin_right = -19.95
-expand_margin_bottom = -3.3
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnbackOver16"]
-texture = ExtResource("31_o0fa1")
-expand_margin_left = -10.55
-expand_margin_top = -6.2
-expand_margin_right = -19.95
-expand_margin_bottom = -5.3
 
 [node name="shop" type="Control" unique_id=1610453023]
 layout_mode = 3
@@ -1032,20 +1010,14 @@ texture = ExtResource("29_v8cfp")
 centered = false
 metadata/tex_key = "backpack_v5:618"
 
-[node name="btn_back" type="Button" parent="." unique_id=246183202]
+[node name="btn_back" parent="." unique_id=246183202 instance=ExtResource("set_btn")]
 layout_mode = 0
-offset_left = 859.15
-offset_top = 10.25
-offset_right = 943.15
-offset_bottom = 41.25
-focus_mode = 0
-mouse_default_cursor_shape = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_btnbackUp15")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_btnbackDown17")
-theme_override_styles/hover = SubResource("StyleBoxTexture_btnbackOver16")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btnbackDown17")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_btnbackUp15")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
+offset_left = 867.45
+offset_top = 13.2
+offset_right = 925.45
+offset_bottom = 39.2
+theme_override_font_sizes/font_size = 20
+text = "返回"
 metadata/ui_piece = ["btn_back"]
 metadata/ui_button = "btn_back"
 
