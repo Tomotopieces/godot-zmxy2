@@ -9,6 +9,6 @@ for f in "$@"; do
   [ -f "$p.uid" ] && uid=$(head -1 "$p.uid")
   [ -z "$uid" ] && uid=$(head -1 "$p" 2>/dev/null | grep -oP 'uid="\Kuid://[a-z0-9]+')
   pat="res://$p"; [ -n "$uid" ] && pat="$pat|$uid"
-  hits=$(grep -rlE "$pat" --include=*.tscn --include=*.tres --include=*.gd --include=*.json --include=*.gdshader --include=project.godot . 2>/dev/null | grep -vE '^\./\.godot/|\.import$' | sed 's#^\./##')
+  hits=$(grep -rlE "$pat" --include=*.tscn --include=*.tres --include=*.gd --include=*.json --include=*.gdshader --include=project.godot . 2>/dev/null | grep -vE '^\./\.godot/|\.import$' | sed 's#^\./##' | grep -vxF "$p")
   echo "$p (${uid:-no uid}): ${hits:-UNUSED}"
 done
