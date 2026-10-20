@@ -11,6 +11,51 @@
 [ext_resource type="Texture2D" path="res://assets/ui/forge_fusion/tex/OtherMat_v10_212.png" id="9_bjkmw"]
 [ext_resource type="Texture2D" path="res://assets/ui/forge_fusion/tex/OtherMat_v10_215.png" id="10_s0gkm"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_btnfocus"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rlbtnUp0"]
+texture = ExtResource("3_tv7uq")
+expand_margin_left = 0
+expand_margin_top = 0
+expand_margin_right = 0
+expand_margin_bottom = 0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rlbtnOver1"]
+texture = ExtResource("4_dxr2f")
+expand_margin_left = 0
+expand_margin_top = 0
+expand_margin_right = 0
+expand_margin_bottom = 0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rlbtnDown2"]
+texture = ExtResource("4_dxr2f")
+expand_margin_left = 0
+expand_margin_top = -2
+expand_margin_right = 0
+expand_margin_bottom = 2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnhelpUp3"]
+texture = ExtResource("5_llvon")
+expand_margin_left = 12
+expand_margin_top = 10.05
+expand_margin_right = 22
+expand_margin_bottom = 8.95
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnhelpOver4"]
+texture = ExtResource("5_llvon")
+expand_margin_left = 12
+expand_margin_top = 10.05
+expand_margin_right = 22
+expand_margin_bottom = 8.95
+modulate_color = Color(1.3, 1.15, 1, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnhelpDown5"]
+texture = ExtResource("5_llvon")
+expand_margin_left = 12
+expand_margin_top = 8.05
+expand_margin_right = 22
+expand_margin_bottom = 10.95
+
 [node name="forge_fusion" type="Control" unique_id=874144660]
 layout_mode = 3
 anchors_preset = 0
@@ -26,85 +71,39 @@ texture = ExtResource("2_uux5r")
 centered = false
 metadata/tex_key = "OtherMat_v10:191"
 
-[node name="rlbtn" type="Control" parent="." unique_id=1601560485]
-anchors_preset = 0
+[node name="rlbtn" type="Button" parent="." unique_id=1601560485]
+layout_mode = 0
 offset_left = 234.9
 offset_top = 448.35
 offset_right = 403.9
 offset_bottom = 498.35
 mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_rlbtnUp0")
+theme_override_styles/hover = SubResource("StyleBoxTexture_rlbtnOver1")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_rlbtnDown2")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_rlbtnDown2")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_rlbtnUp0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
 metadata/ui_piece = ["rlbtn"]
 metadata/ui_button = "rlbtn"
-metadata/pad_seq = 8
 
-[node name="Up" type="Node2D" parent="rlbtn" unique_id=735421609]
-
-[node name="OtherMat_v10_193" type="Sprite2D" parent="rlbtn/Up" unique_id=1164061361]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_tv7uq")
-centered = false
-metadata/tex_key = "OtherMat_v10:193"
-
-[node name="Over" type="Node2D" parent="rlbtn" unique_id=345715096]
-visible = false
-
-[node name="OtherMat_v10_195" type="Sprite2D" parent="rlbtn/Over" unique_id=814536187]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_dxr2f")
-centered = false
-metadata/tex_key = "OtherMat_v10:195"
-
-[node name="Down" type="Node2D" parent="rlbtn" unique_id=604422022]
-visible = false
-
-[node name="OtherMat_v10_195" type="Sprite2D" parent="rlbtn/Down" unique_id=754975051]
-position = Vector2(0, 2)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_dxr2f")
-centered = false
-metadata/tex_key = "OtherMat_v10:195"
-
-[node name="btn_help" type="Control" parent="." unique_id=268579785]
-anchors_preset = 0
+[node name="btn_help" type="Button" parent="." unique_id=268579785]
+layout_mode = 0
 offset_left = 408.95
 offset_top = 462.94998
 offset_right = 501.95
 offset_bottom = 486.94998
 mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_btnhelpUp3")
+theme_override_styles/hover = SubResource("StyleBoxTexture_btnhelpOver4")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_btnhelpDown5")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btnhelpDown5")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_btnhelpUp3")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
 metadata/ui_piece = ["btn_help"]
 metadata/ui_button = "btn_help"
-metadata/pad_seq = 9
-
-[node name="Up" type="Node2D" parent="btn_help" unique_id=1908663682]
-position = Vector2(-12, -10.05)
-
-[node name="OtherMat_v10_198" type="Sprite2D" parent="btn_help/Up" unique_id=1202147344]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_llvon")
-centered = false
-metadata/tex_key = "OtherMat_v10:198"
-
-[node name="Over" type="Node2D" parent="btn_help" unique_id=172655228]
-visible = false
-modulate = Color(1.3, 1.15, 1, 1)
-position = Vector2(-12, -10.05)
-
-[node name="OtherMat_v10_198" type="Sprite2D" parent="btn_help/Over" unique_id=973083346]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_llvon")
-centered = false
-metadata/tex_key = "OtherMat_v10:198"
-
-[node name="Down" type="Node2D" parent="btn_help" unique_id=1494832351]
-visible = false
-position = Vector2(-12, -10.05)
-
-[node name="OtherMat_v10_198" type="Sprite2D" parent="btn_help/Down" unique_id=1635880681]
-position = Vector2(0, 2)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_llvon")
-centered = false
-metadata/tex_key = "OtherMat_v10:198"
 
 [node name="Art2" type="Node2D" parent="." unique_id=397676254]
 

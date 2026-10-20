@@ -3,7 +3,8 @@ extends Control
 ## A screen made from an original interface layout: the editor scene scenes/ui/<name>.tscn, arranged by hand.
 ## Every node the code reaches carries its piece names in the meta `ui_piece`, a button its name in `ui_button`, a bar
 ## holder its travel in `ui_bar`; _wire_from_scene() walks the tree and wires those. A node may be moved anywhere, but
-## must keep its metas (a button's Up / Over / Down children and a bar's Clip / Content are looked up by name).
+## must keep its metas (a bar's Clip / Content are looked up by name). Buttons are Button nodes whose normal / hover / pressed
+## styles (StyleBoxTexture) are their art.
 
 signal button_pressed(button_name: String)
 
@@ -125,34 +126,18 @@ func _collect(n: Node) -> void:
 		if not _named.has(key):
 			_named[key] = n   # the first node claiming a name keeps it (a clip nested in several frames)
 	if n.has_meta(&"ui_button"):
-		_wire_button(n as Control, String(n.get_meta(&"ui_button")))
+		_wire_button(n as BaseButton, String(n.get_meta(&"ui_button")))
 	if n.has_meta(&"ui_bar"):
 		_wire_bar(n as Node2D)
 	for c in n.get_children():
 		_collect(c)
 
-## Wires one button: its up / over / down art, the pad mark, the cursor and the click.
-func _wire_button(b: Control, button_name: String) -> void:
-	var states := {}
-	for st in ["up", "over", "down"]:
-		var art := b.get_node_or_null({"up": "Up", "over": "Over", "down": "Down"}[st])
-		if art == null:
-			return
-		states[st] = art
-	b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+## Wires one button (a Button: its normal / hover / pressed styles are its art): the pad mark and the click.
+func _wire_button(b: BaseButton, button_name: String) -> void:
 	PadNav.mark(b)
-	@warning_ignore("shadowed_variable_base_class")
-	var show := func(st: String):
-		for k in states:
-			states[k].visible = k == st
-	b.mouse_entered.connect(show.bind("over"))
-	b.mouse_exited.connect(show.bind("up"))
-	b.gui_input.connect(func(e: InputEvent):
-		if e is InputEventMouseButton and e.button_index == MOUSE_BUTTON_LEFT:
-			show.call("down" if e.pressed else "over")
-			if not e.pressed:
-				button_pressed.emit(button_name)
-				Snd.ui())   # skipped when the handler already played one
+	b.pressed.connect(func():
+		button_pressed.emit(button_name)
+		Snd.ui())   # skipped when the handler already played one
 
 ## Wires one bar holder (its ui_bar travel + its Clip / Content children) so set_bar() can slide it.
 func _wire_bar(holder: Node2D) -> void:

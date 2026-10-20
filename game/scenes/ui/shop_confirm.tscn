@@ -2,16 +2,18 @@
 
 [ext_resource type="Script" path="res://src/ui/ui_layout.gd" id="1_px4ft"]
 [ext_resource type="Texture2D" path="res://assets/ui/shop_confirm/tex/backpack_v5_583.png" id="2_s6huv"]
-[ext_resource type="Texture2D" path="res://assets/ui/shop_confirm/tex/backpack_v5_585.png" id="3_g0drv"]
-[ext_resource type="Texture2D" path="res://assets/ui/shop_confirm/tex/backpack_v5_587.png" id="4_3nvg3"]
-[ext_resource type="Texture2D" path="res://assets/ui/shop_confirm/tex/backpack_v5_590.png" id="5_meaei"]
-[ext_resource type="Texture2D" path="res://assets/ui/shop_confirm/tex/backpack_v5_592.png" id="6_u50g5"]
+[ext_resource type="PackedScene" uid="uid://bqe4kf3igvsji" path="res://scenes/ui/components/yellow_button.tscn" id="yellow_button"]
 
 [node name="shop_confirm" type="Control" unique_id=319509519]
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("1_px4ft")
+
+[node name="Blocker" type="Control" parent="." unique_id=1429731206]
+layout_mode = 0
+offset_right = 940.0
+offset_bottom = 590.0
 
 [node name="Art" type="Node2D" parent="." unique_id=366613652]
 
@@ -21,76 +23,37 @@ texture = ExtResource("2_s6huv")
 centered = false
 metadata/tex_key = "backpack_v5:583"
 
-[node name="btn_ok" type="Control" parent="." unique_id=1804921230]
-anchors_preset = 0
-offset_left = 383.95
-offset_top = 314.35
-offset_right = 471.95
-offset_bottom = 352.35
-mouse_default_cursor_shape = 2
+[node name="Message" type="RichTextLabel" parent="." unique_id=1873610533]
+layout_mode = 0
+offset_left = 332.0
+offset_top = 258.0
+offset_right = 637.0
+offset_bottom = 316.0
+mouse_filter = 2
+bbcode_enabled = true
+text = "[center]购买 道具 × 1
+需要 0 功勋[/center]"
+fit_content = false
+scroll_active = false
+vertical_alignment = 1
+metadata/ui_piece = ["txt_msg"]
+
+[node name="BtnOk" parent="." instance=ExtResource("yellow_button")]
+layout_mode = 0
+offset_left = 389.95
+offset_top = 319.35
+offset_right = 465.95
+offset_bottom = 347.35
+text = "确 定"
 metadata/ui_piece = ["btn_ok"]
 metadata/ui_button = "btn_ok"
-metadata/pad_seq = 59
 
-[node name="Up" type="Node2D" parent="btn_ok" unique_id=896185700]
-
-[node name="backpack_v5_585" type="Sprite2D" parent="btn_ok/Up" unique_id=819736568]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_g0drv")
-centered = false
-metadata/tex_key = "backpack_v5:585"
-
-[node name="Over" type="Node2D" parent="btn_ok" unique_id=1908415073]
-visible = false
-
-[node name="backpack_v5_587" type="Sprite2D" parent="btn_ok/Over" unique_id=122511823]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_3nvg3")
-centered = false
-metadata/tex_key = "backpack_v5:587"
-
-[node name="Down" type="Node2D" parent="btn_ok" unique_id=479802098]
-visible = false
-
-[node name="backpack_v5_585" type="Sprite2D" parent="btn_ok/Down" unique_id=1244039452]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_g0drv")
-centered = false
-metadata/tex_key = "backpack_v5:585"
-
-[node name="btn_change" type="Control" parent="." unique_id=103721304]
-anchors_preset = 0
-offset_left = 499.45
-offset_top = 314.35
-offset_right = 587.45
-offset_bottom = 352.35
-mouse_default_cursor_shape = 2
+[node name="BtnCancel" parent="." instance=ExtResource("yellow_button")]
+layout_mode = 0
+offset_left = 505.45
+offset_top = 319.35
+offset_right = 581.45
+offset_bottom = 347.35
+text = "取 消"
 metadata/ui_piece = ["btn_change"]
 metadata/ui_button = "btn_change"
-metadata/pad_seq = 60
-
-[node name="Up" type="Node2D" parent="btn_change" unique_id=1690295235]
-
-[node name="backpack_v5_590" type="Sprite2D" parent="btn_change/Up" unique_id=521435240]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_meaei")
-centered = false
-metadata/tex_key = "backpack_v5:590"
-
-[node name="Over" type="Node2D" parent="btn_change" unique_id=42783340]
-visible = false
-
-[node name="backpack_v5_592" type="Sprite2D" parent="btn_change/Over" unique_id=1417583473]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_u50g5")
-centered = false
-metadata/tex_key = "backpack_v5:592"
-
-[node name="Down" type="Node2D" parent="btn_change" unique_id=1227977302]
-visible = false
-
-[node name="backpack_v5_590" type="Sprite2D" parent="btn_change/Down" unique_id=1945941642]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_meaei")
-centered = false
-metadata/tex_key = "backpack_v5:590"

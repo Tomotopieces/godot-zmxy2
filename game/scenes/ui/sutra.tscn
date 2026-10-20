@@ -3,10 +3,9 @@
 [ext_resource type="Script" uid="uid://ddmuwy06fmabu" path="res://src/ui/ui_layout.gd" id="1_50ls0"]
 [ext_resource type="Texture2D" uid="uid://dl7iep1bu8pbf" path="res://assets/ui/sutra/tex/2.png" id="2_tspwb"]
 [ext_resource type="Texture2D" uid="uid://cxpxw4hxa6gmv" path="res://assets/ui/sutra/tex/459.png" id="3_1acjm"]
-[ext_resource type="Texture2D" uid="uid://cqh8gwrplgqok" path="res://assets/ui/sutra/tex/backpack_v5_464.png" id="3_r735v"]
-[ext_resource type="Texture2D" uid="uid://cs1lbtqumfcri" path="res://assets/ui/sutra/tex/backpack_v5_466.png" id="4_cr8vu"]
 [ext_resource type="Texture2D" uid="uid://ua7xt1n10mgo" path="res://assets/ui/sutra/tex/460.png" id="4_gcbsr"]
 [ext_resource type="Texture2D" uid="uid://d1ihr222eevkr" path="res://assets/ui/sutra/tex/469.png" id="7_ihqu3"]
+[ext_resource type="PackedScene" uid="uid://bqe4kf3igvsji" path="res://scenes/ui/components/yellow_button.tscn" id="7_tspwb"]
 [ext_resource type="Texture2D" uid="uid://bxlwae2iidv5c" path="res://assets/ui/sutra/tex/4.png" id="8_hqo6y"]
 [ext_resource type="Texture2D" uid="uid://bwectugmow2jd" path="res://assets/ui/sutra/tex/backpack_v5_478.png" id="8_ihqu3"]
 [ext_resource type="Texture2D" uid="uid://ex444j6obvc8" path="res://assets/ui/sutra/tex/backpack_v5_481.png" id="9_hqo6y"]
@@ -36,6 +35,29 @@
 [ext_resource type="PackedScene" uid="uid://bn7cu4s02f7m0" path="res://scenes/ui/backpack/stat.tscn" id="33_stat"]
 [ext_resource type="Texture2D" uid="uid://hre7amrwb0ik" path="res://assets/textures/purple_gradient.tres" id="purple_gradient"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_btnfocus"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btncloseUp0"]
+texture = ExtResource("31_plfqd")
+expand_margin_left = 0
+expand_margin_top = 2
+expand_margin_right = 0
+expand_margin_bottom = -2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btncloseOver1"]
+texture = ExtResource("32_ad4e2")
+expand_margin_left = 0
+expand_margin_top = 2
+expand_margin_right = 0
+expand_margin_bottom = -2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btncloseDown2"]
+texture = ExtResource("31_plfqd")
+expand_margin_left = 0
+expand_margin_top = 0
+expand_margin_right = 0
+expand_margin_bottom = 0
+
 [node name="sutra" type="Control" unique_id=104091820]
 layout_mode = 3
 anchors_preset = 0
@@ -57,46 +79,15 @@ texture = ExtResource("3_1acjm")
 position = Vector2(323, 141)
 texture = ExtResource("4_gcbsr")
 
-[node name="btn_sj" type="Control" parent="." unique_id=1700010866]
-anchors_preset = 0
-offset_left = 400.4
-offset_top = 409.75
-offset_right = 457.4
-offset_bottom = 438.75
-mouse_default_cursor_shape = 2
+[node name="BtnShengJi" parent="." unique_id=2102867070 instance=ExtResource("7_tspwb")]
+layout_mode = 0
+offset_left = 404.0
+offset_top = 412.0
+offset_right = 454.0
+offset_bottom = 434.0
+text = "升 级"
 metadata/ui_piece = ["btn_sj"]
 metadata/ui_button = "btn_sj"
-metadata/pad_seq = 73
-
-[node name="Up" type="Node2D" parent="btn_sj" unique_id=1401341597]
-position = Vector2(0, -2)
-
-[node name="backpack_v5_464" type="Sprite2D" parent="btn_sj/Up" unique_id=94871424]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_r735v")
-centered = false
-metadata/tex_key = "backpack_v5:464"
-
-[node name="Over" type="Node2D" parent="btn_sj" unique_id=508305227]
-visible = false
-position = Vector2(0, -2)
-
-[node name="backpack_v5_466" type="Sprite2D" parent="btn_sj/Over" unique_id=1226988239]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_cr8vu")
-centered = false
-metadata/tex_key = "backpack_v5:466"
-
-[node name="Down" type="Node2D" parent="btn_sj" unique_id=422059292]
-visible = false
-position = Vector2(0, -2)
-
-[node name="backpack_v5_466" type="Sprite2D" parent="btn_sj/Down" unique_id=834319012]
-position = Vector2(0, 2)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_cr8vu")
-centered = false
-metadata/tex_key = "backpack_v5:466"
 
 [node name="Art2" type="Node2D" parent="." unique_id=591659017]
 
@@ -446,86 +437,88 @@ metadata/tex_key = "backpack_v5:549"
 
 [node name="StatRows" type="Control" parent="." unique_id=314962213]
 anchors_preset = 0
+offset_left = 200.0
+offset_top = 200.0
 offset_right = 456.0
 offset_bottom = 432.0
 mouse_filter = 2
 
 [node name="StatFbdj" parent="StatRows" unique_id=870992650 instance=ExtResource("33_stat")]
 layout_mode = 0
-offset_left = 330.0
-offset_top = 223.0
-offset_right = 330.0
-offset_bottom = 223.0
+offset_left = 130.0
+offset_top = 23.0
+offset_right = 130.0
+offset_bottom = 23.0
 caption = "等级"
 width = 80
 piece = "txt_fbdj"
 
 [node name="StatFbczl" parent="StatRows" unique_id=276743491 instance=ExtResource("33_stat")]
 layout_mode = 0
-offset_left = 330.0
-offset_top = 258.0
-offset_right = 330.0
-offset_bottom = 258.0
+offset_left = 130.0
+offset_top = 58.0
+offset_right = 130.0
+offset_bottom = 58.0
 caption = "成长"
 width = 80
 piece = "txt_fbczl"
 
 [node name="StatFbwx" parent="StatRows" unique_id=650313914 instance=ExtResource("33_stat")]
 layout_mode = 0
-offset_left = 330.0
-offset_top = 293.0
-offset_right = 330.0
-offset_bottom = 293.0
+offset_left = 130.0
+offset_top = 93.0
+offset_right = 130.0
+offset_bottom = 93.0
 caption = "五行"
 width = 80
 piece = "txt_fbwx"
 
 [node name="StatFbhx" parent="StatRows" unique_id=1389367803 instance=ExtResource("33_stat")]
 layout_mode = 0
-offset_left = 195.0
-offset_top = 342.0
-offset_right = 195.0
-offset_bottom = 342.0
+offset_left = -5.0
+offset_top = 142.0
+offset_right = -5.0
+offset_bottom = 142.0
 caption = "生命"
 width = 80
 piece = "txt_fbhx"
 
 [node name="StatFbatk" parent="StatRows" unique_id=341846521 instance=ExtResource("33_stat")]
 layout_mode = 0
-offset_left = 195.0
-offset_top = 377.0
-offset_right = 195.0
-offset_bottom = 377.0
+offset_left = -5.0
+offset_top = 177.0
+offset_right = -5.0
+offset_bottom = 177.0
 caption = "攻击"
 width = 80
 piece = "txt_fbatk"
 
 [node name="StatFbhl" parent="StatRows" unique_id=279161895 instance=ExtResource("33_stat")]
 layout_mode = 0
-offset_left = 324.0
-offset_top = 342.0
-offset_right = 324.0
-offset_bottom = 342.0
+offset_left = 124.0
+offset_top = 142.0
+offset_right = 124.0
+offset_bottom = 142.0
 caption = "魔法"
 width = 80
 piece = "txt_fbhl"
 
 [node name="StatFbdef" parent="StatRows" unique_id=494170138 instance=ExtResource("33_stat")]
 layout_mode = 0
-offset_left = 324.0
-offset_top = 377.0
-offset_right = 324.0
-offset_bottom = 377.0
+offset_left = 124.0
+offset_top = 177.0
+offset_right = 124.0
+offset_bottom = 177.0
 caption = "防御"
 width = 80
 piece = "txt_fbdef"
 
 [node name="CurrencyFblhProgress" type="TextureProgressBar" parent="StatRows" unique_id=342475261]
 layout_mode = 0
-offset_left = 237.0
-offset_top = 412.5
-offset_right = 398.0
-offset_bottom = 431.7
+offset_left = 37.0
+offset_top = 212.5
+offset_right = 198.0
+offset_bottom = 231.70001
 mouse_filter = 2
 max_value = 1.0
 step = 0.0
@@ -536,10 +529,10 @@ metadata/ui_piece = ["fblh_progress"]
 
 [node name="CurrencyFblh" parent="StatRows" unique_id=1539476760 instance=ExtResource("33_stat")]
 layout_mode = 0
-offset_left = 195.0
-offset_top = 412.0
-offset_right = 195.0
-offset_bottom = 412.0
+offset_left = -5.0
+offset_top = 212.0
+offset_right = -5.0
+offset_bottom = 212.0
 caption = "灵魂"
 width = 163
 piece = "txt_fblh"
@@ -574,43 +567,19 @@ metadata/rec = {
 }
 metadata/ui_piece = ["txt_fbname"]
 
-[node name="btn_close" type="Control" parent="." unique_id=957281849]
-anchors_preset = 0
+[node name="btn_close" type="Button" parent="." unique_id=957281849]
+layout_mode = 0
 offset_left = 709.9
 offset_top = 90.95
 offset_right = 749.9
 offset_bottom = 130.95
 mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_btncloseUp0")
+theme_override_styles/hover = SubResource("StyleBoxTexture_btncloseOver1")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_btncloseDown2")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btncloseDown2")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_btncloseUp0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
 metadata/ui_piece = ["btn_close"]
 metadata/ui_button = "btn_close"
-metadata/pad_seq = 74
-
-[node name="Up" type="Node2D" parent="btn_close" unique_id=559615097]
-position = Vector2(0, -2)
-
-[node name="backpack_v5_12" type="Sprite2D" parent="btn_close/Up" unique_id=560156717]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("31_plfqd")
-centered = false
-metadata/tex_key = "backpack_v5:12"
-
-[node name="Over" type="Node2D" parent="btn_close" unique_id=1936928526]
-visible = false
-position = Vector2(0, -2)
-
-[node name="backpack_v5_14" type="Sprite2D" parent="btn_close/Over" unique_id=1991347380]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("32_ad4e2")
-centered = false
-metadata/tex_key = "backpack_v5:14"
-
-[node name="Down" type="Node2D" parent="btn_close" unique_id=887959663]
-visible = false
-position = Vector2(0, -2)
-
-[node name="backpack_v5_12" type="Sprite2D" parent="btn_close/Down" unique_id=470492166]
-position = Vector2(0, 2)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("31_plfqd")
-centered = false
-metadata/tex_key = "backpack_v5:12"

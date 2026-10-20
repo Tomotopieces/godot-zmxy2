@@ -5,6 +5,29 @@
 [ext_resource type="Texture2D" uid="uid://bxsnoyk0w7w8r" path="res://assets/shared/ui/OtherMat_v10_236.png" id="5_w2f1g"]
 [ext_resource type="Texture2D" uid="uid://dm4u0mcpur1xt" path="res://assets/shared/ui/OtherMat_v10_237.png" id="6_we6y7"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_btnfocus"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnbackUp0"]
+texture = ExtResource("5_w2f1g")
+expand_margin_left = -2.55
+expand_margin_top = -1.2
+expand_margin_right = -1.95
+expand_margin_bottom = -5.3
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnbackOver1"]
+texture = ExtResource("6_we6y7")
+expand_margin_left = -2.55
+expand_margin_top = -1.2
+expand_margin_right = -1.95
+expand_margin_bottom = -5.3
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnbackDown2"]
+texture = ExtResource("5_w2f1g")
+expand_margin_left = -2.55
+expand_margin_top = -3.2
+expand_margin_right = -1.95
+expand_margin_bottom = -3.3
+
 [node name="buy_skill" type="Control" unique_id=576290882]
 layout_mode = 3
 anchors_preset = 0
@@ -19,45 +42,19 @@ texture = ExtResource("2_qt5gl")
 centered = false
 metadata/tex_key = "OtherMat_v10:341"
 
-[node name="btnback" type="Control" parent="." unique_id=1562965823]
-anchors_preset = 0
+[node name="btnback" type="Button" parent="." unique_id=1562965823]
+layout_mode = 0
 offset_left = 854.45
 offset_top = 19.5
 offset_right = 912.45
 offset_bottom = 45.5
 mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_btnbackUp0")
+theme_override_styles/hover = SubResource("StyleBoxTexture_btnbackOver1")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_btnbackDown2")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btnbackDown2")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_btnbackUp0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
 metadata/ui_piece = ["btnback"]
 metadata/ui_button = "btnback"
-metadata/pad_seq = 6
-
-[node name="Up" type="Node2D" parent="btnback" unique_id=1047407197]
-position = Vector2(-0.45, -4.45)
-
-[node name="OtherMat_v10_236" type="Sprite2D" parent="btnback/Up" unique_id=2122990254]
-position = Vector2(3, 5.65)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_w2f1g")
-centered = false
-metadata/tex_key = "OtherMat_v10:236"
-
-[node name="Over" type="Node2D" parent="btnback" unique_id=1888473413]
-visible = false
-position = Vector2(-0.45, -4.45)
-
-[node name="OtherMat_v10_237" type="Sprite2D" parent="btnback/Over" unique_id=147973505]
-position = Vector2(3, 5.65)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_we6y7")
-centered = false
-metadata/tex_key = "OtherMat_v10:237"
-
-[node name="Down" type="Node2D" parent="btnback" unique_id=1887280954]
-visible = false
-position = Vector2(-0.45, -4.45)
-
-[node name="OtherMat_v10_236" type="Sprite2D" parent="btnback/Down" unique_id=647217260]
-position = Vector2(3, 7.65)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_w2f1g")
-centered = false
-metadata/tex_key = "OtherMat_v10:236"

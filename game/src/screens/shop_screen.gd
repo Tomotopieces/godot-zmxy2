@@ -109,13 +109,8 @@ func _ask(i: int) -> void:
 		return
 	var c := UiLayout.create("shop_confirm")
 	var d := EquipmentCatalog.find(id)
-	var l := RichTextLabel.new()
-	l.bbcode_enabled = true
-	l.text = "[center]购买 [color=#%s]%s[/color] × %d\n需要 %d 功勋[/center]" % [d.color.to_html(false), d.display_name, _counts[i], cost]
-	l.position = Vector2(330, 245)
-	l.size = Vector2(280, 60)
-	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	c.add_child(l)
+	(c.get_piece("txt_msg") as RichTextLabel).text = "[center]购买 [color=#%s]%s[/color] × %d\n需要 %d 功勋[/center]" % [
+		d.color.to_html(false), d.display_name, _counts[i], cost]
 	PadNav.modal(c)
 	c.button_pressed.connect(func(b):
 		_confirm = null

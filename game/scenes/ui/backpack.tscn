@@ -6,10 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://j383egt46o73" path="res://assets/ui/backpack/tex/backpack_v5_5.png" id="4_10tr8"]
 [ext_resource type="Texture2D" uid="uid://c2ap1tvyjfcc0" path="res://assets/shared/ui/Common_v7_547.png" id="8_u3sjm"]
 [ext_resource type="Texture2D" uid="uid://b5ggciq2dtt7d" path="res://assets/shared/ui/Common_v7_549.png" id="9_v2suv"]
-[ext_resource type="Texture2D" uid="uid://drc04okor533u" path="res://assets/shared/ui/OtherMat_v10_567.png" id="11_yxu1y"]
-[ext_resource type="Texture2D" uid="uid://dffkry8bewuql" path="res://assets/shared/ui/OtherMat_v10_569.png" id="12_di6wg"]
-[ext_resource type="Texture2D" uid="uid://twibsg7m5n3c" path="res://assets/shared/ui/OtherMat_v10_571.png" id="13_ykggo"]
-[ext_resource type="Texture2D" uid="uid://cwkwgb6gardjq" path="res://assets/shared/ui/OtherMat_v10_572.png" id="14_hft88"]
 [ext_resource type="Texture2D" uid="uid://bc2eakhl0f7cl" path="res://assets/ui/backpack/tex/backpack_v5_26.png" id="15_pvytj"]
 [ext_resource type="Texture2D" uid="uid://cs38as3rhhpv5" path="res://assets/ui/backpack/tex/backpack_v5_28.png" id="16_51s1i"]
 [ext_resource type="Texture2D" uid="uid://lujyyiye2bau" path="res://assets/ui/backpack/tex/backpack_v5_30.png" id="17_qxn83"]
@@ -51,8 +47,6 @@
 [ext_resource type="Texture2D" uid="uid://bvt7k8nk5sgag" path="res://assets/ui/backpack/tex/backpack_v5_102.png" id="53_jjlk8"]
 [ext_resource type="Texture2D" uid="uid://c7a4cut0m2n60" path="res://assets/ui/backpack/tex/backpack_v5_104.png" id="54_f3h6a"]
 [ext_resource type="PackedScene" uid="uid://cc8hr3t5hdisi" path="res://scenes/ui/backpack/currency.tscn" id="54_gye66"]
-[ext_resource type="Texture2D" uid="uid://b0srm0lhemcss" path="res://assets/shared/ui/OtherMat_v10_583.png" id="57_nu7vl"]
-[ext_resource type="Texture2D" uid="uid://njluhxgoko5w" path="res://assets/shared/ui/OtherMat_v10_585.png" id="58_bo46w"]
 [ext_resource type="PackedScene" uid="uid://bn7cu4s02f7m0" path="res://scenes/ui/backpack/stat.tscn" id="59_2ysyl"]
 [ext_resource type="Texture2D" uid="uid://c0olesjgejxdo" path="res://assets/shared/ui/backpack_v5_135.png" id="61_rpvka"]
 [ext_resource type="Texture2D" uid="uid://dqql6slotbkfw" path="res://assets/ui/backpack/tex/backpack_v5_148.png" id="65_834wd"]
@@ -74,7 +68,31 @@
 [ext_resource type="Texture2D" uid="uid://co6gehv1xfujq" path="res://assets/shared/ui/backpack_v5_415.png" id="82_3nogg"]
 [ext_resource type="PackedScene" uid="uid://bhb50stuk56mg" path="res://scenes/ui/backpack/equipment_slot.tscn" id="82_gye66"]
 [ext_resource type="PackedScene" uid="uid://bjfpq7vfs33b3" path="res://scenes/ui/backpack/slot.tscn" id="slot"]
+[ext_resource type="PackedScene" uid="uid://bqe4kf3igvsji" path="res://scenes/ui/components/yellow_button.tscn" id="yellow_button"]
 [ext_resource type="Texture2D" uid="uid://b5oktqg3cye6a" path="res://assets/textures/yellow_orange_gradient.tres" id="yellow_orange_gradient"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_btnfocus"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btncloseUp0"]
+texture = ExtResource("8_u3sjm")
+expand_margin_left = 0
+expand_margin_top = 2
+expand_margin_right = 0
+expand_margin_bottom = -2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btncloseOver1"]
+texture = ExtResource("9_v2suv")
+expand_margin_left = 0
+expand_margin_top = 2
+expand_margin_right = 0
+expand_margin_bottom = -2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btncloseDown2"]
+texture = ExtResource("8_u3sjm")
+expand_margin_left = 0
+expand_margin_top = 0
+expand_margin_right = 0
+expand_margin_bottom = 0
 
 [node name="backpack" type="Control" unique_id=1004764809]
 layout_mode = 3
@@ -91,140 +109,70 @@ centered = false
 metadata/tex_key = "backpack_v5:1"
 
 [node name="backpack_v5_3" type="Sprite2D" parent="Art" unique_id=222627014]
-position = Vector2(72, 22)
+position = Vector2(96, 46)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_rcy87")
 centered = false
 metadata/tex_key = "backpack_v5:3"
 
 [node name="backpack_v5_5" type="Sprite2D" parent="Art" unique_id=316743068]
-position = Vector2(447.15, 69.45)
+position = Vector2(471.15002, 93.45)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_10tr8")
 centered = false
 metadata/tex_key = "backpack_v5:5"
 
-[node name="btn_close" type="Control" parent="." unique_id=1224266255]
-anchors_preset = 0
-offset_left = 771.5
-offset_top = 33.85
-offset_right = 811.5
-offset_bottom = 73.85
+[node name="btn_close" type="Button" parent="." unique_id=1224266255]
+layout_mode = 0
+offset_left = 795.5
+offset_top = 57.85
+offset_right = 835.5
+offset_bottom = 97.85
 mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_btncloseUp0")
+theme_override_styles/hover = SubResource("StyleBoxTexture_btncloseOver1")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_btncloseDown2")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btncloseDown2")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_btncloseUp0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
 metadata/ui_piece = ["btn_close"]
 metadata/ui_button = "btn_close"
-metadata/pad_seq = 2
-
-[node name="Up" type="Node2D" parent="btn_close" unique_id=945757019]
-position = Vector2(0, -2)
-
-[node name="backpack_v5_12" type="Sprite2D" parent="btn_close/Up" unique_id=1185543137]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("8_u3sjm")
-centered = false
-metadata/tex_key = "backpack_v5:12"
-
-[node name="Over" type="Node2D" parent="btn_close" unique_id=1924277040]
-visible = false
-position = Vector2(0, -2)
-
-[node name="backpack_v5_14" type="Sprite2D" parent="btn_close/Over" unique_id=685355600]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("9_v2suv")
-centered = false
-metadata/tex_key = "backpack_v5:14"
-
-[node name="Down" type="Node2D" parent="btn_close" unique_id=181340342]
-visible = false
-position = Vector2(0, -2)
-
-[node name="backpack_v5_12" type="Sprite2D" parent="btn_close/Down" unique_id=2141537075]
-position = Vector2(0, 2)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("8_u3sjm")
-centered = false
-metadata/tex_key = "backpack_v5:12"
 
 [node name="Art2" type="Node2D" parent="." unique_id=945568241]
 
-[node name="btn_zb" type="Control" parent="." unique_id=169974895]
-anchors_preset = 0
-offset_left = 481.2
-offset_top = 85.35
-offset_right = 556.2
-offset_bottom = 114.35
-mouse_default_cursor_shape = 2
+[node name="BtnZhuangBei" parent="." unique_id=299425955 instance=ExtResource("yellow_button")]
+layout_mode = 0
+offset_left = 512.4
+offset_top = 112.0
+offset_right = 573.0
+offset_bottom = 135.7
+text = "装 备"
 metadata/ui_piece = ["btn_zb"]
 metadata/ui_button = "btn_zb"
-metadata/pad_seq = 3
 
-[node name="Up" type="Node2D" parent="btn_zb" unique_id=461243201]
-
-[node name="backpack_v5_18" type="Sprite2D" parent="btn_zb/Up" unique_id=1411145926]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("11_yxu1y")
-centered = false
-metadata/tex_key = "backpack_v5:18"
-
-[node name="Over" type="Node2D" parent="btn_zb" unique_id=595874884]
-visible = false
-modulate = Color(1.3, 1.15, 1, 1)
-
-[node name="backpack_v5_18" type="Sprite2D" parent="btn_zb/Over" unique_id=1433427083]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("11_yxu1y")
-centered = false
-metadata/tex_key = "backpack_v5:18"
-
-[node name="Down" type="Node2D" parent="btn_zb" unique_id=1748298846]
-visible = false
-
-[node name="backpack_v5_20" type="Sprite2D" parent="btn_zb/Down" unique_id=2022804564]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("12_di6wg")
-centered = false
-metadata/tex_key = "backpack_v5:20"
-
-[node name="btn_dj" type="Control" parent="." unique_id=819595966]
-anchors_preset = 0
-offset_left = 556.05
-offset_top = 85.35
-offset_right = 631.05
-offset_bottom = 114.35
-mouse_default_cursor_shape = 2
+[node name="BtnDaoJu" parent="." unique_id=273022363 instance=ExtResource("yellow_button")]
+layout_mode = 0
+offset_left = 588.1
+offset_top = 112.0
+offset_right = 648.69995
+offset_bottom = 135.7
+text = "道 具"
 metadata/ui_piece = ["btn_dj"]
 metadata/ui_button = "btn_dj"
-metadata/pad_seq = 4
 
-[node name="Up" type="Node2D" parent="btn_dj" unique_id=313343342]
-
-[node name="backpack_v5_22" type="Sprite2D" parent="btn_dj/Up" unique_id=434456259]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("13_ykggo")
-centered = false
-metadata/tex_key = "backpack_v5:22"
-
-[node name="Over" type="Node2D" parent="btn_dj" unique_id=719139315]
-visible = false
-modulate = Color(1.3, 1.15, 1, 1)
-
-[node name="backpack_v5_22" type="Sprite2D" parent="btn_dj/Over" unique_id=1355002476]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("13_ykggo")
-centered = false
-metadata/tex_key = "backpack_v5:22"
-
-[node name="Down" type="Node2D" parent="btn_dj" unique_id=1563644499]
-visible = false
-
-[node name="backpack_v5_23" type="Sprite2D" parent="btn_dj/Down" unique_id=830818337]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("14_hft88")
-centered = false
-metadata/tex_key = "backpack_v5:23"
+[node name="BtnShiZhuang" parent="." unique_id=1082462353 instance=ExtResource("yellow_button")]
+layout_mode = 0
+offset_left = 662.1
+offset_top = 112.0
+offset_right = 723.0
+offset_bottom = 135.7
+text = "时 装"
+metadata/ui_piece = ["btn_rw"]
+metadata/ui_button = "btn_rw"
 
 [node name="levelmc" type="Node2D" parent="." unique_id=1366265859]
-position = Vector2(389.7, 124.35)
+position = Vector2(413.7, 148.35)
 metadata/labels = {}
 metadata/ui_piece = ["levelmc"]
 
@@ -629,60 +577,23 @@ metadata/tex_key = "backpack_v5:104"
 
 [node name="LingHun" parent="." unique_id=1539476760 instance=ExtResource("54_gye66")]
 layout_mode = 0
-offset_left = 480.0
-offset_top = 420.0
-offset_right = 480.0
-offset_bottom = 420.0
+offset_left = 504.0
+offset_top = 444.0
+offset_right = 504.0
+offset_bottom = 444.0
 caption = "灵魂"
 width = 80
 piece = "txt_lh"
 
 [node name="GongXun" parent="." unique_id=1833839693 instance=ExtResource("54_gye66")]
 layout_mode = 0
-offset_left = 637.0
-offset_top = 419.0
-offset_right = 637.0
-offset_bottom = 419.0
+offset_left = 661.0
+offset_top = 443.0
+offset_right = 661.0
+offset_bottom = 443.0
 caption = "功勋 "
 width = 80
 piece = "txt_zg"
-
-[node name="btn_rw" type="Control" parent="." unique_id=1736179510]
-anchors_preset = 0
-offset_left = 632.05
-offset_top = 86.35
-offset_right = 705.05
-offset_bottom = 113.35
-mouse_default_cursor_shape = 2
-metadata/ui_piece = ["btn_rw"]
-metadata/ui_button = "btn_rw"
-metadata/pad_seq = 5
-
-[node name="Up" type="Node2D" parent="btn_rw" unique_id=1544388262]
-
-[node name="backpack_v5_116" type="Sprite2D" parent="btn_rw/Up" unique_id=310910371]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("57_nu7vl")
-centered = false
-metadata/tex_key = "backpack_v5:116"
-
-[node name="Over" type="Node2D" parent="btn_rw" unique_id=227876137]
-visible = false
-
-[node name="backpack_v5_118" type="Sprite2D" parent="btn_rw/Over" unique_id=643892199]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("58_bo46w")
-centered = false
-metadata/tex_key = "backpack_v5:118"
-
-[node name="Down" type="Node2D" parent="btn_rw" unique_id=16607526]
-visible = false
-
-[node name="backpack_v5_116" type="Sprite2D" parent="btn_rw/Down" unique_id=1654769444]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("57_nu7vl")
-centered = false
-metadata/tex_key = "backpack_v5:116"
 
 [node name="Art5" type="Node2D" parent="." unique_id=726557618]
 
@@ -692,46 +603,46 @@ mouse_filter = 2
 
 [node name="StatHp" parent="StatRows" unique_id=74109111 instance=ExtResource("59_2ysyl")]
 layout_mode = 0
-offset_left = 120.0
-offset_top = 294.0
-offset_right = 120.0
-offset_bottom = 294.0
+offset_left = 144.0
+offset_top = 318.0
+offset_right = 144.0
+offset_bottom = 318.0
 caption = "生命"
 piece = "txt_hp"
 
 [node name="StatMp" parent="StatRows" unique_id=2041384436 instance=ExtResource("59_2ysyl")]
 layout_mode = 0
-offset_left = 280.0
-offset_top = 294.0
-offset_right = 280.0
-offset_bottom = 294.0
+offset_left = 304.0
+offset_top = 318.0
+offset_right = 304.0
+offset_bottom = 318.0
 caption = "魔法"
 piece = "txt_mp"
 
 [node name="StatAtk" parent="StatRows" unique_id=2006901953 instance=ExtResource("59_2ysyl")]
 layout_mode = 0
-offset_left = 120.0
-offset_top = 323.0
-offset_right = 120.0
-offset_bottom = 323.0
+offset_left = 144.0
+offset_top = 347.0
+offset_right = 144.0
+offset_bottom = 347.0
 caption = "攻击"
 piece = "txt_att"
 
 [node name="StatDef" parent="StatRows" unique_id=21753310 instance=ExtResource("59_2ysyl")]
 layout_mode = 0
-offset_left = 280.0
-offset_top = 323.0
-offset_right = 280.0
-offset_bottom = 323.0
+offset_left = 304.0
+offset_top = 347.0
+offset_right = 304.0
+offset_bottom = 347.0
 caption = "防御"
 piece = "txt_def"
 
 [node name="ExpProgress" type="TextureProgressBar" parent="StatRows" unique_id=1873301452]
 layout_mode = 0
-offset_left = 162.0
-offset_top = 413.5
-offset_right = 428.0
-offset_bottom = 432.5
+offset_left = 186.0
+offset_top = 437.5
+offset_right = 452.0
+offset_bottom = 456.5
 mouse_filter = 2
 max_value = 1.0
 step = 0.0
@@ -742,56 +653,56 @@ metadata/ui_piece = ["exp_progress"]
 
 [node name="StatExp" parent="StatRows" unique_id=767532122 instance=ExtResource("59_2ysyl")]
 layout_mode = 0
-offset_left = 120.0
-offset_top = 413.0
-offset_right = 120.0
-offset_bottom = 413.0
+offset_left = 144.0
+offset_top = 437.0
+offset_right = 144.0
+offset_bottom = 437.0
 caption = "经验"
 width = 268
 piece = "txt_exp"
 
 [node name="StatCrit" parent="StatRows" unique_id=1059522623 instance=ExtResource("59_2ysyl")]
 layout_mode = 0
-offset_left = 120.0
-offset_top = 353.0
-offset_right = 120.0
-offset_bottom = 353.0
+offset_left = 144.0
+offset_top = 377.0
+offset_right = 144.0
+offset_bottom = 377.0
 caption = "暴击"
 piece = "txt_baoji"
 
 [node name="StatMiss" parent="StatRows" unique_id=1342865893 instance=ExtResource("59_2ysyl")]
 layout_mode = 0
-offset_left = 280.0
-offset_top = 353.0
-offset_right = 280.0
-offset_bottom = 353.0
+offset_left = 304.0
+offset_top = 377.0
+offset_right = 304.0
+offset_bottom = 377.0
 caption = "闪避"
 piece = "txt_sb"
 
 [node name="StatHpRegen" parent="StatRows" unique_id=699697246 instance=ExtResource("59_2ysyl")]
 layout_mode = 0
-offset_left = 120.0
-offset_top = 383.0
-offset_right = 120.0
-offset_bottom = 383.0
+offset_left = 144.0
+offset_top = 407.0
+offset_right = 144.0
+offset_bottom = 407.0
 caption = "回血"
 piece = "txt_hx"
 
 [node name="StatMpRegen" parent="StatRows" unique_id=216398030 instance=ExtResource("59_2ysyl")]
 layout_mode = 0
-offset_left = 280.0
-offset_top = 383.0
-offset_right = 280.0
-offset_bottom = 383.0
+offset_left = 304.0
+offset_top = 407.0
+offset_right = 304.0
+offset_bottom = 407.0
 caption = "回蓝"
 piece = "txt_hl"
 
 [node name="Grid" type="Control" parent="." unique_id=371986125]
 anchors_preset = 0
-offset_left = 484.3
-offset_top = 120.35
-offset_right = 484.3
-offset_bottom = 120.35
+offset_left = 508.3
+offset_top = 144.35
+offset_right = 508.3
+offset_bottom = 144.35
 mouse_filter = 2
 
 [node name="Cell1" parent="Grid" unique_id=967300072 instance=ExtResource("slot")]
@@ -976,10 +887,10 @@ mouse_filter = 2
 
 [node name="txt_name" type="Label" parent="." unique_id=332687760]
 layout_mode = 0
-offset_left = 196.0
-offset_top = 114.8
-offset_right = 301.0
-offset_bottom = 137.2
+offset_left = 220.0
+offset_top = 138.8
+offset_right = 325.0
+offset_bottom = 161.2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
@@ -1012,7 +923,7 @@ metadata/ui_piece = ["txt_name"]
 
 [node name="backpack_v5_135" type="Sprite2D" parent="Art6/Art" unique_id=156123914]
 modulate = Color(1, 1, 1, 0.46)
-position = Vector2(375.99994, 275)
+position = Vector2(399.99994, 299)
 rotation = -3.1415925
 scale = Vector2(0.605, 0.335)
 texture = ExtResource("61_rpvka")
@@ -1022,7 +933,7 @@ region_rect = Rect2(1528, 0, 392.10913, 384)
 metadata/tex_key = "backpack_v5:135"
 
 [node name="zbfb" type="Node2D" parent="." unique_id=2017460202]
-position = Vector2(378, 222.35)
+position = Vector2(402, 246.35)
 metadata/ui_piece = ["zbfb"]
 
 [node name="EquipmentSlot" parent="zbfb" unique_id=435601657 instance=ExtResource("82_gye66")]
@@ -1030,7 +941,7 @@ layout_mode = 3
 caption = "法宝"
 
 [node name="zbfj" type="Node2D" parent="." unique_id=1317183414]
-position = Vector2(314.15, 222.35)
+position = Vector2(338.15, 246.35)
 metadata/ui_piece = ["zbfj"]
 
 [node name="EquipmentSlot" parent="zbfj" unique_id=1951206496 instance=ExtResource("82_gye66")]
@@ -1038,7 +949,7 @@ layout_mode = 3
 caption = "衣服"
 
 [node name="zbsp" type="Node2D" parent="." unique_id=1383642489]
-position = Vector2(378, 159.35)
+position = Vector2(402, 183.35)
 metadata/ui_piece = ["zbsp"]
 
 [node name="EquipmentSlot" parent="zbsp" unique_id=254942191 instance=ExtResource("82_gye66")]
@@ -1048,14 +959,14 @@ caption = "饰品"
 [node name="Art7" type="Node2D" parent="." unique_id=1572461618]
 
 [node name="backpack_v5_148" type="Sprite2D" parent="Art7" unique_id=1845703974]
-position = Vector2(122.15, 81.5)
+position = Vector2(146.15, 105.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("65_834wd")
 centered = false
 metadata/tex_key = "backpack_v5:148"
 
 [node name="zbwq" type="Node2D" parent="." unique_id=1568862546]
-position = Vector2(314.15, 159.35)
+position = Vector2(338.15, 183.35)
 metadata/ui_piece = ["zbwq"]
 
 [node name="EquipmentSlot" parent="zbwq" unique_id=2116962900 instance=ExtResource("82_gye66")]
@@ -1063,7 +974,7 @@ layout_mode = 3
 caption = "武器"
 
 [node name="personmc" type="Node2D" parent="." unique_id=329698593]
-position = Vector2(252, 221.4)
+position = Vector2(276, 245.4)
 metadata/labels = {
 "八戒": 2.0,
 "唐僧": 1.0,
@@ -1196,7 +1107,7 @@ centered = false
 metadata/tex_key = "backpack_v5:415"
 
 [node name="zbsz" type="Node2D" parent="." unique_id=395137496]
-position = Vector2(122.15, 159.4)
+position = Vector2(146.15, 183.4)
 metadata/ui_piece = ["zbsz"]
 
 [node name="EquipmentSlot" parent="zbsz" unique_id=1143507433 instance=ExtResource("82_gye66")]
@@ -1204,7 +1115,7 @@ layout_mode = 3
 caption = "时装"
 
 [node name="zbcb" type="Node2D" parent="." unique_id=1189469783]
-position = Vector2(122.15, 219.6)
+position = Vector2(146.15, 243.6)
 metadata/ui_piece = ["zbcb"]
 
 [node name="EquipmentSlot" parent="zbcb" unique_id=321991838 instance=ExtResource("82_gye66")]

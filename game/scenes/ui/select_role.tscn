@@ -7,56 +7,103 @@
 [ext_resource type="Texture2D" uid="uid://dtqdmnwspfrvo" path="res://assets/ui/select_role/tex/OtherMat_v10_507.png" id="7_8iphx"]
 [ext_resource type="Texture2D" uid="uid://d0pfndhxmykyk" path="res://assets/ui/select_role/tex/OtherMat_v10_511.png" id="8_vemgg"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_btnfocus"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btn1Up0"]
+texture = ExtResource("3_00h1l")
+expand_margin_left = 0
+expand_margin_top = 12
+expand_margin_right = 0
+expand_margin_bottom = -5
+region_rect = Rect2(24, 0, 472, 1208)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btn1Over1"]
+texture = ExtResource("3_00h1l")
+expand_margin_left = 0
+expand_margin_top = 12
+expand_margin_right = 0
+expand_margin_bottom = -5
+region_rect = Rect2(24, 0, 472, 1208)
+modulate_color = Color(1.3, 1.15, 1, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btn1Down2"]
+texture = ExtResource("3_00h1l")
+expand_margin_left = 0
+expand_margin_top = 12
+expand_margin_right = 0
+expand_margin_bottom = -5
+region_rect = Rect2(24, 0, 472, 1208)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btn2Up3"]
+texture = ExtResource("5_apunm")
+expand_margin_left = 0
+expand_margin_top = 8
+expand_margin_right = 0
+expand_margin_bottom = 11.05
+region_rect = Rect2(48, 0, 472, 1232)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btn2Over4"]
+texture = ExtResource("5_apunm")
+expand_margin_left = 0
+expand_margin_top = 8
+expand_margin_right = 0
+expand_margin_bottom = 11.05
+region_rect = Rect2(48, 0, 472, 1232)
+modulate_color = Color(1.3, 1.15, 1, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btn2Down5"]
+texture = ExtResource("5_apunm")
+expand_margin_left = 0
+expand_margin_top = 8
+expand_margin_right = 0
+expand_margin_bottom = 11.05
+region_rect = Rect2(48, 0, 472, 1232)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btn3Up6"]
+texture = ExtResource("7_8iphx")
+expand_margin_left = 0
+expand_margin_top = 0
+expand_margin_right = 6
+expand_margin_bottom = 11.5
+region_rect = Rect2(74, 0, 478, 1201)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btn3Over7"]
+texture = ExtResource("7_8iphx")
+expand_margin_left = 0
+expand_margin_top = 0
+expand_margin_right = 6
+expand_margin_bottom = 11.5
+region_rect = Rect2(74, 0, 478, 1201)
+modulate_color = Color(1.3, 1.15, 1, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btn3Down8"]
+texture = ExtResource("7_8iphx")
+expand_margin_left = 0
+expand_margin_top = 0
+expand_margin_right = 6
+expand_margin_bottom = 11.5
+region_rect = Rect2(74, 0, 478, 1201)
+
 [node name="select_role" type="Control" unique_id=332687142]
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("1_osof8")
 
-[node name="btn1" type="Control" parent="." unique_id=1816823548]
-anchors_preset = 0
+[node name="btn1" type="Button" parent="." unique_id=1816823548]
+layout_mode = 0
 offset_right = 236.0
 offset_bottom = 597.0
 mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_btn1Up0")
+theme_override_styles/hover = SubResource("StyleBoxTexture_btn1Over1")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_btn1Down2")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btn1Down2")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_btn1Up0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
 metadata/ui_piece = ["btn1"]
 metadata/ui_button = "btn1"
-metadata/pad_seq = 40
-
-[node name="Up" type="Node2D" parent="btn1" unique_id=1180374176]
-position = Vector2(0, -12)
-
-[node name="WukongAvatar" type="Sprite2D" parent="btn1/Up" unique_id=236175964]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_00h1l")
-centered = false
-region_enabled = true
-region_rect = Rect2(24, 0, 472, 1208)
-metadata/tex_key = "OtherMat_v10:497"
-
-[node name="Over" type="Node2D" parent="btn1" unique_id=1191010958]
-visible = false
-modulate = Color(1.3, 1.15, 1, 1)
-position = Vector2(0, -12)
-
-[node name="WukongAvatar" type="Sprite2D" parent="btn1/Over" unique_id=224769234]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_00h1l")
-centered = false
-region_enabled = true
-region_rect = Rect2(24, 0, 472, 1208)
-metadata/tex_key = "OtherMat_v10:497"
-
-[node name="Down" type="Node2D" parent="btn1" unique_id=683658085]
-visible = false
-position = Vector2(0, -12)
-
-[node name="WukongAvatar" type="Sprite2D" parent="btn1/Down" unique_id=1428177615]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_00h1l")
-centered = false
-region_enabled = true
-region_rect = Rect2(24, 0, 472, 1208)
-metadata/tex_key = "OtherMat_v10:497"
 
 [node name="Frame" type="Sprite2D" parent="btn1" unique_id=413137642]
 scale = Vector2(0.5, 0.5)
@@ -64,51 +111,21 @@ texture = ExtResource("4_2oa6x")
 centered = false
 metadata/tex_key = "OtherMat_v10:498"
 
-[node name="btn2" type="Control" parent="." unique_id=976125362]
-anchors_preset = 0
+[node name="btn2" type="Button" parent="." unique_id=976125362]
+layout_mode = 0
 offset_left = 236.0
 offset_right = 472.0
 offset_bottom = 596.95
 mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_btn2Up3")
+theme_override_styles/hover = SubResource("StyleBoxTexture_btn2Over4")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_btn2Down5")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btn2Down5")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_btn2Up3")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
 metadata/ui_piece = ["btn2"]
 metadata/ui_button = "btn2"
-metadata/pad_seq = 41
-
-[node name="Up" type="Node2D" parent="btn2" unique_id=1727046372]
-position = Vector2(0, -8)
-
-[node name="TangsengAvatar" type="Sprite2D" parent="btn2/Up" unique_id=1370454827]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_apunm")
-centered = false
-region_enabled = true
-region_rect = Rect2(48, 0, 472, 1232)
-metadata/tex_key = "OtherMat_v10:502"
-
-[node name="Over" type="Node2D" parent="btn2" unique_id=384235108]
-visible = false
-modulate = Color(1.3, 1.15, 1, 1)
-position = Vector2(0, -8)
-
-[node name="TangsengAvatar" type="Sprite2D" parent="btn2/Over" unique_id=209342597]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_apunm")
-centered = false
-region_enabled = true
-region_rect = Rect2(48, 0, 472, 1232)
-metadata/tex_key = "OtherMat_v10:502"
-
-[node name="Down" type="Node2D" parent="btn2" unique_id=272115724]
-visible = false
-position = Vector2(0, -8)
-
-[node name="TangsengAvatar" type="Sprite2D" parent="btn2/Down" unique_id=353172508]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_apunm")
-centered = false
-region_enabled = true
-region_rect = Rect2(48, 0, 472, 1232)
-metadata/tex_key = "OtherMat_v10:502"
 
 [node name="Frame" type="Sprite2D" parent="btn2" unique_id=1190441299]
 scale = Vector2(0.5, 0.5)
@@ -116,48 +133,21 @@ texture = ExtResource("4_2oa6x")
 centered = false
 metadata/tex_key = "OtherMat_v10:498"
 
-[node name="btn3" type="Control" parent="." unique_id=241509416]
-anchors_preset = 0
+[node name="btn3" type="Button" parent="." unique_id=241509416]
+layout_mode = 0
 offset_left = 472.0
 offset_right = 705.0
 offset_bottom = 589.0
 mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_btn3Up6")
+theme_override_styles/hover = SubResource("StyleBoxTexture_btn3Over7")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_btn3Down8")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btn3Down8")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_btn3Up6")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
 metadata/ui_piece = ["btn3"]
 metadata/ui_button = "btn3"
-metadata/pad_seq = 42
-
-[node name="Up" type="Node2D" parent="btn3" unique_id=1870790204]
-
-[node name="BajieAvatar" type="Sprite2D" parent="btn3/Up" unique_id=134810906]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("7_8iphx")
-centered = false
-region_enabled = true
-region_rect = Rect2(74, 0, 478, 1201)
-metadata/tex_key = "OtherMat_v10:507"
-
-[node name="Over" type="Node2D" parent="btn3" unique_id=1812217288]
-visible = false
-modulate = Color(1.3, 1.15, 1, 1)
-
-[node name="BajieAvatar" type="Sprite2D" parent="btn3/Over" unique_id=303915130]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("7_8iphx")
-centered = false
-region_enabled = true
-region_rect = Rect2(74, 0, 478, 1201)
-metadata/tex_key = "OtherMat_v10:507"
-
-[node name="Down" type="Node2D" parent="btn3" unique_id=1717520885]
-visible = false
-
-[node name="BajieAvatar" type="Sprite2D" parent="btn3/Down" unique_id=2110196196]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("7_8iphx")
-centered = false
-region_enabled = true
-region_rect = Rect2(74, 0, 478, 1201)
-metadata/tex_key = "OtherMat_v10:507"
 
 [node name="Frame" type="Sprite2D" parent="btn3" unique_id=143902794]
 scale = Vector2(0.5, 0.5)

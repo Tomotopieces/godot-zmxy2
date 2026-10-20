@@ -66,6 +66,14 @@ Rim light / moon exist because 1-1…1-3 have a moon — they are not a general 
 ## Branches
 `main` — released remake (remake 0.1: the scene-based remake with the new stage looks; earlier releases were v1.0…v1.3.1).
 
+## Fonts
+
+`game/assets/fonts/` keeps the full fonts. `tools/build.sh` and `tools/export_web.sh` cut them down to the characters
+the game can show (every character in the game's scenes, scripts and data, plus ASCII and common CJK punctuation) with
+`tools/subset_fonts.py` (fontTools; conda python), export, then put the full fonts back (backup in tools/dl/fonts_full;
+`python tools/subset_fonts.py restore` if an export was interrupted). Text typed in at run time (the debug console) can
+only show those characters.
+
 ## Game feel
 
 - Input buffer: an attack / skill / jump press is kept `HeroData.input_buffer` (0.12 s) and done as soon as it can be (also a jump pressed just before landing). Hit, death and the rage transform clear it.

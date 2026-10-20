@@ -53,6 +53,50 @@
 [ext_resource type="Texture2D" path="res://assets/ui/skill_control/tex/OtherMat_v10_702.png" id="51_1408v"]
 [ext_resource type="Texture2D" path="res://assets/ui/skill_control/tex/OtherMat_v10_703.png" id="52_js7hw"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_btnfocus"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_passivebtnUp0"]
+texture = ExtResource("49_e5aay")
+expand_margin_left = -4.6
+expand_margin_top = -5.5
+expand_margin_right = -28.85
+expand_margin_bottom = -1.5
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_passivebtnOver1"]
+texture = ExtResource("50_uav61")
+expand_margin_left = -4.6
+expand_margin_top = -5.5
+expand_margin_right = -28.85
+expand_margin_bottom = -1.5
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_passivebtnDown2"]
+texture = ExtResource("50_uav61")
+expand_margin_left = -4.6
+expand_margin_top = -7.5
+expand_margin_right = -28.85
+expand_margin_bottom = 0.5
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_activebtnUp3"]
+texture = ExtResource("51_1408v")
+expand_margin_left = -14.5
+expand_margin_top = -3.5
+expand_margin_right = -10
+expand_margin_bottom = -3.5
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_activebtnOver4"]
+texture = ExtResource("52_js7hw")
+expand_margin_left = -14.5
+expand_margin_top = -3.5
+expand_margin_right = -10
+expand_margin_bottom = -3.5
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_activebtnDown5"]
+texture = ExtResource("52_js7hw")
+expand_margin_left = -14.5
+expand_margin_top = -5.5
+expand_margin_right = -10
+expand_margin_bottom = -1.5
+
 [node name="skill_control" type="Control" unique_id=239743358]
 layout_mode = 3
 anchors_preset = 0
@@ -4185,86 +4229,36 @@ metadata/rec = {
 "wrap": true
 }
 
-[node name="passivebtn" type="Control" parent="." unique_id=1852388487]
-anchors_preset = 0
+[node name="passivebtn" type="Button" parent="." unique_id=1852388487]
+layout_mode = 0
 offset_left = 206.55
 offset_top = 546.5
 offset_right = 318.5
 offset_bottom = 572.5
 mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_passivebtnUp0")
+theme_override_styles/hover = SubResource("StyleBoxTexture_passivebtnOver1")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_passivebtnDown2")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_passivebtnDown2")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_passivebtnUp0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
 metadata/ui_piece = ["passivebtn"]
 metadata/ui_button = "passivebtn"
-metadata/pad_seq = 64
 
-[node name="Up" type="Node2D" parent="passivebtn" unique_id=63838255]
-position = Vector2(2, 1)
-
-[node name="OtherMat_v10_698" type="Sprite2D" parent="passivebtn/Up" unique_id=906400026]
-position = Vector2(2.6, 4.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("49_e5aay")
-centered = false
-metadata/tex_key = "OtherMat_v10:698"
-
-[node name="Over" type="Node2D" parent="passivebtn" unique_id=1779887714]
-visible = false
-position = Vector2(2, 1)
-
-[node name="OtherMat_v10_699" type="Sprite2D" parent="passivebtn/Over" unique_id=2054526971]
-position = Vector2(2.6, 4.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("50_uav61")
-centered = false
-metadata/tex_key = "OtherMat_v10:699"
-
-[node name="Down" type="Node2D" parent="passivebtn" unique_id=1342076325]
-visible = false
-position = Vector2(2, 1)
-
-[node name="OtherMat_v10_699" type="Sprite2D" parent="passivebtn/Down" unique_id=218431136]
-position = Vector2(2.6, 6.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("50_uav61")
-centered = false
-metadata/tex_key = "OtherMat_v10:699"
-
-[node name="activebtn" type="Control" parent="." unique_id=1810241447]
-anchors_preset = 0
+[node name="activebtn" type="Button" parent="." unique_id=1810241447]
+layout_mode = 0
 offset_left = 85.5
 offset_top = 547.5
 offset_right = 188.5
 offset_bottom = 573.5
 mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_activebtnUp3")
+theme_override_styles/hover = SubResource("StyleBoxTexture_activebtnOver4")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_activebtnDown5")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_activebtnDown5")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_activebtnUp3")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
 metadata/ui_piece = ["activebtn"]
 metadata/ui_button = "activebtn"
-metadata/pad_seq = 65
-
-[node name="Up" type="Node2D" parent="activebtn" unique_id=392391864]
-position = Vector2(14.5, 3.5)
-
-[node name="OtherMat_v10_702" type="Sprite2D" parent="activebtn/Up" unique_id=1221270526]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("51_1408v")
-centered = false
-metadata/tex_key = "OtherMat_v10:702"
-
-[node name="Over" type="Node2D" parent="activebtn" unique_id=454004145]
-visible = false
-position = Vector2(14.5, 3.5)
-
-[node name="OtherMat_v10_703" type="Sprite2D" parent="activebtn/Over" unique_id=1896110356]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("52_js7hw")
-centered = false
-metadata/tex_key = "OtherMat_v10:703"
-
-[node name="Down" type="Node2D" parent="activebtn" unique_id=2000089711]
-visible = false
-position = Vector2(14.5, 3.5)
-
-[node name="OtherMat_v10_703" type="Sprite2D" parent="activebtn/Down" unique_id=617008633]
-position = Vector2(0, 2)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("52_js7hw")
-centered = false
-metadata/tex_key = "OtherMat_v10:703"

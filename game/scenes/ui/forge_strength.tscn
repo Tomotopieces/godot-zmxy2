@@ -9,49 +9,51 @@
 [ext_resource type="Texture2D" path="res://assets/ui/forge_strength/tex/OtherMat_v10_725.png" id="7_1s4gm"]
 [ext_resource type="Texture2D" path="res://assets/ui/forge_strength/tex/OtherMat_v10_728.png" id="8_qowbd"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_btnfocus"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qhbtnUp0"]
+texture = ExtResource("2_gq8pi")
+expand_margin_left = 0
+expand_margin_top = 0
+expand_margin_right = 0
+expand_margin_bottom = 0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qhbtnOver1"]
+texture = ExtResource("3_oxgis")
+expand_margin_left = 0
+expand_margin_top = 0
+expand_margin_right = 0
+expand_margin_bottom = 0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qhbtnDown2"]
+texture = ExtResource("3_oxgis")
+expand_margin_left = 0
+expand_margin_top = -2
+expand_margin_right = 0
+expand_margin_bottom = 2
+
 [node name="forge_strength" type="Control" unique_id=1324375966]
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("1_0xjyc")
 
-[node name="qhbtn" type="Control" parent="." unique_id=823571443]
-anchors_preset = 0
+[node name="qhbtn" type="Button" parent="." unique_id=823571443]
+layout_mode = 0
 offset_left = 206.4
 offset_top = 438.5
 offset_right = 400.4
 offset_bottom = 507.5
 mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_qhbtnUp0")
+theme_override_styles/hover = SubResource("StyleBoxTexture_qhbtnOver1")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_qhbtnDown2")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_qhbtnDown2")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_qhbtnUp0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
 metadata/ui_piece = ["qhbtn"]
 metadata/ui_button = "qhbtn"
-metadata/pad_seq = 16
-
-[node name="Up" type="Node2D" parent="qhbtn" unique_id=192547868]
-
-[node name="OtherMat_v10_709" type="Sprite2D" parent="qhbtn/Up" unique_id=1115287012]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_gq8pi")
-centered = false
-metadata/tex_key = "OtherMat_v10:709"
-
-[node name="Over" type="Node2D" parent="qhbtn" unique_id=1597586022]
-visible = false
-
-[node name="OtherMat_v10_711" type="Sprite2D" parent="qhbtn/Over" unique_id=494642134]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_oxgis")
-centered = false
-metadata/tex_key = "OtherMat_v10:711"
-
-[node name="Down" type="Node2D" parent="qhbtn" unique_id=524064170]
-visible = false
-
-[node name="OtherMat_v10_711" type="Sprite2D" parent="qhbtn/Down" unique_id=1875097790]
-position = Vector2(0, 2)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_oxgis")
-centered = false
-metadata/tex_key = "OtherMat_v10:711"
 
 [node name="txt_needlh" type="Label" parent="." unique_id=143081341]
 layout_mode = 0

@@ -9,5 +9,9 @@ mkdir -p build
 # build id shown on the title: commit hash, plus "m" when the tree has uncommitted changes
 id=$(git rev-parse --short=7 HEAD)$(git diff --quiet HEAD -- game || echo m)
 echo "$id" > game/build_id.txt
+# fonts: only the characters the game can show go into the export (tools/subset_fonts.py); the full ones come back after
+PY="${PY:-/c/Users/Administrator/miniconda3/python.exe}"
+"$PY" tools/subset_fonts.py subset || exit 1
+trap '"$PY" tools/subset_fonts.py restore' EXIT
 cd game && "$GODOT" --headless --path . --export-release Windows "../$out" > ../build/export.log 2>&1
 cd .. && ls -la "$out"

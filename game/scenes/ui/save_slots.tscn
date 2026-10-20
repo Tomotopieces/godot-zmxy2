@@ -17,6 +17,29 @@
 [ext_resource type="Texture2D" path="res://assets/shared/ui/Common_v7_547.png" id="15_tvhb3"]
 [ext_resource type="Texture2D" path="res://assets/shared/ui/Common_v7_549.png" id="16_wrs4k"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_btnfocus"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnxUp0"]
+texture = ExtResource("15_tvhb3")
+expand_margin_left = 0
+expand_margin_top = 2
+expand_margin_right = 0
+expand_margin_bottom = -2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnxOver1"]
+texture = ExtResource("16_wrs4k")
+expand_margin_left = 0
+expand_margin_top = 2
+expand_margin_right = 0
+expand_margin_bottom = -2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnxDown2"]
+texture = ExtResource("15_tvhb3")
+expand_margin_left = 0
+expand_margin_top = 0
+expand_margin_right = 0
+expand_margin_bottom = 0
+
 [node name="save_slots" type="Control" unique_id=34313135]
 layout_mode = 3
 anchors_preset = 0
@@ -763,43 +786,19 @@ metadata/rec = {
 "wrap": true
 }
 
-[node name="btn_x" type="Control" parent="." unique_id=465868294]
-anchors_preset = 0
+[node name="btn_x" type="Button" parent="." unique_id=465868294]
+layout_mode = 0
 offset_left = 718.45
 offset_top = 113.05
 offset_right = 758.45
 offset_bottom = 153.05
 mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_btnxUp0")
+theme_override_styles/hover = SubResource("StyleBoxTexture_btnxOver1")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_btnxDown2")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btnxDown2")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_btnxUp0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
 metadata/ui_piece = ["btn_x"]
 metadata/ui_button = "btn_x"
-metadata/pad_seq = 39
-
-[node name="Up" type="Node2D" parent="btn_x" unique_id=167118489]
-position = Vector2(0, -2)
-
-[node name="Common_v7_547" type="Sprite2D" parent="btn_x/Up" unique_id=825098825]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("15_tvhb3")
-centered = false
-metadata/tex_key = "Common_v7:547"
-
-[node name="Over" type="Node2D" parent="btn_x" unique_id=2019265227]
-visible = false
-position = Vector2(0, -2)
-
-[node name="Common_v7_549" type="Sprite2D" parent="btn_x/Over" unique_id=1900123236]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("16_wrs4k")
-centered = false
-metadata/tex_key = "Common_v7:549"
-
-[node name="Down" type="Node2D" parent="btn_x" unique_id=490156617]
-visible = false
-position = Vector2(0, -2)
-
-[node name="Common_v7_547" type="Sprite2D" parent="btn_x/Down" unique_id=881754320]
-position = Vector2(0, 2)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("15_tvhb3")
-centered = false
-metadata/tex_key = "Common_v7:547"

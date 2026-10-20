@@ -236,6 +236,10 @@ func _activate(cands: Array[Control]) -> void:
 		_pick_start(cands)
 		return
 	var c := _focus
+	if c is BaseButton:   # a real Button: press it (a posted mouse event does not reach its pressed signal)
+		if not (c as BaseButton).disabled:
+			(c as BaseButton).pressed.emit()
+		return
 	for pressed in [true, false]:
 		var ev := InputEventMouseButton.new()
 		ev.button_index = MOUSE_BUTTON_LEFT

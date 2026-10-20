@@ -7,6 +7,50 @@
 [ext_resource type="Texture2D" path="res://assets/ui/valentines/tex/Common_v7_716.png" id="5_siwfg"]
 [ext_resource type="Texture2D" path="res://assets/ui/valentines/tex/Common_v7_718.png" id="6_l1mnq"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_btnfocus"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btngoUp0"]
+texture = ExtResource("3_enag3")
+expand_margin_left = 0
+expand_margin_top = 2
+expand_margin_right = 0
+expand_margin_bottom = -2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btngoOver1"]
+texture = ExtResource("4_l67n3")
+expand_margin_left = 0
+expand_margin_top = 2
+expand_margin_right = 0
+expand_margin_bottom = -2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btngoDown2"]
+texture = ExtResource("3_enag3")
+expand_margin_left = 0
+expand_margin_top = 0
+expand_margin_right = 0
+expand_margin_bottom = 0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnxUp3"]
+texture = ExtResource("5_siwfg")
+expand_margin_left = 0
+expand_margin_top = 2
+expand_margin_right = 0
+expand_margin_bottom = -2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnxOver4"]
+texture = ExtResource("6_l1mnq")
+expand_margin_left = 0
+expand_margin_top = 2
+expand_margin_right = 0
+expand_margin_bottom = -2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnxDown5"]
+texture = ExtResource("5_siwfg")
+expand_margin_left = 0
+expand_margin_top = 0
+expand_margin_right = 0
+expand_margin_bottom = 0
+
 [node name="valentines" type="Control" unique_id=1662100165]
 layout_mode = 3
 anchors_preset = 0
@@ -21,84 +65,36 @@ texture = ExtResource("2_f1qr0")
 centered = false
 metadata/tex_key = "Common_v7:709"
 
-[node name="btn_go" type="Control" parent="." unique_id=78954150]
-anchors_preset = 0
+[node name="btn_go" type="Button" parent="." unique_id=78954150]
+layout_mode = 0
 offset_left = 712.95
 offset_top = 427.9
 offset_right = 831.95
 offset_bottom = 522.9
 mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_btngoUp0")
+theme_override_styles/hover = SubResource("StyleBoxTexture_btngoOver1")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_btngoDown2")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btngoDown2")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_btngoUp0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
 metadata/ui_piece = ["btn_go"]
 metadata/ui_button = "btn_go"
-metadata/pad_seq = 75
 
-[node name="Up" type="Node2D" parent="btn_go" unique_id=1151179650]
-position = Vector2(0, -2)
-
-[node name="Common_v7_711" type="Sprite2D" parent="btn_go/Up" unique_id=1174696840]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_enag3")
-centered = false
-metadata/tex_key = "Common_v7:711"
-
-[node name="Over" type="Node2D" parent="btn_go" unique_id=1424220057]
-visible = false
-position = Vector2(0, -2)
-
-[node name="Common_v7_713" type="Sprite2D" parent="btn_go/Over" unique_id=3135202]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_l67n3")
-centered = false
-metadata/tex_key = "Common_v7:713"
-
-[node name="Down" type="Node2D" parent="btn_go" unique_id=822255919]
-visible = false
-position = Vector2(0, -2)
-
-[node name="Common_v7_711" type="Sprite2D" parent="btn_go/Down" unique_id=1106836784]
-position = Vector2(0, 2)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_enag3")
-centered = false
-metadata/tex_key = "Common_v7:711"
-
-[node name="btn_x" type="Control" parent="." unique_id=1291968604]
-anchors_preset = 0
+[node name="btn_x" type="Button" parent="." unique_id=1291968604]
+layout_mode = 0
 offset_left = 802.95
 offset_top = 36.35
 offset_right = 856.95
 offset_bottom = 89.35
 mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_btnxUp3")
+theme_override_styles/hover = SubResource("StyleBoxTexture_btnxOver4")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_btnxDown5")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btnxDown5")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_btnxUp3")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
 metadata/ui_piece = ["btn_x"]
 metadata/ui_button = "btn_x"
-metadata/pad_seq = 76
-
-[node name="Up" type="Node2D" parent="btn_x" unique_id=329404970]
-position = Vector2(0, -2)
-
-[node name="Common_v7_716" type="Sprite2D" parent="btn_x/Up" unique_id=191784686]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_siwfg")
-centered = false
-metadata/tex_key = "Common_v7:716"
-
-[node name="Over" type="Node2D" parent="btn_x" unique_id=42881482]
-visible = false
-position = Vector2(0, -2)
-
-[node name="Common_v7_718" type="Sprite2D" parent="btn_x/Over" unique_id=1441578709]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_l1mnq")
-centered = false
-metadata/tex_key = "Common_v7:718"
-
-[node name="Down" type="Node2D" parent="btn_x" unique_id=1590913306]
-visible = false
-position = Vector2(0, -2)
-
-[node name="Common_v7_716" type="Sprite2D" parent="btn_x/Down" unique_id=1537628443]
-position = Vector2(0, 2)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_siwfg")
-centered = false
-metadata/tex_key = "Common_v7:716"

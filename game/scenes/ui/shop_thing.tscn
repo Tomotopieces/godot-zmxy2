@@ -3,12 +3,55 @@
 [ext_resource type="Script" path="res://src/ui/ui_layout.gd" id="1_gkni2"]
 [ext_resource type="Texture2D" path="res://assets/shared/ui/backpack_v5_600.png" id="2_08w05"]
 [ext_resource type="Texture2D" path="res://assets/shared/ui/backpack_v5_602.png" id="3_t7u03"]
-[ext_resource type="Texture2D" path="res://assets/shared/ui/backpack_v5_607.png" id="4_o25i8"]
-[ext_resource type="Texture2D" path="res://assets/ui/shop_thing/tex/backpack_v5_609.png" id="5_1g7kh"]
 [ext_resource type="Texture2D" path="res://assets/shared/ui/backpack_v5_613.png" id="6_0xht8"]
 [ext_resource type="Texture2D" path="res://assets/ui/shop_thing/tex/backpack_v5_615.png" id="7_cssvq"]
 [ext_resource type="Texture2D" path="res://assets/shared/ui/backpack_v5_618.png" id="8_7rybb"]
 [ext_resource type="Texture2D" path="res://assets/ui/shop_thing/tex/backpack_v5_620.png" id="9_vi6cb"]
+[ext_resource type="PackedScene" uid="uid://bqe4kf3igvsji" path="res://scenes/ui/components/yellow_button.tscn" id="yellow_button"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_btnfocus"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnupUp0"]
+texture = ExtResource("6_0xht8")
+expand_margin_left = 0
+expand_margin_top = 0
+expand_margin_right = 0
+expand_margin_bottom = 0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnupOver1"]
+texture = ExtResource("7_cssvq")
+expand_margin_left = 0
+expand_margin_top = 0
+expand_margin_right = 0
+expand_margin_bottom = 0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnupDown2"]
+texture = ExtResource("6_0xht8")
+expand_margin_left = 0
+expand_margin_top = 0
+expand_margin_right = 0
+expand_margin_bottom = 0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btndownUp3"]
+texture = ExtResource("8_7rybb")
+expand_margin_left = 0
+expand_margin_top = 0
+expand_margin_right = 0
+expand_margin_bottom = 0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btndownOver4"]
+texture = ExtResource("9_vi6cb")
+expand_margin_left = 0
+expand_margin_top = 0
+expand_margin_right = 0
+expand_margin_bottom = 0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btndownDown5"]
+texture = ExtResource("8_7rybb")
+expand_margin_left = 0
+expand_margin_top = 0
+expand_margin_right = 0
+expand_margin_bottom = 0
 
 [node name="shop_thing" type="Control" unique_id=2011313066]
 layout_mode = 3
@@ -99,42 +142,15 @@ metadata/rec = {
 }
 metadata/ui_piece = ["txt_price"]
 
-[node name="btn_buy" type="Control" parent="." unique_id=55288568]
-anchors_preset = 0
-offset_left = 108.65
-offset_top = 53.45
-offset_right = 176.65
-offset_bottom = 83.45
-mouse_default_cursor_shape = 2
+[node name="BtnBuy" parent="." instance=ExtResource("yellow_button")]
+layout_mode = 0
+offset_left = 112.65
+offset_top = 57.45
+offset_right = 171.65
+offset_bottom = 78.45
+text = "购 买"
 metadata/ui_piece = ["btn_buy"]
 metadata/ui_button = "btn_buy"
-metadata/pad_seq = 61
-
-[node name="Up" type="Node2D" parent="btn_buy" unique_id=1633985990]
-
-[node name="backpack_v5_607" type="Sprite2D" parent="btn_buy/Up" unique_id=2117846885]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_o25i8")
-centered = false
-metadata/tex_key = "backpack_v5:607"
-
-[node name="Over" type="Node2D" parent="btn_buy" unique_id=1664714616]
-visible = false
-
-[node name="backpack_v5_609" type="Sprite2D" parent="btn_buy/Over" unique_id=1991415081]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_1g7kh")
-centered = false
-metadata/tex_key = "backpack_v5:609"
-
-[node name="Down" type="Node2D" parent="btn_buy" unique_id=1344096128]
-visible = false
-
-[node name="backpack_v5_607" type="Sprite2D" parent="btn_buy/Down" unique_id=607142588]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_o25i8")
-centered = false
-metadata/tex_key = "backpack_v5:607"
 
 [node name="txt_num" type="Label" parent="." unique_id=931895132]
 layout_mode = 0
@@ -168,76 +184,36 @@ metadata/rec = {
 }
 metadata/ui_piece = ["txt_num"]
 
-[node name="btn_up" type="Control" parent="." unique_id=270717287]
-anchors_preset = 0
+[node name="btn_up" type="Button" parent="." unique_id=270717287]
+layout_mode = 0
 offset_left = 93.75
 offset_top = 57.9
 offset_right = 110.75
 offset_bottom = 68.9
 mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_btnupUp0")
+theme_override_styles/hover = SubResource("StyleBoxTexture_btnupOver1")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_btnupDown2")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btnupDown2")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_btnupUp0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
 metadata/ui_piece = ["btn_up"]
 metadata/ui_button = "btn_up"
-metadata/pad_seq = 62
 
-[node name="Up" type="Node2D" parent="btn_up" unique_id=2143727647]
-
-[node name="backpack_v5_613" type="Sprite2D" parent="btn_up/Up" unique_id=568025210]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_0xht8")
-centered = false
-metadata/tex_key = "backpack_v5:613"
-
-[node name="Over" type="Node2D" parent="btn_up" unique_id=636005976]
-visible = false
-
-[node name="backpack_v5_615" type="Sprite2D" parent="btn_up/Over" unique_id=1997119662]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("7_cssvq")
-centered = false
-metadata/tex_key = "backpack_v5:615"
-
-[node name="Down" type="Node2D" parent="btn_up" unique_id=2113335867]
-visible = false
-
-[node name="backpack_v5_613" type="Sprite2D" parent="btn_up/Down" unique_id=1988549519]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_0xht8")
-centered = false
-metadata/tex_key = "backpack_v5:613"
-
-[node name="btn_down" type="Control" parent="." unique_id=159469580]
-anchors_preset = 0
+[node name="btn_down" type="Button" parent="." unique_id=159469580]
+layout_mode = 0
 offset_left = 93.5
 offset_top = 66.9
 offset_right = 110.5
 offset_bottom = 77.9
 mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_btndownUp3")
+theme_override_styles/hover = SubResource("StyleBoxTexture_btndownOver4")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_btndownDown5")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btndownDown5")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_btndownUp3")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
 metadata/ui_piece = ["btn_down"]
 metadata/ui_button = "btn_down"
-metadata/pad_seq = 63
-
-[node name="Up" type="Node2D" parent="btn_down" unique_id=1542001537]
-
-[node name="backpack_v5_618" type="Sprite2D" parent="btn_down/Up" unique_id=1556092507]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("8_7rybb")
-centered = false
-metadata/tex_key = "backpack_v5:618"
-
-[node name="Over" type="Node2D" parent="btn_down" unique_id=197998038]
-visible = false
-
-[node name="backpack_v5_620" type="Sprite2D" parent="btn_down/Over" unique_id=40690833]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("9_vi6cb")
-centered = false
-metadata/tex_key = "backpack_v5:620"
-
-[node name="Down" type="Node2D" parent="btn_down" unique_id=1221509588]
-visible = false
-
-[node name="backpack_v5_618" type="Sprite2D" parent="btn_down/Down" unique_id=975768891]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("8_7rybb")
-centered = false
-metadata/tex_key = "backpack_v5:618"

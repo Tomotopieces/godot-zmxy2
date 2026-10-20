@@ -7,6 +7,50 @@
 [ext_resource type="Texture2D" path="res://assets/ui/game_win/tex/OtherMat_v10_752.png" id="5_weuqy"]
 [ext_resource type="Texture2D" path="res://assets/ui/game_win/tex/OtherMat_v10_754.png" id="6_bfpqc"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_btnfocus"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_backTochooseButtonUp0"]
+texture = ExtResource("3_4fimg")
+expand_margin_left = 0
+expand_margin_top = 2
+expand_margin_right = 0
+expand_margin_bottom = -2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_backTochooseButtonOver1"]
+texture = ExtResource("4_rtx3q")
+expand_margin_left = 0
+expand_margin_top = 2
+expand_margin_right = 0
+expand_margin_bottom = -2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_backTochooseButtonDown2"]
+texture = ExtResource("3_4fimg")
+expand_margin_left = 0
+expand_margin_top = 0
+expand_margin_right = 0
+expand_margin_bottom = 0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nextStageButtonUp3"]
+texture = ExtResource("5_weuqy")
+expand_margin_left = 0
+expand_margin_top = 2
+expand_margin_right = 0
+expand_margin_bottom = -2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nextStageButtonOver4"]
+texture = ExtResource("6_bfpqc")
+expand_margin_left = 0
+expand_margin_top = 2
+expand_margin_right = 0
+expand_margin_bottom = -2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nextStageButtonDown5"]
+texture = ExtResource("5_weuqy")
+expand_margin_left = 0
+expand_margin_top = 0
+expand_margin_right = 0
+expand_margin_bottom = 0
+
 [node name="game_win" type="Control" unique_id=726004482]
 layout_mode = 3
 anchors_preset = 0
@@ -149,84 +193,36 @@ metadata/rec = {
 }
 metadata/ui_piece = ["txt_usertime"]
 
-[node name="backTochooseButton" type="Control" parent="." unique_id=579340015]
-anchors_preset = 0
+[node name="backTochooseButton" type="Button" parent="." unique_id=579340015]
+layout_mode = 0
 offset_left = 268.45
 offset_top = 388.0
 offset_right = 389.45
 offset_bottom = 419.0
 mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_backTochooseButtonUp0")
+theme_override_styles/hover = SubResource("StyleBoxTexture_backTochooseButtonOver1")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_backTochooseButtonDown2")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_backTochooseButtonDown2")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_backTochooseButtonUp0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
 metadata/ui_piece = ["backTochooseButton"]
 metadata/ui_button = "backTochooseButton"
-metadata/pad_seq = 31
 
-[node name="Up" type="Node2D" parent="backTochooseButton" unique_id=2005599228]
-position = Vector2(0, -2)
-
-[node name="OtherMat_v10_747" type="Sprite2D" parent="backTochooseButton/Up" unique_id=1072493534]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_4fimg")
-centered = false
-metadata/tex_key = "OtherMat_v10:747"
-
-[node name="Over" type="Node2D" parent="backTochooseButton" unique_id=75954500]
-visible = false
-position = Vector2(0, -2)
-
-[node name="OtherMat_v10_749" type="Sprite2D" parent="backTochooseButton/Over" unique_id=590587038]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_rtx3q")
-centered = false
-metadata/tex_key = "OtherMat_v10:749"
-
-[node name="Down" type="Node2D" parent="backTochooseButton" unique_id=1079294602]
-visible = false
-position = Vector2(0, -2)
-
-[node name="OtherMat_v10_747" type="Sprite2D" parent="backTochooseButton/Down" unique_id=368226847]
-position = Vector2(0, 2)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_4fimg")
-centered = false
-metadata/tex_key = "OtherMat_v10:747"
-
-[node name="nextStageButton" type="Control" parent="." unique_id=1352710961]
-anchors_preset = 0
+[node name="nextStageButton" type="Button" parent="." unique_id=1352710961]
+layout_mode = 0
 offset_left = 120.55
 offset_top = 386.1
 offset_right = 211.55
 offset_bottom = 417.1
 mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_nextStageButtonUp3")
+theme_override_styles/hover = SubResource("StyleBoxTexture_nextStageButtonOver4")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_nextStageButtonDown5")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_nextStageButtonDown5")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_nextStageButtonUp3")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
 metadata/ui_piece = ["nextStageButton"]
 metadata/ui_button = "nextStageButton"
-metadata/pad_seq = 32
-
-[node name="Up" type="Node2D" parent="nextStageButton" unique_id=876931657]
-position = Vector2(0, -2)
-
-[node name="OtherMat_v10_752" type="Sprite2D" parent="nextStageButton/Up" unique_id=520064542]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_weuqy")
-centered = false
-metadata/tex_key = "OtherMat_v10:752"
-
-[node name="Over" type="Node2D" parent="nextStageButton" unique_id=1894461087]
-visible = false
-position = Vector2(0, -2)
-
-[node name="OtherMat_v10_754" type="Sprite2D" parent="nextStageButton/Over" unique_id=733302237]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_bfpqc")
-centered = false
-metadata/tex_key = "OtherMat_v10:754"
-
-[node name="Down" type="Node2D" parent="nextStageButton" unique_id=868290784]
-visible = false
-position = Vector2(0, -2)
-
-[node name="OtherMat_v10_752" type="Sprite2D" parent="nextStageButton/Down" unique_id=1691097482]
-position = Vector2(0, 2)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("5_weuqy")
-centered = false
-metadata/tex_key = "OtherMat_v10:752"

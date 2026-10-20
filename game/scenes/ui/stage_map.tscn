@@ -41,6 +41,134 @@
 [ext_resource type="Texture2D" uid="uid://b3qwrm31wm4ap" path="res://assets/ui/stage_map/tex/OtherMat_v10_487.png" id="41_rfg6k"]
 [ext_resource type="Texture2D" uid="uid://bufh1eywg46yd" path="res://assets/ui/stage_map/tex/OtherMat_v10_491.png" id="42_qo3vw"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_btnfocus"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_scgmUp0"]
+texture = ExtResource("25_bc3g4")
+expand_margin_left = 0
+expand_margin_top = 2
+expand_margin_right = 0
+expand_margin_bottom = -2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_scgmOver1"]
+texture = ExtResource("26_v58p6")
+expand_margin_left = 0
+expand_margin_top = 2
+expand_margin_right = 0
+expand_margin_bottom = -2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_scgmDown2"]
+texture = ExtResource("25_bc3g4")
+expand_margin_left = 0
+expand_margin_top = 0
+expand_margin_right = 0
+expand_margin_bottom = 0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_savebtnUp3"]
+texture = ExtResource("27_dwtl4")
+expand_margin_left = 0
+expand_margin_top = 2
+expand_margin_right = 0
+expand_margin_bottom = -2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_savebtnOver4"]
+texture = ExtResource("28_je3jb")
+expand_margin_left = 0
+expand_margin_top = 2
+expand_margin_right = 0
+expand_margin_bottom = -2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_savebtnDown5"]
+texture = ExtResource("27_dwtl4")
+expand_margin_left = 0
+expand_margin_top = 0
+expand_margin_right = 0
+expand_margin_bottom = 0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ldlUp6"]
+texture = ExtResource("29_3exjk")
+expand_margin_left = 0
+expand_margin_top = 2
+expand_margin_right = 0
+expand_margin_bottom = -2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ldlOver7"]
+texture = ExtResource("30_1eqrx")
+expand_margin_left = 0
+expand_margin_top = 2
+expand_margin_right = 0
+expand_margin_bottom = -2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ldlDown8"]
+texture = ExtResource("29_3exjk")
+expand_margin_left = 0
+expand_margin_top = 0
+expand_margin_right = 0
+expand_margin_bottom = 0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_showBuySkillUp9"]
+texture = ExtResource("31_kdab4")
+expand_margin_left = 0
+expand_margin_top = 2
+expand_margin_right = 0
+expand_margin_bottom = -2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_showBuySkillOver10"]
+texture = ExtResource("32_d323h")
+expand_margin_left = 0
+expand_margin_top = 2
+expand_margin_right = 0
+expand_margin_bottom = -2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_showBuySkillDown11"]
+texture = ExtResource("31_kdab4")
+expand_margin_left = 0
+expand_margin_top = 0
+expand_margin_right = 0
+expand_margin_bottom = 0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_huodongbtnUp12"]
+texture = ExtResource("35_7dwo2")
+expand_margin_left = 0
+expand_margin_top = 2
+expand_margin_right = 0
+expand_margin_bottom = -2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_huodongbtnOver13"]
+texture = ExtResource("36_ln7ge")
+expand_margin_left = 0
+expand_margin_top = 2
+expand_margin_right = 0
+expand_margin_bottom = -2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_huodongbtnDown14"]
+texture = ExtResource("35_7dwo2")
+expand_margin_left = 0
+expand_margin_top = 0
+expand_margin_right = 0
+expand_margin_bottom = 0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnbackUp15"]
+texture = ExtResource("37_1l261")
+expand_margin_left = 0
+expand_margin_top = 2
+expand_margin_right = 0
+expand_margin_bottom = -2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnbackOver16"]
+texture = ExtResource("38_n6pbw")
+expand_margin_left = 0
+expand_margin_top = 2
+expand_margin_right = 0
+expand_margin_bottom = -2
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnbackDown17"]
+texture = ExtResource("37_1l261")
+expand_margin_left = 0
+expand_margin_top = 0
+expand_margin_right = 0
+expand_margin_bottom = 0
+
 [node name="stage_map" type="Control" unique_id=1550913345]
 layout_mode = 3
 anchors_preset = 0
@@ -472,251 +600,107 @@ metadata/rec = {
 }
 metadata/ui_piece = ["saveInterval"]
 
-[node name="scgm" type="Control" parent="." unique_id=1708021140]
-anchors_preset = 0
+[node name="scgm" type="Button" parent="." unique_id=1708021140]
+layout_mode = 0
 offset_left = 544.1
 offset_top = 506.95
 offset_right = 603.1
 offset_bottom = 567.95
 mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_scgmUp0")
+theme_override_styles/hover = SubResource("StyleBoxTexture_scgmOver1")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_scgmDown2")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_scgmDown2")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_scgmUp0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
 metadata/ui_piece = ["scgm"]
 metadata/ui_button = "scgm"
-metadata/pad_seq = 66
 
-[node name="Up" type="Node2D" parent="scgm" unique_id=1778392651]
-position = Vector2(0, -2)
-
-[node name="OtherMat_v10_445" type="Sprite2D" parent="scgm/Up" unique_id=2045224865]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("25_bc3g4")
-centered = false
-metadata/tex_key = "OtherMat_v10:445"
-
-[node name="Over" type="Node2D" parent="scgm" unique_id=213416454]
-visible = false
-position = Vector2(0, -2)
-
-[node name="OtherMat_v10_447" type="Sprite2D" parent="scgm/Over" unique_id=964403494]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("26_v58p6")
-centered = false
-metadata/tex_key = "OtherMat_v10:447"
-
-[node name="Down" type="Node2D" parent="scgm" unique_id=879052715]
-visible = false
-position = Vector2(0, -2)
-
-[node name="OtherMat_v10_445" type="Sprite2D" parent="scgm/Down" unique_id=1347784189]
-position = Vector2(0, 2)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("25_bc3g4")
-centered = false
-metadata/tex_key = "OtherMat_v10:445"
-
-[node name="savebtn" type="Control" parent="." unique_id=348871336]
-anchors_preset = 0
+[node name="savebtn" type="Button" parent="." unique_id=348871336]
+layout_mode = 0
 offset_left = 607.1
 offset_top = 506.95
 offset_right = 666.1
 offset_bottom = 567.95
 mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_savebtnUp3")
+theme_override_styles/hover = SubResource("StyleBoxTexture_savebtnOver4")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_savebtnDown5")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_savebtnDown5")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_savebtnUp3")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
 metadata/ui_piece = ["savebtn"]
 metadata/ui_button = "savebtn"
-metadata/pad_seq = 67
 
-[node name="Up" type="Node2D" parent="savebtn" unique_id=1483756320]
-position = Vector2(0, -2)
-
-[node name="OtherMat_v10_450" type="Sprite2D" parent="savebtn/Up" unique_id=25947848]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("27_dwtl4")
-centered = false
-metadata/tex_key = "OtherMat_v10:450"
-
-[node name="Over" type="Node2D" parent="savebtn" unique_id=129247960]
-visible = false
-position = Vector2(0, -2)
-
-[node name="OtherMat_v10_452" type="Sprite2D" parent="savebtn/Over" unique_id=1768747549]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("28_je3jb")
-centered = false
-metadata/tex_key = "OtherMat_v10:452"
-
-[node name="Down" type="Node2D" parent="savebtn" unique_id=910088482]
-visible = false
-position = Vector2(0, -2)
-
-[node name="OtherMat_v10_450" type="Sprite2D" parent="savebtn/Down" unique_id=185256362]
-position = Vector2(0, 2)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("27_dwtl4")
-centered = false
-metadata/tex_key = "OtherMat_v10:450"
-
-[node name="ldl" type="Control" parent="." unique_id=1052171528]
-anchors_preset = 0
+[node name="ldl" type="Button" parent="." unique_id=1052171528]
+layout_mode = 0
 offset_left = 671.1
 offset_top = 506.95
 offset_right = 730.1
 offset_bottom = 567.95
 mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_ldlUp6")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ldlOver7")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ldlDown8")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_ldlDown8")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_ldlUp6")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
 metadata/ui_piece = ["ldl"]
 metadata/ui_button = "ldl"
-metadata/pad_seq = 68
 
-[node name="Up" type="Node2D" parent="ldl" unique_id=1540813402]
-position = Vector2(0, -2)
-
-[node name="OtherMat_v10_455" type="Sprite2D" parent="ldl/Up" unique_id=1720490290]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("29_3exjk")
-centered = false
-metadata/tex_key = "OtherMat_v10:455"
-
-[node name="Over" type="Node2D" parent="ldl" unique_id=821532286]
-visible = false
-position = Vector2(0, -2)
-
-[node name="OtherMat_v10_457" type="Sprite2D" parent="ldl/Over" unique_id=992374383]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("30_1eqrx")
-centered = false
-metadata/tex_key = "OtherMat_v10:457"
-
-[node name="Down" type="Node2D" parent="ldl" unique_id=555083275]
-visible = false
-position = Vector2(0, -2)
-
-[node name="OtherMat_v10_455" type="Sprite2D" parent="ldl/Down" unique_id=45713594]
-position = Vector2(0, 2)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("29_3exjk")
-centered = false
-metadata/tex_key = "OtherMat_v10:455"
-
-[node name="showBuySkill" type="Control" parent="." unique_id=1989928311]
-anchors_preset = 0
+[node name="showBuySkill" type="Button" parent="." unique_id=1989928311]
+layout_mode = 0
 offset_left = 734.1
 offset_top = 506.95
 offset_right = 793.1
 offset_bottom = 567.95
 mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_showBuySkillUp9")
+theme_override_styles/hover = SubResource("StyleBoxTexture_showBuySkillOver10")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_showBuySkillDown11")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_showBuySkillDown11")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_showBuySkillUp9")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
 metadata/ui_piece = ["showBuySkill"]
 metadata/ui_button = "showBuySkill"
-metadata/pad_seq = 69
 
-[node name="Up" type="Node2D" parent="showBuySkill" unique_id=1786765840]
-position = Vector2(0, -2)
-
-[node name="OtherMat_v10_460" type="Sprite2D" parent="showBuySkill/Up" unique_id=61427223]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("31_kdab4")
-centered = false
-metadata/tex_key = "OtherMat_v10:460"
-
-[node name="Over" type="Node2D" parent="showBuySkill" unique_id=2141910723]
-visible = false
-position = Vector2(0, -2)
-
-[node name="OtherMat_v10_462" type="Sprite2D" parent="showBuySkill/Over" unique_id=1680514052]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("32_d323h")
-centered = false
-metadata/tex_key = "OtherMat_v10:462"
-
-[node name="Down" type="Node2D" parent="showBuySkill" unique_id=1612388857]
-visible = false
-position = Vector2(0, -2)
-
-[node name="OtherMat_v10_460" type="Sprite2D" parent="showBuySkill/Down" unique_id=1426464488]
-position = Vector2(0, 2)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("31_kdab4")
-centered = false
-metadata/tex_key = "OtherMat_v10:460"
-
-[node name="huodongbtn" type="Control" parent="." unique_id=1388381567]
-anchors_preset = 0
+[node name="huodongbtn" type="Button" parent="." unique_id=1388381567]
+layout_mode = 0
 offset_left = 799.1
 offset_top = 506.95
 offset_right = 858.1
 offset_bottom = 567.95
 mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_huodongbtnUp12")
+theme_override_styles/hover = SubResource("StyleBoxTexture_huodongbtnOver13")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_huodongbtnDown14")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_huodongbtnDown14")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_huodongbtnUp12")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
 metadata/ui_piece = ["huodongbtn"]
 metadata/ui_button = "huodongbtn"
-metadata/pad_seq = 71
 
-[node name="Up" type="Node2D" parent="huodongbtn" unique_id=1110231889]
-position = Vector2(0, -2)
-
-[node name="OtherMat_v10_470" type="Sprite2D" parent="huodongbtn/Up" unique_id=64293758]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("35_7dwo2")
-centered = false
-metadata/tex_key = "OtherMat_v10:470"
-
-[node name="Over" type="Node2D" parent="huodongbtn" unique_id=167843589]
-visible = false
-position = Vector2(0, -2)
-
-[node name="OtherMat_v10_472" type="Sprite2D" parent="huodongbtn/Over" unique_id=178708206]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("36_ln7ge")
-centered = false
-metadata/tex_key = "OtherMat_v10:472"
-
-[node name="Down" type="Node2D" parent="huodongbtn" unique_id=2098512109]
-visible = false
-position = Vector2(0, -2)
-
-[node name="OtherMat_v10_470" type="Sprite2D" parent="huodongbtn/Down" unique_id=1697266199]
-position = Vector2(0, 2)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("35_7dwo2")
-centered = false
-metadata/tex_key = "OtherMat_v10:470"
-
-[node name="btnback" type="Control" parent="." unique_id=974179273]
-anchors_preset = 0
+[node name="btnback" type="Button" parent="." unique_id=974179273]
+layout_mode = 0
 offset_left = 861.1
 offset_top = 506.95
 offset_right = 920.1
 offset_bottom = 567.95
 mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_btnbackUp15")
+theme_override_styles/hover = SubResource("StyleBoxTexture_btnbackOver16")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_btnbackDown17")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btnbackDown17")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_btnbackUp15")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
 metadata/ui_piece = ["btnback"]
 metadata/ui_button = "btnback"
-metadata/pad_seq = 72
-
-[node name="Up" type="Node2D" parent="btnback" unique_id=1400722170]
-position = Vector2(0, -2)
-
-[node name="OtherMat_v10_475" type="Sprite2D" parent="btnback/Up" unique_id=547890542]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("37_1l261")
-centered = false
-metadata/tex_key = "OtherMat_v10:475"
-
-[node name="Over" type="Node2D" parent="btnback" unique_id=361679769]
-visible = false
-position = Vector2(0, -2)
-
-[node name="OtherMat_v10_477" type="Sprite2D" parent="btnback/Over" unique_id=239451223]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("38_n6pbw")
-centered = false
-metadata/tex_key = "OtherMat_v10:477"
-
-[node name="Down" type="Node2D" parent="btnback" unique_id=861111016]
-visible = false
-position = Vector2(0, -2)
-
-[node name="OtherMat_v10_475" type="Sprite2D" parent="btnback/Down" unique_id=532726152]
-position = Vector2(0, 2)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("37_1l261")
-centered = false
-metadata/tex_key = "OtherMat_v10:475"
 
 [node name="btnnmg" type="Node2D" parent="." unique_id=1898248796]
 position = Vector2(886.6, 44.45)
