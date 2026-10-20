@@ -3,7 +3,8 @@ extends Node2D
 ## An animated body (characters, effects, bullets, items): the hand-editable scene scenes/actors/<name>/<name>.tscn.
 ##
 ## Children:
-##   Poses/<Action>/...   Sprite2D parts (and EquipSlot nodes) of each action; only the playing action is visible
+##   Poses/<Action>/...   Sprite2D parts (and EquipSlot nodes) of each action; only the playing action is visible.
+##                        A scene with a single action has no Poses: its parts sit directly under the root.
 ##   Hitbox, Hurtbox      Area2D whose shapes are animated per action; only where the code uses them (characters
 ##                        both, projectiles a Hitbox, pickups a Hurtbox, pure visuals none)
 ##   Anim                 AnimationPlayer with one animation per action; gameplay events are named method keys
@@ -73,9 +74,12 @@ func flash(color: Color, secs := 0.1) -> void:
 func _ready() -> void:
 	# Only the owner's movement is interpolated; keyed part jumps and facing flips must land on their frame.
 	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
-	_parts = $Poses
-	for c in _parts.get_children():
-		c.visible = false
+	_parts = get_node_or_null("Poses")
+	if _parts == null:
+		_current_parts = self
+	else:
+		for c in _parts.get_children():
+			c.visible = false
 	anim.animation_finished.connect(_on_anim_finished)
 
 ## An action with a loop tail (an opening, then a looping part) keeps looping instead of finishing.
@@ -95,11 +99,12 @@ func play(a: StringName, restart := false) -> void:
 	if not anim.has_animation(a):
 		push_warning("%s: no action %s" % [name, a])
 		return
-	if _current_parts:
-		_current_parts.visible = false
-	_current_parts = _parts.get_node_or_null(NodePath(pose_name(String(a))))
-	if _current_parts:
-		_current_parts.visible = true
+	if _parts != null:
+		if _current_parts:
+			_current_parts.visible = false
+		_current_parts = _parts.get_node_or_null(NodePath(pose_name(String(a))))
+		if _current_parts:
+			_current_parts.visible = true
 	action = a
 	anim.play(a)
 	anim.seek(0.0, true)

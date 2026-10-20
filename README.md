@@ -45,7 +45,7 @@ Every stage's scenery is an editor scene `scenes/levels/<stage>.tscn` that the u
 
 ## Actor scenes
 Every animated body is a **hand-edited** scene `scenes/actors/<name>/<name>.tscn` whose root script is `Puppet` (`src/puppet/puppet.gd`); `Puppet.create(name)` instantiates it.
-- `Poses/<Action>` = the parts of one action (only the playing one is visible); `EquipSlot` parts change with the equipment (variants in `assets/puppets/<name>/slots/`).
+- `Poses/<Action>` = the parts of one action (only the playing one is visible; a scene with one action has no `Poses`, its parts sit under the root); `EquipSlot` parts change with the equipment (variants in `assets/puppets/<name>/slots/`).
 - `Hitbox` / `Hurtbox` `Shape` tracks = attack and hurt boxes (position, size, disabled per key; any shape).
 - Method tracks `ev_*` = gameplay events: `ev_new_hit` (a new hit may land), `ev_finished` (action over), `ev_set_vx` / `ev_set_vy` / `ev_set_vx_forward` (px/s) and `ev_scale_vx` (factor) = movement, `ev_stop_move`, `ev_call(name)` = skill hook, `ev_grounded_call(name)` = only when on the floor, `ev_boss_dead_fx`, `ev_shake`.
 - An action lasts its animation length; tweak by moving keys / changing the length in the Animation panel. The animations are the text file `<name>_actions.tres`.

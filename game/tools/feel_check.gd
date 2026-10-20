@@ -83,6 +83,7 @@ func _ready() -> void:
 	m.global_position = h.global_position + Vector2(60, 0)
 	lv.add_monster(m)
 	await _wait(0.3)
+	GameState.debug_god = true   # (the monster fights back: a hit on the hero would break the combo under test)
 	var stopped := false
 	var both := false
 	var shook := false
@@ -104,6 +105,7 @@ func _ready() -> void:
 				shook = true
 		print("  combo hit ", h.attack_action, " trauma ", lv._trauma, " monster hp ", m.hp, " dx ", m.global_position.x - h.global_position.x)
 		await _wait(0.25)
+	GameState.debug_god = false
 	_check("hit-stop freezes the whole fight (max %.3f s)" % stop_max, stopped and both and stop_max <= 0.2)
 	_check("the 5th combo hit shakes the camera", shook)
 	await _wait(1.0)
