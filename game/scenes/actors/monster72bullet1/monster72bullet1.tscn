@@ -7,9 +7,6 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yrklc"]
 resource_local_to_scene = true
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_g8l4s"]
-resource_local_to_scene = true
-
 [node name="Monster72Bullet1" type="Node2D" unique_id=265218765]
 script = ExtResource("1_d4pto")
 actions = PackedStringArray("default")
@@ -32,15 +29,6 @@ monitorable = false
 
 [node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1658638714]
 shape = SubResource("RectangleShape2D_yrklc")
-disabled = true
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=2030691846]
-collision_layer = 0
-collision_mask = 0
-monitoring = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1661649700]
-shape = SubResource("RectangleShape2D_g8l4s")
 disabled = true
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=342781096]

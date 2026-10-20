@@ -175,12 +175,6 @@ shader_parameter/glow2_strength = null
 shader_parameter/solid = null
 shader_parameter/extend = 7.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_04ac5"]
-resource_local_to_scene = true
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_chx2g"]
-resource_local_to_scene = true
-
 [node name="OrbWhile" type="Node2D" unique_id=780981376]
 script = ExtResource("1_pi8to")
 actions = PackedStringArray("default")
@@ -259,24 +253,6 @@ position = Vector2(-4.7, -5.825)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("3_35sce")
 centered = false
-
-[node name="Hitbox" type="Area2D" parent="." unique_id=1888410331]
-collision_layer = 0
-collision_mask = 0
-monitorable = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=366237462]
-shape = SubResource("RectangleShape2D_04ac5")
-disabled = true
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=887536734]
-collision_layer = 0
-collision_mask = 0
-monitoring = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1611220503]
-shape = SubResource("RectangleShape2D_chx2g")
-disabled = true
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=714537145]
 callback_mode_process = 0

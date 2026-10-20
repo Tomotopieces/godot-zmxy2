@@ -25,9 +25,6 @@ shader_parameter/extend = 0.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s7sck"]
 resource_local_to_scene = true
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8tov1"]
-resource_local_to_scene = true
-
 [node name="FabaoPearlBullet1" type="Node2D" unique_id=646878151]
 script = ExtResource("1_e35q1")
 actions = PackedStringArray("default")
@@ -52,15 +49,6 @@ monitorable = false
 
 [node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=214909151]
 shape = SubResource("RectangleShape2D_s7sck")
-disabled = true
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1665145583]
-collision_layer = 0
-collision_mask = 0
-monitoring = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1755529768]
-shape = SubResource("RectangleShape2D_8tov1")
 disabled = true
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=1791662288]

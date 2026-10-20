@@ -4,9 +4,6 @@
 [ext_resource type="Texture2D" path="res://assets/rigs/potion_BigHP/tex/OtherMat_v10_218.png" id="2_pdnjm"]
 [ext_resource type="AnimationLibrary" path="res://scenes/actors/potion_BigHP/potion_BigHP_actions.tres" id="3_7biwb"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bw2dx"]
-resource_local_to_scene = true
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f7dxi"]
 resource_local_to_scene = true
 
@@ -24,15 +21,6 @@ position = Vector2(-23.5, -22.2)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_pdnjm")
 centered = false
-
-[node name="Hitbox" type="Area2D" parent="." unique_id=2041752433]
-collision_layer = 0
-collision_mask = 0
-monitorable = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1416015279]
-shape = SubResource("RectangleShape2D_bw2dx")
-disabled = true
 
 [node name="Hurtbox" type="Area2D" parent="." unique_id=2094825231]
 collision_layer = 0

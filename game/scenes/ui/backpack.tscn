@@ -48,7 +48,6 @@
 [ext_resource type="Texture2D" uid="uid://c7a4cut0m2n60" path="res://assets/ui/backpack/tex/backpack_v5_104.png" id="54_f3h6a"]
 [ext_resource type="PackedScene" uid="uid://cc8hr3t5hdisi" path="res://scenes/ui/backpack/currency.tscn" id="54_gye66"]
 [ext_resource type="PackedScene" uid="uid://bn7cu4s02f7m0" path="res://scenes/ui/backpack/stat.tscn" id="59_2ysyl"]
-[ext_resource type="Texture2D" uid="uid://c0olesjgejxdo" path="res://assets/shared/ui/backpack_v5_135.png" id="61_rpvka"]
 [ext_resource type="Texture2D" uid="uid://dqql6slotbkfw" path="res://assets/ui/backpack/tex/backpack_v5_148.png" id="65_834wd"]
 [ext_resource type="Texture2D" uid="uid://bp8cqwf7b7adm" path="res://assets/shared/mixed/Role_v6_485.png" id="67_glt67"]
 [ext_resource type="Texture2D" uid="uid://bi2sjc11x58l0" path="res://assets/shared/mixed/3_137.png" id="68_ps1pl"]
@@ -67,32 +66,25 @@
 [ext_resource type="Texture2D" uid="uid://dyrcgyd0ly34p" path="res://assets/shared/mixed/Pig9_212.png" id="81_n1o2a"]
 [ext_resource type="Texture2D" uid="uid://co6gehv1xfujq" path="res://assets/shared/ui/backpack_v5_415.png" id="82_3nogg"]
 [ext_resource type="PackedScene" uid="uid://bhb50stuk56mg" path="res://scenes/ui/backpack/equipment_slot.tscn" id="82_gye66"]
+[ext_resource type="PackedScene" uid="uid://vt17isp8tb0t" path="res://scenes/actors/bag_glow/bag_glow.tscn" id="bag_glow"]
 [ext_resource type="PackedScene" uid="uid://bjfpq7vfs33b3" path="res://scenes/ui/backpack/slot.tscn" id="slot"]
 [ext_resource type="PackedScene" uid="uid://bqe4kf3igvsji" path="res://scenes/ui/components/yellow_button.tscn" id="yellow_button"]
 [ext_resource type="Texture2D" uid="uid://b5oktqg3cye6a" path="res://assets/textures/yellow_orange_gradient.tres" id="yellow_orange_gradient"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_btnfocus"]
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btncloseUp0"]
 texture = ExtResource("8_u3sjm")
-expand_margin_left = 0
-expand_margin_top = 2
-expand_margin_right = 0
-expand_margin_bottom = -2
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btncloseOver1"]
-texture = ExtResource("9_v2suv")
-expand_margin_left = 0
-expand_margin_top = 2
-expand_margin_right = 0
-expand_margin_bottom = -2
+expand_margin_top = 2.0
+expand_margin_bottom = -2.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btncloseDown2"]
 texture = ExtResource("8_u3sjm")
-expand_margin_left = 0
-expand_margin_top = 0
-expand_margin_right = 0
-expand_margin_bottom = 0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btncloseOver1"]
+texture = ExtResource("9_v2suv")
+expand_margin_top = 2.0
+expand_margin_bottom = -2.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_btnfocus"]
 
 [node name="backpack" type="Control" unique_id=1004764809]
 layout_mode = 3
@@ -128,11 +120,11 @@ offset_left = 795.5
 offset_top = 57.85
 offset_right = 835.5
 offset_bottom = 97.85
-mouse_default_cursor_shape = 2
 focus_mode = 0
+mouse_default_cursor_shape = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_btncloseUp0")
-theme_override_styles/hover = SubResource("StyleBoxTexture_btncloseOver1")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_btncloseDown2")
+theme_override_styles/hover = SubResource("StyleBoxTexture_btncloseOver1")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btncloseDown2")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_btncloseUp0")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
@@ -921,16 +913,9 @@ metadata/ui_piece = ["txt_name"]
 
 [node name="Art" type="Node2D" parent="Art6" unique_id=929185052]
 
-[node name="backpack_v5_135" type="Sprite2D" parent="Art6/Art" unique_id=156123914]
-modulate = Color(1, 1, 1, 0.46)
-position = Vector2(399.99994, 299)
-rotation = -3.1415925
-scale = Vector2(0.605, 0.335)
-texture = ExtResource("61_rpvka")
-centered = false
-region_enabled = true
-region_rect = Rect2(1528, 0, 392.10913, 384)
-metadata/tex_key = "backpack_v5:135"
+[node name="SpotLight" parent="Art6/Art" unique_id=595263340 instance=ExtResource("bag_glow")]
+position = Vector2(278.55, 233)
+metadata/ui_piece = ["spotlight"]
 
 [node name="zbfb" type="Node2D" parent="." unique_id=2017460202]
 position = Vector2(402, 246.35)

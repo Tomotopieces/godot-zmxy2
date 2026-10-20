@@ -4,7 +4,8 @@ extends Node2D
 ##
 ## Children:
 ##   Poses/<Action>/...   Sprite2D parts (and EquipSlot nodes) of each action; only the playing action is visible
-##   Hitbox, Hurtbox      Area2D whose shapes are animated per action
+##   Hitbox, Hurtbox      Area2D whose shapes are animated per action; only where the code uses them (characters
+##                        both, projectiles a Hitbox, pickups a Hurtbox, pure visuals none)
 ##   Anim                 AnimationPlayer with one animation per action; gameplay events are named method keys
 ##                        (ev_new_hit, ev_finished, ev_set_vx(v) ...), frame 0 included
 ##
@@ -16,10 +17,10 @@ signal action_finished(action: StringName)
 @export var actions: PackedStringArray
 @export var markers: Dictionary = {}   ## named anchor points of the rest pose (e.g. "levelupmc")
 @onready var anim: AnimationPlayer = $Anim
-var hitbox: Area2D:   ## what this rig hits with (animated per action)
+var hitbox: Area2D:   ## what this rig hits with (animated per action; null when the scene has none)
 	get:
-		return get_node("Hitbox")
-var hurtbox: Area2D:   ## where this rig can be hit (null when the scene has none, e.g. a bullet)
+		return get_node_or_null("Hitbox")
+var hurtbox: Area2D:   ## where this rig can be hit (null when the scene has none)
 	get:
 		return get_node_or_null("Hurtbox")
 

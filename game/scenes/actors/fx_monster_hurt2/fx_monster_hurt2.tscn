@@ -4,12 +4,6 @@
 [ext_resource type="Texture2D" path="res://assets/shared/rigs/Common_v7_337.png" id="2_1q521"]
 [ext_resource type="AnimationLibrary" path="res://scenes/actors/fx_monster_hurt2/fx_monster_hurt2_actions.tres" id="3_eugxa"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hoe6c"]
-resource_local_to_scene = true
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wsjx6"]
-resource_local_to_scene = true
-
 [node name="FxMonsterHurt2" type="Node2D" unique_id=657487464]
 script = ExtResource("1_m8vkp")
 actions = PackedStringArray("default")
@@ -24,24 +18,6 @@ position = Vector2(-50.5, -44.45)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_1q521")
 centered = false
-
-[node name="Hitbox" type="Area2D" parent="." unique_id=408045624]
-collision_layer = 0
-collision_mask = 0
-monitorable = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1867847107]
-shape = SubResource("RectangleShape2D_hoe6c")
-disabled = true
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=987178111]
-collision_layer = 0
-collision_mask = 0
-monitoring = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=472240681]
-shape = SubResource("RectangleShape2D_wsjx6")
-disabled = true
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=2018888401]
 callback_mode_process = 0

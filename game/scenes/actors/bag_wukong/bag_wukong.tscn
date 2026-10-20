@@ -77,12 +77,6 @@
 [ext_resource type="PackedScene" path="res://assets/rigs/bag_wukong/slots/slot244_12.tscn" id="75_std14"]
 [ext_resource type="AnimationLibrary" path="res://scenes/actors/bag_wukong/bag_wukong_actions.tres" id="76_ipx66"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kniaf"]
-resource_local_to_scene = true
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3l3y6"]
-resource_local_to_scene = true
-
 [node name="BagWukong" type="Node2D" unique_id=1649140590]
 script = ExtResource("1_3q3er")
 actions = PackedStringArray("default")
@@ -428,24 +422,6 @@ variants = {
 10: ExtResource("74_oflgt"),
 12: ExtResource("75_std14")
 }
-
-[node name="Hitbox" type="Area2D" parent="." unique_id=315877667]
-collision_layer = 0
-collision_mask = 0
-monitorable = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1832901482]
-shape = SubResource("RectangleShape2D_kniaf")
-disabled = true
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1768012017]
-collision_layer = 0
-collision_mask = 0
-monitoring = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=748059478]
-shape = SubResource("RectangleShape2D_3l3y6")
-disabled = true
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=157394321]
 callback_mode_process = 0

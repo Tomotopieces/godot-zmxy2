@@ -7,12 +7,6 @@
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ssqt1"]
 blend_mode = 1
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tkgo6"]
-resource_local_to_scene = true
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_c2fry"]
-resource_local_to_scene = true
-
 [node name="TangsengCure" type="Node2D" unique_id=846843037]
 script = ExtResource("1_r2s48")
 actions = PackedStringArray("default")
@@ -28,24 +22,6 @@ position = Vector2(-245.5, -163)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_y7kf8")
 centered = false
-
-[node name="Hitbox" type="Area2D" parent="." unique_id=1466170904]
-collision_layer = 0
-collision_mask = 0
-monitorable = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=796976128]
-shape = SubResource("RectangleShape2D_tkgo6")
-disabled = true
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1869307051]
-collision_layer = 0
-collision_mask = 0
-monitoring = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1260457652]
-shape = SubResource("RectangleShape2D_c2fry")
-disabled = true
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=1573426774]
 callback_mode_process = 0

@@ -52,22 +52,14 @@ func _ready() -> void:
 	_refresh()
 	UiFade.fade_in(self)
 
-## The portrait plays the original animated clips: the spotlight behind (symbol 137) and Wukong (personmc body)
-## wearing the current gear. They replace the layout's frozen first frames.
-const GLOW_POS := Vector2(254.55, 209)
+## The portrait plays the original animated clips: the spotlight behind (the scene's SpotLight) and the hero
+## (personmc body) wearing the current gear, which replaces the layout's frozen first frame.
 var _portrait: Rig
 
 func _build_portrait() -> void:
-	_ui.set_visible_piece("personmc", false)
-	for c in _ui.get_children():
-		for sp: Sprite2D in c.find_children("*", "Sprite2D", true, false):
-			if sp.clip_children != CanvasItem.CLIP_CHILDREN_DISABLED:
-				c.visible = false   # the masked spotlight
-	var glow := Rig.create("bag_glow")
-	glow.position = GLOW_POS
-	_ui.add_child(glow)
-	_ui.move_child(glow, _ui.get_piece("personmc").get_index())
+	var glow := _ui.get_piece("spotlight") as Rig
 	glow.play(glow.actions[0])
+	_ui.set_visible_piece("personmc", false)
 	_portrait = Rig.create("bag_" + GameState.hero_data.role)
 	_portrait.position = (_ui.get_piece("personmc") as Node2D).position
 	_ui.add_child(_portrait)

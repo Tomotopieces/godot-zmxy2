@@ -22,12 +22,6 @@ shader_parameter/glow2_strength = null
 shader_parameter/solid = null
 shader_parameter/extend = 6.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_l17i0"]
-resource_local_to_scene = true
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_25cy7"]
-resource_local_to_scene = true
-
 [node name="Monster72Light2" type="Node2D" unique_id=1042351471]
 script = ExtResource("1_d71s6")
 actions = PackedStringArray("default")
@@ -42,24 +36,6 @@ material = SubResource("ShaderMaterial_p5yev")
 scale = Vector2(0.5, 0.3445)
 texture = ExtResource("3_506fk")
 centered = false
-
-[node name="Hitbox" type="Area2D" parent="." unique_id=482954140]
-collision_layer = 0
-collision_mask = 0
-monitorable = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1702056518]
-shape = SubResource("RectangleShape2D_l17i0")
-disabled = true
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=2124477738]
-collision_layer = 0
-collision_mask = 0
-monitoring = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=661195647]
-shape = SubResource("RectangleShape2D_25cy7")
-disabled = true
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=1911352146]
 callback_mode_process = 0

@@ -25,9 +25,6 @@ shader_parameter/extend = 0.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6k6yb"]
 resource_local_to_scene = true
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hxqgr"]
-resource_local_to_scene = true
-
 [node name="FabaoUmbrellaStab" type="Node2D" unique_id=518798988]
 script = ExtResource("1_f4l6l")
 actions = PackedStringArray("default")
@@ -51,15 +48,6 @@ monitorable = false
 
 [node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1521454901]
 shape = SubResource("RectangleShape2D_6k6yb")
-disabled = true
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=401883780]
-collision_layer = 0
-collision_mask = 0
-monitoring = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=186952451]
-shape = SubResource("RectangleShape2D_hxqgr")
 disabled = true
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=1357902690]

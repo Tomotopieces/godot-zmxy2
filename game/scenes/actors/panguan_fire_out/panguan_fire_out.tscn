@@ -3,12 +3,6 @@
 [ext_resource type="Script" uid="uid://bcpy8tnbo8vos" path="res://src/rig/rig.gd" id="1_bsnge"]
 [ext_resource type="AnimationLibrary" path="res://scenes/actors/panguan_fire_out/panguan_fire_out_actions.tres" id="2_eqaym"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sq1mi"]
-resource_local_to_scene = true
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_u4xd0"]
-resource_local_to_scene = true
-
 [node name="PanguanFireOut" type="Node2D" unique_id=1221660781]
 script = ExtResource("1_bsnge")
 actions = PackedStringArray("default")
@@ -20,24 +14,6 @@ markers = {
 
 [node name="Default" type="Node2D" parent="Poses" unique_id=617925317]
 visible = false
-
-[node name="Hitbox" type="Area2D" parent="." unique_id=2011822885]
-collision_layer = 0
-collision_mask = 0
-monitorable = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1807688982]
-shape = SubResource("RectangleShape2D_sq1mi")
-disabled = true
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=954827905]
-collision_layer = 0
-collision_mask = 0
-monitoring = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=149477897]
-shape = SubResource("RectangleShape2D_u4xd0")
-disabled = true
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=538150081]
 callback_mode_process = 0

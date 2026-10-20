@@ -25,9 +25,6 @@ shader_parameter/extend = 0.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pr87t"]
 resource_local_to_scene = true
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dot0u"]
-resource_local_to_scene = true
-
 [node name="WukongHit101" type="Node2D" unique_id=1665190415]
 script = ExtResource("1_f50vv")
 actions = PackedStringArray("default")
@@ -51,15 +48,6 @@ monitorable = false
 
 [node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1843999720]
 shape = SubResource("RectangleShape2D_pr87t")
-disabled = true
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1996230718]
-collision_layer = 0
-collision_mask = 0
-monitoring = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1999631680]
-shape = SubResource("RectangleShape2D_dot0u")
 disabled = true
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=491658945]

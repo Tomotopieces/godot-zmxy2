@@ -63,12 +63,6 @@ shader_parameter/glow2_strength = null
 shader_parameter/solid = null
 shader_parameter/extend = 0.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3i32v"]
-resource_local_to_scene = true
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_h3qf1"]
-resource_local_to_scene = true
-
 [node name="TangsengShadow" type="Node2D" unique_id=1414291483]
 script = ExtResource("1_38mer")
 actions = PackedStringArray("walk", "hit3", "hit5")
@@ -130,24 +124,6 @@ position = Vector2(-35.25, -58.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("10_8gml7")
 centered = false
-
-[node name="Hitbox" type="Area2D" parent="." unique_id=1546703605]
-collision_layer = 0
-collision_mask = 0
-monitorable = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1768694466]
-shape = SubResource("RectangleShape2D_3i32v")
-disabled = true
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=615890462]
-collision_layer = 0
-collision_mask = 0
-monitoring = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=2075919173]
-shape = SubResource("RectangleShape2D_h3qf1")
-disabled = true
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=1896055604]
 callback_mode_process = 0

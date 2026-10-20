@@ -47,9 +47,6 @@ shader_parameter/extend = 18.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dddw6"]
 resource_local_to_scene = true
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ssc12"]
-resource_local_to_scene = true
-
 [node name="Monster49Bullet3" type="Node2D" unique_id=1056450466]
 script = ExtResource("1_orrwp")
 actions = PackedStringArray("default")
@@ -190,15 +187,6 @@ monitorable = false
 
 [node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1976046640]
 shape = SubResource("RectangleShape2D_dddw6")
-disabled = true
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=567462461]
-collision_layer = 0
-collision_mask = 0
-monitoring = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1310636588]
-shape = SubResource("RectangleShape2D_ssc12")
 disabled = true
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=1597246433]

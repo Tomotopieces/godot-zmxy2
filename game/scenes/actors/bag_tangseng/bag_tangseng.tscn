@@ -63,12 +63,6 @@
 [ext_resource type="PackedScene" path="res://assets/rigs/bag_tangseng/slots/slot358_12.tscn" id="61_v8icr"]
 [ext_resource type="AnimationLibrary" path="res://scenes/actors/bag_tangseng/bag_tangseng_actions.tres" id="62_y3uyu"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kxoiw"]
-resource_local_to_scene = true
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qc0kl"]
-resource_local_to_scene = true
-
 [node name="BagTangseng" type="Node2D" unique_id=1896186363]
 script = ExtResource("1_tufsn")
 actions = PackedStringArray("default")
@@ -235,24 +229,6 @@ variants = {
 10: ExtResource("60_x7w8r"),
 12: ExtResource("61_v8icr")
 }
-
-[node name="Hitbox" type="Area2D" parent="." unique_id=1949878804]
-collision_layer = 0
-collision_mask = 0
-monitorable = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1244251891]
-shape = SubResource("RectangleShape2D_kxoiw")
-disabled = true
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1145626898]
-collision_layer = 0
-collision_mask = 0
-monitoring = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=438080845]
-shape = SubResource("RectangleShape2D_qc0kl")
-disabled = true
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=1444895301]
 callback_mode_process = 0

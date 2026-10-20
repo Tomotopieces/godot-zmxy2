@@ -23,12 +23,6 @@ shader_parameter/glow2_strength = null
 shader_parameter/solid = null
 shader_parameter/extend = 0.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7sxc3"]
-resource_local_to_scene = true
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3anps"]
-resource_local_to_scene = true
-
 [node name="FxPoisonHead" type="Node2D" unique_id=1104041438]
 script = ExtResource("1_v284l")
 actions = PackedStringArray("default")
@@ -52,24 +46,6 @@ position = Vector2(-9.8, -11.25)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_w7lkv")
 centered = false
-
-[node name="Hitbox" type="Area2D" parent="." unique_id=1978386191]
-collision_layer = 0
-collision_mask = 0
-monitorable = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=609925860]
-shape = SubResource("RectangleShape2D_7sxc3")
-disabled = true
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=481461112]
-collision_layer = 0
-collision_mask = 0
-monitoring = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1760924194]
-shape = SubResource("RectangleShape2D_3anps")
-disabled = true
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=1625079708]
 callback_mode_process = 0

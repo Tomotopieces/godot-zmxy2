@@ -7,9 +7,6 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h00ga"]
 resource_local_to_scene = true
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_whe73"]
-resource_local_to_scene = true
-
 [node name="FabaoWuduBullet1" type="Node2D" unique_id=1229788378]
 script = ExtResource("1_ketih")
 actions = PackedStringArray("default")
@@ -32,15 +29,6 @@ monitorable = false
 
 [node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=295993880]
 shape = SubResource("RectangleShape2D_h00ga")
-disabled = true
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=316337731]
-collision_layer = 0
-collision_mask = 0
-monitoring = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=89880958]
-shape = SubResource("RectangleShape2D_whe73")
 disabled = true
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=838581449]

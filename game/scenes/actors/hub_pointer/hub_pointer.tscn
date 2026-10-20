@@ -8,12 +8,6 @@
 [ext_resource type="Texture2D" path="res://assets/rigs/hub_pointer/tex/10_11.png" id="6_67p3h"]
 [ext_resource type="AnimationLibrary" path="res://scenes/actors/hub_pointer/hub_pointer_actions.tres" id="7_wjyjm"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_303rb"]
-resource_local_to_scene = true
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cgfx0"]
-resource_local_to_scene = true
-
 [node name="HubPointer" type="Node2D" unique_id=1521973129]
 script = ExtResource("1_7y81e")
 actions = PackedStringArray("f0", "f1", "f2", "f3", "f4")
@@ -64,24 +58,6 @@ position = Vector2(-28.6, -22.15)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_67p3h")
 centered = false
-
-[node name="Hitbox" type="Area2D" parent="." unique_id=1297474633]
-collision_layer = 0
-collision_mask = 0
-monitorable = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=762710929]
-shape = SubResource("RectangleShape2D_303rb")
-disabled = true
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=389766994]
-collision_layer = 0
-collision_mask = 0
-monitoring = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1851539885]
-shape = SubResource("RectangleShape2D_cgfx0")
-disabled = true
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=724359507]
 callback_mode_process = 0

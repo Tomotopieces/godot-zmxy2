@@ -67,12 +67,6 @@ shader_parameter/glow2_strength = null
 shader_parameter/solid = null
 shader_parameter/extend = 31.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3dt7v"]
-resource_local_to_scene = true
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_oqy5k"]
-resource_local_to_scene = true
-
 [node name="FabaoXhmt" type="Node2D" unique_id=375598997]
 script = ExtResource("1_mp88s")
 actions = PackedStringArray("walk", "begin", "run", "hit1", "back")
@@ -255,24 +249,6 @@ position = Vector2(-30.85, -34.300003)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("14_g0lff")
 centered = false
-
-[node name="Hitbox" type="Area2D" parent="." unique_id=2003357360]
-collision_layer = 0
-collision_mask = 0
-monitorable = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=13255094]
-shape = SubResource("RectangleShape2D_3dt7v")
-disabled = true
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1004611912]
-collision_layer = 0
-collision_mask = 0
-monitoring = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1686655864]
-shape = SubResource("RectangleShape2D_oqy5k")
-disabled = true
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=65240656]
 callback_mode_process = 0

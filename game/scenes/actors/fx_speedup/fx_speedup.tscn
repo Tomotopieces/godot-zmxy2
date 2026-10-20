@@ -4,12 +4,6 @@
 [ext_resource type="Texture2D" path="res://assets/rigs/fx_speedup/tex/2_429.png" id="2_inbp4"]
 [ext_resource type="AnimationLibrary" path="res://scenes/actors/fx_speedup/fx_speedup_actions.tres" id="3_lohth"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yv3ie"]
-resource_local_to_scene = true
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_34l5n"]
-resource_local_to_scene = true
-
 [node name="FxSpeedup" type="Node2D" unique_id=1032485932]
 script = ExtResource("1_ul1vq")
 actions = PackedStringArray("default")
@@ -24,24 +18,6 @@ position = Vector2(-26, -34.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_inbp4")
 centered = false
-
-[node name="Hitbox" type="Area2D" parent="." unique_id=804885186]
-collision_layer = 0
-collision_mask = 0
-monitorable = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1578888179]
-shape = SubResource("RectangleShape2D_yv3ie")
-disabled = true
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1164190161]
-collision_layer = 0
-collision_mask = 0
-monitoring = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=2035954869]
-shape = SubResource("RectangleShape2D_34l5n")
-disabled = true
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=189918684]
 callback_mode_process = 0

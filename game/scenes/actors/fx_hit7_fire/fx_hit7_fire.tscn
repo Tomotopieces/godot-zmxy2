@@ -22,12 +22,6 @@ shader_parameter/glow2_strength = null
 shader_parameter/solid = null
 shader_parameter/extend = 15.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_u3unu"]
-resource_local_to_scene = true
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_s7jpy"]
-resource_local_to_scene = true
-
 [node name="FxHit7Fire" type="Node2D" unique_id=999875346]
 script = ExtResource("1_icdld")
 actions = PackedStringArray("default")
@@ -43,24 +37,6 @@ position = Vector2(-220.85, -34.15)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_r6wf7")
 centered = false
-
-[node name="Hitbox" type="Area2D" parent="." unique_id=1326648335]
-collision_layer = 0
-collision_mask = 0
-monitorable = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=990649447]
-shape = SubResource("RectangleShape2D_u3unu")
-disabled = true
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=2024652969]
-collision_layer = 0
-collision_mask = 0
-monitoring = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=598096087]
-shape = SubResource("RectangleShape2D_s7jpy")
-disabled = true
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=163363621]
 callback_mode_process = 0

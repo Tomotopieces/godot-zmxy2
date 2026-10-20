@@ -5,12 +5,6 @@
 [ext_resource type="Texture2D" path="res://assets/rigs/gogo/tex/zmxy2_game_343.png" id="3_dipyc"]
 [ext_resource type="AnimationLibrary" path="res://scenes/actors/gogo/gogo_actions.tres" id="4_mhvge"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nhkvj"]
-resource_local_to_scene = true
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0lqr5"]
-resource_local_to_scene = true
-
 [node name="Gogo" type="Node2D" unique_id=1524620073]
 script = ExtResource("1_hx3f2")
 actions = PackedStringArray("default")
@@ -31,24 +25,6 @@ position = Vector2(-43.35, -9.55)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_dipyc")
 centered = false
-
-[node name="Hitbox" type="Area2D" parent="." unique_id=2090772552]
-collision_layer = 0
-collision_mask = 0
-monitorable = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1902057791]
-shape = SubResource("RectangleShape2D_nhkvj")
-disabled = true
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1882610612]
-collision_layer = 0
-collision_mask = 0
-monitoring = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1560482802]
-shape = SubResource("RectangleShape2D_0lqr5")
-disabled = true
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=1268648309]
 callback_mode_process = 0

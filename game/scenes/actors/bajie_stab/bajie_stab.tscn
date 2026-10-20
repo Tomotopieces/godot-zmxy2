@@ -26,9 +26,6 @@ shader_parameter/extend = 3.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pak6x"]
 resource_local_to_scene = true
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hxqok"]
-resource_local_to_scene = true
-
 [node name="BajieStab" type="Node2D" unique_id=811194546]
 script = ExtResource("1_qj81f")
 actions = PackedStringArray("default")
@@ -99,15 +96,6 @@ monitorable = false
 
 [node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=2065543342]
 shape = SubResource("RectangleShape2D_pak6x")
-disabled = true
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=414880385]
-collision_layer = 0
-collision_mask = 0
-monitoring = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=416549273]
-shape = SubResource("RectangleShape2D_hxqok")
 disabled = true
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=1878573511]

@@ -6,12 +6,6 @@
 [ext_resource type="Texture2D" path="res://assets/rigs/fabao_bsj/tex/Common_v7_311.png" id="4_1b6bs"]
 [ext_resource type="AnimationLibrary" path="res://scenes/actors/fabao_bsj/fabao_bsj_actions.tres" id="5_7rdvq"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_eyoh1"]
-resource_local_to_scene = true
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tnm31"]
-resource_local_to_scene = true
-
 [node name="FabaoBsj" type="Node2D" unique_id=691271716]
 script = ExtResource("1_1uq2u")
 actions = PackedStringArray("walk", "hit1")
@@ -61,24 +55,6 @@ position = Vector2(-7.9, -32.4)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_1b6bs")
 centered = false
-
-[node name="Hitbox" type="Area2D" parent="." unique_id=1794709937]
-collision_layer = 0
-collision_mask = 0
-monitorable = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1467242086]
-shape = SubResource("RectangleShape2D_eyoh1")
-disabled = true
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=111612813]
-collision_layer = 0
-collision_mask = 0
-monitoring = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=613545829]
-shape = SubResource("RectangleShape2D_tnm31")
-disabled = true
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=1077655106]
 callback_mode_process = 0

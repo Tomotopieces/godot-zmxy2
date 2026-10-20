@@ -22,12 +22,6 @@ shader_parameter/glow2_strength = null
 shader_parameter/solid = null
 shader_parameter/extend = 0.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rpnx8"]
-resource_local_to_scene = true
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hy1av"]
-resource_local_to_scene = true
-
 [node name="Bullet2Explode" type="Node2D" unique_id=1355797313]
 script = ExtResource("1_rclu4")
 actions = PackedStringArray("default")
@@ -43,24 +37,6 @@ position = Vector2(-29, -30.05)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_bintn")
 centered = false
-
-[node name="Hitbox" type="Area2D" parent="." unique_id=238307911]
-collision_layer = 0
-collision_mask = 0
-monitorable = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1198265428]
-shape = SubResource("RectangleShape2D_rpnx8")
-disabled = true
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1900768666]
-collision_layer = 0
-collision_mask = 0
-monitoring = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=708255546]
-shape = SubResource("RectangleShape2D_hy1av")
-disabled = true
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=54628974]
 callback_mode_process = 0

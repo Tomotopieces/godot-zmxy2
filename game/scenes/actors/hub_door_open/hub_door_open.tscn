@@ -6,12 +6,6 @@
 [ext_resource type="Texture2D" path="res://assets/shared/rigs/zmxy2_game_198.png" id="4_k15cu"]
 [ext_resource type="AnimationLibrary" path="res://scenes/actors/hub_door_open/hub_door_open_actions.tres" id="5_7ohj7"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dauyu"]
-resource_local_to_scene = true
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_038qr"]
-resource_local_to_scene = true
-
 [node name="HubDoorOpen" type="Node2D" unique_id=1789070128]
 script = ExtResource("1_5ov3s")
 actions = PackedStringArray("default")
@@ -37,24 +31,6 @@ position = Vector2(-26.5, 7.001831)
 scale = Vector2(0.5, 1.578)
 texture = ExtResource("4_k15cu")
 centered = false
-
-[node name="Hitbox" type="Area2D" parent="." unique_id=1903704259]
-collision_layer = 0
-collision_mask = 0
-monitorable = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=81997506]
-shape = SubResource("RectangleShape2D_dauyu")
-disabled = true
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1638931507]
-collision_layer = 0
-collision_mask = 0
-monitoring = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=656362808]
-shape = SubResource("RectangleShape2D_038qr")
-disabled = true
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=414260781]
 callback_mode_process = 0

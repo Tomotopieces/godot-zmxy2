@@ -42,12 +42,6 @@ shader_parameter/glow2_strength = null
 shader_parameter/solid = null
 shader_parameter/extend = 12.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4b6vi"]
-resource_local_to_scene = true
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ndpm"]
-resource_local_to_scene = true
-
 [node name="HeroTomb" type="Node2D" unique_id=117171910]
 script = ExtResource("1_ld4yn")
 actions = PackedStringArray("default")
@@ -85,24 +79,6 @@ position = Vector2(-31.45, -32.649998)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_2n3bu")
 centered = false
-
-[node name="Hitbox" type="Area2D" parent="." unique_id=519946610]
-collision_layer = 0
-collision_mask = 0
-monitorable = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=784026387]
-shape = SubResource("RectangleShape2D_4b6vi")
-disabled = true
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1960568189]
-collision_layer = 0
-collision_mask = 0
-monitoring = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=989513430]
-shape = SubResource("RectangleShape2D_1ndpm")
-disabled = true
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=61129280]
 callback_mode_process = 0

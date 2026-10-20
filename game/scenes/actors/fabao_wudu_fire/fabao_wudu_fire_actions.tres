@@ -23,10 +23,10 @@ tracks/1/path = NodePath("Poses/Default/DefaultPart1:texture")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.083333336, 0.16666667, 0.20833333, 0.25, 0.29166666, 0.33333334, 0.375, 0.45833334, 0.5416667, 0.625, 0.7083333, 0.7916667, 0.875, 0.9583333, 1.0416666),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_5uec5"), ExtResource("1_5uec5"), ExtResource("1_5uec5"), ExtResource("1_5uec5"), ExtResource("1_5uec5"), ExtResource("1_5uec5"), ExtResource("1_5uec5"), ExtResource("1_5uec5"), ExtResource("1_5uec5"), ExtResource("1_5uec5"), ExtResource("1_5uec5"), ExtResource("1_5uec5"), ExtResource("1_5uec5"), ExtResource("1_5uec5"), ExtResource("1_5uec5"), ExtResource("1_5uec5")]
+"values": [ExtResource("1_5uec5")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -47,10 +47,10 @@ tracks/3/path = NodePath("Poses/Default/DefaultPart1:modulate")
 tracks/3/interp = 0
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.083333336, 0.16666667, 0.20833333, 0.25, 0.29166666, 0.33333334, 0.375, 0.45833334, 0.5416667, 0.625, 0.7083333, 0.7916667, 0.875, 0.9583333, 1.0416666),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -112,49 +112,13 @@ tracks/8/keys = {
 "update": 1,
 "values": [false, false, false, false, false, false, false, false, false, true]
 }
-tracks/9/type = "value"
+tracks/9/type = "method"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Hurtbox/Shape:position")
-tracks/9/interp = 0
+tracks/9/path = NodePath(".")
+tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
-"update": 1,
-"values": []
-}
-tracks/10/type = "value"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("Hurtbox/Shape:shape:size")
-tracks/10/interp = 0
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
-"update": 1,
-"values": []
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("Hurtbox/Shape:disabled")
-tracks/11/interp = 0
-tracks/11/loop_wrap = true
-tracks/11/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/12/type = "method"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath(".")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
 "times": PackedFloat32Array(0.45833334, 1.4166666),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
@@ -165,13 +129,13 @@ tracks/12/keys = {
 "method": &"ev_call"
 }]
 }
-tracks/13/type = "method"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath(".")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = {
+tracks/10/type = "method"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath(".")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
 "times": PackedFloat32Array(1.4166666),
 "transitions": PackedFloat32Array(1),
 "values": [{

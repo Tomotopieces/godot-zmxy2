@@ -4,12 +4,6 @@
 [ext_resource type="Texture2D" path="res://assets/rigs/monster58shallow/tex/7_2.png" id="2_c2li0"]
 [ext_resource type="AnimationLibrary" path="res://scenes/actors/monster58shallow/monster58shallow_actions.tres" id="3_jm0dp"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2m50f"]
-resource_local_to_scene = true
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4outn"]
-resource_local_to_scene = true
-
 [node name="Monster58Shallow" type="Node2D" unique_id=1228771104]
 script = ExtResource("1_3d0bm")
 actions = PackedStringArray("default")
@@ -24,24 +18,6 @@ position = Vector2(-41.218, -3.1039999)
 scale = Vector2(0.16, 0.16)
 texture = ExtResource("2_c2li0")
 centered = false
-
-[node name="Hitbox" type="Area2D" parent="." unique_id=789263156]
-collision_layer = 0
-collision_mask = 0
-monitorable = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=970708748]
-shape = SubResource("RectangleShape2D_2m50f")
-disabled = true
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1785785582]
-collision_layer = 0
-collision_mask = 0
-monitoring = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=887194189]
-shape = SubResource("RectangleShape2D_4outn")
-disabled = true
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=707113225]
 callback_mode_process = 0

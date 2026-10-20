@@ -7,9 +7,6 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_etwd3"]
 resource_local_to_scene = true
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yook6"]
-resource_local_to_scene = true
-
 [node name="FabaoWuduFireBig" type="Node2D" unique_id=916812896]
 script = ExtResource("1_02234")
 actions = PackedStringArray("default")
@@ -68,15 +65,6 @@ monitorable = false
 
 [node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1092931432]
 shape = SubResource("RectangleShape2D_etwd3")
-disabled = true
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=849790051]
-collision_layer = 0
-collision_mask = 0
-monitoring = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=214203530]
-shape = SubResource("RectangleShape2D_yook6")
 disabled = true
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=1702888743]

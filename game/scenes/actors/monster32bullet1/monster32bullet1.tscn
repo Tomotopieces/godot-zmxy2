@@ -26,9 +26,6 @@ shader_parameter/extend = 10.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gl6tx"]
 resource_local_to_scene = true
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xkw8n"]
-resource_local_to_scene = true
-
 [node name="Monster32Bullet1" type="Node2D" unique_id=327539570]
 script = ExtResource("1_ff4mu")
 actions = PackedStringArray("default")
@@ -58,15 +55,6 @@ monitorable = false
 
 [node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=485757972]
 shape = SubResource("RectangleShape2D_gl6tx")
-disabled = true
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=1084925144]
-collision_layer = 0
-collision_mask = 0
-monitoring = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1564061279]
-shape = SubResource("RectangleShape2D_xkw8n")
 disabled = true
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=1886178112]

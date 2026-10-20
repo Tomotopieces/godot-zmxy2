@@ -27,12 +27,6 @@ shader_parameter/glow2_strength = null
 shader_parameter/solid = null
 shader_parameter/extend = 17.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_s4eda"]
-resource_local_to_scene = true
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_iu6ve"]
-resource_local_to_scene = true
-
 [node name="HubStatueOpen" type="Node2D" unique_id=1626229301]
 script = ExtResource("1_x1oli")
 actions = PackedStringArray("default")
@@ -86,24 +80,6 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("8_7oq3r")
 centered = false
 region_enabled = true
-
-[node name="Hitbox" type="Area2D" parent="." unique_id=987488029]
-collision_layer = 0
-collision_mask = 0
-monitorable = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=1663898793]
-shape = SubResource("RectangleShape2D_s4eda")
-disabled = true
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=547241970]
-collision_layer = 0
-collision_mask = 0
-monitoring = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=970484011]
-shape = SubResource("RectangleShape2D_iu6ve")
-disabled = true
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=1387580807]
 callback_mode_process = 0

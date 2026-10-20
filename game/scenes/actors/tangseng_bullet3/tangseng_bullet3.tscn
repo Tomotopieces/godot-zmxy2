@@ -47,9 +47,6 @@ shader_parameter/extend = 18.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_smgtx"]
 resource_local_to_scene = true
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xfqr2"]
-resource_local_to_scene = true
-
 [node name="TangsengBullet3" type="Node2D" unique_id=757553333]
 script = ExtResource("1_d84is")
 actions = PackedStringArray("default")
@@ -190,15 +187,6 @@ monitorable = false
 
 [node name="Shape" type="CollisionShape2D" parent="Hitbox" unique_id=37743165]
 shape = SubResource("RectangleShape2D_smgtx")
-disabled = true
-
-[node name="Hurtbox" type="Area2D" parent="." unique_id=472485468]
-collision_layer = 0
-collision_mask = 0
-monitoring = false
-
-[node name="Shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1198801729]
-shape = SubResource("RectangleShape2D_xfqr2")
 disabled = true
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=1665287898]
