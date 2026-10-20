@@ -22,6 +22,11 @@ const DARK_BLUE := Color("1c2260")
 
 var _ui: UiLayout
 var _art: Node
+const PAGE_ART := {
+	"prev": [preload("res://assets/ui/shop/tex/backpack_v5_648.png"), preload("res://assets/ui/shop/tex/backpack_v5_650.png")],
+	"next": [preload("res://assets/ui/shop/tex/backpack_v5_652.png"), preload("res://assets/ui/shop/tex/backpack_v5_653.png")],
+}
+
 var _pages: Array = []
 var _page := 0
 var _label: Label
@@ -41,12 +46,18 @@ func _ready() -> void:
 		_ui.add_child(_pages[i])
 		_ui.move_child(_pages[i], 1)
 	_ui.button_pressed.connect(_on_button)
-	for side in [[-1, 38.0, "◀"], [1, 868.0, "▶"]]:
+	# page arrows: the shop's page buttons (31 x 31; normal / pressed art, lighter art on hover)
+	for side in [[-1, 39.5, PAGE_ART.prev], [1, 869.5, PAGE_ART.next]]:
 		var b := Button.new()
-		b.text = side[2]
 		b.focus_mode = Control.FOCUS_NONE
-		b.position = Vector2(side[1], 262)
-		b.size = Vector2(34, 66)
+		b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+		b.position = Vector2(side[1], 279.5)
+		b.size = Vector2(31, 31)
+		for st in ["normal", "pressed", "hover_pressed", "disabled", "hover"]:
+			var box := StyleBoxTexture.new()
+			box.texture = side[2][1] if st == "hover" else side[2][0]
+			b.add_theme_stylebox_override(st, box)
+		b.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
 		b.pressed.connect(_turn.bind(side[0]))
 		add_child(b)
 	_label = Label.new()
