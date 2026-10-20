@@ -14,10 +14,10 @@ corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
-content_margin_left = 7.0
-content_margin_top = 7.0
-content_margin_right = 7.0
-content_margin_bottom = 7.0
+content_margin_left = 6.0
+content_margin_top = 5.0
+content_margin_right = 6.0
+content_margin_bottom = 5.0
 
 [node name="ItemMenu" type="PanelContainer"]
 offset_right = 87.0
@@ -29,10 +29,10 @@ script = ExtResource("1_0a1f0")
 [node name="Buttons" type="VBoxContainer" parent="."]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 6
 
 [node name="Wear" parent="Buttons" instance=ExtResource("yellow_button")]
-custom_minimum_size = Vector2(73, 27)
+custom_minimum_size = Vector2(75, 29)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "装 备"
@@ -40,7 +40,7 @@ metadata/ui_piece = ["bzb"]
 metadata/ui_button = "bzb"
 
 [node name="Sell" parent="Buttons" instance=ExtResource("yellow_button")]
-custom_minimum_size = Vector2(73, 27)
+custom_minimum_size = Vector2(75, 29)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "出 售"
@@ -48,7 +48,7 @@ metadata/ui_piece = ["bmd"]
 metadata/ui_button = "bmd"
 
 [node name="Use" parent="Buttons" instance=ExtResource("yellow_button")]
-custom_minimum_size = Vector2(73, 27)
+custom_minimum_size = Vector2(75, 29)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "使 用"
@@ -56,7 +56,7 @@ metadata/ui_piece = ["buse"]
 metadata/ui_button = "buse"
 
 [node name="BigMooncake" parent="Buttons" instance=ExtResource("yellow_button")]
-custom_minimum_size = Vector2(73, 27)
+custom_minimum_size = Vector2(75, 29)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "兑换大月饼"
@@ -64,7 +64,7 @@ metadata/ui_piece = ["sbmooncake"]
 metadata/ui_button = "sbmooncake"
 
 [node name="MoonWeapon" parent="Buttons" instance=ExtResource("yellow_button")]
-custom_minimum_size = Vector2(73, 27)
+custom_minimum_size = Vector2(75, 29)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "兑换中秋武器"
@@ -72,7 +72,7 @@ metadata/ui_piece = ["smoonweapon"]
 metadata/ui_button = "smoonweapon"
 
 [node name="Throw" parent="Buttons" instance=ExtResource("yellow_button")]
-custom_minimum_size = Vector2(73, 27)
+custom_minimum_size = Vector2(75, 29)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "丢 弃"
