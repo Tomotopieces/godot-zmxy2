@@ -32,12 +32,12 @@ func hero_hits(r: Rect2) -> bool:
 	var h := level.hero
 	if not is_instance_valid(h) or h.attack == null:
 		return false
-	var hr := h.rig.hit_rect()
+	var hr := h.puppet.hit_rect()
 	return hr.size != Vector2.ZERO and hr.intersects(r)
 
-## A rig placed in the world as scenery.
-func place_rig(rig_name: String, pos: Vector2, z := Layers.Z_MECHANISM) -> Rig:
-	var r := Rig.create(rig_name)
+## A puppet placed in the world as scenery.
+func place_puppet(puppet_name: String, pos: Vector2, z := Layers.Z_MECHANISM) -> Puppet:
+	var r := Puppet.create(puppet_name)
 	r.position = pos
 	r.z_index = z
 	level.add_object(r)

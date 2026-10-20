@@ -127,7 +127,7 @@ func exp_to_next() -> int:
 func has_skill(s: StringName) -> bool:
 	return skills.get(s, false)
 
-## Rig appearance ids of the worn gear (1 = bare).
+## Puppet appearance ids of the worn gear (1 = bare).
 func appearance() -> Dictionary:
 	var out := {"cloth": 1, "weapon": 1, "wing": 1}
 	for slot in [&"cloth", &"weapon", &"wing"]:

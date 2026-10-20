@@ -4,7 +4,7 @@ extends CharacterBody2D
 ## are cast again from where it stands (冰柱 / 群体回血), then it disappears; pressing I again swaps places with it.
 
 var hero: Hero
-var rig: Rig
+var puppet: Puppet
 var facing := 1
 var life := 0.0
 var speed := 0.0
@@ -25,11 +25,11 @@ func _ready() -> void:
 	collision_mask = Actor.LAYER_WORLD | Actor.LAYER_ONEWAY
 	z_index = Layers.Z_HERO - 1
 	add_child(hero.body_shape.duplicate())
-	rig = Rig.create("tangseng_shadow")
-	rig.scale.x = -facing
-	add_child(rig)
-	rig.event.connect(_on_event)
-	rig.play(&"walk")
+	puppet = Puppet.create("tangseng_shadow")
+	puppet.scale.x = -facing
+	add_child(puppet)
+	puppet.event.connect(_on_event)
+	puppet.play(&"walk")
 
 func _physics_process(delta: float) -> void:
 	life -= delta
@@ -47,12 +47,12 @@ func _exit_tree() -> void:
 ## U: casts 冰柱 from here.
 func do_hit3() -> void:
 	_busy = true
-	rig.play(&"hit3")
+	puppet.play(&"hit3")
 
 ## O: heals the heroes near it when its animation ends.
 func do_hit5() -> void:
 	_busy = true
-	rig.visible = false
+	puppet.visible = false
 	Snd.sfx_varied("Role2_hit5", Hero.SKILL_PITCH)
 	hero.cure_at(global_position + Vector2(0, -60), false)
 	get_tree().create_timer(0.1, false).timeout.connect(queue_free)

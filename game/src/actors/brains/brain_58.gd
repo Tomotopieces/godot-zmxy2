@@ -21,10 +21,10 @@ func _hover(delta: float) -> void:
 	_fall -= delta
 	if _fall <= 0.0:
 		_hovering = false
-		m.rig.visible = true   # he comes into view as he drops
+		m.puppet.visible = true   # he comes into view as he drops
 		m.fly = false
 		# untouchable through the whole drop, up to the end of the flames on the floor (a hit would cancel them)
-		m.invuln = m.rig.anim.get_animation(&"hit2-2").length
+		m.invuln = m.puppet.anim.get_animation(&"hit2-2").length
 		# the shadow lies on the floor, under the monsters and the hero (the original adds it just below him in the draw order)
 		Fx.spawn("monster58shallow", Vector2(m.global_position.x, float(param("shadow_y", 510)))).z_index = Layers.Z_MONSTER - 1
 		act(&"hit2-2")
@@ -36,7 +36,7 @@ func on_call(n: String, _args: Array) -> bool:
 	match n:
 		"in_top":
 			_hovering = true
-			m.rig.visible = false   # up in the sky he is out of sight (the original left his soles showing at the top)
+			m.puppet.visible = false   # up in the sky he is out of sight (the original left his soles showing at the top)
 			m.fly = true
 			m.invuln = 9999.0
 			if _first_fall:
@@ -54,7 +54,7 @@ func on_call(n: String, _args: Array) -> bool:
 func on_action_finished(action: StringName) -> void:
 	if action == &"hit2-1" and _hovering:
 		m.state = Monster.State.ATTACK   # stays up until the slam
-		m.rig.play(&"wait")
+		m.puppet.play(&"wait")
 
 func on_destroy() -> void:
 	m.world.open_door()

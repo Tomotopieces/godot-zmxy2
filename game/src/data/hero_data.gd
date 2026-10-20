@@ -2,13 +2,13 @@ class_name HeroData
 extends Resource
 ## Hero tuning (data/<hero>.tres). Units: px, seconds.
 
-## Who this is: id (file name / save key), index (HUD portrait, shop and bag pages), names, rig and sound prefix.
+## Who this is: id (file name / save key), index (HUD portrait, shop and bag pages), names, puppet and sound prefix.
 @export var role := "wukong"
 @export var role_index := 0
 @export var title := "孙悟空"        ## name shown in the bag
 @export var character := "悟空"      ## matches EquipmentData.user
 @export var sound_prefix := "Role1"
-@export var rig := "wukong"
+@export var puppet := "wukong"
 @export var super_armor_in_rage := true      ## no hit stun / knockback while transformed
 @export var damage_taken_mul_in_rage := 1.0
 @export var lock_glow := Color.RED           ## anti-lock protection glow

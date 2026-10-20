@@ -64,7 +64,7 @@ func _ready() -> void:
 	await _press("skill_i")   # 烈焰风暴
 	await _wait(0.1)
 	Input.action_press("move_left")
-	await _until(func(): return h.state == Hero.State.MOVE or h.rig.progress() >= h.data.cancel_progress, 4.0)
+	await _until(func(): return h.state == Hero.State.MOVE or h.puppet.progress() >= h.data.cancel_progress, 4.0)
 	await _until(func(): return h.cooldown <= 0.0, 2.0)
 	await _wait(0.05)
 	await _press("skill_u")

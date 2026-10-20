@@ -61,7 +61,7 @@ func _cast_stance() -> bool:
 		return false
 	if state == State.ATTACK and attack_action == STANCE:
 		var a: AttackData = data.attacks[STAB]
-		if rig.time() > float(data.kit.reflect.recast_after) and mp >= a.mp_cost:
+		if puppet.time() > float(data.kit.reflect.recast_after) and mp >= a.mp_cost:
 			mp -= a.mp_cost
 			cooldown = a.cooldown
 			_begin(STAB)
@@ -167,7 +167,7 @@ func _create_stabs() -> void:
 		var s := Projectile.create("bajie_stab", self, a, STAB)
 		s.position = start
 		s.life = float(k.turn) + float(k.life)
-		s.rig.rotation = ang
+		s.puppet.rotation = ang
 		s.modulate.a = 0.0
 		world.add_object(s)
 		var heading := Vector2.DOWN
@@ -175,11 +175,11 @@ func _create_stabs() -> void:
 			heading = (aim - start).normalized()
 			var tw := s.create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS).set_parallel()
 			tw.tween_property(s, "modulate:a", 1.0, float(k.turn))
-			tw.tween_property(s.rig, "rotation", heading.angle() - STAB_ART_ANGLE, float(k.turn)).from(ang)
+			tw.tween_property(s.puppet, "rotation", heading.angle() - STAB_ART_ANGLE, float(k.turn)).from(ang)
 		else:
 			var tw := s.create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS).set_parallel()   # no target: turn to point down
 			tw.tween_property(s, "modulate:a", 1.0, float(k.turn))
-			tw.tween_property(s.rig, "rotation", PI, float(k.turn)).from(ang)
+			tw.tween_property(s.puppet, "rotation", PI, float(k.turn)).from(ang)
 		var turn := float(k.turn)
 		s.mover = func(p: Projectile, delta: float) -> void:
 			if p.age < turn:

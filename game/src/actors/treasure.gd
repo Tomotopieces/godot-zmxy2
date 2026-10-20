@@ -13,13 +13,13 @@ var p: Dictionary          ## this treasure's numbers
 var world: Level:
 	get:
 		return Level.current
-var rig: Rig
+var puppet: Puppet
 var using := false
 var facing := -1:
 	set(v):
 		facing = 1 if v >= 0 else -1
-		if rig:
-			rig.scale.x = -facing
+		if puppet:
+			puppet.scale.x = -facing
 
 var _follow_t := 0.0
 var _move: Tween
@@ -35,11 +35,11 @@ static func create(h: Hero, it: Item) -> Treasure:
 
 func _ready() -> void:
 	z_index = Layers.Z_TREASURE
-	rig = Rig.create("fabao_" + id)
-	add_child(rig)
-	rig.event.connect(_on_rig_event)
-	rig.action_finished.connect(_on_action_finished)
-	rig.play(&"walk")
+	puppet = Puppet.create("fabao_" + id)
+	add_child(puppet)
+	puppet.event.connect(_on_puppet_event)
+	puppet.action_finished.connect(_on_action_finished)
+	puppet.play(&"walk")
 	facing = hero.facing
 	global_position = home()
 	reset_physics_interpolation()
@@ -111,11 +111,11 @@ func use() -> void:
 
 func finish() -> void:
 	using = false
-	rig.play(&"walk")
+	puppet.play(&"walk")
 
 ## Damage effect owned by the hero; the treasure's own damage roll replaces the hero's attack.
-func shoot(rig_name: String, attack_key: StringName, pos: Vector2, face: int, damage: Callable) -> Projectile:
-	var pr := Projectile.create(rig_name, hero, hero.data.attacks[attack_key], attack_key)
+func shoot(puppet_name: String, attack_key: StringName, pos: Vector2, face: int, damage: Callable) -> Projectile:
+	var pr := Projectile.create(puppet_name, hero, hero.data.attacks[attack_key], attack_key)
 	pr.position = pos
 	pr.facing = face
 	pr.damage_fn = damage
@@ -150,7 +150,7 @@ func begin() -> void:
 func step(_delta: float) -> void:
 	pass
 
-func _on_rig_event(n: StringName, args: Array) -> void:
+func _on_puppet_event(n: StringName, args: Array) -> void:
 	if n == &"call":
 		on_call(String(args[0]))
 

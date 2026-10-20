@@ -79,7 +79,7 @@ func toast(text: String) -> void:
 
 ## Full-screen 无双 transform animation (WsEffect), centred on screen; plays through the freeze.
 func play_rage_transform() -> void:
-	var r := Rig.create("fx_rage_transform")
+	var r := Puppet.create("fx_rage_transform")
 	r.position = Layers.VIEW / 2.0
 	add_child(r)
 	r.play(r.actions[0])
@@ -111,7 +111,7 @@ func show_combo(count: int) -> void:
 
 ## "GO GO" arrow shown when a camera stop is cleared (StopPoint.destroy).
 func play_gogo() -> void:
-	var r := Rig.create("gogo")
+	var r := Puppet.create("gogo")
 	r.position = Vector2(860, 300)
 	r.scale = Vector2(0.7, 0.7)
 	add_child(r)

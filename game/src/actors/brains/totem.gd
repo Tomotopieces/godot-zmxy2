@@ -11,7 +11,7 @@ func setup() -> void:
 	_t = float(param("first", param("every", 1.0)))
 
 func custom_animation() -> bool:
-	m.rig.play(&"wait")
+	m.puppet.play(&"wait")
 	return true
 
 func think(delta: float) -> void:

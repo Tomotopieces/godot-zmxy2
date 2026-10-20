@@ -11,7 +11,7 @@ const ICONS := {
 }
 
 var _left := {}    ## name -> seconds left
-var _icons := {}   ## name -> Rig
+var _icons := {}   ## name -> Puppet
 
 func add(n: StringName, seconds: float) -> void:
 	_left[n] = maxf(_left.get(n, 0.0), seconds)
@@ -33,7 +33,7 @@ func tick(delta: float) -> void:
 	for k in ICONS:
 		var on: bool = _left.has(k)
 		if on and not _icons.has(k):
-			var r := Rig.create(ICONS[k][0])
+			var r := Puppet.create(ICONS[k][0])
 			r.position = ICONS[k][1]
 			get_parent().add_child(r)
 			r.play(r.actions[0])

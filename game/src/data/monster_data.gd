@@ -4,7 +4,7 @@ extends Resource
 
 @export var id := 0
 @export var display_name := ""
-@export var rig := ""
+@export var puppet := ""
 @export var is_boss := false
 
 @export_group("Stats")

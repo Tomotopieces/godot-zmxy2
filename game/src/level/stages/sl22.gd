@@ -5,7 +5,7 @@ extends StageScript
 
 var _cfg: Dictionary
 var _boss: Monster
-var _fires: Array[Rig] = []
+var _fires: Array[Puppet] = []
 var _t := -1.0
 var _lose_t := -1.0
 
@@ -24,7 +24,7 @@ func _light_fires() -> void:
 		return
 	var started := false
 	for target in _cfg.targets:
-		var f := place_rig("panguan_fire", _boss.center())
+		var f := place_puppet("panguan_fire", _boss.center())
 		_fires.append(f)
 		var tw := f.create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 		f.set_meta(&"fly", tw)   # a fire still on its way can be stopped if 判官 dies meanwhile
@@ -43,7 +43,7 @@ func _start_fight() -> void:
 func _douse_fires() -> void:
 	_t = -1.0
 	_lose_t = -1.0
-	for f: Rig in _fires:
+	for f: Puppet in _fires:
 		if not is_instance_valid(f):
 			continue
 		if f.has_meta(&"fly"):
@@ -72,13 +72,13 @@ func _physics_process(delta: float) -> void:
 	if _t > 0.0:
 		return
 	_t = float(_cfg.fire_out)
-	var f: Rig = _fires.pop_front()
+	var f: Puppet = _fires.pop_front()
 	if f:
 		var pos := f.position
 		var tw := f.create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 		tw.tween_property(f, "modulate:a", 0.0, float(_cfg.fade))
 		tw.tween_callback(func():
 			f.queue_free()
-			place_rig("panguan_fire_out", pos))
+			place_puppet("panguan_fire_out", pos))
 	if _fires.is_empty():
 		_lose_t = float(_cfg.lose_after)

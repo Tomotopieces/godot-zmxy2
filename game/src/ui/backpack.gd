@@ -54,13 +54,13 @@ func _ready() -> void:
 
 ## The portrait plays the original animated clips: the spotlight behind (the scene's SpotLight) and the hero
 ## (personmc body) wearing the current gear, which replaces the layout's frozen first frame.
-var _portrait: Rig
+var _portrait: Puppet
 
 func _build_portrait() -> void:
-	var glow := _ui.get_piece("spotlight") as Rig
+	var glow := _ui.get_piece("spotlight") as Puppet
 	glow.play(glow.actions[0])
 	_ui.set_visible_piece("personmc", false)
-	_portrait = Rig.create("bag_" + GameState.hero_data.role)
+	_portrait = Puppet.create("bag_" + GameState.hero_data.role)
 	_portrait.position = (_ui.get_piece("personmc") as Node2D).position
 	_ui.add_child(_portrait)
 	_ui.move_child(_portrait, _ui.get_piece("personmc").get_index() + 1)

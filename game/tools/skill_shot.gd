@@ -1,6 +1,6 @@
 extends Node
 ## Fire a skill in 1-1 and save frames, then a montage:
-##   godot --path game res://tools/skill_shot.tscn -- --out=<dir> --keys=skill_u [--at=0.05,0.1,0.15] [--face=left] [--rage] [--fx=<rig>]
+##   godot --path game res://tools/skill_shot.tscn -- --out=<dir> --keys=skill_u [--at=0.05,0.1,0.15] [--face=left] [--rage] [--fx=<puppet>]
 var _out := ""
 var _keys := PackedStringArray()
 var _at := PackedFloat32Array([0.05, 0.1, 0.15, 0.2, 0.3, 0.4])
@@ -22,7 +22,7 @@ func _ready() -> void:
 		elif a.begins_with("--spawn="): _spawn = int(a.substr(8))   # monster next to the hero; frames timed from its spawn
 		elif a.begins_with("--stage="):
 			var q := a.substr(8).split(",")
-			_stage = Vector2i(int(q[0]), int(q[1]))   # spawn an effect rig at the hero instead of pressing keys
+			_stage = Vector2i(int(q[0]), int(q[1]))   # spawn an effect puppet at the hero instead of pressing keys
 	GameState.new_game()
 	for s in GameState.hero_data.learn_active:
 		GameState.skills[StringName(s)] = true

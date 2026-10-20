@@ -121,7 +121,7 @@ for (const t of tags) {
       out.edits[t.characterID ?? t.characterId] = {
         b: rect(t.bounds), text: plain,
         size: sz ? +sz[1] : (t.fontHeight ? +t.fontHeight / T : 12),
-        color: col ? '#' + col[1] : (tc ? '#' + [tc.red, tc.green, tc.blue].map((v) => (+v).toString(16).padStart(2, '0')).join('') : '#000000'),
+        color: col ? '#' + col[1] : (tc ? '#' + [tc.red, tc.green, tc.blue].map((v) => (+v).function toString() { [native code] }(16).padStart(2, '0')).join('') : '#000000'),
         align: al ? al[1] : ['left', 'right', 'center', 'justify'][+t.align || 0],
         multiline: t.multiline === 'true', wrap: t.wordWrap === 'true', var: t.variableName || '',
       };

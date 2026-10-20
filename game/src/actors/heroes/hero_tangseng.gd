@@ -104,7 +104,7 @@ func _cast_cure() -> bool:
 
 ## The healing light at `pos`: heals the hero when its animation ends (the shadow's never crits).
 func cure_at(pos: Vector2, can_crit: bool) -> void:
-	var fx := Rig.create("tangseng_cure")
+	var fx := Puppet.create("tangseng_cure")
 	fx.position = pos
 	if transformed:
 		fx.scale = Vector2.ONE * float(data.kit.cure.scale_rage)
@@ -131,7 +131,7 @@ func _cast_fall() -> bool:
 	var f: Dictionary = data.kit.fall
 	if state == State.ATTACK and attack_action == &"hit4":
 		# the second press, while the marker ball is out: the pillar falls on it for free
-		var t := rig.time()
+		var t := puppet.time()
 		if not _dropped and t >= float(f.ball_from) and t <= float(f.ball_until):
 			_dropped = true
 			var ball_x := float(f.ball_start_x) + float(f.ball_speed) * (t - float(f.ball_from))
@@ -139,7 +139,7 @@ func _cast_fall() -> bool:
 				global_position + Vector2(facing * -ball_x, float(f.ball_y) - float(f.drop_height)))
 			p.facing = facing
 			get_tree().create_timer(float(f.sound_delay), false).timeout.connect(Snd.sfx_varied.bind("Role2_hit4", Hero.SKILL_PITCH))
-			rig.anim.seek(float(f.resume), false)
+			puppet.anim.seek(float(f.resume), false)
 			return true
 		return false
 	if not is_on_floor() or not _ready_to_cast(&"hit4", &"hit4"):
@@ -171,7 +171,7 @@ func _begin_charge() -> void:
 	if state != State.ATTACK or attack_action != &"hit1":
 		return
 	start_attack(&"hit2", data.attacks[&"hit2"])
-	rig.pause()
+	puppet.pause()
 	_charging = true
 	_charge_t = 0.0
 
@@ -193,7 +193,7 @@ func _shoot(action: StringName) -> void:
 	var a: AttackData = data.attacks[action]
 	var p := Projectile.create(a.projectile, self, a, action)
 	p.position = global_position + Vector2(a.spawn_offset.x * facing, a.spawn_offset.y)
-	p.rig.scale.x = float(data.kit["bullet1" if action == &"hit1" else "bullet2"].scale_x)
+	p.puppet.scale.x = float(data.kit["bullet1" if action == &"hit1" else "bullet2"].scale_x)
 	p.facing = facing
 	p.velocity = Vector2(a.speed * facing, 0)
 	p.distance_left = a.distance
@@ -227,7 +227,7 @@ func _spawn_ice(pos: Vector2, from_shadow: Node) -> void:
 	var rounds: int = int(k.rage_rounds) if transformed else int(k.rounds)
 	p.new_hit_limit = rounds - 1
 	if transformed:
-		p.rig.scale = Vector2(k.rage_scale[0], k.rage_scale[1])
+		p.puppet.scale = Vector2(k.rage_scale[0], k.rage_scale[1])
 	p.facing = facing
 	if from_shadow != null:
 		var mul := float(data.kit.shadow.power_mul) * (1.5 if transformed else 1.0)
@@ -247,12 +247,12 @@ func _physics_process(delta: float) -> void:
 			_charge_t = minf(_charge_t + delta, float(data.kit.charge))
 			_bar.set_value(_charge_t / float(data.kit.charge))
 			if not Input.is_action_pressed("attack"):
-				rig.resume()
+				puppet.resume()
 	# hit4: the marker ball is gone and no second press came: straight to the end of the move
 	var f: Dictionary = data.kit.fall
 	if state == State.ATTACK and attack_action == &"hit4" and not _dropped \
-			and rig.time() > float(f.ball_until) + 0.02 and rig.time() < float(f.resume):
-		rig.anim.seek(maxf(rig.anim.current_animation_length - 0.02, 0.0), false)
+			and puppet.time() > float(f.ball_until) + 0.02 and puppet.time() < float(f.resume):
+		puppet.anim.seek(maxf(puppet.anim.current_animation_length - 0.02, 0.0), false)
 	super(delta)
 
 func _attack_motion() -> void:

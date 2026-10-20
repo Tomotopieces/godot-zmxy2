@@ -4,12 +4,12 @@ extends CharacterBody2D
 
 enum Kind { SMALL_HP, BIG_HP, SMALL_MP }
 
-const RIGS := {Kind.SMALL_HP: "potion_SmallHP", Kind.BIG_HP: "potion_BigHP", Kind.SMALL_MP: "potion_SmallMP"}
+const PUPPETS := {Kind.SMALL_HP: "potion_SmallHP", Kind.BIG_HP: "potion_BigHP", Kind.SMALL_MP: "potion_SmallMP"}
 
 var kind := Kind.SMALL_HP
 var amount := 0
 var table: DropTable
-var rig: Rig
+var puppet: Puppet
 var _life := 0.0
 var _used := false
 
@@ -18,9 +18,9 @@ static func spawn(k: Kind, pos: Vector2, t: DropTable) -> Potion:
 	p.kind = k
 	p.table = t
 	p.amount = {Kind.SMALL_HP: t.small_hp, Kind.BIG_HP: t.big_hp, Kind.SMALL_MP: t.small_mp}[k]
-	p.rig = Rig.create(RIGS[k])
-	p.add_child(p.rig)
-	var cs := p.rig.get_node("Hurtbox/Shape") as CollisionShape2D
+	p.puppet = Puppet.create(PUPPETS[k])
+	p.add_child(p.puppet)
+	var cs := p.puppet.get_node("Hurtbox/Shape") as CollisionShape2D
 	var body := CollisionShape2D.new()
 	var shape := RectangleShape2D.new()
 	shape.size = cs.shape.size
@@ -32,7 +32,7 @@ static func spawn(k: Kind, pos: Vector2, t: DropTable) -> Potion:
 	p.position = pos - Vector2(0, shape.size.y)
 	p.z_index = Layers.Z_PICKUP
 	Level.current.add_object(p)
-	p.rig.play(p.rig.actions[0])
+	p.puppet.play(p.puppet.actions[0])
 	return p
 
 func _physics_process(delta: float) -> void:
@@ -45,7 +45,7 @@ func _physics_process(delta: float) -> void:
 	velocity.y += GameState.hero_data.gravity * delta
 	move_and_slide()
 	var h: Hero = Level.current.hero
-	if is_instance_valid(h) and h.is_alive() and rig.hurt_rect().intersects(h.hurt_rect()):
+	if is_instance_valid(h) and h.is_alive() and puppet.hurt_rect().intersects(h.hurt_rect()):
 		_use(h)
 
 func _use(h: Hero) -> void:

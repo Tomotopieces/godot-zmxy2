@@ -6,16 +6,16 @@ extends MonsterBrain
 
 var pointer := 0
 var _hit_t := 0.0
-var _pointer_rig: Rig
+var _pointer_puppet: Puppet
 
 func setup() -> void:
 	m.fly = true
 	m.velocity = Vector2.ZERO
 	if param("pointer", false):
 		# the dial's needle: a 5-frame clip that steps on one frame per hit (pointMc.play(), every frame stop()s)
-		_pointer_rig = Rig.create("hub_pointer")
-		m.add_child(_pointer_rig)
-		_pointer_rig.play(&"f0")
+		_pointer_puppet = Puppet.create("hub_pointer")
+		m.add_child(_pointer_puppet)
+		_pointer_puppet.play(&"f0")
 
 func custom_animation() -> bool:
 	return true
@@ -33,7 +33,7 @@ func on_hit(_h: Hit, _dmg: int) -> void:
 	_hit_t = float(param("hit_memory", 0.5))
 	if param("pointer", false):
 		pointer = (pointer + 1) % 5
-		_pointer_rig.play(StringName("f%d" % pointer))
+		_pointer_puppet.play(StringName("f%d" % pointer))
 		m.invuln = float(param("hit_invuln", 1.0))
 		m.world.hub_pointer_changed(m, pointer)
 

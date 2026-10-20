@@ -122,7 +122,7 @@ func _physics_process(_delta: float) -> void:
 			_seen[oid] = _seen.size()
 			_lines.append("%d #%d appears id=%d hp=%d x=%d" % [_frame - _t0, _seen[oid], m.data.id, m.hp, m.global_position.x])
 		var n: int = _seen[oid]
-		var key := "%s/%s/%d" % [Monster.State.keys()[m.state], m.rig.action, m.max_hp]
+		var key := "%s/%s/%d" % [Monster.State.keys()[m.state], m.puppet.action, m.max_hp]
 		if _last.get(n, "") != key:
 			_last[n] = key
 			_lines.append("%d #%d %s hp=%d/%d dx=%d" % [_frame - _t0, n, key.get_slice("/", 0) + "/" + key.get_slice("/", 1), m.hp, m.max_hp, m.global_position.x - _band_x])

@@ -1,5 +1,5 @@
 extends "res://src/actors/brains/boss_d.gd"
-## Monster46 红孩儿 (6-1 boss). Template D, but the constructor checks the hero's level: above `hard_level` he gets the
+## Monster46 红孩儿 (6-1 boss). Template D, but the function Object() { [native code] } checks the hero's level: above `hard_level` he gets the
 ## hard numbers (more HP, defence, attack power) and drops 金刚甲 (八戒's armour); otherwise the easy ones in the data.
 
 func setup() -> void:

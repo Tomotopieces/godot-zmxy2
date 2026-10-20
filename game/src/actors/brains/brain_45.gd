@@ -28,7 +28,7 @@ func _apply_form() -> void:
 	m.data = d
 	m.max_hp = int(f.hp)
 	m.hp = m.max_hp
-	m.rig.set_equip("form", _form)
+	m.puppet.set_equip("form", _form)
 
 func intercept_death() -> bool:
 	if _form >= 3:
@@ -56,7 +56,7 @@ func on_call(n: String, _args: Array) -> bool:
 			m.state = Monster.State.MOVE
 		"do_hit2":
 			var b := m.shoot("monster45bullet1", &"hit2", Vector2(0, 80))
-			b.rig.scale *= 1.0 + float(param("blast_growth", 0.4)) * (_form - 1)
+			b.puppet.scale *= 1.0 + float(param("blast_growth", 0.4)) * (_form - 1)
 		"do_hit3":
 			_gaze()
 		_:

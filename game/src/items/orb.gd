@@ -5,7 +5,7 @@ extends Node2D
 
 enum Kind { RED, GREEN, BLUE, WHITE }
 
-const RIGS := {Kind.RED: "orb_Red", Kind.GREEN: "orb_Green", Kind.BLUE: "orb_Blue", Kind.WHITE: "orb_While"}
+const PUPPETS := {Kind.RED: "orb_Red", Kind.GREEN: "orb_Green", Kind.BLUE: "orb_Blue", Kind.WHITE: "orb_While"}
 
 var kind := Kind.RED
 var power := 0
@@ -23,7 +23,7 @@ static func spawn(k: Kind, pos: Vector2, hero: Hero, value: int, t: DropTable) -
 	o.target = hero
 	o.power = value
 	o.table = t
-	var r := Rig.create(RIGS[k])
+	var r := Puppet.create(PUPPETS[k])
 	o.add_child(r)
 	o.z_index = Layers.Z_PICKUP
 	Level.current.add_object(o)

@@ -1,0 +1,44 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/shared/puppets/Role_v6_881.png" id="1_ynt0p"]
+[ext_resource type="Shader" path="res://src/puppet/sprite_fx.gdshader" id="2_yngbq"]
+[ext_resource type="Texture2D" path="res://assets/shared/puppets/Role_v6_882.png" id="3_6otgp"]
+[ext_resource type="Texture2D" path="res://assets/shared/puppets/Role_v6_884.png" id="4_t31vo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t5doj"]
+shader = ExtResource("2_yngbq")
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = 2.0
+shader_parameter/glow_on = true
+shader_parameter/glow_color = Color(1, 1, 0, 1)
+shader_parameter/glow_blur = 2.0
+shader_parameter/glow_strength = 2.6875
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 3.0
+
+[node name="Slot891_6" type="Node2D" unique_id=1855709079]
+
+[node name="p1" type="Sprite2D" parent="." unique_id=1177309142]
+position = Vector2(-14.75, -28.55)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_ynt0p")
+centered = false
+
+[node name="p2_1_f21" type="Sprite2D" parent="." unique_id=236021467]
+material = SubResource("ShaderMaterial_t5doj")
+position = Vector2(-13.25, -101.350006)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_6otgp")
+centered = false
+
+[node name="p4" type="Sprite2D" parent="." unique_id=494904235]
+position = Vector2(-15.85, -32.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_t31vo")
+centered = false

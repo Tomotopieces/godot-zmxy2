@@ -4,7 +4,7 @@ extends Treasure
 ## and only serves as a platform. Gone after its life; then the treasure shows again.
 
 var _body: AnimatableBody2D
-var _art: Rig
+var _art: Puppet
 var _blade: Projectile
 var _vx := 0.0
 var _dir := 1
@@ -26,7 +26,7 @@ func begin() -> void:
 	_body.sync_to_physics = false
 	_body.collision_layer = Actor.LAYER_ONEWAY
 	_body.collision_mask = 0
-	_art = Rig.create("fabao_sword_platform")
+	_art = Puppet.create("fabao_sword_platform")
 	_art.visible = false
 	_body.add_child(_art)
 	var cs := CollisionShape2D.new()

@@ -20,7 +20,7 @@ func step(delta: float) -> void:
 		if _move:
 			_move.kill()
 		using = true
-		rig.play(&"hit1", true)
+		puppet.play(&"hit1", true)
 		_auto_t = p.auto
 
 func can_use() -> bool:
@@ -28,14 +28,14 @@ func can_use() -> bool:
 
 func begin() -> void:
 	if _strong():
-		rig.play(&"hit2-2", true)
+		puppet.play(&"hit2-2", true)
 		return
 	var all := candidates()
 	var m: Monster = all[Rng.randi() % all.size()]
 	var c := m.center()
 	var tx: float = c.x - p.side if global_position.x < c.x else c.x + p.side
 	facing = 1 if global_position.x < tx else -1
-	move_to(Vector2(tx, c.y), p.move_time, func(): rig.play(&"hit2-1", true))
+	move_to(Vector2(tx, c.y), p.move_time, func(): puppet.play(&"hit2-1", true))
 
 func on_call(method: String) -> void:
 	match method:

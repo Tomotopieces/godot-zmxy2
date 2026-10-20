@@ -9,7 +9,7 @@ const SLOTS := [&"weapon", &"cloth", &"accessory", &"treasure", &"fashion", &"wi
 @export var display_name := ""
 @export var type := &""          ## weapon / cloth / accessory / item / fashion / wing / treasure
 @export var user := ""           ## required character ("" = anyone)
-@export var show := 1            ## appearance variant on the rig
+@export var show := 1            ## appearance variant on the puppet
 @export var quality := ""
 @export var value := 0           ## sell price in souls
 @export var color := Color.WHITE

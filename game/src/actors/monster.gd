@@ -32,8 +32,8 @@ func _ready() -> void:
 	collision_layer = LAYER_MONSTER
 	z_index = Layers.Z_MECHANISM if data.behind else Layers.Z_MONSTER
 	collision_mask = LAYER_WORLD | LAYER_ONEWAY
-	brain = MonsterBrain.create(self)   # before the rig: its first action already emits events
-	setup_rig(data.rig)
+	brain = MonsterBrain.create(self)   # before the puppet: its first action already emits events
+	setup_puppet(data.puppet)
 	max_hp = data.hp
 	hp = max_hp
 	facing = -1
@@ -41,12 +41,12 @@ func _ready() -> void:
 	_hp_bar.draw.connect(_draw_hp_bar)
 	_hp_bar.visible = false
 	add_child(_hp_bar)
-	if rig.actions.has("walk"):
-		rig.play(&"walk")
+	if puppet.actions.has("walk"):
+		puppet.play(&"walk")
 	brain.setup()
 
 ## Debug (key 7): a yellow halo while the monster cannot be hurt, to check its invincible windows. Temporary.
-var _debug_glow: Rig
+var _debug_glow: Puppet
 var _debug_glow_mat: ShaderMaterial
 
 func _update_debug_glow() -> void:
@@ -57,18 +57,18 @@ func _update_debug_glow() -> void:
 		return
 	if _debug_glow == null:
 		_debug_glow_mat = SpriteFx.glow_material(Color(1, 0.9, 0), 8.0, 1.5, true)
-		_debug_glow = Rig.create(data.rig)
+		_debug_glow = Puppet.create(data.puppet)
 		add_child(_debug_glow)
-		move_child(_debug_glow, rig.get_index())   # behind the body
-		_debug_glow.play(rig.action, true)
+		move_child(_debug_glow, puppet.get_index())   # behind the body
+		_debug_glow.play(puppet.action, true)
 		_debug_glow.anim.pause()
-	_debug_glow.mirror(rig)
+	_debug_glow.mirror(puppet)
 	for sp: Sprite2D in _debug_glow.find_children("*", "Sprite2D", true, false):
 		if sp.material != _debug_glow_mat:
 			sp.material = _debug_glow_mat
 
 var _stun_t := 0.0
-var _stun_fx: Rig
+var _stun_fx: Puppet
 
 ## 眩晕 (BaseAddEffect "stun"): the monster stands still, no AI, no attacks.
 func stun(seconds: float) -> void:
@@ -80,7 +80,7 @@ func stun(seconds: float) -> void:
 		state = State.MOVE
 	dir = 0
 	if _stun_fx == null:
-		_stun_fx = Rig.create("fx_stun")
+		_stun_fx = Puppet.create("fx_stun")
 		_stun_fx.position = Vector2(0, hurt_rect().position.y - global_position.y - 10.0)
 		_stun_fx.scale = Vector2(0.4, 0.4)
 		add_child(_stun_fx)
@@ -122,7 +122,7 @@ func _physics_process(delta: float) -> void:
 	if state == State.ATTACK:
 		scan_hits()
 	if state == State.MOVE and not brain.custom_animation():
-		rig.play(&"walk" if dir != 0 and rig.actions.has("walk") else &"wait")
+		puppet.play(&"walk" if dir != 0 and puppet.actions.has("walk") else &"wait")
 	if global_position.y > Hero.FALL_DEATH_Y:
 		vanish()
 
@@ -176,7 +176,7 @@ func is_hurt() -> bool:
 
 ## Start an attack action using the attack data of the same name (or `attack_key`).
 func attack_with(action: StringName, attack_key: StringName = &"") -> bool:
-	if not rig.actions.has(String(action)):
+	if not puppet.actions.has(String(action)):
 		return false
 	dir = 0
 	state = State.ATTACK
@@ -186,19 +186,19 @@ func attack_with(action: StringName, attack_key: StringName = &"") -> bool:
 
 ## Play a non-attack action (intro, transform...) that returns to MOVE when it finishes.
 func play_action(action: StringName) -> void:
-	if not rig.actions.has(String(action)):
+	if not puppet.actions.has(String(action)):
 		return
 	dir = 0
 	state = State.ATTACK
 	attack = null
 	attack_action = action
-	rig.play(action, true)
+	puppet.play(action, true)
 
 ## Spawn a projectile / effect that hits with the attack data `key`.
 ## offset.x is in front of the monster; velocity.x is forward speed (px/s).
-func shoot(rig_name: String, key: StringName, offset := Vector2.ZERO, vel := Vector2.ZERO, distance := 0.0) -> Projectile:
+func shoot(puppet_name: String, key: StringName, offset := Vector2.ZERO, vel := Vector2.ZERO, distance := 0.0) -> Projectile:
 	var a: AttackData = data.attacks.get(key, attack)
-	var p := Projectile.create(rig_name, self, a, key)
+	var p := Projectile.create(puppet_name, self, a, key)
 	p.position = global_position + Vector2(offset.x * facing, offset.y)
 	p.facing = facing
 	p.velocity = Vector2(vel.x * facing, vel.y)
@@ -220,7 +220,7 @@ func summon(id: int, pos: Vector2) -> Monster:
 
 ## Poison (BaseAddEffect POISON, 罗刹妖伞): `power` damage every `tick` for `seconds`; icon over the head.
 var _poison := {}
-var _poison_icon: Rig
+var _poison_icon: Puppet
 
 ## Poison for `seconds`: every `tick` it hurts by what `roll` returns (rolled again each time).
 func add_poison(roll: Callable, seconds: float, tick: float) -> void:
@@ -231,8 +231,8 @@ func add_poison(roll: Callable, seconds: float, tick: float) -> void:
 		_poison_icon = _status_icon("fx_poison_head", -70.0, true)
 		_status_icon("fx_poison_up", -50.0, false)
 
-func _status_icon(rig_name: String, y: float, loop: bool) -> Rig:
-	var r := Rig.create(rig_name)
+func _status_icon(puppet_name: String, y: float, loop: bool) -> Puppet:
+	var r := Puppet.create(puppet_name)
 	r.position = Vector2(0, y)
 	add_child(r)
 	r.play(r.actions[0])
@@ -279,12 +279,12 @@ func outgoing_damage(a: AttackData) -> int:
 
 # ------------------------------------------------------------------ animation events
 
-func _on_rig_event(n: StringName, args: Array) -> void:
+func _on_puppet_event(n: StringName, args: Array) -> void:
 	if brain.on_event(n, args):
 		return
 	match n:
 		&"finished":
-			_on_action_finished(rig.action)
+			_on_action_finished(puppet.action)
 		&"set_vx_forward":
 			velocity.x = facing * args[0]
 		&"set_vx":
@@ -323,7 +323,7 @@ func boss_dead_sequence() -> void:
 	if _boss_dead_started:
 		return
 	_boss_dead_started = true
-	rig.visible = false
+	puppet.visible = false
 	var fx := Fx.spawn("fx_boss_dead", center())
 	fx.tree_exited.connect(func():
 		if is_instance_valid(self) and not _vanishing:
@@ -335,7 +335,7 @@ func finish_action(action: StringName) -> void:
 	_on_action_finished(action)
 
 func _on_action_finished(action: StringName) -> void:
-	if action != rig.action:
+	if action != puppet.action:
 		return
 	match state:
 		State.ATTACK:
@@ -366,7 +366,7 @@ func take_hit(h: Hit) -> bool:
 		if h.attack.kind == AttackData.Kind.PHYSICS and GameState.bonus("lifesteal") > 0.0:
 			h.source.heal(int(dmg * GameState.bonus("lifesteal")))   # (BaseHero.cureHp: the green number over the hero)
 	Snd.sfx_varied(h.source.hit_sound if h.source is Hero else "BeattackByRole1", HIT_PITCH)
-	rig.flash(Color.WHITE, 0.09)
+	puppet.flash(Color.WHITE, 0.09)
 	Fx.spawn("fx_monster_hurt1" if Rng.randf() < 0.5 else "fx_monster_hurt2", center())
 	if not data.is_prop:
 		DamageNumber.spawn("bnum" if h.crit else "hurtnum", dmg,
@@ -384,9 +384,9 @@ func take_hit(h: Hit) -> bool:
 		velocity = Vector2(h.attack.knockback.x * h.direction, h.attack.knockback.y)
 	end_attack()
 	brain.on_hurt_start()
-	if rig.actions.has("hurt"):
+	if puppet.actions.has("hurt"):
 		state = State.HURT
-		rig.play(&"hurt", true)
+		puppet.play(&"hurt", true)
 	else:
 		state = State.MOVE
 	return true
@@ -401,11 +401,11 @@ func _die() -> void:
 	velocity.x = 0.0
 	GameState.add_exp(data.exp)
 	brain.on_died()
-	if rig.actions.has("dead"):
-		rig.play(&"dead", true)
+	if puppet.actions.has("dead"):
+		puppet.play(&"dead", true)
 		# a death pose that never ends (a single looping frame, no script): it fades out quickly instead of staying
-		var an := rig.anim.get_animation(&"dead")
-		if an != null and an.loop_mode != Animation.LOOP_NONE and not an.has_meta(&"loop_from") and not rig.has_events(&"dead"):
+		var an := puppet.anim.get_animation(&"dead")
+		if an != null and an.loop_mode != Animation.LOOP_NONE and not an.has_meta(&"loop_from") and not puppet.has_events(&"dead"):
 			Loot.drop(self)
 			vanish(0.4)
 	else:
@@ -442,7 +442,7 @@ func vanish(fade := 0.3) -> void:
 func _draw_hp_bar() -> void:
 	if data.is_boss:
 		return   # bosses show their bar on the HUD
-	var box := rig.hurtbox.get_child(0) as CollisionShape2D
+	var box := puppet.hurtbox.get_child(0) as CollisionShape2D
 	var y: float = box.position.y + box.shape.get_rect().position.y - 10.0
 	var w := 50.0
 	_hp_bar.draw_rect(Rect2(-w / 2.0, y, w, 5), Color(0, 0, 0, 0.8))

@@ -15,9 +15,9 @@ async function one(n) {
     const b = Buffer.from(await r.arrayBuffer());
     fs.writeFileSync(path.join(OUT, 'raw', n + '.swf'), b);
     let d = b;
-    const sig = b.slice(0, 3).toString('latin1');
+    const sig = b.slice(0, 3).function toString() { [native code] }('latin1');
     if (!['CWS', 'FWS', 'ZWS'].includes(sig)) d = Buffer.concat([b.slice(300, 325), b.slice(0, 300), b.slice(325)]);
-    const ds = d.slice(0, 3).toString('latin1');
+    const ds = d.slice(0, 3).function toString() { [native code] }('latin1');
     fs.writeFileSync(path.join(OUT, 'dec', n + '.swf'), d);
     console.log('ok', n, b.length, 'raw=' + sig.replace(/[^\x20-\x7e]/g, '?'), 'dec=' + ds);
   } catch (e) { console.log('err', n, e.message); } finally { clearTimeout(t); }

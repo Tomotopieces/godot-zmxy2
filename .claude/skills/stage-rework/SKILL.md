@@ -16,12 +16,12 @@ edits - edit the file as text, keep them, and commit them together with your wor
 2. The sky picture is `Background` (CanvasLayer -2) / `Sky` (Sprite2D); `Level` scrolls it over the stage length from where the sprite stands.
 3. Runs of identical pictures edge to edge (haze, floor) are ONE TextureRect: texture_repeat on, stretch Tile, **texture_filter Nearest**.
 4. **Overlays**: leave the 4399 logo that is *embedded* in a texture alone - never scrub it. Bitmaps that are *only* the logo (83x36, alpha 0.17) and the
-   grey "fake mist" strips along the ground are dropped by `tools/rig/drop_overlays.js` (keys per stage in `DROP`) when a stage is extracted anew; never
+   grey "fake mist" strips along the ground are dropped by `tools/extract/drop_overlays.js` (keys per stage in `DROP`) when a stage is extracted anew; never
    put a dropped piece back on your own, and never decide anything else for the user.
 5. **Mechanisms** (doors, switches...): a scene `scenes/objects/<name>.tscn` with a script on the root (`src/level/objects/<name>.gd`, `@export`
    parameters, a `Guides` node for editor-only boxes), instanced under `Objects/<Name>` at its **real world position** (from `game/data/stages.json`
    or the original's stage listener - NOT from level.json `doors`, which can be wrong). Built from plain Sprite2D nodes with a normal AnimationPlayer
-   for what really animates; never a Rig (its parts are hidden until it plays). Its textures live next to the stage (`assets/levels/<stage>/tex`).
+   for what really animates; never a Puppet (its parts are hidden until it plays). Its textures live next to the stage (`assets/levels/<stage>/tex`).
    Point `tools/stage_test.gd` at the node. Mechanisms get no parallax.
 6. Wire the lighting file (section B) and README notes; commit on the `visual` branch.
 
@@ -34,7 +34,7 @@ Methodology - decide the **mood in one sentence** per stage first, then express 
 1. **Value structure**: dim scenery/ground/far (`scene.art/ground/far` multipliers, far a little lighter = aerial perspective), dim actors less (`body.shade/lit`),
    never dim pickups/numbers/HUD. Night is cool blue; other moods change the hue, not the pipeline.
 2. **One light logic**: find the stage's own light source and make everything agree with it. The rim light (`rim_*`, `art_look.gdshader`, body rim
-   `Rig.set_light`) and the moon glow / shafts exist **because 1-1..1-3 have a moon** - they are not a general setting. A new style is designed from scratch: ask what lights this place
+   `Puppet.set_light`) and the moon glow / shafts exist **because 1-1..1-3 have a moon** - they are not a general setting. A new style is designed from scratch: ask what lights this place
    (a pillar of light from above, lava glow from below, lanterns, nothing) and set rim (`rim_strength 0` to switch it off), shadows (`shadow.shear/squash/blur/alpha`), lights
    (`lamps`, `glows`, `moon`) accordingly. No source (overcast) = drop `moon`, no rim.
 3. **Depth**: fade decoration to dark at the feet (`fade_height/fade_dark`), per-layer tint/blur (`layers.Far.blur`, `tint`) - aerial perspective, slight DOF.
@@ -52,6 +52,6 @@ Do not take screenshots to judge anti-aliasing - the user judges. Headless camer
 - The user's mid-turn feedback usually corrects scope ("only far/near", "don't glue pieces", "interactive things get no parallax") - follow it literally.
 - CRLF repo files: edit with the Edit tool or scripts that split on `\r\n`; shell heredocs eat backslashes (regexes!) - write JS/GDScript helpers with the Write tool.
 - `class_name` scripts need `godot --headless --path game --import` before a headless run sees them; autoloads are missing under `-s` scripts, use a tiny scene runner instead.
-- Texture uid mismatch after moving textures makes scenes "fail to load: missing dependency": `node tools/rig/fix_scene_uids.js --fix`.
+- Texture uid mismatch after moving textures makes scenes "fail to load: missing dependency": `node tools/extract/fix_scene_uids.js --fix`.
 - Delete = Recycle Bin (`bash tools/trash.sh <path>`), never rm. Answer the user in Simplified Chinese; report what was and was not verified.
 - Tests: run targeted checks only for art work (`stage_test`, `ai_trace -- --check` when shared code changed).

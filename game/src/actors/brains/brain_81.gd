@@ -3,7 +3,7 @@ extends "res://src/actors/brains/boss_d.gd"
 ## whose second half is a long forward dash. Kept inside the arena.
 
 func setup() -> void:
-	# stats grow with the hero (constructor averages over players)
+	# stats grow with the hero (function Object() { [native code] } averages over players)
 	m.max_hp = int(param("hp_base", 500000)) + int(param("hp_per_hero_hp", 50)) * GameState.max_hp()
 	m.hp = m.max_hp
 

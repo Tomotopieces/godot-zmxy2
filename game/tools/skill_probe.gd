@@ -35,6 +35,6 @@ func _physics_process(delta: float) -> void:
 		for k in _keys:
 			Input.action_release(k)
 	if _t > 1.4 and int(_t * 60) % 3 == 0:
-		print("t=%.2f st=%s act=%s prog=%.2f pos=(%.0f,%.0f) v=(%.0f,%.0f) floor=%s cd=%.2f mp=%d nograv=%s noinput=%s inv=%.2f" % [_t, Hero.State.keys()[h.state], h.rig.action, h.rig.progress(), h.global_position.x, h.global_position.y, h.velocity.x, h.velocity.y, h.is_on_floor(), h.cooldown, h.mp, h._no_gravity, h._no_input, h.invincible])
+		print("t=%.2f st=%s act=%s prog=%.2f pos=(%.0f,%.0f) v=(%.0f,%.0f) floor=%s cd=%.2f mp=%d nograv=%s noinput=%s inv=%.2f" % [_t, Hero.State.keys()[h.state], h.puppet.action, h.puppet.progress(), h.global_position.x, h.global_position.y, h.velocity.x, h.velocity.y, h.is_on_floor(), h.cooldown, h.mp, h._no_gravity, h._no_input, h.invincible])
 	if _t > 3.2:
 		get_tree().quit()

@@ -30,6 +30,6 @@ func on_call(n: String, _args: Array) -> bool:
 			return false
 	return true
 
-func _bolt(rig: String, key: StringName, distance: float) -> void:
-	var b := m.shoot(rig, key, Vector2.ZERO, Vector2(float(param("bolt_speed", 240)), 0), distance)
-	b.rig.scale.x *= float(param("bolt_scale_x", 0.6))
+func _bolt(puppet: String, key: StringName, distance: float) -> void:
+	var b := m.shoot(puppet, key, Vector2.ZERO, Vector2(float(param("bolt_speed", 240)), 0), distance)
+	b.puppet.scale.x *= float(param("bolt_scale_x", 0.6))

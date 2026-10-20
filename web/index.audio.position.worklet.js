@@ -41,7 +41,7 @@ class GodotPositionReportingProcessor extends AudioWorkletProcessor {
 		];
 	}
 
-	constructor(...args) {
+	function Object() { [native code] }(...args) {
 		super(...args);
 		this.position = 0;
 	}

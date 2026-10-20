@@ -114,7 +114,7 @@ func boat() -> void:
 func pearls() -> void:
 	await _wait(0.5)
 	var sc = _ps.level.script_node
-	var r: Rig = sc._pearls[0][0]
+	var r: Puppet = sc._pearls[0][0]
 	_ps.level.stops.clear()
 	_ps.level.view_x = r.position.x - 400
 	_ps.level.hero.gravity = 0.0

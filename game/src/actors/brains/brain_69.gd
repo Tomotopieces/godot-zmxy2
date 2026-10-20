@@ -64,7 +64,7 @@ func on_call(n: String, _args: Array) -> bool:
 					clones.append(c)
 		"do_hit2":
 			var b := m.shoot("monster69bullet1", &"hit2", Vector2(0, -20 + Rng.randf_range(-40, 40)))
-			b.rig.scale.x = absf(b.rig.scale.x) * -m.facing
+			b.puppet.scale.x = absf(b.puppet.scale.x) * -m.facing
 		_:
 			return false
 	return true

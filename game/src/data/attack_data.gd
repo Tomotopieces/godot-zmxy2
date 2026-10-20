@@ -29,7 +29,7 @@ enum Kind { PHYSICS, MAGIC, TRUE }
 @export var effects: Array = []       ## status effects put on the target: {name, time (s), power, tick (s)}
 
 @export_group("Projectile")
-@export var projectile := ""          ## rig name spawned by the attack
+@export var projectile := ""          ## puppet name spawned by the attack
 @export var spawn_offset := Vector2.ZERO
 @export var speed := 0.0
 @export var distance := 0.0

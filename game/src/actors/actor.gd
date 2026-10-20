@@ -1,7 +1,7 @@
 class_name Actor
 extends CharacterBody2D
-## Shared base of Hero and Monster: rig, facing, HP, hit scanning.
-## Rig art faces left, so facing right mirrors the rig.
+## Shared base of Hero and Monster: puppet, facing, HP, hit scanning.
+## Puppet art faces left, so facing right mirrors the puppet.
 
 signal died(actor: Actor)
 
@@ -22,7 +22,7 @@ func _init() -> void:
 	floor_constant_speed = true
 	floor_snap_length = 8.0
 
-var rig: Rig
+var puppet: Puppet
 var body_shape: CollisionShape2D   ## the actor's body collider (sized from the idle hurt box)
 var hp := 1
 var max_hp := 1
@@ -34,29 +34,29 @@ var last_crit := false        ## set by outgoing_damage()
 var facing := -1:
 	set(v):
 		facing = 1 if v >= 0 else -1
-		if rig:
-			rig.scale.x = -facing
+		if puppet:
+			puppet.scale.x = -facing
 
 ## The actor's art: its hand-edited scene scenes/actors/<name>/<name>.tscn (README "Actor scenes").
-func setup_rig(rig_name: String) -> void:
-	rig = Rig.create(rig_name)
-	add_child(rig)
-	rig.scale.x = -facing
-	rig.event.connect(_on_rig_event)
+func setup_puppet(puppet_name: String) -> void:
+	puppet = Puppet.create(puppet_name)
+	add_child(puppet)
+	puppet.scale.x = -facing
+	puppet.event.connect(_on_puppet_event)
 	# attacks find their targets by physics overlap: this body's hurt box is on its team's hurt layer, its hit box looks at the other
 	var hero := self is Hero
-	rig.hurtbox.collision_layer = LAYER_HURT_HERO if hero else LAYER_HURT_MONSTER
-	rig.hurtbox.set_meta(&"actor", self)
-	rig.hitbox.collision_mask = LAYER_HURT_MONSTER if hero else LAYER_HURT_HERO
-	rig.action_finished.connect(_on_action_finished)
-	rig.play(&"wait" if rig.actions.has("wait") else StringName(rig.actions[0]))
+	puppet.hurtbox.collision_layer = LAYER_HURT_HERO if hero else LAYER_HURT_MONSTER
+	puppet.hurtbox.set_meta(&"actor", self)
+	puppet.hitbox.collision_mask = LAYER_HURT_MONSTER if hero else LAYER_HURT_HERO
+	puppet.action_finished.connect(_on_action_finished)
+	puppet.play(&"wait" if puppet.actions.has("wait") else StringName(puppet.actions[0]))
 	# body = hurt box of the idle pose
-	var cs := rig.hurtbox.get_child(0) as CollisionShape2D
+	var cs := puppet.hurtbox.get_child(0) as CollisionShape2D
 	var body := CollisionShape2D.new()
 	var shape := RectangleShape2D.new()
 	shape.size = cs.shape.get_rect().size   # (whatever shape the hurt box was given in the scene)
 	body.shape = shape
-	body.position = Vector2(cs.position.x * rig.scale.x, cs.position.y)
+	body.position = Vector2(cs.position.x * puppet.scale.x, cs.position.y)
 	add_child(body)
 	body_shape = body
 
@@ -67,18 +67,18 @@ func can_be_hit() -> bool:
 	return is_alive()
 
 func hurt_rect() -> Rect2:
-	return rig.hurt_rect()
+	return puppet.hurt_rect()
 
 func center() -> Vector2:
 	var r := hurt_rect()
 	return r.get_center() if r.size != Vector2.ZERO else global_position
 
-## Start an attack action: fresh hit log, plays the rig action.
+## Start an attack action: fresh hit log, plays the puppet action.
 func start_attack(action: StringName, data: AttackData) -> void:
 	attack = data
 	attack_action = action
 	dealer.reset()
-	rig.play(action, true)
+	puppet.play(action, true)
 
 func end_attack() -> void:
 	attack = null
@@ -86,7 +86,7 @@ func end_attack() -> void:
 
 func scan_hits() -> void:
 	if attack and attack.projectile == "":
-		dealer.scan(rig.hitbox, attack, _deliver)
+		dealer.scan(puppet.hitbox, attack, _deliver)
 
 func _deliver(target: Actor) -> bool:
 	var h := Hit.new()
@@ -95,7 +95,7 @@ func _deliver(target: Actor) -> bool:
 	h.action = attack_action
 	h.damage = outgoing_damage(attack)
 	h.crit = last_crit
-	h.origin = rig.hit_rect().get_center()
+	h.origin = puppet.hit_rect().get_center()
 	h.direction = facing
 	if attack.push_from_center:
 		h.direction = 1 if target.global_position.x >= h.origin.x else -1
@@ -121,7 +121,7 @@ func fire_projectile(data: AttackData, action: StringName) -> Projectile:
 	p.distance_left = data.distance
 	world.add_object(p)
 	if data.spin_deg != 0.0:
-		p.create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS).tween_property(p.rig, "rotation_degrees", data.spin_deg * -facing, data.spin_time)
+		p.create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS).tween_property(p.puppet, "rotation_degrees", data.spin_deg * -facing, data.spin_time)
 	return p
 
 func apply_gravity(delta: float) -> void:
@@ -135,7 +135,7 @@ func outgoing_damage(_a: AttackData) -> int:
 func take_hit(_h: Hit) -> bool:
 	return false
 
-func _on_rig_event(_name: StringName, _args: Array) -> void:
+func _on_puppet_event(_name: StringName, _args: Array) -> void:
 	pass
 
 func _on_action_finished(_action: StringName) -> void:

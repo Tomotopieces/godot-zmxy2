@@ -21,7 +21,7 @@ func intercept_death() -> bool:
 		return false
 	begin_revive()
 	m.state = Monster.State.ATTACK
-	m.rig.visible = false
+	m.puppet.visible = false
 	for c in children:
 		c.brain.go_reburn(m)
 	return true
@@ -32,7 +32,7 @@ func revive_at(pos: Vector2) -> void:
 		return
 	_reviving = false
 	m.global_position = pos
-	m.rig.visible = true
+	m.puppet.visible = true
 	m.hp = m.max_hp
 	m.state = Monster.State.MOVE
 	# (its HP bar is still there: it never left)

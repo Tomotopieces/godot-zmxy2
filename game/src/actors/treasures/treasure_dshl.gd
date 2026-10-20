@@ -5,7 +5,7 @@ func follows() -> bool:
 	return true
 
 func begin() -> void:
-	rig.play(&"hit1", true)
+	puppet.play(&"hit1", true)
 
 func on_call(method: String) -> void:
 	match method:

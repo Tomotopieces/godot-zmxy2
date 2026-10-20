@@ -68,7 +68,7 @@ func on_hit_hero(_hero: Hero, _action: StringName) -> void:
 func modify_damage(_h: Hit, dmg: int) -> int:
 	return dmg
 
-## Damage of this monster's attack (constructor "power").
+## Damage of this monster's attack (function Object() { [native code] } "power").
 func outgoing_damage(a: AttackData) -> int:
 	return a.flat if a and a.flat > 0 else 1
 

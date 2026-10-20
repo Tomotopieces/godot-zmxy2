@@ -9,7 +9,7 @@ extends Node2D
 
 @export var index := 0                                          ## its place on the selector (0-based)
 @export var open_time := 0.666666666666667                      ## seconds until the doorway may be entered (16 frames)
-@export var enter_rect := Rect2(-22.0, -35.4, 162.0, 557.5)     ## the doorway of the open door (the rig's hit box: scene meta hit_rect_open)
+@export var enter_rect := Rect2(-22.0, -35.4, 162.0, 557.5)     ## the doorway of the open door (the puppet's hit box: scene meta hit_rect_open)
 
 var ready_to_enter := false   ## the door has swung open: up inside enter_rect now enters the stage behind it
 

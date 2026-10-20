@@ -3,7 +3,7 @@ extends MonsterBrain
 ## Never moves, never attacks; plays wait.
 
 func custom_animation() -> bool:
-	m.rig.play(&"wait")
+	m.puppet.play(&"wait")
 	return true
 
 func think(_delta: float) -> void:

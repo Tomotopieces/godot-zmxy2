@@ -88,7 +88,7 @@ func on_call(n: String, _args: Array) -> bool:
 				var s := m.shoot(SHOT, &"hit1")
 				s.velocity = to.normalized() * float(param("shot_speed", 240))
 				s.distance_left = to.length() + 40.0
-				s.rig.scale *= 0.5
+				s.puppet.scale *= 0.5
 		"do_hit2":
 			var v := Vector2(Rng.randf_range(param("bomb_vx", [120, 1056])[0], param("bomb_vx", [120, 1056])[1]), Rng.randf_range(72, 168))
 			var b := m.shoot(SHOT, &"hit2", Vector2.ZERO, v, 9999.0)

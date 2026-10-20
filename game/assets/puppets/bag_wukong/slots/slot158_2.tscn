@@ -1,0 +1,39 @@
+[gd_scene format=3]
+
+[ext_resource type="Shader" path="res://src/puppet/sprite_fx.gdshader" id="1_xb1ee"]
+[ext_resource type="Texture2D" path="res://assets/shared/puppets/Pig9_8.png" id="2_2odrk"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_01ulx"]
+shader = ExtResource("1_xb1ee")
+shader_parameter/matrix_on = null
+shader_parameter/color_matrix = null
+shader_parameter/color_offset = null
+shader_parameter/blur = null
+shader_parameter/glow_on = true
+shader_parameter/glow_color = Color(1, 0.8, 0, 1)
+shader_parameter/glow_blur = 13.0
+shader_parameter/glow_strength = 2.6679688
+shader_parameter/glow2_on = null
+shader_parameter/glow2_color = null
+shader_parameter/glow2_blur = null
+shader_parameter/glow2_strength = null
+shader_parameter/solid = null
+shader_parameter/extend = 14.0
+
+[node name="Slot158_2" type="Node2D" unique_id=484639791]
+
+[node name="p1_1_1_f0" type="Sprite2D" parent="." unique_id=2027336149]
+material = SubResource("ShaderMaterial_01ulx")
+position = Vector2(-20.8, 27.7)
+rotation = -0.3963857
+scale = Vector2(0.38592356, 0.40003905)
+skew = -0.0001360178
+texture = ExtResource("2_2odrk")
+centered = false
+
+[node name="p1_3_1_f0" type="Sprite2D" parent="." unique_id=76274817]
+material = SubResource("ShaderMaterial_01ulx")
+position = Vector2(18.85, 13)
+scale = Vector2(0.4295, 0.4)
+texture = ExtResource("2_2odrk")
+centered = false

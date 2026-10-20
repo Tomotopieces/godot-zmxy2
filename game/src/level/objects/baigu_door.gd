@@ -60,9 +60,9 @@ func _physics_process(delta: float) -> void:
 		for p in level.world.get_children():
 			if _open:
 				break
-			if p is Projectile and p.source == hero and is_instance_valid(p.rig):
+			if p is Projectile and p.source == hero and is_instance_valid(p.puppet):
 				var key := [p.get_instance_id(), p.dealer.serial]
-				var hr: Rect2 = p.rig.hit_rect()
+				var hr: Rect2 = p.puppet.hit_rect()
 				if not _bullet_hits.has(key) and hr.size != Vector2.ZERO and hr.intersects(weak_rect()):
 					_bullet_hits[key] = true
 					_take_hit()
@@ -91,5 +91,5 @@ func _open_door() -> void:
 func _hero_hits(hero: Hero, r: Rect2) -> bool:
 	if hero.attack == null:
 		return false
-	var hr := hero.rig.hit_rect()
+	var hr := hero.puppet.hit_rect()
 	return hr.size != Vector2.ZERO and hr.intersects(r)

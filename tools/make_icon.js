@@ -4,7 +4,7 @@
 const fs = require('fs');
 const path = require('path');
 const cp = require('child_process');
-const png = require('./rig/png');
+const png = require('./extract/png');
 const root = path.join(__dirname, '..');
 const src = png.decode(path.join(root, 'game', 'assets/ui/role_info/tex/OtherMat_v10_247.png'));   // the HUD portrait
 const N = 256, pad = 8, k = (N - 2 * pad) / Math.max(src.width, src.height);

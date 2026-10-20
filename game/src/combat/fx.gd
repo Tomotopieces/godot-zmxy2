@@ -1,10 +1,10 @@
 class_name Fx
 extends Node2D
-## Visual-only one-shot rig (hit sparks, skill flashes). Frees itself when the animation ends.
+## Visual-only one-shot puppet (hit sparks, skill flashes). Frees itself when the animation ends.
 
-static func spawn(rig_name: String, pos: Vector2, facing := -1, scale_mul := 1.0) -> Fx:
+static func spawn(puppet_name: String, pos: Vector2, facing := -1, scale_mul := 1.0) -> Fx:
 	var fx := Fx.new()
-	var r := Rig.create(rig_name)
+	var r := Puppet.create(puppet_name)
 	fx.add_child(r)
 	r.scale = Vector2(-facing * scale_mul, scale_mul)
 	r.action_finished.connect(func(_a): fx.queue_free())
@@ -20,8 +20,8 @@ static func spawn(rig_name: String, pos: Vector2, facing := -1, scale_mul := 1.0
 	return fx
 
 ## Effect that follows a node (level-up glow on the hero).
-static func attach(rig_name: String, parent: Node2D, offset := Vector2.ZERO) -> Fx:
-	var fx := spawn(rig_name, Vector2.ZERO)
+static func attach(puppet_name: String, parent: Node2D, offset := Vector2.ZERO) -> Fx:
+	var fx := spawn(puppet_name, Vector2.ZERO)
 	fx.reparent(parent, false)
 	fx.position = offset
 	fx.reset_physics_interpolation()

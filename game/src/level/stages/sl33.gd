@@ -2,12 +2,12 @@ extends StageScript
 ## 3-3 (StageListener33): five pearls along the way break after a few hits (each new attack counts once) and may
 ## drop the 避水珠 (bsz). When 孟婆 appears, a hidden wall shuts the player into her arena.
 
-var _pearls: Array = []   ## [rig, hp, last attack serial]
+var _pearls: Array = []   ## [puppet, hp, last attack serial]
 
 func setup() -> void:
 	var cfg: Dictionary = param("pearls", {})
 	for pos in cfg.get("positions", []):
-		_pearls.append([place_rig("pearl", Vector2(pos[0], pos[1])), int(cfg.get("hp", 5)), -1])
+		_pearls.append([place_puppet("pearl", Vector2(pos[0], pos[1])), int(cfg.get("hp", 5)), -1])
 
 func on_monster_added(m: Monster) -> void:
 	if m.data.id == int(param("hidden_wall_boss", 47)):
@@ -21,7 +21,7 @@ func _physics_process(_delta: float) -> void:
 	for pr in _pearls:
 		if pr[1] <= 0 or h.dealer.serial == pr[2]:
 			continue
-		var r: Rig = pr[0]
+		var r: Puppet = pr[0]
 		var box := r.hurt_rect()
 		if box.size == Vector2.ZERO or not hero_hits(box):
 			continue

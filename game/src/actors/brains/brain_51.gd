@@ -13,9 +13,9 @@ func setup() -> void:
 
 ## The ring counter on the body: frame = 7 - rings left (Monster51.getRoundValue); the rings in it keep turning.
 func _show_rounds() -> void:
-	if m.rig == null:
+	if m.puppet == null:
 		return
-	m.rig.set_equip("round", _rings.size() + 1)
+	m.puppet.set_equip("round", _rings.size() + 1)
 
 func near_skill(action: StringName) -> void:
 	m.invuln = maxf(m.invuln, float(param("burst_invuln", 3.3)))

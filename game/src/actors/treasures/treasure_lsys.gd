@@ -3,7 +3,7 @@ extends Treasure
 ## each dart hits once for a little damage and poisons the enemy.
 
 func begin() -> void:
-	move_to(Vector2(global_position.x, hero.global_position.y - p.rise), p.rise_time, func(): rig.play(&"hit1", true))
+	move_to(Vector2(global_position.x, hero.global_position.y - p.rise), p.rise_time, func(): puppet.play(&"hit1", true))
 
 func on_call(method: String) -> void:
 	match method:

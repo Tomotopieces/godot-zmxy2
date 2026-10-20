@@ -11,7 +11,7 @@ var _speed := 0.0
 var _left := 0.0
 var _tick_t := 0.0
 var _total := 0
-var _blood: Rig
+var _blood: Puppet
 
 func can_use() -> bool:
 	_target = null
@@ -24,7 +24,7 @@ func can_use() -> bool:
 	return _target != null
 
 func begin() -> void:
-	rig.play(&"hit1", true)
+	puppet.play(&"hit1", true)
 	_phase = Phase.GO
 	_speed = p.start_speed
 	_total = 0
@@ -76,7 +76,7 @@ func _drain() -> void:
 	_target.hurt_directly(dmg)
 	_total += dmg
 	if _blood == null:
-		_blood = Rig.create("fabao_mirror_blood")
+		_blood = Puppet.create("fabao_mirror_blood")
 		add_child(_blood)
 		_blood.play(_blood.actions[0])
 		_blood.action_finished.connect(func(a): _blood.play(a, true))

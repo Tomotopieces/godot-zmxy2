@@ -60,7 +60,7 @@ func _choose_open_door() -> void:
 	for i in siblings.size():
 		siblings[i].can_open = i == chosen
 
-## The closed door is gone, the open one plays its "open" action (once the rig has settled the hero may walk in).
+## The closed door is gone, the open one plays its "open" action (once the puppet has settled the hero may walk in).
 func is_open() -> bool:
 	return _open
 

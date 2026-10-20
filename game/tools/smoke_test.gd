@@ -66,7 +66,7 @@ func _physics_process(delta: float) -> void:
 	if int(_t * 10) % 20 == 0:
 		print("fps=%d " % Engine.get_frames_per_second(), "t=%.1f x=%.0f y=%.0f view=%.0f stop=%d locked=%s mon=%d hp=%d mp=%d rage=%d st=%s act=%s lv=%d exp=%d door=%s" % [
 			_t, h.global_position.x, h.global_position.y, lv.view_x, lv.stop_index, lv.locked, ms.size(),
-			h.hp, h.mp, h.rage, Hero.State.keys()[h.state], h.rig.action, GameState.level, GameState.exp, lv.door_open()])
+			h.hp, h.mp, h.rage, Hero.State.keys()[h.state], h.puppet.action, GameState.level, GameState.exp, lv.door_open()])
 	_shot_t += delta
 	if _out != "" and _shot_t > 6.0:
 		_shot_t = 0.0
@@ -90,7 +90,7 @@ func _watch_spawn(lv: Level, h: Hero) -> void:
 		lv.locked = true
 		print("SPAWN ", _spawn_id, " hp=", _spawned.max_hp)
 	if is_instance_valid(_spawned):
-		var a := "%s/%s" % [Monster.State.keys()[_spawned.state], _spawned.rig.action]
+		var a := "%s/%s" % [Monster.State.keys()[_spawned.state], _spawned.puppet.action]
 		if a != _last_act:
 			_last_act = a
 			print("t=%.1f M%d %s hp=%d inv=%.1f pos=(%.0f,%.0f) objs=%d" % [_t, _spawn_id, a, _spawned.hp, _spawned.invuln, _spawned.global_position.x, _spawned.global_position.y, lv.world.get_child_count()])
@@ -103,19 +103,19 @@ var _hist: Array = []
 var _flicker := {}
 
 func _watch_flicker(h: Hero) -> void:
-	_hist.append(h.rig.action)
+	_hist.append(h.puppet.action)
 	if _hist.size() > 4:
 		_hist.pop_front()
 	if _hist.size() == 4 and _hist[0] == _hist[3] and _hist[1] != _hist[0]:
 		var k := "%s>%s>%s" % [_hist[0], _hist[1], _hist[3]]
 		_flicker[k] = _flicker.get(k, 0) + 1
-	var parts := h.rig.current_pose()
+	var parts := h.puppet.current_pose()
 	var shown := 0
 	for c in parts.get_children():
 		if c.visible:
 			shown += 1
 	if shown == 0:
-		var k := "empty:" + String(h.rig.action)
+		var k := "empty:" + String(h.puppet.action)
 		_flicker[k] = _flicker.get(k, 0) + 1
 
 ## Camera smoothness: biggest single-tick scroll, and "stutter" = scroll step that differs from

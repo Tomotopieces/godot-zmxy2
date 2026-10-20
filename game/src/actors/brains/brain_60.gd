@@ -23,7 +23,7 @@ func setup() -> void:
 	m.world.start_final_platforms()
 
 func custom_animation() -> bool:
-	m.rig.play(&"wait")
+	m.puppet.play(&"wait")
 	return true
 
 func think(delta: float) -> void:

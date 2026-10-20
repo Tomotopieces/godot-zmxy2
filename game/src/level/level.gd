@@ -373,7 +373,7 @@ func _build(d: Dictionary) -> void:
 	for dd in d.doors:
 		if dd.kind != "exit_door":
 			continue   # (the other doors are mechanism scenes in the stage scene's Objects)
-		door = Rig.create("exit_door")
+		door = Puppet.create("exit_door")
 		door.z_index = Layers.Z_EXIT   # in front of the floor art (9-1: the bridge rail would cover it) but behind the actors
 		door.position = Vector2(dd.pos[0], dd.pos[1])
 		door.visible = false
@@ -381,7 +381,7 @@ func _build(d: Dictionary) -> void:
 		door.play(door.actions[0])
 		door_rect = Rect2(dd.rect[0], dd.rect[1], dd.rect[2], dd.rect[3])
 
-	_warm_rigs(d)
+	_warm_puppets(d)
 
 # ------------------------------------------------------------------ ground collision
 
@@ -443,17 +443,17 @@ func _end_on_floor(p: Vector2, slope: float, all: Array, self_w: Dictionary) -> 
 			return Vector2(p.x + (r.position.y - p.y) / slope, r.position.y)
 	return p
 
-## Common effects plus every rig of this stage's monsters (body, projectiles, and rigs named after the body:
+## Common effects plus every puppet of this stage's monsters (body, projectiles, and puppets named after the body:
 ## bullets, effects, form clips) load in the background while the stage starts.
 const WARM_COMMON := ["fx_monster_hurt1", "fx_monster_hurt2", "fx_hero_hurt", "orb_Red", "orb_Green", "orb_Blue",
 	"orb_While", "potion_BigHP", "potion_SmallHP", "potion_SmallMP", "gogo", "fx_levelup"]
 
-func _warm_rigs(d: Dictionary) -> void:
+func _warm_puppets(d: Dictionary) -> void:
 	var bodies := {}
 	for sp in d.spawners:
 		var md := monster_data(int(sp.enemy))
 		if md:
-			bodies[md.rig] = true
+			bodies[md.puppet] = true
 			for a: AttackData in md.attacks.values():
 				if a.projectile != "":
 					bodies[a.projectile] = true
@@ -463,7 +463,7 @@ func _warm_rigs(d: Dictionary) -> void:
 		for r in all:
 			if r == b or r.begins_with(b):
 				names.append(r)
-	Rig.warm(names)
+	Puppet.warm(names)
 
 func monster_data(id: int) -> MonsterData:
 	for p in ["res://data/monsters/monster_%d_%s.tres" % [id, level_name], "res://data/monsters/monster_%d.tres" % id]:
@@ -700,11 +700,11 @@ func _draw_debug() -> void:
 		return
 	var actors: Array = monsters() + heroes()
 	for a: Actor in actors:
-		_draw_box(a.rig.hurtbox, Color(0, 1, 0, 0.8))
-		_draw_box(a.rig.hitbox, Color(1, 0, 0, 0.8))
+		_draw_box(a.puppet.hurtbox, Color(0, 1, 0, 0.8))
+		_draw_box(a.puppet.hitbox, Color(1, 0, 0, 0.8))
 	for p in world.get_children():
 		if p is Projectile:
-			_draw_box(p.rig.hitbox, Color(1, 0.5, 0, 0.8))
+			_draw_box(p.puppet.hitbox, Color(1, 0.5, 0, 0.8))
 	if door:
 		_debug.draw_rect(door_rect, Color(0, 0.5, 1, 0.8), false, 1.0)
 

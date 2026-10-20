@@ -1,9 +1,9 @@
 class_name Projectile
 extends Node2D
-## Bullet / skill effect that deals damage with its rig's hit box (BaseBullet family).
+## Bullet / skill effect that deals damage with its puppet's hit box (BaseBullet family).
 ## Moves by `velocity`, dies after `distance_left` px, when its animation finishes, or when its hits are spent.
 
-var rig: Rig
+var puppet: Puppet
 var source: Actor
 var attack: AttackData
 var action: StringName
@@ -22,24 +22,24 @@ var dealer := HitDealer.new()
 var facing := -1:
 	set(v):
 		facing = 1 if v >= 0 else -1
-		if rig:
-			rig.scale.x = -facing * absf(rig.scale.x)
+		if puppet:
+			puppet.scale.x = -facing * absf(puppet.scale.x)
 
-static func create(rig_name: String, owner_actor: Actor, data: AttackData, act: StringName) -> Projectile:
+static func create(puppet_name: String, owner_actor: Actor, data: AttackData, act: StringName) -> Projectile:
 	var p := Projectile.new()
 	p.z_index = Layers.Z_EFFECT
-	p.rig = Rig.create(rig_name)
-	p.add_child(p.rig)
+	p.puppet = Puppet.create(puppet_name)
+	p.add_child(p.puppet)
 	p.source = owner_actor
 	p.attack = data
 	p.action = act
-	p.rig.event.connect(p._on_event)
-	p.rig.hitbox.collision_mask = Actor.LAYER_HURT_MONSTER if owner_actor is Hero else Actor.LAYER_HURT_HERO
-	p.rig.action_finished.connect(func(_a): p.queue_free())
+	p.puppet.event.connect(p._on_event)
+	p.puppet.hitbox.collision_mask = Actor.LAYER_HURT_MONSTER if owner_actor is Hero else Actor.LAYER_HURT_HERO
+	p.puppet.action_finished.connect(func(_a): p.queue_free())
 	return p
 
 func _ready() -> void:
-	rig.play(rig.actions[0])
+	puppet.play(puppet.actions[0])
 
 func _physics_process(delta: float) -> void:
 	dealer.tick(delta)
@@ -60,7 +60,7 @@ func _physics_process(delta: float) -> void:
 				return
 	if not is_instance_valid(source):
 		return
-	dealer.scan(rig.hitbox, attack, _deliver, true)
+	dealer.scan(puppet.hitbox, attack, _deliver, true)
 	if dealer.spent(attack) and attack.max_hits <= 1:
 		queue_free()
 

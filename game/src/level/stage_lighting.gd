@@ -3,7 +3,7 @@ extends Node
 ## The look of a stage at night, from data/lighting/<stage>.json (a stage without a file is drawn as the original did):
 ##  - the scenery and the floor are dimmed (not the actors, pickups or numbers) and the far background a little less; the
 ##    decoration gets a rim of backlight on the edges facing the moon and fades to dark towards the floor;
-##  - bodies are lit from above by the moon, shaded below and rimmed on their upper-left edges (Rig.set_light), and cast a
+##  - bodies are lit from above by the moon, shaded below and rimmed on their upper-left edges (Puppet.set_light), and cast a
 ##    soft shadow away from it;
 ##  - drifting mist, in a patchy layer behind the actors and a thin one in front; it swells and thins on its own;
 ##  - the moon's glow and a few slow shafts of moonlight from it - in the sky only: behind all scenery and actors
@@ -43,14 +43,14 @@ var _moon: Node2D
 var _shafts: Array[Polygon2D] = []
 var _moon_glow: Sprite2D
 var _lit := {}          ## instance ids of the actors already given the stage's body light
-var _shadows := {}      ## instance id of an actor -> {holder, rig, mat, sig, floor_y}
+var _shadows := {}      ## instance id of an actor -> {holder, puppet, mat, sig, floor_y}
 var _stars: Array = []      ## [star Sprite2D, phase, speed, alpha]
 var _motes_back: CPUParticles2D   ## the motes drawn behind the scenery ("back" share)
 var _motes: CPUParticles2D   ## the motes' emitter: it follows the view, the motes it lets go do not
 var _glows: Array = []      ## [glow Sprite2D, its entry of "glows", phase] - lights hung on pictures of the scene
 var _lamps: Array[Sprite2D] = []   ## the hall's lamps: additive glows that waver (one per "lamps" entry)
 var _t := 0.0
-var _treasure_rig: Rig
+var _treasure_puppet: Puppet
 var _sky: CanvasLayer           ## behind the world: the moon's light and the lightning bolt
 var _flash: ColorRect
 var _rain_mat: ShaderMaterial
@@ -644,16 +644,16 @@ func _physics_process(delta: float) -> void:
 	var actors: Array = [_lv.hero] + _lv.monsters()
 	var seen := {}
 	for a in actors:
-		if not is_instance_valid(a) or a.rig == null:
+		if not is_instance_valid(a) or a.puppet == null:
 			continue
 		seen[a.get_instance_id()] = true
 		_update_actor(a)
 	var tr: Treasure = _lv.hero.treasure
-	if is_instance_valid(tr) and tr.rig != null and tr.rig != _treasure_rig:
-		_treasure_rig = tr.rig   # the hero's magic treasure: a mild even tint and the backlight rim (it floats, so no gradient)
+	if is_instance_valid(tr) and tr.puppet != null and tr.puppet != _treasure_puppet:
+		_treasure_puppet = tr.puppet   # the hero's magic treasure: a mild even tint and the backlight rim (it floats, so no gradient)
 		var b: Dictionary = _cfg.body
 		var mid := _color(b.shade).lerp(_color(b.lit), 0.5)
-		_treasure_rig.set_light(mid, mid, float(b.height), float(b.rim_strength), float(b.rim_width))
+		_treasure_puppet.set_light(mid, mid, float(b.height), float(b.rim_strength), float(b.rim_width))
 	for id in _lit.keys():
 		if not seen.has(id):
 			_lit.erase(id)
@@ -663,12 +663,12 @@ func _physics_process(delta: float) -> void:
 			_shadows.erase(id)
 
 func _update_actor(a: Actor) -> void:
-	var rig: Rig = a.rig
+	var puppet: Puppet = a.puppet
 	var id := a.get_instance_id()
 	var b: Dictionary = _cfg.body
 	if not _lit.has(id):
 		_lit[id] = true
-		rig.set_light(_color(b.shade), _color(b.lit), float(b.height), float(b.rim_strength), float(b.rim_width))
+		puppet.set_light(_color(b.shade), _color(b.lit), float(b.height), float(b.rim_strength), float(b.rim_width))
 	if not _cfg.has("shadow"):
 		return   # a stage without cast shadows (3-1: the floor is water)
 	if not _shadows.has(id):
@@ -676,7 +676,7 @@ func _update_actor(a: Actor) -> void:
 	# an actor's origin is not at its feet: the feet are the bottom of its body shape
 	var feet_off := a.body_shape.position.y + (a.body_shape.shape as RectangleShape2D).size.y / 2.0
 	var feet_y := a.global_position.y + feet_off
-	rig.set_feet(feet_y)
+	puppet.set_feet(feet_y)
 	var e: Dictionary = _shadows[id]
 	var sh: Dictionary = _cfg.shadow
 	if a.is_on_floor():
@@ -687,20 +687,20 @@ func _update_actor(a: Actor) -> void:
 		var hit := _lv.get_world_2d().direct_space_state.intersect_ray(q)
 		e.floor_y = (hit.position as Vector2).y if not hit.is_empty() else INF
 	var holder: Node2D = e.holder
-	var srig: Rig = e.rig
+	var shadow_puppet: Puppet = e.puppet
 	# an actor that has faded (夜叉 turning invisible) takes its shadow with it
-	var fade := a.modulate.a * rig.modulate.a
-	var shown := a.is_visible_in_tree() and rig.is_visible_in_tree() and fade > 0.01 and is_finite(float(e.floor_y))
+	var fade := a.modulate.a * puppet.modulate.a
+	var shown := a.is_visible_in_tree() and puppet.is_visible_in_tree() and fade > 0.01 and is_finite(float(e.floor_y))
 	holder.visible = shown
 	if not shown:
 		return
 	var floor_y: float = e.floor_y
 	holder.global_transform = Transform2D(Vector2(1.0, 0.0), Vector2(-float(sh.shear), -float(sh.squash)), Vector2(a.global_position.x, floor_y)).translated_local(Vector2(0.0, -feet_off))
-	srig.mirror(rig)
-	var sig := "%s|%s" % [rig.action, rig.equipment]
+	shadow_puppet.mirror(puppet)
+	var sig := "%s|%s" % [puppet.action, puppet.equipment]
 	if e.sig != sig:
 		e.sig = sig
-		for sp: Sprite2D in srig.find_children("*", "Sprite2D", true, false):
+		for sp: Sprite2D in shadow_puppet.find_children("*", "Sprite2D", true, false):
 			# a glowing effect part (additive light, e.g. the leech's revival flash on its black frame) casts no shadow
 			sp.material = NO_SHADOW if _is_light(sp.material) or sp.has_meta(&"no_shadow") else e.mat
 			if sp.material == NO_SHADOW:
@@ -745,8 +745,8 @@ func _make_shadow(a: Actor) -> Dictionary:
 	holder.z_index = -2   # over the floor, under every actor
 	holder.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
 	_lv.world.add_child(holder)
-	var srig := Rig.create(a.get("data").rig)
-	holder.add_child(srig)
+	var shadow_puppet := Puppet.create(a.get("data").puppet)
+	holder.add_child(shadow_puppet)
 	var mat := ShaderMaterial.new()
 	mat.shader = CAST
-	return {"holder": holder, "rig": srig, "mat": mat, "sig": "", "floor_y": float(_cfg.shadow.floor_y)}
+	return {"holder": holder, "puppet": shadow_puppet, "mat": mat, "sig": "", "floor_y": float(_cfg.shadow.floor_y)}

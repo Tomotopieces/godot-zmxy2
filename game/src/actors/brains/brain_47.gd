@@ -25,7 +25,7 @@ func think(delta: float) -> void:
 		_phase += 1
 		m.modulate.a = 0.5
 		m.velocity = Vector2.ZERO
-		m.rig.play(&"wait")
+		m.puppet.play(&"wait")
 
 func on_call(n: String, _args: Array) -> bool:
 	match n:

@@ -71,7 +71,7 @@ func _ready() -> void:
 	gravity = data.gravity
 	collision_layer = LAYER_HERO
 	collision_mask = LAYER_WORLD | LAYER_ONEWAY
-	setup_rig(data.rig)
+	setup_puppet(data.puppet)
 	add_child(debuffs)
 	_apply_appearance()
 	facing = 1
@@ -83,7 +83,7 @@ func _ready() -> void:
 func _apply_appearance() -> void:
 	var look := GameState.appearance()
 	for k in look:
-		rig.set_equip(k, look[k])
+		puppet.set_equip(k, look[k])
 
 ## Gear changes keep the current HP / MP, clamped to the new maximums.
 ## With the 脱衣回蓝 trick switched on (GameState.strip_trick, key F) they work as in the original: taking gear off
@@ -125,7 +125,7 @@ func refill() -> void:
 
 func _on_level_up(_level: int) -> void:
 	refill()
-	Fx.attach("fx_levelup", self, rig.markers.get("levelupmc", Vector2.ZERO))
+	Fx.attach("fx_levelup", self, puppet.markers.get("levelupmc", Vector2.ZERO))
 
 func can_be_hit() -> bool:
 	return state != State.DEAD and invincible <= 0.0 and not GameState.debug_god
@@ -265,7 +265,7 @@ func _can_turn_now() -> bool:
 		return false
 	if attack_action in _cancelable_actions() and cooldown <= 0.0:
 		return true
-	return rig.progress() >= data.cancel_progress
+	return puppet.progress() >= data.cancel_progress
 
 ## Attack and skill keys (virtual).
 func _press(k: StringName, up: bool) -> bool:
@@ -302,7 +302,7 @@ func _try_jump() -> bool:
 		return false
 	jump_count += 1
 	velocity.y = data.rage_jump_velocity if transformed else data.jump_velocity
-	rig.play(&"jump1" if jump_count == 1 else &"jump2", true)
+	puppet.play(&"jump1" if jump_count == 1 else &"jump2", true)
 	return true
 
 func _try_drop_through() -> bool:
@@ -315,7 +315,7 @@ func _try_drop_through() -> bool:
 			_drop_t = DROP_THROUGH_TIME
 			position.y += data.drop_through
 			jump_count = 1
-			rig.play(&"jump1")
+			puppet.play(&"jump1")
 			return true
 	return false
 
@@ -353,7 +353,7 @@ func _try_skill(action: StringName, cancel := false) -> bool:
 	# skills only wait for the move to end: the original input lock (timers) only holds back the normal attack,
 	# so 升龙斩 flows straight into 火魔斩 etc. (the lock still starts, for the next normal hit)
 	var allowed := state == State.MOVE
-	if cancel and state == State.ATTACK and attack_action in CANCEL_INTO_HIT8 and rig.progress() >= data.cancel_progress:
+	if cancel and state == State.ATTACK and attack_action in CANCEL_INTO_HIT8 and puppet.progress() >= data.cancel_progress:
 		allowed = true
 	if not allowed:
 		return false
@@ -415,15 +415,15 @@ func _after_move() -> void:
 func _pick_move_anim() -> void:
 	if is_on_floor():
 		if _dir == 0:
-			rig.play(&"wait")
+			puppet.play(&"wait")
 		else:
-			rig.play(&"run" if running else &"walk")
-	elif rig.action == &"jump2" and rig.is_playing():
+			puppet.play(&"run" if running else &"walk")
+	elif puppet.action == &"jump2" and puppet.is_playing():
 		pass
 	elif velocity.y < 0.0:
-		rig.play(&"jump1")
+		puppet.play(&"jump1")
 	else:
-		rig.play(&"jump3")
+		puppet.play(&"jump3")
 
 func _clamp_to_view() -> void:
 	var v := world.view_rect()
@@ -432,10 +432,10 @@ func _clamp_to_view() -> void:
 
 # ------------------------------------------------------------------ animation events
 
-func _on_rig_event(n: StringName, args: Array) -> void:
+func _on_puppet_event(n: StringName, args: Array) -> void:
 	match n:
 		&"finished":
-			_finish_action(rig.action)
+			_finish_action(puppet.action)
 		&"set_vx":
 			velocity.x = args[0]
 			if attack_action == &"hit7" and float(args[0]) == 0.0:
@@ -487,8 +487,8 @@ func _on_new_hit() -> void:
 func _on_hero_call(_name: String, _args: Array) -> void:
 	pass
 
-func _skill_projectile(rig_name: String, action: StringName, pos: Vector2) -> Projectile:
-	var p := Projectile.create(rig_name, self, data.attacks[action], action)
+func _skill_projectile(puppet_name: String, action: StringName, pos: Vector2) -> Projectile:
+	var p := Projectile.create(puppet_name, self, data.attacks[action], action)
 	p.position = pos
 	p.facing = facing   # a bullet is flipped to the way its caster faces (BaseBullet.setRole)
 	world.add_object(p)
@@ -510,7 +510,7 @@ func _hit10_seek() -> void:
 			reset_physics_interpolation()
 			cooldown = ex.seek_cooldown
 			return
-	rig.seek_to_event(&"call", "add_hit10_flush")
+	puppet.seek_to_event(&"call", "add_hit10_flush")
 
 func _hit10_slam() -> void:
 	if not _hit10_down:
@@ -522,11 +522,11 @@ func _hit10_slam() -> void:
 	var p := _skill_projectile("wukong_hit10_2", &"hit10_2", global_position)
 	invincible = 0.0   # the move's invincibility lasts until he lands
 	var s: float = ex.rage_slam_scale if transformed else ex.slam_scale
-	p.rig.scale = Vector2(s, s)
+	p.puppet.scale = Vector2(s, s)
 	cooldown = ex.slam_cooldown
 
 func _finish_action(action: StringName) -> void:
-	if action != rig.action:
+	if action != puppet.action:
 		return
 	match state:
 		State.ATTACK:
@@ -546,7 +546,7 @@ func _finish_action(action: StringName) -> void:
 			_pick_move_anim()
 		State.MOVE:
 			if action == &"jump2":
-				rig.play(&"jump3")
+				puppet.play(&"jump3")
 
 func _on_action_finished(action: StringName) -> void:
 	_finish_action(action)
@@ -613,7 +613,7 @@ func take_hit(h: Hit) -> bool:
 	hp = maxi(hp - dmg, 0)
 	DamageNumber.spawn("pnum", dmg, global_position + Vector2(-20, -60))
 	_apply_effects(h.attack.effects)
-	rig.flash(Color(1.0, 0.35, 0.3), 0.12)
+	puppet.flash(Color(1.0, 0.35, 0.3), 0.12)
 	Fx.spawn("fx_hero_hurt", center())
 	Snd.sfx(data.sound_prefix + "_beAttack")
 	clear_buffer()
@@ -632,7 +632,7 @@ func take_hit(h: Hit) -> bool:
 		return true   # super armor: damage only, no knockback or hit stun (Role1.beAttackDoing)
 	velocity = Vector2(h.attack.knockback.x * h.direction, h.attack.knockback.y)
 	if state == State.HURT:
-		rig.play(&"hurt", true)
+		puppet.play(&"hurt", true)
 	else:
 		state = State.HURT
 		end_attack()
@@ -640,7 +640,7 @@ func take_hit(h: Hit) -> bool:
 		_hit10_land = false
 		_no_gravity = false
 		_no_input = false
-		rig.play(&"hurt", true)
+		puppet.play(&"hurt", true)
 	return true
 
 ## Damage after defense, before it is applied (virtual: 八戒's spinning guard).
@@ -677,7 +677,7 @@ func _drain_mp_by_moving() -> void:
 		_mp_drain -= n
 		mp = maxi(mp - n, 0)
 
-## Status icons shown on the hero (BaseAddEffect.showXxx): debuff -> [rig, offset].
+## Status icons shown on the hero (BaseAddEffect.showXxx): debuff -> [puppet, offset].
 func add_debuff(n: StringName, seconds: float) -> void:
 	debuffs.add(n, seconds)
 
@@ -786,7 +786,7 @@ func _afterimage_allowed() -> bool:
 func _spawn_afterimage() -> void:
 	if not _afterimage_allowed():
 		return
-	var ghost := rig.make_ghost()
+	var ghost := puppet.make_ghost()
 	if ghost == null:
 		return
 	world.add_object(ghost)
@@ -804,7 +804,7 @@ const GLOW_STRENGTH := 1.5
 const GLOW_ALPHA_UP := 0.8
 const GLOW_PERIOD := 0.75   ## 18 frames at the original 24 fps
 
-var _glow_rig: Rig   ## the halo: a copy of the hero drawn behind, every sprite a blurred silhouette of one colour
+var _glow_puppet: Puppet   ## the halo: a copy of the hero drawn behind, every sprite a blurred silhouette of one colour
 var _glow_mat: ShaderMaterial
 var _glow_t := 0.0
 
@@ -821,11 +821,11 @@ func _update_tint(delta: float) -> void:
 	if _lock_glow > 0.0:
 		_lock_glow -= delta
 	if color.a == 0.0:
-		if _glow_rig != null:
-			_glow_rig.visible = false
+		if _glow_puppet != null:
+			_glow_puppet.visible = false
 		_glow_t = 0.0
 		return
-	if _glow_rig == null:
+	if _glow_puppet == null:
 		_make_glow()
 	_glow_t = fmod(_glow_t + delta, GLOW_PERIOD)
 	var ph := _glow_t / GLOW_PERIOD * 2.0   # 0..1 shrinking, 1..2 growing
@@ -833,18 +833,18 @@ func _update_tint(delta: float) -> void:
 	var t := ph if down else 2.0 - ph
 	color.a = 1.0 if down else GLOW_ALPHA_UP
 	SpriteFx.set_glow(_glow_mat, color, lerpf(GLOW_BLUR.x, GLOW_BLUR.y, t), GLOW_STRENGTH)
-	_glow_rig.mirror(rig)
-	for sp: Sprite2D in _glow_rig.find_children("*", "Sprite2D", true, false):
+	_glow_puppet.mirror(puppet)
+	for sp: Sprite2D in _glow_puppet.find_children("*", "Sprite2D", true, false):
 		if sp.material != _glow_mat:
 			sp.material = _glow_mat
 
 func _make_glow() -> void:
 	_glow_mat = SpriteFx.glow_material(Color.WHITE, GLOW_BLUR.x, GLOW_STRENGTH, true)
-	_glow_rig = Rig.create(data.rig)
-	add_child(_glow_rig)
-	move_child(_glow_rig, rig.get_index())   # behind the body
-	_glow_rig.play(rig.action, true)
-	_glow_rig.anim.pause()
+	_glow_puppet = Puppet.create(data.puppet)
+	add_child(_glow_puppet)
+	move_child(_glow_puppet, puppet.get_index())   # behind the body
+	_glow_puppet.play(puppet.action, true)
+	_glow_puppet.anim.pause()
 
 ## 苍生挂饰: come back once with half HP / MP and a short invincibility (not when falling out of the stage).
 func _try_revive() -> bool:
@@ -864,12 +864,12 @@ func _die() -> void:
 	end_attack()
 	velocity = Vector2.ZERO
 	Snd.sfx(data.sound_prefix + "_dead")
-	rig.visible = false
+	puppet.visible = false
 	_drop_tomb()
 	died.emit(self)
 ## Original heroDead: the hero disappears and a gravestone falls where they stood (deadmb, 10 px above).
 func _drop_tomb() -> void:
-	var tomb := Rig.create("hero_tomb")
+	var tomb := Puppet.create("hero_tomb")
 	tomb.position = global_position + Vector2(0, -10)
 	tomb.z_index = Layers.Z_HERO
 	world.add_object(tomb)

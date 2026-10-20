@@ -2,7 +2,7 @@ extends "res://src/actors/brains/boss_b.gd"
 ## Monster35, the 秦广王傀儡's puppet (1-3). Template B: far -> hit3 (four stabs from the top of the screen),
 ## near -> grab (hit2-1 then hit2-2). A grabbed hero is frozen and pulled until the grab ends or 35 is hurt.
 
-const STAB_RIG := "monster35bullet1"
+const STAB_PUPPET := "monster35bullet1"
 
 var _held: Array[Hero] = []
 
@@ -59,7 +59,7 @@ func _stabs() -> void:
 	var aim := m.target.global_position
 	for i in 4:
 		var start := Vector2(m.global_position.x + (i - 2) * float(param("stab_spacing", 50)), 0)
-		var s := m.shoot(STAB_RIG, &"hit3")
+		var s := m.shoot(STAB_PUPPET, &"hit3")
 		s.global_position = start
 		s.life = float(param("stab_life", 10.0))
 		s.modulate.a = 0.0
@@ -67,7 +67,7 @@ func _stabs() -> void:
 		var turn := float(param("stab_turn", 1.0))
 		var tw := s.create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS).set_parallel()
 		tw.tween_property(s, "modulate:a", 1.0, turn)
-		tw.tween_property(s.rig, "rotation", heading.angle() - PI / 2.0, turn)
+		tw.tween_property(s.puppet, "rotation", heading.angle() - PI / 2.0, turn)
 		var v0 := float(param("stab_speed", 24.0))
 		var jerk := float(param("stab_jerk", 690.0))
 		s.mover = func(p: Projectile, delta: float) -> void:
