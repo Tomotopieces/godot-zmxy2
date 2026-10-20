@@ -22,94 +22,58 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Poses/Hit1/Hit1Part1:texture")
+tracks/1/path = NodePath("Poses/Hit1/Hit1Part1:transform")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_hdu18")]
+"values": [Transform2D(0.5, 0, 0, 0.5, -20.4, -54)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Poses/Hit1/Hit1Part1:transform")
+tracks/2/path = NodePath("Poses/Hit1/Hit1Part2:visible")
 tracks/2/interp = 0
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Transform2D(0.5, 0, 0, 0.5, -20.4, -54)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Poses/Hit1/Hit1Part1:modulate")
-tracks/3/interp = 0
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Poses/Hit1/Hit1Part2:visible")
-tracks/4/interp = 0
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "times": PackedFloat32Array(0, 0.125, 0.25),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [false, true, true]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Poses/Hit1/Hit1Part2:texture")
-tracks/5/interp = 0
-tracks/5/loop_wrap = true
-tracks/5/keys = {
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Poses/Hit1/Hit1Part2:texture")
+tracks/3/interp = 0
+tracks/3/loop_wrap = true
+tracks/3/keys = {
 "times": PackedFloat32Array(0.125, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [ExtResource("2_224l2"), ExtResource("3_gtx1w")]
 }
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Poses/Hit1/Hit1Part2:transform")
-tracks/6/interp = 0
-tracks/6/loop_wrap = true
-tracks/6/keys = {
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Poses/Hit1/Hit1Part2:transform")
+tracks/4/interp = 0
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "times": PackedFloat32Array(0.125, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [Transform2D(0.5, 0, 0, 0.5, -50.9, -53.8), Transform2D(0.5, 0, 0, 0.5, -60.5, -53.8)]
 }
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("Poses/Hit1/Hit1Part2:modulate")
-tracks/7/interp = 0
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0.125),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/8/type = "method"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath(".")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
 "times": PackedFloat32Array(0.25, 1.1666666),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
@@ -120,13 +84,13 @@ tracks/8/keys = {
 "method": &"ev_call"
 }]
 }
-tracks/9/type = "method"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath(".")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
 "times": PackedFloat32Array(1.1666666),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -141,50 +105,14 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Poses/Walk/WalkPart1:visible")
+tracks/0/path = NodePath("Poses/Walk/WalkPart1:transform")
 tracks/0/interp = 0
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Poses/Walk/WalkPart1:texture")
-tracks/1/interp = 0
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("4_fij12")]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Poses/Walk/WalkPart1:transform")
-tracks/2/interp = 0
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667, 0.20833333, 0.25, 0.29166666, 0.33333334, 0.375, 0.41666666, 0.45833334, 0.5, 0.5416667, 0.5833333, 0.625, 0.6666667, 0.7083333, 0.75),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [Transform2D(0.9325, 0, 0, 0.9325, -20.328499, -53.805252), Transform2D(0.9325, 0, 0, 0.9325, -20.328499, -53.43225), Transform2D(0.9325, 0, 0, 0.9325, -20.328499, -53.059254), Transform2D(0.9325, 0, 0, 0.9325, -20.328499, -52.686253), Transform2D(0.9325, 0, 0, 0.9325, -20.328499, -52.31325), Transform2D(0.9325, 0, 0, 0.9325, -20.328499, -51.94025), Transform2D(0.9325, 0, 0, 0.9325, -20.328499, -51.567253), Transform2D(0.9325, 0, 0, 0.9325, -20.328499, -51.194252), Transform2D(0.9325, 0, 0, 0.9325, -20.328499, -50.82125), Transform2D(0.9325, 0, 0, 0.9325, -20.328499, -50.448254), Transform2D(0.9325, 0, 0, 0.9325, -20.328499, -50.82125), Transform2D(0.9325, 0, 0, 0.9325, -20.328499, -51.194252), Transform2D(0.9325, 0, 0, 0.9325, -20.328499, -51.567253), Transform2D(0.9325, 0, 0, 0.9325, -20.328499, -51.94025), Transform2D(0.9325, 0, 0, 0.9325, -20.328499, -52.31325), Transform2D(0.9325, 0, 0, 0.9325, -20.328499, -52.686253), Transform2D(0.9325, 0, 0, 0.9325, -20.328499, -53.059254), Transform2D(0.9325, 0, 0, 0.9325, -20.328499, -53.43225), Transform2D(0.9325, 0, 0, 0.9325, -20.328499, -53.805252)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Poses/Walk/WalkPart1:modulate")
-tracks/3/interp = 0
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Color(1, 1, 1, 1)]
 }
 
 [resource]

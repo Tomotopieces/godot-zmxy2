@@ -25,7 +25,7 @@ func _ready() -> void:
 	_ui = UiLayout.create("shop")
 	_ui.button_pressed.connect(_on_button)
 	add_child(_ui)
-	_ui.show_frame("personmc", 0)
+	HeroPortrait.build(_ui)
 	for p in ["btn_play2", "btn_cz"]:
 		_ui.set_visible_piece(p, false)
 	var per_page := int(EquipmentCatalog.get_catalog().shop.per_page)

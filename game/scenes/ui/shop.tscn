@@ -20,7 +20,6 @@
 [ext_resource type="Texture2D" uid="uid://7sehuraxct61" path="res://assets/shared/ui/backpack_v5_618.png" id="29_v8cfp"]
 [ext_resource type="Texture2D" uid="uid://bxsnoyk0w7w8r" path="res://assets/shared/ui/OtherMat_v10_236.png" id="30_q6q0u"]
 [ext_resource type="Texture2D" uid="uid://dm4u0mcpur1xt" path="res://assets/shared/ui/OtherMat_v10_237.png" id="31_o0fa1"]
-[ext_resource type="Texture2D" uid="uid://c0olesjgejxdo" path="res://assets/shared/ui/backpack_v5_135.png" id="33_1tu2j"]
 [ext_resource type="Texture2D" uid="uid://bp8cqwf7b7adm" path="res://assets/shared/mixed/Role_v6_485.png" id="35_owbao"]
 [ext_resource type="Texture2D" uid="uid://bi2sjc11x58l0" path="res://assets/shared/mixed/3_137.png" id="36_6qsi8"]
 [ext_resource type="Texture2D" uid="uid://dbgamihdmp82y" path="res://assets/shared/ui/backpack_v5_162.png" id="37_ongk7"]
@@ -39,6 +38,7 @@
 [ext_resource type="Texture2D" uid="uid://co6gehv1xfujq" path="res://assets/shared/ui/backpack_v5_415.png" id="50_jrabd"]
 [ext_resource type="Texture2D" uid="uid://hyj4nu5gx04" path="res://assets/ui/shop/tex/backpack_v5_638_new.png" id="gx_down"]
 [ext_resource type="Texture2D" uid="uid://bbx1xxgvhbnpw" path="res://assets/ui/shop/tex/backpack_v5_643_new.png" id="gx_over"]
+[ext_resource type="PackedScene" uid="uid://vt17isp8tb0t" path="res://scenes/actors/bag_glow/bag_glow.tscn" id="bag_glow"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnbuydjUp0"]
 texture = ExtResource("3_oej5v")
@@ -1056,16 +1056,9 @@ metadata/ui_button = "btn_back"
 
 [node name="Art" type="Node2D" parent="Art5" unique_id=728887503]
 
-[node name="SpotLight" type="Sprite2D" parent="Art5/Art" unique_id=1644770074]
-modulate = Color(1, 1, 1, 0.46)
-position = Vector2(373.505, 337.285)
-rotation = 3.1415927
-scale = Vector2(0.605, 0.335)
-texture = ExtResource("33_1tu2j")
-centered = false
-offset = Vector2(0, 2.8805542)
-region_enabled = true
-region_rect = Rect2(1535.8264, 0, 384.1736, 383.1194458)
+[node name="SpotLight" parent="Art5/Art" unique_id=1644770074 instance=ExtResource("bag_glow")]
+position = Vector2(256.58, 271.73)
+metadata/ui_piece = ["spotlight"]
 
 [node name="personmc" type="Node2D" parent="." unique_id=966996136]
 position = Vector2(255.2, 282)

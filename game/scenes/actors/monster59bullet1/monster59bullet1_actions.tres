@@ -8,82 +8,46 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:visible")
+tracks/0/path = NodePath("Sprite:transform")
 tracks/0/interp = 0
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667, 0.20833333, 0.25, 0.29166666, 0.33333334, 0.375),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [true]
+"values": [Transform2D(0.5, 0, 0, 0.5, -43.5, -42.6), Transform2D(0.382, 0.3215, -0.3215, 0.382, -5.842201, -60.5169), Transform2D(0.085, 0.4925, -0.4925, 0.085, 34.565998, -50.0895), Transform2D(-0.2485, 0.433, -0.433, -0.2485, 58.5111, -16.498802), Transform2D(-0.4695, 0.171, -0.171, -0.4695, 55.4157, 25.1244), Transform2D(-0.4695, -0.171, 0.171, -0.4695, 26.277302, 54.878403), Transform2D(-0.2485, -0.433, 0.433, -0.2485, -15.272097, 58.8432), Transform2D(0.085, -0.4925, 0.4925, 0.085, -49.356, 35.6055), Transform2D(0.382, -0.3215, 0.3215, 0.382, -60.6258, -4.575897), Transform2D(0.5, 0, 0, 0.5, -43.5, -42.6)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite:texture")
+tracks/1/path = NodePath("Hitbox/Shape:position")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_jvji4")]
+"values": [Vector2(-0.15, -0.65)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite:transform")
+tracks/2/path = NodePath("Hitbox/Shape:shape:size")
 tracks/2/interp = 0
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667, 0.20833333, 0.25, 0.29166666, 0.33333334, 0.375),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [Transform2D(0.5, 0, 0, 0.5, -43.5, -42.6), Transform2D(0.382, 0.3215, -0.3215, 0.382, -5.842201, -60.5169), Transform2D(0.085, 0.4925, -0.4925, 0.085, 34.565998, -50.0895), Transform2D(-0.2485, 0.433, -0.433, -0.2485, 58.5111, -16.498802), Transform2D(-0.4695, 0.171, -0.171, -0.4695, 55.4157, 25.1244), Transform2D(-0.4695, -0.171, 0.171, -0.4695, 26.277302, 54.878403), Transform2D(-0.2485, -0.433, 0.433, -0.2485, -15.272097, 58.8432), Transform2D(0.085, -0.4925, 0.4925, 0.085, -49.356, 35.6055), Transform2D(0.382, -0.3215, 0.3215, 0.382, -60.6258, -4.575897), Transform2D(0.5, 0, 0, 0.5, -43.5, -42.6)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite:modulate")
-tracks/3/interp = 0
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Hitbox/Shape:position")
-tracks/4/interp = 0
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Vector2(-0.15, -0.65)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Hitbox/Shape:shape:size")
-tracks/5/interp = 0
-tracks/5/loop_wrap = true
-tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [Vector2(95.7, 95.1)]
 }
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Hitbox/Shape:disabled")
-tracks/6/interp = 0
-tracks/6/loop_wrap = true
-tracks/6/keys = {
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hitbox/Shape:disabled")
+tracks/3/interp = 0
+tracks/3/loop_wrap = true
+tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,

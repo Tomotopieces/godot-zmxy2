@@ -1,10 +1,11 @@
 extends Node
-## Screenshots the real bag and treasure panels (the ones the game opens) into <out_dir>:
-##   godot --path game --position 6000,6000 res://tools/panel_shot.tscn -- <out_dir>
+## Screenshots the real bag, treasure and shop panels (the ones the game opens) into <out_dir>:
+##   godot --path game --position 6000,6000 res://tools/panel_shot.tscn -- <out_dir> [role]
 ## A scene (not -s) so the autoloads (GameState, Snd) and the default theme exist, exactly as in the game.
 func _ready() -> void:
-	var out: String = OS.get_cmdline_user_args()[0]
-	GameState.new_game("wukong")
+	var args := OS.get_cmdline_user_args()
+	var out: String = args[0]
+	GameState.new_game(args[1] if args.size() > 1 else "wukong")   # [role]
 	GameState.souls = 300
 	GameState.exp = int(GameState.exp_to_next() * 0.6)
 	var main: PlayScreen = PlayScreen.create(Vector2i(1, 1))
@@ -22,6 +23,13 @@ func _ready() -> void:
 	main._open_treasure()
 	await get_tree().create_timer(0.5).timeout
 	await _shot(out + "/B_sutra.png")
+	main.queue_free()
+	var shop := ShopScreen.new()
+	add_child(shop)
+	await get_tree().create_timer(0.5).timeout
+	await _shot(out + "/B_shop.png")
+	await get_tree().create_timer(0.35).timeout
+	await _shot(out + "/B_shop2.png")
 	get_tree().quit()
 
 func _shot(path: String) -> void:

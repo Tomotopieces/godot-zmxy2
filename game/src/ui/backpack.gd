@@ -37,7 +37,7 @@ func _ready() -> void:
 	add_child(dim)
 	_ui = UiLayout.create("backpack")
 	add_child(_ui)
-	_build_portrait()
+	HeroPortrait.build(_ui)
 	_ui.button_pressed.connect(_on_button)
 	_grid = _ui.get_node("Grid")   # the scene's own 5x5 cells: nothing is created here
 
@@ -52,26 +52,6 @@ func _ready() -> void:
 	_refresh()
 	UiFade.fade_in(self)
 
-## The portrait plays the original animated clips: the spotlight behind (the scene's SpotLight) and the hero
-## (personmc body) wearing the current gear, which replaces the layout's frozen first frame.
-var _portrait: Puppet
-
-func _build_portrait() -> void:
-	var glow := _ui.get_piece("spotlight") as Puppet
-	glow.play(glow.actions[0])
-	_ui.set_visible_piece("personmc", false)
-	_portrait = Puppet.create("bag_" + GameState.hero_data.role)
-	_portrait.position = (_ui.get_piece("personmc") as Node2D).position
-	_ui.add_child(_portrait)
-	_ui.move_child(_portrait, _ui.get_piece("personmc").get_index() + 1)
-	_portrait.play(_portrait.actions[0])
-	_dress_portrait()
-	GameState.equipment_changed.connect(_dress_portrait)
-
-func _dress_portrait() -> void:
-	var look := GameState.appearance()
-	for k in look:
-		_portrait.set_equip(k, look[k])
 
 func _exit_tree() -> void:
 	get_tree().paused = false
