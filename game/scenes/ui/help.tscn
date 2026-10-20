@@ -1,7 +1,7 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://8m58udk3di7l"]
 
-[ext_resource type="Script" uid="uid://ddmuwy06fmabu" path="res://src/ui/ui_layout.gd" id="layout"]
 [ext_resource type="Texture2D" uid="uid://3g0bgb1k1le5" path="res://assets/shared/ui/OtherMat_v10_341.png" id="bg"]
+[ext_resource type="Script" uid="uid://ddmuwy06fmabu" path="res://src/ui/ui_layout.gd" id="layout"]
 [ext_resource type="PackedScene" uid="uid://cw8asul3mo0ir" path="res://scenes/ui/components/set_btn.tscn" id="set_btn"]
 
 [sub_resource type="StyleBoxFlat" id="PanelStyle"]
@@ -21,24 +21,24 @@ shadow_size = 12
 [sub_resource type="StyleBoxFlat" id="RuleStyle"]
 bg_color = Color(0.91, 0.72, 0.35, 0.35)
 
-[node name="Help" type="Control"]
+[node name="Help" type="Control" unique_id=360906704]
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("layout")
 
-[node name="Blocker" type="ColorRect" parent="."]
+[node name="Blocker" type="ColorRect" parent="." unique_id=54796197]
 layout_mode = 0
 offset_right = 940.0
 offset_bottom = 590.0
 color = Color(0, 0, 0, 1)
 
-[node name="Background" type="Sprite2D" parent="."]
+[node name="Background" type="Sprite2D" parent="." unique_id=1730393349]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("bg")
 centered = false
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=851690502]
 layout_mode = 0
 offset_left = 95.0
 offset_top = 48.0
@@ -47,7 +47,7 @@ offset_bottom = 552.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("PanelStyle")
 
-[node name="Title" type="Label" parent="Panel"]
+[node name="Title" type="Label" parent="Panel" unique_id=617121783]
 layout_mode = 0
 offset_top = 12.0
 offset_right = 750.0
@@ -59,7 +59,7 @@ theme_override_font_sizes/font_size = 26
 text = "操作说明"
 horizontal_alignment = 1
 
-[node name="Divider" type="Panel" parent="Panel"]
+[node name="Divider" type="Panel" parent="Panel" unique_id=2034298398]
 layout_mode = 0
 offset_left = 400.0
 offset_top = 62.0
@@ -68,24 +68,23 @@ offset_bottom = 486.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("RuleStyle")
 
-[node name="Controls" type="Control" parent="Panel"]
-layout_mode = 0
+[node name="Controls" type="Control" parent="Panel" unique_id=1789849011]
+anchors_preset = 0
 offset_left = 26.0
 offset_top = 60.0
 offset_right = 386.0
 offset_bottom = 490.0
 mouse_filter = 2
 
-[node name="ActionHeader" type="Label" parent="Panel/Controls"]
+[node name="ActionHeader" type="Label" parent="Panel/Controls" unique_id=309233390]
 layout_mode = 0
-offset_left = 0.0
 offset_right = 120.0
 offset_bottom = 26.0
 theme_override_colors/font_color = Color(0.91, 0.72, 0.35, 1)
 theme_override_font_sizes/font_size = 17
 text = "操作"
 
-[node name="KeyboardHeader" type="Label" parent="Panel/Controls"]
+[node name="KeyboardHeader" type="Label" parent="Panel/Controls" unique_id=1222888173]
 layout_mode = 0
 offset_left = 118.0
 offset_right = 238.0
@@ -94,7 +93,7 @@ theme_override_colors/font_color = Color(0.91, 0.72, 0.35, 1)
 theme_override_font_sizes/font_size = 17
 text = "键盘"
 
-[node name="GamepadHeader" type="Label" parent="Panel/Controls"]
+[node name="GamepadHeader" type="Label" parent="Panel/Controls" unique_id=155457872]
 layout_mode = 0
 offset_left = 246.0
 offset_right = 366.0
@@ -103,7 +102,7 @@ theme_override_colors/font_color = Color(0.91, 0.72, 0.35, 1)
 theme_override_font_sizes/font_size = 17
 text = "手柄"
 
-[node name="Actions" type="Label" parent="Panel/Controls"]
+[node name="Actions" type="Label" parent="Panel/Controls" unique_id=1879881740]
 layout_mode = 0
 offset_top = 32.0
 offset_right = 110.0
@@ -125,7 +124,7 @@ text = "移动
 音量 / 静音
 全屏"
 
-[node name="Keyboard" type="Label" parent="Panel/Controls"]
+[node name="Keyboard" type="Label" parent="Panel/Controls" unique_id=228066009]
 layout_mode = 0
 offset_left = 118.0
 offset_top = 32.0
@@ -148,7 +147,7 @@ Esc
 - / = / M
 F11"
 
-[node name="Gamepad" type="Label" parent="Panel/Controls"]
+[node name="Gamepad" type="Label" parent="Panel/Controls" unique_id=2112864165]
 layout_mode = 0
 offset_left = 246.0
 offset_top = 32.0
@@ -171,15 +170,15 @@ Start / B
 —
 —"
 
-[node name="Skills" type="Control" parent="Panel"]
-layout_mode = 0
+[node name="Skills" type="Control" parent="Panel" unique_id=9491570]
+anchors_preset = 0
 offset_left = 420.0
 offset_top = 60.0
 offset_right = 730.0
 offset_bottom = 490.0
 mouse_filter = 2
 
-[node name="Header" type="Label" parent="Panel/Skills"]
+[node name="Header" type="Label" parent="Panel/Skills" unique_id=2072542413]
 layout_mode = 0
 offset_right = 310.0
 offset_bottom = 26.0
@@ -187,7 +186,7 @@ theme_override_colors/font_color = Color(0.91, 0.72, 0.35, 1)
 theme_override_font_sizes/font_size = 17
 text = "技能（在技能面板用灵魂学习）"
 
-[node name="WukongName" type="Label" parent="Panel/Skills"]
+[node name="WukongName" type="Label" parent="Panel/Skills" unique_id=549446254]
 layout_mode = 0
 offset_top = 32.0
 offset_right = 310.0
@@ -196,7 +195,7 @@ theme_override_colors/font_color = Color(0.93, 0.9, 0.85, 1)
 theme_override_font_sizes/font_size = 16
 text = "孙悟空"
 
-[node name="WukongSkills" type="Label" parent="Panel/Skills"]
+[node name="WukongSkills" type="Label" parent="Panel/Skills" unique_id=385155986]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 56.0
@@ -208,7 +207,7 @@ theme_override_font_sizes/font_size = 14
 text = "W + J  升龙斩　　跑动中 J  火炎突击
 U  烈焰闪　　I  烈焰风暴　　O  火魔斩"
 
-[node name="TangsengName" type="Label" parent="Panel/Skills"]
+[node name="TangsengName" type="Label" parent="Panel/Skills" unique_id=1979119738]
 layout_mode = 0
 offset_top = 124.0
 offset_right = 310.0
@@ -217,7 +216,7 @@ theme_override_colors/font_color = Color(0.93, 0.9, 0.85, 1)
 theme_override_font_sizes/font_size = 16
 text = "唐僧"
 
-[node name="TangsengSkills" type="Label" parent="Panel/Skills"]
+[node name="TangsengSkills" type="Label" parent="Panel/Skills" unique_id=856217245]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 148.0
@@ -230,7 +229,7 @@ text = "按住 J  冰龙斩（蓄力）　　U  玄冰阵
 I  水幻影（再按 I 传送到幻影处）
 O  天降甘露　　L  水魔爆"
 
-[node name="BajieName" type="Label" parent="Panel/Skills"]
+[node name="BajieName" type="Label" parent="Panel/Skills" unique_id=484984832]
 layout_mode = 0
 offset_top = 240.0
 offset_right = 310.0
@@ -239,7 +238,7 @@ theme_override_colors/font_color = Color(0.93, 0.9, 0.85, 1)
 theme_override_font_sizes/font_size = 16
 text = "猪八戒"
 
-[node name="BajieSkills" type="Label" parent="Panel/Skills"]
+[node name="BajieSkills" type="Label" parent="Panel/Skills" unique_id=316011629]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 264.0
@@ -252,7 +251,7 @@ text = "U  碎石破　　I  土流盾　　O  地滚战车
 W + J  战争怒吼
 L  土魔刺（再按 L 射出飞刺）"
 
-[node name="Note" type="Label" parent="Panel/Skills"]
+[node name="Note" type="Label" parent="Panel/Skills" unique_id=1507806439]
 layout_mode = 0
 offset_top = 360.0
 offset_right = 310.0
@@ -264,13 +263,11 @@ text = "手柄：RB = U，Y = I，RT = O，R3 = L。
 怒气满时按无双变身；法宝需先在法宝面板装备。"
 autowrap_mode = 3
 
-[node name="btnback" parent="."  instance=ExtResource("set_btn")]
+[node name="btnback" parent="." unique_id=1040636986 instance=ExtResource("set_btn")]
 layout_mode = 0
-offset_left = 854.45
-offset_top = 19.5
-offset_right = 912.45
-offset_bottom = 45.5
+offset_left = 836.0
+offset_right = 940.0
 theme_override_font_sizes/font_size = 20
-text = "返回"
+text = "返 回"
 metadata/ui_piece = ["btnback"]
 metadata/ui_button = "btnback"

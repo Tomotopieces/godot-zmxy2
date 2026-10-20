@@ -7,6 +7,7 @@ for f in "$@"; do
   p="${f#game/}"; p="${p#res://}"
   uid=$(grep -m1 -oP 'uid="?\Kuid://[a-z0-9]+' "$p.import" "$p.uid" 2>/dev/null | head -1 | sed 's/^[^:]*://')
   [ -f "$p.uid" ] && uid=$(head -1 "$p.uid")
+  [ -z "$uid" ] && uid=$(head -1 "$p" 2>/dev/null | grep -oP 'uid="\Kuid://[a-z0-9]+')
   pat="res://$p"; [ -n "$uid" ] && pat="$pat|$uid"
   hits=$(grep -rlE "$pat" --include=*.tscn --include=*.tres --include=*.gd --include=*.json --include=*.gdshader --include=project.godot . 2>/dev/null | grep -vE '^\./\.godot/|\.import$' | sed 's#^\./##')
   echo "$p (${uid:-no uid}): ${hits:-UNUSED}"

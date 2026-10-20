@@ -35,28 +35,20 @@
 [ext_resource type="PackedScene" uid="uid://bn7cu4s02f7m0" path="res://scenes/ui/backpack/stat.tscn" id="33_stat"]
 [ext_resource type="Texture2D" uid="uid://hre7amrwb0ik" path="res://assets/textures/purple_gradient.tres" id="purple_gradient"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_btnfocus"]
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btncloseUp0"]
 texture = ExtResource("31_plfqd")
-expand_margin_left = 0
-expand_margin_top = 2
-expand_margin_right = 0
-expand_margin_bottom = -2
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btncloseOver1"]
-texture = ExtResource("32_ad4e2")
-expand_margin_left = 0
-expand_margin_top = 2
-expand_margin_right = 0
-expand_margin_bottom = -2
+expand_margin_top = 2.0
+expand_margin_bottom = -2.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btncloseDown2"]
 texture = ExtResource("31_plfqd")
-expand_margin_left = 0
-expand_margin_top = 0
-expand_margin_right = 0
-expand_margin_bottom = 0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btncloseOver1"]
+texture = ExtResource("32_ad4e2")
+expand_margin_top = 2.0
+expand_margin_bottom = -2.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_btnfocus"]
 
 [node name="sutra" type="Control" unique_id=104091820]
 layout_mode = 3
@@ -81,10 +73,11 @@ texture = ExtResource("4_gcbsr")
 
 [node name="BtnShengJi" parent="." unique_id=2102867070 instance=ExtResource("7_tspwb")]
 layout_mode = 0
-offset_left = 404.0
-offset_top = 412.0
-offset_right = 454.0
-offset_bottom = 434.0
+offset_left = 405.00003
+offset_top = 412.00003
+offset_right = 465.6
+offset_bottom = 435.70004
+scale = Vector2(0.8, 0.8)
 text = "升 级"
 metadata/ui_piece = ["btn_sj"]
 metadata/ui_button = "btn_sj"
@@ -573,11 +566,11 @@ offset_left = 709.9
 offset_top = 90.95
 offset_right = 749.9
 offset_bottom = 130.95
-mouse_default_cursor_shape = 2
 focus_mode = 0
+mouse_default_cursor_shape = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_btncloseUp0")
-theme_override_styles/hover = SubResource("StyleBoxTexture_btncloseOver1")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_btncloseDown2")
+theme_override_styles/hover = SubResource("StyleBoxTexture_btncloseOver1")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btncloseDown2")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_btncloseUp0")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
