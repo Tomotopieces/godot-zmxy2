@@ -109,7 +109,7 @@ func _physics_process(_delta: float) -> void:
 		return
 	if _hero == null:
 		_hero = lv.hero
-		_hero.max_hp = 1000000
+	_hero.max_hp = 1000000   # every frame: a level-up on a boss kill sets it back to the real value
 	_hero.hp = _hero.max_hp
 	_hero.controls_locked = true
 	_hero.global_position = Vector2(_band_x, HERO_Y)
