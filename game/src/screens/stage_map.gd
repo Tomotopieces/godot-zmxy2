@@ -1,14 +1,16 @@
 class_name StageMap
 extends CanvasLayer
-## Stage select map (export.SelectPLace). Main path stages s1_1 .. s4_1 unlock in order; frame 1 marks the
-## furthest unlocked stage (a 19-frame clip pulsing a purple glow), frame 2 is hover. btnnmg = 6-1 and
-## lxdy = 10-1 have no unlock check.
+## Stage select map (export.SelectPLace). Main path stages unlock in order; the furthest unlocked one pulses a purple
+## glow. A stage is a Button with its Picture and the larger HoverPicture shown while hovered. 牛魔谷 = 6-1 and
+## 螺旋地狱 = 10-1 have no unlock check.
 
 signal play(stage: Vector2i)
 signal to_menu
 
-const MAIN_STAGES := ["s1_1", "s1_2", "s1_3", "s2_1", "s2_2", "s2_3", "s3_1", "s3_2", "s3_3", "s4_1"]
-const SIDE_STAGES := {"btnnmg": Vector2i(6, 1), "lxdy": Vector2i(10, 1)}
+const MAIN_STAGES := {"Stage1Level1": Vector2i(1, 1), "Stage1Level2": Vector2i(1, 2), "Stage1Level3": Vector2i(1, 3),
+	"Stage2Level1": Vector2i(2, 1), "Stage2Level2": Vector2i(2, 2), "Stage2Level3": Vector2i(2, 3), "Stage3Level1": Vector2i(3, 1),
+	"Stage3Level2": Vector2i(3, 2), "Stage3Level3": Vector2i(3, 3), "Stage4Level1": Vector2i(4, 1)}
+const SIDE_STAGES := {"NiuMoGu": Vector2i(6, 1), "LuoXuanDiYu": Vector2i(10, 1)}
 ## the next stage's pulse: GlowFilter 0x9900CC, blur 0 -> 12 -> 0, strength 0 -> 1.82, over 19 frames
 const NEXT_GLOW_COLOR := Color8(153, 0, 204)
 const NEXT_GLOW_BLUR := Vector2(0.0, 12.0)
@@ -23,26 +25,30 @@ func _ready() -> void:
 		_ui = UiLayout.create("stage_map")
 		add_child(_ui)
 	for p in MAIN_STAGES:
-		var s := _stage_of(p)
-		var current: bool = s == GameState.progress
-		_ui.show_frame(p, 1 if current else 0)
-		if current:
-			_ui.glow_pulse(_ui.get_piece(p).get_child(1), NEXT_GLOW_COLOR, NEXT_GLOW_BLUR, NEXT_GLOW_STRENGTH, NEXT_GLOW_HALF)
-		if GameState.is_unlocked(s):
-			_ui.make_clickable(p, 2, 1 if current else 0)
+		var b: Button = _ui.piece(p)
+		if MAIN_STAGES[p] == GameState.progress:
+			_ui.glow_pulse(b.get_node("Picture"), NEXT_GLOW_COLOR, NEXT_GLOW_BLUR, NEXT_GLOW_STRENGTH, NEXT_GLOW_HALF)
+		b.disabled = not GameState.is_unlocked(MAIN_STAGES[p])
+		_hover_art(b)
 	for p in SIDE_STAGES:
-		_ui.make_clickable(p, 2, 0)
+		_hover_art(_ui.piece(p))
 	_ui.button_pressed.connect(_on_button)
 	Snd.music("begin")
 
-static func _stage_of(piece: String) -> Vector2i:
-	return Vector2i(int(piece[1]), int(piece[3]))
+## The bigger picture while hovered (a locked stage has none).
+static func _hover_art(b: Button) -> void:
+	var show := func(on: bool) -> void:
+		b.get_node("HoverPicture").visible = on and not b.disabled
+		b.get_node("Picture").visible = not b.get_node("HoverPicture").visible
+	b.mouse_entered.connect(show.bind(true))
+	b.mouse_exited.connect(show.bind(false))
+	b.mouse_default_cursor_shape = Control.CURSOR_ARROW if b.disabled else Control.CURSOR_POINTING_HAND
 
 func _on_button(b: String) -> void:
 	if _popup:
 		return
-	if b in MAIN_STAGES:
-		play.emit(_stage_of(b))
+	if MAIN_STAGES.has(b):
+		play.emit(MAIN_STAGES[b])
 	elif SIDE_STAGES.has(b):
 		var to: Vector2i = SIDE_STAGES[b]
 		if to.x == 6 and not GameState.hhe_seen:
@@ -55,9 +61,9 @@ func _on_button(b: String) -> void:
 		else:
 			play.emit(to)
 	match b:
-		"btnback":
+		"BtnBack":
 			to_menu.emit()
-		"savebtn":
+		"BtnSave":
 			if GameState.slot >= 0:
 				# a game that already has a slot saves straight into it
 				GameState.save_to(GameState.slot)
@@ -70,13 +76,13 @@ func _on_button(b: String) -> void:
 						_saved(slot))
 				_popup = p
 				add_child(p)
-		"showBuySkill":
+		"BtnSkills":
 			_open(SkillShop.new())
-		"ldl":
+		"BtnForge":
 			_open(ForgeScreen.new())
-		"scgm":
+		"BtnShop":
 			_open(ShopScreen.new())
-		"huodongbtn":
+		"BtnActivity":
 			var a := ActivityPanel.new()
 			a.play.connect(func(s: Vector2i): play.emit(s))
 			_open(a)

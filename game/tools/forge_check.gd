@@ -96,16 +96,16 @@ func _ready() -> void:
 	add_child(f)
 	await get_tree().create_timer(0.3).timeout
 	f._put(GameState.bag.find_custom(func(i): return i.id == "ptxzg"))
-	f._tab = "btn_dj"
+	f._tab = "BtnDaoJu"
 	f._refresh()
 	f._put(GameState.bag.find_custom(func(i): return i.id == "wpqhs1"))
 	f._put(GameState.bag.find_custom(func(i): return i.id == "wpxyf"))
 	await get_tree().create_timer(0.2).timeout
-	_check("forge slots", f._slots.zbmc != null and f._slots.qhmc1 != null and GameState.count_of("wpqhs1") == 2)
+	_check("forge slots", f._slots.Equipment != null and f._slots.Stone1 != null and GameState.count_of("wpqhs1") == 2)
 	_shot("forge_strength")
 	f._show_page(true)
 	_check("slots returned", GameState.count_of("wpqhs1") == 3 and GameState.has_item("ptxzg"))
-	f._tab = "btn_zb"
+	f._tab = "BtnZhuangBei"
 	f._refresh()
 	for id in ["dslj", "dsqz", "dsyj"]:
 		f._put(GameState.bag.find_custom(func(i): return i.id == id))
@@ -121,7 +121,7 @@ func _ready() -> void:
 	add_child(shop)
 	await get_tree().create_timer(0.3).timeout
 	_shot("shop")
-	shop._show_tab("btn_buygx")
+	shop._show_tab("BtnFashionTab")
 	await get_tree().create_timer(0.2).timeout
 	_shot("shop_look")
 	print("FORGE CHECK %s" % ("OK" if _fails == 0 else "FAILED (%d)" % _fails))

@@ -8,14 +8,14 @@ const GRID_ORIGIN := Vector2(522, 142)
 const GRID_COLS := 5
 const CELL := 50.0
 const CELL_GAP := 7.0
-const TABS := {"btn_zb": "equip", "btn_dj": "item", "btn_sz": "look"}
-const STONE_SLOTS := ["qhmc1", "qhmc2", "qhmc3"]
-const MATERIAL_SLOTS := ["material1", "material2", "material3"]
+const TABS := {"BtnZhuangBei": "equip", "BtnDaoJu": "item", "BtnShiZhuang": "look"}
+const STONE_SLOTS := ["Stone1", "Stone2", "Stone3"]
+const MATERIAL_SLOTS := ["Material1", "Material2", "Material3"]
 
 var _pack: UiLayout
 var _page: UiLayout
 var _fusion := false
-var _tab := "btn_zb"
+var _tab := "BtnZhuangBei"
 var _grid: Control
 var _slot_icons: Control
 var _slots := {}          ## slot piece -> Item in it (null = empty)
@@ -30,10 +30,7 @@ func _ready() -> void:
 	dim.size = Layers.VIEW
 	add_child(dim)
 	var back := UiLayout.create("forge")
-	back.show_frame("player1", 1)       # Wukong selected; the other characters are not in this game
-	back.set_visible_piece("player2", false)
-	back.set_visible_piece("player3", false)
-	back.button_pressed.connect(func(b): if b == "btnback": close())
+	back.button_pressed.connect(func(b): if b == "BtnBack": close())
 	add_child(back)
 	_pack = UiLayout.create("forge_pack")
 	_pack.button_pressed.connect(_on_button)
@@ -58,15 +55,15 @@ func _unhandled_input(e: InputEvent) -> void:
 
 func _on_button(b: String) -> void:
 	match b:
-		"strengthbtn":
+		"StrengthenTab":
 			_show_page(false)
-		"mixturebtn":
+		"FusionTab":
 			_show_page(true)
-		"qhbtn":
+		"BtnStrengthen":
 			_do_strengthen()
-		"rlbtn":
+		"BtnFuse":
 			_do_fusion()
-		"btn_help":
+		"BtnHelp":
 			_show_help()
 		_:
 			if TABS.has(b):
@@ -89,7 +86,7 @@ func _show_page(fusion: bool) -> void:
 	add_child(_slot_icons)
 	move_child(_tip, -1)
 	_slots.clear()
-	for s in (MATERIAL_SLOTS + ["produce"] if fusion else ["zbmc", "luckmc", "baodimc"] + STONE_SLOTS):
+	for s in (MATERIAL_SLOTS + ["Product"] if fusion else ["Equipment", "Luck", "Guarantee"] + STONE_SLOTS):
 		_slots[s] = null
 	_refresh()
 
@@ -106,16 +103,16 @@ func _put(index: int) -> void:
 				slot = s
 				break
 	elif Forge.can_strengthen(item):
-		slot = "zbmc"
+		slot = "Equipment"
 	elif d.stone > 0:
 		for s in STONE_SLOTS:
 			if _slots[s] == null:
 				slot = s
 				break
 	elif d.charm == &"luck":
-		slot = "luckmc"
+		slot = "Luck"
 	elif d.charm == &"keep":
-		slot = "baodimc"
+		slot = "Guarantee"
 	if slot == "":
 		return
 	_produce = null
@@ -126,7 +123,7 @@ func _put(index: int) -> void:
 	_refresh()
 
 func _take(slot: String) -> void:
-	if slot == "produce":
+	if slot == "Product":
 		return
 	GameState.add_to_bag(_slots[slot], true)
 	_slots[slot] = null
@@ -135,7 +132,7 @@ func _take(slot: String) -> void:
 ## Leaving the page / screen: everything in the slots goes back to the bag.
 func _return_all() -> void:
 	for s in _slots:
-		if s != "produce" and _slots[s] != null:
+		if s != "Product" and _slots[s] != null:
 			GameState.add_to_bag(_slots[s], true)
 			_slots[s] = null
 
@@ -143,16 +140,16 @@ func _stones() -> Array:
 	return STONE_SLOTS.map(func(s): return _slots[s]).filter(func(it): return it != null)
 
 func _do_strengthen() -> void:
-	var equip: Item = _slots.get("zbmc")
+	var equip: Item = _slots.get("Equipment")
 	var stones := _stones()
 	if equip == null or stones.is_empty():
 		return
-	var ok := Forge.strengthen(equip, stones, _slots.luckmc != null, _slots.baodimc != null)
+	var ok := Forge.strengthen(equip, stones, _slots.Luck != null, _slots.Guarantee != null)
 	# the stones and charms are used up either way; the equipment goes back to the bag
-	for s in STONE_SLOTS + ["luckmc", "baodimc"]:
+	for s in STONE_SLOTS + ["Luck", "Guarantee"]:
 		_slots[s] = null
 	GameState.add_to_bag(equip, true)
-	_slots.zbmc = null
+	_slots.Equipment = null
 	_notice("强化成功" if ok else "强化失败")
 	_refresh()
 
@@ -182,7 +179,7 @@ func _do_fusion() -> void:
 
 func _refresh() -> void:
 	_hide_tip()
-	_pack.set_text("txtlh", str(GameState.souls))
+	_pack.set_text("Souls", str(GameState.souls))
 	for c in _grid.get_children():
 		c.queue_free()
 	var shown := GameState.tab_items(TABS[_tab])
@@ -200,27 +197,27 @@ func _refresh() -> void:
 	for c in _slot_icons.get_children():
 		c.queue_free()
 	for s in _slots:
-		var it: Item = _produce if s == "produce" else _slots[s]
+		var it: Item = _produce if s == "Product" else _slots[s]
 		if it != null:
-			_slot_icons.add_child(_icon(it, _page.piece_position(s), _take.bind(s)))
+			_slot_icons.add_child(_icon(it, (_page.piece(s) as Node2D).position, _take.bind(s)))
 	if _fusion:
 		var mats: Array = MATERIAL_SLOTS.map(func(s): return _slots[s]).filter(func(m): return m != null)
 		var r := Forge.recipe_for(mats)
 		var d := EquipmentCatalog.find(r.get("out", ""))
-		_page.set_text("txt_name", d.display_name if d else "")
-		_page.set_text("txt_needlh", str(Forge.fusion_cost(r)) if d else "")
-		_page.set_text("txt_success", "%d%%" % roundi(Forge.fusion_chance(r) * 100) if d else "")
+		_page.set_text("ProductName", d.display_name if d else "")
+		_page.set_text("SoulCost", str(Forge.fusion_cost(r)) if d else "")
+		_page.set_text("SuccessRate", "%d%%" % roundi(Forge.fusion_chance(r) * 100) if d else "")
 		if d and _produce == null:
 			var pv := TextureRect.new()
 			pv.texture = d.icon
-			pv.position = _page.piece_position("preview")
+			pv.position = (_page.piece("Preview") as Node2D).position
 			pv.mouse_filter = Control.MOUSE_FILTER_IGNORE
 			_slot_icons.add_child(pv)
 	else:
-		var equip: Item = _slots.zbmc
-		var p := 0.0 if equip == null else Forge.success_chance(equip, _stones(), _slots.luckmc != null)
-		_page.set_text("txt_success", "%d%%" % floori(p * 100))
-		_page.set_text("txt_needlh", "0")
+		var equip: Item = _slots.Equipment
+		var p := 0.0 if equip == null else Forge.success_chance(equip, _stones(), _slots.Luck != null)
+		_page.set_text("SuccessRate", "%d%%" % floori(p * 100))
+		_page.set_text("SoulCost", "0")
 
 func _icon(item: Item, pos: Vector2, on_click: Callable) -> TextureRect:
 	var t := ItemIcon.create(item, CELL).place(pos)

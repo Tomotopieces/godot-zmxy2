@@ -50,7 +50,7 @@ func _ready() -> void:
 	await get_tree().create_timer(0.3).timeout
 	var bag: Backpack = main._bag
 	_shot("bag_equip")
-	for tab in ["btn_dj", "btn_rw"]:
+	for tab in ["BtnDaoJu", "BtnShiZhuang"]:
 		bag.show_tab(tab)
 		await get_tree().create_timer(0.2).timeout
 		var first: Control = bag._grid.get_children().filter(func(c): return c is TextureRect)[0]

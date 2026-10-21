@@ -5,16 +5,15 @@ extends CanvasLayer
 signal chosen(role: String)
 signal cancelled
 
-const BUTTONS := {"btn1": "wukong", "btn2": "tangseng", "btn3": "bajie"}
+const BUTTONS := {"BtnWukong": "wukong", "BtnTangseng": "tangseng", "BtnBajie": "bajie"}
 
 var _ui: UiLayout
 
 func _ready() -> void:
 	_ui = UiLayout.create("select_role")
 	add_child(_ui)
-	_ui.set_visible_piece("lockmc", false)
 	_ui.button_pressed.connect(_on_button)
-	var lock := _ui.get_piece("btn3") as CanvasItem
+	var lock := _ui.piece("BtnBajie") as CanvasItem
 	if not GameState.unlocked.get("bajie", false):
 		lock.modulate = Color(0.3, 0.3, 0.3)
 		var l := Label.new()

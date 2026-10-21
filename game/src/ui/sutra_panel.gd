@@ -27,8 +27,9 @@ func _ready() -> void:
 	_ui.button_pressed.connect(_on_button)
 	add_child(_ui)
 	var d := GameState.item_data(_item())
-	_ui.show_frame("showmc", d.display_name)
-	_ui.show_frame("introducemc", d.display_name)
+	for part in ["Picture", "Intro"]:   # the treasure's own picture and introduction
+		for c in _ui.piece(part).get_children():
+			c.visible = c.name == TREASURE_NODES.get(d.display_name, "")
 	_refresh()
 	UiFade.fade_in(self)
 
@@ -42,9 +43,9 @@ func _unhandled_input(e: InputEvent) -> void:
 
 func _on_button(b: String) -> void:
 	match b:
-		"btn_close":
+		"BtnClose":
 			UiFade.close(self)
-		"btn_sj":
+		"BtnShengJi":
 			var it := _item()
 			var cost := Forge.upgrade_cost(it)
 			if cost > 0 and GameState.souls >= cost:
@@ -54,36 +55,45 @@ func _on_button(b: String) -> void:
 				GameState.profile_changed.emit()
 				_refresh()
 
-## 五毒兽 passive: stat -> [icon (clip label), text] (MyEquipObj.getwhichpskill); the stat's own value follows the text
-const PASSIVES := {"crit": ["狂暴", "狂暴:暴击率增加"], "lifesteal": ["嗜血", "嗜血:吸血增加"], "mdef": ["顽固", "顽固:魔抗增加"],
-	"hp_regen": ["永恒", "永恒:回血增加"], "mp_regen": ["辉煌", "辉煌:回蓝增加"]}
-## 五毒兽 spell: [kind, upgraded] -> [icon (clip label), text] (MyEquipObj.getwhichskill)
-const SPELLS := {[0, false]: ["初级雷咒", "对前方怪物造成雷电伤害"], [0, true]: ["高级雷咒", "对全屏怪物造成雷电伤害"],
-	[1, false]: ["初级火咒", "对前方怪物造成火焰伤害"], [1, true]: ["高级火咒", "对全屏怪物造成火焰伤害"]}
+## The treasures' nodes in Picture / Intro.
+const TREASURE_NODES := {"天煞古剑": "TianShaGuJian", "罗刹妖伞": "LuoShaYaoSan", "血海魔童": "XueHaiMoTong", "地煞葫芦": "DiShaHuLu",
+	"白霜镜": "BaiShuangJing", "五毒兽": "WuDuShou"}
+## 五毒兽 passive: stat -> [icon node, text] (MyEquipObj.getwhichpskill); the stat's own value follows the text
+const PASSIVES := {"crit": ["KuangBao", "狂暴:暴击率增加"], "lifesteal": ["ShiXue", "嗜血:吸血增加"], "mdef": ["WanGu", "顽固:魔抗增加"],
+	"hp_regen": ["YongHeng", "永恒:回血增加"], "mp_regen": ["HuiHuang", "辉煌:回蓝增加"]}
+## 五毒兽 spell: [kind, upgraded] -> [icon node, text] (MyEquipObj.getwhichskill)
+const SPELLS := {[0, false]: ["ChuJiLeiZhou", "对前方怪物造成雷电伤害"], [0, true]: ["GaoJiLeiZhou", "对全屏怪物造成雷电伤害"],
+	[1, false]: ["ChuJiHuoZhou", "对前方怪物造成火焰伤害"], [1, true]: ["GaoJiHuoZhou", "对全屏怪物造成火焰伤害"]}
 
 func _refresh() -> void:
 	var it := _item()
 	var d := GameState.item_data(it)
 	var cost := Forge.upgrade_cost(it)
-	_ui.set_text("txt_fbname", d.display_name)
-	_ui.set_text("txt_fbdj", str(int(it.lv)))
-	_ui.set_text("txt_fbczl", "%.1f" % it.growth)
-	_ui.set_text("txt_fbwx", Forge.element_text(it))
+	_ui.set_text("TreasureName", d.display_name)
+	_stat("StatFbdj", str(int(it.lv)))
+	_stat("StatFbczl", "%.1f" % it.growth)
+	_stat("StatFbwx", Forge.element_text(it))
 	var st := it.stats
-	_ui.set_text("txt_fbatk", str(int(st.get("atk", 0))))
-	_ui.set_text("txt_fbdef", str(int(st.get("def", 0))))
-	_ui.set_text("txt_fbhx", str(int(st.get("hp", 0))))
-	_ui.set_text("txt_fbhl", str(int(st.get("mp", 0))))
-	_ui.set_text("txt_fblh", "%d/%s" % [GameState.souls, str(cost) if cost > 0 else "满级"])
-	(_ui.get_piece("fblh_progress") as Range).value = 1.0 if cost == 0 else float(GameState.souls) / (cost + 1)
+	_stat("StatFbatk", str(int(st.get("atk", 0))))
+	_stat("StatFbdef", str(int(st.get("def", 0))))
+	_stat("StatFbhx", str(int(st.get("hp", 0))))
+	_stat("StatFbhl", str(int(st.get("mp", 0))))
+	_stat("CurrencyFblh", "%d/%s" % [GameState.souls, str(cost) if cost > 0 else "满级"])
+	(_ui.piece("CurrencyFblhProgress") as Range).value = 1.0 if cost == 0 else float(GameState.souls) / (cost + 1)
 	if it.id == "wds":
-		# the spell and the passive each have an icon clip and a text under it (introducemc skill1 / txt1, skill2 / txt2)
+		# the spell and the passive each have an icon and a text under it
 		var spell: Array = SPELLS[[int(it.spell), it.strong]]
-		_ui.show_frame("introducemc/skill1", spell[0])
-		_ui.set_inner_text("introducemc", "txt1", spell[1] + " ")
+		_show_only(_ui.piece("SpellIcon"), spell[0])
+		_ui.set_text("SpellText", spell[1] + " ")
 		for k in PASSIVES:
 			if st.has(k):
 				var v: float = st[k]
 				var p: Array = PASSIVES[k]
-				_ui.show_frame("introducemc/skill2", p[0])
-				_ui.set_inner_text("introducemc", "txt2", "%s%s " % [p[1], ("%s%%" % String.num(snappedf(v * 100.0, 0.01))) if v < 1.0 else str(int(v))])
+				_show_only(_ui.piece("PassiveIcon"), p[0])
+				_ui.set_text("PassiveText", "%s%s " % [p[1], ("%s%%" % String.num(snappedf(v * 100.0, 0.01))) if v < 1.0 else str(int(v))])
+func _stat(row: String, value: String) -> void:
+	_ui.piece(row).set_value(value)
+
+static func _show_only(parent: Node, child: String) -> void:
+	for c in parent.get_children():
+		c.visible = c.name == child

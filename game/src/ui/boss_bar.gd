@@ -16,8 +16,8 @@ static func create(m: Monster) -> BossBar:
 func _ready() -> void:
 	_ui = UiLayout.create("boss_blood")
 	add_child(_ui)
-	_gauge = _ui.get_piece("gauge")
-	_ui.set_text("boss_name", boss.data.display_name)
+	_gauge = _ui.piece("Gauge")
+	_ui.set_text("BossName", boss.data.display_name)
 
 func _process(_dt: float) -> void:
 	if not is_instance_valid(boss) or boss.state == Monster.State.DEAD:

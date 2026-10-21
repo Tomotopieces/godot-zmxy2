@@ -1,15 +1,15 @@
 class_name ShopScreen
 extends CanvasLayer
 ## 商城 (export.microshop.Micropayment): six goods per page, pages 全部 / 道具 / 个性, bought with 功勋.
-## Each good (ShopThing) has a count (btn_up / btn_down) and a buy button that asks for confirmation (SumInterface).
+## Each good (ShopThing) has a count (BtnMore / BtnLess) and a buy button that asks for confirmation (SumInterface).
 
-const PAGES := {"btn_buyzb": ["item", "look"], "btn_buydj": ["item"], "btn_buygx": ["look"]}
+const PAGES := {"BtnEquipTab": ["item", "look"], "BtnItemTab": ["item"], "BtnFashionTab": ["look"]}
 
 var _ui: UiLayout
 var _things: Array[UiLayout] = []
 var _counts: Array[int] = []
 var _goods: Array = []          ## ids on the current tab
-var _tab := "btn_buyzb"
+var _tab := "BtnEquipTab"
 var _page := 0
 var _icons: Control
 var _tip: ItemTip
@@ -26,14 +26,12 @@ func _ready() -> void:
 	_ui.button_pressed.connect(_on_button)
 	add_child(_ui)
 	HeroPortrait.build(_ui)
-	for p in ["btn_play2", "btn_cz"]:
-		_ui.set_visible_piece(p, false)
 	var per_page := int(EquipmentCatalog.get_catalog().shop.per_page)
 	for i in per_page:
-		var st := "st%d" % i
+		var st := _ui.piece("Thing%d" % (i + 1)) as Node2D   # the art's goods mark where the live ones go
 		var t := UiLayout.create("shop_thing")
-		t.position = _ui.piece_position(st)
-		_ui.set_visible_piece(st, false)
+		t.position = st.position
+		st.visible = false
 		t.button_pressed.connect(_on_thing_button.bind(i))
 		add_child(t)
 		_things.append(t)
@@ -43,7 +41,7 @@ func _ready() -> void:
 	add_child(_icons)
 	_tip = ItemTip.new()
 	add_child(_tip)
-	_show_tab("btn_buyzb")
+	_show_tab("BtnEquipTab")
 	UiFade.fade_in(self)
 
 func close() -> void:
@@ -58,12 +56,12 @@ func _on_button(b: String) -> void:
 	if _confirm:
 		return
 	match b:
-		"btn_back":
+		"BtnBack":
 			close()
-		"btn_upPage":
+		"BtnPrevPage":
 			_page = maxi(_page - 1, 0)
 			_refresh()
-		"btn_nextPage":
+		"BtnNextPage":
 			_page = mini(_page + 1, _page_count() - 1)
 			_refresh()
 		_:
@@ -94,11 +92,11 @@ func _on_thing_button(b: String, i: int) -> void:
 		return
 	var stacks := EquipmentCatalog.find(_id_at(i)).stacks()
 	match b:
-		"btn_up":
+		"BtnMore":
 			_counts[i] = _counts[i] + 1 if stacks else 1
-		"btn_down":
+		"BtnLess":
 			_counts[i] = maxi(_counts[i] - 1, 1)
-		"btn_buy":
+		"BtnBuy":
 			_ask(i)
 			return
 	_refresh()
@@ -112,13 +110,13 @@ func _ask(i: int) -> void:
 		return
 	var c := UiLayout.create("shop_confirm")
 	var d := EquipmentCatalog.find(id)
-	(c.get_piece("txt_msg") as RichTextLabel).text = "[center]购买 [color=#%s]%s[/color] × %d\n需要 %d 功勋[/center]" % [
+	(c.piece("Message") as RichTextLabel).text = "[center]购买 [color=#%s]%s[/color] × %d\n需要 %d 功勋[/center]" % [
 		d.color.to_html(false), d.display_name, _counts[i], cost]
 	PadNav.modal(c)
 	c.button_pressed.connect(func(b):
 		_confirm = null
 		c.queue_free()
-		if b == "btn_ok":
+		if b == "BtnOk":
 			Toast.show_on(self, Forge.buy(id, _counts[i]))
 			_counts[i] = 1
 			_refresh())
@@ -127,9 +125,9 @@ func _ask(i: int) -> void:
 
 func _refresh() -> void:
 	_tip.visible = false
-	_ui.set_text("txt_page", "%d/%d" % [_page + 1, _page_count()])
-	_ui.set_text("txt_money", "0")
-	_ui.set_text("txt_gx", str(GameState.merit))
+	_ui.set_text("PageText", "%d/%d" % [_page + 1, _page_count()])
+	_ui.set_text("Money", "0")
+	_ui.set_text("Merit", str(GameState.merit))
 	for c in _icons.get_children():
 		c.queue_free()
 	for i in _things.size():
@@ -139,10 +137,10 @@ func _refresh() -> void:
 		t.visible = d != null
 		if d == null:
 			continue
-		t.set_text("txt_name", d.display_name)
-		(t.get_piece("txt_name") as Label).add_theme_color_override("font_color", d.color)
-		t.set_text("txt_price", "%d功勋" % Forge.price(id))
-		t.set_text("txt_num", str(_counts[i]))
+		t.set_text("ItemName", d.display_name)
+		(t.piece("ItemName") as Label).add_theme_color_override("font_color", d.color)
+		t.set_text("Price", "%d功勋" % Forge.price(id))
+		t.set_text("Count", str(_counts[i]))
 		var cell := UiLayout.create("pack_cell")
 		cell.position = t.position + Vector2(4, 5)
 		_icons.add_child(cell)

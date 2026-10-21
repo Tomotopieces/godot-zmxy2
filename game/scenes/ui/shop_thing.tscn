@@ -65,20 +65,19 @@ script = ExtResource("1_gkni2")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_08w05")
 centered = false
-metadata/tex_key = "backpack_v5:600"
 
-[node name="bgmc" type="Node2D" parent="." unique_id=890352243]
+[node name="Background" type="Node2D" parent="." unique_id=890352243]
+unique_name_in_owner = true
 position = Vector2(75.05, 67.45)
-metadata/ui_piece = ["bgmc"]
 
-[node name="backpack_v5_602" type="Sprite2D" parent="bgmc" unique_id=828075256]
+[node name="backpack_v5_602" type="Sprite2D" parent="Background" unique_id=828075256]
 position = Vector2(-36.25, -11)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_t7u03")
 centered = false
-metadata/tex_key = "backpack_v5:602"
 
-[node name="txt_name" type="Label" parent="." unique_id=1317341557]
+[node name="ItemName" type="Label" parent="." unique_id=1317341557]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 81.0
 offset_top = 4.0
@@ -89,28 +88,9 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 horizontal_alignment = 2
-metadata/rec = {
-"align": "right",
-"b": {
-"h": 22.85,
-"w": 90.65,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [-1.5, 17.5],
-"m": [1.0, 0.0, 0.0, 1.0, 83.0, 6.8],
-"multiline": true,
-"name": "txt_name",
-"size": 16.0,
-"text": "",
-"type": "text",
-"var": "",
-"wrap": true
-}
-metadata/ui_piece = ["txt_name"]
 
-[node name="txt_price" type="Label" parent="." unique_id=1213687346]
+[node name="Price" type="Label" parent="." unique_id=1213687346]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 81.0
 offset_top = 31.5
@@ -121,38 +101,18 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 horizontal_alignment = 2
-metadata/rec = {
-"align": "right",
-"b": {
-"h": 22.85,
-"w": 91.65,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [-9.5, 28.5],
-"m": [1.0, 0.0, 0.0, 1.0, 83.0, 32.8],
-"multiline": true,
-"name": "txt_price",
-"size": 16.0,
-"text": "",
-"type": "text",
-"var": "",
-"wrap": true
-}
-metadata/ui_piece = ["txt_price"]
 
 [node name="BtnBuy" parent="." instance=ExtResource("yellow_button")]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 112.65
 offset_top = 57.45
 offset_right = 171.65
 offset_bottom = 78.45
 text = "购 买"
-metadata/ui_piece = ["btn_buy"]
-metadata/ui_button = "btn_buy"
 
-[node name="txt_num" type="Label" parent="." unique_id=931895132]
+[node name="Count" type="Label" parent="." unique_id=931895132]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 69.75
 offset_top = 60.199997
@@ -163,28 +123,9 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 horizontal_alignment = 1
-metadata/rec = {
-"align": "center",
-"b": {
-"h": 19.3,
-"w": 26.2,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [1.5, 17.5],
-"m": [1.0, 0.0, 0.0, 1.0, 71.75, 59.85],
-"multiline": true,
-"name": "txt_num",
-"size": 13.0,
-"text": "",
-"type": "text",
-"var": "",
-"wrap": true
-}
-metadata/ui_piece = ["txt_num"]
 
-[node name="btn_up" type="Button" parent="." unique_id=270717287]
+[node name="BtnMore" type="Button" parent="." unique_id=270717287]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 93.75
 offset_top = 57.9
@@ -198,10 +139,9 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_btnupDown2")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btnupDown2")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_btnupUp0")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
-metadata/ui_piece = ["btn_up"]
-metadata/ui_button = "btn_up"
 
-[node name="btn_down" type="Button" parent="." unique_id=159469580]
+[node name="BtnLess" type="Button" parent="." unique_id=159469580]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 93.5
 offset_top = 66.9
@@ -215,5 +155,3 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_btndownDown5")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btndownDown5")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_btndownUp3")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
-metadata/ui_piece = ["btn_down"]
-metadata/ui_button = "btn_down"

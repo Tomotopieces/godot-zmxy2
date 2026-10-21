@@ -72,6 +72,7 @@ position = Vector2(323, 141)
 texture = ExtResource("4_gcbsr")
 
 [node name="BtnShengJi" parent="." unique_id=2102867070 instance=ExtResource("7_tspwb")]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 405.00003
 offset_top = 412.00003
@@ -79,8 +80,6 @@ offset_right = 465.6
 offset_bottom = 435.70004
 scale = Vector2(0.8, 0.8)
 text = "升 级"
-metadata/ui_piece = ["btn_sj"]
-metadata/ui_button = "btn_sj"
 
 [node name="Art2" type="Node2D" parent="." unique_id=591659017]
 
@@ -92,192 +91,155 @@ texture = ExtResource("7_ihqu3")
 position = Vector2(470.5, 280)
 texture = ExtResource("8_hqo6y")
 
-[node name="showmc" type="Node2D" parent="." unique_id=1816850043]
+[node name="Picture" type="Node2D" parent="." unique_id=1816850043]
+unique_name_in_owner = true
 position = Vector2(264.25, 236.05)
-metadata/labels = {
-"五毒兽": 6.0,
-"地煞葫芦": 4.0,
-"天煞古剑": 1.0,
-"白霜镜": 5.0,
-"罗刹妖伞": 2.0,
-"血海魔童": 3.0
-}
-metadata/ui_piece = ["showmc"]
 
-[node name="Frame0" type="Node2D" parent="showmc" unique_id=1468404941]
-
-[node name="天煞古剑" type="Node2D" parent="showmc" unique_id=1802668123]
+[node name="TianShaGuJian" type="Node2D" parent="Picture" unique_id=1802668123]
 visible = false
 
-[node name="backpack_v5_478" type="Sprite2D" parent="showmc/天煞古剑" unique_id=140883721]
+[node name="backpack_v5_478" type="Sprite2D" parent="Picture/TianShaGuJian" unique_id=140883721]
 position = Vector2(-15.256, 63.024002)
 scale = Vector2(0.32, 0.32)
 texture = ExtResource("8_ihqu3")
 centered = false
-metadata/tex_key = "backpack_v5:478"
 
-[node name="backpack_v5_481" type="Sprite2D" parent="showmc/天煞古剑" unique_id=518210442]
+[node name="backpack_v5_481" type="Sprite2D" parent="Picture/TianShaGuJian" unique_id=518210442]
 position = Vector2(-20.2395, -76.2025)
 scale = Vector2(0.605, 0.605)
 texture = ExtResource("9_hqo6y")
 centered = false
-metadata/tex_key = "backpack_v5:481"
 
-[node name="罗刹妖伞" type="Node2D" parent="showmc" unique_id=2013927384]
+[node name="LuoShaYaoSan" type="Node2D" parent="Picture" unique_id=2013927384]
 visible = false
 
-[node name="backpack_v5_478" type="Sprite2D" parent="showmc/罗刹妖伞" unique_id=584628211]
+[node name="backpack_v5_478" type="Sprite2D" parent="Picture/LuoShaYaoSan" unique_id=584628211]
 position = Vector2(-15.366, 62.904)
 scale = Vector2(0.32, 0.32)
 texture = ExtResource("8_ihqu3")
 centered = false
-metadata/tex_key = "backpack_v5:478"
 
-[node name="backpack_v5_484" type="Sprite2D" parent="showmc/罗刹妖伞" unique_id=1654187950]
+[node name="backpack_v5_484" type="Sprite2D" parent="Picture/LuoShaYaoSan" unique_id=1654187950]
 position = Vector2(-23.3735, -71.848)
 scale = Vector2(0.605, 0.605)
 texture = ExtResource("10_t0cq7")
 centered = false
-metadata/tex_key = "backpack_v5:484"
 
-[node name="血海魔童" type="Node2D" parent="showmc" unique_id=228948765]
+[node name="XueHaiMoTong" type="Node2D" parent="Picture" unique_id=228948765]
 visible = false
 
-[node name="backpack_v5_478" type="Sprite2D" parent="showmc/血海魔童" unique_id=82204884]
+[node name="backpack_v5_478" type="Sprite2D" parent="Picture/XueHaiMoTong" unique_id=82204884]
 position = Vector2(-10.966, 60.684)
 scale = Vector2(0.32, 0.32)
 texture = ExtResource("8_ihqu3")
 centered = false
-metadata/tex_key = "backpack_v5:478"
 
-[node name="backpack_v5_487" type="Sprite2D" parent="showmc/血海魔童" unique_id=1449022331]
+[node name="backpack_v5_487" type="Sprite2D" parent="Picture/XueHaiMoTong" unique_id=1449022331]
 position = Vector2(-21.655502, -41.256996)
 scale = Vector2(0.795, 0.795)
 texture = ExtResource("11_30kgi")
 centered = false
-metadata/tex_key = "backpack_v5:487"
 
-[node name="地煞葫芦" type="Node2D" parent="showmc" unique_id=1893132784]
+[node name="DiShaHuLu" type="Node2D" parent="Picture" unique_id=1893132784]
 visible = false
 
-[node name="backpack_v5_478" type="Sprite2D" parent="showmc/地煞葫芦" unique_id=658186556]
+[node name="backpack_v5_478" type="Sprite2D" parent="Picture/DiShaHuLu" unique_id=658186556]
 position = Vector2(-21.835, 60.89)
 scale = Vector2(0.35, 0.35)
 texture = ExtResource("8_ihqu3")
 centered = false
-metadata/tex_key = "backpack_v5:478"
 
-[node name="backpack_v5_490" type="Sprite2D" parent="showmc/地煞葫芦" unique_id=1784410764]
+[node name="backpack_v5_490" type="Sprite2D" parent="Picture/DiShaHuLu" unique_id=1784410764]
 position = Vector2(-23.98, -25.699999)
 scale = Vector2(0.95, 0.95)
 texture = ExtResource("12_gukha")
 centered = false
-metadata/tex_key = "backpack_v5:490"
 
-[node name="白霜镜" type="Node2D" parent="showmc" unique_id=784630114]
+[node name="BaiShuangJing" type="Node2D" parent="Picture" unique_id=784630114]
 visible = false
 
-[node name="backpack_v5_478" type="Sprite2D" parent="showmc/白霜镜" unique_id=1622082143]
+[node name="backpack_v5_478" type="Sprite2D" parent="Picture/BaiShuangJing" unique_id=1622082143]
 position = Vector2(-20.552, 60.808)
 scale = Vector2(0.34, 0.34)
 texture = ExtResource("8_ihqu3")
 centered = false
-metadata/tex_key = "backpack_v5:478"
 
-[node name="backpack_v5_500" type="Sprite2D" parent="showmc/白霜镜" unique_id=1755429139]
+[node name="backpack_v5_500" type="Sprite2D" parent="Picture/BaiShuangJing" unique_id=1755429139]
 position = Vector2(-21.8055, -66.302505)
 scale = Vector2(0.605, 0.605)
 texture = ExtResource("13_2dc1u")
 centered = false
-metadata/tex_key = "backpack_v5:500"
 
-[node name="backpack_v5_506" type="Sprite2D" parent="showmc/白霜镜" unique_id=1979835986]
+[node name="backpack_v5_506" type="Sprite2D" parent="Picture/BaiShuangJing" unique_id=1979835986]
 position = Vector2(-12.549, -33.814003)
 scale = Vector2(0.605, 0.605)
 texture = ExtResource("14_q1p6m")
 centered = false
-metadata/tex_key = "backpack_v5:506"
 
-[node name="五毒兽" type="Node2D" parent="showmc" unique_id=1243680687]
+[node name="WuDuShou" type="Node2D" parent="Picture" unique_id=1243680687]
 visible = false
 
-[node name="backpack_v5_509" type="Sprite2D" parent="showmc/五毒兽" unique_id=1850958257]
+[node name="backpack_v5_509" type="Sprite2D" parent="Picture/WuDuShou" unique_id=1850958257]
 position = Vector2(-17.5, -25)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("15_8hb55")
 centered = false
-metadata/tex_key = "backpack_v5:509"
 
-[node name="introducemc" type="Node2D" parent="." unique_id=67088861]
+[node name="Intro" type="Node2D" parent="." unique_id=67088861]
+unique_name_in_owner = true
 position = Vector2(501.8, 171.05)
-metadata/labels = {
-"五毒兽": 6.0,
-"地煞葫芦": 4.0,
-"天煞古剑": 1.0,
-"白霜镜": 5.0,
-"罗刹妖伞": 2.0,
-"血海魔童": 3.0
-}
-metadata/ui_piece = ["introducemc"]
 
-[node name="Frame0" type="Node2D" parent="introducemc" unique_id=1725961430]
-
-[node name="天煞古剑" type="Node2D" parent="introducemc" unique_id=478410796]
+[node name="TianShaGuJian" type="Node2D" parent="Intro" unique_id=478410796]
 visible = false
 
-[node name="backpack_v5_522" type="Sprite2D" parent="introducemc/天煞古剑" unique_id=1893186540]
+[node name="backpack_v5_522" type="Sprite2D" parent="Intro/TianShaGuJian" unique_id=1893186540]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("16_ccmh2")
 centered = false
-metadata/tex_key = "backpack_v5:522"
 
-[node name="罗刹妖伞" type="Node2D" parent="introducemc" unique_id=1319572224]
+[node name="LuoShaYaoSan" type="Node2D" parent="Intro" unique_id=1319572224]
 visible = false
 
-[node name="backpack_v5_524" type="Sprite2D" parent="introducemc/罗刹妖伞" unique_id=1798920490]
+[node name="backpack_v5_524" type="Sprite2D" parent="Intro/LuoShaYaoSan" unique_id=1798920490]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("17_ikso4")
 centered = false
-metadata/tex_key = "backpack_v5:524"
 
-[node name="血海魔童" type="Node2D" parent="introducemc" unique_id=1615190303]
+[node name="XueHaiMoTong" type="Node2D" parent="Intro" unique_id=1615190303]
 visible = false
 
-[node name="backpack_v5_526" type="Sprite2D" parent="introducemc/血海魔童" unique_id=923260951]
+[node name="backpack_v5_526" type="Sprite2D" parent="Intro/XueHaiMoTong" unique_id=923260951]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("18_1ib0h")
 centered = false
-metadata/tex_key = "backpack_v5:526"
 
-[node name="地煞葫芦" type="Node2D" parent="introducemc" unique_id=188718359]
+[node name="DiShaHuLu" type="Node2D" parent="Intro" unique_id=188718359]
 visible = false
 
-[node name="backpack_v5_528" type="Sprite2D" parent="introducemc/地煞葫芦" unique_id=589512826]
+[node name="backpack_v5_528" type="Sprite2D" parent="Intro/DiShaHuLu" unique_id=589512826]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("19_me5jc")
 centered = false
-metadata/tex_key = "backpack_v5:528"
 
-[node name="白霜镜" type="Node2D" parent="introducemc" unique_id=6370712]
+[node name="BaiShuangJing" type="Node2D" parent="Intro" unique_id=6370712]
 visible = false
 
-[node name="backpack_v5_530" type="Sprite2D" parent="introducemc/白霜镜" unique_id=1936201964]
+[node name="backpack_v5_530" type="Sprite2D" parent="Intro/BaiShuangJing" unique_id=1936201964]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("20_t35wa")
 centered = false
-metadata/tex_key = "backpack_v5:530"
 
-[node name="五毒兽" type="Node2D" parent="introducemc" unique_id=1906678255]
+[node name="WuDuShou" type="Node2D" parent="Intro" unique_id=1906678255]
 visible = false
 
-[node name="backpack_v5_551" type="Sprite2D" parent="introducemc/五毒兽" unique_id=1457987504]
+[node name="backpack_v5_551" type="Sprite2D" parent="Intro/WuDuShou" unique_id=1457987504]
 position = Vector2(75.8, 4.95)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("21_7nfux")
 centered = false
-metadata/tex_key = "backpack_v5:551"
 
-[node name="txt2" type="Label" parent="introducemc/五毒兽" unique_id=220618460]
+[node name="PassiveText" type="Label" parent="Intro/WuDuShou" unique_id=220618460]
+unique_name_in_owner = true
 offset_left = -8.0
 offset_top = 204.18
 offset_right = 198.0
@@ -286,24 +248,9 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 0
 theme_override_font_sizes/font_size = 18
-metadata/rec = {
-"align": "left",
-"b": {
-"h": 53.1,
-"w": 206.0,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#000000",
-"multiline": true,
-"outline": 0.0,
-"size": 18.0,
-"text": "",
-"var": "",
-"wrap": true
-}
 
-[node name="txt1" type="Label" parent="introducemc/五毒兽" unique_id=334374425]
+[node name="SpellText" type="Label" parent="Intro/WuDuShou" unique_id=334374425]
+unique_name_in_owner = true
 offset_left = -8.0
 offset_top = 79.18
 offset_right = 198.0
@@ -312,121 +259,83 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 0
 theme_override_font_sizes/font_size = 18
-metadata/rec = {
-"align": "left",
-"b": {
-"h": 47.1,
-"w": 206.0,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#000000",
-"multiline": true,
-"outline": 0.0,
-"size": 18.0,
-"text": "",
-"var": "",
-"wrap": true
-}
 
-[node name="Node2D" type="Node2D" parent="introducemc/五毒兽" unique_id=293594728]
-metadata/labels = {
-"初级火咒": 2.0,
-"初级雷咒": 0.0,
-"高级火咒": 3.0,
-"高级雷咒": 1.0
-}
-metadata/ui_piece = ["introducemc/skill1", "introducemc/skill1@6"]
+[node name="SpellIcon" type="Node2D" parent="Intro/WuDuShou" unique_id=293594728]
+unique_name_in_owner = true
 
-[node name="初级雷咒" type="Node2D" parent="introducemc/五毒兽/Node2D" unique_id=1613328494]
+[node name="ChuJiLeiZhou" type="Node2D" parent="Intro/WuDuShou/SpellIcon" unique_id=1613328494]
 
-[node name="backpack_v5_532" type="Sprite2D" parent="introducemc/五毒兽/Node2D/初级雷咒" unique_id=1874027085]
+[node name="backpack_v5_532" type="Sprite2D" parent="Intro/WuDuShou/SpellIcon/ChuJiLeiZhou" unique_id=1874027085]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("22_0hs83")
 centered = false
-metadata/tex_key = "backpack_v5:532"
 
-[node name="高级雷咒" type="Node2D" parent="introducemc/五毒兽/Node2D" unique_id=503675374]
+[node name="GaoJiLeiZhou" type="Node2D" parent="Intro/WuDuShou/SpellIcon" unique_id=503675374]
 visible = false
 
-[node name="backpack_v5_534" type="Sprite2D" parent="introducemc/五毒兽/Node2D/高级雷咒" unique_id=1507034141]
+[node name="backpack_v5_534" type="Sprite2D" parent="Intro/WuDuShou/SpellIcon/GaoJiLeiZhou" unique_id=1507034141]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("23_hjpe7")
 centered = false
-metadata/tex_key = "backpack_v5:534"
 
-[node name="初级火咒" type="Node2D" parent="introducemc/五毒兽/Node2D" unique_id=792257851]
+[node name="ChuJiHuoZhou" type="Node2D" parent="Intro/WuDuShou/SpellIcon" unique_id=792257851]
 visible = false
 
-[node name="backpack_v5_536" type="Sprite2D" parent="introducemc/五毒兽/Node2D/初级火咒" unique_id=553005543]
+[node name="backpack_v5_536" type="Sprite2D" parent="Intro/WuDuShou/SpellIcon/ChuJiHuoZhou" unique_id=553005543]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("24_804s0")
 centered = false
-metadata/tex_key = "backpack_v5:536"
 
-[node name="高级火咒" type="Node2D" parent="introducemc/五毒兽/Node2D" unique_id=106716447]
+[node name="GaoJiHuoZhou" type="Node2D" parent="Intro/WuDuShou/SpellIcon" unique_id=106716447]
 visible = false
 
-[node name="backpack_v5_538" type="Sprite2D" parent="introducemc/五毒兽/Node2D/高级火咒" unique_id=1523996109]
+[node name="backpack_v5_538" type="Sprite2D" parent="Intro/WuDuShou/SpellIcon/GaoJiHuoZhou" unique_id=1523996109]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("25_ip2o7")
 centered = false
-metadata/tex_key = "backpack_v5:538"
 
-[node name="Node2D2" type="Node2D" parent="introducemc/五毒兽" unique_id=227745506]
+[node name="PassiveIcon" type="Node2D" parent="Intro/WuDuShou" unique_id=227745506]
+unique_name_in_owner = true
 position = Vector2(0, 128.85)
-metadata/labels = {
-"嗜血": 1.0,
-"永恒": 4.0,
-"狂暴": 0.0,
-"辉煌": 3.0,
-"顽固": 2.0
-}
-metadata/ui_piece = ["introducemc/skill2", "introducemc/skill2@6"]
 
-[node name="狂暴" type="Node2D" parent="introducemc/五毒兽/Node2D2" unique_id=174232019]
+[node name="KuangBao" type="Node2D" parent="Intro/WuDuShou/PassiveIcon" unique_id=174232019]
 
-[node name="backpack_v5_541" type="Sprite2D" parent="introducemc/五毒兽/Node2D2/狂暴" unique_id=183924047]
+[node name="backpack_v5_541" type="Sprite2D" parent="Intro/WuDuShou/PassiveIcon/KuangBao" unique_id=183924047]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("26_4nphp")
 centered = false
-metadata/tex_key = "backpack_v5:541"
 
-[node name="嗜血" type="Node2D" parent="introducemc/五毒兽/Node2D2" unique_id=1864975264]
+[node name="ShiXue" type="Node2D" parent="Intro/WuDuShou/PassiveIcon" unique_id=1864975264]
 visible = false
 
-[node name="backpack_v5_543" type="Sprite2D" parent="introducemc/五毒兽/Node2D2/嗜血" unique_id=753100327]
+[node name="backpack_v5_543" type="Sprite2D" parent="Intro/WuDuShou/PassiveIcon/ShiXue" unique_id=753100327]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("27_mfy3b")
 centered = false
-metadata/tex_key = "backpack_v5:543"
 
-[node name="顽固" type="Node2D" parent="introducemc/五毒兽/Node2D2" unique_id=1320463817]
+[node name="WanGu" type="Node2D" parent="Intro/WuDuShou/PassiveIcon" unique_id=1320463817]
 visible = false
 
-[node name="backpack_v5_545" type="Sprite2D" parent="introducemc/五毒兽/Node2D2/顽固" unique_id=141707618]
+[node name="backpack_v5_545" type="Sprite2D" parent="Intro/WuDuShou/PassiveIcon/WanGu" unique_id=141707618]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("28_126ha")
 centered = false
-metadata/tex_key = "backpack_v5:545"
 
-[node name="辉煌" type="Node2D" parent="introducemc/五毒兽/Node2D2" unique_id=2039812673]
+[node name="HuiHuang" type="Node2D" parent="Intro/WuDuShou/PassiveIcon" unique_id=2039812673]
 visible = false
 
-[node name="backpack_v5_547" type="Sprite2D" parent="introducemc/五毒兽/Node2D2/辉煌" unique_id=1039602765]
+[node name="backpack_v5_547" type="Sprite2D" parent="Intro/WuDuShou/PassiveIcon/HuiHuang" unique_id=1039602765]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("29_aakcr")
 centered = false
-metadata/tex_key = "backpack_v5:547"
 
-[node name="永恒" type="Node2D" parent="introducemc/五毒兽/Node2D2" unique_id=2071755981]
+[node name="YongHeng" type="Node2D" parent="Intro/WuDuShou/PassiveIcon" unique_id=2071755981]
 visible = false
 
-[node name="backpack_v5_549" type="Sprite2D" parent="introducemc/五毒兽/Node2D2/永恒" unique_id=1732789958]
+[node name="backpack_v5_549" type="Sprite2D" parent="Intro/WuDuShou/PassiveIcon/YongHeng" unique_id=1732789958]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("30_ony7b")
 centered = false
-metadata/tex_key = "backpack_v5:549"
 
 [node name="StatRows" type="Control" parent="." unique_id=314962213]
 anchors_preset = 0
@@ -437,6 +346,7 @@ offset_bottom = 432.0
 mouse_filter = 2
 
 [node name="StatFbdj" parent="StatRows" unique_id=870992650 instance=ExtResource("33_stat")]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 130.0
 offset_top = 23.0
@@ -444,9 +354,9 @@ offset_right = 130.0
 offset_bottom = 23.0
 caption = "等级"
 width = 80
-piece = "txt_fbdj"
 
 [node name="StatFbczl" parent="StatRows" unique_id=276743491 instance=ExtResource("33_stat")]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 130.0
 offset_top = 58.0
@@ -454,9 +364,9 @@ offset_right = 130.0
 offset_bottom = 58.0
 caption = "成长"
 width = 80
-piece = "txt_fbczl"
 
 [node name="StatFbwx" parent="StatRows" unique_id=650313914 instance=ExtResource("33_stat")]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 130.0
 offset_top = 93.0
@@ -464,9 +374,9 @@ offset_right = 130.0
 offset_bottom = 93.0
 caption = "五行"
 width = 80
-piece = "txt_fbwx"
 
 [node name="StatFbhx" parent="StatRows" unique_id=1389367803 instance=ExtResource("33_stat")]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = -5.0
 offset_top = 142.0
@@ -474,9 +384,9 @@ offset_right = -5.0
 offset_bottom = 142.0
 caption = "生命"
 width = 80
-piece = "txt_fbhx"
 
 [node name="StatFbatk" parent="StatRows" unique_id=341846521 instance=ExtResource("33_stat")]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = -5.0
 offset_top = 177.0
@@ -484,9 +394,9 @@ offset_right = -5.0
 offset_bottom = 177.0
 caption = "攻击"
 width = 80
-piece = "txt_fbatk"
 
 [node name="StatFbhl" parent="StatRows" unique_id=279161895 instance=ExtResource("33_stat")]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 124.0
 offset_top = 142.0
@@ -494,9 +404,9 @@ offset_right = 124.0
 offset_bottom = 142.0
 caption = "魔法"
 width = 80
-piece = "txt_fbhl"
 
 [node name="StatFbdef" parent="StatRows" unique_id=494170138 instance=ExtResource("33_stat")]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 124.0
 offset_top = 177.0
@@ -504,9 +414,9 @@ offset_right = 124.0
 offset_bottom = 177.0
 caption = "防御"
 width = 80
-piece = "txt_fbdef"
 
 [node name="CurrencyFblhProgress" type="TextureProgressBar" parent="StatRows" unique_id=342475261]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 37.0
 offset_top = 212.5
@@ -518,9 +428,9 @@ step = 0.0
 value = 0.5
 nine_patch_stretch = true
 texture_progress = ExtResource("purple_gradient")
-metadata/ui_piece = ["fblh_progress"]
 
 [node name="CurrencyFblh" parent="StatRows" unique_id=1539476760 instance=ExtResource("33_stat")]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = -5.0
 offset_top = 212.0
@@ -528,9 +438,9 @@ offset_right = -5.0
 offset_bottom = 212.0
 caption = "灵魂"
 width = 163
-piece = "txt_fblh"
 
-[node name="txt_fbname" type="Label" parent="." unique_id=7344340]
+[node name="TreasureName" type="Label" parent="." unique_id=7344340]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 335.15
 offset_top = 183.59
@@ -540,27 +450,9 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 14
-metadata/rec = {
-"align": "left",
-"b": {
-"h": 20.45,
-"w": 121.75,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"m": [1.0, 0.0, 0.0, 1.0, 337.15, 186.15],
-"multiline": false,
-"name": "txt_fbname",
-"size": 14.0,
-"text": "",
-"type": "text",
-"var": "",
-"wrap": false
-}
-metadata/ui_piece = ["txt_fbname"]
 
-[node name="btn_close" type="Button" parent="." unique_id=957281849]
+[node name="BtnClose" type="Button" parent="." unique_id=957281849]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 709.9
 offset_top = 90.95
@@ -574,5 +466,3 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_btncloseOver1")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btncloseDown2")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_btncloseUp0")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
-metadata/ui_piece = ["btn_close"]
-metadata/ui_button = "btn_close"

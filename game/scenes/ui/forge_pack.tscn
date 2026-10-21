@@ -65,9 +65,9 @@ position = Vector2(80, 53.65)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_d3q6t")
 centered = false
-metadata/tex_key = "OtherMat_v10:562"
 
-[node name="txtlh" type="Label" parent="." unique_id=1899312030]
+[node name="Souls" type="Label" parent="." unique_id=1899312030]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 693.5
 offset_top = 550.69995
@@ -78,59 +78,36 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 23
 text = "1234567890"
-metadata/rec = {
-"align": "left",
-"b": {
-"h": 31.05,
-"w": 135.0,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [-25.0, 9.0],
-"m": [1.0, 0.0, 0.0, 1.0, 695.5, 563.35],
-"multiline": false,
-"name": "txtlh",
-"nudge": [0.0, 10.0],
-"size": 23.0,
-"text": "1234567890",
-"type": "text",
-"var": "",
-"wrap": false
-}
-metadata/ui_piece = ["txtlh"]
 
 [node name="BtnZhuangBei" parent="." unique_id=230767215 instance=ExtResource("yellow_button")]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 518.65
 offset_top = 105.65
 offset_right = 593.65
 offset_bottom = 134.65
 text = "装 备"
-metadata/ui_piece = ["btn_zb"]
-metadata/ui_button = "btn_zb"
 
 [node name="BtnDaoJu" parent="." unique_id=452979093 instance=ExtResource("yellow_button")]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 593.5
 offset_top = 105.65
 offset_right = 668.5
 offset_bottom = 134.65
 text = "道 具"
-metadata/ui_piece = ["btn_dj"]
-metadata/ui_button = "btn_dj"
 
 [node name="BtnShiZhuang" parent="." unique_id=1780234149 instance=ExtResource("yellow_button")]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 668.5
 offset_top = 106.65
 offset_right = 741.5
 offset_bottom = 133.65
 text = "时 装"
-metadata/ui_piece = ["btn_sz"]
-metadata/ui_button = "btn_sz"
 
-[node name="strengthbtn" type="Button" parent="." unique_id=1874580160]
+[node name="StrengthenTab" type="Button" parent="." unique_id=1874580160]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 188.8
 offset_top = 549.14996
@@ -144,10 +121,9 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_strengthbtnOver7")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_strengthbtnDown8")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_strengthbtnUp6")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
-metadata/ui_piece = ["strengthbtn"]
-metadata/ui_button = "strengthbtn"
 
-[node name="mixturebtn" type="Button" parent="." unique_id=168202555]
+[node name="FusionTab" type="Button" parent="." unique_id=168202555]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 265.25
 offset_top = 543.5
@@ -161,5 +137,3 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_mixturebtnOver10")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_mixturebtnDown11")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_mixturebtnUp9")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
-metadata/ui_piece = ["mixturebtn"]
-metadata/ui_button = "mixturebtn"

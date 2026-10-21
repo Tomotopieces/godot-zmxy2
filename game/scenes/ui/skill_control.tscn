@@ -1538,9 +1538,9 @@ position = Vector2(713.95, 508.95)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_cc6td")
 centered = false
-metadata/tex_key = "OtherMat_v10:606"
 
 [node name="Value" type="Label" parent="Souls" unique_id=1739658378]
+unique_name_in_owner = true
 offset_left = 795.0
 offset_top = 524.0
 offset_right = 930.0
@@ -1550,28 +1550,9 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 23
 text = "1234567890"
-metadata/rec = {
-"align": "left",
-"b": {
-"h": 31.05,
-"w": 135.0,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [-24.0, 6.0],
-"m": [1.0, 0.0, 0.0, 1.0, 797.0, 547.65],
-"multiline": false,
-"name": "txtlh",
-"size": 23.0,
-"text": "1234567890",
-"type": "text",
-"var": "",
-"wrap": false
-}
-metadata/ui_piece = ["txtlh"]
 
 [node name="PassiveButton" parent="." unique_id=1852388487 instance=ExtResource("set_btn")]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 206.55
 offset_top = 546.5
@@ -1579,10 +1560,9 @@ offset_right = 318.5
 offset_bottom = 572.5
 theme_override_font_sizes/font_size = 20
 text = "被动技能"
-metadata/ui_piece = ["passivebtn"]
-metadata/ui_button = "passivebtn"
 
 [node name="ActiveButton" parent="." unique_id=1810241447 instance=ExtResource("set_btn")]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 85.5
 offset_top = 547.5
@@ -1590,5 +1570,3 @@ offset_right = 188.5
 offset_bottom = 573.5
 theme_override_font_sizes/font_size = 20
 text = "主动技能"
-metadata/ui_piece = ["activebtn"]
-metadata/ui_button = "activebtn"

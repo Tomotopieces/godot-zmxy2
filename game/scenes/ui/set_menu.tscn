@@ -31,7 +31,6 @@ script = ExtResource("1_hsykp")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_dkv3n")
 centered = false
-metadata/tex_key = "OtherMat_v10:155"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=91808366]
 layout_mode = 0
@@ -44,48 +43,42 @@ mouse_filter = 2
 theme_override_constants/separation = 6
 
 [node name="BtnContinue" parent="VBoxContainer" unique_id=1077589236 instance=ExtResource("5_mav51")]
+unique_name_in_owner = true
 layout_mode = 2
 text = "继续游戏"
-metadata/ui_piece = ["btn_continue"]
-metadata/ui_button = "btn_continue"
 
 [node name="BtnGameSound" parent="VBoxContainer" unique_id=1017656085 instance=ExtResource("5_mav51")]
+unique_name_in_owner = true
 layout_mode = 2
 text = "游戏声音：开"
-metadata/ui_piece = ["btn_sound"]
-metadata/ui_button = "btn_sound"
 
 [node name="BtnScreenShake" parent="VBoxContainer" unique_id=1771928406 instance=ExtResource("5_mav51")]
+unique_name_in_owner = true
 layout_mode = 2
 text = "画面震动：开"
-metadata/ui_piece = ["btn_shake"]
-metadata/ui_button = "btn_shake"
 
 [node name="BtnControllerShake" parent="VBoxContainer" unique_id=1366698965 instance=ExtResource("5_mav51")]
+unique_name_in_owner = true
 layout_mode = 2
 text = "手柄震动：开"
-metadata/ui_piece = ["btn_rumble"]
-metadata/ui_button = "btn_rumble"
 
 [node name="BtnBackToMap" parent="VBoxContainer" unique_id=244647597 instance=ExtResource("5_mav51")]
+unique_name_in_owner = true
 layout_mode = 2
 text = "返回地图"
-metadata/ui_piece = ["btn_back_selectmap"]
-metadata/ui_button = "btn_back_selectmap"
 
 [node name="BtnHelp" parent="VBoxContainer" unique_id=725303521 instance=ExtResource("5_mav51")]
+unique_name_in_owner = true
 layout_mode = 2
 text = "操作说明"
-metadata/ui_piece = ["btn_help"]
-metadata/ui_button = "btn_help"
 
 [node name="BtnBackToTitle" parent="VBoxContainer" unique_id=1836558054 instance=ExtResource("5_mav51")]
+unique_name_in_owner = true
 layout_mode = 2
 text = "返回标题界面"
-metadata/ui_piece = ["btn_back_menu"]
-metadata/ui_button = "btn_back_menu"
 
-[node name="btn_x" type="Button" parent="." unique_id=131064502]
+[node name="BtnClose" type="Button" parent="." unique_id=131064502]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 577.95
 offset_top = 82.95
@@ -99,5 +92,3 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_btnxOver1")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btnxDown2")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_btnxUp0")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
-metadata/ui_piece = ["btn_x"]
-metadata/ui_button = "btn_x"

@@ -12,8 +12,9 @@ const CELL := 50.0
 const CELL_GAP := 7.0
 const SLOT_SCENE := "res://scenes/ui/backpack/slot.tscn"   ## the 25 bag cells are scene instances of it
 const MENU_OFFSET := Vector2(25, 25)
-const SLOT_PIECES := {&"weapon": "zbwq", &"cloth": "zbfj", &"accessory": "zbsp", &"treasure": "zbfb", &"fashion": "zbsz", &"wing": "zbcb"}
-const TABS := {"btn_zb": "equip", "btn_dj": "item", "btn_rw": "look"}   ## page button -> bag page
+const SLOT_NODES := {&"weapon": "WeaponSlot", &"cloth": "ClothSlot", &"accessory": "AccessorySlot", &"treasure": "TreasureSlot",
+	&"fashion": "FashionSlot", &"wing": "WingSlot"}
+const TABS := {"BtnZhuangBei": "equip", "BtnDaoJu": "item", "BtnShiZhuang": "look"}   ## page button -> bag page
 
 var _ui: UiLayout
 var _grid: Control
@@ -21,7 +22,7 @@ var _worn: Control
 var _tip: ItemTip
 var _menu: UiLayout
 var _menu_index := -1
-var _tab := "btn_zb"
+var _tab := "BtnZhuangBei"
 var _cell_ui: Dictionary
 
 func _ready() -> void:
@@ -38,7 +39,7 @@ func _ready() -> void:
 	add_child(_ui)
 	HeroPortrait.build(_ui)
 	_ui.button_pressed.connect(_on_button)
-	_grid = _ui.get_node("Grid")   # the scene's own 5x5 cells: nothing is created here
+	_grid = _ui.piece("Grid")   # the scene's own 5x5 cells: nothing is created here
 
 	_worn = Control.new()
 	_worn.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -68,7 +69,7 @@ func _unhandled_input(e: InputEvent) -> void:
 		close()
 
 func _on_button(b: String) -> void:
-	if b == "btn_close":
+	if b == "BtnClose":
 		close()
 	elif TABS.has(b):
 		Snd.ui()
@@ -105,11 +106,9 @@ func _refresh() -> void:
 				_grid.add_child(_count_label(n, pos))
 		k += 1
 	# worn gear on the slot frames (an empty slot keeps its caption, an occupied one hides it)
-	for slot in SLOT_PIECES:
+	for slot in SLOT_NODES:
 		var item: Item = GameState.worn[slot]
-		var piece: Node2D = _ui.get_piece(SLOT_PIECES[slot])
-		if piece == null:
-			continue
+		var piece: Node2D = _ui.piece(SLOT_NODES[slot])
 		var caption := piece.find_child("Caption", true, false) as Label
 		if caption:
 			caption.visible = item == null
@@ -150,20 +149,23 @@ func _fill_stats() -> void:
 	var h: Hero = Level.current.hero if Level.current else null
 	var hp := h.hp if h else GameState.max_hp()
 	var mp := h.mp if h else GameState.max_mp()
-	_ui.set_text("txt_name", GameState.hero_data.title)
-	_ui.set_text("txt_hp", "%d / %d" % [hp, GameState.max_hp()])
-	_ui.set_text("txt_mp", "%d / %d" % [mp, GameState.max_mp()])
-	_ui.set_text("txt_exp", "%d / %d" % [GameState.exp, GameState.exp_to_next()])
-	_ui.set_text("txt_att", str(GameState.attack_power()))
-	_ui.set_text("txt_def", str(GameState.defense()))
-	_ui.set_text("txt_baoji", "%d %%" % roundi(GameState.crit() * 100))
-	_ui.set_text("txt_sb", "%d %%" % roundi(GameState.miss() * 100))
-	_ui.set_text("txt_hx", str(GameState.hp_regen()))
-	_ui.set_text("txt_hl", str(GameState.mp_regen()))
-	_ui.set_text("txt_lh", str(GameState.souls))   # no padding space: the gradient caption's value box follows the text now
-	_ui.set_text("txt_zg", str(GameState.merit))
-	_ui.show_frame("levelmc", clampi(GameState.level - 1, 0, 39))
-	(_ui.get_piece("exp_progress") as Range).value = float(GameState.exp) / maxf(GameState.exp_to_next(), 1.0)
+	_ui.set_text("HeroName", GameState.hero_data.title)
+	_stat("StatHp", "%d / %d" % [hp, GameState.max_hp()])
+	_stat("StatMp", "%d / %d" % [mp, GameState.max_mp()])
+	_stat("StatExp", "%d / %d" % [GameState.exp, GameState.exp_to_next()])
+	_stat("StatAtk", str(GameState.attack_power()))
+	_stat("StatDef", str(GameState.defense()))
+	_stat("StatCrit", "%d %%" % roundi(GameState.crit() * 100))
+	_stat("StatMiss", "%d %%" % roundi(GameState.miss() * 100))
+	_stat("StatHpRegen", str(GameState.hp_regen()))
+	_stat("StatMpRegen", str(GameState.mp_regen()))
+	_stat("LingHun", str(GameState.souls))
+	_stat("GongXun", str(GameState.merit))
+	(_ui.piece("Level") as IconSet).index = clampi(GameState.level - 1, 0, 39)
+	(_ui.piece("ExpProgress") as Range).value = float(GameState.exp) / maxf(GameState.exp_to_next(), 1.0)
+
+func _stat(row: String, value: String) -> void:
+	_ui.piece(row).set_value(value)
 
 # ------------------------------------------------------------------ actions
 
@@ -175,17 +177,15 @@ func _on_bag_click(icon: Control, index: int) -> void:
 	_hide_tip()
 	_menu_index = index
 	var item := GameState.bag[index]
-	var enabled := {"bzb": GameState.can_wear(item), "bmd": true}
+	var enabled := {"Wear": GameState.can_wear(item), "Sell": true}
 	if TABS[_tab] == "item":
-		enabled = {"buse": GameState.usable(item), "bthrow": true}
+		enabled = {"Use": GameState.usable(item), "Throw": true}
 		if item.id == EquipmentCatalog.get_catalog().moon.cake:   # 小月饼: the menu also exchanges them
-			enabled.merge({"sbmooncake": true, "smoonweapon": true})
+			enabled.merge({"BigMooncake": true, "MoonWeapon": true})
 	_menu = UiLayout.create("item_menu")
-	var box: Control = _menu.get_node("Buttons")
-	for b: Button in box.get_children():
-		var piece := String(b.get_meta(&"ui_button"))
-		b.visible = enabled.has(piece)
-		b.disabled = not enabled.get(piece, false)
+	for b: Button in _menu.piece("Buttons").get_children():
+		b.visible = enabled.has(String(b.name))
+		b.disabled = not enabled.get(String(b.name), false)
 	add_child(_menu)
 	_menu.reset_size()   # the frame shrinks to the shown buttons (fonts are only known in the tree)
 	_menu.position = icon.position + _grid.position + MENU_OFFSET
@@ -193,24 +193,24 @@ func _on_bag_click(icon: Control, index: int) -> void:
 	PadNav.modal(_menu)
 	_menu.button_pressed.connect(_menu_action)
 
-func _menu_action(piece: String) -> void:
+func _menu_action(action: String) -> void:
 	var idx := _menu_index
 	_close_menu()
-	match piece:
-		"bzb":
+	match action:
+		"Wear":
 			GameState.wear(idx)
 			Snd.ui()
-		"bmd":
+		"Sell":
 			var d := GameState.item_data(GameState.bag[idx])
 			if GameState.sell(idx):
 				Snd.ui()
 				_flash_tip("出售 %s，灵魂 +%d" % [d.display_name, d.value])
-		"buse":
+		"Use":
 			_flash_tip(GameState.use_item(idx))
-		"bthrow":
+		"Throw":
 			GameState.discard(idx)
-		"sbmooncake", "smoonweapon":
-			_flash_tip(GameState.exchange_moon_cake(piece == "smoonweapon"))
+		"BigMooncake", "MoonWeapon":
+			_flash_tip(GameState.exchange_moon_cake(action == "MoonWeapon"))
 
 func _on_worn_click(_icon: Control, slot: StringName) -> void:
 	if not GameState.take_off(slot):

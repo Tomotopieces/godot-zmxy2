@@ -69,9 +69,9 @@ position = Vector2(208.55, 381)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_uux5r")
 centered = false
-metadata/tex_key = "OtherMat_v10:191"
 
-[node name="rlbtn" type="Button" parent="." unique_id=1601560485]
+[node name="BtnFuse" type="Button" parent="." unique_id=1601560485]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 234.9
 offset_top = 448.35
@@ -85,10 +85,9 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_rlbtnDown2")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_rlbtnDown2")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_rlbtnUp0")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
-metadata/ui_piece = ["rlbtn"]
-metadata/ui_button = "rlbtn"
 
-[node name="btn_help" type="Button" parent="." unique_id=268579785]
+[node name="BtnHelp" type="Button" parent="." unique_id=268579785]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 408.95
 offset_top = 462.94998
@@ -102,8 +101,6 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_btnhelpDown5")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btnhelpDown5")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_btnhelpUp3")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
-metadata/ui_piece = ["btn_help"]
-metadata/ui_button = "btn_help"
 
 [node name="Art2" type="Node2D" parent="." unique_id=397676254]
 
@@ -112,19 +109,18 @@ position = Vector2(296.05, 197.05)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_uo2gf")
 centered = false
-metadata/tex_key = "OtherMat_v10:202"
 
-[node name="preview" type="Node2D" parent="." unique_id=1518150640]
+[node name="Preview" type="Node2D" parent="." unique_id=1518150640]
+unique_name_in_owner = true
 position = Vector2(155.6, 383)
-metadata/ui_piece = ["preview"]
 
-[node name="OtherMat_v10_204" type="Sprite2D" parent="preview" unique_id=859589870]
+[node name="OtherMat_v10_204" type="Sprite2D" parent="Preview" unique_id=859589870]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("7_ybtk6")
 centered = false
-metadata/tex_key = "OtherMat_v10:204"
 
-[node name="txt_name" type="Label" parent="." unique_id=1649798886]
+[node name="ProductName" type="Label" parent="." unique_id=1649798886]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 279.95
 offset_top = 385.6
@@ -134,29 +130,9 @@ theme_override_font_sizes/font_size = 18
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
-metadata/rec = {
-"align": "left",
-"b": {
-"h": 25.2,
-"w": 103.0,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [-0.5, 35.5],
-"m": [1.0, 0.0, 0.0, 1.0, 281.95, 385.0],
-"multiline": true,
-"name": "txt_name",
-"nudge": [0.0, -5.0],
-"size": 18.0,
-"text": "",
-"type": "text",
-"var": "",
-"wrap": true
-}
-metadata/ui_piece = ["txt_name"]
 
-[node name="txt_needlh" type="Label" parent="." unique_id=543077850]
+[node name="SoulCost" type="Label" parent="." unique_id=543077850]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 297.95
 offset_top = 418.1
@@ -166,26 +142,6 @@ theme_override_font_sizes/font_size = 18
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
-metadata/rec = {
-"align": "left",
-"b": {
-"h": 25.2,
-"w": 87.0,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [0.5, 25.5],
-"m": [1.0, 0.0, 0.0, 1.0, 299.95, 417.0],
-"multiline": true,
-"name": "txt_needlh",
-"size": 18.0,
-"text": "",
-"type": "text",
-"var": "",
-"wrap": true
-}
-metadata/ui_piece = ["txt_needlh"]
 
 [node name="Art3" type="Node2D" parent="." unique_id=1353046923]
 
@@ -194,9 +150,9 @@ position = Vector2(384.95, 379)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("8_dy8fb")
 centered = false
-metadata/tex_key = "OtherMat_v10:209"
 
-[node name="txt_success" type="Label" parent="." unique_id=810779227]
+[node name="SuccessRate" type="Label" parent="." unique_id=810779227]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 451.85
 offset_top = 383.0
@@ -206,68 +162,43 @@ theme_override_font_sizes/font_size = 19
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
-metadata/rec = {
-"align": "left",
-"b": {
-"h": 26.35,
-"w": 64.1,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [0.0, 26.0],
-"m": [1.0, 0.0, 0.0, 1.0, 453.85, 384.45],
-"multiline": true,
-"name": "txt_success",
-"nudge": [0.0, -2.0],
-"size": 19.0,
-"text": "",
-"type": "text",
-"var": "",
-"wrap": true
-}
-metadata/ui_piece = ["txt_success"]
 
-[node name="produce" type="Node2D" parent="." unique_id=2069612641]
+[node name="Product" type="Node2D" parent="." unique_id=2069612641]
+unique_name_in_owner = true
 position = Vector2(303.55, 296.5)
-metadata/ui_piece = ["produce"]
 
-[node name="OtherMat_v10_212" type="Sprite2D" parent="produce" unique_id=657732360]
+[node name="OtherMat_v10_212" type="Sprite2D" parent="Product" unique_id=657732360]
 position = Vector2(-26.5, -27.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("9_bjkmw")
 centered = false
-metadata/tex_key = "OtherMat_v10:212"
 
-[node name="material3" type="Node2D" parent="." unique_id=1292931627]
+[node name="Material3" type="Node2D" parent="." unique_id=1292931627]
+unique_name_in_owner = true
 position = Vector2(413.05, 197.55)
-metadata/ui_piece = ["material3"]
 
-[node name="OtherMat_v10_215" type="Sprite2D" parent="material3" unique_id=960558388]
+[node name="OtherMat_v10_215" type="Sprite2D" parent="Material3" unique_id=960558388]
 position = Vector2(-18, -17.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("10_s0gkm")
 centered = false
-metadata/tex_key = "OtherMat_v10:215"
 
-[node name="material2" type="Node2D" parent="." unique_id=2089065189]
+[node name="Material2" type="Node2D" parent="." unique_id=2089065189]
+unique_name_in_owner = true
 position = Vector2(304.05, 117.55)
-metadata/ui_piece = ["material2"]
 
-[node name="OtherMat_v10_215" type="Sprite2D" parent="material2" unique_id=272014189]
+[node name="OtherMat_v10_215" type="Sprite2D" parent="Material2" unique_id=272014189]
 position = Vector2(-18, -17.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("10_s0gkm")
 centered = false
-metadata/tex_key = "OtherMat_v10:215"
 
-[node name="material1" type="Node2D" parent="." unique_id=334242128]
+[node name="Material1" type="Node2D" parent="." unique_id=334242128]
+unique_name_in_owner = true
 position = Vector2(188.05, 197.55)
-metadata/ui_piece = ["material1"]
 
-[node name="OtherMat_v10_215" type="Sprite2D" parent="material1" unique_id=1802304107]
+[node name="OtherMat_v10_215" type="Sprite2D" parent="Material1" unique_id=1802304107]
 position = Vector2(-18, -17.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("10_s0gkm")
 centered = false
-metadata/tex_key = "OtherMat_v10:215"

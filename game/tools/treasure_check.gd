@@ -66,7 +66,7 @@ func _ready() -> void:
 	var s := SutraPanel.open_on(main.hud)
 	await get_tree().create_timer(0.3).timeout
 	_shot("sutra_panel")
-	s._on_button("btn_sj")
+	s._on_button("BtnShengJi")
 	_check("upgrade from panel", w.lv == 3)
 	s.queue_free()
 	# 罗刹妖伞 poison: (50 + 15 x lv) x roll, rolled per tick; 木 multiplies the whole of it by 1.5..2

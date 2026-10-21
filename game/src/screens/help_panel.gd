@@ -8,7 +8,7 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	var ui := UiLayout.create("help")
 	PadNav.modal(ui)
-	ui.button_pressed.connect(func(b): if b == "btnback": UiFade.close(self))
+	ui.button_pressed.connect(func(b): if b == "BtnBack": UiFade.close(self))
 	add_child(ui)
 	UiFade.fade_in(self)
 

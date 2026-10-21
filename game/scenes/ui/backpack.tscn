@@ -72,6 +72,8 @@
 [ext_resource type="Texture2D" uid="uid://b5oktqg3cye6a" path="res://assets/textures/yellow_gradient.tres" id="yellow_orange_gradient"]
 
 
+[ext_resource type="Script" path="res://src/ui/icon_set.gd" id="xejnmbv"]
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btncloseUp0"]
 texture = ExtResource("8_u3sjm")
 expand_margin_top = 2.0
@@ -99,23 +101,21 @@ script = ExtResource("1_pa08k")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_2ysyl")
 centered = false
-metadata/tex_key = "backpack_v5:1"
 
 [node name="backpack_v5_3" type="Sprite2D" parent="Art" unique_id=222627014]
 position = Vector2(96, 46)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_rcy87")
 centered = false
-metadata/tex_key = "backpack_v5:3"
 
 [node name="backpack_v5_5" type="Sprite2D" parent="Art" unique_id=316743068]
 position = Vector2(471.15002, 93.45)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_10tr8")
 centered = false
-metadata/tex_key = "backpack_v5:5"
 
-[node name="btn_close" type="Button" parent="." unique_id=1224266255]
+[node name="BtnClose" type="Button" parent="." unique_id=1224266255]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 795.5
 offset_top = 57.85
@@ -129,446 +129,47 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_btncloseOver1")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btncloseDown2")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_btncloseUp0")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
-metadata/ui_piece = ["btn_close"]
-metadata/ui_button = "btn_close"
 
 [node name="Art2" type="Node2D" parent="." unique_id=945568241]
 
 [node name="BtnZhuangBei" parent="." unique_id=299425955 instance=ExtResource("yellow_button")]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 512.4
 offset_top = 112.0
 offset_right = 573.0
 offset_bottom = 135.7
 text = "装 备"
-metadata/ui_piece = ["btn_zb"]
-metadata/ui_button = "btn_zb"
 
 [node name="BtnDaoJu" parent="." unique_id=273022363 instance=ExtResource("yellow_button")]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 588.1
 offset_top = 112.0
 offset_right = 648.69995
 offset_bottom = 135.7
 text = "道 具"
-metadata/ui_piece = ["btn_dj"]
-metadata/ui_button = "btn_dj"
 
 [node name="BtnShiZhuang" parent="." unique_id=1082462353 instance=ExtResource("yellow_button")]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 662.1
 offset_top = 112.0
 offset_right = 723.0
 offset_bottom = 135.7
 text = "时 装"
-metadata/ui_piece = ["btn_rw"]
-metadata/ui_button = "btn_rw"
 
-[node name="levelmc" type="Node2D" parent="." unique_id=1366265859]
-position = Vector2(413.7, 148.35)
-metadata/labels = {}
-metadata/ui_piece = ["levelmc"]
-
-[node name="Frame0" type="Node2D" parent="levelmc" unique_id=2064580729]
-
-[node name="backpack_v5_26" type="Sprite2D" parent="levelmc/Frame0" unique_id=1149883558]
-position = Vector2(-46.5, -24.5)
+[node name="Level" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(367.2, 123.85)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("15_pvytj")
 centered = false
-metadata/tex_key = "backpack_v5:26"
-
-[node name="Frame1" type="Node2D" parent="levelmc" unique_id=514173051]
-visible = false
-
-[node name="backpack_v5_28" type="Sprite2D" parent="levelmc/Frame1" unique_id=153143899]
-position = Vector2(-46.5, -24.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("16_51s1i")
-centered = false
-metadata/tex_key = "backpack_v5:28"
-
-[node name="Frame2" type="Node2D" parent="levelmc" unique_id=1365847762]
-visible = false
-
-[node name="backpack_v5_30" type="Sprite2D" parent="levelmc/Frame2" unique_id=1833064928]
-position = Vector2(-46.5, -24.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("17_qxn83")
-centered = false
-metadata/tex_key = "backpack_v5:30"
-
-[node name="Frame3" type="Node2D" parent="levelmc" unique_id=2046035229]
-visible = false
-
-[node name="backpack_v5_32" type="Sprite2D" parent="levelmc/Frame3" unique_id=73727764]
-position = Vector2(-46.5, -24.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("18_uh4b3")
-centered = false
-metadata/tex_key = "backpack_v5:32"
-
-[node name="Frame4" type="Node2D" parent="levelmc" unique_id=2029415394]
-visible = false
-
-[node name="backpack_v5_34" type="Sprite2D" parent="levelmc/Frame4" unique_id=946969402]
-position = Vector2(-46.5, -24.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("19_2g7pq")
-centered = false
-metadata/tex_key = "backpack_v5:34"
-
-[node name="Frame5" type="Node2D" parent="levelmc" unique_id=1218955326]
-visible = false
-
-[node name="backpack_v5_36" type="Sprite2D" parent="levelmc/Frame5" unique_id=1178826081]
-position = Vector2(-46.5, -24.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("20_pnjrv")
-centered = false
-metadata/tex_key = "backpack_v5:36"
-
-[node name="Frame6" type="Node2D" parent="levelmc" unique_id=1683497872]
-visible = false
-
-[node name="backpack_v5_38" type="Sprite2D" parent="levelmc/Frame6" unique_id=358540440]
-position = Vector2(-46.5, -24.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("21_wg6h1")
-centered = false
-metadata/tex_key = "backpack_v5:38"
-
-[node name="Frame7" type="Node2D" parent="levelmc" unique_id=1092239635]
-visible = false
-
-[node name="backpack_v5_40" type="Sprite2D" parent="levelmc/Frame7" unique_id=1856348446]
-position = Vector2(-46.5, -24.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("22_0k82j")
-centered = false
-metadata/tex_key = "backpack_v5:40"
-
-[node name="Frame8" type="Node2D" parent="levelmc" unique_id=2137360702]
-visible = false
-
-[node name="backpack_v5_42" type="Sprite2D" parent="levelmc/Frame8" unique_id=1929975118]
-position = Vector2(-46.5, -24.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("23_tionc")
-centered = false
-metadata/tex_key = "backpack_v5:42"
-
-[node name="Frame9" type="Node2D" parent="levelmc" unique_id=776930282]
-visible = false
-
-[node name="backpack_v5_44" type="Sprite2D" parent="levelmc/Frame9" unique_id=330034530]
-position = Vector2(-46.5, -24.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("24_eev2h")
-centered = false
-metadata/tex_key = "backpack_v5:44"
-
-[node name="Frame10" type="Node2D" parent="levelmc" unique_id=1427408814]
-visible = false
-
-[node name="backpack_v5_46" type="Sprite2D" parent="levelmc/Frame10" unique_id=726177518]
-position = Vector2(-46.5, -24.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("25_qv0km")
-centered = false
-metadata/tex_key = "backpack_v5:46"
-
-[node name="Frame11" type="Node2D" parent="levelmc" unique_id=1118002018]
-visible = false
-
-[node name="backpack_v5_48" type="Sprite2D" parent="levelmc/Frame11" unique_id=1112061476]
-position = Vector2(-46.5, -24.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("26_j2kqq")
-centered = false
-metadata/tex_key = "backpack_v5:48"
-
-[node name="Frame12" type="Node2D" parent="levelmc" unique_id=1155381360]
-visible = false
-
-[node name="backpack_v5_50" type="Sprite2D" parent="levelmc/Frame12" unique_id=694973108]
-position = Vector2(-46.5, -24.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("27_664ct")
-centered = false
-metadata/tex_key = "backpack_v5:50"
-
-[node name="Frame13" type="Node2D" parent="levelmc" unique_id=2086451567]
-visible = false
-
-[node name="backpack_v5_52" type="Sprite2D" parent="levelmc/Frame13" unique_id=2043264998]
-position = Vector2(-46.5, -24.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("28_5wb60")
-centered = false
-metadata/tex_key = "backpack_v5:52"
-
-[node name="Frame14" type="Node2D" parent="levelmc" unique_id=152791319]
-visible = false
-
-[node name="backpack_v5_54" type="Sprite2D" parent="levelmc/Frame14" unique_id=1857174790]
-position = Vector2(-46.5, -24.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("29_i2p4b")
-centered = false
-metadata/tex_key = "backpack_v5:54"
-
-[node name="Frame15" type="Node2D" parent="levelmc" unique_id=1757177294]
-visible = false
-
-[node name="backpack_v5_56" type="Sprite2D" parent="levelmc/Frame15" unique_id=1740475857]
-position = Vector2(-46.5, -24.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("30_0j4ga")
-centered = false
-metadata/tex_key = "backpack_v5:56"
-
-[node name="Frame16" type="Node2D" parent="levelmc" unique_id=48475540]
-visible = false
-
-[node name="backpack_v5_58" type="Sprite2D" parent="levelmc/Frame16" unique_id=1097248754]
-position = Vector2(-46.5, -24.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("31_mnfsy")
-centered = false
-metadata/tex_key = "backpack_v5:58"
-
-[node name="Frame17" type="Node2D" parent="levelmc" unique_id=1904541665]
-visible = false
-
-[node name="backpack_v5_60" type="Sprite2D" parent="levelmc/Frame17" unique_id=1477721549]
-position = Vector2(-46.5, -24.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("32_gbyj6")
-centered = false
-metadata/tex_key = "backpack_v5:60"
-
-[node name="Frame18" type="Node2D" parent="levelmc" unique_id=1595920632]
-visible = false
-
-[node name="backpack_v5_62" type="Sprite2D" parent="levelmc/Frame18" unique_id=68232371]
-position = Vector2(-46.5, -24.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("33_8tx8r")
-centered = false
-metadata/tex_key = "backpack_v5:62"
-
-[node name="Frame19" type="Node2D" parent="levelmc" unique_id=951828478]
-visible = false
-
-[node name="backpack_v5_64" type="Sprite2D" parent="levelmc/Frame19" unique_id=1122299923]
-position = Vector2(-46.5, -24.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("34_suusx")
-centered = false
-metadata/tex_key = "backpack_v5:64"
-
-[node name="Frame20" type="Node2D" parent="levelmc" unique_id=835436400]
-visible = false
-
-[node name="backpack_v5_66" type="Sprite2D" parent="levelmc/Frame20" unique_id=879902834]
-position = Vector2(-43.5, -21)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("35_qhs4u")
-centered = false
-metadata/tex_key = "backpack_v5:66"
-
-[node name="Frame21" type="Node2D" parent="levelmc" unique_id=1774721717]
-visible = false
-
-[node name="backpack_v5_68" type="Sprite2D" parent="levelmc/Frame21" unique_id=727472855]
-position = Vector2(-43.5, -21)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("36_2x1d3")
-centered = false
-metadata/tex_key = "backpack_v5:68"
-
-[node name="Frame22" type="Node2D" parent="levelmc" unique_id=1237922299]
-visible = false
-
-[node name="backpack_v5_70" type="Sprite2D" parent="levelmc/Frame22" unique_id=1153563149]
-position = Vector2(-43.5, -21)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("37_prrrs")
-centered = false
-metadata/tex_key = "backpack_v5:70"
-
-[node name="Frame23" type="Node2D" parent="levelmc" unique_id=253964734]
-visible = false
-
-[node name="backpack_v5_72" type="Sprite2D" parent="levelmc/Frame23" unique_id=76770917]
-position = Vector2(-43.5, -21)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("38_xr4a8")
-centered = false
-metadata/tex_key = "backpack_v5:72"
-
-[node name="Frame24" type="Node2D" parent="levelmc" unique_id=665351287]
-visible = false
-
-[node name="backpack_v5_74" type="Sprite2D" parent="levelmc/Frame24" unique_id=1482072344]
-position = Vector2(-43.5, -21)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("39_4srx5")
-centered = false
-metadata/tex_key = "backpack_v5:74"
-
-[node name="Frame25" type="Node2D" parent="levelmc" unique_id=782991767]
-visible = false
-
-[node name="backpack_v5_76" type="Sprite2D" parent="levelmc/Frame25" unique_id=123471827]
-position = Vector2(-43.5, -21)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("40_6ytx6")
-centered = false
-metadata/tex_key = "backpack_v5:76"
-
-[node name="Frame26" type="Node2D" parent="levelmc" unique_id=2029998029]
-visible = false
-
-[node name="backpack_v5_78" type="Sprite2D" parent="levelmc/Frame26" unique_id=1385272028]
-position = Vector2(-43.5, -21)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("41_3aouw")
-centered = false
-metadata/tex_key = "backpack_v5:78"
-
-[node name="Frame27" type="Node2D" parent="levelmc" unique_id=845109310]
-visible = false
-
-[node name="backpack_v5_80" type="Sprite2D" parent="levelmc/Frame27" unique_id=1462311894]
-position = Vector2(-43.5, -21)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("42_fic3v")
-centered = false
-metadata/tex_key = "backpack_v5:80"
-
-[node name="Frame28" type="Node2D" parent="levelmc" unique_id=417718683]
-visible = false
-
-[node name="backpack_v5_82" type="Sprite2D" parent="levelmc/Frame28" unique_id=1019593357]
-position = Vector2(-43.5, -21)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("43_7la7h")
-centered = false
-metadata/tex_key = "backpack_v5:82"
-
-[node name="Frame29" type="Node2D" parent="levelmc" unique_id=1462511205]
-visible = false
-
-[node name="backpack_v5_84" type="Sprite2D" parent="levelmc/Frame29" unique_id=455920801]
-position = Vector2(-43.5, -21)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("44_sjwmn")
-centered = false
-metadata/tex_key = "backpack_v5:84"
-
-[node name="Frame30" type="Node2D" parent="levelmc" unique_id=1178053773]
-visible = false
-
-[node name="backpack_v5_86" type="Sprite2D" parent="levelmc/Frame30" unique_id=582069435]
-position = Vector2(-43.5, -21)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("45_3bfun")
-centered = false
-metadata/tex_key = "backpack_v5:86"
-
-[node name="Frame31" type="Node2D" parent="levelmc" unique_id=1114799268]
-visible = false
-
-[node name="backpack_v5_88" type="Sprite2D" parent="levelmc/Frame31" unique_id=1314895340]
-position = Vector2(-43.5, -21)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("46_u3sgg")
-centered = false
-metadata/tex_key = "backpack_v5:88"
-
-[node name="Frame32" type="Node2D" parent="levelmc" unique_id=1939530496]
-visible = false
-
-[node name="backpack_v5_90" type="Sprite2D" parent="levelmc/Frame32" unique_id=1218348193]
-position = Vector2(-43.5, -21)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("47_l0vup")
-centered = false
-metadata/tex_key = "backpack_v5:90"
-
-[node name="Frame33" type="Node2D" parent="levelmc" unique_id=1667493672]
-visible = false
-
-[node name="backpack_v5_92" type="Sprite2D" parent="levelmc/Frame33" unique_id=21695687]
-position = Vector2(-43.5, -21)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("48_s6bhu")
-centered = false
-metadata/tex_key = "backpack_v5:92"
-
-[node name="Frame34" type="Node2D" parent="levelmc" unique_id=113240170]
-visible = false
-
-[node name="backpack_v5_94" type="Sprite2D" parent="levelmc/Frame34" unique_id=1743781312]
-position = Vector2(-43.5, -21)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("49_kwsg3")
-centered = false
-metadata/tex_key = "backpack_v5:94"
-
-[node name="Frame35" type="Node2D" parent="levelmc" unique_id=442169938]
-visible = false
-
-[node name="backpack_v5_96" type="Sprite2D" parent="levelmc/Frame35" unique_id=1964891457]
-position = Vector2(-43.5, -21)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("50_ips4j")
-centered = false
-metadata/tex_key = "backpack_v5:96"
-
-[node name="Frame36" type="Node2D" parent="levelmc" unique_id=1746407630]
-visible = false
-
-[node name="backpack_v5_98" type="Sprite2D" parent="levelmc/Frame36" unique_id=1213116984]
-position = Vector2(-43.5, -21)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("51_6go5h")
-centered = false
-metadata/tex_key = "backpack_v5:98"
-
-[node name="Frame37" type="Node2D" parent="levelmc" unique_id=527485018]
-visible = false
-
-[node name="backpack_v5_100" type="Sprite2D" parent="levelmc/Frame37" unique_id=194932718]
-position = Vector2(-43.5, -21)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("52_u5g08")
-centered = false
-metadata/tex_key = "backpack_v5:100"
-
-[node name="Frame38" type="Node2D" parent="levelmc" unique_id=1971343065]
-visible = false
-
-[node name="backpack_v5_102" type="Sprite2D" parent="levelmc/Frame38" unique_id=1016105237]
-position = Vector2(-43.5, -21)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("53_jjlk8")
-centered = false
-metadata/tex_key = "backpack_v5:102"
-
-[node name="Frame39" type="Node2D" parent="levelmc" unique_id=92761770]
-visible = false
-
-[node name="backpack_v5_104" type="Sprite2D" parent="levelmc/Frame39" unique_id=1667147128]
-position = Vector2(-43.5, -21)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("54_f3h6a")
-centered = false
-metadata/tex_key = "backpack_v5:104"
+script = ExtResource("xejnmbv")
+icons = Array[Texture2D]([ExtResource("15_pvytj"), ExtResource("16_51s1i"), ExtResource("17_qxn83"), ExtResource("18_uh4b3"), ExtResource("19_2g7pq"), ExtResource("20_pnjrv"), ExtResource("21_wg6h1"), ExtResource("22_0k82j"), ExtResource("23_tionc"), ExtResource("24_eev2h"), ExtResource("25_qv0km"), ExtResource("26_j2kqq"), ExtResource("27_664ct"), ExtResource("28_5wb60"), ExtResource("29_i2p4b"), ExtResource("30_0j4ga"), ExtResource("31_mnfsy"), ExtResource("32_gbyj6"), ExtResource("33_8tx8r"), ExtResource("34_suusx"), ExtResource("35_qhs4u"), ExtResource("36_2x1d3"), ExtResource("37_prrrs"), ExtResource("38_xr4a8"), ExtResource("39_4srx5"), ExtResource("40_6ytx6"), ExtResource("41_3aouw"), ExtResource("42_fic3v"), ExtResource("43_7la7h"), ExtResource("44_sjwmn"), ExtResource("45_3bfun"), ExtResource("46_u3sgg"), ExtResource("47_l0vup"), ExtResource("48_s6bhu"), ExtResource("49_kwsg3"), ExtResource("50_ips4j"), ExtResource("51_6go5h"), ExtResource("52_u5g08"), ExtResource("53_jjlk8"), ExtResource("54_f3h6a")])
 
 [node name="LingHun" parent="." unique_id=1539476760 instance=ExtResource("54_gye66")]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 504.0
 offset_top = 444.0
@@ -576,9 +177,9 @@ offset_right = 504.0
 offset_bottom = 444.0
 caption = "灵魂"
 width = 80
-piece = "txt_lh"
 
 [node name="GongXun" parent="." unique_id=1833839693 instance=ExtResource("54_gye66")]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 661.0
 offset_top = 443.0
@@ -586,7 +187,6 @@ offset_right = 661.0
 offset_bottom = 443.0
 caption = "功勋 "
 width = 80
-piece = "txt_zg"
 
 [node name="Art5" type="Node2D" parent="." unique_id=726557618]
 
@@ -595,42 +195,43 @@ anchors_preset = 0
 mouse_filter = 2
 
 [node name="StatHp" parent="StatRows" unique_id=74109111 instance=ExtResource("59_2ysyl")]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 144.0
 offset_top = 318.0
 offset_right = 144.0
 offset_bottom = 318.0
 caption = "生命"
-piece = "txt_hp"
 
 [node name="StatMp" parent="StatRows" unique_id=2041384436 instance=ExtResource("59_2ysyl")]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 304.0
 offset_top = 318.0
 offset_right = 304.0
 offset_bottom = 318.0
 caption = "魔法"
-piece = "txt_mp"
 
 [node name="StatAtk" parent="StatRows" unique_id=2006901953 instance=ExtResource("59_2ysyl")]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 144.0
 offset_top = 347.0
 offset_right = 144.0
 offset_bottom = 347.0
 caption = "攻击"
-piece = "txt_att"
 
 [node name="StatDef" parent="StatRows" unique_id=21753310 instance=ExtResource("59_2ysyl")]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 304.0
 offset_top = 347.0
 offset_right = 304.0
 offset_bottom = 347.0
 caption = "防御"
-piece = "txt_def"
 
 [node name="ExpProgress" type="TextureProgressBar" parent="StatRows" unique_id=1873301452]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 186.0
 offset_top = 437.5
@@ -642,9 +243,9 @@ step = 0.0
 value = 0.5
 nine_patch_stretch = true
 texture_progress = ExtResource("yellow_orange_gradient")
-metadata/ui_piece = ["exp_progress"]
 
 [node name="StatExp" parent="StatRows" unique_id=767532122 instance=ExtResource("59_2ysyl")]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 144.0
 offset_top = 437.0
@@ -652,45 +253,45 @@ offset_right = 144.0
 offset_bottom = 437.0
 caption = "经验"
 width = 268
-piece = "txt_exp"
 
 [node name="StatCrit" parent="StatRows" unique_id=1059522623 instance=ExtResource("59_2ysyl")]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 144.0
 offset_top = 377.0
 offset_right = 144.0
 offset_bottom = 377.0
 caption = "暴击"
-piece = "txt_baoji"
 
 [node name="StatMiss" parent="StatRows" unique_id=1342865893 instance=ExtResource("59_2ysyl")]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 304.0
 offset_top = 377.0
 offset_right = 304.0
 offset_bottom = 377.0
 caption = "闪避"
-piece = "txt_sb"
 
 [node name="StatHpRegen" parent="StatRows" unique_id=699697246 instance=ExtResource("59_2ysyl")]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 144.0
 offset_top = 407.0
 offset_right = 144.0
 offset_bottom = 407.0
 caption = "回血"
-piece = "txt_hx"
 
 [node name="StatMpRegen" parent="StatRows" unique_id=216398030 instance=ExtResource("59_2ysyl")]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 304.0
 offset_top = 407.0
 offset_right = 304.0
 offset_bottom = 407.0
 caption = "回蓝"
-piece = "txt_hl"
 
 [node name="Grid" type="Control" parent="." unique_id=371986125]
+unique_name_in_owner = true
 anchors_preset = 0
 offset_left = 508.3
 offset_top = 144.35
@@ -878,7 +479,8 @@ offset_right = 328.0
 offset_bottom = 328.0
 mouse_filter = 2
 
-[node name="txt_name" type="Label" parent="." unique_id=332687760]
+[node name="HeroName" type="Label" parent="." unique_id=332687760]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 220.0
 offset_top = 138.8
@@ -889,56 +491,36 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 14
 horizontal_alignment = 1
-metadata/rec = {
-"align": "center",
-"b": {
-"h": 18.0,
-"w": 105.0,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [-0.5, 17.5],
-"m": [1.0, 0.0, 0.0, 1.0, 198.0, 116.0],
-"multiline": false,
-"name": "txt_name",
-"size": 14.0,
-"text": "",
-"type": "text",
-"var": "",
-"wrap": false
-}
-metadata/ui_piece = ["txt_name"]
 
 [node name="Art6" type="Node2D" parent="." unique_id=288009287]
 
 [node name="Art" type="Node2D" parent="Art6" unique_id=929185052]
 
 [node name="SpotLight" parent="Art6/Art" unique_id=595263340 instance=ExtResource("bag_glow")]
+unique_name_in_owner = true
 position = Vector2(278.55, 233)
-metadata/ui_piece = ["spotlight"]
 
-[node name="zbfb" type="Node2D" parent="." unique_id=2017460202]
+[node name="TreasureSlot" type="Node2D" parent="." unique_id=2017460202]
+unique_name_in_owner = true
 position = Vector2(402, 246.35)
-metadata/ui_piece = ["zbfb"]
 
-[node name="EquipmentSlot" parent="zbfb" unique_id=435601657 instance=ExtResource("82_gye66")]
+[node name="EquipmentSlot" parent="TreasureSlot" unique_id=435601657 instance=ExtResource("82_gye66")]
 layout_mode = 3
 caption = "法宝"
 
-[node name="zbfj" type="Node2D" parent="." unique_id=1317183414]
+[node name="ClothSlot" type="Node2D" parent="." unique_id=1317183414]
+unique_name_in_owner = true
 position = Vector2(338.15, 246.35)
-metadata/ui_piece = ["zbfj"]
 
-[node name="EquipmentSlot" parent="zbfj" unique_id=1951206496 instance=ExtResource("82_gye66")]
+[node name="EquipmentSlot" parent="ClothSlot" unique_id=1951206496 instance=ExtResource("82_gye66")]
 layout_mode = 3
 caption = "衣服"
 
-[node name="zbsp" type="Node2D" parent="." unique_id=1383642489]
+[node name="AccessorySlot" type="Node2D" parent="." unique_id=1383642489]
+unique_name_in_owner = true
 position = Vector2(402, 183.35)
-metadata/ui_piece = ["zbsp"]
 
-[node name="EquipmentSlot" parent="zbsp" unique_id=254942191 instance=ExtResource("82_gye66")]
+[node name="EquipmentSlot" parent="AccessorySlot" unique_id=254942191 instance=ExtResource("82_gye66")]
 layout_mode = 3
 caption = "饰品"
 
@@ -949,161 +531,139 @@ position = Vector2(146.15, 105.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("65_834wd")
 centered = false
-metadata/tex_key = "backpack_v5:148"
 
-[node name="zbwq" type="Node2D" parent="." unique_id=1568862546]
+[node name="WeaponSlot" type="Node2D" parent="." unique_id=1568862546]
+unique_name_in_owner = true
 position = Vector2(338.15, 183.35)
-metadata/ui_piece = ["zbwq"]
 
-[node name="EquipmentSlot" parent="zbwq" unique_id=2116962900 instance=ExtResource("82_gye66")]
+[node name="EquipmentSlot" parent="WeaponSlot" unique_id=2116962900 instance=ExtResource("82_gye66")]
 layout_mode = 3
 caption = "武器"
 
-[node name="personmc" type="Node2D" parent="." unique_id=329698593]
+[node name="Person" type="Node2D" parent="." unique_id=329698593]
+unique_name_in_owner = true
 position = Vector2(276, 245.4)
-metadata/labels = {
-"八戒": 2.0,
-"唐僧": 1.0,
-"孙悟空": 0.0
-}
-metadata/ui_piece = ["personmc"]
 
-[node name="孙悟空" type="Node2D" parent="personmc" unique_id=1189859276]
+[node name="Wukong" type="Node2D" parent="Person" unique_id=1189859276]
 
-[node name="backpack_v5_159" type="Sprite2D" parent="personmc/孙悟空" unique_id=1942397288]
+[node name="backpack_v5_159" type="Sprite2D" parent="Person/Wukong" unique_id=1942397288]
 position = Vector2(-26.4, -9.25)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("67_glt67")
 centered = false
-metadata/tex_key = "backpack_v5:159"
 
-[node name="backpack_v5_160" type="Sprite2D" parent="personmc/孙悟空" unique_id=1949014292]
+[node name="backpack_v5_160" type="Sprite2D" parent="Person/Wukong" unique_id=1949014292]
 position = Vector2(-7.9520016, 4.4615)
 rotation = 2.6510458
 scale = Vector2(0.4988236, 0.4988236)
 texture = ExtResource("68_ps1pl")
 centered = false
-metadata/tex_key = "backpack_v5:160"
 
-[node name="backpack_v5_162" type="Sprite2D" parent="personmc/孙悟空" unique_id=890426953]
+[node name="backpack_v5_162" type="Sprite2D" parent="Person/Wukong" unique_id=890426953]
 position = Vector2(-19.550001, 25.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("69_fakcu")
 centered = false
-metadata/tex_key = "backpack_v5:162"
 
-[node name="backpack_v5_170" type="Sprite2D" parent="personmc/孙悟空" unique_id=405406504]
+[node name="backpack_v5_170" type="Sprite2D" parent="Person/Wukong" unique_id=405406504]
 position = Vector2(-16.800001, -22.650002)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("70_7r654")
 centered = false
-metadata/tex_key = "backpack_v5:170"
 
-[node name="backpack_v5_216" type="Sprite2D" parent="personmc/孙悟空" unique_id=1264861677]
+[node name="backpack_v5_216" type="Sprite2D" parent="Person/Wukong" unique_id=1264861677]
 position = Vector2(3.8000002, -12.1)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("71_nj0sk")
 centered = false
-metadata/tex_key = "backpack_v5:216"
 
-[node name="backpack_v5_217" type="Sprite2D" parent="personmc/孙悟空" unique_id=1434445368]
+[node name="backpack_v5_217" type="Sprite2D" parent="Person/Wukong" unique_id=1434445368]
 position = Vector2(47.9855, -29.663498)
 rotation = 2.740643
 scale = Vector2(0.49962485, 0.49962485)
 texture = ExtResource("72_q6qr3")
 centered = false
-metadata/tex_key = "backpack_v5:217"
 
-[node name="backpack_v5_226" type="Sprite2D" parent="personmc/孙悟空" unique_id=574582216]
+[node name="backpack_v5_226" type="Sprite2D" parent="Person/Wukong" unique_id=574582216]
 position = Vector2(14.321499, 2.1520004)
 rotation = 0.5450997
 scale = Vector2(0.549659, 0.549659)
 texture = ExtResource("73_fxs0b")
 centered = false
-metadata/tex_key = "backpack_v5:226"
 
-[node name="backpack_v5_238" type="Sprite2D" parent="personmc/孙悟空" unique_id=93818132]
+[node name="backpack_v5_238" type="Sprite2D" parent="Person/Wukong" unique_id=93818132]
 position = Vector2(-30.4, -48.25)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("74_q50m2")
 centered = false
-metadata/tex_key = "backpack_v5:238"
 
-[node name="唐僧" type="Node2D" parent="personmc" unique_id=285982805]
+[node name="Tangseng" type="Node2D" parent="Person" unique_id=285982805]
 visible = false
 
-[node name="backpack_v5_291" type="Sprite2D" parent="personmc/唐僧" unique_id=1961586825]
+[node name="backpack_v5_291" type="Sprite2D" parent="Person/Tangseng" unique_id=1961586825]
 position = Vector2(-17.900002, -14.349999)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("75_janby")
 centered = false
-metadata/tex_key = "backpack_v5:291"
 
-[node name="backpack_v5_292" type="Sprite2D" parent="personmc/唐僧" unique_id=11405875]
+[node name="backpack_v5_292" type="Sprite2D" parent="Person/Tangseng" unique_id=11405875]
 position = Vector2(-42.399998, 4.050001)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("76_jw00y")
 centered = false
-metadata/tex_key = "backpack_v5:292"
 
-[node name="backpack_v5_302" type="Sprite2D" parent="personmc/唐僧" unique_id=232407601]
+[node name="backpack_v5_302" type="Sprite2D" parent="Person/Tangseng" unique_id=232407601]
 position = Vector2(-20.1, -22.05)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("77_hbkx0")
 centered = false
-metadata/tex_key = "backpack_v5:302"
 
-[node name="backpack_v5_350" type="Sprite2D" parent="personmc/唐僧" unique_id=973869620]
+[node name="backpack_v5_350" type="Sprite2D" parent="Person/Tangseng" unique_id=973869620]
 position = Vector2(-27.050001, -46.55)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("78_s332c")
 centered = false
-metadata/tex_key = "backpack_v5:350"
 
-[node name="八戒" type="Node2D" parent="personmc" unique_id=1335141137]
+[node name="Bajie" type="Node2D" parent="Person" unique_id=1335141137]
 visible = false
 
-[node name="backpack_v5_367" type="Sprite2D" parent="personmc/八戒" unique_id=1177986663]
+[node name="backpack_v5_367" type="Sprite2D" parent="Person/Bajie" unique_id=1177986663]
 position = Vector2(-27.75, -3.4)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("79_wbl1s")
 centered = false
-metadata/tex_key = "backpack_v5:367"
 
-[node name="backpack_v5_368" type="Sprite2D" parent="personmc/八戒" unique_id=16680480]
+[node name="backpack_v5_368" type="Sprite2D" parent="Person/Bajie" unique_id=16680480]
 position = Vector2(-45.869, -42.494003)
 rotation = -0.019997334
 scale = Vector2(0.50009996, 0.50009996)
 texture = ExtResource("80_wp2m0")
 centered = false
-metadata/tex_key = "backpack_v5:368"
 
-[node name="backpack_v5_375" type="Sprite2D" parent="personmc/八戒" unique_id=1654315735]
+[node name="backpack_v5_375" type="Sprite2D" parent="Person/Bajie" unique_id=1654315735]
 position = Vector2(-22.9, -13.45)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("81_n1o2a")
 centered = false
-metadata/tex_key = "backpack_v5:375"
 
-[node name="backpack_v5_415" type="Sprite2D" parent="personmc/八戒" unique_id=60355356]
+[node name="backpack_v5_415" type="Sprite2D" parent="Person/Bajie" unique_id=60355356]
 position = Vector2(-35.6, -56.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("82_3nogg")
 centered = false
-metadata/tex_key = "backpack_v5:415"
 
-[node name="zbsz" type="Node2D" parent="." unique_id=395137496]
+[node name="FashionSlot" type="Node2D" parent="." unique_id=395137496]
+unique_name_in_owner = true
 position = Vector2(146.15, 183.4)
-metadata/ui_piece = ["zbsz"]
 
-[node name="EquipmentSlot" parent="zbsz" unique_id=1143507433 instance=ExtResource("82_gye66")]
+[node name="EquipmentSlot" parent="FashionSlot" unique_id=1143507433 instance=ExtResource("82_gye66")]
 layout_mode = 3
 caption = "时装"
 
-[node name="zbcb" type="Node2D" parent="." unique_id=1189469783]
+[node name="WingSlot" type="Node2D" parent="." unique_id=1189469783]
+unique_name_in_owner = true
 position = Vector2(146.15, 243.6)
-metadata/ui_piece = ["zbcb"]
 
-[node name="EquipmentSlot" parent="zbcb" unique_id=321991838 instance=ExtResource("82_gye66")]
+[node name="EquipmentSlot" parent="WingSlot" unique_id=321991838 instance=ExtResource("82_gye66")]
 layout_mode = 3
 caption = "翅膀"

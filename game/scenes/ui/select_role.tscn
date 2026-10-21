@@ -90,7 +90,8 @@ anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("1_osof8")
 
-[node name="btn1" type="Button" parent="." unique_id=1816823548]
+[node name="BtnWukong" type="Button" parent="." unique_id=1816823548]
+unique_name_in_owner = true
 layout_mode = 0
 offset_right = 236.0
 offset_bottom = 597.0
@@ -102,16 +103,14 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_btn1Down2")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btn1Down2")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_btn1Up0")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
-metadata/ui_piece = ["btn1"]
-metadata/ui_button = "btn1"
 
-[node name="Frame" type="Sprite2D" parent="btn1" unique_id=413137642]
+[node name="Frame" type="Sprite2D" parent="BtnWukong" unique_id=413137642]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_2oa6x")
 centered = false
-metadata/tex_key = "OtherMat_v10:498"
 
-[node name="btn2" type="Button" parent="." unique_id=976125362]
+[node name="BtnTangseng" type="Button" parent="." unique_id=976125362]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 236.0
 offset_right = 472.0
@@ -124,16 +123,14 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_btn2Down5")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btn2Down5")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_btn2Up3")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
-metadata/ui_piece = ["btn2"]
-metadata/ui_button = "btn2"
 
-[node name="Frame" type="Sprite2D" parent="btn2" unique_id=1190441299]
+[node name="Frame" type="Sprite2D" parent="BtnTangseng" unique_id=1190441299]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_2oa6x")
 centered = false
-metadata/tex_key = "OtherMat_v10:498"
 
-[node name="btn3" type="Button" parent="." unique_id=241509416]
+[node name="BtnBajie" type="Button" parent="." unique_id=241509416]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 472.0
 offset_right = 705.0
@@ -146,14 +143,11 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_btn3Down8")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btn3Down8")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_btn3Up6")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
-metadata/ui_piece = ["btn3"]
-metadata/ui_button = "btn3"
 
-[node name="Frame" type="Sprite2D" parent="btn3" unique_id=143902794]
+[node name="Frame" type="Sprite2D" parent="BtnBajie" unique_id=143902794]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_2oa6x")
 centered = false
-metadata/tex_key = "OtherMat_v10:498"
 
 [node name="UnavailableHero" type="Node2D" parent="." unique_id=1334004906]
 
@@ -164,15 +158,9 @@ texture = ExtResource("8_vemgg")
 centered = false
 region_enabled = true
 region_rect = Rect2(48, 0, 472, 1232)
-metadata/tex_key = "OtherMat_v10:511"
 
 [node name="OtherMat_v10_498" type="Sprite2D" parent="UnavailableHero" unique_id=1896990697]
 position = Vector2(705, 0)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_2oa6x")
 centered = false
-metadata/tex_key = "OtherMat_v10:498"
-
-[node name="lockmc" type="Node2D" parent="." unique_id=1754694887]
-position = Vector2(584.65, 311.5)
-metadata/ui_piece = ["lockmc"]

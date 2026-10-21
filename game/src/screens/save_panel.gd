@@ -6,7 +6,6 @@ signal done(slot: int)   ## -1 when closed without choosing
 
 enum Mode { LOAD, SAVE }
 
-const SLOT_PIECES := ["btn_0", "btn_1", "btn_2", "btn_3", "btn_4", "btn_5"]
 
 var mode := Mode.LOAD
 var _ui: UiLayout
@@ -27,24 +26,23 @@ func _ready() -> void:
 	add_child(_ui)
 	for i in GameState.SLOTS:
 		var info: Dictionary = GameState.slot_info(i)
-		_ui.set_inner_text(SLOT_PIECES[i], "txt_name", info.get("title", "空存档"))
-		_ui.set_inner_text(SLOT_PIECES[i], "txt_time", info.get("datetime", ""))
+		var slot := _ui.piece("Slot%d" % (i + 1))
+		slot.get_node("Title").text = info.get("title", "空存档")
+		slot.get_node("Time").text = info.get("datetime", "")
 		if info.has("datetime"):
 			# two lines (title over time): the pair, not the title alone, is centred in the slot
-			for f in ["txt_name", "txt_time"]:
-				for l: Label in _ui.get_piece(SLOT_PIECES[i]).find_children(f, "Label", true, false):
-					l.position.y -= 9.0
-		_ui.make_clickable(SLOT_PIECES[i], 1, 0)
+			for l in ["Title", "Time"]:
+				slot.get_node(l).position.y -= 9.0
 	_ui.button_pressed.connect(_on_button)
 	UiFade.fade_in(self)
 
 func _on_button(b: String) -> void:
-	if b == "btn_x":
+	if b == "BtnClose":
 		_finish(-1)
 		return
-	var i := SLOT_PIECES.find(b)
-	if i < 0:
+	if not b.begins_with("Slot"):
 		return
+	var i := int(b.substr(4)) - 1
 	if mode == Mode.LOAD:
 		if GameState.slot_info(i).is_empty():
 			return

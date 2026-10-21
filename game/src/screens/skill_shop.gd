@@ -27,9 +27,7 @@ func _ready() -> void:
 	# the panel sits inside BuySkill (background, character tabs, back button)
 	var back := UiLayout.create("buy_skill")
 	var role := GameState.hero_data.role_index
-	for i in 3:
-		back.set_visible_piece("player%d" % (i + 1), i == role)
-	back.button_pressed.connect(func(b): if b == "btnback": UiFade.close(self))
+	back.button_pressed.connect(func(b): if b == "BtnBack": UiFade.close(self))
 	add_child(back)
 	_ui = UiLayout.create("skill_control")
 	add_child(_ui)
@@ -63,7 +61,7 @@ func _show_page(passive: bool) -> void:
 	_refresh()
 
 func _refresh() -> void:
-	_ui.set_text("txtlh", str(GameState.souls))
+	_ui.set_text("Value", str(GameState.souls))
 	for i in _active.size():
 		_active[i].disabled = GameState.has_skill(StringName(GameState.hero_data.learn_active[i]))
 	for i in 5:
@@ -84,9 +82,9 @@ func _cell(column: String, i: int) -> Label:
 
 func _on_button(b: String) -> void:
 	match b:
-		"activebtn":
+		"ActiveButton":
 			_show_page(false)
-		"passivebtn":
+		"PassiveButton":
 			_show_page(true)
 
 func _learn(i: int) -> void:

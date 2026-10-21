@@ -84,7 +84,7 @@ func _ready() -> void:
 	_check("B closes the item menu, not the backpack", ps._bag != null and is_instance_valid(ps._bag) and ps._bag._menu == null)
 	await _btn(JOY_BUTTON_A)
 	await get_tree().create_timer(0.2).timeout
-	ps._bag._menu_action("bmd")
+	ps._bag._menu_action("Sell")
 	await get_tree().create_timer(0.3).timeout
 	_check("after selling the highlight stays on that cell (%d items before)" % shown_before,
 		nav._focus != null and is_instance_valid(nav._focus) and nav._focus.get_global_rect().get_center().distance_to(cell_center) < 2.0)

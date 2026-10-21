@@ -39,6 +39,8 @@
 [ext_resource type="Texture2D" uid="uid://b2ylmei4cs3rh" path="res://assets/ui/role_info/tex/OtherMat_v10_335.png" id="37_agm2j"]
 [ext_resource type="Texture2D" uid="uid://dokgl11sovtrh" path="res://assets/ui/role_info/tex/OtherMat_v10_337.png" id="38_2fcip"]
 
+[ext_resource type="Script" path="res://src/ui/icon_set.gd" id="xp1rl17"]
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_btnfocus"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btnbbUp0"]
@@ -131,53 +133,44 @@ anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("1_l0nv2")
 
-[node name="bg" type="Node2D" parent="." unique_id=755838431]
+[node name="Background" type="Node2D" parent="." unique_id=755838431]
+unique_name_in_owner = true
 position = Vector2(1, 2)
-metadata/ui_piece = ["bg"]
 
-[node name="OtherMat_v10_245" type="Sprite2D" parent="bg" unique_id=386913883]
+[node name="OtherMat_v10_245" type="Sprite2D" parent="Background" unique_id=386913883]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_li4bb")
 centered = false
-metadata/tex_key = "OtherMat_v10:245"
 
-[node name="head" type="Node2D" parent="." unique_id=1265996002]
+[node name="Portrait" type="Node2D" parent="." unique_id=1265996002]
+unique_name_in_owner = true
 position = Vector2(53.75, 35.9)
-metadata/labels = {
-"八戒": 2.0,
-"唐僧": 1.0,
-"孙悟空": 0.0
-}
-metadata/ui_piece = ["head"]
 
-[node name="孙悟空" type="Node2D" parent="head" unique_id=242818043]
+[node name="Wukong" type="Node2D" parent="Portrait" unique_id=242818043]
 
-[node name="OtherMat_v10_247" type="Sprite2D" parent="head/孙悟空" unique_id=2130333592]
+[node name="OtherMat_v10_247" type="Sprite2D" parent="Portrait/Wukong" unique_id=2130333592]
 position = Vector2(-37.2, -34.65)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_8hb5v")
 centered = false
-metadata/tex_key = "OtherMat_v10:247"
 
-[node name="唐僧" type="Node2D" parent="head" unique_id=1897666311]
+[node name="Tangseng" type="Node2D" parent="Portrait" unique_id=1897666311]
 visible = false
 
-[node name="OtherMat_v10_248" type="Sprite2D" parent="head/唐僧" unique_id=946056272]
+[node name="OtherMat_v10_248" type="Sprite2D" parent="Portrait/Tangseng" unique_id=946056272]
 position = Vector2(-34.7, -34.2)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_t77i7")
 centered = false
-metadata/tex_key = "OtherMat_v10:248"
 
-[node name="八戒" type="Node2D" parent="head" unique_id=1689516550]
+[node name="Bajie" type="Node2D" parent="Portrait" unique_id=1689516550]
 visible = false
 
-[node name="OtherMat_v10_250" type="Sprite2D" parent="head/八戒" unique_id=1332936263]
+[node name="OtherMat_v10_250" type="Sprite2D" parent="Portrait/Bajie" unique_id=1332936263]
 position = Vector2(-39.7, -44.35)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("5_8cujn")
 centered = false
-metadata/tex_key = "OtherMat_v10:250"
 
 [node name="Art" type="Node2D" parent="." unique_id=2101054265]
 
@@ -186,842 +179,65 @@ position = Vector2(6.9, 475.45)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_1xp7h")
 centered = false
-metadata/tex_key = "OtherMat_v10:255"
 
-[node name="skill1" type="Node2D" parent="." unique_id=1430118456]
-position = Vector2(130.5, 538.95)
-metadata/labels = {}
-metadata/ui_piece = ["skill1"]
-
-[node name="Frame0" type="Node2D" parent="skill1" unique_id=1172730002]
-
-[node name="OtherMat_v10_257" type="Sprite2D" parent="skill1/Frame0" unique_id=1544793084]
-position = Vector2(-22.5, -22.5)
+[node name="Skill1" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(108, 516.45)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("7_gxkka")
 centered = false
-metadata/tex_key = "OtherMat_v10:257"
+script = ExtResource("xp1rl17")
+icons = Array[Texture2D]([ExtResource("7_gxkka"), ExtResource("8_i3t4o"), ExtResource("9_ftvhl"), ExtResource("10_m8u2i"), ExtResource("11_dtnja"), ExtResource("12_bv8li"), ExtResource("13_gav4a"), ExtResource("14_ljwwx"), ExtResource("15_ow47s"), ExtResource("16_mkxem"), ExtResource("17_k8ber"), ExtResource("18_6wklq"), ExtResource("19_4ert7"), ExtResource("20_0h85w"), ExtResource("21_i0hru"), ExtResource("22_4w7uh")])
 
-[node name="Frame1" type="Node2D" parent="skill1" unique_id=1081455530]
-visible = false
-
-[node name="OtherMat_v10_259" type="Sprite2D" parent="skill1/Frame1" unique_id=1415216735]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("8_i3t4o")
-centered = false
-metadata/tex_key = "OtherMat_v10:259"
-
-[node name="Frame2" type="Node2D" parent="skill1" unique_id=1330881893]
-visible = false
-
-[node name="OtherMat_v10_261" type="Sprite2D" parent="skill1/Frame2" unique_id=1536855474]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("9_ftvhl")
-centered = false
-metadata/tex_key = "OtherMat_v10:261"
-
-[node name="Frame3" type="Node2D" parent="skill1" unique_id=994742452]
-visible = false
-
-[node name="OtherMat_v10_263" type="Sprite2D" parent="skill1/Frame3" unique_id=17573313]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("10_m8u2i")
-centered = false
-metadata/tex_key = "OtherMat_v10:263"
-
-[node name="Frame4" type="Node2D" parent="skill1" unique_id=859878090]
-visible = false
-
-[node name="OtherMat_v10_265" type="Sprite2D" parent="skill1/Frame4" unique_id=1358512837]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("11_dtnja")
-centered = false
-metadata/tex_key = "OtherMat_v10:265"
-
-[node name="Frame5" type="Node2D" parent="skill1" unique_id=1660772411]
-visible = false
-
-[node name="OtherMat_v10_267" type="Sprite2D" parent="skill1/Frame5" unique_id=222358251]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("12_bv8li")
-centered = false
-metadata/tex_key = "OtherMat_v10:267"
-
-[node name="Frame6" type="Node2D" parent="skill1" unique_id=1002191453]
-visible = false
-
-[node name="OtherMat_v10_269" type="Sprite2D" parent="skill1/Frame6" unique_id=513843709]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("13_gav4a")
-centered = false
-metadata/tex_key = "OtherMat_v10:269"
-
-[node name="Frame7" type="Node2D" parent="skill1" unique_id=1742170067]
-visible = false
-
-[node name="OtherMat_v10_271" type="Sprite2D" parent="skill1/Frame7" unique_id=1871812824]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("14_ljwwx")
-centered = false
-metadata/tex_key = "OtherMat_v10:271"
-
-[node name="Frame8" type="Node2D" parent="skill1" unique_id=923365947]
-visible = false
-
-[node name="OtherMat_v10_273" type="Sprite2D" parent="skill1/Frame8" unique_id=172810352]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("15_ow47s")
-centered = false
-metadata/tex_key = "OtherMat_v10:273"
-
-[node name="Frame9" type="Node2D" parent="skill1" unique_id=517232046]
-visible = false
-
-[node name="OtherMat_v10_275" type="Sprite2D" parent="skill1/Frame9" unique_id=2140631867]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("16_mkxem")
-centered = false
-metadata/tex_key = "OtherMat_v10:275"
-
-[node name="Frame10" type="Node2D" parent="skill1" unique_id=1163319550]
-visible = false
-
-[node name="OtherMat_v10_277" type="Sprite2D" parent="skill1/Frame10" unique_id=1054693229]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("17_k8ber")
-centered = false
-metadata/tex_key = "OtherMat_v10:277"
-
-[node name="Frame11" type="Node2D" parent="skill1" unique_id=1422809808]
-visible = false
-
-[node name="OtherMat_v10_279" type="Sprite2D" parent="skill1/Frame11" unique_id=1837958584]
-position = Vector2(-21.5, -21.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("18_6wklq")
-centered = false
-metadata/tex_key = "OtherMat_v10:279"
-
-[node name="Frame12" type="Node2D" parent="skill1" unique_id=1190566016]
-visible = false
-
-[node name="OtherMat_v10_281" type="Sprite2D" parent="skill1/Frame12" unique_id=290888417]
-position = Vector2(-21.5, -21.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("19_4ert7")
-centered = false
-metadata/tex_key = "OtherMat_v10:281"
-
-[node name="Frame13" type="Node2D" parent="skill1" unique_id=1044352767]
-visible = false
-
-[node name="OtherMat_v10_283" type="Sprite2D" parent="skill1/Frame13" unique_id=146703363]
-position = Vector2(-21.5, -21.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("20_0h85w")
-centered = false
-metadata/tex_key = "OtherMat_v10:283"
-
-[node name="Frame14" type="Node2D" parent="skill1" unique_id=1035229437]
-visible = false
-
-[node name="OtherMat_v10_285" type="Sprite2D" parent="skill1/Frame14" unique_id=1146460449]
-position = Vector2(-21.5, -21.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("21_i0hru")
-centered = false
-metadata/tex_key = "OtherMat_v10:285"
-
-[node name="Frame15" type="Node2D" parent="skill1" unique_id=835655576]
-visible = false
-
-[node name="OtherMat_v10_287" type="Sprite2D" parent="skill1/Frame15" unique_id=1167888384]
-position = Vector2(-21.5, -21.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("22_4w7uh")
-centered = false
-metadata/tex_key = "OtherMat_v10:287"
-
-[node name="skill2" type="Node2D" parent="." unique_id=1443492019]
-position = Vector2(170.5, 538.95)
-metadata/labels = {}
-metadata/ui_piece = ["skill2"]
-
-[node name="Frame0" type="Node2D" parent="skill2" unique_id=855086737]
-
-[node name="OtherMat_v10_257" type="Sprite2D" parent="skill2/Frame0" unique_id=1066995586]
-position = Vector2(-22.5, -22.5)
+[node name="Skill2" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(148, 516.45)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("7_gxkka")
 centered = false
-metadata/tex_key = "OtherMat_v10:257"
+script = ExtResource("xp1rl17")
+icons = Array[Texture2D]([ExtResource("7_gxkka"), ExtResource("8_i3t4o"), ExtResource("9_ftvhl"), ExtResource("10_m8u2i"), ExtResource("11_dtnja"), ExtResource("12_bv8li"), ExtResource("13_gav4a"), ExtResource("14_ljwwx"), ExtResource("15_ow47s"), ExtResource("16_mkxem"), ExtResource("17_k8ber"), ExtResource("18_6wklq"), ExtResource("19_4ert7"), ExtResource("20_0h85w"), ExtResource("21_i0hru"), ExtResource("22_4w7uh")])
 
-[node name="Frame1" type="Node2D" parent="skill2" unique_id=1777558736]
-visible = false
-
-[node name="OtherMat_v10_259" type="Sprite2D" parent="skill2/Frame1" unique_id=171425335]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("8_i3t4o")
-centered = false
-metadata/tex_key = "OtherMat_v10:259"
-
-[node name="Frame2" type="Node2D" parent="skill2" unique_id=1044696556]
-visible = false
-
-[node name="OtherMat_v10_261" type="Sprite2D" parent="skill2/Frame2" unique_id=846548088]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("9_ftvhl")
-centered = false
-metadata/tex_key = "OtherMat_v10:261"
-
-[node name="Frame3" type="Node2D" parent="skill2" unique_id=334954668]
-visible = false
-
-[node name="OtherMat_v10_263" type="Sprite2D" parent="skill2/Frame3" unique_id=2099253448]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("10_m8u2i")
-centered = false
-metadata/tex_key = "OtherMat_v10:263"
-
-[node name="Frame4" type="Node2D" parent="skill2" unique_id=1119625454]
-visible = false
-
-[node name="OtherMat_v10_265" type="Sprite2D" parent="skill2/Frame4" unique_id=345696926]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("11_dtnja")
-centered = false
-metadata/tex_key = "OtherMat_v10:265"
-
-[node name="Frame5" type="Node2D" parent="skill2" unique_id=612312799]
-visible = false
-
-[node name="OtherMat_v10_267" type="Sprite2D" parent="skill2/Frame5" unique_id=1552994104]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("12_bv8li")
-centered = false
-metadata/tex_key = "OtherMat_v10:267"
-
-[node name="Frame6" type="Node2D" parent="skill2" unique_id=723186681]
-visible = false
-
-[node name="OtherMat_v10_269" type="Sprite2D" parent="skill2/Frame6" unique_id=1537996948]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("13_gav4a")
-centered = false
-metadata/tex_key = "OtherMat_v10:269"
-
-[node name="Frame7" type="Node2D" parent="skill2" unique_id=1000862643]
-visible = false
-
-[node name="OtherMat_v10_271" type="Sprite2D" parent="skill2/Frame7" unique_id=520635334]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("14_ljwwx")
-centered = false
-metadata/tex_key = "OtherMat_v10:271"
-
-[node name="Frame8" type="Node2D" parent="skill2" unique_id=1461434504]
-visible = false
-
-[node name="OtherMat_v10_273" type="Sprite2D" parent="skill2/Frame8" unique_id=568465297]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("15_ow47s")
-centered = false
-metadata/tex_key = "OtherMat_v10:273"
-
-[node name="Frame9" type="Node2D" parent="skill2" unique_id=1127215148]
-visible = false
-
-[node name="OtherMat_v10_275" type="Sprite2D" parent="skill2/Frame9" unique_id=271624494]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("16_mkxem")
-centered = false
-metadata/tex_key = "OtherMat_v10:275"
-
-[node name="Frame10" type="Node2D" parent="skill2" unique_id=1643496993]
-visible = false
-
-[node name="OtherMat_v10_277" type="Sprite2D" parent="skill2/Frame10" unique_id=562909466]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("17_k8ber")
-centered = false
-metadata/tex_key = "OtherMat_v10:277"
-
-[node name="Frame11" type="Node2D" parent="skill2" unique_id=1479290285]
-visible = false
-
-[node name="OtherMat_v10_279" type="Sprite2D" parent="skill2/Frame11" unique_id=2039780975]
-position = Vector2(-21.5, -21.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("18_6wklq")
-centered = false
-metadata/tex_key = "OtherMat_v10:279"
-
-[node name="Frame12" type="Node2D" parent="skill2" unique_id=1272757161]
-visible = false
-
-[node name="OtherMat_v10_281" type="Sprite2D" parent="skill2/Frame12" unique_id=521244057]
-position = Vector2(-21.5, -21.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("19_4ert7")
-centered = false
-metadata/tex_key = "OtherMat_v10:281"
-
-[node name="Frame13" type="Node2D" parent="skill2" unique_id=47075773]
-visible = false
-
-[node name="OtherMat_v10_283" type="Sprite2D" parent="skill2/Frame13" unique_id=1020842743]
-position = Vector2(-21.5, -21.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("20_0h85w")
-centered = false
-metadata/tex_key = "OtherMat_v10:283"
-
-[node name="Frame14" type="Node2D" parent="skill2" unique_id=609368112]
-visible = false
-
-[node name="OtherMat_v10_285" type="Sprite2D" parent="skill2/Frame14" unique_id=69197037]
-position = Vector2(-21.5, -21.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("21_i0hru")
-centered = false
-metadata/tex_key = "OtherMat_v10:285"
-
-[node name="Frame15" type="Node2D" parent="skill2" unique_id=994279375]
-visible = false
-
-[node name="OtherMat_v10_287" type="Sprite2D" parent="skill2/Frame15" unique_id=249146224]
-position = Vector2(-21.5, -21.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("22_4w7uh")
-centered = false
-metadata/tex_key = "OtherMat_v10:287"
-
-[node name="skill3" type="Node2D" parent="." unique_id=1681196509]
-position = Vector2(210.5, 538.95)
-metadata/labels = {}
-metadata/ui_piece = ["skill3"]
-
-[node name="Frame0" type="Node2D" parent="skill3" unique_id=1039363018]
-
-[node name="OtherMat_v10_257" type="Sprite2D" parent="skill3/Frame0" unique_id=1987897827]
-position = Vector2(-22.5, -22.5)
+[node name="Skill3" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(188, 516.45)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("7_gxkka")
 centered = false
-metadata/tex_key = "OtherMat_v10:257"
+script = ExtResource("xp1rl17")
+icons = Array[Texture2D]([ExtResource("7_gxkka"), ExtResource("8_i3t4o"), ExtResource("9_ftvhl"), ExtResource("10_m8u2i"), ExtResource("11_dtnja"), ExtResource("12_bv8li"), ExtResource("13_gav4a"), ExtResource("14_ljwwx"), ExtResource("15_ow47s"), ExtResource("16_mkxem"), ExtResource("17_k8ber"), ExtResource("18_6wklq"), ExtResource("19_4ert7"), ExtResource("20_0h85w"), ExtResource("21_i0hru"), ExtResource("22_4w7uh")])
 
-[node name="Frame1" type="Node2D" parent="skill3" unique_id=799217622]
-visible = false
-
-[node name="OtherMat_v10_259" type="Sprite2D" parent="skill3/Frame1" unique_id=743418731]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("8_i3t4o")
-centered = false
-metadata/tex_key = "OtherMat_v10:259"
-
-[node name="Frame2" type="Node2D" parent="skill3" unique_id=554456525]
-visible = false
-
-[node name="OtherMat_v10_261" type="Sprite2D" parent="skill3/Frame2" unique_id=1594030933]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("9_ftvhl")
-centered = false
-metadata/tex_key = "OtherMat_v10:261"
-
-[node name="Frame3" type="Node2D" parent="skill3" unique_id=2063463019]
-visible = false
-
-[node name="OtherMat_v10_263" type="Sprite2D" parent="skill3/Frame3" unique_id=1796290238]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("10_m8u2i")
-centered = false
-metadata/tex_key = "OtherMat_v10:263"
-
-[node name="Frame4" type="Node2D" parent="skill3" unique_id=562920800]
-visible = false
-
-[node name="OtherMat_v10_265" type="Sprite2D" parent="skill3/Frame4" unique_id=907311373]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("11_dtnja")
-centered = false
-metadata/tex_key = "OtherMat_v10:265"
-
-[node name="Frame5" type="Node2D" parent="skill3" unique_id=1058001518]
-visible = false
-
-[node name="OtherMat_v10_267" type="Sprite2D" parent="skill3/Frame5" unique_id=1347036589]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("12_bv8li")
-centered = false
-metadata/tex_key = "OtherMat_v10:267"
-
-[node name="Frame6" type="Node2D" parent="skill3" unique_id=482288969]
-visible = false
-
-[node name="OtherMat_v10_269" type="Sprite2D" parent="skill3/Frame6" unique_id=673689458]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("13_gav4a")
-centered = false
-metadata/tex_key = "OtherMat_v10:269"
-
-[node name="Frame7" type="Node2D" parent="skill3" unique_id=578595060]
-visible = false
-
-[node name="OtherMat_v10_271" type="Sprite2D" parent="skill3/Frame7" unique_id=598067334]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("14_ljwwx")
-centered = false
-metadata/tex_key = "OtherMat_v10:271"
-
-[node name="Frame8" type="Node2D" parent="skill3" unique_id=1456623199]
-visible = false
-
-[node name="OtherMat_v10_273" type="Sprite2D" parent="skill3/Frame8" unique_id=330980000]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("15_ow47s")
-centered = false
-metadata/tex_key = "OtherMat_v10:273"
-
-[node name="Frame9" type="Node2D" parent="skill3" unique_id=293924537]
-visible = false
-
-[node name="OtherMat_v10_275" type="Sprite2D" parent="skill3/Frame9" unique_id=110232877]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("16_mkxem")
-centered = false
-metadata/tex_key = "OtherMat_v10:275"
-
-[node name="Frame10" type="Node2D" parent="skill3" unique_id=449688263]
-visible = false
-
-[node name="OtherMat_v10_277" type="Sprite2D" parent="skill3/Frame10" unique_id=1910947198]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("17_k8ber")
-centered = false
-metadata/tex_key = "OtherMat_v10:277"
-
-[node name="Frame11" type="Node2D" parent="skill3" unique_id=1866854806]
-visible = false
-
-[node name="OtherMat_v10_279" type="Sprite2D" parent="skill3/Frame11" unique_id=34041564]
-position = Vector2(-21.5, -21.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("18_6wklq")
-centered = false
-metadata/tex_key = "OtherMat_v10:279"
-
-[node name="Frame12" type="Node2D" parent="skill3" unique_id=685985695]
-visible = false
-
-[node name="OtherMat_v10_281" type="Sprite2D" parent="skill3/Frame12" unique_id=537184932]
-position = Vector2(-21.5, -21.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("19_4ert7")
-centered = false
-metadata/tex_key = "OtherMat_v10:281"
-
-[node name="Frame13" type="Node2D" parent="skill3" unique_id=1457027219]
-visible = false
-
-[node name="OtherMat_v10_283" type="Sprite2D" parent="skill3/Frame13" unique_id=476982426]
-position = Vector2(-21.5, -21.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("20_0h85w")
-centered = false
-metadata/tex_key = "OtherMat_v10:283"
-
-[node name="Frame14" type="Node2D" parent="skill3" unique_id=1022313624]
-visible = false
-
-[node name="OtherMat_v10_285" type="Sprite2D" parent="skill3/Frame14" unique_id=1046717221]
-position = Vector2(-21.5, -21.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("21_i0hru")
-centered = false
-metadata/tex_key = "OtherMat_v10:285"
-
-[node name="Frame15" type="Node2D" parent="skill3" unique_id=114220272]
-visible = false
-
-[node name="OtherMat_v10_287" type="Sprite2D" parent="skill3/Frame15" unique_id=2101897763]
-position = Vector2(-21.5, -21.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("22_4w7uh")
-centered = false
-metadata/tex_key = "OtherMat_v10:287"
-
-[node name="skill4" type="Node2D" parent="." unique_id=279944403]
-position = Vector2(250.45, 538.95)
-metadata/labels = {}
-metadata/ui_piece = ["skill4"]
-
-[node name="Frame0" type="Node2D" parent="skill4" unique_id=27474792]
-
-[node name="OtherMat_v10_257" type="Sprite2D" parent="skill4/Frame0" unique_id=1687106810]
-position = Vector2(-22.5, -22.5)
+[node name="Skill4" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(227.95, 516.45)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("7_gxkka")
 centered = false
-metadata/tex_key = "OtherMat_v10:257"
+script = ExtResource("xp1rl17")
+icons = Array[Texture2D]([ExtResource("7_gxkka"), ExtResource("8_i3t4o"), ExtResource("9_ftvhl"), ExtResource("10_m8u2i"), ExtResource("11_dtnja"), ExtResource("12_bv8li"), ExtResource("13_gav4a"), ExtResource("14_ljwwx"), ExtResource("15_ow47s"), ExtResource("16_mkxem"), ExtResource("17_k8ber"), ExtResource("18_6wklq"), ExtResource("19_4ert7"), ExtResource("20_0h85w"), ExtResource("21_i0hru"), ExtResource("22_4w7uh")])
 
-[node name="Frame1" type="Node2D" parent="skill4" unique_id=1823911389]
-visible = false
-
-[node name="OtherMat_v10_259" type="Sprite2D" parent="skill4/Frame1" unique_id=1627939748]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("8_i3t4o")
-centered = false
-metadata/tex_key = "OtherMat_v10:259"
-
-[node name="Frame2" type="Node2D" parent="skill4" unique_id=1804379144]
-visible = false
-
-[node name="OtherMat_v10_261" type="Sprite2D" parent="skill4/Frame2" unique_id=1380833122]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("9_ftvhl")
-centered = false
-metadata/tex_key = "OtherMat_v10:261"
-
-[node name="Frame3" type="Node2D" parent="skill4" unique_id=282749845]
-visible = false
-
-[node name="OtherMat_v10_263" type="Sprite2D" parent="skill4/Frame3" unique_id=1228297618]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("10_m8u2i")
-centered = false
-metadata/tex_key = "OtherMat_v10:263"
-
-[node name="Frame4" type="Node2D" parent="skill4" unique_id=1098975200]
-visible = false
-
-[node name="OtherMat_v10_265" type="Sprite2D" parent="skill4/Frame4" unique_id=369305027]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("11_dtnja")
-centered = false
-metadata/tex_key = "OtherMat_v10:265"
-
-[node name="Frame5" type="Node2D" parent="skill4" unique_id=813911899]
-visible = false
-
-[node name="OtherMat_v10_267" type="Sprite2D" parent="skill4/Frame5" unique_id=115091813]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("12_bv8li")
-centered = false
-metadata/tex_key = "OtherMat_v10:267"
-
-[node name="Frame6" type="Node2D" parent="skill4" unique_id=1800631413]
-visible = false
-
-[node name="OtherMat_v10_269" type="Sprite2D" parent="skill4/Frame6" unique_id=952080934]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("13_gav4a")
-centered = false
-metadata/tex_key = "OtherMat_v10:269"
-
-[node name="Frame7" type="Node2D" parent="skill4" unique_id=1175142679]
-visible = false
-
-[node name="OtherMat_v10_271" type="Sprite2D" parent="skill4/Frame7" unique_id=1309265099]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("14_ljwwx")
-centered = false
-metadata/tex_key = "OtherMat_v10:271"
-
-[node name="Frame8" type="Node2D" parent="skill4" unique_id=1338729691]
-visible = false
-
-[node name="OtherMat_v10_273" type="Sprite2D" parent="skill4/Frame8" unique_id=806442937]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("15_ow47s")
-centered = false
-metadata/tex_key = "OtherMat_v10:273"
-
-[node name="Frame9" type="Node2D" parent="skill4" unique_id=1891382501]
-visible = false
-
-[node name="OtherMat_v10_275" type="Sprite2D" parent="skill4/Frame9" unique_id=1355316136]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("16_mkxem")
-centered = false
-metadata/tex_key = "OtherMat_v10:275"
-
-[node name="Frame10" type="Node2D" parent="skill4" unique_id=185611696]
-visible = false
-
-[node name="OtherMat_v10_277" type="Sprite2D" parent="skill4/Frame10" unique_id=498649082]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("17_k8ber")
-centered = false
-metadata/tex_key = "OtherMat_v10:277"
-
-[node name="Frame11" type="Node2D" parent="skill4" unique_id=787319254]
-visible = false
-
-[node name="OtherMat_v10_279" type="Sprite2D" parent="skill4/Frame11" unique_id=684170503]
-position = Vector2(-21.5, -21.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("18_6wklq")
-centered = false
-metadata/tex_key = "OtherMat_v10:279"
-
-[node name="Frame12" type="Node2D" parent="skill4" unique_id=1550415051]
-visible = false
-
-[node name="OtherMat_v10_281" type="Sprite2D" parent="skill4/Frame12" unique_id=1360884009]
-position = Vector2(-21.5, -21.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("19_4ert7")
-centered = false
-metadata/tex_key = "OtherMat_v10:281"
-
-[node name="Frame13" type="Node2D" parent="skill4" unique_id=1910864357]
-visible = false
-
-[node name="OtherMat_v10_283" type="Sprite2D" parent="skill4/Frame13" unique_id=1124804271]
-position = Vector2(-21.5, -21.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("20_0h85w")
-centered = false
-metadata/tex_key = "OtherMat_v10:283"
-
-[node name="Frame14" type="Node2D" parent="skill4" unique_id=1550356086]
-visible = false
-
-[node name="OtherMat_v10_285" type="Sprite2D" parent="skill4/Frame14" unique_id=547739574]
-position = Vector2(-21.5, -21.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("21_i0hru")
-centered = false
-metadata/tex_key = "OtherMat_v10:285"
-
-[node name="Frame15" type="Node2D" parent="skill4" unique_id=1018640681]
-visible = false
-
-[node name="OtherMat_v10_287" type="Sprite2D" parent="skill4/Frame15" unique_id=2126580451]
-position = Vector2(-21.5, -21.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("22_4w7uh")
-centered = false
-metadata/tex_key = "OtherMat_v10:287"
-
-[node name="skill5" type="Node2D" parent="." unique_id=589531299]
-position = Vector2(290.45, 538.95)
-metadata/labels = {}
-metadata/ui_piece = ["skill5"]
-
-[node name="Frame0" type="Node2D" parent="skill5" unique_id=1011674598]
-
-[node name="OtherMat_v10_257" type="Sprite2D" parent="skill5/Frame0" unique_id=1704895636]
-position = Vector2(-22.5, -22.5)
+[node name="Skill5" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(267.95, 516.45)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("7_gxkka")
 centered = false
-metadata/tex_key = "OtherMat_v10:257"
+script = ExtResource("xp1rl17")
+icons = Array[Texture2D]([ExtResource("7_gxkka"), ExtResource("8_i3t4o"), ExtResource("9_ftvhl"), ExtResource("10_m8u2i"), ExtResource("11_dtnja"), ExtResource("12_bv8li"), ExtResource("13_gav4a"), ExtResource("14_ljwwx"), ExtResource("15_ow47s"), ExtResource("16_mkxem"), ExtResource("17_k8ber"), ExtResource("18_6wklq"), ExtResource("19_4ert7"), ExtResource("20_0h85w"), ExtResource("21_i0hru"), ExtResource("22_4w7uh")])
 
-[node name="Frame1" type="Node2D" parent="skill5" unique_id=724046183]
-visible = false
-
-[node name="OtherMat_v10_259" type="Sprite2D" parent="skill5/Frame1" unique_id=580895083]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("8_i3t4o")
-centered = false
-metadata/tex_key = "OtherMat_v10:259"
-
-[node name="Frame2" type="Node2D" parent="skill5" unique_id=410013159]
-visible = false
-
-[node name="OtherMat_v10_261" type="Sprite2D" parent="skill5/Frame2" unique_id=1596207061]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("9_ftvhl")
-centered = false
-metadata/tex_key = "OtherMat_v10:261"
-
-[node name="Frame3" type="Node2D" parent="skill5" unique_id=857131449]
-visible = false
-
-[node name="OtherMat_v10_263" type="Sprite2D" parent="skill5/Frame3" unique_id=1539779646]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("10_m8u2i")
-centered = false
-metadata/tex_key = "OtherMat_v10:263"
-
-[node name="Frame4" type="Node2D" parent="skill5" unique_id=20771804]
-visible = false
-
-[node name="OtherMat_v10_265" type="Sprite2D" parent="skill5/Frame4" unique_id=509883550]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("11_dtnja")
-centered = false
-metadata/tex_key = "OtherMat_v10:265"
-
-[node name="Frame5" type="Node2D" parent="skill5" unique_id=1836425043]
-visible = false
-
-[node name="OtherMat_v10_267" type="Sprite2D" parent="skill5/Frame5" unique_id=2143334323]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("12_bv8li")
-centered = false
-metadata/tex_key = "OtherMat_v10:267"
-
-[node name="Frame6" type="Node2D" parent="skill5" unique_id=1386734395]
-visible = false
-
-[node name="OtherMat_v10_269" type="Sprite2D" parent="skill5/Frame6" unique_id=1828934885]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("13_gav4a")
-centered = false
-metadata/tex_key = "OtherMat_v10:269"
-
-[node name="Frame7" type="Node2D" parent="skill5" unique_id=1364297175]
-visible = false
-
-[node name="OtherMat_v10_271" type="Sprite2D" parent="skill5/Frame7" unique_id=228490818]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("14_ljwwx")
-centered = false
-metadata/tex_key = "OtherMat_v10:271"
-
-[node name="Frame8" type="Node2D" parent="skill5" unique_id=257432364]
-visible = false
-
-[node name="OtherMat_v10_273" type="Sprite2D" parent="skill5/Frame8" unique_id=433721317]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("15_ow47s")
-centered = false
-metadata/tex_key = "OtherMat_v10:273"
-
-[node name="Frame9" type="Node2D" parent="skill5" unique_id=445601079]
-visible = false
-
-[node name="OtherMat_v10_275" type="Sprite2D" parent="skill5/Frame9" unique_id=1813810171]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("16_mkxem")
-centered = false
-metadata/tex_key = "OtherMat_v10:275"
-
-[node name="Frame10" type="Node2D" parent="skill5" unique_id=1013258972]
-visible = false
-
-[node name="OtherMat_v10_277" type="Sprite2D" parent="skill5/Frame10" unique_id=868374724]
-position = Vector2(-22.5, -22.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("17_k8ber")
-centered = false
-metadata/tex_key = "OtherMat_v10:277"
-
-[node name="Frame11" type="Node2D" parent="skill5" unique_id=2074416498]
-visible = false
-
-[node name="OtherMat_v10_279" type="Sprite2D" parent="skill5/Frame11" unique_id=1531336254]
-position = Vector2(-21.5, -21.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("18_6wklq")
-centered = false
-metadata/tex_key = "OtherMat_v10:279"
-
-[node name="Frame12" type="Node2D" parent="skill5" unique_id=942172800]
-visible = false
-
-[node name="OtherMat_v10_281" type="Sprite2D" parent="skill5/Frame12" unique_id=786406775]
-position = Vector2(-21.5, -21.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("19_4ert7")
-centered = false
-metadata/tex_key = "OtherMat_v10:281"
-
-[node name="Frame13" type="Node2D" parent="skill5" unique_id=666767082]
-visible = false
-
-[node name="OtherMat_v10_283" type="Sprite2D" parent="skill5/Frame13" unique_id=299104615]
-position = Vector2(-21.5, -21.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("20_0h85w")
-centered = false
-metadata/tex_key = "OtherMat_v10:283"
-
-[node name="Frame14" type="Node2D" parent="skill5" unique_id=1205803557]
-visible = false
-
-[node name="OtherMat_v10_285" type="Sprite2D" parent="skill5/Frame14" unique_id=1413512630]
-position = Vector2(-21.5, -21.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("21_i0hru")
-centered = false
-metadata/tex_key = "OtherMat_v10:285"
-
-[node name="Frame15" type="Node2D" parent="skill5" unique_id=784792192]
-visible = false
-
-[node name="OtherMat_v10_287" type="Sprite2D" parent="skill5/Frame15" unique_id=671085995]
-position = Vector2(-21.5, -21.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("22_4w7uh")
-centered = false
-metadata/tex_key = "OtherMat_v10:287"
-
-[node name="wsmc" type="Node2D" parent="." unique_id=1743947666]
+[node name="RageBar" type="Node2D" parent="." unique_id=1743947666]
+unique_name_in_owner = true
 position = Vector2(100, 559.55)
-metadata/ui_piece = ["wsmc"]
 
-[node name="Art" type="Node2D" parent="wsmc" unique_id=698313208]
+[node name="Art" type="Node2D" parent="RageBar" unique_id=698313208]
 
-[node name="OtherMat_v10_290" type="Sprite2D" parent="wsmc/Art" unique_id=1976423443]
+[node name="OtherMat_v10_290" type="Sprite2D" parent="RageBar/Art" unique_id=1976423443]
 position = Vector2(0, -13.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("23_ki2fs")
 centered = false
-metadata/tex_key = "OtherMat_v10:290"
 
-[node name="Fill" type="TextureProgressBar" parent="wsmc" unique_id=900000001]
+[node name="Fill" type="TextureProgressBar" parent="RageBar" unique_id=900000001]
 offset_left = 0
 offset_top = -4.5
 scale = Vector2(0.5, 0.5)
@@ -1032,34 +248,31 @@ value = 1.0
 fill_mode = 1
 texture_progress = ExtResource("24_v0a76")
 
-[node name="shows" type="Node2D" parent="." unique_id=1101100128]
+[node name="RageLogo" type="Node2D" parent="." unique_id=1101100128]
+unique_name_in_owner = true
 position = Vector2(39.9, 503.15)
-metadata/labels = {}
-metadata/ui_piece = ["shows"]
 
-[node name="Frame0" type="Node2D" parent="shows" unique_id=887591235]
+[node name="Off" type="Node2D" parent="RageLogo" unique_id=887591235]
 
-[node name="OtherMat_v10_296" type="Sprite2D" parent="shows/Frame0" unique_id=555338661]
+[node name="OtherMat_v10_296" type="Sprite2D" parent="RageLogo/Off" unique_id=555338661]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("25_avouy")
 centered = false
-metadata/tex_key = "OtherMat_v10:296"
 
-[node name="Frame1" type="Node2D" parent="shows" unique_id=1730985525]
+[node name="On" type="Node2D" parent="RageLogo" unique_id=1730985525]
 visible = false
 
-[node name="OtherMat_v10_298" type="Sprite2D" parent="shows/Frame1" unique_id=1677754689]
+[node name="OtherMat_v10_298" type="Sprite2D" parent="RageLogo/On" unique_id=1677754689]
 position = Vector2(-2.75, -4.25)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("26_7baeu")
 centered = false
-metadata/tex_key = "OtherMat_v10:298"
 
-[node name="hpline" type="Node2D" parent="." unique_id=1843966145]
+[node name="HpBar" type="Node2D" parent="." unique_id=1843966145]
+unique_name_in_owner = true
 position = Vector2(85.45, 16.3)
-metadata/ui_piece = ["hpline"]
 
-[node name="Fill" type="TextureProgressBar" parent="hpline" unique_id=900000002]
+[node name="Fill" type="TextureProgressBar" parent="HpBar" unique_id=900000002]
 offset_left = 0
 offset_top = 0
 scale = Vector2(0.5, 0.5)
@@ -1070,11 +283,11 @@ value = 1.0
 fill_mode = 0
 texture_progress = ExtResource("27_v416g")
 
-[node name="mpline" type="Node2D" parent="." unique_id=1048794590]
+[node name="MpBar" type="Node2D" parent="." unique_id=1048794590]
+unique_name_in_owner = true
 position = Vector2(86.7, 35.1)
-metadata/ui_piece = ["mpline"]
 
-[node name="Fill" type="TextureProgressBar" parent="mpline" unique_id=900000003]
+[node name="Fill" type="TextureProgressBar" parent="MpBar" unique_id=900000003]
 offset_left = 0
 offset_top = 0
 scale = Vector2(0.5, 0.5)
@@ -1085,11 +298,11 @@ value = 1.0
 fill_mode = 0
 texture_progress = ExtResource("28_y7ifu")
 
-[node name="expline" type="Node2D" parent="." unique_id=1910226008]
+[node name="ExpBar" type="Node2D" parent="." unique_id=1910226008]
+unique_name_in_owner = true
 position = Vector2(86.7, 54.8)
-metadata/ui_piece = ["expline"]
 
-[node name="Fill" type="TextureProgressBar" parent="expline" unique_id=900000004]
+[node name="Fill" type="TextureProgressBar" parent="ExpBar" unique_id=900000004]
 offset_left = 0
 offset_top = 0
 scale = Vector2(0.5, 0.5)
@@ -1100,7 +313,8 @@ value = 1.0
 fill_mode = 0
 texture_progress = ExtResource("29_iibuc")
 
-[node name="txthp" type="Label" parent="." unique_id=1063601232]
+[node name="HpText" type="Label" parent="." unique_id=1063601232]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 114.35
 offset_top = 14.6
@@ -1111,28 +325,9 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
-metadata/rec = {
-"align": "center",
-"b": {
-"h": 15.75,
-"w": 71.0,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [4.0, 11.0],
-"m": [1.0, 0.0, 0.0, 1.0, 116.35, 16.6],
-"multiline": true,
-"name": "txthp",
-"size": 10.0,
-"text": "",
-"type": "text",
-"var": "",
-"wrap": true
-}
-metadata/ui_piece = ["txthp"]
 
-[node name="txtmp" type="Label" parent="." unique_id=1059392813]
+[node name="MpText" type="Label" parent="." unique_id=1059392813]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 114.85
 offset_top = 33.5
@@ -1143,28 +338,9 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
-metadata/rec = {
-"align": "center",
-"b": {
-"h": 15.75,
-"w": 71.0,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [3.5, 10.5],
-"m": [1.0, 0.0, 0.0, 1.0, 116.85, 36.0],
-"multiline": true,
-"name": "txtmp",
-"size": 10.0,
-"text": "",
-"type": "text",
-"var": "",
-"wrap": true
-}
-metadata/ui_piece = ["txtmp"]
 
-[node name="txtexp" type="Label" parent="." unique_id=1419960949]
+[node name="ExpText" type="Label" parent="." unique_id=1419960949]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 114.85
 offset_top = 53.5
@@ -1175,28 +351,9 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
-metadata/rec = {
-"align": "center",
-"b": {
-"h": 15.75,
-"w": 71.0,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [4.5, 11.5],
-"m": [1.0, 0.0, 0.0, 1.0, 116.85, 55.0],
-"multiline": true,
-"name": "txtexp",
-"size": 10.0,
-"text": "",
-"type": "text",
-"var": "",
-"wrap": true
-}
-metadata/ui_piece = ["txtexp"]
 
-[node name="txtlevel" type="Label" parent="." unique_id=2058194886]
+[node name="LevelText" type="Label" parent="." unique_id=2058194886]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 6.0
 offset_top = 60.66
@@ -1207,39 +364,19 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
-metadata/rec = {
-"align": "center",
-"b": {
-"h": 22.85,
-"w": 27.0,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"m": [1.0, 0.0, 0.0, 1.0, 7.0, 61.1],
-"multiline": true,
-"name": "txtlevel",
-"nudge": [1.0, 2.2],
-"size": 16.0,
-"text": "",
-"type": "text",
-"var": "",
-"wrap": true
-}
-metadata/ui_piece = ["txtlevel"]
 
-[node name="zi" type="Node2D" parent="." unique_id=995481002]
+[node name="Lettering" type="Node2D" parent="." unique_id=995481002]
+unique_name_in_owner = true
 position = Vector2(101.45, 41.65)
-metadata/ui_piece = ["zi"]
 
-[node name="OtherMat_v10_317" type="Sprite2D" parent="zi" unique_id=509181973]
+[node name="OtherMat_v10_317" type="Sprite2D" parent="Lettering" unique_id=509181973]
 position = Vector2(-8.449997, -23.849998)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("30_wr426")
 centered = false
-metadata/tex_key = "OtherMat_v10:317"
 
-[node name="btn_bb" type="Button" parent="." unique_id=1490634674]
+[node name="BtnBag" type="Button" parent="." unique_id=1490634674]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 11.0
 offset_top = 505.05
@@ -1253,10 +390,9 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_btnbbDown2")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btnbbDown2")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_btnbbUp0")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
-metadata/ui_piece = ["btn_bb"]
-metadata/ui_button = "btn_bb"
 
-[node name="btn_set" type="Button" parent="." unique_id=1882240196]
+[node name="BtnSettings" type="Button" parent="." unique_id=1882240196]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 18.95
 offset_top = 548.05
@@ -1270,10 +406,9 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_btnsetDown5")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btnsetDown5")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_btnsetUp3")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
-metadata/ui_piece = ["btn_set"]
-metadata/ui_button = "btn_set"
 
-[node name="btn_study" type="Button" parent="." unique_id=934548546]
+[node name="BtnSkills" type="Button" parent="." unique_id=934548546]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 32.0
 offset_top = 471.95
@@ -1287,10 +422,9 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_btnstudyDown8")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btnstudyDown8")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_btnstudyUp6")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
-metadata/ui_piece = ["btn_study"]
-metadata/ui_button = "btn_study"
 
-[node name="btn_fb" type="Button" parent="." unique_id=2068475411]
+[node name="BtnTreasure" type="Button" parent="." unique_id=2068475411]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 78.0
 offset_top = 463.45
@@ -1304,5 +438,3 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_btnfbDown11")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btnfbDown11")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_btnfbUp9")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
-metadata/ui_piece = ["btn_fb"]
-metadata/ui_button = "btn_fb"

@@ -80,14 +80,14 @@ func _show_page() -> void:
 	for i in _pages.size():
 		if _pages[i]:
 			_pages[i].visible = i == _page
-	_ui.get_piece("btn_go").visible = PAGES[_page].has("stage")
+	_ui.piece("BtnGo").visible = PAGES[_page].has("stage")
 	_label.text = "%d / %d" % [_page + 1, PAGES.size()]
 
 func _on_button(b: String) -> void:
-	if b == "btn_x":
+	if b == "BtnClose":
 		UiFade.close(self)
 		return
-	if b != "btn_go" or not PAGES[_page].has("stage"):
+	if b != "BtnGo" or not PAGES[_page].has("stage"):
 		return
 	var p: Dictionary = PAGES[_page]
 	if GameState.activity_done(p.id):

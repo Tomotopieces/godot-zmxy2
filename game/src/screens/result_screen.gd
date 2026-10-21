@@ -18,17 +18,17 @@ static func win(stage: Vector2i, stats: Dictionary) -> ResultScreen:
 	var time_score := mini(int((300.0 + t) / maxf(t * 50.0, 0.001)), 800)
 	var state_score := mini(int(3.0 * stats.state), 300)
 	var combo_score := mini(int(stats.combo), 800)
-	r._ui.set_text("txt_usertime", "%d:%02d" % [int(t) / 60, int(t) % 60])
-	r._ui.set_text("txt_hight", str(stats.combo))
-	r._ui.set_text("txt_state", "%d%%" % mini(int(stats.state), 100))
-	r._ui.set_text("txt_allscore", str(time_score + state_score + combo_score))
-	r._ui.set_visible_piece("nextStageButton", stage.x <= 3)
+	r._ui.set_text("UsedTime", "%d:%02d" % [int(t) / 60, int(t) % 60])
+	r._ui.set_text("BestCombo", str(stats.combo))
+	r._ui.set_text("State", "%d%%" % mini(int(stats.state), 100))
+	r._ui.set_text("TotalScore", str(time_score + state_score + combo_score))
+	r._ui.piece("BtnNextStage").visible = stage.x <= 3
 	return r
 
 static func fail(stage: Vector2i) -> ResultScreen:
 	var r := ResultScreen.new()
 	r._ui = UiLayout.create("game_fail")
-	r._ui.set_visible_piece("rePlayButton", stage.x < 5)
+	r._ui.piece("BtnReplay").visible = stage.x < 5
 	return r
 
 func _ready() -> void:
@@ -43,6 +43,6 @@ func _ready() -> void:
 
 func _on_button(b: String) -> void:
 	match b:
-		"nextStageButton": next.emit()
-		"rePlayButton": retry.emit()
-		"backTochooseButton": back.emit()
+		"BtnNextStage": next.emit()
+		"BtnReplay": retry.emit()
+		"BtnBackToMap": back.emit()

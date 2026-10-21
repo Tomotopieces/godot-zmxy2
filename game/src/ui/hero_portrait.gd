@@ -1,11 +1,10 @@
 class_name HeroPortrait
 ## The animated hero of the bag and shop screens: the hero's bag puppet wearing the current look, drawn in place of the
-## layout's frozen `personmc` picture, and the spotlight behind it playing.
+## layout's frozen `Person` picture, and the spotlight behind it playing.
 static func build(ui: UiLayout) -> Puppet:
-	var glow := ui.get_piece("spotlight") as Puppet
-	if glow:
-		glow.play(glow.actions[0])
-	var still := ui.get_piece("personmc") as Node2D
+	var glow := ui.piece("SpotLight") as Puppet
+	glow.play(glow.actions[0])
+	var still := ui.piece("Person") as Node2D
 	still.visible = false
 	var p := Puppet.create("bag_" + GameState.hero_data.role)
 	p.position = still.position

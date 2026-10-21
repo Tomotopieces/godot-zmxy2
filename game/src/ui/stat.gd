@@ -12,21 +12,15 @@ extends Control
 		width = value
 		_apply()
 
-@export var piece: String = "":   ## the `ui_piece` the layout reaches the value label by (e.g. txt_hp); "" = none
-	set(value):
-		piece = value
-		_apply()
 
 func _ready() -> void:
 	_apply()
 
 func _apply() -> void:
-	# the value label's piece name is set as soon as the label exists: UiLayout.create() collects the pieces right after
-	# instancing, before any _ready()
-	var v := get_node_or_null(^"Box/StatValue")
-	if v and piece != "":
-		v.set_meta(&"ui_piece", [piece])
 	if not is_node_ready():
 		return   # _ready() applies the rest once the children are ready
 	$Caption.text = caption
 	$Box.size.x = width
+## The value shown in the box.
+func set_value(t: String) -> void:
+	$Box/StatValue.text = t

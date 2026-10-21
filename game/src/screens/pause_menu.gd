@@ -27,15 +27,15 @@ func _ready() -> void:
 
 func _on_button(b: String) -> void:
 	match b:
-		"btn_x", "btn_continue": close()
-		"btn_back_selectmap": to_map.emit()
-		"btn_back_menu": to_menu.emit()
-		"btn_help": add_child(HelpPanel.new())
-		"btn_sound": Snd.set_muted(not Snd.muted)
-		"btn_shake":
+		"BtnClose", "BtnContinue": close()
+		"BtnBackToMap": to_map.emit()
+		"BtnBackToTitle": to_menu.emit()
+		"BtnHelp": add_child(HelpPanel.new())
+		"BtnGameSound": Snd.set_muted(not Snd.muted)
+		"BtnScreenShake":
 			Feel.screen_shake = not Feel.screen_shake
 			Feel.save_settings()
-		"btn_rumble":
+		"BtnControllerShake":
 			Feel.pad_rumble = not Feel.pad_rumble
 			Feel.save_settings()
 			if Feel.pad_rumble:
@@ -44,14 +44,12 @@ func _on_button(b: String) -> void:
 
 ## The three switches show their state in their own text.
 func _sync() -> void:
-	_switch("btn_sound", "游戏声音", not Snd.muted)
-	_switch("btn_shake", "画面震动", Feel.screen_shake)
-	_switch("btn_rumble", "手柄震动", Feel.pad_rumble)
+	_switch("BtnGameSound", "游戏声音", not Snd.muted)
+	_switch("BtnScreenShake", "画面震动", Feel.screen_shake)
+	_switch("BtnControllerShake", "手柄震动", Feel.pad_rumble)
 
-func _switch(piece: String, caption: String, on: bool) -> void:
-	var b := _ui.get_piece(piece) as Button
-	if b:
-		b.text = "%s：%s" % [caption, "开" if on else "关"]
+func _switch(button: String, caption: String, on: bool) -> void:
+	_ui.set_text(button, "%s：%s" % [caption, "开" if on else "关"])
 
 func close() -> void:
 	get_tree().paused = false

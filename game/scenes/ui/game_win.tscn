@@ -63,9 +63,9 @@ script = ExtResource("1_36grx")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_puku0")
 centered = false
-metadata/tex_key = "OtherMat_v10:741"
 
-[node name="txt_allscore" type="Label" parent="." unique_id=1736344815]
+[node name="TotalScore" type="Label" parent="." unique_id=1736344815]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 727.2
 offset_top = 401.5
@@ -76,28 +76,9 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 horizontal_alignment = 2
-metadata/rec = {
-"align": "right",
-"b": {
-"h": 43.2,
-"w": 134.75,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [-3.5, 53.5],
-"m": [1.0, 0.0, 0.0, 1.0, 729.2, 396.1],
-"multiline": true,
-"name": "txt_allscore",
-"size": 32.0,
-"text": "",
-"type": "text",
-"var": "",
-"wrap": true
-}
-metadata/ui_piece = ["txt_allscore"]
 
-[node name="txt_hight" type="Label" parent="." unique_id=237883658]
+[node name="BestCombo" type="Label" parent="." unique_id=237883658]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 767.1
 offset_top = 338.0
@@ -108,28 +89,9 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 horizontal_alignment = 2
-metadata/rec = {
-"align": "right",
-"b": {
-"h": 43.2,
-"w": 94.85,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [-5.5, 48.5],
-"m": [1.0, 0.0, 0.0, 1.0, 769.1, 336.1],
-"multiline": true,
-"name": "txt_hight",
-"size": 32.0,
-"text": "",
-"type": "text",
-"var": "",
-"wrap": true
-}
-metadata/ui_piece = ["txt_hight"]
 
-[node name="txt_state" type="Label" parent="." unique_id=1323020497]
+[node name="State" type="Label" parent="." unique_id=1323020497]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 743.1
 offset_top = 275.94998
@@ -140,28 +102,9 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 horizontal_alignment = 2
-metadata/rec = {
-"align": "right",
-"b": {
-"h": 43.2,
-"w": 118.85,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [-3.5, 50.5],
-"m": [1.0, 0.0, 0.0, 1.0, 745.1, 272.05],
-"multiline": true,
-"name": "txt_state",
-"size": 32.0,
-"text": "",
-"type": "text",
-"var": "",
-"wrap": true
-}
-metadata/ui_piece = ["txt_state"]
 
-[node name="txt_usertime" type="Label" parent="." unique_id=1181515382]
+[node name="UsedTime" type="Label" parent="." unique_id=1181515382]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 743.1
 offset_top = 213.95
@@ -172,28 +115,9 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 horizontal_alignment = 2
-metadata/rec = {
-"align": "right",
-"b": {
-"h": 43.95,
-"w": 118.85,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [-5.5, 48.5],
-"m": [1.0, 0.0, 0.0, 1.0, 745.1, 212.05],
-"multiline": true,
-"name": "txt_usertime",
-"size": 32.0,
-"text": "",
-"type": "text",
-"var": "",
-"wrap": true
-}
-metadata/ui_piece = ["txt_usertime"]
 
-[node name="backTochooseButton" type="Button" parent="." unique_id=579340015]
+[node name="BtnBackToMap" type="Button" parent="." unique_id=579340015]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 268.45
 offset_top = 388.0
@@ -207,10 +131,9 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_backTochooseButtonD
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_backTochooseButtonDown2")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_backTochooseButtonUp0")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
-metadata/ui_piece = ["backTochooseButton"]
-metadata/ui_button = "backTochooseButton"
 
-[node name="nextStageButton" type="Button" parent="." unique_id=1352710961]
+[node name="BtnNextStage" type="Button" parent="." unique_id=1352710961]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 120.55
 offset_top = 386.1
@@ -224,5 +147,3 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_nextStageButtonDown
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_nextStageButtonDown5")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_nextStageButtonUp3")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
-metadata/ui_piece = ["nextStageButton"]
-metadata/ui_button = "nextStageButton"

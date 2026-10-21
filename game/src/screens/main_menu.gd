@@ -33,12 +33,12 @@ func close_popup() -> void:
 func _on_button(b: String) -> void:
 	if _popup:
 		return
-	if b in ["newGame", "continueGame"]:
+	if b in ["NewGame", "ContinueGame"]:
 		Snd.ui("SD_xz")
 	match b:
-		"newGame":
+		"NewGame":
 			new_game.emit()
-		"continueGame":
+		"ContinueGame":
 			var p := SavePanel.create(SavePanel.Mode.LOAD)
 			p.done.connect(func(slot):
 				_popup = null
@@ -46,10 +46,10 @@ func _on_button(b: String) -> void:
 					continued.emit())
 			_popup = p
 			add_child(p)
-		"gameHelp":
+		"GameHelp":
 			var h := HelpPanel.new()
 			h.tree_exited.connect(func(): _popup = null)
 			_popup = h
 			add_child(h)
-		"btnquit":
+		"QuitGame":
 			get_tree().quit()

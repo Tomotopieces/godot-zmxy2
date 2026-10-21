@@ -97,9 +97,9 @@ script = ExtResource("1_l5pj5")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_cgbiw")
 centered = false
-metadata/tex_key = "backpack_v5:626"
 
-[node name="btn_buydj" type="Button" parent="." unique_id=1776812416]
+[node name="BtnItemTab" type="Button" parent="." unique_id=1776812416]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 522.8
 offset_top = 107.0
@@ -113,10 +113,9 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_btnbuydjOver1")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btnbuydjDown2")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_btnbuydjUp0")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
-metadata/ui_piece = ["btn_buydj"]
-metadata/ui_button = "btn_buydj"
 
-[node name="btn_buyzb" type="Button" parent="." unique_id=1550465553]
+[node name="BtnEquipTab" type="Button" parent="." unique_id=1550465553]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 444.8
 offset_top = 107.0
@@ -130,10 +129,9 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_btnbuyzbOver4")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btnbuyzbDown5")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_btnbuyzbUp3")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
-metadata/ui_piece = ["btn_buyzb"]
-metadata/ui_button = "btn_buyzb"
 
-[node name="btn_buygx" type="Button" parent="." unique_id=482888185]
+[node name="BtnFashionTab" type="Button" parent="." unique_id=482888185]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 599.6
 offset_top = 107.0
@@ -147,8 +145,6 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_btnbuygxOver7")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btnbuygxDown8")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_btnbuygxUp6")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
-metadata/ui_piece = ["btn_buygx"]
-metadata/ui_button = "btn_buygx"
 
 [node name="Art2" type="Node2D" parent="." unique_id=861224701]
 
@@ -157,9 +153,9 @@ position = Vector2(428, 135)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("10_c6b8j")
 centered = false
-metadata/tex_key = "backpack_v5:646"
 
-[node name="btn_upPage" type="Button" parent="." unique_id=2119847547]
+[node name="BtnPrevPage" type="Button" parent="." unique_id=2119847547]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 671.6
 offset_top = 452.85
@@ -173,10 +169,9 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_btnupPageOver10")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btnupPageDown11")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_btnupPageUp9")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
-metadata/ui_piece = ["btn_upPage"]
-metadata/ui_button = "btn_upPage"
 
-[node name="btn_nextPage" type="Button" parent="." unique_id=499535925]
+[node name="BtnNextPage" type="Button" parent="." unique_id=499535925]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 752.55
 offset_top = 452.85
@@ -190,10 +185,9 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_btnnextPageOver13")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btnnextPageDown14")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_btnnextPageUp12")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
-metadata/ui_piece = ["btn_nextPage"]
-metadata/ui_button = "btn_nextPage"
 
-[node name="txt_page" type="Label" parent="." unique_id=1474148429]
+[node name="PageText" type="Label" parent="." unique_id=1474148429]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 700.95
 offset_top = 452.05
@@ -205,26 +199,6 @@ theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 22
 horizontal_alignment = 1
 vertical_alignment = 1
-metadata/rec = {
-"align": "center",
-"b": {
-"h": 29.9,
-"w": 50.0,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [-17.0, 24.0],
-"m": [1.0, 0.0, 0.0, 1.0, 702.95, 456.65],
-"multiline": false,
-"name": "txt_page",
-"size": 22.0,
-"text": "",
-"type": "text",
-"var": "",
-"wrap": false
-}
-metadata/ui_piece = ["txt_page"]
 
 [node name="Art3" type="Node2D" parent="." unique_id=1913673427]
 
@@ -233,9 +207,9 @@ position = Vector2(118.95, 133)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("15_gbf4j")
 centered = false
-metadata/tex_key = "backpack_v5:659"
 
-[node name="txt_money" type="Label" parent="." unique_id=371360817]
+[node name="Money" type="Label" parent="." unique_id=371360817]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 193.9
 offset_top = 388.4
@@ -245,28 +219,9 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 22
-metadata/rec = {
-"align": "left",
-"b": {
-"h": 30.0,
-"w": 82.1,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [-3.5, 44.5],
-"m": [1.0, 0.0, 0.0, 1.0, 195.9, 382.0],
-"multiline": false,
-"name": "txt_money",
-"size": 22.0,
-"text": "",
-"type": "text",
-"var": "",
-"wrap": false
-}
-metadata/ui_piece = ["txt_money"]
 
-[node name="txt_gx" type="Label" parent="." unique_id=1803992400]
+[node name="Merit" type="Label" parent="." unique_id=1803992400]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 193.9
 offset_top = 422.07
@@ -276,44 +231,23 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 22
-metadata/rec = {
-"align": "left",
-"b": {
-"h": 29.9,
-"w": 80.15,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"m": [1.0, 0.0, 0.0, 1.0, 195.9, 424.95],
-"multiline": false,
-"name": "txt_gx",
-"size": 22.0,
-"text": "",
-"type": "text",
-"var": "",
-"wrap": false
-}
-metadata/ui_piece = ["txt_gx"]
 
-[node name="st5" type="Node2D" parent="." unique_id=156904602]
+[node name="Thing6" type="Node2D" parent="." unique_id=156904602]
+unique_name_in_owner = true
 position = Vector2(627.8, 339.95)
-metadata/ui_piece = ["st5"]
 
-[node name="backpack_v5_600" type="Sprite2D" parent="st5" unique_id=2077816268]
+[node name="backpack_v5_600" type="Sprite2D" parent="Thing6" unique_id=2077816268]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("25_piuc0")
 centered = false
-metadata/tex_key = "backpack_v5:600"
 
-[node name="backpack_v5_602" type="Sprite2D" parent="st5" unique_id=830893465]
+[node name="backpack_v5_602" type="Sprite2D" parent="Thing6" unique_id=830893465]
 position = Vector2(38.800003, 56.449997)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("26_57wlf")
 centered = false
-metadata/tex_key = "backpack_v5:602"
 
-[node name="txt_name" type="Label" parent="st5" unique_id=1388033929]
+[node name="txt_name" type="Label" parent="Thing6" unique_id=1388033929]
 offset_left = 81.0
 offset_top = 4.0
 offset_right = 171.65
@@ -323,24 +257,8 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 2
-metadata/rec = {
-"align": "right",
-"b": {
-"h": 22.85,
-"w": 90.65,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [-1.5, 17.5],
-"multiline": true,
-"size": 16.0,
-"text": "",
-"var": "",
-"wrap": true
-}
 
-[node name="txt_price" type="Label" parent="st5" unique_id=432753224]
+[node name="txt_price" type="Label" parent="Thing6" unique_id=432753224]
 offset_left = 81.0
 offset_top = 31.5
 offset_right = 172.65
@@ -350,31 +268,14 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 2
-metadata/rec = {
-"align": "right",
-"b": {
-"h": 22.85,
-"w": 91.65,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [-9.5, 28.5],
-"multiline": true,
-"size": 16.0,
-"text": "",
-"var": "",
-"wrap": true
-}
 
-[node name="backpack_v5_607" type="Sprite2D" parent="st5" unique_id=1561575971]
+[node name="backpack_v5_607" type="Sprite2D" parent="Thing6" unique_id=1561575971]
 position = Vector2(108.65, 53.45)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("27_0te1m")
 centered = false
-metadata/tex_key = "backpack_v5:607"
 
-[node name="txt_num" type="Label" parent="st5" unique_id=647306396]
+[node name="txt_num" type="Label" parent="Thing6" unique_id=647306396]
 offset_left = 69.75
 offset_top = 60.199997
 offset_right = 95.95
@@ -384,55 +285,35 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 13
 horizontal_alignment = 1
-metadata/rec = {
-"align": "center",
-"b": {
-"h": 19.3,
-"w": 26.2,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [1.5, 17.5],
-"multiline": true,
-"size": 13.0,
-"text": "",
-"var": "",
-"wrap": true
-}
 
-[node name="backpack_v5_613" type="Sprite2D" parent="st5" unique_id=1269767930]
+[node name="backpack_v5_613" type="Sprite2D" parent="Thing6" unique_id=1269767930]
 position = Vector2(93.75, 57.9)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("28_uqgat")
 centered = false
-metadata/tex_key = "backpack_v5:613"
 
-[node name="backpack_v5_618" type="Sprite2D" parent="st5" unique_id=62141375]
+[node name="backpack_v5_618" type="Sprite2D" parent="Thing6" unique_id=62141375]
 position = Vector2(93.5, 66.9)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("29_v8cfp")
 centered = false
-metadata/tex_key = "backpack_v5:618"
 
-[node name="st4" type="Node2D" parent="." unique_id=1548415855]
+[node name="Thing5" type="Node2D" parent="." unique_id=1548415855]
+unique_name_in_owner = true
 position = Vector2(439.8, 338.95)
-metadata/ui_piece = ["st4"]
 
-[node name="backpack_v5_600" type="Sprite2D" parent="st4" unique_id=1460464492]
+[node name="backpack_v5_600" type="Sprite2D" parent="Thing5" unique_id=1460464492]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("25_piuc0")
 centered = false
-metadata/tex_key = "backpack_v5:600"
 
-[node name="backpack_v5_602" type="Sprite2D" parent="st4" unique_id=1515060297]
+[node name="backpack_v5_602" type="Sprite2D" parent="Thing5" unique_id=1515060297]
 position = Vector2(38.800003, 56.449997)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("26_57wlf")
 centered = false
-metadata/tex_key = "backpack_v5:602"
 
-[node name="txt_name" type="Label" parent="st4" unique_id=1549498566]
+[node name="txt_name" type="Label" parent="Thing5" unique_id=1549498566]
 offset_left = 81.0
 offset_top = 4.0
 offset_right = 171.65
@@ -442,24 +323,8 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 2
-metadata/rec = {
-"align": "right",
-"b": {
-"h": 22.85,
-"w": 90.65,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [-1.5, 17.5],
-"multiline": true,
-"size": 16.0,
-"text": "",
-"var": "",
-"wrap": true
-}
 
-[node name="txt_price" type="Label" parent="st4" unique_id=1116030654]
+[node name="txt_price" type="Label" parent="Thing5" unique_id=1116030654]
 offset_left = 81.0
 offset_top = 31.5
 offset_right = 172.65
@@ -469,31 +334,14 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 2
-metadata/rec = {
-"align": "right",
-"b": {
-"h": 22.85,
-"w": 91.65,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [-9.5, 28.5],
-"multiline": true,
-"size": 16.0,
-"text": "",
-"var": "",
-"wrap": true
-}
 
-[node name="backpack_v5_607" type="Sprite2D" parent="st4" unique_id=1052402642]
+[node name="backpack_v5_607" type="Sprite2D" parent="Thing5" unique_id=1052402642]
 position = Vector2(108.65, 53.45)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("27_0te1m")
 centered = false
-metadata/tex_key = "backpack_v5:607"
 
-[node name="txt_num" type="Label" parent="st4" unique_id=247282096]
+[node name="txt_num" type="Label" parent="Thing5" unique_id=247282096]
 offset_left = 69.75
 offset_top = 60.199997
 offset_right = 95.95
@@ -503,55 +351,35 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 13
 horizontal_alignment = 1
-metadata/rec = {
-"align": "center",
-"b": {
-"h": 19.3,
-"w": 26.2,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [1.5, 17.5],
-"multiline": true,
-"size": 13.0,
-"text": "",
-"var": "",
-"wrap": true
-}
 
-[node name="backpack_v5_613" type="Sprite2D" parent="st4" unique_id=1678498619]
+[node name="backpack_v5_613" type="Sprite2D" parent="Thing5" unique_id=1678498619]
 position = Vector2(93.75, 57.9)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("28_uqgat")
 centered = false
-metadata/tex_key = "backpack_v5:613"
 
-[node name="backpack_v5_618" type="Sprite2D" parent="st4" unique_id=1929863995]
+[node name="backpack_v5_618" type="Sprite2D" parent="Thing5" unique_id=1929863995]
 position = Vector2(93.5, 66.9)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("29_v8cfp")
 centered = false
-metadata/tex_key = "backpack_v5:618"
 
-[node name="st3" type="Node2D" parent="." unique_id=2029858911]
+[node name="Thing4" type="Node2D" parent="." unique_id=2029858911]
+unique_name_in_owner = true
 position = Vector2(626.8, 242.95)
-metadata/ui_piece = ["st3"]
 
-[node name="backpack_v5_600" type="Sprite2D" parent="st3" unique_id=278348058]
+[node name="backpack_v5_600" type="Sprite2D" parent="Thing4" unique_id=278348058]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("25_piuc0")
 centered = false
-metadata/tex_key = "backpack_v5:600"
 
-[node name="backpack_v5_602" type="Sprite2D" parent="st3" unique_id=208802703]
+[node name="backpack_v5_602" type="Sprite2D" parent="Thing4" unique_id=208802703]
 position = Vector2(38.800003, 56.449997)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("26_57wlf")
 centered = false
-metadata/tex_key = "backpack_v5:602"
 
-[node name="txt_name" type="Label" parent="st3" unique_id=192815136]
+[node name="txt_name" type="Label" parent="Thing4" unique_id=192815136]
 offset_left = 81.0
 offset_top = 4.5
 offset_right = 171.65
@@ -561,24 +389,8 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 2
-metadata/rec = {
-"align": "right",
-"b": {
-"h": 22.85,
-"w": 90.65,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [-1.0, 18.0],
-"multiline": true,
-"size": 16.0,
-"text": "",
-"var": "",
-"wrap": true
-}
 
-[node name="txt_price" type="Label" parent="st3" unique_id=1195967143]
+[node name="txt_price" type="Label" parent="Thing4" unique_id=1195967143]
 offset_left = 81.0
 offset_top = 32.0
 offset_right = 172.65
@@ -588,31 +400,14 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 2
-metadata/rec = {
-"align": "right",
-"b": {
-"h": 22.85,
-"w": 91.65,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [-9.0, 29.0],
-"multiline": true,
-"size": 16.0,
-"text": "",
-"var": "",
-"wrap": true
-}
 
-[node name="backpack_v5_607" type="Sprite2D" parent="st3" unique_id=713995889]
+[node name="backpack_v5_607" type="Sprite2D" parent="Thing4" unique_id=713995889]
 position = Vector2(108.65, 53.45)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("27_0te1m")
 centered = false
-metadata/tex_key = "backpack_v5:607"
 
-[node name="txt_num" type="Label" parent="st3" unique_id=1465017575]
+[node name="txt_num" type="Label" parent="Thing4" unique_id=1465017575]
 offset_left = 69.75
 offset_top = 60.199997
 offset_right = 95.95
@@ -622,55 +417,35 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 13
 horizontal_alignment = 1
-metadata/rec = {
-"align": "center",
-"b": {
-"h": 19.3,
-"w": 26.2,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [1.5, 17.5],
-"multiline": true,
-"size": 13.0,
-"text": "",
-"var": "",
-"wrap": true
-}
 
-[node name="backpack_v5_613" type="Sprite2D" parent="st3" unique_id=1723763359]
+[node name="backpack_v5_613" type="Sprite2D" parent="Thing4" unique_id=1723763359]
 position = Vector2(93.75, 57.9)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("28_uqgat")
 centered = false
-metadata/tex_key = "backpack_v5:613"
 
-[node name="backpack_v5_618" type="Sprite2D" parent="st3" unique_id=204100846]
+[node name="backpack_v5_618" type="Sprite2D" parent="Thing4" unique_id=204100846]
 position = Vector2(93.5, 66.9)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("29_v8cfp")
 centered = false
-metadata/tex_key = "backpack_v5:618"
 
-[node name="st2" type="Node2D" parent="." unique_id=189092643]
+[node name="Thing3" type="Node2D" parent="." unique_id=189092643]
+unique_name_in_owner = true
 position = Vector2(439.8, 243.95)
-metadata/ui_piece = ["st2"]
 
-[node name="backpack_v5_600" type="Sprite2D" parent="st2" unique_id=908427794]
+[node name="backpack_v5_600" type="Sprite2D" parent="Thing3" unique_id=908427794]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("25_piuc0")
 centered = false
-metadata/tex_key = "backpack_v5:600"
 
-[node name="backpack_v5_602" type="Sprite2D" parent="st2" unique_id=1165021557]
+[node name="backpack_v5_602" type="Sprite2D" parent="Thing3" unique_id=1165021557]
 position = Vector2(38.800003, 56.449997)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("26_57wlf")
 centered = false
-metadata/tex_key = "backpack_v5:602"
 
-[node name="txt_name" type="Label" parent="st2" unique_id=1163964780]
+[node name="txt_name" type="Label" parent="Thing3" unique_id=1163964780]
 offset_left = 81.0
 offset_top = 4.5
 offset_right = 171.65
@@ -680,24 +455,8 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 2
-metadata/rec = {
-"align": "right",
-"b": {
-"h": 22.85,
-"w": 90.65,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [-1.0, 18.0],
-"multiline": true,
-"size": 16.0,
-"text": "",
-"var": "",
-"wrap": true
-}
 
-[node name="txt_price" type="Label" parent="st2" unique_id=1653192334]
+[node name="txt_price" type="Label" parent="Thing3" unique_id=1653192334]
 offset_left = 81.0
 offset_top = 32.0
 offset_right = 172.65
@@ -707,31 +466,14 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 2
-metadata/rec = {
-"align": "right",
-"b": {
-"h": 22.85,
-"w": 91.65,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [-9.0, 29.0],
-"multiline": true,
-"size": 16.0,
-"text": "",
-"var": "",
-"wrap": true
-}
 
-[node name="backpack_v5_607" type="Sprite2D" parent="st2" unique_id=485865951]
+[node name="backpack_v5_607" type="Sprite2D" parent="Thing3" unique_id=485865951]
 position = Vector2(108.65, 53.45)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("27_0te1m")
 centered = false
-metadata/tex_key = "backpack_v5:607"
 
-[node name="txt_num" type="Label" parent="st2" unique_id=284658068]
+[node name="txt_num" type="Label" parent="Thing3" unique_id=284658068]
 offset_left = 69.75
 offset_top = 60.199997
 offset_right = 95.95
@@ -741,55 +483,35 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 13
 horizontal_alignment = 1
-metadata/rec = {
-"align": "center",
-"b": {
-"h": 19.3,
-"w": 26.2,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [1.5, 17.5],
-"multiline": true,
-"size": 13.0,
-"text": "",
-"var": "",
-"wrap": true
-}
 
-[node name="backpack_v5_613" type="Sprite2D" parent="st2" unique_id=1979593863]
+[node name="backpack_v5_613" type="Sprite2D" parent="Thing3" unique_id=1979593863]
 position = Vector2(93.75, 57.9)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("28_uqgat")
 centered = false
-metadata/tex_key = "backpack_v5:613"
 
-[node name="backpack_v5_618" type="Sprite2D" parent="st2" unique_id=1477182303]
+[node name="backpack_v5_618" type="Sprite2D" parent="Thing3" unique_id=1477182303]
 position = Vector2(93.5, 66.9)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("29_v8cfp")
 centered = false
-metadata/tex_key = "backpack_v5:618"
 
-[node name="st1" type="Node2D" parent="." unique_id=1724230895]
+[node name="Thing2" type="Node2D" parent="." unique_id=1724230895]
+unique_name_in_owner = true
 position = Vector2(626.8, 146.95)
-metadata/ui_piece = ["st1"]
 
-[node name="backpack_v5_600" type="Sprite2D" parent="st1" unique_id=156963492]
+[node name="backpack_v5_600" type="Sprite2D" parent="Thing2" unique_id=156963492]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("25_piuc0")
 centered = false
-metadata/tex_key = "backpack_v5:600"
 
-[node name="backpack_v5_602" type="Sprite2D" parent="st1" unique_id=264614630]
+[node name="backpack_v5_602" type="Sprite2D" parent="Thing2" unique_id=264614630]
 position = Vector2(38.800003, 56.449997)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("26_57wlf")
 centered = false
-metadata/tex_key = "backpack_v5:602"
 
-[node name="txt_name" type="Label" parent="st1" unique_id=228667111]
+[node name="txt_name" type="Label" parent="Thing2" unique_id=228667111]
 offset_left = 81.0
 offset_top = 4.5
 offset_right = 171.65
@@ -799,24 +521,8 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 2
-metadata/rec = {
-"align": "right",
-"b": {
-"h": 22.85,
-"w": 90.65,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [-1.0, 18.0],
-"multiline": true,
-"size": 16.0,
-"text": "",
-"var": "",
-"wrap": true
-}
 
-[node name="txt_price" type="Label" parent="st1" unique_id=1667437377]
+[node name="txt_price" type="Label" parent="Thing2" unique_id=1667437377]
 offset_left = 81.0
 offset_top = 32.0
 offset_right = 172.65
@@ -826,31 +532,14 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 2
-metadata/rec = {
-"align": "right",
-"b": {
-"h": 22.85,
-"w": 91.65,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [-9.0, 29.0],
-"multiline": true,
-"size": 16.0,
-"text": "",
-"var": "",
-"wrap": true
-}
 
-[node name="backpack_v5_607" type="Sprite2D" parent="st1" unique_id=400421574]
+[node name="backpack_v5_607" type="Sprite2D" parent="Thing2" unique_id=400421574]
 position = Vector2(108.65, 53.45)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("27_0te1m")
 centered = false
-metadata/tex_key = "backpack_v5:607"
 
-[node name="txt_num" type="Label" parent="st1" unique_id=879041620]
+[node name="txt_num" type="Label" parent="Thing2" unique_id=879041620]
 offset_left = 69.75
 offset_top = 60.199997
 offset_right = 95.95
@@ -860,55 +549,35 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 13
 horizontal_alignment = 1
-metadata/rec = {
-"align": "center",
-"b": {
-"h": 19.3,
-"w": 26.2,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [1.5, 17.5],
-"multiline": true,
-"size": 13.0,
-"text": "",
-"var": "",
-"wrap": true
-}
 
-[node name="backpack_v5_613" type="Sprite2D" parent="st1" unique_id=746227133]
+[node name="backpack_v5_613" type="Sprite2D" parent="Thing2" unique_id=746227133]
 position = Vector2(93.75, 57.9)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("28_uqgat")
 centered = false
-metadata/tex_key = "backpack_v5:613"
 
-[node name="backpack_v5_618" type="Sprite2D" parent="st1" unique_id=1548575463]
+[node name="backpack_v5_618" type="Sprite2D" parent="Thing2" unique_id=1548575463]
 position = Vector2(93.5, 66.9)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("29_v8cfp")
 centered = false
-metadata/tex_key = "backpack_v5:618"
 
-[node name="st0" type="Node2D" parent="." unique_id=380433880]
+[node name="Thing1" type="Node2D" parent="." unique_id=380433880]
+unique_name_in_owner = true
 position = Vector2(439.8, 146.95)
-metadata/ui_piece = ["st0"]
 
-[node name="backpack_v5_600" type="Sprite2D" parent="st0" unique_id=24449538]
+[node name="backpack_v5_600" type="Sprite2D" parent="Thing1" unique_id=24449538]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("25_piuc0")
 centered = false
-metadata/tex_key = "backpack_v5:600"
 
-[node name="backpack_v5_602" type="Sprite2D" parent="st0" unique_id=117655735]
+[node name="backpack_v5_602" type="Sprite2D" parent="Thing1" unique_id=117655735]
 position = Vector2(38.800003, 56.449997)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("26_57wlf")
 centered = false
-metadata/tex_key = "backpack_v5:602"
 
-[node name="txt_name" type="Label" parent="st0" unique_id=1522595278]
+[node name="txt_name" type="Label" parent="Thing1" unique_id=1522595278]
 offset_left = 81.0
 offset_top = 4.5
 offset_right = 171.65
@@ -918,24 +587,8 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 2
-metadata/rec = {
-"align": "right",
-"b": {
-"h": 22.85,
-"w": 90.65,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [-1.0, 18.0],
-"multiline": true,
-"size": 16.0,
-"text": "",
-"var": "",
-"wrap": true
-}
 
-[node name="txt_price" type="Label" parent="st0" unique_id=681543234]
+[node name="txt_price" type="Label" parent="Thing1" unique_id=681543234]
 offset_left = 81.0
 offset_top = 32.0
 offset_right = 172.65
@@ -945,31 +598,14 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 2
-metadata/rec = {
-"align": "right",
-"b": {
-"h": 22.85,
-"w": 91.65,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [-9.0, 29.0],
-"multiline": true,
-"size": 16.0,
-"text": "",
-"var": "",
-"wrap": true
-}
 
-[node name="backpack_v5_607" type="Sprite2D" parent="st0" unique_id=1649180499]
+[node name="backpack_v5_607" type="Sprite2D" parent="Thing1" unique_id=1649180499]
 position = Vector2(108.65, 53.45)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("27_0te1m")
 centered = false
-metadata/tex_key = "backpack_v5:607"
 
-[node name="txt_num" type="Label" parent="st0" unique_id=1200919778]
+[node name="txt_num" type="Label" parent="Thing1" unique_id=1200919778]
 offset_left = 69.75
 offset_top = 60.199997
 offset_right = 95.95
@@ -979,38 +615,21 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 13
 horizontal_alignment = 1
-metadata/rec = {
-"align": "center",
-"b": {
-"h": 19.3,
-"w": 26.2,
-"x": -2.0,
-"y": -2.0
-},
-"color": "#ffffff",
-"fit": [1.5, 17.5],
-"multiline": true,
-"size": 13.0,
-"text": "",
-"var": "",
-"wrap": true
-}
 
-[node name="backpack_v5_613" type="Sprite2D" parent="st0" unique_id=734961302]
+[node name="backpack_v5_613" type="Sprite2D" parent="Thing1" unique_id=734961302]
 position = Vector2(93.75, 57.9)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("28_uqgat")
 centered = false
-metadata/tex_key = "backpack_v5:613"
 
-[node name="backpack_v5_618" type="Sprite2D" parent="st0" unique_id=419313743]
+[node name="backpack_v5_618" type="Sprite2D" parent="Thing1" unique_id=419313743]
 position = Vector2(93.5, 66.9)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("29_v8cfp")
 centered = false
-metadata/tex_key = "backpack_v5:618"
 
-[node name="btn_back" parent="." unique_id=246183202 instance=ExtResource("set_btn")]
+[node name="BtnBack" parent="." unique_id=246183202 instance=ExtResource("set_btn")]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 836.0
 offset_top = 8.0
@@ -1018,146 +637,123 @@ offset_right = 940.0
 offset_bottom = 40.0
 theme_override_font_sizes/font_size = 20
 text = "返 回"
-metadata/ui_piece = ["btn_back"]
-metadata/ui_button = "btn_back"
 
 [node name="Art5" type="Node2D" parent="." unique_id=1547711047]
 
 [node name="Art" type="Node2D" parent="Art5" unique_id=728887503]
 
 [node name="SpotLight" parent="Art5/Art" unique_id=1644770074 instance=ExtResource("bag_glow")]
+unique_name_in_owner = true
 position = Vector2(256.58, 271.73)
-metadata/ui_piece = ["spotlight"]
 
-[node name="personmc" type="Node2D" parent="." unique_id=966996136]
+[node name="Person" type="Node2D" parent="." unique_id=966996136]
+unique_name_in_owner = true
 position = Vector2(255.2, 282)
-metadata/labels = {
-"八戒": 2.0,
-"唐僧": 1.0,
-"孙悟空": 0.0
-}
-metadata/ui_piece = ["personmc"]
 
-[node name="孙悟空" type="Node2D" parent="personmc" unique_id=1673944294]
+[node name="Wukong" type="Node2D" parent="Person" unique_id=1673944294]
 
-[node name="backpack_v5_694" type="Sprite2D" parent="personmc/孙悟空" unique_id=1226461800]
+[node name="backpack_v5_694" type="Sprite2D" parent="Person/Wukong" unique_id=1226461800]
 position = Vector2(-26.4, -9.25)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("35_owbao")
 centered = false
-metadata/tex_key = "backpack_v5:694"
 
-[node name="backpack_v5_695" type="Sprite2D" parent="personmc/孙悟空" unique_id=321675469]
+[node name="backpack_v5_695" type="Sprite2D" parent="Person/Wukong" unique_id=321675469]
 position = Vector2(-7.9520016, 4.4615)
 rotation = 2.6510458
 scale = Vector2(0.4988236, 0.4988236)
 texture = ExtResource("36_6qsi8")
 centered = false
-metadata/tex_key = "backpack_v5:695"
 
-[node name="backpack_v5_162" type="Sprite2D" parent="personmc/孙悟空" unique_id=451099848]
+[node name="backpack_v5_162" type="Sprite2D" parent="Person/Wukong" unique_id=451099848]
 position = Vector2(-19.550001, 25.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("37_ongk7")
 centered = false
-metadata/tex_key = "backpack_v5:162"
 
-[node name="backpack_v5_703" type="Sprite2D" parent="personmc/孙悟空" unique_id=1939641384]
+[node name="backpack_v5_703" type="Sprite2D" parent="Person/Wukong" unique_id=1939641384]
 position = Vector2(-16.800001, -22.650002)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("38_qx4t0")
 centered = false
-metadata/tex_key = "backpack_v5:703"
 
-[node name="backpack_v5_216" type="Sprite2D" parent="personmc/孙悟空" unique_id=1401791791]
+[node name="backpack_v5_216" type="Sprite2D" parent="Person/Wukong" unique_id=1401791791]
 position = Vector2(3.8000002, -12.1)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("39_x6d2s")
 centered = false
-metadata/tex_key = "backpack_v5:216"
 
-[node name="backpack_v5_720" type="Sprite2D" parent="personmc/孙悟空" unique_id=255999174]
+[node name="backpack_v5_720" type="Sprite2D" parent="Person/Wukong" unique_id=255999174]
 position = Vector2(47.9855, -29.663498)
 rotation = 2.740643
 scale = Vector2(0.49962485, 0.49962485)
 texture = ExtResource("40_aoc0n")
 centered = false
-metadata/tex_key = "backpack_v5:720"
 
-[node name="backpack_v5_726" type="Sprite2D" parent="personmc/孙悟空" unique_id=1530734200]
+[node name="backpack_v5_726" type="Sprite2D" parent="Person/Wukong" unique_id=1530734200]
 position = Vector2(14.321499, 2.1520004)
 rotation = 0.5450997
 scale = Vector2(0.549659, 0.549659)
 texture = ExtResource("41_3p5xc")
 centered = false
-metadata/tex_key = "backpack_v5:726"
 
-[node name="backpack_v5_731" type="Sprite2D" parent="personmc/孙悟空" unique_id=1936673089]
+[node name="backpack_v5_731" type="Sprite2D" parent="Person/Wukong" unique_id=1936673089]
 position = Vector2(-30.4, -48.25)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("42_frdpc")
 centered = false
-metadata/tex_key = "backpack_v5:731"
 
-[node name="唐僧" type="Node2D" parent="personmc" unique_id=296761828]
+[node name="Tangseng" type="Node2D" parent="Person" unique_id=296761828]
 visible = false
 
-[node name="backpack_v5_291" type="Sprite2D" parent="personmc/唐僧" unique_id=1643031810]
+[node name="backpack_v5_291" type="Sprite2D" parent="Person/Tangseng" unique_id=1643031810]
 position = Vector2(-17.900002, -14.349999)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("43_d5w6u")
 centered = false
-metadata/tex_key = "backpack_v5:291"
 
-[node name="backpack_v5_776" type="Sprite2D" parent="personmc/唐僧" unique_id=583913680]
+[node name="backpack_v5_776" type="Sprite2D" parent="Person/Tangseng" unique_id=583913680]
 position = Vector2(-42.399998, 4.050001)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("44_8d560")
 centered = false
-metadata/tex_key = "backpack_v5:776"
 
-[node name="backpack_v5_785" type="Sprite2D" parent="personmc/唐僧" unique_id=1742560786]
+[node name="backpack_v5_785" type="Sprite2D" parent="Person/Tangseng" unique_id=1742560786]
 position = Vector2(-20.1, -22.05)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("45_86akt")
 centered = false
-metadata/tex_key = "backpack_v5:785"
 
-[node name="backpack_v5_801" type="Sprite2D" parent="personmc/唐僧" unique_id=2066145054]
+[node name="backpack_v5_801" type="Sprite2D" parent="Person/Tangseng" unique_id=2066145054]
 position = Vector2(-27.050001, -46.55)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("46_5nic7")
 centered = false
-metadata/tex_key = "backpack_v5:801"
 
-[node name="八戒" type="Node2D" parent="personmc" unique_id=1280014214]
+[node name="Bajie" type="Node2D" parent="Person" unique_id=1280014214]
 visible = false
 
-[node name="backpack_v5_367" type="Sprite2D" parent="personmc/八戒" unique_id=686404398]
+[node name="backpack_v5_367" type="Sprite2D" parent="Person/Bajie" unique_id=686404398]
 position = Vector2(-27.75, -3.4)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("47_8ha52")
 centered = false
-metadata/tex_key = "backpack_v5:367"
 
-[node name="backpack_v5_809" type="Sprite2D" parent="personmc/八戒" unique_id=722681109]
+[node name="backpack_v5_809" type="Sprite2D" parent="Person/Bajie" unique_id=722681109]
 position = Vector2(-45.869, -42.494003)
 rotation = -0.019997334
 scale = Vector2(0.50009996, 0.50009996)
 texture = ExtResource("48_s1viv")
 centered = false
-metadata/tex_key = "backpack_v5:809"
 
-[node name="backpack_v5_375" type="Sprite2D" parent="personmc/八戒" unique_id=230944512]
+[node name="backpack_v5_375" type="Sprite2D" parent="Person/Bajie" unique_id=230944512]
 position = Vector2(-22.9, -13.45)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("49_taw4v")
 centered = false
-metadata/tex_key = "backpack_v5:375"
 
-[node name="backpack_v5_415" type="Sprite2D" parent="personmc/八戒" unique_id=700482023]
+[node name="backpack_v5_415" type="Sprite2D" parent="Person/Bajie" unique_id=700482023]
 position = Vector2(-35.6, -56.5)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("50_jrabd")
 centered = false
-metadata/tex_key = "backpack_v5:415"
