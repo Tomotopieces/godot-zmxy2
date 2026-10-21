@@ -1,16 +1,10 @@
 extends MonsterBrain
 ## Monster68, 五官王's ghost turret: never walks, its attacks can't be interrupted, and it fades away after a while.
 
-var _life := 0.0
-
 func setup() -> void:
-	_life = float(param("life", 15.0))
+	Timers.start(m, float(param("life", 15.0)), m.vanish)
 
 func think(delta: float) -> void:
-	_life -= delta
-	if _life <= 0.0:
-		m.vanish()
-		return
 	super(delta)
 	m.velocity.x = 0.0
 

@@ -6,8 +6,7 @@ extends StageScript
 var _cfg: Dictionary
 var _boss: Monster
 var _fires: Array[Puppet] = []
-var _t := -1.0
-var _lose_t := -1.0
+var _countdown: Timer   ## one fire goes out every fire_out s (runs from the first arrival until 判官 dies)
 
 func setup() -> void:
 	_cfg = param("panguan", {})
@@ -36,13 +35,13 @@ func _light_fires() -> void:
 func _start_fight() -> void:
 	if is_instance_valid(_boss):
 		_boss.brain.real_start()
-	_t = float(_cfg.fire_out)
+	_countdown = Timers.start(self, float(_cfg.fire_out), _fire_out, true)
 
 ## 判官 died: the countdown stops and every remaining 命灯 — burning or still flying to its brazier — fades out
 ## (over `fade`) and is freed, so no fire is left on screen.
 func _douse_fires() -> void:
-	_t = -1.0
-	_lose_t = -1.0
+	if is_instance_valid(_countdown):
+		_countdown.queue_free()   # (also the lose delay, which runs on the same timer)
 	for f: Puppet in _fires:
 		if not is_instance_valid(f):
 			continue
@@ -55,23 +54,14 @@ func _douse_fires() -> void:
 		tw.tween_callback(f.queue_free)
 	_fires.clear()
 
-func _physics_process(delta: float) -> void:
-	if _fires.is_empty() and _t < 0.0:
+func _physics_process(_delta: float) -> void:
+	if _fires.is_empty() and not is_instance_valid(_countdown):
 		return   # nothing is burning and no countdown runs (the fires did not leave 判官 yet, or are all out)
 	if not is_instance_valid(_boss) or _boss.state == Monster.State.DEAD:
 		_douse_fires()
-		return
-	if _t < 0.0 and _lose_t < 0.0:
-		return   # the fires are still flying to their braziers: the countdown starts when the first one arrives (_start_fight)
-	if _lose_t >= 0.0:
-		_lose_t -= delta
-		if _lose_t < 0.0:
-			level.fail()
-		return
-	_t -= delta
-	if _t > 0.0:
-		return
-	_t = float(_cfg.fire_out)
+
+## The countdown: the oldest fire goes out; after the last one the stage is lost lose_after later.
+func _fire_out() -> void:
 	var f: Puppet = _fires.pop_front()
 	if f:
 		var pos := f.position
@@ -81,4 +71,7 @@ func _physics_process(delta: float) -> void:
 			f.queue_free()
 			place_puppet("panguan_fire_out", pos))
 	if _fires.is_empty():
-		_lose_t = float(_cfg.lose_after)
+		_countdown.timeout.disconnect(_fire_out)
+		_countdown.timeout.connect(level.fail)
+		_countdown.one_shot = true
+		_countdown.start(float(_cfg.lose_after))

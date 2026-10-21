@@ -8,21 +8,21 @@ const ORB := "monster38bullet2_2"
 const BOMB := "monster38bullet2_3"
 const EXPLODE := "bullet2explode"
 
-var _link := 0.0
 var _orbs: Array[Projectile] = []
 
 func setup() -> void:
-	_link = float(param("link_first", 10.0))
+	# the link timer runs on, even while he is hurt
+	Timers.start(m, float(param("link_first", 10.0)), func():
+		_link_heroes()
+		Timers.start(m, float(param("link_every", 15.0)), _link_heroes, true))
+
+func _link_heroes() -> void:
+	for h: Hero in m.world.heroes():
+		if h.is_alive():
+			h.add_debuff(&"deadlink", float(param("link_time", 5.0)))
 
 func think(delta: float) -> void:
 	var tick := tick_check(delta)   # (the original's `count % 24`, free-running)
-	# the link timer runs on every tick, even while hurt
-	_link -= delta
-	if _link <= 0.0:
-		_link = float(param("link_every", 15.0))
-		for h: Hero in m.world.heroes():
-			if h.is_alive():
-				h.add_debuff(&"deadlink", float(param("link_time", 5.0)))
 	if m.state != Monster.State.MOVE:
 		return
 	if not ensure_target(delta):

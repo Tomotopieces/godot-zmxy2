@@ -30,12 +30,9 @@ func _ready() -> void:
 	add_child(puppet)
 	puppet.event.connect(_on_event)
 	puppet.play(&"walk")
+	Timers.start(self, life, func(): if not _busy: queue_free())   # (a cast in progress frees it when it ends)
 
 func _physics_process(delta: float) -> void:
-	life -= delta
-	if life <= 0.0 and not _busy:
-		queue_free()
-		return
 	velocity.x = 0.0 if _busy else facing * speed
 	velocity.y += hero.data.gravity * delta
 	move_and_slide()

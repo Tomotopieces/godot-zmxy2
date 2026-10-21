@@ -4,7 +4,6 @@ extends MonsterBrain
 ## ready, else hit1. Clones are plain copies (not bosses) and die with the original.
 
 var _split_left := 20
-var _clone_life := 0.0
 var clones: Array[Monster] = []
 
 func setup() -> void:
@@ -16,15 +15,10 @@ func setup() -> void:
 		m.data.exp = 0
 		m.data.equip_drops = PackedStringArray()   # only the real one drops the 蝎之印记
 		m.data.stone_rate = 0.0
-		_clone_life = float(param("clone_life", 20.0))
+		Timers.start(m, float(param("clone_life", 20.0)), func(): m.damage_directly(999999))
 
 func think(delta: float) -> void:
 	var tick := tick_check(delta)   # (the original's `count % 24`, free-running)
-	if _clone_life > 0.0:
-		_clone_life -= delta
-		if _clone_life <= 0.0:
-			m.damage_directly(999999)
-			return
 	if m.is_attacking() or m.state == Monster.State.DEAD or m.is_hurt():
 		return
 	if _split_left <= 0:

@@ -53,11 +53,10 @@ var _hit10_land := false   ## 火魔斩's animation has run out while he is stil
 var _lock_count := 0
 var _last_hurt_at := -100.0
 var _rage_t := 0.0
-var _drop_t := 0.0
 var debuffs := HeroDebuffs.new()   ## status effects set by monsters
 var _poison := [0.0, 1.0, 0.0]   ## power, tick (s), elapsed
 var held_by: Node = null   ## grabbed (setStatic + setLostKeyboard by a monster): no input, no own movement
-var _lock_glow := 0.0   ## anti-lock protection time left
+var _lock_glow := false   ## the anti-lock protection runs
 var treasure: Treasure  ## worn magic treasure following the hero (H)
 var controls_locked := false   ## stage over: no more input
 
@@ -147,10 +146,6 @@ func _physics_process(delta: float) -> void:
 		if _poison[2] >= _poison[1]:
 			_poison[2] = 0.0
 			lose_hp(int(_poison[0]))
-	if _drop_t > 0.0:
-		_drop_t -= delta
-		if _drop_t <= 0.0:
-			collision_mask |= LAYER_ONEWAY
 	if held_by != null and not is_instance_valid(held_by):
 		held_by = null
 	if state != State.DEAD and not input_locked():
@@ -312,7 +307,7 @@ func _try_drop_through() -> bool:
 		var c := get_slide_collision(i).get_collider()
 		if c is CollisionObject2D and c.collision_layer & LAYER_ONEWAY:
 			collision_mask &= ~LAYER_ONEWAY
-			_drop_t = DROP_THROUGH_TIME
+			Timers.start(self, DROP_THROUGH_TIME, func(): collision_mask |= LAYER_ONEWAY)
 			position.y += data.drop_through
 			jump_count = 1
 			puppet.play(&"jump1")
@@ -664,7 +659,8 @@ func _count_lock() -> void:
 	if _lock_count >= data.lock_hits:
 		_lock_count = 0
 		invincible = data.lock_invincible
-		_lock_glow = data.lock_invincible
+		_lock_glow = true
+		Timers.start(self, data.lock_invincible, func(): _lock_glow = false)
 
 ## 孟婆's magiclost: every px the hero moves sideways costs MAGICLOST_MP_PER_PX MP (BaseAddEffect: speed.x * 2 a frame).
 const MAGICLOST_MP_PER_PX := 2.0
@@ -816,10 +812,8 @@ func _update_tint(delta: float) -> void:
 	if state != State.DEAD:
 		if transformed:
 			color = Color.WHITE
-		elif _lock_glow > 0.0 or invincible > 0.0:
+		elif _lock_glow or invincible > 0.0:
 			color = GLOW_COLORS.get(data.sound_prefix, Color.WHITE)
-	if _lock_glow > 0.0:
-		_lock_glow -= delta
 	if color.a == 0.0:
 		if _glow_puppet != null:
 			_glow_puppet.visible = false

@@ -4,24 +4,23 @@ extends MonsterBrain
 ##   heal:   every monster heals `amount`
 ##   drain:  every hero loses `amount` (ignores defence)
 
-var _t := 0.0
 var _next := 0
 
 func setup() -> void:
-	_t = float(param("first", param("every", 1.0)))
+	Timers.start(m, float(param("first", param("every", 1.0))), func():
+		_act()
+		Timers.start(m, float(param("every", 1.0)), _act, true))
 
 func custom_animation() -> bool:
 	m.puppet.play(&"wait")
 	return true
 
-func think(delta: float) -> void:
+func think(_delta: float) -> void:
 	m.velocity.x = 0.0
+
+func _act() -> void:
 	if m.state == Monster.State.DEAD:
 		return
-	_t -= delta
-	if _t > 0.0:
-		return
-	_t = float(param("every", 1.0))
 	match String(param("effect", "")):
 		"summon":
 			if m.world.monsters().size() < Layers.MAX_MONSTERS:

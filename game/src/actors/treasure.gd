@@ -21,7 +21,6 @@ var facing := -1:
 		if puppet:
 			puppet.scale.x = -facing
 
-var _follow_t := 0.0
 var _move: Tween
 
 static func create(h: Hero, it: Item) -> Treasure:
@@ -43,6 +42,8 @@ func _ready() -> void:
 	facing = hero.facing
 	global_position = home()
 	reset_physics_interpolation()
+	_follow()
+	Timers.start(self, hero.data.treasures.follow, _follow, true)   # it catches up with the hero at this cadence
 	setup()
 
 func level() -> int:
@@ -80,13 +81,12 @@ func _physics_process(delta: float) -> void:
 	if not is_instance_valid(hero):
 		queue_free()
 		return
-	_follow_t -= delta
-	if _follow_t <= 0.0:
-		_follow_t = hero.data.treasures.follow
-		if follows():
-			facing = hero.facing
-			move_to(home(), hero.data.treasures.follow_tween)
 	step(delta)
+
+func _follow() -> void:
+	if is_instance_valid(hero) and follows():
+		facing = hero.facing
+		move_to(home(), hero.data.treasures.follow_tween)
 
 func move_to(pos: Vector2, seconds: float, done := Callable()) -> void:
 	if _move:

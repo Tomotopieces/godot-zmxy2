@@ -18,7 +18,7 @@ var invuln := 0.0             ## immune to all damage (setYourFather)
 var super_armor := false      ## hits do not interrupt (no hurt state / knockback)
 var cds := {}                 ## named cooldowns (s), counted down every tick
 var summoner: Monster         ## the monster that created this one
-var _hp_bar_t := 0.0
+var _hp_bar_fade: Tween
 var _hp_bar: Node2D
 var _vanishing := false
 
@@ -68,14 +68,17 @@ func _update_debug_glow() -> void:
 		if sp.material != _debug_glow_mat:
 			sp.material = _debug_glow_mat
 
-var _stun_t := 0.0
+var _stun: Timer   ## runs while stunned
 var _stun_fx: Puppet
 
 ## 眩晕 (BaseAddEffect "stun"): the monster stands still, no AI, no attacks.
 func stun(seconds: float) -> void:
 	if state == State.DEAD or data.is_prop:
 		return
-	_stun_t = maxf(_stun_t, seconds)
+	if _stun == null:
+		_stun = Timers.start(self, seconds, _end_stun)
+	elif _stun.time_left < seconds:
+		_stun.start(seconds)
 	if state == State.ATTACK or state == State.HURT:
 		end_attack()
 		state = State.MOVE
@@ -87,6 +90,24 @@ func stun(seconds: float) -> void:
 		add_child(_stun_fx)
 		_stun_fx.play(_stun_fx.actions[0])
 		_stun_fx.action_finished.connect(func(a): _stun_fx.play(a, true))
+
+## The HP bar shows for a while after a hit, then fades out.
+func _show_hp_bar() -> void:
+	_hp_bar.visible = true
+	_hp_bar.modulate.a = 1.0
+	_hp_bar.queue_redraw()
+	if _hp_bar_fade:
+		_hp_bar_fade.kill()
+	_hp_bar_fade = create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
+	_hp_bar_fade.tween_interval(maxf(data.hp_bar_time - data.hp_bar_fade, 0.0))
+	_hp_bar_fade.tween_property(_hp_bar, "modulate:a", 0.0, minf(data.hp_bar_fade, data.hp_bar_time))
+	_hp_bar_fade.tween_callback(_hp_bar.hide)
+
+func _end_stun() -> void:
+	_stun = null
+	if _stun_fx:
+		_stun_fx.queue_free()
+		_stun_fx = null
 
 func can_be_hit() -> bool:
 	return state != State.DEAD and invuln <= 0.0 and brain.can_be_hit()
@@ -100,22 +121,14 @@ func _physics_process(delta: float) -> void:
 		_update_debug_glow()
 	for k in cds:
 		cds[k] = maxf(cds[k] - delta, 0.0)
-	if _hp_bar_t > 0.0:
-		_hp_bar_t -= delta
-		_hp_bar.modulate.a = clampf(_hp_bar_t / data.hp_bar_fade, 0.0, 1.0)
-		_hp_bar.visible = _hp_bar_t > 0.0
 	if target and not target.is_alive():
 		target = null
 	_tick_poison(delta)
-	if _stun_t > 0.0:
-		_stun_t -= delta
+	if _stun != null:
 		velocity.x = 0.0
-		if _stun_t <= 0.0 and _stun_fx:
-			_stun_fx.queue_free()
-			_stun_fx = null
 	elif state != State.DEAD:
 		brain.think(delta)
-	if _stun_t <= 0.0:
+	if _stun == null:
 		_apply_motion(delta)
 	if not fly:
 		apply_gravity(delta)
@@ -261,9 +274,7 @@ func hurt_directly(amount: int) -> void:
 	DamageNumber.spawn("hurtnum", amount, Vector2(global_position.x - 20, hurt_rect().position.y), 20.0)
 	damage_directly(amount)
 	if not data.is_prop and not data.is_boss:
-		_hp_bar_t = data.hp_bar_time
-		_hp_bar.visible = true
-		_hp_bar.queue_redraw()
+		_show_hp_bar()
 
 func heal(amount: int) -> void:
 	hp = mini(hp + amount, max_hp)
@@ -372,9 +383,7 @@ func take_hit(h: Hit) -> bool:
 	if not data.is_prop:
 		DamageNumber.spawn("bnum" if h.crit else "hurtnum", dmg,
 			Vector2(global_position.x - 20, hurt_rect().position.y), 16.0 if h.crit else 20.0)
-		_hp_bar_t = data.hp_bar_time
-		_hp_bar.visible = true
-		_hp_bar.queue_redraw()
+		_show_hp_bar()
 	brain.on_hit(h, dmg)
 	if hp <= 0:
 		_die()
