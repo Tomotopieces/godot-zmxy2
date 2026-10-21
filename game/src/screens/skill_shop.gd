@@ -1,17 +1,18 @@
 class_name SkillShop
 extends CanvasLayer
-## Skill learning panel (export.shop.SkillControl): active page buys Wukong's five skills with souls,
-## passive page levels the five passive skills. Opened from the map (showBuySkill) or in a stage (V / btn_study).
+## Skill learning panel (export.shop.SkillControl): the active page (ActiveSkillPanel) buys the hero's five skills with
+## souls, the passive page (PassiveSkillPanel) levels the five passive skills. Both are tables in the scene: one
+## column per field, row i = skill i. Opened from the map (showBuySkill) or in a stage (V / btn_study).
 
-const PASSIVE := ["instrmc/pskill1", "instrmc/pskill2", "instrmc/pskill3", "instrmc/pskill4", "instrmc/pskill5"]
-const PASSIVE_FRAME := 3              ## instrmc frame of the passive page
+const HEROES := ["Wukong", "Tangseng", "Bajie"]   ## ActiveSkillPanel/Skills child per role_index
 const PASSIVE_NAME := {"hp": "热血", "mp": "魔泉", "crit": "狂暴", "hp_regen": "光之永恒", "mp_regen": "月之辉煌"}
 const STAT_FORMAT := {"hp": "生命上限 +%d", "mp": "魔法上限 +%d", "crit": "暴击 +%d%%", "hp_regen": "每秒回血 +%d", "mp_regen": "每秒回魔 +%d"}
 
 var _ui: UiLayout
-var _active: Array[String] = []   ## the five skill icons of this hero's page
-var _active_hits: Array[Control] = []
-var _passive_rows: Array[UiLayout] = []
+var _active: Array[Button] = []   ## the five skill icons of this hero's table (normal = not learned, disabled = learned)
+var _table: Node2D               ## this hero's table (names, icons, keys, descriptions)
+var _passive: Node2D             ## PassiveSkillPanel/Skills
+var _upgrades: Array[Button] = []
 
 func _ready() -> void:
 	layer = 12
@@ -32,48 +33,54 @@ func _ready() -> void:
 	add_child(back)
 	_ui = UiLayout.create("skill_control")
 	add_child(_ui)
+	_table = _ui.get_node("ActiveSkillPanel/Skills/" + HEROES[role])
+	var costs := _ui.get_node("ActiveSkillPanel/Requirements")
 	for i in 5:
-		_active.append("instrmc/skill%d@%d" % [i + 1, role])
-		_active_hits.append(_ui.make_clickable(_active[i]))
-	# passive rows: the nested PassiveSkill clip keeps the row's frame; a passive_skill row on top provides the name,
-	# the texts and the upgrade button
-	for i in PASSIVE.size():
-		_ui.show_frame(PASSIVE[i], i)
-		var row := UiLayout.create("passive_skill")
-		row.hide_unnamed()
-		row.set_text("name", PASSIVE_NAME[GameState.hero_data.learn_passive[i]])
-		row.position = _ui.piece_position(PASSIVE[i]) - _ui.piece_position("instrmc")
-		row.button_pressed.connect(func(_b): _upgrade(i))
-		_ui.get_piece("instrmc").get_child(PASSIVE_FRAME).add_child(row)
-		_passive_rows.append(row)
+		var b: Button = _table.get_node("Icons/Skill%d/Button" % (i + 1))
+		b.focus_mode = Control.FOCUS_NONE
+		b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+		b.pressed.connect(_learn.bind(i))
+		PadNav.mark(b)
+		_active.append(b)
+		(costs.get_child(i) as Label).text = str(GameState.learn_cost(i))
+	_show_keys(false)
+	_passive = _ui.get_node("PassiveSkillPanel/Skills")
+	for i in 5:
+		_cell("Names", i).text = PASSIVE_NAME[GameState.hero_data.learn_passive[i]]
+		var b: Button = _passive.get_node("Upgrade/Skill%d" % (i + 1))
+		b.pressed.connect(_upgrade.bind(i))
+		PadNav.mark(b)
+		_upgrades.append(b)
 	_ui.button_pressed.connect(_on_button)
 	_show_page(false)
 	UiFade.fade_in(self)
 
 func _show_page(passive: bool) -> void:
-	_ui.show_frame("bgmc", 1 if passive else 0)
-	_ui.show_frame("instrmc", PASSIVE_FRAME if passive else GameState.hero_data.role_index)
-	for h in _active_hits:
-		h.visible = not passive
+	_ui.get_node("ActiveSkillPanel").visible = not passive
+	_ui.get_node("PassiveSkillPanel").visible = passive
+	for i in HEROES.size():
+		_table.get_parent().get_child(i).visible = i == GameState.hero_data.role_index
 	_refresh()
 
 func _refresh() -> void:
 	_ui.set_text("txtlh", str(GameState.souls))
 	for i in _active.size():
-		var learned := GameState.has_skill(StringName(GameState.hero_data.learn_active[i]))
-		_ui.show_frame(_active[i], 1 if learned else 0)
-	for i in _passive_rows.size():
-		var row := _passive_rows[i]
+		_active[i].disabled = GameState.has_skill(StringName(GameState.hero_data.learn_active[i]))
+	for i in 5:
 		var lv: int = GameState.passives[i]
 		var stat := GameState.hero_data.learn_passive[i]
 		var fmt: String = STAT_FORMAT[stat]
 		var scale := 100.0 if stat == "crit" else 1.0
-		row.set_text("curslevel", "%d级" % lv)
-		row.set_text("lastvalue", fmt % roundi(GameState.hero_data.passive_value(stat, lv) * scale) if lv > 0 else "-")
 		var maxed := lv >= GameState.hero_data.passive_max
-		row.set_text("attvalue", "已满级" if maxed else fmt % roundi(GameState.hero_data.passive_value(stat, lv + 1) * scale))
-		row.set_text("wantlh", "" if maxed else str(GameState.passive_cost(i)))
-		row.set_visible_piece("btn", not maxed)
+		_cell("Levels", i).text = "%d级" % lv
+		_cell("Effects", i).text = fmt % roundi(GameState.hero_data.passive_value(stat, lv) * scale) if lv > 0 else "-"
+		_cell("NextEffects", i).text = "已满级" if maxed else fmt % roundi(GameState.hero_data.passive_value(stat, lv + 1) * scale)
+		_cell("Requirements", i).text = "-" if maxed else str(GameState.passive_cost(i))
+		_upgrades[i].visible = not maxed
+
+## Row i of a passive-table column.
+func _cell(column: String, i: int) -> Label:
+	return _passive.get_node("%s/Skill%d" % [column, i + 1])
 
 func _on_button(b: String) -> void:
 	match b:
@@ -81,10 +88,22 @@ func _on_button(b: String) -> void:
 			_show_page(false)
 		"passivebtn":
 			_show_page(true)
-	var i := _active.find(b)
-	if i >= 0 and GameState.learn(i):
+
+func _learn(i: int) -> void:
+	if GameState.learn(i):
 		Snd.ui("SD_xz")
 		_refresh()
+
+## The key column follows the device last used: keyboard keys or pad buttons.
+func _show_keys(pad: bool) -> void:
+	_table.get_node("KeyboardInput").visible = not pad
+	_table.get_node("ControllerInput").visible = pad
+
+func _input(e: InputEvent) -> void:
+	if e is InputEventJoypadButton or (e is InputEventJoypadMotion and absf((e as InputEventJoypadMotion).axis_value) > 0.5):
+		_show_keys(true)
+	elif e is InputEventKey or e is InputEventMouseButton:
+		_show_keys(false)
 
 func _upgrade(i: int) -> void:
 	if GameState.upgrade_passive(i):
