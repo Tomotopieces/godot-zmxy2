@@ -20,8 +20,6 @@ func _item() -> Item:
 
 func _on_button(b: String) -> void:
 	match b:
-		"BtnClose":
-			TabMenu.close_of(self)
 		"BtnShengJi":
 			var it := _item()
 			var cost := Forge.upgrade_cost(it)

@@ -30,25 +30,8 @@
 [ext_resource type="Texture2D" uid="uid://664ckolebl81" path="res://assets/ui/sutra/tex/backpack_v5_545.png" id="28_126ha"]
 [ext_resource type="Texture2D" uid="uid://d3hgrk3mnl844" path="res://assets/ui/sutra/tex/backpack_v5_547.png" id="29_aakcr"]
 [ext_resource type="Texture2D" uid="uid://bj4333y66ksbq" path="res://assets/ui/sutra/tex/backpack_v5_549.png" id="30_ony7b"]
-[ext_resource type="Texture2D" uid="uid://c2ap1tvyjfcc0" path="res://assets/shared/ui/Common_v7_547.png" id="31_plfqd"]
-[ext_resource type="Texture2D" uid="uid://b5ggciq2dtt7d" path="res://assets/shared/ui/Common_v7_549.png" id="32_ad4e2"]
 [ext_resource type="PackedScene" uid="uid://bn7cu4s02f7m0" path="res://scenes/ui/backpack/stat.tscn" id="33_stat"]
 [ext_resource type="Texture2D" uid="uid://hre7amrwb0ik" path="res://assets/textures/purple_gradient.tres" id="purple_gradient"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btncloseUp0"]
-texture = ExtResource("31_plfqd")
-expand_margin_top = 2.0
-expand_margin_bottom = -2.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btncloseDown2"]
-texture = ExtResource("31_plfqd")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btncloseOver1"]
-texture = ExtResource("32_ad4e2")
-expand_margin_top = 2.0
-expand_margin_bottom = -2.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_btnfocus"]
 
 [node name="sutra" type="Control" unique_id=104091820]
 layout_mode = 3
@@ -451,18 +434,3 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 14
 
-[node name="BtnClose" type="Button" parent="." unique_id=957281849]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 709.9
-offset_top = 90.95
-offset_right = 749.9
-offset_bottom = 130.95
-focus_mode = 0
-mouse_default_cursor_shape = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_btncloseUp0")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_btncloseDown2")
-theme_override_styles/hover = SubResource("StyleBoxTexture_btncloseOver1")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btncloseDown2")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_btncloseUp0")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
