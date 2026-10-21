@@ -58,6 +58,7 @@ func _update_debug_glow() -> void:
 	if _debug_glow == null:
 		_debug_glow_mat = SpriteFx.glow_material(Color(1, 0.9, 0), 8.0, 1.5, true)
 		_debug_glow = Puppet.create(data.puppet)
+		_debug_glow.get_node("Body").free()   # (a picture only)
 		add_child(_debug_glow)
 		move_child(_debug_glow, puppet.get_index())   # behind the body
 		_debug_glow.play(puppet.action, true)

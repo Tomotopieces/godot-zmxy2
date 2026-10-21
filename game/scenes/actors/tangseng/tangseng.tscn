@@ -210,6 +210,9 @@ resource_local_to_scene = true
 resource_local_to_scene = true
 size = Vector2(45, 90)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_Body"]
+size = Vector2(45, 90)
+
 [node name="Tangseng" type="Node2D" unique_id=480453121]
 script = ExtResource("1_du3dg")
 actions = PackedStringArray("wait", "walk", "run", "hit1", "hit3", "hit4", "hit5", "hit2", "jump1", "jump2", "jump3", "hurt")
@@ -2981,3 +2984,7 @@ shape = SubResource("RectangleShape2D_s8snb")
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=1465190388]
 callback_mode_process = 0
 libraries/ = ExtResource("170_taced")
+
+[node name="Body" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -4.2)
+shape = SubResource("RectangleShape2D_Body")

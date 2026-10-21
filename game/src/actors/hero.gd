@@ -841,6 +841,7 @@ func _update_tint(delta: float) -> void:
 func _make_glow() -> void:
 	_glow_mat = SpriteFx.glow_material(Color.WHITE, GLOW_BLUR.x, GLOW_STRENGTH, true)
 	_glow_puppet = Puppet.create(data.puppet)
+	_glow_puppet.get_node("Body").free()   # (a picture only)
 	add_child(_glow_puppet)
 	move_child(_glow_puppet, puppet.get_index())   # behind the body
 	_glow_puppet.play(puppet.action, true)

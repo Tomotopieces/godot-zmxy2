@@ -57,6 +57,9 @@ resource_local_to_scene = true
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wcb20"]
 resource_local_to_scene = true
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_Body"]
+size = Vector2(40, 70)
+
 [node name="Monster59" type="Node2D" unique_id=267231347]
 script = ExtResource("1_5orot")
 actions = PackedStringArray("walk", "hurt", "hit1", "hit2", "wait", "dead")
@@ -252,3 +255,7 @@ disabled = true
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=813000542]
 callback_mode_process = 0
 libraries/ = ExtResource("16_fj8pn")
+
+[node name="Body" type="CollisionShape2D" parent="."]
+position = Vector2(0.3, -1)
+shape = SubResource("RectangleShape2D_Body")

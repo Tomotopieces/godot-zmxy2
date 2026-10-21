@@ -22,6 +22,5 @@ const Z_EFFECT := 3         ## projectiles and effects
 const Z_WATER := 4          ## the stage's water surface (3-1), drawn over whatever floats on it
 const Z_AURORA := 5         ## the aurora of 3-1, over the water
 const Z_NUMBER := 100       ## damage numbers
-const Z_DEBUG := 200        ## debug overlay
 const Z_TIP := 10           ## item tooltip over a screen
 const Z_TOAST := 50         ## notices

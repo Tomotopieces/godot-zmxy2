@@ -1010,10 +1010,6 @@ metadata/tex_key = "OtherMat_v10:287"
 
 [node name="wsmc" type="Node2D" parent="." unique_id=1743947666]
 position = Vector2(100, 559.55)
-metadata/ui_bar = {
-"empty": Vector2(219.67, -26.32),
-"full": Vector2(1.47, -26.32)
-}
 metadata/ui_piece = ["wsmc"]
 
 [node name="Art" type="Node2D" parent="wsmc" unique_id=698313208]
@@ -1025,22 +1021,16 @@ texture = ExtResource("23_ki2fs")
 centered = false
 metadata/tex_key = "OtherMat_v10:290"
 
-[node name="Clip" type="Control" parent="wsmc" unique_id=1290091104]
-clip_contents = true
-layout_mode = 3
-anchors_preset = 0
-offset_right = 481.1
-offset_bottom = 46.8
-mouse_filter = 2
-
-[node name="Content" type="Node2D" parent="wsmc/Clip" unique_id=1725363009]
-
-[node name="OtherMat_v10_293" type="Sprite2D" parent="wsmc/Clip/Content" unique_id=1641386558]
-position = Vector2(0, -4.5)
+[node name="Fill" type="TextureProgressBar" parent="wsmc" unique_id=900000001]
+offset_left = 0
+offset_top = -4.5
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("24_v0a76")
-centered = false
-metadata/tex_key = "OtherMat_v10:293"
+mouse_filter = 2
+max_value = 1.0
+step = 0.0
+value = 1.0
+fill_mode = 1
+texture_progress = ExtResource("24_v0a76")
 
 [node name="shows" type="Node2D" parent="." unique_id=1101100128]
 position = Vector2(39.9, 503.15)
@@ -1067,75 +1057,48 @@ metadata/tex_key = "OtherMat_v10:298"
 
 [node name="hpline" type="Node2D" parent="." unique_id=1843966145]
 position = Vector2(85.45, 16.3)
-metadata/ui_bar = {
-"empty": Vector2(-147.6, 0),
-"full": Vector2(-1.3, 0)
-}
 metadata/ui_piece = ["hpline"]
 
-[node name="Clip" type="Control" parent="hpline" unique_id=539732268]
-clip_contents = true
-layout_mode = 3
-anchors_preset = 0
-offset_right = 147.2
-offset_bottom = 12.1
-mouse_filter = 2
-
-[node name="Content" type="Node2D" parent="hpline/Clip" unique_id=2105048475]
-
-[node name="OtherMat_v10_305" type="Sprite2D" parent="hpline/Clip/Content" unique_id=1411452070]
+[node name="Fill" type="TextureProgressBar" parent="hpline" unique_id=900000002]
+offset_left = 0
+offset_top = 0
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("27_v416g")
-centered = false
-metadata/tex_key = "OtherMat_v10:305"
+mouse_filter = 2
+max_value = 1.0
+step = 0.0
+value = 1.0
+fill_mode = 0
+texture_progress = ExtResource("27_v416g")
 
 [node name="mpline" type="Node2D" parent="." unique_id=1048794590]
 position = Vector2(86.7, 35.1)
-metadata/ui_bar = {
-"empty": Vector2(-147.6, 0),
-"full": Vector2(-1.3, 0)
-}
 metadata/ui_piece = ["mpline"]
 
-[node name="Clip" type="Control" parent="mpline" unique_id=1418775483]
-clip_contents = true
-layout_mode = 3
-anchors_preset = 0
-offset_right = 147.2
-offset_bottom = 12.1
-mouse_filter = 2
-
-[node name="Content" type="Node2D" parent="mpline/Clip" unique_id=1728070235]
-
-[node name="OtherMat_v10_308" type="Sprite2D" parent="mpline/Clip/Content" unique_id=1007214009]
+[node name="Fill" type="TextureProgressBar" parent="mpline" unique_id=900000003]
+offset_left = 0
+offset_top = 0
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("28_y7ifu")
-centered = false
-metadata/tex_key = "OtherMat_v10:308"
+mouse_filter = 2
+max_value = 1.0
+step = 0.0
+value = 1.0
+fill_mode = 0
+texture_progress = ExtResource("28_y7ifu")
 
 [node name="expline" type="Node2D" parent="." unique_id=1910226008]
 position = Vector2(86.7, 54.8)
-metadata/ui_bar = {
-"empty": Vector2(-147.6, 0),
-"full": Vector2(-1.3, 0)
-}
 metadata/ui_piece = ["expline"]
 
-[node name="Clip" type="Control" parent="expline" unique_id=1103384435]
-clip_contents = true
-layout_mode = 3
-anchors_preset = 0
-offset_right = 147.2
-offset_bottom = 12.1
-mouse_filter = 2
-
-[node name="Content" type="Node2D" parent="expline/Clip" unique_id=470989845]
-
-[node name="OtherMat_v10_311" type="Sprite2D" parent="expline/Clip/Content" unique_id=261893263]
+[node name="Fill" type="TextureProgressBar" parent="expline" unique_id=900000004]
+offset_left = 0
+offset_top = 0
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("29_iibuc")
-centered = false
-metadata/tex_key = "OtherMat_v10:311"
+mouse_filter = 2
+max_value = 1.0
+step = 0.0
+value = 1.0
+fill_mode = 0
+texture_progress = ExtResource("29_iibuc")
 
 [node name="txthp" type="Label" parent="." unique_id=1063601232]
 layout_mode = 0

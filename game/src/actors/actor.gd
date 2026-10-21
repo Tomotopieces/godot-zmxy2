@@ -23,7 +23,7 @@ func _init() -> void:
 	floor_snap_length = 8.0
 
 var puppet: Puppet
-var body_shape: CollisionShape2D   ## the actor's body collider (sized from the idle hurt box)
+var body_shape: CollisionShape2D   ## the actor's body collider: the "Body" node of its scene
 var hp := 1
 var max_hp := 1
 var gravity := 0.0
@@ -50,15 +50,11 @@ func setup_puppet(puppet_name: String) -> void:
 	puppet.hitbox.collision_mask = LAYER_HURT_MONSTER if hero else LAYER_HURT_HERO
 	puppet.action_finished.connect(_on_action_finished)
 	puppet.play(&"wait" if puppet.actions.has("wait") else StringName(puppet.actions[0]))
-	# body = hurt box of the idle pose
-	var cs := puppet.hurtbox.get_child(0) as CollisionShape2D
-	var body := CollisionShape2D.new()
-	var shape := RectangleShape2D.new()
-	shape.size = cs.shape.get_rect().size   # (whatever shape the hurt box was given in the scene)
-	body.shape = shape
-	body.position = Vector2(cs.position.x * puppet.scale.x, cs.position.y)
-	add_child(body)
-	body_shape = body
+	# the scene's Body is the collider of this CharacterBody2D (it must be its child; the facing flip is not applied to it)
+	body_shape = puppet.get_node("Body")
+	puppet.remove_child(body_shape)
+	body_shape.position.x *= puppet.scale.x
+	add_child(body_shape)
 
 func is_alive() -> bool:
 	return hp > 0

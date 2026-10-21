@@ -311,6 +311,9 @@ size = Vector2(130, 40)
 resource_local_to_scene = true
 size = Vector2(45, 90)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_Body"]
+size = Vector2(45, 90)
+
 [node name="Wukong" type="Node2D" unique_id=413466625]
 script = ExtResource("1_s2r4u")
 actions = PackedStringArray("hit1", "hit3", "hit4", "hit5", "hit7", "hit8", "hit9", "hit2", "walk", "run", "wait", "jump1", "jump2", "jump3", "hurt", "hit6", "hit10")
@@ -6555,3 +6558,7 @@ shape = SubResource("RectangleShape2D_ve7j6")
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=2122526875]
 callback_mode_process = 0
 libraries/ = ExtResource("216_qveei")
+
+[node name="Body" type="CollisionShape2D" parent="."]
+position = Vector2(0.4, -0.1)
+shape = SubResource("RectangleShape2D_Body")

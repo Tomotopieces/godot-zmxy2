@@ -1,17 +1,14 @@
 class_name UiLayout
 extends Control
 ## A screen made from an original interface layout: the editor scene scenes/ui/<name>.tscn, arranged by hand.
-## Every node the code reaches carries its piece names in the meta `ui_piece`, a button its name in `ui_button`, a bar
-## holder its travel in `ui_bar`; _wire_from_scene() walks the tree and wires those. A node may be moved anywhere, but
-## must keep its metas (a bar's Clip / Content are looked up by name). Buttons are Button nodes whose normal / hover / pressed
-## styles (StyleBoxTexture) are their art.
+## Every node the code reaches carries its piece names in the meta `ui_piece`, a button its name in `ui_button`;
+## _wire_from_scene() walks the tree and wires those. A gauge is a holder with a "Fill" TextureProgressBar.
 
 signal button_pressed(button_name: String)
 
 const INK_MIDDLE := 0.55   ## where the middle of this font's glyphs lies below the top of the line, in em
 
 var _named := {}     ## name -> Node (art / frames holder / Label / button Control)
-var _bars := {}      ## path -> {clip, content, full: Vector2, empty: Vector2}
 
 ## Wired on creation, so texts and visibility can be set before the layout is added to the tree.
 static func create(ui_name: String) -> UiLayout:
@@ -112,13 +109,10 @@ func glow_pulse(target: Node2D, color: Color, blur: Vector2, strength: Vector2, 
 ## -- wiring ---------------------------------------------------------------------------------------------------------
 
 ## Rebuilds the run-time wiring from the tree itself: the pieces the code reaches by name (`ui_piece`), the buttons
-## (`ui_button`) and the bars (`ui_bar`).
+## (`ui_button`).
 func _wire_from_scene() -> void:
 	_named.clear()
-	_bars.clear()
 	_collect(self)
-	for piece in _bars:
-		set_bar(piece, 1.0)   # a gauge starts full: the code slides it from there
 
 func _collect(n: Node) -> void:
 	for k in n.get_meta(&"ui_piece", []):
@@ -127,8 +121,6 @@ func _collect(n: Node) -> void:
 			_named[key] = n   # the first node claiming a name keeps it (a clip nested in several frames)
 	if n.has_meta(&"ui_button"):
 		_wire_button(n as BaseButton, String(n.get_meta(&"ui_button")))
-	if n.has_meta(&"ui_bar"):
-		_wire_bar(n as Node2D)
 	for c in n.get_children():
 		_collect(c)
 
@@ -139,25 +131,6 @@ func _wire_button(b: BaseButton, button_name: String) -> void:
 		button_pressed.emit(button_name)
 		Snd.ui())   # skipped when the handler already played one
 
-## Wires one bar holder (its ui_bar travel + its Clip / Content children) so set_bar() can slide it.
-func _wire_bar(holder: Node2D) -> void:
-	var data: Dictionary = holder.get_meta(&"ui_bar", {})
-	var clip := holder.get_node_or_null("Clip") as Control
-	var content := clip.get_node_or_null("Content") as Node2D
-	if content == null:
-		content = holder.find_child("Content", true, false) as Node2D   # moved out of the clip by hand
-	if clip == null or content == null or data.is_empty():
-		return
-	_bars[_node_path(holder)] = {"clip": clip, "content": content, "full": data.full, "empty": data.empty}
-
-## How set_bar() names a bar: its path under the layout root (a bar is a top-level node, so usually just its name).
-func _node_path(n: Node) -> String:
-	var parts := PackedStringArray()
-	var c := n
-	while c != null and c != self:
-		parts.insert(0, String(c.name))
-		c = c.get_parent()
-	return "/".join(parts)
 
 ## Show frame `idx` (or the frame with label `idx`) of a frames piece.
 func show_frame(piece: String, idx) -> void:
@@ -169,10 +142,8 @@ func show_frame(piece: String, idx) -> void:
 	for i in h.get_child_count():
 		h.get_child(i).visible = i == idx
 
+## A gauge (its "Fill" TextureProgressBar) shows `ratio` (0..1).
 func set_bar(piece: String, ratio: float) -> void:
-	var b: Dictionary = _bars.get(piece, {})
-	if b.is_empty():
-		return
-	var p: Vector2 = b.empty.lerp(b.full, clampf(ratio, 0.0, 1.0))
-	b.clip.position = p
-	b.content.position = -p
+	var n := get_piece(piece)
+	if n != null:
+		(n.get_node("Fill") as TextureProgressBar).value = clampf(ratio, 0.0, 1.0)

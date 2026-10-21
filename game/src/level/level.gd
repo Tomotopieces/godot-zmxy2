@@ -42,7 +42,6 @@ var walls: Array[AnimatableBody2D] = []   ## scene walls / platforms (meta "wall
 var params := {}                 ## this stage's script numbers (data/stages.json)
 var script_node: StageScript     ## this stage's special rules (src/level/stages/<level_name>.gd), if any
 var fixed_camera := false        ## single-screen boss rooms (5-1, 6-1, 7-1, stage 10)
-var debug_boxes := false
 
 ## Debug boss arena (console): one single-screen room (the ground and sky of stage 1) holding the monster set in arena_boss.
 const ARENA := Vector2i(0, 1)
@@ -65,7 +64,6 @@ static func _make_shake_noise() -> FastNoiseLite:
 	n.frequency = 1.0   # one unit of _shake_t is one noise feature
 	return n
 var _freeze_t := 0.0
-var _debug: Node2D
 var _done := false
 var _bosses_killed := 0
 ## Combo (User.batterNum): hits on monsters; reset when no hit lands between two checks.
@@ -96,10 +94,6 @@ func _ready() -> void:
 	hero.died.connect(func(_h): hero_died.emit())
 	world.add_child(hero)
 	_make_camera()
-	_debug = Node2D.new()
-	_debug.z_index = Layers.Z_DEBUG
-	_debug.draw.connect(_draw_debug)
-	world.add_child(_debug)
 	Snd.music(music_for(stage))
 	fixed_camera = params.get("fixed_camera", false)
 	if params.get("save_on_enter", false):
@@ -504,15 +498,15 @@ func _physics_process(delta: float) -> void:
 		Snd.stop_music()
 		hero.controls_locked = true   # the keyboard is released while the scene fades out
 		stage_cleared.emit()
-	if debug_boxes:
-		_debug.queue_redraw()
 
 func _unhandled_input(e: InputEvent) -> void:
 	if not OS.is_debug_build():
 		return
 	if e.is_action_pressed("debug_toggle_boxes"):
-		debug_boxes = not debug_boxes
-		_debug.queue_redraw()
+		# Godot's own collision shape display (Debug > Visible Collision Shapes); shapes drawn so far redraw now
+		get_tree().debug_collisions_hint = not get_tree().debug_collisions_hint
+		for cs: CollisionShape2D in find_children("*", "CollisionShape2D", true, false):
+			cs.queue_redraw()
 	elif e.is_action_pressed("debug_kill_all"):
 		# test helper: every monster on the level dies (a boss with more forms goes to its next one)
 		for m: Monster in monsters():
@@ -703,39 +697,3 @@ func _update_camera(delta: float) -> void:
 	camera.offset = _shake_offset(delta)
 	if _end_x > Layers.VIEW.x:
 		_far.position.x = _far_x0 - view_x * (_far_width - Layers.VIEW.x) / (_end_x - Layers.VIEW.x)
-
-func _draw_debug() -> void:
-	if not debug_boxes:
-		return
-	var actors: Array = monsters() + heroes()
-	for a: Actor in actors:
-		_draw_box(a.puppet.hurtbox, Color(0, 1, 0, 0.8))
-		_draw_box(a.puppet.hitbox, Color(1, 0, 0, 0.8))
-	for p in world.get_children():
-		if p is Projectile:
-			_draw_box(p.puppet.hitbox, Color(1, 0.5, 0, 0.8))
-	if door:
-		_draw_box(door_zone, Color(0, 0.5, 1, 0.8))
-
-## Outline of a box with its real shape (circle, capsule, polygon, rotated rectangle), the shape the collision uses.
-func _draw_box(area: Area2D, col: Color) -> void:
-	if area == null or area.get_child_count() == 0:
-		return
-	var cs := area.get_child(0) as CollisionShape2D
-	if cs == null or cs.disabled or cs.shape == null:
-		return
-	_debug.draw_set_transform_matrix(_debug.global_transform.affine_inverse() * cs.global_transform)
-	var sh := cs.shape
-	if sh is CircleShape2D:
-		_debug.draw_arc(Vector2.ZERO, sh.radius, 0.0, TAU, 32, col, 1.0)
-	elif sh is ConvexPolygonShape2D:
-		_debug.draw_polyline(sh.points + PackedVector2Array([sh.points[0]]), col, 1.0)
-	elif sh is CapsuleShape2D:
-		var half: float = sh.height / 2.0 - sh.radius
-		_debug.draw_arc(Vector2(0, -half), sh.radius, PI, TAU, 16, col, 1.0)
-		_debug.draw_arc(Vector2(0, half), sh.radius, 0.0, PI, 16, col, 1.0)
-		_debug.draw_line(Vector2(-sh.radius, -half), Vector2(-sh.radius, half), col, 1.0)
-		_debug.draw_line(Vector2(sh.radius, -half), Vector2(sh.radius, half), col, 1.0)
-	else:
-		_debug.draw_rect(sh.get_rect(), col, false, 1.0)
-	_debug.draw_set_transform_matrix(Transform2D.IDENTITY)

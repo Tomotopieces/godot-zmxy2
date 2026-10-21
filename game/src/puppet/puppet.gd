@@ -81,7 +81,13 @@ func _ready() -> void:
 		for c in _parts.get_children():
 			c.visible = false
 	anim.callback_mode_method = AnimationMixer.ANIMATION_CALLBACK_MODE_METHOD_IMMEDIATE   # (see _emit)
+	_tint_debug_shape(hitbox, Color(1, 0, 0, 0.35))   # (debug collision display: attack red, hurt green)
+	_tint_debug_shape(hurtbox, Color(0, 1, 0, 0.35))
 	anim.animation_finished.connect(_on_anim_finished)
+
+static func _tint_debug_shape(box: Area2D, c: Color) -> void:
+	if box != null and box.get_child_count() > 0 and box.get_child(0) is CollisionShape2D:
+		(box.get_child(0) as CollisionShape2D).debug_color = c
 
 func _on_anim_finished(n: StringName) -> void:
 	action_finished.emit(n)
