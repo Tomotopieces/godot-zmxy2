@@ -1,33 +1,23 @@
 class_name PauseMenu
-extends CanvasLayer
-## In-stage menu (scenes/ui/set_menu.tscn): continue, sound / screen shake / pad rumble switches, back to map, help,
-## back to the title.
-## Pauses the game while open.
+extends Control
+## 设置, a page of the TabMenu (scenes/ui/set_menu.tscn): continue, sound / screen shake / pad rumble switches, back to
+## map, help, back to the title.
 
-signal closed
 signal to_map
 signal to_menu
 
 var _ui: UiLayout
 
 func _ready() -> void:
-	layer = 15
-	process_mode = Node.PROCESS_MODE_ALWAYS
-	get_tree().paused = true
-	var dim := ColorRect.new()
-	dim.color = Color(0, 0, 0, 0.4)
-	dim.size = Layers.VIEW
-	add_child(dim)
 	_ui = UiLayout.create("set_menu")
 	add_child(_ui)
 	_sync()
 	Snd.volume_changed.connect(func(_v, _m): _sync())   # M key while the menu is open
 	_ui.button_pressed.connect(_on_button)
-	UiFade.fade_in(self)
 
 func _on_button(b: String) -> void:
 	match b:
-		"BtnClose", "BtnContinue": close()
+		"BtnClose", "BtnContinue": TabMenu.close_of(self)
 		"BtnBackToMap": to_map.emit()
 		"BtnBackToTitle": to_menu.emit()
 		"BtnHelp": add_child(HelpPanel.new())
@@ -51,12 +41,3 @@ func _sync() -> void:
 func _switch(button: String, caption: String, on: bool) -> void:
 	_ui.set_text(button, "%s：%s" % [caption, "开" if on else "关"])
 
-func close() -> void:
-	get_tree().paused = false
-	closed.emit()
-	UiFade.close(self)
-
-func _unhandled_input(e: InputEvent) -> void:
-	if e.is_action_pressed("pause"):
-		get_viewport().set_input_as_handled()
-		close()

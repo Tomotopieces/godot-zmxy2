@@ -1,28 +1,11 @@
 class_name SutraPanel
-extends CanvasLayer
+extends Control
 ## 法宝升级 (export.strength.SutraInterface), from the HUD 法宝 button: shows the worn treasure and levels it up
-## for souls (level L -> L+1 costs L^2 x 1000, up to level 10). Pauses the game while open.
+## for souls (level L -> L+1 costs L^2 x 1000, up to level 10). A page of the TabMenu (only with a worn treasure).
 
 var _ui: UiLayout
 
-static func open_on(parent: Node) -> SutraPanel:
-	if GameState.worn[&"treasure"] == null:
-		Toast.show_on(parent, "请先装备法宝")
-		return null
-	var s := SutraPanel.new()
-	parent.add_child(s)
-	return s
-
 func _ready() -> void:
-	layer = 12
-	process_mode = Node.PROCESS_MODE_ALWAYS
-	var paused_before := get_tree().paused
-	get_tree().paused = true
-	tree_exiting.connect(func(): get_tree().paused = paused_before)
-	var dim := ColorRect.new()
-	dim.color = Color(0, 0, 0, 0.45)
-	dim.size = Layers.VIEW
-	add_child(dim)
 	_ui = UiLayout.create("sutra")
 	_ui.button_pressed.connect(_on_button)
 	add_child(_ui)
@@ -31,20 +14,14 @@ func _ready() -> void:
 		for c in _ui.piece(part).get_children():
 			c.visible = c.name == TREASURE_NODES.get(d.display_name, "")
 	_refresh()
-	UiFade.fade_in(self)
 
 func _item() -> Item:
 	return GameState.worn[&"treasure"]
 
-func _unhandled_input(e: InputEvent) -> void:
-	if e.is_action_pressed("pause") or e.is_action_pressed("open_treasure"):
-		get_viewport().set_input_as_handled()
-		UiFade.close(self)
-
 func _on_button(b: String) -> void:
 	match b:
 		"BtnClose":
-			UiFade.close(self)
+			TabMenu.close_of(self)
 		"BtnShengJi":
 			var it := _item()
 			var cost := Forge.upgrade_cost(it)

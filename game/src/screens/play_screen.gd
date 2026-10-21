@@ -35,8 +35,7 @@ var stage := Vector2i(1, 1)
 var level: Level
 var hud: Hud
 var _over := false
-var _bag: Backpack
-var _menu: Node
+var _menu: TabMenu
 var _start_time := 0.0
 
 static func create(s: Vector2i) -> PlayScreen:
@@ -50,10 +49,10 @@ func _ready() -> void:
 		GameState.stage = stage
 	hud = HUD_SCENE.instantiate()
 	add_child(hud)
-	hud.open_bag.connect(_open_bag)
+	hud.open_bag.connect(open_menu.bind(&"bag"))
 	hud.open_menu.connect(open_pause)
-	hud.open_skills.connect(_open_skills)
-	hud.open_treasure.connect(_open_treasure)
+	hud.open_skills.connect(open_menu.bind(&"skill"))
+	hud.open_treasure.connect(open_menu.bind(&"treasure"))
 	level = Level.new()
 	level.stage = stage
 	level.process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -133,39 +132,21 @@ func _on_ending() -> void:
 	c.finished.connect(func(): to_map.emit())
 	add_child(c)
 
-func _open_bag() -> void:
-	if _bag or _over or get_tree().paused:
+## The in-game menu (背包 / 技能 / 法宝 / 设置) on one of its tabs; 法宝 without a worn treasure only says so.
+func open_menu(tab: StringName) -> void:
+	if _over or _menu or get_tree().paused:
 		return
-	_bag = Backpack.new()
-	_bag.closed.connect(func(): _bag = null)
-	add_child(_bag)
-
-func _open_skills() -> void:
-	if _over or _bag or _menu or get_tree().paused:
+	if tab == &"treasure" and GameState.worn[&"treasure"] == null:
+		Toast.show_on(hud, "请先装备法宝")
 		return
-	var m := SkillShop.new()
-	_menu = m
-	m.tree_exited.connect(func(): _menu = null)
-	add_child(m)
-
-## 法宝升级 (HUD 法宝 button).
-func _open_treasure() -> void:
-	if _over or _bag or _menu or get_tree().paused:
-		return
-	var s := SutraPanel.open_on(hud)
-	if s:
-		_menu = s
-		s.tree_exited.connect(func(): _menu = null)
+	_menu = TabMenu.create(tab)
+	_menu.tree_exited.connect(func(): _menu = null)
+	_menu.to_map.connect(func(): to_map.emit())
+	_menu.to_menu.connect(func(): to_menu.emit())
+	add_child(_menu)
 
 func open_pause() -> void:
-	if _over or _bag or _menu or get_tree().paused:
-		return
-	var m := PauseMenu.new()
-	_menu = m
-	m.closed.connect(func(): _menu = null)
-	m.to_map.connect(func(): to_map.emit())
-	m.to_menu.connect(func(): to_menu.emit())
-	add_child(m)
+	open_menu(&"settings")
 
 ## 3 debug gear: the shared pieces plus every weapon / armour / fashion of this hero.
 func _test_gear() -> Array:
@@ -182,13 +163,13 @@ func _test_gear() -> Array:
 
 func _unhandled_input(e: InputEvent) -> void:
 	if e.is_action_pressed("open_bag"):
-		_open_bag()
+		open_menu(&"bag")
 	elif e.is_action_pressed("pause"):
 		open_pause()
 	elif e.is_action_pressed("open_skills"):
-		_open_skills()
+		open_menu(&"skill")
 	elif e.is_action_pressed("open_treasure"):
-		_open_treasure()
+		open_menu(&"treasure")
 	elif OS.is_debug_build() and e.is_action_pressed("debug_give_items"):
 		for id in _test_gear():
 			GameState.add_to_bag(EquipmentCatalog.find(id).roll())

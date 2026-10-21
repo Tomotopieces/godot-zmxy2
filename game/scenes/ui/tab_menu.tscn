@@ -1,0 +1,94 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://ddmuwy06fmabu" path="res://src/ui/ui_layout.gd" id="layout"]
+[ext_resource type="Texture2D" uid="uid://3g0bgb1k1le5" path="res://assets/shared/ui/OtherMat_v10_341.png" id="bg"]
+[ext_resource type="PackedScene" uid="uid://cw8asul3mo0ir" path="res://scenes/ui/components/set_btn.tscn" id="set_btn"]
+[ext_resource type="Texture2D" uid="uid://2f35m0ir5dw3" path="res://assets/ui/pad_icons/xbox_lt_outline.png" id="lt"]
+[ext_resource type="Texture2D" uid="uid://byh7opx6pbpxp" path="res://assets/ui/pad_icons/xbox_rt_outline.png" id="rt"]
+
+[node name="TabMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("layout")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1880.0
+offset_bottom = 1180.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("bg")
+
+[node name="Page" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 940.0
+offset_bottom = 590.0
+mouse_filter = 2
+
+[node name="Tabs" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 6.0
+offset_right = 420.0
+offset_bottom = 40.0
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="LtIcon" type="TextureRect" parent="Tabs"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("lt")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="BtnBag" parent="Tabs" instance=ExtResource("set_btn")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(76, 32)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "背包"
+
+[node name="BtnSkill" parent="Tabs" instance=ExtResource("set_btn")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(76, 32)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "技能"
+
+[node name="BtnTreasure" parent="Tabs" instance=ExtResource("set_btn")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(76, 32)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "法宝"
+
+[node name="BtnSettings" parent="Tabs" instance=ExtResource("set_btn")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(76, 32)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "设置"
+
+[node name="RtIcon" type="TextureRect" parent="Tabs"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("rt")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="BtnBack" parent="." instance=ExtResource("set_btn")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 836.0
+offset_top = 8.0
+offset_right = 940.0
+offset_bottom = 40.0
+theme_override_font_sizes/font_size = 20
+text = "返 回"

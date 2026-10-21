@@ -6,3 +6,5 @@
 | `*.mp3` | 造梦西游2 (4399, 2011), extracted from the game | 4399, as above |
 | `ui_click.ogg` | Kenney "Interface Sounds" (kenney.nl), click_002 | CC0 |
 | `amb_*.ogg`, `thunder.ogg` | generated for this project (tools/dl/audio/amb.py: filtered noise, no samples) | made here |
+
+| `game/assets/ui/pad_icons/*.png` | Kenney "Input Prompts" 1.5 (kenney.nl), Xbox set | CC0 |

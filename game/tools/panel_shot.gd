@@ -11,16 +11,14 @@ func _ready() -> void:
 	var main: PlayScreen = PlayScreen.create(Vector2i(1, 1))
 	add_child(main)
 	await get_tree().create_timer(0.5).timeout
-	# a worn treasure, the way the console / tests hand one out (SutraPanel.open_on refuses without it)
+	# a worn treasure, the way the console / tests hand one out (the 法宝 tab needs one)
 	var it := GameState.make_item("dshl")
 	GameState.add_to_bag(it)
 	GameState.wear(GameState.bag.find(it))
-	main._open_bag()
+	main.open_menu(&"bag")
 	await get_tree().create_timer(0.5).timeout
 	await _shot(out + "/B_backpack.png")
-	main._bag.close()
-	await get_tree().create_timer(0.3).timeout
-	main._open_treasure()
+	main._menu.show_tab(&"treasure")
 	await get_tree().create_timer(0.5).timeout
 	await _shot(out + "/B_sutra.png")
 	main.queue_free()

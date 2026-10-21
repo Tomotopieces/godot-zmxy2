@@ -79,7 +79,7 @@ func _on_button(b: String) -> void:
 				_popup = p
 				add_child(p)
 		"BtnSkills":
-			_open(SkillShop.new())
+			_open(TabMenu.create(&"skill", [&"skill"] as Array[StringName]))
 		"BtnForge":
 			_open(ForgeScreen.new())
 		"BtnShop":

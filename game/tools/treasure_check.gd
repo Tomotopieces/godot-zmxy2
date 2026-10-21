@@ -63,12 +63,13 @@ func _ready() -> void:
 	var atk0 := float(w.stats.atk)
 	Forge.upgrade(w)
 	_check("wds level 2", w.lv == 2 and w.stats.atk >= atk0 + 10)
-	var s := SutraPanel.open_on(main.hud)
+	main.open_menu(&"treasure")
+	var s: SutraPanel = main._menu.page
 	await get_tree().create_timer(0.3).timeout
 	_shot("sutra_panel")
 	s._on_button("BtnShengJi")
 	_check("upgrade from panel", w.lv == 3)
-	s.queue_free()
+	main._menu.queue_free()
 	# 罗刹妖伞 poison: (50 + 15 x lv) x roll, rolled per tick; 木 multiplies the whole of it by 1.5..2
 	for wood in [false, true]:
 		var u := Forge.new_treasure("lsys")

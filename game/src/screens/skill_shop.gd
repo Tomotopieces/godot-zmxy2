@@ -1,8 +1,8 @@
 class_name SkillShop
-extends CanvasLayer
+extends Control
 ## Skill learning panel (export.shop.SkillControl): the active page (ActiveSkillPanel) buys the hero's five skills with
 ## souls, the passive page (PassiveSkillPanel) levels the five passive skills. Both are tables in the scene: one
-## column per field, row i = skill i. Opened from the map (showBuySkill) or in a stage (V / btn_study).
+## column per field, row i = skill i. A page of the TabMenu (the map's 技能 opens one with only this page).
 
 const HEROES := ["Wukong", "Tangseng", "Bajie"]   ## ActiveSkillPanel/Skills child per role_index
 const PASSIVE_NAME := {"hp": "热血", "mp": "魔泉", "crit": "狂暴", "hp_regen": "光之永恒", "mp_regen": "月之辉煌"}
@@ -15,20 +15,7 @@ var _passive: Node2D             ## PassiveSkillPanel/Skills
 var _upgrades: Array[Button] = []
 
 func _ready() -> void:
-	layer = 12
-	process_mode = Node.PROCESS_MODE_ALWAYS
-	var paused_before := get_tree().paused
-	get_tree().paused = true
-	tree_exiting.connect(func(): get_tree().paused = paused_before)
-	var dim := ColorRect.new()
-	dim.color = Color(0, 0, 0, 0.5)
-	dim.size = Layers.VIEW
-	add_child(dim)
-	# the panel sits inside BuySkill (background, character tabs, back button)
-	var back := UiLayout.create("buy_skill")
 	var role := GameState.hero_data.role_index
-	back.button_pressed.connect(func(b): if b == "BtnBack": UiFade.close(self))
-	add_child(back)
 	_ui = UiLayout.create("skill_control")
 	add_child(_ui)
 	_table = _ui.get_node("ActiveSkillPanel/Skills/" + HEROES[role])
@@ -50,7 +37,6 @@ func _ready() -> void:
 		_upgrades.append(b)
 	_ui.button_pressed.connect(_on_button)
 	_show_page(false)
-	UiFade.fade_in(self)
 
 func _show_page(passive: bool) -> void:
 	_ui.get_node("ActiveSkillPanel").visible = not passive
@@ -103,8 +89,3 @@ func _upgrade(i: int) -> void:
 	if GameState.upgrade_passive(i):
 		Snd.ui("SD_xz")
 		_refresh()
-
-func _unhandled_input(e: InputEvent) -> void:
-	if e.is_action_pressed("pause") or e.is_action_pressed("open_skills"):
-		get_viewport().set_input_as_handled()
-		UiFade.close(self)

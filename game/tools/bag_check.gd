@@ -46,9 +46,9 @@ func _ready() -> void:
 	h.lose_hp(999999)
 	_check("dies without charm", not h.is_alive())
 	main._over = false
-	main._open_bag()
+	main.open_menu(&"bag")
 	await get_tree().create_timer(0.3).timeout
-	var bag: Backpack = main._bag
+	var bag: Backpack = main._menu.page
 	_shot("bag_equip")
 	for tab in ["BtnDaoJu", "BtnShiZhuang"]:
 		bag.show_tab(tab)

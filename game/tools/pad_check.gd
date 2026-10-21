@@ -14,6 +14,14 @@ func _btn(b: int) -> void:
 		Input.parse_input_event(e)
 		await get_tree().process_frame
 	await get_tree().process_frame
+func _trigger(axis: int) -> void:
+	for v in [1.0, 0.0]:
+		var e := InputEventJoypadMotion.new()
+		e.axis = axis
+		e.axis_value = v
+		Input.parse_input_event(e)
+		await get_tree().process_frame
+	await get_tree().create_timer(0.15).timeout
 func _nav() -> PadFocus:
 	return _main.get_children().filter(func(c): return c is PadFocus)[0]
 func _focus() -> Control:
@@ -59,39 +67,51 @@ func _ready() -> void:
 	await get_tree().create_timer(1.0).timeout
 	_check("in a stage the pad is the game's", nav._scope() == null)
 	var ps: PlayScreen = _main._screen
-	ps._open_bag()
+	ps.open_menu(&"bag")
 	await get_tree().create_timer(0.4).timeout
 	_check("backpack takes the pad", nav._scope() != null)
 	await _btn(JOY_BUTTON_DPAD_DOWN)
-	_check("backpack highlight", _focus() != null and ps._bag.is_ancestor_of(_focus()))
+	_check("backpack highlight", _focus() != null and ps._menu.page.is_ancestor_of(_focus()))
+	# LT / RT switch tabs (法宝 is skipped without a worn treasure)
+	await _trigger(JOY_AXIS_TRIGGER_RIGHT)
+	_check("RT: 技能 tab", ps._menu.tab == &"skill")
+	await _trigger(JOY_AXIS_TRIGGER_RIGHT)
+	_check("RT skips 法宝 without a treasure: 设置", ps._menu.tab == &"settings")
+	await _trigger(JOY_AXIS_TRIGGER_RIGHT)
+	_check("RT wraps to 背包", ps._menu.tab == &"bag")
+	await _trigger(JOY_AXIS_TRIGGER_LEFT)
+	_check("LT: 设置", ps._menu.tab == &"settings")
+	await _btn(JOY_BUTTON_DPAD_DOWN)
+	_check("settings page takes the pad", _focus() != null and ps._menu.page.is_ancestor_of(_focus()))
 	# an item menu: B closes the menu only; selling keeps the highlight on that cell when the next item moves in
-	ps._bag.close()
+	ps._menu.close()
 	await get_tree().create_timer(0.3).timeout
 	for id in ["ptxzf", "ptxzf", "ptxzf"]:
 		var e := EquipmentCatalog.find(id)
 		if e:
 			GameState.add_to_bag(e.roll())
 	var shown_before := GameState.tab_items("equip").size()
-	ps._open_bag()
+	ps.open_menu(&"bag")
 	await get_tree().create_timer(0.4).timeout
-	var cells: Array = ps._bag._grid.get_children().filter(func(c): return c is TextureRect)
+	var bag: Backpack = ps._menu.page
+	var cells: Array = bag._grid.get_children().filter(func(c): return c is TextureRect)
 	await _btn(JOY_BUTTON_DPAD_DOWN)
 	cells[0].grab_focus()
 	var cell_center: Vector2 = cells[0].get_global_rect().get_center()
 	await _btn(JOY_BUTTON_A)
 	await get_tree().create_timer(0.2).timeout
-	_check("A on an item opens its menu", ps._bag._menu != null)
+	_check("A on an item opens its menu", bag._menu != null)
 	await _btn(JOY_BUTTON_B)
 	await get_tree().create_timer(0.2).timeout
-	_check("B closes the item menu, not the backpack", ps._bag != null and is_instance_valid(ps._bag) and ps._bag._menu == null)
+	_check("B closes the item menu, not the backpack", is_instance_valid(bag) and ps._menu != null and bag._menu == null)
 	await _btn(JOY_BUTTON_A)
 	await get_tree().create_timer(0.2).timeout
-	ps._bag._menu_action("Sell")
+	bag._menu_action("Sell")
 	await get_tree().create_timer(0.3).timeout
 	_check("after selling the highlight stays on that cell (%d items before)" % shown_before,
 		_focus() != null and _focus().get_global_rect().get_center().distance_to(cell_center) < 2.0)
 	await _btn(JOY_BUTTON_B)
 	await get_tree().create_timer(0.3).timeout
-	_check("B closes the backpack", ps._bag == null or not is_instance_valid(ps._bag))
+	_check("B closes the menu", ps._menu == null)
 	print("PAD CHECK ", "FAILED (%d)" % _fails if _fails else "OK")
 	get_tree().quit(1 if _fails else 0)

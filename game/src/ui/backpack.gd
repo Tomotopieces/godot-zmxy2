@@ -1,10 +1,8 @@
 class_name Backpack
-extends CanvasLayer
+extends Control
 ## Bag screen (export.pack.BackPack layout): worn gear, 5x5 bag grid, hero stats, item tooltip.
 ## Three pages (装备 / 道具 / 时装). Click a bag item for 装备 / 出售 (道具: 使用 / 丢弃), click worn gear to take it off.
-## Click elsewhere closes the menu. Pauses the game while open.
-
-signal closed
+## Click elsewhere closes the menu. A page of the TabMenu.
 
 const GRID_COLS := 5
 const GRID_ROWS := 5
@@ -26,15 +24,12 @@ var _tab := "BtnZhuangBei"
 var _cell_ui: Dictionary
 
 func _ready() -> void:
-	layer = 10
-	process_mode = Node.PROCESS_MODE_ALWAYS
-	var dim := ColorRect.new()
-	dim.color = Color(0, 0, 0, 0.45)
-	dim.size = Layers.VIEW
-	dim.gui_input.connect(func(e: InputEvent):
+	var catcher := Control.new()   # a click outside the item menu closes it
+	catcher.size = Layers.VIEW
+	catcher.gui_input.connect(func(e: InputEvent):
 		if e is InputEventMouseButton and e.pressed:
 			_close_menu())
-	add_child(dim)
+	add_child(catcher)
 	_ui = UiLayout.create("backpack")
 	add_child(_ui)
 	HeroPortrait.build(_ui)
@@ -48,25 +43,16 @@ func _ready() -> void:
 	add_child(_tip)
 	GameState.profile_changed.connect(_refresh)
 	GameState.equipment_changed.connect(_refresh)
-	get_tree().paused = true
 	_refresh()
-	UiFade.fade_in(self)
 
-
-func _exit_tree() -> void:
-	get_tree().paused = false
-
+## Closes the whole menu.
 func close() -> void:
-	closed.emit()
-	UiFade.close(self)
+	TabMenu.close_of(self)
 
 func _unhandled_input(e: InputEvent) -> void:
-	if e.is_action_pressed("pause") and _menu:   # Esc / the pad's B: an open item menu closes first
+	if e.is_action_pressed("pause") and _menu:   # Esc / the pad's B: an open item menu closes first, not the menu
 		get_viewport().set_input_as_handled()
 		_close_menu()
-	elif e.is_action_pressed("open_bag") or e.is_action_pressed("pause"):
-		get_viewport().set_input_as_handled()
-		close()
 
 func _on_button(b: String) -> void:
 	if b == "BtnClose":
