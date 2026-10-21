@@ -23,6 +23,7 @@ func _ready() -> void:
 	for i in 5:
 		var b: Button = _table.get_node("Icons/Skill%d/Button" % (i + 1))
 		b.focus_mode = Control.FOCUS_ALL
+		b.add_theme_stylebox_override(&"focus", StyleBoxEmpty.new())   # the state's own picture stays (PadFocus draws the frame)
 		b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 		b.pressed.connect(_learn.bind(i))
 		_active.append(b)

@@ -48,11 +48,13 @@ func _ready() -> void:
 		b.visible = t in _tabs
 		b.focus_mode = Control.FOCUS_NONE   # the pad stays on the page; LT / RT switch tabs
 	_ui.piece("BtnBack").focus_mode = Control.FOCUS_NONE
-	for icon in ["LtIcon", "RtIcon"]:
-		_ui.piece(icon).visible = _tabs.size() > 1
 	_ui.button_pressed.connect(_on_button)
 	show_tab(tab)
 	UiFade.fade_in(self)
+
+func _process(_dt: float) -> void:
+	for icon in ["LtIcon", "RtIcon"]:
+		_ui.piece(icon).visible = _tabs.size() > 1 and PadFocus.pad_last   # pad hints only while the pad is used
 
 func available(t: StringName) -> bool:
 	return t in _tabs and (t != &"treasure" or GameState.worn[&"treasure"] != null)

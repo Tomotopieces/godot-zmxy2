@@ -17,7 +17,7 @@ func _ready() -> void:
 
 func _on_button(b: String) -> void:
 	match b:
-		"BtnClose", "BtnContinue": TabMenu.close_of(self)
+		"BtnContinue": TabMenu.close_of(self)
 		"BtnBackToMap": to_map.emit()
 		"BtnBackToTitle": to_menu.emit()
 		"BtnHelp": add_child(HelpPanel.new())

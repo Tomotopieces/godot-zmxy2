@@ -45,19 +45,23 @@ func _ready() -> void:
 	GameState.equipment_changed.connect(_refresh)
 	_refresh()
 
-## Closes the whole menu.
-func close() -> void:
-	TabMenu.close_of(self)
-
 func _unhandled_input(e: InputEvent) -> void:
 	if e.is_action_pressed("pause") and _menu:   # Esc / the pad's B: an open item menu closes first, not the menu
 		get_viewport().set_input_as_handled()
 		_close_menu()
+	elif e is InputEventJoypadButton and e.pressed and e.button_index in [JOY_BUTTON_LEFT_SHOULDER, JOY_BUTTON_RIGHT_SHOULDER]:
+		# LB / RB: the previous / next page (装备 / 道具 / 时装)
+		get_viewport().set_input_as_handled()
+		var pages := TABS.keys()
+		var d := -1 if e.button_index == JOY_BUTTON_LEFT_SHOULDER else 1
+		_on_button(pages[posmod(pages.find(_tab) + d, pages.size())])
+
+func _process(_dt: float) -> void:
+	for icon in ["LbIcon", "RbIcon"]:
+		_ui.piece(icon).visible = PadFocus.pad_last   # pad hints only while the pad is used
 
 func _on_button(b: String) -> void:
-	if b == "BtnClose":
-		close()
-	elif TABS.has(b):
+	if TABS.has(b):
 		Snd.ui()
 		_tab = b
 		_refresh()

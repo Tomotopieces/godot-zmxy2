@@ -4,8 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://oa5gkifex70r" path="res://assets/ui/backpack/tex/backpack_v5_1.png" id="2_2ysyl"]
 [ext_resource type="Texture2D" uid="uid://dgcs4sqa0ggc0" path="res://assets/ui/backpack/tex/backpack_v5_3.png" id="3_rcy87"]
 [ext_resource type="Texture2D" uid="uid://j383egt46o73" path="res://assets/ui/backpack/tex/backpack_v5_5.png" id="4_10tr8"]
-[ext_resource type="Texture2D" uid="uid://c2ap1tvyjfcc0" path="res://assets/shared/ui/Common_v7_547.png" id="8_u3sjm"]
-[ext_resource type="Texture2D" uid="uid://b5ggciq2dtt7d" path="res://assets/shared/ui/Common_v7_549.png" id="9_v2suv"]
 [ext_resource type="Texture2D" uid="uid://bc2eakhl0f7cl" path="res://assets/ui/backpack/tex/backpack_v5_26.png" id="15_pvytj"]
 [ext_resource type="Texture2D" uid="uid://cs38as3rhhpv5" path="res://assets/ui/backpack/tex/backpack_v5_28.png" id="16_51s1i"]
 [ext_resource type="Texture2D" uid="uid://lujyyiye2bau" path="res://assets/ui/backpack/tex/backpack_v5_30.png" id="17_qxn83"]
@@ -68,26 +66,11 @@
 [ext_resource type="PackedScene" uid="uid://bhb50stuk56mg" path="res://scenes/ui/backpack/equipment_slot.tscn" id="82_gye66"]
 [ext_resource type="PackedScene" uid="uid://vt17isp8tb0t" path="res://scenes/actors/bag_glow/bag_glow.tscn" id="bag_glow"]
 [ext_resource type="PackedScene" uid="uid://bjfpq7vfs33b3" path="res://scenes/ui/backpack/slot.tscn" id="slot"]
+[ext_resource type="Script" uid="uid://ebbwujfc1ue1" path="res://src/ui/icon_set.gd" id="xejnmbv"]
 [ext_resource type="PackedScene" uid="uid://bqe4kf3igvsji" path="res://scenes/ui/components/yellow_button.tscn" id="yellow_button"]
 [ext_resource type="Texture2D" uid="uid://b5oktqg3cye6a" path="res://assets/textures/yellow_gradient.tres" id="yellow_orange_gradient"]
-
-
-[ext_resource type="Script" path="res://src/ui/icon_set.gd" id="xejnmbv"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btncloseUp0"]
-texture = ExtResource("8_u3sjm")
-expand_margin_top = 2.0
-expand_margin_bottom = -2.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btncloseDown2"]
-texture = ExtResource("8_u3sjm")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btncloseOver1"]
-texture = ExtResource("9_v2suv")
-expand_margin_top = 2.0
-expand_margin_bottom = -2.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_btnfocus"]
+[ext_resource type="Texture2D" uid="uid://dsx8qh8pwujqv" path="res://assets/ui/pad_icons/xbox_lb_outline.png" id="pad_lb"]
+[ext_resource type="Texture2D" uid="uid://5qnv7l32si02" path="res://assets/ui/pad_icons/xbox_rb_outline.png" id="pad_rb"]
 
 [node name="backpack" type="Control" unique_id=1004764809]
 layout_mode = 3
@@ -114,52 +97,60 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_10tr8")
 centered = false
 
-[node name="BtnClose" type="Button" parent="." unique_id=1224266255]
+[node name="Art2" type="Node2D" parent="." unique_id=945568241]
+
+[node name="LbIcon" type="TextureRect" parent="."]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 795.5
-offset_top = 57.85
-offset_right = 835.5
-offset_bottom = 97.85
-focus_mode = 0
-mouse_default_cursor_shape = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_btncloseUp0")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_btncloseDown2")
-theme_override_styles/hover = SubResource("StyleBoxTexture_btncloseOver1")
-theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_btncloseDown2")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_btncloseUp0")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_btnfocus")
+offset_left = 511.0
+offset_top = 111.0
+offset_right = 537.0
+offset_bottom = 137.0
+mouse_filter = 2
+texture = ExtResource("pad_lb")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="Art2" type="Node2D" parent="." unique_id=945568241]
+[node name="RbIcon" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 754.0
+offset_top = 111.0
+offset_right = 780.0
+offset_bottom = 137.0
+mouse_filter = 2
+texture = ExtResource("pad_rb")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="BtnZhuangBei" parent="." unique_id=299425955 instance=ExtResource("yellow_button")]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 512.4
+offset_left = 540.4
 offset_top = 112.0
-offset_right = 573.0
+offset_right = 601.0
 offset_bottom = 135.7
 text = "装 备"
 
 [node name="BtnDaoJu" parent="." unique_id=273022363 instance=ExtResource("yellow_button")]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 588.1
+offset_left = 616.1
 offset_top = 112.0
-offset_right = 648.69995
+offset_right = 676.69995
 offset_bottom = 135.7
 text = "道 具"
 
 [node name="BtnShiZhuang" parent="." unique_id=1082462353 instance=ExtResource("yellow_button")]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 662.1
+offset_left = 690.1
 offset_top = 112.0
-offset_right = 723.0
+offset_right = 751.0
 offset_bottom = 135.7
 text = "时 装"
 
-[node name="Level" type="Sprite2D" parent="."]
+[node name="Level" type="Sprite2D" parent="." unique_id=1945657656]
 unique_name_in_owner = true
 position = Vector2(367.2, 123.85)
 scale = Vector2(0.5, 0.5)

@@ -101,6 +101,7 @@ func _ready() -> void:
 	await _btn(JOY_BUTTON_A)
 	await get_tree().create_timer(0.2).timeout
 	_check("A on an item opens its menu", bag._menu != null)
+	_check("pad: LB / RB hints shown", bag._ui.piece("LbIcon").visible and ps._menu._ui.piece("LtIcon").visible)
 	await _btn(JOY_BUTTON_B)
 	await get_tree().create_timer(0.2).timeout
 	_check("B closes the item menu, not the backpack", is_instance_valid(bag) and ps._menu != null and bag._menu == null)
@@ -113,5 +114,24 @@ func _ready() -> void:
 	await _btn(JOY_BUTTON_B)
 	await get_tree().create_timer(0.3).timeout
 	_check("B closes the menu", ps._menu == null)
+	# LB / RB switch the backpack's pages
+	ps.open_menu(&"bag")
+	await get_tree().create_timer(0.4).timeout
+	bag = ps._menu.page
+	await _btn(JOY_BUTTON_RIGHT_SHOULDER)
+	_check("RB: 道具 page", bag._tab == "BtnDaoJu")
+	await _btn(JOY_BUTTON_LEFT_SHOULDER)
+	await _btn(JOY_BUTTON_LEFT_SHOULDER)
+	_check("LB twice: 时装 page", bag._tab == "BtnShiZhuang")
+	# a learned skill keeps its coloured picture under the pad's focus
+	ps._menu.show_tab(&"skill")
+	await get_tree().create_timer(0.3).timeout
+	var shop: SkillShop = ps._menu.page
+	var icon: Button = shop._active[0]
+	icon.disabled = true
+	icon.grab_focus()
+	_check("learned skill icon: focus does not show the grey picture", icon.get_theme_stylebox(&"focus") is StyleBoxEmpty)
+	ps._menu.close()
+	await get_tree().create_timer(0.3).timeout
 	print("PAD CHECK ", "FAILED (%d)" % _fails if _fails else "OK")
 	get_tree().quit(1 if _fails else 0)
