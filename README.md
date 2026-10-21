@@ -13,9 +13,9 @@ Answers to the user: Simplified Chinese. Deleting files: Recycle Bin (`bash tool
 | `game/scenes/actors/<name>/<name>.tscn` | every animated body: heroes, monsters, effects, bullets, items (see "Actor scenes") |
 | `game/scenes/objects/*.tscn` | stage mechanisms as scenes with a script on the root (`baigu_door`, `boat`, `aurora_gate`, `river_water`, `xingtian_door`, `hub_door`, `hub_statue`) |
 | `game/scenes/ui/<name>.tscn` | UI layouts (see "UI scenes"); `scenes/main.tscn` is the title screen |
-| `game/assets/` | textures and sounds: `puppets/<name>/` (`tex/`, `slots/` = equipment variants of the actor scenes), `levels/<stage>/` (level.json + `tex/`), `ui/`, `items/`, `sounds/`, `shared/` (textures several things use) |
+| `game/assets/` | textures and sounds: `puppets/<name>/` (`tex/`, `slots/` = equipment variants of the actor scenes), `levels/<stage>/tex/`, `ui/`, `items/`, `sounds/`, `shared/` (textures several things use) |
 | `game/data/` | gameplay numbers (`.tres` resources, `stages.json`; px and seconds) and `lighting/<stage>.json` (per-stage look) — edit them directly |
-| `tools/extract/*.js` | level extraction from the decompiled SWF (`decomp/`, not in git) → `game/assets/levels/**`. Texture names are `<flash library>_<symbol id>.png` |
+| `tools/extract/*.js` | texture housekeeping: `dedupe.js`, `organize_shared.js`, `fix_scene_uids.js`. Texture names are `<flash library>_<symbol id>.png` |
 | `.claude/skills/stage-rework/` | how to rework a stage's scene and design its look |
 
 ## Run / test / export
@@ -33,7 +33,7 @@ Answers to the user: Simplified Chinese. Deleting files: Recycle Bin (`bash tool
 
 ## Data
 - The scenes (stages, actors, UI, objects) and `game/data/` are hand-edited and are the source of truth: there are no generators for them any more.
-- New original art for a stage: `node tools/extract/extract_level.js <area> <level> <dir>` → the stage's textures (`tex/`) and a `level.json` description of the original (walls, stops, spawners, doors, sky) to lay its scene out from; `drop_overlays.js` removes the bitmaps that are only the "4399" logo or a grey "fake mist" strip; `dedupe.js` stores identical PNGs once (`organize_shared.js` names/places them); `fix_scene_uids.js --fix` refreshes stale texture uids ("missing dependency"). Never scrub the 4399 logo embedded inside a texture.
+- `tools/extract/dedupe.js` stores identical PNGs once (`organize_shared.js` names/places them); `fix_scene_uids.js --fix` refreshes stale texture uids ("missing dependency"). Never scrub the 4399 logo embedded inside a texture.
 
 ## Stage scenes
 Every stage's scenery is an editor scene `scenes/levels/<stage>.tscn` that the user arranges by hand (`git status` shows his uncommitted edits — never overwrite them). The playing field is its `Layout` node; the look comes from `data/lighting/<stage>.json`.

@@ -16,8 +16,8 @@ edits - edit the file as text, keep them, and commit them together with your wor
 2. The sky picture is `Background` (CanvasLayer -2) / `Sky` (Sprite2D); `Level` scrolls it over the stage length from where the sprite stands.
 3. Runs of identical pictures edge to edge (haze, floor) are ONE TextureRect: texture_repeat on, stretch Tile, **texture_filter Nearest**.
 4. **Overlays**: leave the 4399 logo that is *embedded* in a texture alone - never scrub it. Bitmaps that are *only* the logo (83x36, alpha 0.17) and the
-   grey "fake mist" strips along the ground are dropped by `tools/extract/drop_overlays.js` (keys per stage in `DROP`) when a stage is extracted anew; never
-   put a dropped piece back on your own, and never decide anything else for the user.
+   grey "fake mist" strips along the ground were dropped from the scenes; never put a dropped piece back on your own, and never decide anything
+   else for the user.
 5. **Mechanisms** (doors, switches...): a scene `scenes/objects/<name>.tscn` with a script on the root (`src/level/objects/<name>.gd`, `@export`
    parameters, a `Guides` node for editor-only boxes), instanced under `Objects/<Name>` at its **real world position** (from `game/data/stages.json`
    or the original's stage listener - NOT from level.json `doors`, which can be wrong). Built from plain Sprite2D nodes with a normal AnimationPlayer
