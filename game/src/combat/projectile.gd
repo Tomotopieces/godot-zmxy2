@@ -60,11 +60,11 @@ func _physics_process(delta: float) -> void:
 				return
 	if not is_instance_valid(source):
 		return
-	dealer.scan(puppet.hitbox, attack, _deliver, true)
-	if dealer.spent(attack) and attack.max_hits <= 1:
+	dealer.scan(puppet.hitbox, attack, _deliver)
+	if attack.max_hits == 1 and dealer.spent(attack):
 		queue_free()
 
-func _deliver(target: Actor) -> bool:
+func _deliver(target) -> bool:   # an Actor or a HitTarget
 	var h := Hit.new()
 	h.source = source
 	h.attack = attack
@@ -82,7 +82,7 @@ func _deliver(target: Actor) -> bool:
 	elif push_dir != 0:
 		h.direction = push_dir
 	else:
-		var dx := target.global_position.x - global_position.x
+		var dx: float = target.global_position.x - global_position.x
 		if absf(dx) < 2.0 and source is Actor:   # on the same spot (an effect placed on its target): the way the owner faces
 			h.direction = (source as Actor).facing
 		else:

@@ -9,8 +9,8 @@ enum Kind { PHYSICS, MAGIC, TRUE }
 @export var kind := Kind.PHYSICS
 @export var knockback := Vector2.ZERO ## px/s, x is "away from attacker"
 @export var push_from_center := false ## knockback direction from hitbox center instead of facing
-@export var rehit_interval := 0.0     ## projectiles: seconds until the same target can be hit again (0 = never)
-@export var max_hits := 1             ## projectiles: total hits before it is spent
+@export var rehit_interval := 0.0     ## seconds until the same target can be hit again within one round (0 = once per round)
+@export var max_hits := 0             ## total hits before the attack is spent (0 = no limit; a bullet of 1 is gone on its hit)
 
 @export_group("Feel")
 @export var hitstop := 0.0            ## seconds the attacker (melee) and the target freeze when it lands (x1.5 on a crit)

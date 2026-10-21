@@ -202,7 +202,9 @@ func _shoot(action: StringName) -> void:
 	world.add_object(p)
 
 ## 光弹 splash: the monsters near the one it hit take the same hit.
-func _splash(target: Actor, a: AttackData, action: StringName) -> void:
+func _splash(target, a: AttackData, action: StringName) -> void:
+	if not target is Actor:
+		return
 	var radius := float(data.kit.bullet1.splash_radius)
 	for t: Actor in world.enemies_of(self):
 		if t == target or not is_instance_valid(t) or not t.can_be_hit():

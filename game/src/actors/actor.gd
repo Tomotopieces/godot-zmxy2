@@ -73,9 +73,6 @@ func hurt_rect() -> Rect2:
 func touches(area: Area2D) -> bool:
 	return is_alive() and puppet.hurtbox != null and area.overlaps_area(puppet.hurtbox)
 
-## This actor's current attack box overlaps `area` (a weak spot, a breakable prop).
-func hits(area: Area2D) -> bool:
-	return attack != null and puppet.hitbox != null and puppet.hitbox.overlaps_area(area)
 
 func center() -> Vector2:
 	var r := hurt_rect()
@@ -96,7 +93,7 @@ func scan_hits() -> void:
 	if attack and attack.projectile == "":
 		dealer.scan(puppet.hitbox, attack, _deliver)
 
-func _deliver(target: Actor) -> bool:
+func _deliver(target) -> bool:   # an Actor or a HitTarget
 	var h := Hit.new()
 	h.source = self
 	h.attack = attack
@@ -106,7 +103,7 @@ func _deliver(target: Actor) -> bool:
 	h.origin = puppet.hit_rect().get_center()
 	h.direction = facing
 	if attack.push_from_center:
-		h.direction = 1 if target.global_position.x >= h.origin.x else -1
+		h.direction = 1 if (target.global_position.x as float) >= h.origin.x else -1
 	var landed: bool = target.take_hit(h)
 	if landed and self is Monster and target is Hero:
 		(self as Monster).brain.on_hit_hero(target, attack_action)
@@ -117,7 +114,7 @@ func _deliver(target: Actor) -> bool:
 	return landed
 
 ## A melee hit of this actor landed on `target` (virtual).
-func _on_landed(_target: Actor) -> void:
+func _on_landed(_target) -> void:
 	pass
 
 ## Spawn the attack's projectile (monster bullets) in front of the actor.

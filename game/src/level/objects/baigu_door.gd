@@ -15,8 +15,6 @@ extends Node2D
 signal opened
 
 var _hits_left := 0
-var _bullet_hits := {}   ## [bullet id, its attack serial] already counted
-var _last_serial := -1
 var _open := false
 var _enter_left := 0.0
 
@@ -27,6 +25,7 @@ func _ready() -> void:
 	$Opened.visible = false
 	$WeakSpot.position = Vector2(Rng.randf_range(weak_dx.x, weak_dx.y), Rng.randf_range(weak_dy.x, weak_dy.y))
 	_hits_left = hits
+	HitTarget.attach($WeakSpot).hit.connect(func(_h: Hit) -> void: _take_hit())   # swings and bullets alike, once per round
 	_enter_left = enter_time
 
 func is_open() -> bool:
@@ -47,18 +46,6 @@ func _physics_process(delta: float) -> void:
 	if not is_instance_valid(hero):
 		return
 	if not _open:
-		if hero.dealer.serial != _last_serial and hero.hits($WeakSpot):
-			_last_serial = hero.dealer.serial
-			_take_hit()
-		# the hero's bullets too (唐僧 attacks only with them): each attack of a bullet counts once
-		for p in level.world.get_children():
-			if _open:
-				break
-			if p is Projectile and p.source == hero and is_instance_valid(p.puppet):
-				var key := [p.get_instance_id(), p.dealer.serial]
-				if not _bullet_hits.has(key) and p.puppet.hitbox.overlaps_area($WeakSpot):
-					_bullet_hits[key] = true
-					_take_hit()
 		return
 	if hero.touches($EnterZone):
 		_enter_left -= delta
@@ -68,13 +55,13 @@ func _physics_process(delta: float) -> void:
 		_enter_left = enter_time
 
 func _take_hit() -> void:
-	Fx.spawn("fx_monster_hurt1" if Rng.randf() < 0.5 else "fx_monster_hurt2", $WeakSpot.global_position)
 	_hits_left -= 1
 	if _hits_left <= 0:
 		_open_door()
 
 func _open_door() -> void:
 	_open = true
+	($WeakSpot.get_meta(&"actor") as HitTarget).enabled = false
 	$Closed.visible = false
 	$Opened.visible = true
 	$Anim.play(&"open")

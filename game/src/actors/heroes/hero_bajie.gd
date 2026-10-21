@@ -112,7 +112,7 @@ func outgoing_damage(a: AttackData) -> int:
 	return dmg
 
 ## 三生锤 / 九齿钉耙: a physical hit (or the spin) may stun.
-func _on_landed(target: Actor) -> void:
+func _on_landed(target) -> void:
 	if not target is Monster or attack == null:
 		return
 	var weapon: Item = GameState.worn[&"weapon"]

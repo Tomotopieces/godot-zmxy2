@@ -1,6 +1,6 @@
 extends Node
 ## Headless checks of stage scripts: godot --headless --path game res://tools/stage_test.tscn -- <case>
-## cases: door12, door12_tangseng, hub, fires, boat, pearls
+## cases: door12, door12_tangseng, hub, fires, boat, pearls, pearls_tangseng
 var _case := ""
 var _ps: PlayScreen
 var _transfers: Array = []
@@ -8,10 +8,10 @@ var _failed := false
 
 func _ready() -> void:
 	_case = OS.get_cmdline_user_args()[0]
-	GameState.new_game("tangseng" if _case == "door12_tangseng" else "wukong")
+	GameState.new_game("tangseng" if _case.ends_with("_tangseng") else "wukong")
 	for s in GameState.hero_data.learn_active:
 		GameState.skills[StringName(s)] = true
-	var stage := {"door12": Vector2i(1, 2), "door12_tangseng": Vector2i(1, 2), "hub": Vector2i(10, 1), "fires": Vector2i(2, 2), "boat": Vector2i(3, 1), "pearls": Vector2i(3, 3)}
+	var stage := {"door12": Vector2i(1, 2), "door12_tangseng": Vector2i(1, 2), "hub": Vector2i(10, 1), "fires": Vector2i(2, 2), "boat": Vector2i(3, 1), "pearls": Vector2i(3, 3), "pearls_tangseng": Vector2i(3, 3)}
 	_ps = PlayScreen.create(stage[_case])
 	add_child(_ps)
 	_ps.level.transfer.connect(func(to): _transfers.append(to))
@@ -114,11 +114,21 @@ func boat() -> void:
 func pearls() -> void:
 	await _wait(0.5)
 	var sc = _ps.level.script_node
-	var r: Puppet = sc._pearls[0][0]
+	var t: HitTarget = sc.pearls[0]
+	var at := t.center()
 	_ps.level.stops.clear()
-	_ps.level.view_x = r.position.x - 400
+	_ps.level.view_x = at.x - 400
 	_ps.level.hero.gravity = 0.0
-	for i in 6:
-		await _attack_at(r.position + Vector2(-70, -10))
-	print("RESULT pearls hp=", sc._pearls[0][1], " valid=", is_instance_valid(r))
+	for i in 10:   # (唐僧's attack has a cooldown: some presses are not attacks)
+		if not t.enabled:
+			break
+		await _attack_at(at + Vector2(-70, 10))
+	var hp: int = t.get_meta(&"hp")
+	print("RESULT pearls hp=", hp)
+	if hp > 0:
+		print("FAIL pearls: the pearl took ", 5 - hp, " of 5 hits")
 	get_tree().quit()
+
+## 唐僧 hits only with bullets: they break the pearls too.
+func pearls_tangseng() -> void:
+	await pearls()
