@@ -12,9 +12,17 @@ static func create(ui_name: String) -> UiLayout:
 func _ready() -> void:
 	# the scene this layout is: its own file, or (main.tscn's title) the scene it is part of
 	var scene: Node = self if scene_file_path != "" else owner
+	var layer := get_parent()
+	while layer != null and not layer is CanvasLayer:
+		layer = layer.get_parent()
+	var menu := layer != null and not layer is Hud
+	if menu:
+		PadFocus.screen(layer)
 	for b: BaseButton in find_children("*", "BaseButton", true, false):
 		if b.owner == scene and b.unique_name_in_owner:   # (buttons inside an instanced sub-scene belong to it)
-			PadNav.mark(b)
+			b.focus_mode = Control.FOCUS_ALL if menu else Control.FOCUS_NONE   # the pad reaches menu buttons
+			if not b.has_theme_stylebox_override(&"focus"):
+				b.add_theme_stylebox_override(&"focus", StyleBoxEmpty.new())   # (PadFocus draws the highlight)
 			b.pressed.connect(func():
 				button_pressed.emit(String(b.name))
 				Snd.ui())   # skipped when the handler already played one

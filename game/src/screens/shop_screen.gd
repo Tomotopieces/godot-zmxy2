@@ -112,7 +112,7 @@ func _ask(i: int) -> void:
 	var d := EquipmentCatalog.find(id)
 	(c.piece("Message") as RichTextLabel).text = "[center]购买 [color=#%s]%s[/color] × %d\n需要 %d 功勋[/center]" % [
 		d.color.to_html(false), d.display_name, _counts[i], cost]
-	PadNav.modal(c)
+	PadFocus.modal(c)
 	c.button_pressed.connect(func(b):
 		_confirm = null
 		c.queue_free()
@@ -148,6 +148,8 @@ func _refresh() -> void:
 		var icon := ItemIcon.create(item, 50.0).place(cell.position)
 		icon.mouse_entered.connect(func(): _tip.show_for(item, icon))
 		icon.mouse_exited.connect(func(): _tip.visible = false)
-		PadNav.mark(icon)   # reachable with the pad for its tooltip
+		icon.focus_entered.connect(func(): _tip.show_for(item, icon))   # reachable with the pad for its tooltip
+		icon.focus_exited.connect(func(): _tip.visible = false)
+		icon.focus_mode = Control.FOCUS_ALL
 		_icons.add_child(icon)
 	move_child(_tip, -1)

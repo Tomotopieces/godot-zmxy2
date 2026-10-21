@@ -16,5 +16,7 @@ func _ready() -> void:
 	$Fill.text = caption
 	if Engine.is_editor_hint():
 		return
-	mouse_entered.connect(func(): modulate = Color(1.3, 1.3, 1.3))
-	mouse_exited.connect(func(): modulate = Color.WHITE)
+	for lit in [mouse_entered, focus_entered]:   # (the pad's focus too)
+		lit.connect(func(): modulate = Color(1.3, 1.3, 1.3))
+	for out in [mouse_exited, focus_exited]:
+		out.connect(func(): modulate = Color.WHITE)

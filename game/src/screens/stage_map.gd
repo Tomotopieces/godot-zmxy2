@@ -42,6 +42,8 @@ static func _hover_art(b: Button) -> void:
 		b.get_node("Picture").visible = not b.get_node("HoverPicture").visible
 	b.mouse_entered.connect(show.bind(true))
 	b.mouse_exited.connect(show.bind(false))
+	b.focus_entered.connect(show.bind(true))   # the pad's focus too
+	b.focus_exited.connect(show.bind(false))
 	b.mouse_default_cursor_shape = Control.CURSOR_ARROW if b.disabled else Control.CURSOR_POINTING_HAND
 
 func _on_button(b: String) -> void:

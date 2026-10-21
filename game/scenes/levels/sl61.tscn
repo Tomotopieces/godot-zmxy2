@@ -4,6 +4,29 @@
 [ext_resource type="Texture2D" path="res://assets/shared/levels/11_1.png" id="2_qytm5"]
 [ext_resource type="Texture2D" path="res://assets/levels/sl61/tex/zmxy2_game_268.png" id="3_qtyer"]
 
+[ext_resource type="Script" path="res://src/level/layout/stage_layout.gd" id="xvywtjn"]
+
+[ext_resource type="Script" path="res://src/level/layout/camera_stop.gd" id="xyvgvuo"]
+
+[ext_resource type="Script" path="res://src/level/layout/monster_spawn.gd" id="x0u9eui"]
+
+[ext_resource type="PackedScene" path="res://scenes/actors/exit_door/exit_door.tscn" id="xj5mvcs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_L1"]
+size = Vector2(20.01, 1000)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_L2"]
+size = Vector2(699.95, 23.3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_L3"]
+size = Vector2(1200.01, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_L4"]
+size = Vector2(1200.01, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_L5"]
+size = Vector2(167, 163.45)
+
 [node name="Scenery" type="Node2D" unique_id=540679976]
 
 [node name="Guides" type="Node2D" parent="." unique_id=1249409077]
@@ -52,3 +75,58 @@ texture = ExtResource("3_qtyer")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 1896, 95)
+
+[node name="Layout" type="Node2D" parent="."]
+script = ExtResource("xvywtjn")
+size = Vector2(1470.05, 701.15)
+
+[node name="Walls" type="Node2D" parent="Layout"]
+
+[node name="Ground" type="StaticBody2D" parent="Layout/Walls"]
+collision_mask = 0
+
+[node name="Floor1" type="CollisionShape2D" parent="Layout/Walls/Ground"]
+position = Vector2(1072.15, 201.15)
+shape = SubResource("RectangleShape2D_L1")
+
+[node name="Floor2" type="CollisionShape2D" parent="Layout/Walls/Ground"]
+position = Vector2(-136.4, 199.4)
+rotation = 1.571
+shape = SubResource("RectangleShape2D_L2")
+
+[node name="Floor3" type="CollisionShape2D" parent="Layout/Walls/Ground"]
+position = Vector2(471.05, -128.6)
+shape = SubResource("RectangleShape2D_L3")
+
+[node name="Floor4" type="CollisionShape2D" parent="Layout/Walls/Ground"]
+position = Vector2(471.05, 511)
+shape = SubResource("RectangleShape2D_L4")
+
+[node name="Stops" type="Node2D" parent="Layout"]
+
+[node name="Stop1" type="Marker2D" parent="Layout/Stops"]
+position = Vector2(882.3, 221.3)
+script = ExtResource("xyvgvuo")
+back = 1150
+
+[node name="Spawn1" type="Marker2D" parent="Layout/Stops/Stop1"]
+position = Vector2(-48.85, 98.25)
+script = ExtResource("x0u9eui")
+monster = 46
+delay = 2
+interval = 1
+total = 1
+
+[node name="ExitDoor" parent="Layout" instance=ExtResource("xj5mvcs")]
+visible = false
+z_index = -6
+position = Vector2(774.75, 445.15)
+
+[node name="EnterZone" type="Area2D" parent="Layout/ExitDoor"]
+collision_layer = 0
+collision_mask = 16
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Layout/ExitDoor/EnterZone"]
+position = Vector2(-0.25, -27.425)
+shape = SubResource("RectangleShape2D_L5")

@@ -52,7 +52,7 @@ func _ready() -> void:
 	for x in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]:
 		for y in ([1, 2, 3] if x <= 3 else ([1, 2, 3, 4, 5, 6] if x == 10 else [1])):
 			var s := Vector2i(x, y)
-			if not ResourceLoader.exists("res://assets/levels/%s/level.json" % Level.scene_name(s)):
+			if not ResourceLoader.exists("res://scenes/levels/%s.tscn" % Level.scene_name(s)):
 				continue
 			if not _only.is_empty() and not Level.scene_name(s) in _only:
 				continue

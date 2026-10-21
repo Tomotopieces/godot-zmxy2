@@ -183,6 +183,7 @@ func _refresh() -> void:
 	for c in _grid.get_children():
 		c.queue_free()
 	var shown := GameState.tab_items(TABS[_tab])
+	var icons := []
 	for k in GRID_COLS * GRID_COLS:
 		var pos := Vector2(k % GRID_COLS, k / GRID_COLS) * (CELL + CELL_GAP)
 		var cell := UiLayout.create("pack_cell")
@@ -190,10 +191,12 @@ func _refresh() -> void:
 		_grid.add_child(cell)
 		if k < shown.size():
 			var idx: int = shown[k]
-			_grid.add_child(_icon(GameState.bag[idx], pos, _put.bind(idx)))
+			icons.append(_icon(GameState.bag[idx], pos, _put.bind(idx)))
+			_grid.add_child(icons[-1])
 			var n := GameState.bag[idx].n
 			if n > 1:
 				_grid.add_child(_count(n, pos))
+	PadFocus.link_grid(icons, GRID_COLS)
 	for c in _slot_icons.get_children():
 		c.queue_free()
 	for s in _slots:
@@ -224,10 +227,12 @@ func _icon(item: Item, pos: Vector2, on_click: Callable) -> TextureRect:
 	t.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	t.mouse_entered.connect(_show_tip.bind(item, t))
 	t.mouse_exited.connect(_hide_tip)
+	t.focus_entered.connect(_show_tip.bind(item, t))   # the pad's focus shows the tooltip like a hover
+	t.focus_exited.connect(_hide_tip)
+	t.focus_mode = Control.FOCUS_ALL
 	t.gui_input.connect(func(e: InputEvent):
-		if e is InputEventMouseButton and e.pressed and e.button_index == MOUSE_BUTTON_LEFT:
+		if (e is InputEventMouseButton and e.pressed and e.button_index == MOUSE_BUTTON_LEFT) or e.is_action_released("ui_accept"):
 			on_click.call())
-	PadNav.mark(t)
 	return t
 
 func _count(n: int, pos: Vector2) -> Label:
@@ -245,7 +250,7 @@ func _count(n: int, pos: Vector2) -> Label:
 func _show_help() -> void:
 	var h := UiLayout.create("forge_help")
 	h.position = Vector2(102, 40)
-	PadNav.modal(h)
+	PadFocus.modal(h)
 	h.button_pressed.connect(func(_b): h.queue_free())
 	add_child(h)
 

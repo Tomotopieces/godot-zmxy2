@@ -28,6 +28,29 @@
 [ext_resource type="Texture2D" path="res://assets/levels/sl13/tex/1_v6_10.png" id="25_358wg"]
 [ext_resource type="Texture2D" path="res://assets/levels/sl13/tex/zmxy2_game_308.png" id="26_xabia"]
 
+[ext_resource type="Script" path="res://src/level/layout/stage_layout.gd" id="x31mpcj"]
+
+[ext_resource type="Script" path="res://src/level/layout/camera_stop.gd" id="xl1l6qf"]
+
+[ext_resource type="Script" path="res://src/level/layout/monster_spawn.gd" id="xqxbj4r"]
+
+[ext_resource type="PackedScene" path="res://scenes/actors/exit_door/exit_door.tscn" id="xgipd66"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_L1"]
+size = Vector2(5000, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_L2"]
+size = Vector2(115.35, 1000)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_L3"]
+size = Vector2(699.95, 23.3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_L4"]
+size = Vector2(5000, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_L5"]
+size = Vector2(167, 163.45)
+
 [node name="Scenery" type="Node2D" unique_id=1491261449]
 
 [node name="Guides" type="Node2D" parent="." unique_id=2027288114]
@@ -529,3 +552,190 @@ offset_bottom = 591.15
 texture = ExtResource("26_xabia")
 expand_mode = 1
 stretch_mode = 1
+
+[node name="Layout" type="Node2D" parent="."]
+script = ExtResource("x31mpcj")
+size = Vector2(6462.4, 591.15)
+
+[node name="Walls" type="Node2D" parent="Layout"]
+
+[node name="Ground" type="StaticBody2D" parent="Layout/Walls"]
+collision_mask = 0
+
+[node name="Floor1" type="CollisionShape2D" parent="Layout/Walls/Ground"]
+position = Vector2(2501.35, 511.05)
+shape = SubResource("RectangleShape2D_L1")
+
+[node name="Floor2" type="CollisionShape2D" parent="Layout/Walls/Ground"]
+position = Vector2(4809.65, 77)
+shape = SubResource("RectangleShape2D_L2")
+
+[node name="Floor3" type="CollisionShape2D" parent="Layout/Walls/Ground"]
+position = Vector2(-8.35, 199.4)
+rotation = 1.571
+shape = SubResource("RectangleShape2D_L3")
+
+[node name="Floor4" type="CollisionShape2D" parent="Layout/Walls/Ground"]
+position = Vector2(2480, -140.6)
+shape = SubResource("RectangleShape2D_L4")
+
+[node name="Stops" type="Node2D" parent="Layout"]
+
+[node name="Stop1" type="Marker2D" parent="Layout/Stops"]
+position = Vector2(1093.1, 196.05)
+script = ExtResource("xl1l6qf")
+back = 1450
+
+[node name="Spawn1" type="Marker2D" parent="Layout/Stops/Stop1"]
+position = Vector2(79.35, 199.95)
+script = ExtResource("xqxbj4r")
+monster = 31
+delay = 2
+interval = 1
+total = 4
+
+[node name="Stop2" type="Marker2D" parent="Layout/Stops"]
+position = Vector2(1839.35, 189.35)
+script = ExtResource("xl1l6qf")
+back = 1450
+
+[node name="Spawn1" type="Marker2D" parent="Layout/Stops/Stop2"]
+position = Vector2(-794.9, 206.65)
+script = ExtResource("xqxbj4r")
+monster = 32
+delay = 2
+interval = 1
+total = 5
+
+[node name="Spawn2" type="Marker2D" parent="Layout/Stops/Stop2"]
+position = Vector2(61.05, 219.45)
+script = ExtResource("xqxbj4r")
+monster = 32
+delay = 2
+interval = 1
+total = 3
+
+[node name="Spawn3" type="Marker2D" parent="Layout/Stops/Stop2"]
+position = Vector2(94.7, 104.25)
+script = ExtResource("xqxbj4r")
+monster = 31
+delay = 6
+interval = 1
+total = 3
+
+[node name="Spawn4" type="Marker2D" parent="Layout/Stops/Stop2"]
+position = Vector2(-814.9, 70.5)
+script = ExtResource("xqxbj4r")
+monster = 31
+delay = 6
+interval = 1
+total = 3
+
+[node name="Stop3" type="Marker2D" parent="Layout/Stops"]
+position = Vector2(2843.6, 170.15)
+script = ExtResource("xl1l6qf")
+back = 1450
+
+[node name="Spawn1" type="Marker2D" parent="Layout/Stops/Stop3"]
+position = Vector2(-474.35, 251.45)
+script = ExtResource("xqxbj4r")
+monster = 32
+delay = 2
+interval = 1
+total = 5
+
+[node name="Spawn2" type="Marker2D" parent="Layout/Stops/Stop3"]
+position = Vector2(-1067.6, 195.45)
+script = ExtResource("xqxbj4r")
+monster = 32
+delay = 8
+interval = 1
+total = 3
+
+[node name="Spawn3" type="Marker2D" parent="Layout/Stops/Stop3"]
+position = Vector2(82.45, 238.65)
+script = ExtResource("xqxbj4r")
+monster = 31
+delay = 8
+interval = 1
+total = 4
+
+[node name="Spawn4" type="Marker2D" parent="Layout/Stops/Stop3"]
+position = Vector2(-474.35, 24.4)
+script = ExtResource("xqxbj4r")
+monster = 32
+delay = 4
+interval = 1
+total = 2
+
+[node name="Stop4" type="Marker2D" parent="Layout/Stops"]
+position = Vector2(3571.75, 239.15)
+script = ExtResource("xl1l6qf")
+back = 1450
+
+[node name="Spawn1" type="Marker2D" parent="Layout/Stops/Stop4"]
+position = Vector2(-37.7, 198.45)
+script = ExtResource("xqxbj4r")
+monster = 32
+delay = 2
+interval = 1
+total = 4
+
+[node name="Spawn2" type="Marker2D" parent="Layout/Stops/Stop4"]
+position = Vector2(103.1, 54.45)
+script = ExtResource("xqxbj4r")
+monster = 32
+delay = 6
+interval = 1
+total = 3
+
+[node name="Spawn3" type="Marker2D" parent="Layout/Stops/Stop4"]
+position = Vector2(-812.1, 41.65)
+script = ExtResource("xqxbj4r")
+monster = 32
+delay = 6
+interval = 1
+total = 3
+
+[node name="Stop5" type="Marker2D" parent="Layout/Stops"]
+position = Vector2(4287.4, 258.7)
+script = ExtResource("xl1l6qf")
+back = 1450
+
+[node name="Spawn1" type="Marker2D" parent="Layout/Stops/Stop5"]
+position = Vector2(41, 150.1)
+script = ExtResource("xqxbj4r")
+monster = 32
+delay = 1
+interval = 1
+total = 3
+
+[node name="Spawn2" type="Marker2D" parent="Layout/Stops/Stop5"]
+position = Vector2(-823.75, 73.15)
+script = ExtResource("xqxbj4r")
+monster = 32
+delay = 1
+interval = 1
+total = 3
+
+[node name="Spawn3" type="Marker2D" parent="Layout/Stops/Stop5"]
+position = Vector2(-106.9, 73.15)
+script = ExtResource("xqxbj4r")
+monster = 52
+delay = 1
+interval = 1
+total = 1
+
+[node name="ExitDoor" parent="Layout" instance=ExtResource("xgipd66")]
+visible = false
+z_index = -6
+position = Vector2(4155.05, 453.15)
+
+[node name="EnterZone" type="Area2D" parent="Layout/ExitDoor"]
+collision_layer = 0
+collision_mask = 16
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Layout/ExitDoor/EnterZone"]
+position = Vector2(-0.25, -27.425)
+shape = SubResource("RectangleShape2D_L5")

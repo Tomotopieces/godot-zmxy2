@@ -6,7 +6,7 @@ var _moving: Array = []   ## [body, velocity, wrap]
 
 func start_final_platforms() -> void:
 	var fp: Dictionary = param("final_platforms", {})
-	var floats := level.walls.filter(func(b): return b.get_meta(&"wall").kind == "oneway")
+	var floats := level.walls.filter(func(b): return b.name.begins_with("Platform"))
 	floats.sort_custom(func(a, b): return a.position.x < b.position.x)
 	var positions: Array = fp.get("positions", [])
 	for i in mini(floats.size(), positions.size()):

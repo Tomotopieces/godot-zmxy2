@@ -11,8 +11,8 @@ const GRAY := preload("res://assets/textures/gray_gradient.tres")
 var _down := false
 
 func _ready() -> void:
-	mouse_entered.connect(_update)
-	mouse_exited.connect(_update)
+	for s in [mouse_entered, mouse_exited, focus_entered, focus_exited]:   # (the pad's focus lights it like a hover)
+		s.connect(_update)
 	button_down.connect(func(): _down = true; _update())
 	button_up.connect(func(): _down = false; _update())
 	draw.connect(_update)   # a Button redraws when `disabled` changes
@@ -20,4 +20,4 @@ func _ready() -> void:
 
 func _update() -> void:
 	_fill.texture = GRAY if disabled else YELLOW
-	_light.visible = not disabled and not _down and is_hovered()
+	_light.visible = not disabled and not _down and (is_hovered() or has_focus())

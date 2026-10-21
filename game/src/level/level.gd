@@ -1,7 +1,7 @@
 class_name Level
 extends Node2D
-## One stage: its scene scenes/levels/<name>.tscn (art, ground, mechanisms) and the gameplay data of
-## assets/levels/<name>/level.json (walls, camera stops, spawners, exit door).
+## One stage: its scene scenes/levels/<name>.tscn - art, mechanisms and the playing field (Layout: walls, camera stops
+## with their monster spawns, the exit door).
 ## Camera follows the original side-scroller rules (ViewControllor): push-scroll at 2/3 screen,
 ## lock at stop points until their spawns are cleared, then auto-scroll to the next one.
 
@@ -32,13 +32,13 @@ var world: Node2D
 var camera: Camera2D
 var view_x := 0.0
 var size := Vector2.ZERO
-var stops: Array = []        ## [{x, back, spawners: [Spawner], done}]
+var stops: Array = []        ## [{x, back, spawners: [MonsterSpawn], done}] (the scene's Layout/Stops)
 var stop_index := 0
 var locked := false
 var auto_scroll := false
 var door: Node2D                 ## exit portal (hidden until the stage is cleared); null in hub / ending stages
-var door_zone: Area2D             ## where up enters the exit portal (level.json door rect)
-var walls: Array[AnimatableBody2D] = []   ## scene walls / platforms (meta "wall" = level.json entry)
+var door_zone: Area2D             ## where up enters the exit portal (its EnterZone)
+var walls: Array[AnimatableBody2D] = []   ## the scene's moving / switchable walls (Layout/Walls: platforms, hidden walls)
 var params := {}                 ## this stage's script numbers (data/stages.json)
 var script_node: StageScript     ## this stage's special rules (src/level/stages/<level_name>.gd), if any
 var fixed_camera := false        ## single-screen boss rooms (5-1, 6-1, 7-1, stage 10)
@@ -88,7 +88,7 @@ func _ready() -> void:
 	if stage == ARENA:
 		params = {"auto_touch": 1.0, "fixed_camera": true}
 	process_physics_priority = 10   # after the actors moved
-	_build(JSON.parse_string(FileAccess.get_file_as_string("res://assets/levels/%s/level.json" % level_name)))
+	_build()
 	hero = Hero.create()
 	hero.position = Vector2(200, 200)
 	hero.died.connect(func(_h): hero_died.emit())
@@ -186,7 +186,7 @@ func fail() -> void:
 ## Hidden walls (isHideWall) become solid (3-3: 孟婆 closes the arena).
 func enable_hidden_walls() -> void:
 	for b in walls:
-		if b.get_meta(&"wall").kind == "hidden":
+		if b.name.begins_with("HiddenWall"):
 			(b.get_child(0) as CollisionShape2D).set_deferred(&"disabled", false)
 
 func _touch_stop() -> void:
@@ -273,8 +273,8 @@ func freeze(seconds: float) -> void:
 
 # ------------------------------------------------------------------ build
 
-## The stage's scene: "Art" (behind the actors), "Ground" (the floor), optionally "Background/Sky", "Guides" (reference
-## lines for the editor: dropped here) and "Objects" (mechanisms, each a scene with its own script; world positions).
+## The stage's scene: "Background/Sky", "Art" (behind the actors), "Ground" (the floor art), "Layout" (the playing field),
+## optionally "Objects" (mechanisms); "Guides" (reference lines for the editor) is dropped.
 func _scenery_scene() -> Node:
 	var s: Node = load("res://scenes/levels/%s.tscn" % level_name).instantiate()
 	var guides := s.get_node_or_null("Guides")
@@ -283,181 +283,73 @@ func _scenery_scene() -> Node:
 		guides.free()
 	return s
 
-func _build(d: Dictionary) -> void:
-	size = Vector2(d.size[0], d.size[1])
+func _build() -> void:
 	var scenery := _scenery_scene()
-	var sky := scenery.get_node_or_null("Background/Sky") as Sprite2D
-	if sky != null:
-		# the sky picture is part of the hand-made scene: its Background layer (-2) goes into the level as it is
-		var bg := scenery.get_node("Background")
-		scenery.remove_child(bg)
-		add_child(bg)
-		_far = sky
-	else:
-		var far_layer := CanvasLayer.new()
-		far_layer.layer = -2   # (a stage's lighting puts its mist between this and the world)
-		add_child(far_layer)
-		_far = Sprite2D.new()
-		_far.centered = false
-		_far.texture = load(d.textures[d.far.tex].res)
-		far_layer.add_child(_far)
+	var layout: StageLayout = scenery.get_node("Layout")
+	size = layout.size
+	# the sky picture: its Background layer (-2) goes into the level as it is
+	var bg := scenery.get_node("Background")
+	scenery.remove_child(bg)
+	add_child(bg)
+	_far = bg.get_node("Sky")
 	_far_width = _far.texture.get_width()
 	_far_x0 = _far.position.x
 
 	world = Node2D.new()
 	world.name = "World"
 	add_child(world)
-	var art := scenery.get_node("Art")
-	var ground := scenery.get_node("Ground")
-	scenery.remove_child(art)
-	scenery.remove_child(ground)
-	var objects := scenery.get_node_or_null("Objects")
-	if objects != null:
-		scenery.remove_child(objects)
-		world.add_child(objects)
+	for part in ["Objects", "Art", "Ground", "Layout"]:
+		var n := scenery.get_node_or_null(part)
+		if n != null:
+			scenery.remove_child(n)
+			world.add_child(n)
 	scenery.free()
-	world.add_child(art)
-	world.add_child(ground)
-	_build_ground(d.walls)
-	for w in d.walls:
-		if _is_ground(w):
-			continue
-		if w.cls == "export.Boat" and world.has_node("Objects/Boat"):
-			continue   # the stage scene has its own boat (scenes/objects/boat.tscn)
-		var body := AnimatableBody2D.new()   # static unless a stage script moves it
-		body.z_index = Layers.Z_MECHANISM            # art a stage script hangs on it (boat, platforms)
-		body.sync_to_physics = false         # scripts move it directly in the physics step
-		body.set_meta(&"wall", w)
-		walls.append(body)
-		var oneway: bool = w.kind == "oneway"
-		body.collision_layer = Actor.LAYER_ONEWAY if oneway else Actor.LAYER_WORLD
-		body.collision_mask = 0
-		body.position = Vector2(w.pos[0], w.pos[1])
-		body.rotation_degrees = w.rot
-		var cs := CollisionShape2D.new()
-		var rs := RectangleShape2D.new()
-		rs.size = Vector2(w.size[0], w.size[1])
-		cs.shape = rs
-		cs.one_way_collision = oneway
-		cs.disabled = w.kind == "hidden"
-		body.add_child(cs)
-		world.add_child(body)
+	for b in layout.get_node("Walls").get_children():
+		if b is AnimatableBody2D:
+			walls.append(b)
 
-	var sorted: Array = d.stops.duplicate()
-	sorted.sort_custom(func(a, b): return a.x < b.x)
-	for s in sorted:
-		stops.append({"x": float(s.x), "back": float(s.back), "spawners": [], "done": false})
+	for s: CameraStop in layout.get_node("Stops").get_children():
+		var spawns: Array[MonsterSpawn] = []
+		for sp: MonsterSpawn in s.get_children():
+			sp.data = monster_data(sp.monster)
+			if sp.data == null:
+				push_warning("%s: no data for monster %d" % [level_name, sp.monster])
+				continue
+			if sp.boss and not sp.data.is_boss:
+				sp.data = sp.data.duplicate()
+				sp.data.is_boss = true
+			spawns.append(sp)
+		stops.append({"x": s.position.x, "back": s.back, "spawners": spawns, "done": false})
 	_end_x = minf(size.x, float(stops[-1].x)) if not stops.is_empty() else size.x
 	if stage == ARENA and arena_boss != null and not stops.is_empty():
-		var boss := arena_boss.duplicate()
-		boss.is_boss = true
-		stops[0].spawners.append(Spawner.new(boss, Vector2(833.45, 319.55), 1.0, 1.0, 1))
-	for sp in d.spawners:
-		var md := monster_data(int(sp.enemy))
-		if md == null:
-			push_warning("%s: no data for monster %d" % [level_name, sp.enemy])
-			continue
-		if sp.get("boss", false) and not md.is_boss:
-			md = md.duplicate()
-			md.is_boss = true
-		var spawner := Spawner.new(md, Vector2(sp.x, sp.y), sp.delay, sp.interval, sp.total)
-		if int(sp.stop) < stops.size():
-			stops[int(sp.stop)].spawners.append(spawner)
+		var sp := MonsterSpawn.new()
+		sp.data = arena_boss.duplicate()
+		sp.data.is_boss = true
+		sp.position = Vector2(833.45, 319.55)
+		sp.delay = 1.0
+		world.add_child(sp)
+		stops[0].spawners.append(sp)
 
-	for dd in d.doors:
-		if dd.kind != "exit_door":
-			continue   # (the other doors are mechanism scenes in the stage scene's Objects)
-		door = Puppet.create("exit_door")
-		door.z_index = Layers.Z_EXIT   # in front of the floor art (9-1: the bridge rail would cover it) but behind the actors
-		door.position = Vector2(dd.pos[0], dd.pos[1])
-		door.visible = false
-		world.add_child(door)
+	door = layout.get_node_or_null("ExitDoor")
+	if door != null:
+		door_zone = door.get_node("EnterZone")
 		door.play(door.actions[0])
-		door_zone = Area2D.new()
-		door_zone.collision_layer = 0
-		door_zone.collision_mask = Actor.LAYER_HURT_HERO
-		var zs := CollisionShape2D.new()
-		var rs := RectangleShape2D.new()
-		rs.size = Vector2(dd.rect[2], dd.rect[3])
-		zs.shape = rs
-		zs.position = Vector2(dd.rect[0], dd.rect[1]) + rs.size / 2.0
-		door_zone.add_child(zs)
-		world.add_child(door_zone)
 
-	_warm_puppets(d)
+	_warm_puppets()
 
-# ------------------------------------------------------------------ ground collision
-
-## Solid scene walls that never move make up the ground (everything else - boat, platforms, hidden walls - stays its own body).
-func _is_ground(w: Dictionary) -> bool:
-	return w.kind == "solid" and w.cls != "export.Boat"
-
-## One static body for all the ground: a box per wall, and a ramp (the original's sloped wall: its surface is a line from one
-## end to the other) as a convex polygon whose surface ends exactly at the height of the floor it joins - so nothing
-## pokes above the floor for a foot to catch on.
-func _build_ground(all: Array) -> void:
-	var body := StaticBody2D.new()
-	body.name = "GroundCollision"
-	body.collision_layer = Actor.LAYER_WORLD
-	body.collision_mask = 0
-	for w in all:
-		if not _is_ground(w):
-			continue
-		var cs := CollisionShape2D.new()
-		var rot := absf(fmod(float(w.rot), 90.0))
-		if rot < 1.0 or rot > 89.0:
-			var rs := RectangleShape2D.new()
-			rs.size = Vector2(w.size[0], w.size[1])
-			cs.shape = rs
-			cs.position = Vector2(w.pos[0], w.pos[1])
-			cs.rotation_degrees = w.rot
-		else:
-			var cp := ConvexPolygonShape2D.new()
-			cp.points = _ramp_polygon(w, all)
-			cs.shape = cp
-		body.add_child(cs)
-	world.add_child(body)
-
-const RAMP_DEPTH := 60.0     ## how far a ramp reaches down under its surface
-const SNAP := 8.0            ## a ramp end this close to a floor's top edge is on it
-
-func _ramp_polygon(w: Dictionary, all: Array) -> PackedVector2Array:
-	var half := Vector2(w.size[0], w.size[1]) / 2.0
-	var xf := Transform2D(deg_to_rad(float(w.rot)), Vector2(w.pos[0], w.pos[1]))
-	var a: Vector2 = xf * Vector2(-half.x, -half.y)   # the surface is the box's top edge
-	var b: Vector2 = xf * Vector2(half.x, -half.y)
-	var left := a if a.x < b.x else b
-	var right := b if a.x < b.x else a
-	var slope := (right.y - left.y) / (right.x - left.x)
-	var l := _end_on_floor(left, slope, all, w)
-	var r := _end_on_floor(right, slope, all, w)
-	left = l
-	right = r
-	return PackedVector2Array([left, right, right + Vector2(0, RAMP_DEPTH), left + Vector2(0, RAMP_DEPTH)])
-
-## A ramp end `p` that lies on a flat floor box: the surface line is carried on to the floor's top edge, so ramp and floor
-## meet at one point. Otherwise `p` unchanged.
-func _end_on_floor(p: Vector2, slope: float, all: Array, self_w: Dictionary) -> Vector2:
-	for o in all:
-		if o == self_w or not _is_ground(o) or absf(float(o.rot)) > 0.5:
-			continue
-		var r := Rect2(Vector2(o.pos[0] - o.size[0] / 2.0, o.pos[1] - o.size[1] / 2.0), Vector2(o.size[0], o.size[1]))
-		if p.x >= r.position.x - SNAP and p.x <= r.end.x + SNAP and absf(r.position.y - p.y) <= SNAP:
-			return Vector2(p.x + (r.position.y - p.y) / slope, r.position.y)
-	return p
+# ------------------------------------------------------------------ preloading
 
 ## Common effects plus every puppet of this stage's monsters (body, projectiles, and puppets named after the body:
 ## bullets, effects, form clips) load in the background while the stage starts.
 const WARM_COMMON := ["fx_monster_hurt1", "fx_monster_hurt2", "fx_hero_hurt", "orb_Red", "orb_Green", "orb_Blue",
 	"orb_While", "potion_BigHP", "potion_SmallHP", "potion_SmallMP", "gogo", "fx_levelup"]
 
-func _warm_puppets(d: Dictionary) -> void:
+func _warm_puppets() -> void:
 	var bodies := {}
-	for sp in d.spawners:
-		var md := monster_data(int(sp.enemy))
-		if md:
-			bodies[md.puppet] = true
-			for a: AttackData in md.attacks.values():
+	for s in stops:
+		for sp: MonsterSpawn in s.spawners:
+			bodies[sp.data.puppet] = true
+			for a: AttackData in sp.data.attacks.values():
 				if a.projectile != "":
 					bodies[a.projectile] = true
 	var names: Array = WARM_COMMON.duplicate()
@@ -532,7 +424,7 @@ func _update_stops(delta: float) -> void:
 		return
 	var busy := false
 	var fb: bool = params.get("fb", false)   # dungeon (9-1): spawners only fill an empty screen
-	for sp: Spawner in s.spawners:
+	for sp: MonsterSpawn in s.spawners:
 		if not fb or monsters().is_empty():
 			sp.tick(delta, self)
 		busy = busy or not sp.finished()
@@ -548,7 +440,7 @@ func _update_stops(delta: float) -> void:
 
 func _has_boss_spawner() -> bool:
 	for s in stops:
-		for sp: Spawner in s.spawners:
+		for sp: MonsterSpawn in s.spawners:
 			if sp.data.is_boss:
 				return true
 	return false

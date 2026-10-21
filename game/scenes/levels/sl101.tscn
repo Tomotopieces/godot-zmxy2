@@ -6,6 +6,24 @@
 [ext_resource type="PackedScene" uid="uid://dtchw2s6sxigj" path="res://scenes/objects/hub_door.tscn" id="hub_door"]
 [ext_resource type="PackedScene" path="res://scenes/objects/hub_statue.tscn" id="hub_statue"]
 
+[ext_resource type="Script" path="res://src/level/layout/stage_layout.gd" id="xqm61iq"]
+
+[ext_resource type="Script" path="res://src/level/layout/camera_stop.gd" id="xg9s45d"]
+
+[ext_resource type="Script" path="res://src/level/layout/monster_spawn.gd" id="xmdxwqc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_L1"]
+size = Vector2(20.01, 1000)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_L2"]
+size = Vector2(899.96, 23.3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_L3"]
+size = Vector2(1150.02, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_L4"]
+size = Vector2(1150.02, 20)
+
 [node name="Scenery" type="Node2D" unique_id=501146615]
 
 [node name="Guides" type="Node2D" parent="." unique_id=1870971367]
@@ -79,3 +97,31 @@ index = 3
 [node name="HubStatue" parent="Objects" unique_id=1267351785 instance=ExtResource("hub_statue")]
 z_index = -8
 position = Vector2(220, 0)
+
+[node name="Layout" type="Node2D" parent="."]
+script = ExtResource("xqm61iq")
+size = Vector2(1044.31, 590.3)
+
+[node name="Walls" type="Node2D" parent="Layout"]
+
+[node name="Ground" type="StaticBody2D" parent="Layout/Walls"]
+collision_mask = 0
+
+[node name="Floor1" type="CollisionShape2D" parent="Layout/Walls/Ground"]
+position = Vector2(1032.3, 70.35)
+shape = SubResource("RectangleShape2D_L1")
+
+[node name="Floor2" type="CollisionShape2D" parent="Layout/Walls/Ground"]
+position = Vector2(-96.6, 63.1)
+rotation = 1.571
+shape = SubResource("RectangleShape2D_L2")
+
+[node name="Floor3" type="CollisionShape2D" parent="Layout/Walls/Ground"]
+position = Vector2(469.3, -376.9)
+shape = SubResource("RectangleShape2D_L3")
+
+[node name="Floor4" type="CollisionShape2D" parent="Layout/Walls/Ground"]
+position = Vector2(467.3, 510)
+shape = SubResource("RectangleShape2D_L4")
+
+[node name="Stops" type="Node2D" parent="Layout"]

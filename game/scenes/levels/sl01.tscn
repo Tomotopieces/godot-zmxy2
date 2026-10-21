@@ -3,6 +3,24 @@
 [ext_resource type="Texture2D" path="res://assets/shared/levels/1_v6_1.png" id="1_jve1w"]
 [ext_resource type="Texture2D" path="res://assets/shared/levels/zmxy2_game_271.png" id="2_1x2j1"]
 
+[ext_resource type="Script" path="res://src/level/layout/stage_layout.gd" id="xy31ro1"]
+
+[ext_resource type="Script" path="res://src/level/layout/camera_stop.gd" id="xqoftwt"]
+
+[ext_resource type="Script" path="res://src/level/layout/monster_spawn.gd" id="xp65kjs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_L1"]
+size = Vector2(1200.01, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_L2"]
+size = Vector2(20.01, 1000)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_L3"]
+size = Vector2(899.96, 23.3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_L4"]
+size = Vector2(1200.01, 20)
+
 [node name="Scenery" type="Node2D" unique_id=161253371]
 
 [node name="Guides" type="Node2D" parent="." unique_id=22004261]
@@ -48,3 +66,36 @@ offset_bottom = 607.65
 texture = ExtResource("2_1x2j1")
 expand_mode = 1
 stretch_mode = 1
+
+[node name="Layout" type="Node2D" parent="."]
+script = ExtResource("xy31ro1")
+size = Vector2(1091.05, 591.45)
+
+[node name="Walls" type="Node2D" parent="Layout"]
+
+[node name="Ground" type="StaticBody2D" parent="Layout/Walls"]
+collision_mask = 0
+
+[node name="Floor1" type="CollisionShape2D" parent="Layout/Walls/Ground"]
+position = Vector2(471.05, 528.55)
+shape = SubResource("RectangleShape2D_L1")
+
+[node name="Floor2" type="CollisionShape2D" parent="Layout/Walls/Ground"]
+position = Vector2(1081.05, 91.45)
+shape = SubResource("RectangleShape2D_L2")
+
+[node name="Floor3" type="CollisionShape2D" parent="Layout/Walls/Ground"]
+position = Vector2(-140.6, 63.1)
+rotation = 1.571
+shape = SubResource("RectangleShape2D_L3")
+
+[node name="Floor4" type="CollisionShape2D" parent="Layout/Walls/Ground"]
+position = Vector2(471.05, -380.65)
+shape = SubResource("RectangleShape2D_L4")
+
+[node name="Stops" type="Node2D" parent="Layout"]
+
+[node name="Stop1" type="Marker2D" parent="Layout/Stops"]
+position = Vector2(882.3, 221.3)
+script = ExtResource("xqoftwt")
+back = 1150

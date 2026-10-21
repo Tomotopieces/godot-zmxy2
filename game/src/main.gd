@@ -10,7 +10,7 @@ var _fade := ScreenFade.new()
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	Controls.add_gamepad_defaults()
-	add_child(PadNav.new())
+	add_child(PadFocus.new())
 	add_child(_fade)
 	if OS.has_feature("web"):
 		add_child(WebHost.new())

@@ -19,6 +19,32 @@
 [ext_resource type="Texture2D" uid="uid://bnbaxe2lw80o1" path="res://assets/shared/levels/3_1.png" id="17_7ohld"]
 [ext_resource type="Texture2D" uid="uid://bds00bt603vfl" path="res://assets/levels/sl33/tex/zmxy2_game_281.png" id="18_4hulv"]
 
+[ext_resource type="Script" path="res://src/level/layout/stage_layout.gd" id="xbuersw"]
+
+[ext_resource type="Script" path="res://src/level/layout/camera_stop.gd" id="xuw7sj1"]
+
+[ext_resource type="Script" path="res://src/level/layout/monster_spawn.gd" id="xpktkfp"]
+
+[ext_resource type="PackedScene" path="res://scenes/actors/exit_door/exit_door.tscn" id="xkost3d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_L1"]
+size = Vector2(5000, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_L2"]
+size = Vector2(800.65, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_L3"]
+size = Vector2(699.95, 23.3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_L4"]
+size = Vector2(5000, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_L5"]
+size = Vector2(799.97, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_L6"]
+size = Vector2(167, 163.45)
+
 [node name="Scenery" type="Node2D" unique_id=2143347713]
 
 [node name="Guides" type="Node2D" parent="." unique_id=683674320]
@@ -277,3 +303,211 @@ texture = ExtResource("18_4hulv")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 10237, 308)
+
+[node name="Layout" type="Node2D" parent="."]
+script = ExtResource("xbuersw")
+size = Vector2(5096.35, 625.85)
+
+[node name="Walls" type="Node2D" parent="Layout"]
+
+[node name="Ground" type="StaticBody2D" parent="Layout/Walls"]
+collision_mask = 0
+
+[node name="Floor1" type="CollisionShape2D" parent="Layout/Walls/Ground"]
+position = Vector2(2503.35, 487.05)
+shape = SubResource("RectangleShape2D_L1")
+
+[node name="Floor2" type="CollisionShape2D" parent="Layout/Walls/Ground"]
+position = Vector2(4737.95, 138.95)
+rotation = 1.571
+shape = SubResource("RectangleShape2D_L2")
+
+[node name="Floor3" type="CollisionShape2D" parent="Layout/Walls/Ground"]
+position = Vector2(-6.35, 181.4)
+rotation = 1.571
+shape = SubResource("RectangleShape2D_L3")
+
+[node name="Floor4" type="CollisionShape2D" parent="Layout/Walls/Ground"]
+position = Vector2(2482, -26.65)
+shape = SubResource("RectangleShape2D_L4")
+
+[node name="HiddenWall1" type="AnimatableBody2D" parent="Layout/Walls"]
+z_index = -8
+position = Vector2(3531.95, 192.9)
+rotation = 1.571
+collision_layer = 1
+collision_mask = 0
+sync_to_physics = false
+
+[node name="Shape" type="CollisionShape2D" parent="Layout/Walls/HiddenWall1"]
+shape = SubResource("RectangleShape2D_L5")
+disabled = true
+
+[node name="Stops" type="Node2D" parent="Layout"]
+
+[node name="Stop1" type="Marker2D" parent="Layout/Stops"]
+position = Vector2(1088.7, 176.85)
+script = ExtResource("xuw7sj1")
+back = 1150
+
+[node name="Spawn1" type="Marker2D" parent="Layout/Stops/Stop1"]
+position = Vector2(-806.6, 9.4)
+script = ExtResource("xpktkfp")
+monster = 43
+delay = 4
+interval = 1
+total = 5
+
+[node name="Spawn2" type="Marker2D" parent="Layout/Stops/Stop1"]
+position = Vector2(49.9, 129.6)
+script = ExtResource("xpktkfp")
+monster = 42
+delay = 6
+interval = 1
+total = 5
+
+[node name="Spawn3" type="Marker2D" parent="Layout/Stops/Stop1"]
+position = Vector2(-55.55, 241.75)
+script = ExtResource("xpktkfp")
+monster = 44
+delay = 2
+interval = 1
+total = 2
+
+[node name="Stop2" type="Marker2D" parent="Layout/Stops"]
+position = Vector2(1834.95, 170.15)
+script = ExtResource("xuw7sj1")
+back = 1150
+
+[node name="Spawn1" type="Marker2D" parent="Layout/Stops/Stop2"]
+position = Vector2(-814.9, -9.15)
+script = ExtResource("xpktkfp")
+monster = 43
+delay = 6
+interval = 1
+total = 5
+
+[node name="Spawn2" type="Marker2D" parent="Layout/Stops/Stop2"]
+position = Vector2(64.75, 120.3)
+script = ExtResource("xpktkfp")
+monster = 42
+delay = 6
+interval = 1
+total = 5
+
+[node name="Spawn3" type="Marker2D" parent="Layout/Stops/Stop2"]
+position = Vector2(-40.7, 232.45)
+script = ExtResource("xpktkfp")
+monster = 44
+delay = 2
+interval = 1
+total = 4
+
+[node name="Spawn4" type="Marker2D" parent="Layout/Stops/Stop2"]
+position = Vector2(-435.65, 240.45)
+script = ExtResource("xpktkfp")
+monster = 44
+delay = 2
+interval = 1
+total = 4
+
+[node name="Stop3" type="Marker2D" parent="Layout/Stops"]
+position = Vector2(2839.2, 150.95)
+script = ExtResource("xuw7sj1")
+back = 1150
+
+[node name="Spawn1" type="Marker2D" parent="Layout/Stops/Stop3"]
+position = Vector2(-1039.9, 15.2)
+script = ExtResource("xpktkfp")
+monster = 44
+delay = 6
+interval = 1
+total = 5
+
+[node name="Spawn2" type="Marker2D" parent="Layout/Stops/Stop3"]
+position = Vector2(40, 144.65)
+script = ExtResource("xpktkfp")
+monster = 44
+delay = 6
+interval = 1
+total = 5
+
+[node name="Spawn3" type="Marker2D" parent="Layout/Stops/Stop3"]
+position = Vector2(-65.45, 256.8)
+script = ExtResource("xpktkfp")
+monster = 42
+delay = 2
+interval = 1
+total = 5
+
+[node name="Spawn4" type="Marker2D" parent="Layout/Stops/Stop3"]
+position = Vector2(-740.8, 236.8)
+script = ExtResource("xpktkfp")
+monster = 43
+delay = 2
+interval = 1
+total = 5
+
+[node name="Stop4" type="Marker2D" parent="Layout/Stops"]
+position = Vector2(3567.35, 219.95)
+script = ExtResource("xuw7sj1")
+back = 1150
+
+[node name="Spawn1" type="Marker2D" parent="Layout/Stops/Stop4"]
+position = Vector2(-897.3, -33.7)
+script = ExtResource("xpktkfp")
+monster = 44
+delay = 6
+interval = 1
+total = 5
+
+[node name="Spawn2" type="Marker2D" parent="Layout/Stops/Stop4"]
+position = Vector2(182.6, 95.75)
+script = ExtResource("xpktkfp")
+monster = 44
+delay = 6
+interval = 1
+total = 5
+
+[node name="Spawn3" type="Marker2D" parent="Layout/Stops/Stop4"]
+position = Vector2(77.15, 207.9)
+script = ExtResource("xpktkfp")
+monster = 42
+delay = 2
+interval = 1
+total = 5
+
+[node name="Spawn4" type="Marker2D" parent="Layout/Stops/Stop4"]
+position = Vector2(-598.2, 187.9)
+script = ExtResource("xpktkfp")
+monster = 43
+delay = 2
+interval = 1
+total = 5
+
+[node name="Stop5" type="Marker2D" parent="Layout/Stops"]
+position = Vector2(4703.45, 207.45)
+script = ExtResource("xuw7sj1")
+back = 1150
+
+[node name="Spawn1" type="Marker2D" parent="Layout/Stops/Stop5"]
+position = Vector2(-163.55, 139.15)
+script = ExtResource("xpktkfp")
+monster = 47
+delay = 2
+interval = 1
+total = 1
+
+[node name="ExitDoor" parent="Layout" instance=ExtResource("xkost3d")]
+visible = false
+z_index = -6
+position = Vector2(4359.05, 435.75)
+
+[node name="EnterZone" type="Area2D" parent="Layout/ExitDoor"]
+collision_layer = 0
+collision_mask = 16
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Layout/ExitDoor/EnterZone"]
+position = Vector2(-0.25, -27.425)
+shape = SubResource("RectangleShape2D_L6")

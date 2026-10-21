@@ -24,6 +24,32 @@
 [ext_resource type="PackedScene" uid="uid://deiqdm1htfa7w" path="res://scenes/objects/boat.tscn" id="boat_obj"]
 [ext_resource type="PackedScene" path="res://scenes/objects/river_water.tscn" id="water_obj"]
 
+[ext_resource type="Script" path="res://src/level/layout/stage_layout.gd" id="xlkwi5w"]
+
+[ext_resource type="Script" path="res://src/level/layout/camera_stop.gd" id="xhunpm7"]
+
+[ext_resource type="Script" path="res://src/level/layout/monster_spawn.gd" id="xgy93jq"]
+
+[ext_resource type="PackedScene" path="res://scenes/actors/exit_door/exit_door.tscn" id="x2mzr9q"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_L1"]
+size = Vector2(5000, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_L2"]
+size = Vector2(800, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_L3"]
+size = Vector2(800, 20)
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_L4"]
+points = PackedVector2Array(4300.358, 510.95, 4335.708, 475.6, 4335.708, 535.6, 4300.358, 570.95)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_L5"]
+size = Vector2(320.01, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_L6"]
+size = Vector2(167, 163.45)
+
 [node name="Scenery" type="Node2D" unique_id=1695339481]
 
 [node name="Guides" type="Node2D" parent="." unique_id=461385721]
@@ -733,3 +759,54 @@ position = Vector2(1000, 600)
 
 [node name="Boat" parent="Objects" unique_id=127088362 instance=ExtResource("boat_obj")]
 position = Vector2(272.35, 495)
+
+[node name="Layout" type="Node2D" parent="."]
+script = ExtResource("xlkwi5w")
+size = Vector2(4992.95, 753.96)
+
+[node name="Walls" type="Node2D" parent="Layout"]
+
+[node name="Ground" type="StaticBody2D" parent="Layout/Walls"]
+collision_mask = 0
+
+[node name="Floor1" type="CollisionShape2D" parent="Layout/Walls/Ground"]
+position = Vector2(2492.95, -36.05)
+shape = SubResource("RectangleShape2D_L1")
+
+[node name="Floor2" type="CollisionShape2D" parent="Layout/Walls/Ground"]
+position = Vector2(-10, 353.95)
+rotation = 1.571
+shape = SubResource("RectangleShape2D_L2")
+
+[node name="Floor3" type="CollisionShape2D" parent="Layout/Walls/Ground"]
+position = Vector2(4666.45, 292.4)
+rotation = 1.571
+shape = SubResource("RectangleShape2D_L3")
+
+[node name="Ramp4" type="CollisionShape2D" parent="Layout/Walls/Ground"]
+shape = SubResource("ConvexPolygonShape2D_L4")
+
+[node name="Floor5" type="CollisionShape2D" parent="Layout/Walls/Ground"]
+position = Vector2(4495.45, 485.6)
+shape = SubResource("RectangleShape2D_L5")
+
+[node name="Stops" type="Node2D" parent="Layout"]
+
+[node name="Stop1" type="Marker2D" parent="Layout/Stops"]
+position = Vector2(4610, 338.05)
+script = ExtResource("xhunpm7")
+back = 1150
+
+[node name="ExitDoor" parent="Layout" instance=ExtResource("x2mzr9q")]
+visible = false
+z_index = -6
+position = Vector2(4503.05, 424.7)
+
+[node name="EnterZone" type="Area2D" parent="Layout/ExitDoor"]
+collision_layer = 0
+collision_mask = 16
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Layout/ExitDoor/EnterZone"]
+position = Vector2(-0.25, -27.425)
+shape = SubResource("RectangleShape2D_L6")

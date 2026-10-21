@@ -10,6 +10,7 @@ const PAD_BUTTONS := {
 	&"skill_l": [JOY_BUTTON_RIGHT_STICK], &"open_bag": [JOY_BUTTON_BACK], &"pause": [JOY_BUTTON_START],
 	&"move_left": [JOY_BUTTON_DPAD_LEFT], &"move_right": [JOY_BUTTON_DPAD_RIGHT],
 	&"move_up": [JOY_BUTTON_DPAD_UP], &"move_down": [JOY_BUTTON_DPAD_DOWN],
+	&"ui_accept": [JOY_BUTTON_A],   # menus: the focused button (PadFocus)
 }
 const PAD_AXES := {
 	&"move_left": [JOY_AXIS_LEFT_X, -1.0], &"move_right": [JOY_AXIS_LEFT_X, 1.0],

@@ -35,10 +35,9 @@ func _ready() -> void:
 	var costs := _ui.get_node("ActiveSkillPanel/Requirements")
 	for i in 5:
 		var b: Button = _table.get_node("Icons/Skill%d/Button" % (i + 1))
-		b.focus_mode = Control.FOCUS_NONE
+		b.focus_mode = Control.FOCUS_ALL
 		b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 		b.pressed.connect(_learn.bind(i))
-		PadNav.mark(b)
 		_active.append(b)
 		(costs.get_child(i) as Label).text = str(GameState.learn_cost(i))
 	_show_keys(false)
@@ -46,8 +45,8 @@ func _ready() -> void:
 	for i in 5:
 		_cell("Names", i).text = PASSIVE_NAME[GameState.hero_data.learn_passive[i]]
 		var b: Button = _passive.get_node("Upgrade/Skill%d" % (i + 1))
+		b.focus_mode = Control.FOCUS_ALL
 		b.pressed.connect(_upgrade.bind(i))
-		PadNav.mark(b)
 		_upgrades.append(b)
 	_ui.button_pressed.connect(_on_button)
 	_show_page(false)

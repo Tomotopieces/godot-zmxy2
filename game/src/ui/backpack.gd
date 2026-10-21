@@ -94,17 +94,20 @@ func _refresh() -> void:
 	# the items of the current tab, one per scene cell, in bag order (the cells' own positions are their grid slots)
 	var shown := GameState.tab_items(TABS[_tab])
 	var k := 0
+	var icons := []
 	for cell in _grid.get_children():
 		if not _is_cell(cell):
 			continue
 		var pos: Vector2 = (cell as Control).position
 		if k < shown.size():
 			var idx: int = shown[k]
-			_grid.add_child(_icon(GameState.bag[idx], pos, _on_bag_click.bind(idx)))
+			icons.append(_icon(GameState.bag[idx], pos, _on_bag_click.bind(idx)))
+			_grid.add_child(icons[-1])
 			var n := GameState.bag[idx].n
 			if n > 1:
 				_grid.add_child(_count_label(n, pos))
 		k += 1
+	PadFocus.link_grid(icons, GRID_COLS)
 	# worn gear on the slot frames (an empty slot keeps its caption, an occupied one hides it)
 	for slot in SLOT_NODES:
 		var item: Item = GameState.worn[slot]
@@ -139,10 +142,12 @@ func _icon(item: Item, pos: Vector2, on_click: Callable) -> TextureRect:
 	t.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	t.mouse_entered.connect(_show_tip.bind(item, t))
 	t.mouse_exited.connect(_hide_tip)
+	t.focus_entered.connect(_show_tip.bind(item, t))   # the pad's focus shows the tooltip like a hover
+	t.focus_exited.connect(_hide_tip)
+	t.focus_mode = Control.FOCUS_ALL
 	t.gui_input.connect(func(e: InputEvent):
-		if e is InputEventMouseButton and e.pressed and e.button_index == MOUSE_BUTTON_LEFT:
+		if (e is InputEventMouseButton and e.pressed and e.button_index == MOUSE_BUTTON_LEFT) or e.is_action_released("ui_accept"):
 			on_click.call(t))
-	PadNav.mark(t)
 	return t
 
 func _fill_stats() -> void:
@@ -190,7 +195,7 @@ func _on_bag_click(icon: Control, index: int) -> void:
 	_menu.reset_size()   # the frame shrinks to the shown buttons (fonts are only known in the tree)
 	_menu.position = icon.position + _grid.position + MENU_OFFSET
 	_menu.position.y = minf(_menu.position.y, Layers.VIEW.y - _menu.size.y)
-	PadNav.modal(_menu)
+	PadFocus.modal(_menu)
 	_menu.button_pressed.connect(_menu_action)
 
 func _menu_action(action: String) -> void:
