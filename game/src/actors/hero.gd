@@ -202,7 +202,6 @@ func _read_input() -> void:
 		running = true
 
 	note_presses()
-	_turn_between_moves()
 	_use_buffer()
 	_read_attack_input()
 	if Input.is_action_just_pressed("rage"):
@@ -245,22 +244,8 @@ func _do_press(k: StringName, up: bool) -> bool:
 		return _try_jump()
 	return _press(k, up)
 
-## Between moves the hero turns to the held direction at once, so the next move goes the way the stick points
-## (the original only turns while walking: a skill chained out of a skill kept the old facing).
-func _turn_between_moves() -> void:
-	if _dir == 0 or _dir == facing:
-		return
-	if state == State.MOVE or (state == State.ATTACK and _can_turn_now()):
-		facing = _dir
-
-## Mid-move turning (virtual): only where the next move may already start - a combo hit once the attack lock is
-## over (the next hit would cut it), or any move in its last part (cancel_progress). Dashes keep their way.
-func _can_turn_now() -> bool:
-	if attack_action in SCRIPTED_MOTION:
-		return false
-	if attack_action in _cancelable_actions() and cooldown <= 0.0:
-		return true
-	return puppet.progress() >= data.cancel_progress
+## A move never turns while it plays; the next move starts facing the held direction (pressed during the move before,
+## e.g. back during hit 4 sends hit 5 the other way). The original kept the old facing when a move chained into one.
 
 ## Attack and skill keys (virtual).
 func _press(k: StringName, up: bool) -> bool:
@@ -360,6 +345,8 @@ func _try_skill(action: StringName, cancel := false) -> bool:
 	return true
 
 func _begin(action: StringName) -> void:
+	if _dir != 0:
+		facing = _dir   # the new move goes the way the player holds now
 	if action == &"hit7" and transformed:
 		_spawn_afterimage()   # the one afterimage of the dash, in the pose it starts from
 	state = State.ATTACK

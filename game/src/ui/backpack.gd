@@ -182,6 +182,8 @@ func _on_bag_click(icon: Control, index: int) -> void:
 		b.visible = enabled.has(String(b.name))
 		b.disabled = not enabled.get(String(b.name), false)
 	add_child(_menu)
+	for b: Button in _menu.piece("Buttons").get_children():
+		b.focus_mode = Control.FOCUS_NONE if b.disabled else Control.FOCUS_ALL   # the pad skips what cannot be used
 	_menu.reset_size()   # the frame shrinks to the shown buttons (fonts are only known in the tree)
 	_menu.position = icon.position + _grid.position + MENU_OFFSET
 	_menu.position.y = minf(_menu.position.y, Layers.VIEW.y - _menu.size.y)

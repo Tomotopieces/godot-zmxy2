@@ -14,6 +14,13 @@ var _spot := Vector2.INF       ## where the focus last was on a screen (not in a
 var _mouse_down := false       ## a mouse button is held (a press in progress)
 static var pad_last := false   ## the device used last is the gamepad (key hints show pad buttons)
 
+static var _show_next := false
+
+## Puts the focus on a screen's default choice; the highlight shows at once when the pad was used last.
+static func focus(c: Control) -> void:
+	c.grab_focus()
+	_show_next = pad_last
+
 static func screen(layer: CanvasLayer) -> void:
 	layer.add_to_group(GROUP)
 
@@ -105,6 +112,10 @@ func _process(_dt: float) -> void:
 	if scope == null:
 		_hide()
 		return
+	if _show_next:
+		_show_next = false
+		_shown = true
+		_mark.visible = true
 	if _shown:
 		_keep_in(scope)
 		_mark.queue_redraw()
@@ -112,11 +123,14 @@ func _process(_dt: float) -> void:
 ## Only the top screen (or its open popup) can take focus: the focus system's own neighbour search would otherwise
 ## also reach the screens under it.
 func _fence(scope: Node) -> void:
+	var popup := scope != null and scope.is_in_group(MODAL)
 	for l: CanvasLayer in get_tree().get_nodes_in_group(GROUP):
 		for c in l.get_children():
 			if c is Control:
-				var on: bool = (scope == l) if scope == null or not scope.is_in_group(MODAL) else (c == scope or c.is_ancestor_of(scope))
+				var on: bool = scope == l and not popup
 				(c as Control).focus_behavior_recursive = Control.FOCUS_BEHAVIOR_ENABLED if on else Control.FOCUS_BEHAVIOR_DISABLED
+	if popup:
+		(scope as Control).focus_behavior_recursive = Control.FOCUS_BEHAVIOR_ENABLED   # (overrides its disabled ancestors)
 
 func _in_popup(c: Control) -> bool:
 	for p: Control in get_tree().get_nodes_in_group(MODAL):

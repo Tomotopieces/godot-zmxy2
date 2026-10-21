@@ -59,11 +59,33 @@ func _ready() -> void:
 	await _until(func(): return h.is_on_floor(), 3.0)
 	await _wait(0.2)
 
-	# 4. turning: a skill chained after a move goes the way the held direction points
+	# 4. turning: no turn while a move plays; the next move goes the way the held direction points
+	#    (back pressed during combo hit 4 -> hit 5 goes the other way)
+	h.facing = 1
+	for i in 4:
+		await _until(func(): return h.cooldown <= 0.0, 2.0)
+		await _press("attack")
+		await _wait(0.02)
+	var hit4 := h.attack_action
+	Input.action_press("move_left")
+	await _wait(0.05)
+	var f4 := h.facing
+	await _until(func(): return h.attack_action != hit4 or h.state == Hero.State.MOVE, 2.0)
+	await _until(func(): return h.cooldown <= 0.0, 2.0)
+	await _press("attack")
+	await _wait(0.02)
+	var f5 := h.facing
+	var hit5 := h.attack_action
+	Input.action_release("move_left")
+	_check("no turn while %s plays (facing %d)" % [hit4, f4], f4 == 1)
+	_check("next hit %s goes the held way (facing %d)" % [hit5, f5], f5 == -1 and hit5 != hit4)
+	await _until_idle(h)
 	h.facing = 1
 	await _press("skill_i")   # 烈焰风暴
 	await _wait(0.1)
 	Input.action_press("move_left")
+	await _wait(0.1)
+	var f6 := h.facing
 	await _until(func(): return h.state == Hero.State.MOVE or h.puppet.progress() >= h.data.cancel_progress, 4.0)
 	await _until(func(): return h.cooldown <= 0.0, 2.0)
 	await _wait(0.05)
@@ -71,6 +93,7 @@ func _ready() -> void:
 	await _until(func(): return h.attack_action == &"hit7", 1.0)
 	var f7 := h.facing
 	Input.action_release("move_left")
+	_check("no turn while a skill plays (facing %d)" % f6, f6 == 1)
 	_check("next move turned to the held direction (facing %d at %s)" % [f7, h.attack_action], f7 == -1 and h.attack_action == &"hit7")
 	await _until_idle(h)
 	Input.action_release("move_left")

@@ -17,14 +17,16 @@ const TRIGGER := 0.6                 ## LT / RT count as pressed past this
 var tab: StringName
 var page: Control
 var _tabs: Array[StringName]
+var on_map := false   ## opened on the stage map: 设置 has no 继续游戏 / 返回地图
 var _ui: UiLayout
 var _trigger := {JOY_AXIS_TRIGGER_LEFT: false, JOY_AXIS_TRIGGER_RIGHT: false}
 
-## `tabs`: the tabs this menu has (the map's 技能 button opens one with only 技能).
-static func create(first: StringName, tabs: Array[StringName] = TABS) -> TabMenu:
+## `map`: opened on the stage map.
+static func create(first: StringName, map := false) -> TabMenu:
 	var m := TabMenu.new()
 	m.tab = first
-	m._tabs = tabs
+	m._tabs = TABS
+	m.on_map = map
 	return m
 
 ## The menu a page is in: its own close / continue buttons close the whole menu.
@@ -69,6 +71,7 @@ func show_tab(t: StringName) -> void:
 		&"treasure": page = SutraPanel.new()
 		&"settings":
 			var p := PauseMenu.new()
+			p.in_stage = not on_map
 			p.to_map.connect(to_map.emit)
 			p.to_menu.connect(to_menu.emit)
 			page = p
@@ -110,6 +113,8 @@ func _input(e: InputEvent) -> void:
 	if m == null or not _trigger.has(m.axis):
 		return
 	var down := m.axis_value > TRIGGER
+	if down:
+		PadFocus.pad_last = true   # (handled here: PadFocus never sees the triggers)
 	if down and not _trigger[m.axis]:
 		step(-1 if m.axis == JOY_AXIS_TRIGGER_LEFT else 1)
 	_trigger[m.axis] = down

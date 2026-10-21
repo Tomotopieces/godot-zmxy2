@@ -6,11 +6,14 @@ extends Control
 signal to_map
 signal to_menu
 
+var in_stage := true   ## false on the map: no 继续游戏 / 返回地图
 var _ui: UiLayout
 
 func _ready() -> void:
 	_ui = UiLayout.create("set_menu")
 	add_child(_ui)
+	for b in ["BtnContinue", "BtnBackToMap"]:
+		_ui.piece(b).visible = in_stage
 	_sync()
 	Snd.volume_changed.connect(func(_v, _m): _sync())   # M key while the menu is open
 	_ui.button_pressed.connect(_on_button)

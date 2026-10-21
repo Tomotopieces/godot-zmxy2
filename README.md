@@ -80,7 +80,7 @@ only show those characters.
 ## Game feel
 
 - Input buffer: an attack / skill / jump press is kept `HeroData.input_buffer` (0.12 s) and done as soon as it can be (also a jump pressed just before landing). Hit, death and the rage transform clear it.
-- Turning: between moves the hero turns to the held direction at once, so a chained move goes the way the stick points (dashes keep their way).
+- Turning: a move never turns while it plays; the next move starts facing the held direction (back pressed during combo hit 4 sends hit 5 the other way).
 - Per attack (`AttackData`, group Feel): `hitstop` (s; x1.5 on a crit), `hitstop_once` (multi-hit moves stop on their first hit only), `shake` (camera trauma 0..1, once per round of hits), `rumble` (gamepad). Hit-stop freezes the whole fight (`Level.world`: actors, bullets, effects) while the level, camera shake, HUD and menus go on; it never touches `Engine.time_scale` and is skipped during a boss's bullet time.
 - Camera shake: trauma model in `Level` (offset = 24 px × trauma², smooth noise, 1.8 trauma/s decay). Pause menu: 画面震动 / 手柄震动 switches (`src/core/feel.gd`, saved in user://settings.cfg); pad rumble runs at half strength (`Feel.RUMBLE_SCALE`).
 - Sounds: hero move sounds and hit sounds on monsters vary within ±10 % (`Snd.sfx_varied`).

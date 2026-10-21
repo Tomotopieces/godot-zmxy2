@@ -30,5 +30,14 @@ static func rumble(strength: float, seconds: float) -> void:
 	if not pad_rumble:
 		return
 	var s := strength * RUMBLE_SCALE
+	if OS.has_feature("web"):
+		# Godot's web build has no pad vibration: the browser's Gamepad API rumbles the pads instead
+		JavaScriptBridge.eval(WEB_RUMBLE % [int(seconds * 1000.0), s, s * 0.6], true)
+		return
 	for d in Input.get_connected_joypads():
 		Input.start_joy_vibration(d, s * 0.6, s, seconds)
+
+const WEB_RUMBLE := """for (const p of navigator.getGamepads ? navigator.getGamepads() : []) {
+	if (p && p.vibrationActuator) p.vibrationActuator.playEffect('dual-rumble',
+		{duration: %d, strongMagnitude: %f, weakMagnitude: %f}).catch(() => {});
+}"""

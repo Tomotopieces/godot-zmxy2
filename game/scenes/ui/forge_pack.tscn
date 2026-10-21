@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://fpnqawwpt17x" path="res://assets/ui/forge_pack/tex/OtherMat_v10_578.png" id="10_vgia5"]
 [ext_resource type="Texture2D" uid="uid://b6pxr1k4ixarj" path="res://assets/ui/forge_pack/tex/OtherMat_v10_579.png" id="11_3toxb"]
 [ext_resource type="PackedScene" uid="uid://bqe4kf3igvsji" path="res://scenes/ui/components/yellow_button.tscn" id="yellow_button"]
+[ext_resource type="Texture2D" uid="uid://dsx8qh8pwujqv" path="res://assets/ui/pad_icons/xbox_lb_outline.png" id="pad_lb"]
+[ext_resource type="Texture2D" uid="uid://5qnv7l32si02" path="res://assets/ui/pad_icons/xbox_rb_outline.png" id="pad_rb"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_btnfocus"]
 
@@ -69,41 +71,65 @@ centered = false
 [node name="Souls" type="Label" parent="." unique_id=1899312030]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 693.5
-offset_top = 550.69995
-offset_right = 828.5
-offset_bottom = 587.49994
+offset_left = 703.80
+offset_top = 109.65
+offset_right = 764.70
+offset_bottom = 133.35
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 23
 text = "1234567890"
 
+[node name="LbIcon" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 524.70
+offset_top = 108.65
+offset_right = 550.70
+offset_bottom = 134.65
+mouse_filter = 2
+texture = ExtResource("pad_lb")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="RbIcon" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 767.70
+offset_top = 108.65
+offset_right = 793.70
+offset_bottom = 134.65
+mouse_filter = 2
+texture = ExtResource("pad_rb")
+expand_mode = 1
+stretch_mode = 5
+
 [node name="BtnZhuangBei" parent="." unique_id=230767215 instance=ExtResource("yellow_button")]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 518.65
-offset_top = 105.65
-offset_right = 593.65
-offset_bottom = 134.65
+offset_left = 554.10
+offset_top = 109.65
+offset_right = 614.70
+offset_bottom = 133.35
 text = "装 备"
 
 [node name="BtnDaoJu" parent="." unique_id=452979093 instance=ExtResource("yellow_button")]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 593.5
-offset_top = 105.65
-offset_right = 668.5
-offset_bottom = 134.65
+offset_left = 629.80
+offset_top = 109.65
+offset_right = 690.40
+offset_bottom = 133.35
 text = "道 具"
 
 [node name="BtnShiZhuang" parent="." unique_id=1780234149 instance=ExtResource("yellow_button")]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 668.5
-offset_top = 106.65
-offset_right = 741.5
-offset_bottom = 133.65
+offset_left = 703.80
+offset_top = 109.65
+offset_right = 764.70
+offset_bottom = 133.35
 text = "时 装"
 
 [node name="StrengthenTab" type="Button" parent="." unique_id=1874580160]

@@ -52,6 +52,16 @@ func _unhandled_input(e: InputEvent) -> void:
 	if e.is_action_pressed("pause"):
 		get_viewport().set_input_as_handled()
 		close()
+	elif e is InputEventJoypadButton and e.pressed and e.button_index in [JOY_BUTTON_LEFT_SHOULDER, JOY_BUTTON_RIGHT_SHOULDER]:
+		# LB / RB: the previous / next bag page, as in the backpack
+		get_viewport().set_input_as_handled()
+		var pages := TABS.keys()
+		var d := -1 if e.button_index == JOY_BUTTON_LEFT_SHOULDER else 1
+		_on_button(pages[posmod(pages.find(_tab) + d, pages.size())])
+
+func _process(_dt: float) -> void:
+	for icon in ["LbIcon", "RbIcon"]:
+		_pack.piece(icon).visible = PadFocus.pad_last   # pad hints only while the pad is used
 
 func _on_button(b: String) -> void:
 	match b:
@@ -67,6 +77,7 @@ func _on_button(b: String) -> void:
 			_show_help()
 		_:
 			if TABS.has(b):
+				Snd.ui()
 				_tab = b
 				_refresh()
 
