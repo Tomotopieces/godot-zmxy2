@@ -36,16 +36,16 @@ func door12() -> void:
 	await _wait(1.0)
 	var door: BaiguDoor = _ps.level.world.get_node("Objects/BaiguDoor")
 	door.global_position = Vector2(480.0, 336.0)   # the first screen: the headless camera does not follow a hero teleported far away
-	var box: Rect2 = door.weak_rect()
+	var weak: Vector2 = door.weak_spot().global_position
 	_ps.level.stops.clear()
 	for i in 8:   # (唐僧's attack has a cooldown: some presses are not attacks)
 		if door.is_open():
 			break
 		# stand left of the weak spot at its height (no gravity during the test)
 		_ps.level.hero.gravity = 0.0
-		await _attack_at(box.get_center() + Vector2(-70, -10))
+		await _attack_at(weak + Vector2(-70, -10))
 	print("door open=", door.is_open(), " hits_left=", door.hits_left())
-	_ps.level.hero.global_position = door.enter_world_rect().get_center()
+	_ps.level.hero.global_position = door.get_node("EnterZone/Shape").global_position
 	Engine.time_scale = 4.0
 	await _wait(6.0)
 	print("RESULT door12 transfers=", _transfers)
@@ -70,7 +70,7 @@ func hub() -> void:
 			(s.brain as HubPropBrain)._hit_t = 0.5
 		await _wait(1.5)
 		print("pointer=", want, " door2_ready=", sc._doors[1].ready_to_enter, " statue_ready=", sc._statue.ready_to_enter)
-	h.global_position = sc._doors[1].enter_world_rect().get_center()
+	h.global_position = sc._doors[1].get_node("EnterZone/Shape").global_position
 	Input.action_press("move_up")
 	await _wait(0.1)
 	Input.action_release("move_up")

@@ -61,10 +61,10 @@ func _open_statue() -> void:
 func on_up(_hero: Hero) -> bool:
 	var levels: Array = _cfg.get("levels", [2, 3, 4, 5])
 	for door in _doors:
-		if door.ready_to_enter and door.index < levels.size() and hero_in(door.enter_world_rect()):
+		if door.ready_to_enter and door.index < levels.size() and door.hero_inside(_hero):
 			level.go_to(Vector2i(10, int(levels[door.index])))
 			return true
-	if _statue != null and _statue.ready_to_enter and hero_in(_statue.enter_world_rect()):   # its "colipse" box is the central slot
+	if _statue != null and _statue.ready_to_enter and _statue.hero_inside(_hero):   # its "colipse" box is the central slot
 		level.go_to(Vector2i(10, int(_cfg.get("statue_level", 6))))
 		return true
 	return false

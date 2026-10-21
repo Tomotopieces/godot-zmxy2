@@ -7,9 +7,8 @@ extends Node2D
 ## A scene of its own (scenes/objects/hub_statue.tscn) placed in the stage scene (Objects/HubStatue): the numbers are exports.
 
 @export var open_time := 1.0                                  ## seconds until the slot may be entered (24 frames)
-@export var enter_rect := Rect2(189.0, 17.1, 96.0, 506.0)     ## the central slot of the open statue
 
-var ready_to_enter := false   ## the slot has opened: up inside enter_rect now enters 10-6
+var ready_to_enter := false   ## the slot has opened: up inside EnterZone now enters 10-6
 
 var _open := false
 
@@ -41,5 +40,6 @@ func open() -> void:
 	$Anim.play(&"open")
 	get_tree().create_timer(open_time, false).timeout.connect(func(): ready_to_enter = true)
 
-func enter_world_rect() -> Rect2:
-	return Rect2(global_position + enter_rect.position, enter_rect.size)
+## The hero stands in EnterZone (the central slot).
+func hero_inside(hero: Hero) -> bool:
+	return hero.touches($EnterZone)

@@ -114,10 +114,11 @@ _data = {
 &"open": SubResource("Animation_540rm")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_EnterZone"]
+size = Vector2(162, 557.5)
+
 [node name="HubDoor" type="Node2D" unique_id=815503377]
 script = ExtResource("1_rgjrf")
-metadata/hit_rect_closed = Rect2(-22, -4, 162, 526)
-metadata/hit_rect_open = Rect2(-22, -35.399994, 162, 557.5)
 
 [node name="Closed" type="Node2D" parent="." unique_id=1408788197]
 
@@ -151,6 +152,15 @@ position = Vector2(-23.5, 13.471619)
 scale = Vector2(0.5, 1.578)
 texture = ExtResource("5_e5j8k")
 centered = false
+
+[node name="EnterZone" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="EnterZone"]
+position = Vector2(59, 243.35)
+shape = SubResource("RectangleShape2D_EnterZone")
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=340693479]
 libraries/ = SubResource("AnimationLibrary_stokc")

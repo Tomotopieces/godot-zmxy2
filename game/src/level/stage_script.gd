@@ -19,22 +19,6 @@ func on_monster_added(_m: Monster) -> void:
 func param(key: String, fallback = 0.0):
 	return p.get(key, fallback)
 
-## Hero touching an area of the world.
-const HERO_BOUNDS_MARGIN := 3.0
-
-func hero_in(r: Rect2) -> bool:
-	var h := level.hero
-	# the original tests the hero's whole display bounds, a few px larger than its hurt box
-	return is_instance_valid(h) and h.is_alive() and r.intersects(h.hurt_rect().grow(HERO_BOUNDS_MARGIN))
-
-## The hero's current attack hitbox touches `r` (stick test of the original doors / pearls).
-func hero_hits(r: Rect2) -> bool:
-	var h := level.hero
-	if not is_instance_valid(h) or h.attack == null:
-		return false
-	var hr := h.puppet.hit_rect()
-	return hr.size != Vector2.ZERO and hr.intersects(r)
-
 ## A puppet placed in the world as scenery.
 func place_puppet(puppet_name: String, pos: Vector2, z := Layers.Z_MECHANISM) -> Puppet:
 	var r := Puppet.create(puppet_name)

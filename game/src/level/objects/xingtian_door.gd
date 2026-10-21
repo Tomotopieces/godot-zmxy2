@@ -10,11 +10,8 @@ extends Node2D
 @export var key := "yll"                                            ## the item the hero must carry
 @export var can_open := true                                        ## false: the door is only the closed picture and never opens
 @export var destination := Vector2i(7, 1)                           ## stage entered
-@export var touch_time := 1.0                                       ## seconds in touch_box to open it
-@export var touch_box := Rect2(-86.0, -142.6, 156.0, 354.0)         ## where the hero touches it
-@export var enter_rect := Rect2(-148.0, -186.5, 296.0, 173.0)       ## the doorway once open
+@export var touch_time := 1.0                                       ## seconds in TouchZone to open it (EnterZone: the doorway once open)
 
-const HERO_BOUNDS_MARGIN := 3.0   ## the original tests the hero's whole display bounds, a few px larger than its hurt box
 
 signal opened
 
@@ -74,22 +71,16 @@ func _physics_process(delta: float) -> void:
 	if not _open:
 		if not can_open:
 			return   # only the chosen door of a stage opens; the others never do
-		if hero.is_alive() and touch_world_rect().intersects(hero.hurt_rect().grow(HERO_BOUNDS_MARGIN)):
+		if hero.touches($TouchZone):
 			_touch_left -= delta
 			if _touch_left <= 0.0:
 				_open_door()
 		return
 	if not _settled():
 		return   # the doorway opens once the door has swung open (the vortex then keeps turning)
-	if hero.is_alive() and enter_world_rect().intersects(hero.hurt_rect().grow(HERO_BOUNDS_MARGIN)):
+	if hero.touches($EnterZone):
 		if GameState.take_item(key):
 			level.go_to(destination)
-
-func touch_world_rect() -> Rect2:
-	return Rect2(global_position + touch_box.position, touch_box.size)
-
-func enter_world_rect() -> Rect2:
-	return Rect2(global_position + enter_rect.position, enter_rect.size)
 
 func _open_door() -> void:
 	_open = true

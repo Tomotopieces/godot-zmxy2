@@ -24,16 +24,20 @@ static func spawn(id: String, pos: Vector2) -> GroundItem:
 	shape.size = d.ground_size
 	cs.shape = shape
 	g.add_child(cs)
+	var pick := Area2D.new()   # the hero picks it up when his hurt box overlaps this
+	pick.name = "Pickup"
+	pick.collision_layer = 0
+	pick.collision_mask = Actor.LAYER_HURT_HERO
+	var ps := CollisionShape2D.new()
+	ps.shape = shape
+	pick.add_child(ps)
+	g.add_child(pick)
 	g.collision_layer = 0
 	g.collision_mask = Actor.LAYER_WORLD | Actor.LAYER_ONEWAY
 	g.position = pos
 	g.z_index = Layers.Z_PICKUP
 	Level.current.add_object(g)
 	return g
-
-func _rect() -> Rect2:
-	var s := (get_child(1) as CollisionShape2D).shape.size as Vector2
-	return Rect2(global_position - s / 2.0, s)
 
 func _physics_process(delta: float) -> void:
 	if _taken:
@@ -45,7 +49,7 @@ func _physics_process(delta: float) -> void:
 	velocity.y += GameState.hero_data.gravity * delta
 	move_and_slide()
 	var h: Hero = Level.current.hero
-	if is_instance_valid(h) and h.is_alive() and _rect().intersects(h.hurt_rect()) and GameState.add_to_bag(item):
+	if is_instance_valid(h) and h.touches($Pickup) and GameState.add_to_bag(item):
 		_taken = true
 		var tw := create_tween().set_parallel().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 		tw.tween_property(self, "position:y", position.y - 100, 0.8)

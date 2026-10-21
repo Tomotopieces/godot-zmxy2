@@ -37,7 +37,7 @@ var stop_index := 0
 var locked := false
 var auto_scroll := false
 var door: Node2D                 ## exit portal (hidden until the stage is cleared); null in hub / ending stages
-var door_rect := Rect2()
+var door_zone: Area2D             ## where up enters the exit portal (level.json door rect)
 var walls: Array[AnimatableBody2D] = []   ## scene walls / platforms (meta "wall" = level.json entry)
 var params := {}                 ## this stage's script numbers (data/stages.json)
 var script_node: StageScript     ## this stage's special rules (src/level/stages/<level_name>.gd), if any
@@ -379,7 +379,16 @@ func _build(d: Dictionary) -> void:
 		door.visible = false
 		world.add_child(door)
 		door.play(door.actions[0])
-		door_rect = Rect2(dd.rect[0], dd.rect[1], dd.rect[2], dd.rect[3])
+		door_zone = Area2D.new()
+		door_zone.collision_layer = 0
+		door_zone.collision_mask = Actor.LAYER_HURT_HERO
+		var zs := CollisionShape2D.new()
+		var rs := RectangleShape2D.new()
+		rs.size = Vector2(dd.rect[2], dd.rect[3])
+		zs.shape = rs
+		zs.position = Vector2(dd.rect[0], dd.rect[1]) + rs.size / 2.0
+		door_zone.add_child(zs)
+		world.add_child(door_zone)
 
 	_warm_puppets(d)
 
@@ -490,7 +499,7 @@ func _physics_process(delta: float) -> void:
 	var up := Input.is_action_just_pressed("move_up")
 	if up and script_node and not _done and script_node.on_up(hero):
 		up = false
-	if door_open() and not _done and up and door_rect.has_point(hero.global_position):
+	if door_open() and not _done and up and hero.touches(door_zone):
 		_done = true
 		Snd.stop_music()
 		hero.controls_locked = true   # the keyboard is released while the scene fades out
@@ -706,7 +715,7 @@ func _draw_debug() -> void:
 		if p is Projectile:
 			_draw_box(p.puppet.hitbox, Color(1, 0.5, 0, 0.8))
 	if door:
-		_debug.draw_rect(door_rect, Color(0, 0.5, 1, 0.8), false, 1.0)
+		_draw_box(door_zone, Color(0, 0.5, 1, 0.8))
 
 ## Outline of a box with its real shape (circle, capsule, polygon, rotated rectangle), the shape the collision uses.
 func _draw_box(area: Area2D, col: Color) -> void:

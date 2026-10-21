@@ -69,6 +69,14 @@ func can_be_hit() -> bool:
 func hurt_rect() -> Rect2:
 	return puppet.hurt_rect()
 
+## This actor's hurt box overlaps `area` (a trigger zone of a mechanism, a pickup): the physics overlap.
+func touches(area: Area2D) -> bool:
+	return is_alive() and puppet.hurtbox != null and area.overlaps_area(puppet.hurtbox)
+
+## This actor's current attack box overlaps `area` (a weak spot, a breakable prop).
+func hits(area: Area2D) -> bool:
+	return attack != null and puppet.hitbox != null and puppet.hitbox.overlaps_area(area)
+
 func center() -> Vector2:
 	var r := hurt_rect()
 	return r.get_center() if r.size != Vector2.ZERO else global_position

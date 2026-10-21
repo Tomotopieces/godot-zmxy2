@@ -129,10 +129,14 @@ _data = {
 &"open": SubResource("Animation_nbkli")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_TouchZone"]
+size = Vector2(156, 354)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_EnterZone"]
+size = Vector2(296, 173)
+
 [node name="XingtianDoor" type="Node2D" unique_id=1390935713]
 script = ExtResource("1_afgux")
-metadata/hit_rect_closed = Rect2(-86, -142.7, 156.1, 354)
-metadata/hit_rect_open = Rect2(-86, -142.7, 156.1, 354)
 
 [node name="Closed" type="Node2D" parent="." unique_id=1430259020]
 
@@ -163,6 +167,24 @@ scale = Vector2(0.428, 0.452)
 texture = ExtResource("3_x13qf")
 centered = false
 region_enabled = true
+
+[node name="TouchZone" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="TouchZone"]
+position = Vector2(-8, 34.4)
+shape = SubResource("RectangleShape2D_TouchZone")
+
+[node name="EnterZone" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="EnterZone"]
+position = Vector2(0, -100)
+shape = SubResource("RectangleShape2D_EnterZone")
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=1327606379]
 libraries/ = SubResource("AnimationLibrary_dgk2i")

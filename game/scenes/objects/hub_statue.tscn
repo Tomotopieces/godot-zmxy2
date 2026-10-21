@@ -267,10 +267,11 @@ _data = {
 &"open": SubResource("Animation_27l26")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_EnterZone"]
+size = Vector2(96, 506)
+
 [node name="HubStatue" type="Node2D" unique_id=566390924]
 script = ExtResource("1_bn6jx")
-metadata/hit_rect_closed = Rect2(0, 0, 494, 534)
-metadata/hit_rect_open = Rect2(189, 17.100006, 96, 506)
 
 [node name="Closed" type="Node2D" parent="." unique_id=1615123102]
 
@@ -325,6 +326,15 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("8_5pgau")
 centered = false
 region_enabled = true
+
+[node name="EnterZone" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="EnterZone"]
+position = Vector2(237, 270.1)
+shape = SubResource("RectangleShape2D_EnterZone")
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=869366036]
 libraries/ = SubResource("AnimationLibrary_0to3g")

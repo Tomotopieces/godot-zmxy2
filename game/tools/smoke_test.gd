@@ -74,7 +74,7 @@ func _physics_process(delta: float) -> void:
 		get_viewport().get_texture().get_image().save_png("%s/smoke_%02d.png" % [_out, _shots])
 	if lv.door_open():
 		h.mp = h.max_mp
-		var to_door := lv.door_rect.get_center().x - h.global_position.x
+		var to_door: float = (lv.door_zone.get_child(0) as Node2D).global_position.x - h.global_position.x
 		_press("move_right", to_door > 10)
 		_press("move_left", to_door < -10)
 		_press("move_up", absf(to_door) < 40)

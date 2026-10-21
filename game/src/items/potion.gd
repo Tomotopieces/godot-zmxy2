@@ -27,6 +27,8 @@ static func spawn(k: Kind, pos: Vector2, t: DropTable) -> Potion:
 	body.shape = shape
 	body.position = cs.position
 	p.add_child(body)
+	p.puppet.hurtbox.collision_mask = Actor.LAYER_HURT_HERO   # it picks up the hero's hurt box
+	p.puppet.hurtbox.monitoring = true
 	p.collision_layer = 0
 	p.collision_mask = Actor.LAYER_WORLD | Actor.LAYER_ONEWAY
 	p.position = pos - Vector2(0, shape.size.y)
@@ -45,7 +47,7 @@ func _physics_process(delta: float) -> void:
 	velocity.y += GameState.hero_data.gravity * delta
 	move_and_slide()
 	var h: Hero = Level.current.hero
-	if is_instance_valid(h) and h.is_alive() and puppet.hurt_rect().intersects(h.hurt_rect()):
+	if is_instance_valid(h) and h.touches(puppet.hurtbox):
 		_use(h)
 
 func _use(h: Hero) -> void:
