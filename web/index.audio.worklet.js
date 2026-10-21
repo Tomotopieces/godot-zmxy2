@@ -29,7 +29,7 @@
 /**************************************************************************/
 
 class RingBuffer {
-	function Object() { [native code] }(p_buffer, p_state, p_threads) {
+	constructor(p_buffer, p_state, p_threads) {
 		this.buffer = p_buffer;
 		this.avail = p_state;
 		this.threads = p_threads;
@@ -94,7 +94,7 @@ class RingBuffer {
 }
 
 class GodotProcessor extends AudioWorkletProcessor {
-	function Object() { [native code] }() {
+	constructor() {
 		super();
 		this.threads = false;
 		this.running = true;
