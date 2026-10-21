@@ -138,7 +138,7 @@ func _on_hero_call(n: String, _args: Array) -> void:
 ## 碎石破: every segment sounds again.
 func _on_new_hit() -> void:
 	if attack_action == &"hit4":
-		Snd.sfx_varied("Role3_hit4", Hero.SKILL_PITCH)
+		Snd.sfx("Role3_hit4", Hero.SKILL_PITCH)
 
 ## 聚怪: every monster is dragged to just above the hero over a second.
 func _pull_monsters() -> void:

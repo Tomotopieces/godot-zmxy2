@@ -16,16 +16,8 @@ func _ready() -> void:
 	physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF   # keyed frames must not be smeared between physics ticks
 	add_to_group(&"lit_scenery")   # the stage's lighting treats it as scenery
 	$Open.visible = false
-	$Anim.animation_finished.connect(_on_anim_finished)
+	$Anim.animation_set_next(&"open", &"open_loop")   # the portal keeps turning once it has opened
 
-## The "open" action has a loop tail (the portal keeps turning): replay it from `loop_from` instead of stopping.
-func _on_anim_finished(n: StringName) -> void:
-	if n != &"open":
-		return
-	var an: Animation = $Anim.get_animation(&"open")
-	if an != null and an.has_meta(&"loop_from"):
-		$Anim.play(&"open")
-		$Anim.seek(float(an.get_meta(&"loop_from")), true)
 
 func is_open() -> bool:
 	return _open

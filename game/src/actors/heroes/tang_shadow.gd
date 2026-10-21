@@ -53,7 +53,7 @@ func do_hit3() -> void:
 func do_hit5() -> void:
 	_busy = true
 	puppet.visible = false
-	Snd.sfx_varied("Role2_hit5", Hero.SKILL_PITCH)
+	Snd.sfx("Role2_hit5", Hero.SKILL_PITCH)
 	hero.cure_at(global_position + Vector2(0, -60), false)
 	get_tree().create_timer(0.1, false).timeout.connect(queue_free)
 

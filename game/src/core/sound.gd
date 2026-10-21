@@ -15,15 +15,15 @@ var muted := false
 
 var _music: AudioStreamPlayer
 var _amb: AudioStreamPlayer
-const VOICES := 24         ## players per effect; past this the copy nearest its end is taken over
+const VOICES := 24         ## copies of one effect at once (AudioStreamPlayer.max_polyphony: the oldest gives way)
 const DUCK_TIME := 0.03    ## seconds for overlapping copies to ease to their shared level
 
 const UI_GAP_MS := 150      ## interface sounds closer than this are one action
 
 var _ui_at := -100000
-var _last_pitch := {}
-var _players := {}   ## sound -> its AudioStreamPlayers, one per playing copy
-var _frame_of := {}  ## sound -> the engine frame it last started in
+var _players := {}   ## "sound|spread|db" -> its AudioStreamPlayer (one per effect, polyphonic)
+var _ends := {}      ## same key -> when each playing copy ends (ticks msec)
+var _frame_of := {}  ## same key -> the engine frame it last started in
 var _cache := {}
 
 func _ready() -> void:
@@ -59,50 +59,44 @@ func _stream(sound: String) -> AudioStream:
 			push_warning("missing sound " + sound)
 	return _cache[sound]
 
-## Play a one-shot effect by file name (without extension).
-func sfx(sound: String, pitch := 1.0, volume_db := 0.0) -> void:
+## Play a one-shot effect by file name (without extension). spread > 0: a random pitch within ±spread each time
+## (AudioStreamRandomizer), so a move repeated in a combo does not sound mechanical.
+## Every request plays to its end, so rapid hits (a held 冰龙波 on a crowd) are all heard; overlapping copies share a
+## level (_share, eased in _process): a crowd of hits is a little louder than one, not n times; the SFX bus ends in a
+## limiter. Requests in one frame are one sound: the same blow on several enemies at once.
+func sfx(sound: String, spread := 0.0, volume_db := 0.0) -> void:
 	var s := _stream(sound)
 	if s == null:
 		return
-	# Every request plays to its end on its own player, so rapid hits (a held 冰龙波 on a crowd) are all heard.
-	# Loudness: overlapping copies of one effect each play at _share(n) (eased in _process): a crowd of hits is a little
-	# louder than one, not n times; the SFX bus ends in a limiter.
-	# Only a request in the same frame as the last one is merged: the same blow on several enemies at once.
+	var key := "%s|%s|%s" % [sound, spread, volume_db]
 	var frame := Engine.get_process_frames()
-	if _frame_of.get(sound, -1) == frame:
+	if _frame_of.get(key, -1) == frame:
 		return
-	_frame_of[sound] = frame
-	var pool: Array = _players.get(sound, [])
-	_players[sound] = pool
-	var p: AudioStreamPlayer = null
-	for q: AudioStreamPlayer in pool:
-		if not q.playing:
-			p = q
-			break
-	if p == null and pool.size() >= VOICES:   # (only a tail that is almost over is taken over)
-		p = pool.reduce(func(a: AudioStreamPlayer, b: AudioStreamPlayer) -> AudioStreamPlayer:
-			return a if a.get_playback_position() > b.get_playback_position() else b)
+	_frame_of[key] = frame
+	var p: AudioStreamPlayer = _players.get(key)
 	if p == null:
 		p = AudioStreamPlayer.new()
 		p.bus = "SFX"
-		p.stream = s
+		p.max_polyphony = VOICES
+		if spread > 0.0:
+			var r := AudioStreamRandomizer.new()
+			r.add_stream(0, s)
+			r.random_pitch = 1.0 + spread
+			p.stream = r
+		else:
+			p.stream = s
+		p.set_meta(&"gain", db_to_linear(volume_db))
 		add_child(p)
-		pool.append(p)
-	var n := pool.filter(func(q: AudioStreamPlayer) -> bool: return q.playing and q != p).size() + 1
-	p.volume_db = linear_to_db(_share(n)) + volume_db
-	p.set_meta(&"gain", db_to_linear(volume_db))
-	p.pitch_scale = pitch
+		_players[key] = p
+	var now := Time.get_ticks_msec()
+	var ends: Array = _ends.get(key, []).filter(func(e: int) -> bool: return e > now)
+	if ends.size() >= VOICES:
+		ends.pop_front()
+	ends.append(now + int(s.get_length() * (1.0 + spread) * 1000.0))
+	_ends[key] = ends
+	var level: float = _share(ends.size()) * p.get_meta(&"gain")
+	p.volume_linear = minf(p.volume_linear, level) if ends.size() > 1 else level
 	p.play()
-
-## An effect with a small random pitch (spread 0.04 = within ±4 %), never close to the pitch it had last time, so a
-## move repeated in a combo does not sound mechanical.
-func sfx_varied(sound: String, spread: float) -> void:
-	var last := float(_last_pitch.get(sound, 1.0))
-	var p := 1.0 + randf_range(-spread, spread)
-	if absf(p - last) < spread * 0.5:
-		p = 1.0 + (spread * 0.75 if p <= 1.0 else -spread * 0.75) * randf_range(0.7, 1.0)
-	_last_pitch[sound] = p
-	sfx(sound, p)
 
 ## An interface sound: one per player action - a click that opens a panel is one sound, not a click plus an open.
 ## (ui_click is the generic one; SD_xz the original 选择.)
@@ -123,18 +117,13 @@ static func _share(n: int) -> float:
 ## Overlapping copies of an effect ease towards _share(n) each (n = copies playing).
 func _process(delta: float) -> void:
 	var k := minf(delta / DUCK_TIME, 1.0)
-	for sound in _players:
-		var pool: Array = _players[sound]
-		var n := 0
-		for q: AudioStreamPlayer in pool:
-			if q.playing:
-				n += 1
-		if n == 0:
-			continue
-		var share := _share(n)
-		for q: AudioStreamPlayer in pool:
-			if q.playing:
-				q.volume_linear = lerpf(q.volume_linear, share * float(q.get_meta(&"gain", 1.0)), k)
+	var now := Time.get_ticks_msec()
+	for key in _ends:
+		var ends: Array = _ends[key].filter(func(e: int) -> bool: return e > now)
+		_ends[key] = ends
+		if not ends.is_empty():
+			var p: AudioStreamPlayer = _players[key]
+			p.volume_linear = lerpf(p.volume_linear, _share(ends.size()) * float(p.get_meta(&"gain")), k)
 
 ## loop: false for jingles (the game-over tune plays once).
 func music(sound: String, loop := true) -> void:

@@ -75,7 +75,7 @@ func _cast_shadow() -> bool:
 	if state != State.MOVE or not GameState.has_skill(&"shadow"):
 		return false
 	if is_instance_valid(_shadow):
-		Snd.sfx_varied("Role2_hit6", Hero.SKILL_PITCH)
+		Snd.sfx("Role2_hit6", Hero.SKILL_PITCH)
 		global_position = _shadow.global_position
 		reset_physics_interpolation()
 		_shadow.queue_free()
@@ -85,7 +85,7 @@ func _cast_shadow() -> bool:
 	if mp < cost:
 		return false
 	mp -= cost
-	Snd.sfx_varied("Role2_hit6", Hero.SKILL_PITCH)
+	Snd.sfx("Role2_hit6", Hero.SKILL_PITCH)
 	_shadow = TangShadow.create(self)
 	world.add_object(_shadow)
 	return true
@@ -94,7 +94,7 @@ func _cast_cure() -> bool:
 	if not _ready_to_cast(&"hit5", &"hit5"):
 		return false
 	mp -= data.attacks[&"hit5"].mp_cost
-	Snd.sfx_varied("Role2_hit5", Hero.SKILL_PITCH)
+	Snd.sfx("Role2_hit5", Hero.SKILL_PITCH)
 	_hover(&"hit5")
 	cure_at(global_position + Vector2(0, -60), true)
 	if is_instance_valid(_shadow):
@@ -138,8 +138,8 @@ func _cast_fall() -> bool:
 			var p := _skill_projectile("hit4falldown", &"hit4_1",
 				global_position + Vector2(facing * -ball_x, float(f.ball_y) - float(f.drop_height)))
 			p.facing = facing
-			get_tree().create_timer(float(f.sound_delay), false).timeout.connect(Snd.sfx_varied.bind("Role2_hit4", Hero.SKILL_PITCH))
-			puppet.anim.seek(float(f.resume), false)
+			get_tree().create_timer(float(f.sound_delay), false).timeout.connect(Snd.sfx.bind("Role2_hit4", Hero.SKILL_PITCH))
+			puppet.anim.seek(float(f.resume), true, true)
 			return true
 		return false
 	if not is_on_floor() or not _ready_to_cast(&"hit4", &"hit4"):
@@ -164,7 +164,7 @@ func _on_hero_call(n: String, _args: Array) -> void:
 			if attack_action == &"hit2":
 				_fire_charge()
 		"special_attack":
-			Snd.sfx_varied("Role2_hit3", Hero.SKILL_PITCH)
+			Snd.sfx("Role2_hit3", Hero.SKILL_PITCH)
 			_spawn_ice(global_position, null)
 
 func _begin_charge() -> void:
@@ -181,7 +181,7 @@ func _fire_charge() -> void:
 	_charge_t = 0.0
 	_bar.set_value(0.0)
 	if full:
-		Snd.sfx_varied("Role2_hit2", Hero.SKILL_PITCH)
+		Snd.sfx("Role2_hit2", Hero.SKILL_PITCH)
 		mp -= int(data.kit.charge_mp)
 		_shoot(&"hit2")
 	else:
@@ -189,7 +189,7 @@ func _fire_charge() -> void:
 
 func _shoot(action: StringName) -> void:
 	if action == &"hit1":
-		Snd.sfx_varied("Role2_hit1", Hero.SKILL_PITCH)
+		Snd.sfx("Role2_hit1", Hero.SKILL_PITCH)
 	var a: AttackData = data.attacks[action]
 	var p := Projectile.create(a.projectile, self, a, action)
 	p.position = global_position + Vector2(a.spawn_offset.x * facing, a.spawn_offset.y)
@@ -254,7 +254,7 @@ func _physics_process(delta: float) -> void:
 	var f: Dictionary = data.kit.fall
 	if state == State.ATTACK and attack_action == &"hit4" and not _dropped \
 			and puppet.time() > float(f.ball_until) + 0.02 and puppet.time() < float(f.resume):
-		puppet.anim.seek(maxf(puppet.anim.current_animation_length - 0.02, 0.0), false)
+		puppet.anim.seek(maxf(puppet.anim.current_animation_length - 0.02, 0.0), true, true)
 	super(delta)
 
 func _attack_motion() -> void:

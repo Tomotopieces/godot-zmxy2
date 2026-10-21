@@ -370,7 +370,7 @@ func _begin(action: StringName) -> void:
 	state = State.ATTACK
 	_last_attack_data = data.attacks.get(action)
 	start_attack(action, data.attacks.get(action))
-	Snd.sfx_varied(sounds.get(action, ""), SKILL_PITCH)
+	Snd.sfx(sounds.get(action, ""), SKILL_PITCH)
 	match action:
 		&"hit6":
 			velocity.x = facing * (attack.rage_dash_speed if transformed else attack.dash_speed)
@@ -504,7 +504,7 @@ func _hit10_seek() -> void:
 		var r: Rect2 = m.hurt_rect()
 		if r.position.x > v.position.x + 20 and r.position.x < v.end.x - 20 \
 				and m.global_position.distance_to(global_position) <= ex.seek_radius:
-			Snd.sfx_varied("Role1_hit10_2", SKILL_PITCH)
+			Snd.sfx("Role1_hit10_2", SKILL_PITCH)
 			_skill_projectile("wukong_hit10_1", &"hit10_1", m.global_position).push_dir = facing   # the combo drives the target the way he faces
 			global_position = m.global_position + Vector2(0, -2)
 			reset_physics_interpolation()
@@ -518,7 +518,7 @@ func _hit10_slam() -> void:
 	_hit10_down = false
 	_no_gravity = false
 	var ex: Dictionary = data.attacks[&"hit10"].extra
-	Snd.sfx_varied("Role1_hit10_3", SKILL_PITCH)
+	Snd.sfx("Role1_hit10_3", SKILL_PITCH)
 	var p := _skill_projectile("wukong_hit10_2", &"hit10_2", global_position)
 	invincible = 0.0   # the move's invincibility lasts until he lands
 	var s: float = ex.rage_slam_scale if transformed else ex.slam_scale

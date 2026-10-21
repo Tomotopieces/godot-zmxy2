@@ -26,7 +26,7 @@ func _ready() -> void:
 	if not _in_scenery():
 		z_index = Layers.Z_MECHANISM
 	$Open.visible = false
-	$Anim.animation_finished.connect(_on_anim_finished)
+	$Anim.animation_set_next(&"open", &"open_loop")   # the portal keeps turning once it has opened
 	_touch_left = touch_time
 	_choose_open_door()
 
@@ -89,16 +89,7 @@ func _open_door() -> void:
 	$Anim.play(&"open")
 	opened.emit()
 
-## The "open" action has a loop tail (the vortex keeps turning): replay it from `loop_from` instead of stopping.
-func _on_anim_finished(n: StringName) -> void:
-	if n != &"open":
-		return
-	var an: Animation = $Anim.get_animation(&"open")
-	if an != null and an.has_meta(&"loop_from"):
-		$Anim.play(&"open")
-		$Anim.seek(float(an.get_meta(&"loop_from")), true)
 
 ## The door has finished swinging open (the vortex underneath keeps turning).
 func _settled() -> bool:
-	var an: Animation = $Anim.get_animation(&"open")
-	return an != null and an.has_meta(&"loop_from") and $Anim.current_animation_position >= float(an.get_meta(&"loop_from"))
+	return $Anim.current_animation == &"open_loop"

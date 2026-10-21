@@ -365,7 +365,7 @@ func take_hit(h: Hit) -> bool:
 		h.source.add_rage((h.source as Hero).rage_for_damage(dmg))
 		if h.attack.kind == AttackData.Kind.PHYSICS and GameState.bonus("lifesteal") > 0.0:
 			h.source.heal(int(dmg * GameState.bonus("lifesteal")))   # (BaseHero.cureHp: the green number over the hero)
-	Snd.sfx_varied(h.source.hit_sound if h.source is Hero else "BeattackByRole1", HIT_PITCH)
+	Snd.sfx(h.source.hit_sound if h.source is Hero else "BeattackByRole1", HIT_PITCH)
 	puppet.flash(Color.WHITE, 0.09)
 	Fx.spawn("fx_monster_hurt1" if Rng.randf() < 0.5 else "fx_monster_hurt2", center())
 	if not data.is_prop:
@@ -405,7 +405,7 @@ func _die() -> void:
 		puppet.play(&"dead", true)
 		# a death pose that never ends (a single looping frame, no script): it fades out quickly instead of staying
 		var an := puppet.anim.get_animation(&"dead")
-		if an != null and an.loop_mode != Animation.LOOP_NONE and not an.has_meta(&"loop_from") and not puppet.has_events(&"dead"):
+		if an != null and an.loop_mode != Animation.LOOP_NONE and not puppet.has_events(&"dead"):
 			Loot.drop(self)
 			vanish(0.4)
 	else:

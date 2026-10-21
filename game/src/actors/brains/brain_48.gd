@@ -27,10 +27,15 @@ func use_skill(action: StringName) -> void:
 func moves_while_attacking() -> bool:
 	return m.attack_action == &"hit2"
 
+var _blast: Node
+
 func on_call(n: String, _args: Array) -> bool:
 	if n != "do_hit4":
 		return false
+	if is_instance_valid(_blast):
+		return true   # (hit4 is a one-frame looping hold: its key comes round every loop, the blast is cast once)
 	var b := m.shoot(BLAST, &"hit4")
+	_blast = b
 	b.tree_exiting.connect(m.owned(func():
 		if m.attack_action == &"hit4":
 			m.finish_action(&"hit4")), CONNECT_DEFERRED)

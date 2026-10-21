@@ -80,19 +80,13 @@ func _ready() -> void:
 	else:
 		for c in _parts.get_children():
 			c.visible = false
+	anim.callback_mode_method = AnimationMixer.ANIMATION_CALLBACK_MODE_METHOD_IMMEDIATE   # (see _emit)
 	anim.animation_finished.connect(_on_anim_finished)
 
-## An action with a loop tail (an opening, then a looping part) keeps looping instead of finishing.
 func _on_anim_finished(n: StringName) -> void:
-	var an := anim.get_animation(n)
-	if an and an.has_meta(&"loop_from") and n == action:
-		anim.play(n)
-		anim.seek(float(an.get_meta(&"loop_from")), true)
-		return
 	action_finished.emit(n)
 
-## Play an action from its start (restart=false keeps playing when already in it). Keys at time 0 are not fired by the
-## seek: they are emitted here, in track order.
+## Play an action from its start (restart=false keeps playing when already in it). Its keys at time 0 fire right away.
 func play(a: StringName, restart := false) -> void:
 	if a == action and not restart and anim.is_playing():
 		return
@@ -106,20 +100,12 @@ func play(a: StringName, restart := false) -> void:
 		if _current_parts:
 			_current_parts.visible = true
 	action = a
+	anim.stop()
 	anim.play(a)
-	anim.seek(0.0, true)
-	var an := anim.get_animation(a)
-	for tr in an.get_track_count():
-		if an.track_get_type(tr) != Animation.TYPE_METHOD:
-			continue
-		for k in an.track_get_key_count(tr):
-			if an.track_get_key_time(tr, k) > 0.0001:
-				break
-			if action != a:
-				return
-			var m := String(an.method_track_get_name(tr, k))
-			if m.begins_with("ev_"):
-				event.emit(StringName(m.substr(3)), an.method_track_get_params(tr, k))
+	_play_count += 1
+	_starting = true
+	anim.advance(0.0)   # its keys at time 0 fire now, before the caller goes on
+	_starting = false
 
 ## The node holding the parts of the playing action (null before the first play).
 func current_pose() -> Node2D:
@@ -134,12 +120,6 @@ func resume() -> void:
 func is_playing() -> bool:
 	return anim.is_playing()
 
-## The action's one-shot part is over (finished, or looping its tail).
-func settled() -> bool:
-	if not anim.is_playing():
-		return true
-	var an := anim.get_animation(action)
-	return an != null and an.has_meta(&"loop_from") and anim.current_animation_position >= float(an.get_meta(&"loop_from"))
 
 ## Draw the whole puppet additively: effects authored as light on a black background (the original blends them with "add").
 func set_additive() -> void:
@@ -200,10 +180,10 @@ func seek_to_event(n: StringName, arg = null) -> void:
 				_seek_in.call_deferred(action, maxf(an.track_get_key_time(tr, k) - 0.001, 0.0))
 				return
 
-## Seek without processing keys (update would re-fire method keys); playback triggers the target event next tick.
+## Seek without firing the keys passed over; playback reaches the target event next tick.
 func _seek_in(a: StringName, t: float) -> void:
 	if action == a and anim.is_playing():
-		anim.seek(t, false)
+		anim.seek(t, true, true)
 
 ## Makes this puppet show exactly what `src` shows now: same action and moment (also of the animated equipment), same
 ## equipment, transform and tint. Used for a halo drawn behind the real puppet.
@@ -214,7 +194,7 @@ func mirror(src: Puppet) -> void:
 	for k in src.equipment:
 		if equipment.get(k) != src.equipment[k]:
 			set_equip(k, src.equipment[k])
-	anim.seek(src.anim.current_animation_position, true)
+	anim.seek(src.anim.current_animation_position, true, true)
 	var mine := find_children("*", "AnimationPlayer", true, false)
 	var theirs := src.find_children("*", "AnimationPlayer", true, false)
 	if mine.size() == theirs.size():
@@ -222,7 +202,7 @@ func mirror(src: Puppet) -> void:
 			var p: AnimationPlayer = mine[i]
 			var q: AnimationPlayer = theirs[i]
 			if p != anim and p.current_animation != "":
-				p.seek(q.current_animation_position, true)
+				p.seek(q.current_animation_position, true, true)
 	transform = src.transform
 	visible = src.visible
 	modulate = src.modulate
@@ -253,24 +233,20 @@ func make_ghost() -> Node2D:
 		ghost.add_child(g)
 	return ghost
 
-## Emit only events whose key really sits at the current moment: keys at time 0 are emitted by play(), and the
-## AnimationPlayer also fires the nearest earlier key of every method track after a seek (seek_to_event): those are dropped.
+var _play_count := 0
+var _starting := false
+
+## A key reached while playing is handled at the end of the frame, after every body has moved; it is dropped when an
+## earlier event of that frame has already switched to another action. Keys at time 0 are handled inside play().
 func _emit(n: StringName, args: Array) -> void:
-	var pos := anim.current_animation_position
-	var an := anim.get_animation(action)
-	if an == null:
-		return
-	var want := StringName("ev_" + String(n))
-	for tr in an.get_track_count():
-		if an.track_get_type(tr) != Animation.TYPE_METHOD:
-			continue
-		for k in an.track_get_key_count(tr):
-			var t := an.track_get_key_time(tr, k)
-			if t > pos + 0.0001:
-				break
-			if t > 0.0001 and pos - t <= 0.1 and an.method_track_get_name(tr, k) == want and an.method_track_get_params(tr, k) == args:
-				event.emit(n, args)
-				return
+	if _starting:
+		event.emit(n, args)
+	else:
+		_emit_late.call_deferred(n, args, _play_count)
+
+func _emit_late(n: StringName, args: Array, count: int) -> void:
+	if count == _play_count:
+		event.emit(n, args)
 
 func ev_finished() -> void: _emit(&"finished", [])
 func ev_new_hit() -> void: _emit(&"new_hit", [])

@@ -15,6 +15,9 @@
 [ext_resource type="Texture2D" uid="uid://bymlgjy35mewo" path="res://assets/shared/puppets/zmxy2_game_216.png" id="13_217wc"]
 [ext_resource type="Texture2D" uid="uid://dtmvshuoc3uko" path="res://assets/shared/puppets/zmxy2_game_218.png" id="14_la5er"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_EnterZone"]
+size = Vector2(162, 557.5)
+
 [sub_resource type="Animation" id="Animation_o0mj1"]
 length = 0.08333333333333333
 tracks/0/type = "value"
@@ -41,10 +44,9 @@ tracks/1/keys = {
 "update": 1,
 "values": [Transform2D(0.5, 0, 0, 0.5, 0, 0)]
 }
-metadata/start_events = []
 
-[sub_resource type="Animation" id="Animation_540rm"]
-length = 1.4166666666666667
+[sub_resource type="Animation" id="Animation_rgjrf"]
+length = 0.5833333333333334
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -64,10 +66,10 @@ tracks/1/path = NodePath("Open/OpenPart2:transform")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667, 0.20833333, 0.25, 0.29166666, 0.33333334, 0.375, 0.41666666, 0.45833334, 0.5, 0.5416667, 0.5833333),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.041666668, 0.083333336, 0.125, 0.16666667, 0.20833333, 0.25, 0.29166666, 0.33333334, 0.375, 0.41666666, 0.45833334, 0.5, 0.5416667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [Transform2D(0.5, 0, 0, 0.5, 0, 0), Transform2D(0.5, 0, 0, 0.5, 0, -35.449997), Transform2D(0.5, 0, 0, 0.5, 0, -70.850006), Transform2D(0.5, 0, 0, 0.5, 0, -106.3), Transform2D(0.5, 0, 0, 0.5, 0, -141.7), Transform2D(0.5, 0, 0, 0.5, 0, -177.15), Transform2D(0.5, 0, 0, 0.5, 0, -212.55), Transform2D(0.5, 0, 0, 0.5, 0, -248), Transform2D(0.5, 0, 0, 0.5, 0, -283.45), Transform2D(0.5, 0, 0, 0.5, 0, -318.85), Transform2D(0.5, 0, 0, 0.5, 0, -354.3), Transform2D(0.5, 0, 0, 0.5, 0, -389.7), Transform2D(0.5, 0, 0, 0.5, 0, -425.15), Transform2D(0.5, 0, 0, 0.5, 0, -460.55), Transform2D(0.5, 0, 0, 0.5, 0, -496)]
+"values": [Transform2D(0.5, 0, 0, 0.5, 0, 0), Transform2D(0.5, 0, 0, 0.5, 0, -35.449997), Transform2D(0.5, 0, 0, 0.5, 0, -70.850006), Transform2D(0.5, 0, 0, 0.5, 0, -106.3), Transform2D(0.5, 0, 0, 0.5, 0, -141.7), Transform2D(0.5, 0, 0, 0.5, 0, -177.15), Transform2D(0.5, 0, 0, 0.5, 0, -212.55), Transform2D(0.5, 0, 0, 0.5, 0, -248), Transform2D(0.5, 0, 0, 0.5, 0, -283.45), Transform2D(0.5, 0, 0, 0.5, 0, -318.85), Transform2D(0.5, 0, 0, 0.5, 0, -354.3), Transform2D(0.5, 0, 0, 0.5, 0, -389.7), Transform2D(0.5, 0, 0, 0.5, 0, -425.15), Transform2D(0.5, 0, 0, 0.5, 0, -460.55)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -76,10 +78,10 @@ tracks/2/path = NodePath("Open/OpenPart3:visible")
 tracks/2/interp = 0
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5833333, 0.625, 0.6666667, 0.7083333, 0.75, 0.7916667, 0.8333333, 0.875, 0.9166667, 0.9583333, 1, 1.0416666, 1.0833334, 1.125, 1.1666666, 1.2083334, 1.25, 1.2916666, 1.3333334, 1.375),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+"values": [false]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -88,7 +90,71 @@ tracks/3/path = NodePath("Open/OpenPart3:texture")
 tracks/3/interp = 0
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0.5833333, 0.625, 0.6666667, 0.7083333, 0.75, 0.7916667, 0.8333333, 0.875, 0.9166667, 0.9583333, 1, 1.0416666, 1.0833334, 1.125, 1.1666666, 1.2083334, 1.25, 1.2916666, 1.3333334, 1.375),
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Open/OpenPart3:transform")
+tracks/4/interp = 0
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+
+[sub_resource type="Animation" id="Animation_jn3nl"]
+length = 0.8333333333333334
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Open/OpenPart1:transform")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Transform2D(0.5, 0, 0, 0.5, -22.05, -4)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Open/OpenPart2:transform")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Transform2D(0.5, 0, 0, 0.5, 0, -496)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Open/OpenPart3:visible")
+tracks/2/interp = 0
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.041666668, 0.08333335, 0.12499998, 0.16666667, 0.20833336, 0.24999999, 0.29166666, 0.33333334, 0.37499997, 0.41666666, 0.45833328, 0.50000006, 0.5416667, 0.5833333, 0.62500006, 0.6666667, 0.7083333, 0.75000006, 0.7916667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Open/OpenPart3:texture")
+tracks/3/interp = 0
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.041666668, 0.08333335, 0.12499998, 0.16666667, 0.20833336, 0.24999999, 0.29166666, 0.33333334, 0.37499997, 0.41666666, 0.45833328, 0.50000006, 0.5416667, 0.5833333, 0.62500006, 0.6666667, 0.7083333, 0.75000006, 0.7916667),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [ExtResource("4_amfjp"), ExtResource("5_e5j8k"), ExtResource("6_eg0k6"), ExtResource("7_b2g2w"), ExtResource("8_2s7yf"), ExtResource("9_l12sw"), ExtResource("10_0o24a"), ExtResource("11_pb58v"), ExtResource("12_1nml3"), ExtResource("13_217wc"), ExtResource("14_la5er"), ExtResource("13_217wc"), ExtResource("12_1nml3"), ExtResource("11_pb58v"), ExtResource("10_0o24a"), ExtResource("9_l12sw"), ExtResource("8_2s7yf"), ExtResource("7_b2g2w"), ExtResource("6_eg0k6"), ExtResource("5_e5j8k")]
@@ -100,22 +166,18 @@ tracks/4/path = NodePath("Open/OpenPart3:transform")
 tracks/4/interp = 0
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0.5833333, 0.625, 0.6666667, 0.7083333, 0.75, 0.7916667, 0.8333333, 0.875, 0.9166667, 0.9583333, 1, 1.0416666, 1.0833334, 1.125, 1.1666666, 1.2083334, 1.25, 1.2916666, 1.3333334, 1.375),
+"times": PackedFloat32Array(0, 0.041666668, 0.08333335, 0.12499998, 0.16666667, 0.20833336, 0.24999999, 0.29166666, 0.33333334, 0.37499997, 0.41666666, 0.45833328, 0.50000006, 0.5416667, 0.5833333, 0.62500006, 0.6666667, 0.7083333, 0.75000006, 0.7916667),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [Transform2D(0.5, 0, 0, 1.578, -26.5, 7.001831), Transform2D(0.5, 0, 0, 1.578, -23.5, 13.471619), Transform2D(0.5, 0, 0, 1.578, -19, 5.423828), Transform2D(0.5, 0, 0, 1.578, -18.5, 2.1099854), Transform2D(0.5, 0, 0, 1.578, -13.5, 2.1099854), Transform2D(0.5, 0, 0, 1.578, -10.699997, 2.1099854), Transform2D(0.5, 0, 0, 1.578, -33.5, 7.001831), Transform2D(0.5, 0, 0, 1.578, -32, 10.315613), Transform2D(0.5, 0, 0, 1.578, -30, 7.001831), Transform2D(0.5, 0, 0, 1.578, -26.5, 8.579773), Transform2D(0.5, 0, 0, 1.578, -23.5, 11.893616), Transform2D(0.5, 0, 0, 1.578, -26.5, 8.579773), Transform2D(0.5, 0, 0, 1.578, -30, 7.001831), Transform2D(0.5, 0, 0, 1.578, -32, 10.315613), Transform2D(0.5, 0, 0, 1.578, -33.5, 7.001831), Transform2D(0.5, 0, 0, 1.578, -10.699997, 2.1099854), Transform2D(0.5, 0, 0, 1.578, -13.5, 2.1099854), Transform2D(0.5, 0, 0, 1.578, -18.5, 2.1099854), Transform2D(0.5, 0, 0, 1.578, -19, 5.423828), Transform2D(0.5, 0, 0, 1.578, -23.5, 13.471619)]
 }
-metadata/loop_from = 0.5833333333333334
-metadata/start_events = []
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_stokc"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xno3t"]
 _data = {
 &"closed": SubResource("Animation_o0mj1"),
-&"open": SubResource("Animation_540rm")
+&"open": SubResource("Animation_rgjrf"),
+&"open_loop": SubResource("Animation_jn3nl")
 }
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_EnterZone"]
-size = Vector2(162, 557.5)
 
 [node name="HubDoor" type="Node2D" unique_id=815503377]
 script = ExtResource("1_rgjrf")
@@ -153,14 +215,14 @@ scale = Vector2(0.5, 1.578)
 texture = ExtResource("5_e5j8k")
 centered = false
 
-[node name="EnterZone" type="Area2D" parent="."]
+[node name="EnterZone" type="Area2D" parent="." unique_id=1520317864]
 collision_layer = 0
 collision_mask = 16
 monitorable = false
 
-[node name="Shape" type="CollisionShape2D" parent="EnterZone"]
+[node name="Shape" type="CollisionShape2D" parent="EnterZone" unique_id=784621769]
 position = Vector2(59, 243.35)
 shape = SubResource("RectangleShape2D_EnterZone")
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=340693479]
-libraries/ = SubResource("AnimationLibrary_stokc")
+libraries/ = SubResource("AnimationLibrary_xno3t")

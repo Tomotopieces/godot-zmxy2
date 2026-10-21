@@ -571,7 +571,7 @@ func _update_lightning(delta: float) -> void:
 			_new_bolt()
 			if l.has("thunder_db"):   # the rumble follows the flash
 				get_tree().create_timer(_dice.randf_range(0.15, 0.6), false).timeout.connect(
-					Snd.sfx.bind("thunder", _dice.randf_range(0.9, 1.05), float(l.thunder_db)))
+					Snd.sfx.bind("thunder", 0.08, float(l.thunder_db)))
 		return
 	_strike_t += delta
 	# pulses: (start, height, decay time) - the main flash, then flickers
