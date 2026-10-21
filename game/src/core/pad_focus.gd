@@ -11,6 +11,7 @@ const MODAL := &"pad_modal"    ## popups: while one is open only its controls ca
 var _mark: Node2D
 var _shown := false
 var _spot := Vector2.INF       ## where the focus last was on a screen (not in a popup): it comes back there
+var _mouse_down := false       ## a mouse button is held (a press in progress)
 
 static func screen(layer: CanvasLayer) -> void:
 	layer.add_to_group(GROUP)
@@ -62,6 +63,8 @@ static func _targets(scope: Node) -> Array[Control]:
 	return out
 
 func _input(e: InputEvent) -> void:
+	if e is InputEventMouseButton:
+		_mouse_down = e.pressed
 	if e is InputEventMouseMotion:
 		_hide()
 		return
@@ -139,7 +142,8 @@ func _keep_in(scope: Node) -> void:
 ## The mouse took over: no highlight and no focus (a clicked button would keep it), but the spot is remembered.
 func _hide() -> void:
 	var f := get_viewport().gui_get_focus_owner()
-	if f is BaseButton or f is TextureRect:   # (a text field keeps it)
+	# (a text field keeps it; and not while a mouse button is held: a button that loses focus mid-press drops the click)
+	if (f is BaseButton or f is TextureRect) and not _mouse_down:
 		get_viewport().gui_release_focus()
 	_shown = false
 	_mark.visible = false
