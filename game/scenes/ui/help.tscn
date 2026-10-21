@@ -136,28 +136,31 @@ Esc
 - / = / M
 F11"
 
-[node name="Gamepad" type="Label" parent="Panel/Controls" unique_id=2112864165]
+[node name="Gamepad" type="RichTextLabel" parent="Panel/Controls" unique_id=2112864165]
 layout_mode = 0
 offset_left = 246.0
 offset_top = 32.0
 offset_right = 366.0
 offset_bottom = 430.0
-theme_override_constants/line_spacing = 8
-theme_override_font_sizes/font_size = 15
-text = "左摇杆 / 十字键
-快推摇杆两次 / 移动时按 LB
-A
-↓ + A
-X
-↑
-RB / Y / RT / R3
-LT
-B
-Select（背包）
-Start
-B
+theme_override_constants/line_separation = 8
+theme_override_font_sizes/normal_font_size = 15
+bbcode_enabled = true
+text = "[img=18x18]res://assets/ui/pad_icons/xbox_stick_l.png[/img] / [img=18x18]res://assets/ui/pad_icons/xbox_dpad.png[/img]
+快推摇杆两次 / 移动时按 [img=18x18]res://assets/ui/pad_icons/xbox_lb_outline.png[/img]
+[img=18x18]res://assets/ui/pad_icons/xbox_button_a_outline.png[/img]
+[img=18x18]res://assets/ui/pad_icons/xbox_dpad_down_outline.png[/img] + [img=18x18]res://assets/ui/pad_icons/xbox_button_a_outline.png[/img]
+[img=18x18]res://assets/ui/pad_icons/xbox_button_x_outline.png[/img]
+[img=18x18]res://assets/ui/pad_icons/xbox_dpad_up_outline.png[/img]
+[img=18x18]res://assets/ui/pad_icons/xbox_rb_outline.png[/img] / [img=18x18]res://assets/ui/pad_icons/xbox_button_y_outline.png[/img] / [img=18x18]res://assets/ui/pad_icons/xbox_rt_outline.png[/img] / [img=18x18]res://assets/ui/pad_icons/xbox_stick_r_press.png[/img]
+[img=18x18]res://assets/ui/pad_icons/xbox_lt_outline.png[/img]
+[img=18x18]res://assets/ui/pad_icons/xbox_button_b_outline.png[/img]
+[img=18x18]res://assets/ui/pad_icons/xbox_button_view_outline.png[/img]（背包）
+[img=18x18]res://assets/ui/pad_icons/xbox_button_menu_outline.png[/img]
+[img=18x18]res://assets/ui/pad_icons/xbox_button_b_outline.png[/img]
 —
 —"
+scroll_active = false
+autowrap_mode = 0
 
 [node name="Skills" type="Control" parent="Panel" unique_id=9491570]
 anchors_preset = 0
@@ -182,19 +185,22 @@ offset_bottom = 54.0
 theme_override_font_sizes/font_size = 16
 text = "孙悟空"
 
-[node name="WukongSkills" type="Label" parent="Panel/Skills" unique_id=385155986]
+[node name="WukongSkills" type="RichTextLabel" parent="Panel/Skills" unique_id=385155986]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 56.0
 offset_right = 310.0
 offset_bottom = 170.0
-theme_override_constants/line_spacing = 3
-theme_override_font_sizes/font_size = 14
-text = "W + J / ↑ + X  升龙斩
-跑动中 J / X  火炎突击
-U / RB  烈焰闪
-I / Y  烈焰风暴
-O / RT  火魔斩"
+theme_override_constants/line_separation = 3
+theme_override_font_sizes/normal_font_size = 14
+bbcode_enabled = true
+text = "W + J / [img=17x17]res://assets/ui/pad_icons/xbox_dpad_up_outline.png[/img] + [img=17x17]res://assets/ui/pad_icons/xbox_button_x_outline.png[/img]  升龙斩
+跑动中 J / [img=17x17]res://assets/ui/pad_icons/xbox_button_x_outline.png[/img]  火炎突击
+U / [img=17x17]res://assets/ui/pad_icons/xbox_rb_outline.png[/img]  烈焰闪
+I / [img=17x17]res://assets/ui/pad_icons/xbox_button_y_outline.png[/img]  烈焰风暴
+O / [img=17x17]res://assets/ui/pad_icons/xbox_rt_outline.png[/img]  火魔斩"
+scroll_active = false
+autowrap_mode = 0
 
 [node name="TangsengName" type="Label" parent="Panel/Skills" unique_id=1979119738]
 layout_mode = 0
@@ -204,19 +210,22 @@ offset_bottom = 178.0
 theme_override_font_sizes/font_size = 16
 text = "唐僧"
 
-[node name="TangsengSkills" type="Label" parent="Panel/Skills" unique_id=856217245]
+[node name="TangsengSkills" type="RichTextLabel" parent="Panel/Skills" unique_id=856217245]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 180.0
 offset_right = 310.0
 offset_bottom = 294.0
-theme_override_constants/line_spacing = 3
-theme_override_font_sizes/font_size = 14
-text = "按住 J / X  冰龙波
-U / RB  玄冰阵
-I / RB  水幻影
-O / RT  天降甘露
-L / R3  水魔爆"
+theme_override_constants/line_separation = 3
+theme_override_font_sizes/normal_font_size = 14
+bbcode_enabled = true
+text = "按住 J / [img=17x17]res://assets/ui/pad_icons/xbox_button_x_outline.png[/img]  冰龙波
+U / [img=17x17]res://assets/ui/pad_icons/xbox_rb_outline.png[/img]  玄冰阵
+I / [img=17x17]res://assets/ui/pad_icons/xbox_button_y_outline.png[/img]  水幻影
+O / [img=17x17]res://assets/ui/pad_icons/xbox_rt_outline.png[/img]  天降甘露
+L / [img=17x17]res://assets/ui/pad_icons/xbox_stick_r_press.png[/img]  水魔爆"
+scroll_active = false
+autowrap_mode = 0
 
 [node name="BajieName" type="Label" parent="Panel/Skills" unique_id=484984832]
 layout_mode = 0
@@ -226,19 +235,22 @@ offset_bottom = 302.0
 theme_override_font_sizes/font_size = 16
 text = "猪八戒"
 
-[node name="BajieSkills" type="Label" parent="Panel/Skills" unique_id=316011629]
+[node name="BajieSkills" type="RichTextLabel" parent="Panel/Skills" unique_id=316011629]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 304.0
 offset_right = 310.0
 offset_bottom = 418.0
-theme_override_constants/line_spacing = 3
-theme_override_font_sizes/font_size = 14
-text = "U / RB  碎石破
-I / Y  土流盾
-O / RT  地滚战车
-W + J / ↑ + X  战争怒吼
-L / R3  土魔刺"
+theme_override_constants/line_separation = 3
+theme_override_font_sizes/normal_font_size = 14
+bbcode_enabled = true
+text = "U / [img=17x17]res://assets/ui/pad_icons/xbox_rb_outline.png[/img]  碎石破
+I / [img=17x17]res://assets/ui/pad_icons/xbox_button_y_outline.png[/img]  土流盾
+O / [img=17x17]res://assets/ui/pad_icons/xbox_rt_outline.png[/img]  地滚战车
+W + J / [img=17x17]res://assets/ui/pad_icons/xbox_dpad_up_outline.png[/img] + [img=17x17]res://assets/ui/pad_icons/xbox_button_x_outline.png[/img]  战争怒吼
+L / [img=17x17]res://assets/ui/pad_icons/xbox_stick_r_press.png[/img]  土魔刺"
+scroll_active = false
+autowrap_mode = 0
 
 [node name="BtnBack" parent="." unique_id=1040636986 instance=ExtResource("set_btn")]
 unique_name_in_owner = true

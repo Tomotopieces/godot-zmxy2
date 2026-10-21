@@ -12,6 +12,7 @@ var _mark: Node2D
 var _shown := false
 var _spot := Vector2.INF       ## where the focus last was on a screen (not in a popup): it comes back there
 var _mouse_down := false       ## a mouse button is held (a press in progress)
+static var pad_last := false   ## the device used last is the gamepad (key hints show pad buttons)
 
 static func screen(layer: CanvasLayer) -> void:
 	layer.add_to_group(GROUP)
@@ -63,6 +64,10 @@ static func _targets(scope: Node) -> Array[Control]:
 	return out
 
 func _input(e: InputEvent) -> void:
+	if e is InputEventJoypadButton or (e is InputEventJoypadMotion and absf((e as InputEventJoypadMotion).axis_value) > 0.5):
+		pad_last = true
+	elif e is InputEventKey or e is InputEventMouseButton:
+		pad_last = false
 	if e is InputEventMouseButton:
 		_mouse_down = e.pressed
 	if e is InputEventMouseMotion:

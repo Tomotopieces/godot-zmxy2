@@ -40,7 +40,7 @@ func _ready() -> void:
 		b.pressed.connect(_learn.bind(i))
 		_active.append(b)
 		(costs.get_child(i) as Label).text = str(GameState.learn_cost(i))
-	_show_keys(false)
+	_show_keys(PadFocus.pad_last)
 	_passive = _ui.get_node("PassiveSkillPanel/Skills")
 	for i in 5:
 		_cell("Names", i).text = PASSIVE_NAME[GameState.hero_data.learn_passive[i]]
@@ -96,11 +96,8 @@ func _show_keys(pad: bool) -> void:
 	_table.get_node("KeyboardInput").visible = not pad
 	_table.get_node("ControllerInput").visible = pad
 
-func _input(e: InputEvent) -> void:
-	if e is InputEventJoypadButton or (e is InputEventJoypadMotion and absf((e as InputEventJoypadMotion).axis_value) > 0.5):
-		_show_keys(true)
-	elif e is InputEventKey or e is InputEventMouseButton:
-		_show_keys(false)
+func _process(_dt: float) -> void:
+	_show_keys(PadFocus.pad_last)
 
 func _upgrade(i: int) -> void:
 	if GameState.upgrade_passive(i):

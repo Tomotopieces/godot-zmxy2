@@ -39,6 +39,8 @@
 bg_color = Color(0, 0, 0, 0.7058824)
 border_width_top = 30
 border_color = Color(0, 0, 0, 1)
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 12
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_jrdhs"]
 grow_begin = 0.0
@@ -181,6 +183,8 @@ texture = ExtResource("35_80fn3")
 bg_color = Color(0, 0, 0, 0.7058824)
 border_width_top = 30
 border_color = Color(0, 0, 0, 1)
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 12
 
 [node name="SkillControl" type="Control" unique_id=239743358]
 layout_mode = 3
@@ -536,40 +540,55 @@ offset_right = 327.0
 offset_bottom = 438.0
 theme_override_constants/separation = 2
 
-[node name="Skill1" type="Label" parent="ActiveSkillPanel/Skills/Wukong/ControllerInput" unique_id=1369772096]
+[node name="Skill1" type="RichTextLabel" parent="ActiveSkillPanel/Skills/Wukong/ControllerInput" unique_id=1369772096]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
-text = "↑ + X"
+bbcode_enabled = true
+text = "[img=28x28]res://assets/ui/pad_icons/xbox_dpad_up_outline.png[/img] + [img=28x28]res://assets/ui/pad_icons/xbox_button_x_outline.png[/img]"
 horizontal_alignment = 1
 vertical_alignment = 1
+scroll_active = false
+autowrap_mode = 0
 
-[node name="Skill2" type="Label" parent="ActiveSkillPanel/Skills/Wukong/ControllerInput" unique_id=849162777]
+[node name="Skill2" type="RichTextLabel" parent="ActiveSkillPanel/Skills/Wukong/ControllerInput" unique_id=849162777]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
-text = "跑 + X"
+bbcode_enabled = true
+text = "跑动中 + [img=28x28]res://assets/ui/pad_icons/xbox_button_x_outline.png[/img]"
 horizontal_alignment = 1
 vertical_alignment = 1
+scroll_active = false
+autowrap_mode = 0
 
-[node name="Skill3" type="Label" parent="ActiveSkillPanel/Skills/Wukong/ControllerInput" unique_id=108900430]
+[node name="Skill3" type="RichTextLabel" parent="ActiveSkillPanel/Skills/Wukong/ControllerInput" unique_id=108900430]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
-text = "RB"
+bbcode_enabled = true
+text = "[img=28x28]res://assets/ui/pad_icons/xbox_rb_outline.png[/img]"
 horizontal_alignment = 1
 vertical_alignment = 1
+scroll_active = false
+autowrap_mode = 0
 
-[node name="Skill4" type="Label" parent="ActiveSkillPanel/Skills/Wukong/ControllerInput" unique_id=1154943851]
+[node name="Skill4" type="RichTextLabel" parent="ActiveSkillPanel/Skills/Wukong/ControllerInput" unique_id=1154943851]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
-text = "Y"
+bbcode_enabled = true
+text = "[img=28x28]res://assets/ui/pad_icons/xbox_button_y_outline.png[/img]"
 horizontal_alignment = 1
 vertical_alignment = 1
+scroll_active = false
+autowrap_mode = 0
 
-[node name="Skill5" type="Label" parent="ActiveSkillPanel/Skills/Wukong/ControllerInput" unique_id=348620494]
+[node name="Skill5" type="RichTextLabel" parent="ActiveSkillPanel/Skills/Wukong/ControllerInput" unique_id=348620494]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
-text = "RT"
+bbcode_enabled = true
+text = "[img=28x28]res://assets/ui/pad_icons/xbox_rt_outline.png[/img]"
 horizontal_alignment = 1
 vertical_alignment = 1
+scroll_active = false
+autowrap_mode = 0
 
 [node name="Descriptions" type="VBoxContainer" parent="ActiveSkillPanel/Skills/Wukong" unique_id=1338595553]
 offset_left = 329.0
@@ -800,40 +819,55 @@ offset_right = 327.0
 offset_bottom = 438.0
 theme_override_constants/separation = 2
 
-[node name="Skill1" type="Label" parent="ActiveSkillPanel/Skills/Tangseng/ControllerInput" unique_id=648540760]
+[node name="Skill1" type="RichTextLabel" parent="ActiveSkillPanel/Skills/Tangseng/ControllerInput" unique_id=648540760]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
-text = "按住 X"
+bbcode_enabled = true
+text = "按住 [img=28x28]res://assets/ui/pad_icons/xbox_button_x_outline.png[/img]"
 horizontal_alignment = 1
 vertical_alignment = 1
+scroll_active = false
+autowrap_mode = 0
 
-[node name="Skill2" type="Label" parent="ActiveSkillPanel/Skills/Tangseng/ControllerInput" unique_id=2057262673]
+[node name="Skill2" type="RichTextLabel" parent="ActiveSkillPanel/Skills/Tangseng/ControllerInput" unique_id=2057262673]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
-text = "RB"
+bbcode_enabled = true
+text = "[img=28x28]res://assets/ui/pad_icons/xbox_rb_outline.png[/img]"
 horizontal_alignment = 1
 vertical_alignment = 1
+scroll_active = false
+autowrap_mode = 0
 
-[node name="Skill3" type="Label" parent="ActiveSkillPanel/Skills/Tangseng/ControllerInput" unique_id=33984536]
+[node name="Skill3" type="RichTextLabel" parent="ActiveSkillPanel/Skills/Tangseng/ControllerInput" unique_id=33984536]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
-text = "Y"
+bbcode_enabled = true
+text = "[img=28x28]res://assets/ui/pad_icons/xbox_button_y_outline.png[/img]"
 horizontal_alignment = 1
 vertical_alignment = 1
+scroll_active = false
+autowrap_mode = 0
 
-[node name="Skill4" type="Label" parent="ActiveSkillPanel/Skills/Tangseng/ControllerInput" unique_id=547059780]
+[node name="Skill4" type="RichTextLabel" parent="ActiveSkillPanel/Skills/Tangseng/ControllerInput" unique_id=547059780]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
-text = "RT"
+bbcode_enabled = true
+text = "[img=28x28]res://assets/ui/pad_icons/xbox_rt_outline.png[/img]"
 horizontal_alignment = 1
 vertical_alignment = 1
+scroll_active = false
+autowrap_mode = 0
 
-[node name="Skill5" type="Label" parent="ActiveSkillPanel/Skills/Tangseng/ControllerInput" unique_id=514182757]
+[node name="Skill5" type="RichTextLabel" parent="ActiveSkillPanel/Skills/Tangseng/ControllerInput" unique_id=514182757]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
-text = "R3"
+bbcode_enabled = true
+text = "[img=28x28]res://assets/ui/pad_icons/xbox_stick_r_press.png[/img]"
 horizontal_alignment = 1
 vertical_alignment = 1
+scroll_active = false
+autowrap_mode = 0
 
 [node name="Descriptions" type="VBoxContainer" parent="ActiveSkillPanel/Skills/Tangseng" unique_id=1928034935]
 offset_left = 329.0
@@ -1064,40 +1098,55 @@ offset_right = 327.0
 offset_bottom = 438.0
 theme_override_constants/separation = 2
 
-[node name="Skill1" type="Label" parent="ActiveSkillPanel/Skills/Bajie/ControllerInput" unique_id=1064435383]
+[node name="Skill1" type="RichTextLabel" parent="ActiveSkillPanel/Skills/Bajie/ControllerInput" unique_id=1064435383]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
-text = "RB"
+bbcode_enabled = true
+text = "[img=28x28]res://assets/ui/pad_icons/xbox_rb_outline.png[/img]"
 horizontal_alignment = 1
 vertical_alignment = 1
+scroll_active = false
+autowrap_mode = 0
 
-[node name="Skill2" type="Label" parent="ActiveSkillPanel/Skills/Bajie/ControllerInput" unique_id=85163889]
+[node name="Skill2" type="RichTextLabel" parent="ActiveSkillPanel/Skills/Bajie/ControllerInput" unique_id=85163889]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
-text = "Y"
+bbcode_enabled = true
+text = "[img=28x28]res://assets/ui/pad_icons/xbox_button_y_outline.png[/img]"
 horizontal_alignment = 1
 vertical_alignment = 1
+scroll_active = false
+autowrap_mode = 0
 
-[node name="Skill3" type="Label" parent="ActiveSkillPanel/Skills/Bajie/ControllerInput" unique_id=1934853887]
+[node name="Skill3" type="RichTextLabel" parent="ActiveSkillPanel/Skills/Bajie/ControllerInput" unique_id=1934853887]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
-text = "RT"
+bbcode_enabled = true
+text = "[img=28x28]res://assets/ui/pad_icons/xbox_rt_outline.png[/img]"
 horizontal_alignment = 1
 vertical_alignment = 1
+scroll_active = false
+autowrap_mode = 0
 
-[node name="Skill4" type="Label" parent="ActiveSkillPanel/Skills/Bajie/ControllerInput" unique_id=1003218347]
+[node name="Skill4" type="RichTextLabel" parent="ActiveSkillPanel/Skills/Bajie/ControllerInput" unique_id=1003218347]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
-text = "↑ + X"
+bbcode_enabled = true
+text = "[img=28x28]res://assets/ui/pad_icons/xbox_dpad_up_outline.png[/img] + [img=28x28]res://assets/ui/pad_icons/xbox_button_x_outline.png[/img]"
 horizontal_alignment = 1
 vertical_alignment = 1
+scroll_active = false
+autowrap_mode = 0
 
-[node name="Skill5" type="Label" parent="ActiveSkillPanel/Skills/Bajie/ControllerInput" unique_id=68540321]
+[node name="Skill5" type="RichTextLabel" parent="ActiveSkillPanel/Skills/Bajie/ControllerInput" unique_id=68540321]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
-text = "R3"
+bbcode_enabled = true
+text = "[img=28x28]res://assets/ui/pad_icons/xbox_stick_r_press.png[/img]"
 horizontal_alignment = 1
 vertical_alignment = 1
+scroll_active = false
+autowrap_mode = 0
 
 [node name="Descriptions" type="VBoxContainer" parent="ActiveSkillPanel/Skills/Bajie" unique_id=717428965]
 offset_left = 329.0
