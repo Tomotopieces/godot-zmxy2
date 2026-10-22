@@ -578,6 +578,7 @@ func take_hit(h: Hit) -> bool:
 		return false
 	if Rng.randf() < GameState.miss():
 		DamageNumber.spawn_miss(global_position + Vector2(-20, -60))
+		AgentLog.report({"ev": "dodge", "by": h.source, "move": h.action})
 		return true
 	if h.attack.effect_only:
 		var id := h.carrier.get_instance_id() if h.carrier != null else 0
@@ -594,6 +595,8 @@ func take_hit(h: Hit) -> bool:
 	dmg = _adjust_incoming(h, dmg)
 	hp = maxi(hp - dmg, 0)
 	DamageNumber.spawn("pnum", dmg, global_position + Vector2(-20, -60))
+	AgentLog.report({"ev": "hurt", "by": h.source, "move": h.action, "damage": dmg, "hp": hp, "hp_max": max_hp,
+		"effects": h.attack.effects.map(func(e): return String(e.get("name", "")))})
 	_apply_effects(h.attack.effects)
 	puppet.flash(Color(1.0, 0.35, 0.3), 0.12)
 	Fx.spawn("fx_hero_hurt", center())
@@ -696,6 +699,7 @@ func lose_hp(amount: int) -> void:
 		return
 	hp = maxi(hp - amount, 0)
 	DamageNumber.spawn("pnum", amount, global_position + Vector2(-20, -60))
+	AgentLog.report({"ev": "hurt", "move": &"dot", "damage": amount, "hp": hp, "hp_max": max_hp})
 	if hp <= 0:
 		_die()
 
@@ -705,6 +709,7 @@ func heal(amount: int, show_number := true) -> void:
 	hp = mini(hp + amount, max_hp)
 	if show_number:
 		DamageNumber.spawn("bunum", amount, global_position + Vector2(-20, -60))
+		AgentLog.report({"ev": "heal", "amount": amount, "hp": hp, "hp_max": max_hp})
 
 func restore_mp(amount: int) -> void:
 	mp = mini(mp + amount, max_mp)

@@ -22,13 +22,15 @@ Skills are learned with souls (灵魂) in 技能 (map button, or the in-stage me
 - 唐僧 — ranged. 冰龙波 hold `attack` · 玄冰阵 `skill_u` · 水幻影 `skill_i` (again: teleport to it) · 天降甘露 `skill_o` (heal) · 水魔爆 `skill_l`
 - 猪八戒 — melee, three-hit combo. 碎石破 `skill_u` (ground) · 土流盾 `skill_i` (spin, blocks blows from the front) ·
   地滚战车 `skill_o` (charge, invincible while it rolls) · 战争怒吼 `up`+`attack` (pulls enemies in) · 土魔刺 `skill_l`
-  (stance that reflects damage; `skill_l` again after a moment fires stabs). 八戒 is unlocked by beating 红孩儿 once.
+  (stance that reflects damage; `skill_l` again after a moment fires stabs).
 
 ## Screens (list_ui / press_ui)
 
 - Title: 新的开始 (new game -> hero choice -> opening comic -> map), 继续游戏 (load a save), 游戏帮助, 退出游戏.
 - Map: the stages (Stage1Level1 … Stage4Level1 on the main path, unlocked in order; NiuMoGu = 6-1 牛魔谷,
   LuoXuanDiYu = 10-1 螺旋地狱), BtnSkills, BtnForge (炼丹炉), BtnShop (商城), BtnSave, BtnActivity, BtnBack.
+- Opening the menu in a stage (pause {on:true}) STOPS the battle: enemies, shots and timers wait. Use it mid-fight to
+  change gear, learn a skill or look at the numbers; close it with back_ui / pause {on:false}. Running scripts wait too.
 - The menu (pause in a stage; C / V / B or BtnSkills on the map) has tabs BtnBag 背包 / BtnSkill 技能 / BtnTreasure 法宝 /
   BtnSettings 设置 and BtnBack 返回 (or back_ui) to close it. 技能: an unlearned skill's icon learns it for souls; the
   passive page (PassiveButton) has 升级 buttons.

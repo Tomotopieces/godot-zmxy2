@@ -82,6 +82,8 @@ func start_attack(action: StringName, data: AttackData) -> void:
 	puppet.play(action, true)
 
 func end_attack() -> void:
+	if self is Hero and attack and attack.projectile == "" and attack.power_mul > 0.0 and dealer.hits == 0 and attack_action != &"":
+		AgentLog.report({"ev": "whiff", "move": attack_action})   # (AI 接入: a melee move that hit nothing)
 	attack = null
 	attack_action = &""
 

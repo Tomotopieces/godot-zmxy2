@@ -76,7 +76,7 @@ func _ready() -> void:
 	_hud.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	layer.add_child(_hud)
 	GameState.leveled_up.connect(func(l: int): _send({"ev": "level_up", "level": l}))
-
+	AgentLog.sink = _combat
 func _reconnect() -> void:
 	_ws.close()
 	_state = WebSocketPeer.STATE_CLOSED
@@ -284,8 +284,13 @@ func observe() -> Dictionary:
 	var ps := _play_screen()
 	if ps == null or ps.level == null or not is_instance_valid(ps.level.hero):
 		if GameState.hero_data:
-			o["hero"] = {"role": GameState.role, "level": GameState.level}
+			o["hero"] = {"role": GameState.role, "level": GameState.level, "exp": GameState.exp, "exp_next": GameState.exp_to_next(),
+				"stats": hero_stats()}
+		if _top_layer() is ResultScreen:
+			o["result"] = _result_texts(_top_layer())
 		return o
+	if _top_layer() is ResultScreen:
+		o["result"] = _result_texts(_top_layer())
 	var lv := ps.level
 	var h := lv.hero
 	o["hero"] = _hero(h)
@@ -295,7 +300,7 @@ func observe() -> Dictionary:
 		if m.data.is_prop or not m.visible or m.state == Monster.State.DEAD or not view.has_point(m.global_position):
 			continue
 		var r := m.hurt_rect()
-		enemies.append({"uid": m.get_instance_id(), "name": m.data.display_name, "id": m.data.id, "boss": m.data.is_boss,
+		enemies.append({"uid": m.get_instance_id(), "name": monster_name(m), "id": m.data.id, "boss": m.data.is_boss,
 			"x": _r(m.global_position.x), "y": _r(m.global_position.y),
 			"box": [_r(r.position.x), _r(r.position.y), _r(r.size.x), _r(r.size.y)],
 			"facing": m.facing, "hp": snappedf(float(m.hp) / maxf(1.0, m.max_hp), 0.001),
@@ -340,11 +345,21 @@ func _hero(h: Hero) -> Dictionary:
 		var act := StringName(learn[i])
 		var a: AttackData = h.data.attacks.get(act, h.data.attacks.get(StringName(String(act) + "-1")))
 		var cost := a.mp_cost if a else 0
-		skills[_skill_key(i)] = {"name": String(act), "learned": GameState.has_skill(act), "mp_cost": cost,
+		skills[_skill_key(i)] = {"name": SKILL_NAMES[GameState.role][i], "action": String(act), "learned": GameState.has_skill(act), "mp_cost": cost,
 			"usable": GameState.has_skill(act) and h.mp >= cost}
-	var dbf := []
+	var dbf := {}
 	for k in h.debuffs._left.keys():
-		dbf.append(String(k))
+		dbf[String(k)] = _r(h.debuffs._left[k])
+	var bfs := {}
+	for b in GameState.buffs:
+		bfs[String(b)] = int(GameState.buffs[b])
+	var tr := {}
+	var worn: Item = GameState.worn[&"treasure"]
+	if worn:
+		var cost := Forge.skill_cost(worn)
+		tr = {"name": GameState.item_data(worn).display_name, "lv": worn.lv, "mp_cost": cost,
+			"busy": is_instance_valid(h.treasure) and h.treasure.using,
+			"usable": is_instance_valid(h.treasure) and not h.treasure.using and h.treasure.can_use() and h.mp >= cost}
 	return {"role": GameState.role, "x": _r(h.global_position.x), "y": _r(h.global_position.y),
 		"vx": _r(h.velocity.x), "vy": _r(h.velocity.y), "facing": h.facing, "on_floor": h.is_on_floor(),
 		"state": ["move", "attack", "hurt", "dead"][h.state], "action": String(h.puppet.action),
@@ -352,8 +367,12 @@ func _hero(h: Hero) -> Dictionary:
 		"rage": int(h.rage), "rage_max": h.data.rage_max, "transformed": h.transformed,
 		"invincible": h.invincible > 0.0 or h._lock_glow, "can_act": h.cooldown <= 0.0 and h.state == Hero.State.MOVE,
 		"level": GameState.level, "exp": GameState.exp, "exp_next": GameState.exp_to_next(),
-		"stats": hero_stats(), "skills": skills, "buffs": GameState.buffs.keys(), "debuffs": dbf,
-		"treasure": GameState.item_data(GameState.worn[&"treasure"]).display_name if GameState.worn[&"treasure"] else ""}
+		"stats": hero_stats(), "skills": skills, "buffs": bfs, "debuffs": dbf, "treasure": tr,
+		"rage_ready": h.rage >= h.data.rage_max and not h.transformed}
+
+const SKILL_NAMES := {"wukong": ["升龙斩", "火炎突击", "烈焰闪", "烈焰风暴", "火魔斩"],
+	"tangseng": ["冰龙波", "玄冰阵", "水幻影", "天降甘露", "水魔爆"], "bajie": ["碎石破", "土流盾", "地滚战车", "战争怒吼", "土魔刺"]}
+const MOVE_NAMES := {"hit1": "普攻1", "hit2": "普攻2", "hit3": "普攻3", "hit4": "普攻4", "hit5": "普攻5", "dot": "持续伤害"}
 
 ## The bag screen's left column: the hero's totals with the worn gear.
 func hero_stats() -> Dictionary:
@@ -382,7 +401,7 @@ func _stage(lv: Level, ps: PlayScreen) -> Dictionary:
 			if r.intersects(view):
 				floors.append({"x1": _r(r.position.x), "x2": _r(r.end.x), "y": _r(r.position.y),
 					"oneway": oneway or cs.one_way_collision, "h": _r(r.size.y)})
-	var d := {"id": "%d-%d" % [ps.stage.x, ps.stage.y], "view_x": _r(lv.view_x), "view_w": Layers.VIEW.x,
+	var d := {"id": "%d-%d" % [ps.stage.x, ps.stage.y], "combo": lv.combo, "best_combo": lv.best_combo, "view_x": _r(lv.view_x), "view_w": Layers.VIEW.x,
 		"width": lv.size.x, "room": lv.stop_index, "rooms": lv.stops.size(), "locked": lv.locked,
 		"door_open": lv.door_open(), "floors": floors}
 	if lv.door_open() and lv.door_zone:
@@ -527,10 +546,6 @@ func _watch_level() -> void:
 	var ps := _play_screen()
 	var lv: Level = ps.level if ps else null
 	if lv == _level:
-		if lv and is_instance_valid(lv.hero) and lv.hero.hp < _hp_seen:
-			_send({"ev": "hurt", "damage": _hp_seen - lv.hero.hp, "hp": lv.hero.hp, "hp_max": lv.hero.max_hp})
-		if lv and is_instance_valid(lv.hero):
-			_hp_seen = lv.hero.hp
 		return
 	_level = lv
 	_hp_seen = -1
@@ -545,12 +560,14 @@ func _watch_level() -> void:
 	lv.hero_died.connect(func(): _send({"ev": "death", "stage": stage}))
 	lv.failed.connect(func(): _send({"ev": "stage_fail", "stage": stage}))
 	lv.message.connect(func(t: String): _send({"ev": "notice", "text": t}))
+	lv.combo_changed.connect(func(n: int): if n > 0 and n % 10 == 0: _send({"ev": "combo", "count": n}))
+	lv.rage_started.connect(func(): _send({"ev": "rage"}))
 	lv.world.child_entered_tree.connect(_on_world_child)
 
 func _on_world_child(n: Node) -> void:
 	if n is Monster:
 		var m := n as Monster
-		m.died.connect(func(_x): if not m.data.is_prop: _send({"ev": "kill", "name": m.data.display_name, "boss": m.data.is_boss}))
+		m.died.connect(func(_x): if not m.data.is_prop: _send({"ev": "kill", "name": monster_name(m), "boss": m.data.is_boss}))
 	elif n is GroundItem:
 		var g := n as GroundItem
 		var d := GameState.item_data(g.item)
@@ -568,6 +585,50 @@ const TYPE_NAMES := {&"weapon": "武器", &"cloth": "防具", &"accessory": "饰
 static func item_kind(d: EquipmentData) -> String:
 	var t: String = TYPE_NAMES.get(d.type, String(d.type))
 	return t if d.type == &"item" else d.user + t
+
+## Combat reports from AgentLog (damage numbers, MISS, heals, whiffs) as events with readable names.
+func _combat(d: Dictionary) -> void:
+	if _state != WebSocketPeer.STATE_OPEN:
+		return
+	var o := d.duplicate()
+	var by = o.get("by")
+	o.erase("by")
+	if by is Hero or by == null:
+		o["move"] = move_name(StringName(o.get("move", &"")))
+	elif is_instance_valid(by) and by is Monster:
+		o["from"] = monster_name(by)
+		o["from_uid"] = by.get_instance_id()
+		o["move"] = String(o.get("move", ""))
+	var t = o.get("target")
+	if t != null:
+		o.erase("target")
+		if is_instance_valid(t) and t is Monster:
+			o["target"] = monster_name(t)
+			o["target_uid"] = t.get_instance_id()
+			o["target_hp"] = snappedf(float(t.hp) / maxf(1.0, t.max_hp), 0.001)
+	_send(o)
+
+## A monster as obs.enemies names it: its name, or 小怪<id> for the nameless ones.
+static func monster_name(m: Monster) -> String:
+	return m.data.display_name if m.data.display_name != "" else "小怪%d" % m.data.id
+
+## A hero action as the player knows it: a skill's name, 普攻n, or the action.
+func move_name(a: StringName) -> String:
+	if GameState.hero_data:
+		var i := GameState.hero_data.learn_active.find(String(a))
+		if i < 0:
+			i = GameState.hero_data.learn_active.find(String(a).get_slice("-", 0))
+		if i >= 0:
+			return SKILL_NAMES[GameState.role][i]
+	return MOVE_NAMES.get(String(a), String(a))
+
+## The result screen's numbers.
+func _result_texts(r: ResultScreen) -> Dictionary:
+	var o := {"won": r._ui.has_node("%UsedTime")}
+	for n in ["UsedTime", "BestCombo", "State", "TotalScore"]:
+		if r._ui.has_node("%" + n):
+			o[n] = r._ui.piece(n).text
+	return o
 
 ## On-screen notices (Toast, which finds the bridge by its path).
 func notify_event(ev: Dictionary) -> void:

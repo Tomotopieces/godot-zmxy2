@@ -273,6 +273,7 @@ func hurt_directly(amount: int) -> void:
 		return
 	DamageNumber.spawn("hurtnum", amount, Vector2(global_position.x - 20, hurt_rect().position.y), 20.0)
 	damage_directly(amount)
+	AgentLog.report({"ev": "hit", "move": &"dot", "target": self, "damage": amount, "kill": hp <= 0})
 	if not data.is_prop and not data.is_boss:
 		_show_hp_bar()
 
@@ -380,6 +381,8 @@ func take_hit(h: Hit) -> bool:
 	Snd.sfx(h.source.hit_sound if h.source is Hero else "BeattackByRole1", HIT_PITCH)
 	puppet.flash(Color.WHITE, 0.09)
 	Fx.spawn("fx_monster_hurt1" if Rng.randf() < 0.5 else "fx_monster_hurt2", center())
+	AgentLog.report({"ev": "hit", "by": h.source, "move": h.action, "target": self, "damage": dmg, "crit": h.crit,
+		"kill": hp <= 0})
 	if not data.is_prop:
 		DamageNumber.spawn("bnum" if h.crit else "hurtnum", dmg,
 			Vector2(global_position.x - 20, hurt_rect().position.y), 16.0 if h.crit else 20.0)

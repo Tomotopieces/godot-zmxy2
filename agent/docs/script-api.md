@@ -68,13 +68,15 @@ Only what the screen shows. World pixels: x to the right, y down (the floor is a
   t, screen: "title"|"select_role"|"map"|"stage"|"result"|"menu"|"dialog"|"cartoon"|"loading", speed, paused, souls, merit,
   hero: { role, x, y, vx, vy, facing: -1|1, on_floor, state: "move"|"attack"|"hurt"|"dead", action,
           hp, hp_max, mp, mp_max, rage, rage_max, transformed, invincible, can_act, level, exp, exp_next,
-          stats: { 生命上限, 魔法上限, 攻击, 防御, 暴击, 闪避, 回血, 回魔 },
-          skills: { <key>: { name, learned, mp_cost, usable } }, buffs, debuffs, treasure },
+          stats: { 生命上限, 魔法上限, 攻击, 防御, 暴击, 闪避, 回血, 回魔 }, rage_ready,
+          skills: { <key>: { name /*碎石破*/, action, learned, mp_cost, usable } },
+          buffs: { <name>: seconds left }, debuffs: { <name>: seconds left },
+          treasure: { name, lv, mp_cost, busy, usable } | {} },
   enemies: [{ uid, name, id, boss, x, y, box: [x, y, w, h], facing, hp /*0..1*/, action, hittable }],
   props:   [{ uid, name, id, x, y }],            // things to hit that are not enemies (10-1's dial and stones)
   shots:   [{ x, y, vx, vy, hostile }],
   pickups: [{ kind: "item"|"potion", name, quality?, type?, x, y, expires_in? }],   // type e.g. "八戒武器", "防具", "道具"; expires_in = seconds left (absent: stays, boss loot)
-  stage:   { id: "2-1", view_x, view_w, width, room, rooms, locked, door_open, door_x?, floors: [{ x1, x2, y, h, oneway }] }
+  stage:   { id: "2-1", combo, best_combo, view_x, view_w, width, room, rooms, locked, door_open, door_x?, floors: [{ x1, x2, y, h, oneway }] }
 }
 ```
 
@@ -82,11 +84,18 @@ Only what the screen shows. World pixels: x to the right, y down (the floor is a
 - `stage.room` counts the camera stops cleared; while `locked` the screen does not scroll on until the room's enemies
   are all gone. When `door_open`, walk into the door (`door_x`) and press `up` to finish the stage.
 - `hero.can_act`: a new move can start now. `action` names the animation (`hit1`… attacks, `hurt`, `walk`, `wait`).
-- Outside a stage only `t, screen, souls, merit, hero.{role, level}` are filled.
+- Outside a stage: `t, screen, souls, merit, hero.{role, level, exp, exp_next, stats}`, and on the result screen
+  `result: { won, UsedTime, BestCombo, State, TotalScore }`.
+- `paused`: a menu is open over the stage. The battle is stopped; the script is not called (its keys are let go) until
+  the menu closes.
 
 ## Events (`onEvent`, and in `wait_events`)
 
-`stage_start {stage}` · `hurt {damage, hp, hp_max}` · `kill {name, boss}` · `boss_appear {name}` · `room_clear {room}` ·
+`stage_start {stage}` · `hurt {damage, hp, hp_max, from?, from_uid?, move, effects?}` (the red number over the hero; `from`
+the enemy, `move` its attack, or `持续伤害`) · `dodge {from, move}` (MISS) · `heal {amount, hp, hp_max}` (green number) ·
+`hit {move, target, target_uid, target_hp, damage, crit, kill}` (each number over an enemy: `move` is your skill's name,
+普攻1..5, or 持续伤害) · `whiff {move}` (a melee move ended without hitting) · `combo {count}` (every 10) · `rage` (无双) ·
+`kill {name, boss}` · `boss_appear {name}` · `room_clear {room}` ·
 `drop {name, quality, type, x, y, expires_in}` · `pickup {name, quality, type}` · `pickup_blocked {name, quality, type, reason}` (touched but not taken: "背包已满（装备页 25/25）" -
 sell or drop something; or "已拥有（只能有一件）"; reported once per touch, and a full bag wakes the agent) ·
 `drop_expired {name, quality, type}` (it vanished

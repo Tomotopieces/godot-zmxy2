@@ -12,6 +12,8 @@ Loop: observe -> decide -> act (directly, or by running a script) -> wait_events
   watchdog wakes you early on a boss, low HP, the stage's end, being stuck, a watched drop, or the script's own
   ctx.wake / ctx.done / an error. Change the script with script_update instead of steering it tick by tick.
 - act / sequence are for short precise moves (step onto a door and press up, a few hits); they pause the script.
+- wait_events' summary reads like the screen: damage dealt per move (hits, total, max, crits, missed swings) and on
+  which enemy, damage taken per enemy attack, dodges, heals, drops. Use it to find what works and change the script.
 - set_speed 2..4 makes the game run faster in real time (it plays the same).
 - Keep long goals in goal (it survives sessions); save scripts that work with script_save.
 - Report what happened from the state and events (an item is yours when it is in the bag), not from what you intended.

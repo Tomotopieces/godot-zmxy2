@@ -172,6 +172,11 @@ export class Runner {
       }
       if (s.stop) break;
       this.lastObs = obs;
+      if (obs.paused) {   // a menu is open over the stage: the script waits (and lets go of its keys)
+        if (s.lastInput.hold.length) { await this.bridge.request("input", { hold: [], press: [] }); s.lastInput = { hold: [], press: [] }; }
+        await sleep(200);
+        continue;
+      }
       this.#watchStuck(obs);
       try {
         if (first) {
@@ -233,7 +238,7 @@ export function brief(o) {
 }
 
 function trimEvents(events) {
-  const keep = events.filter((e) => !["hurt", "log", "kill", "notice", "drop", "pickup", "pickup_blocked"].includes(e.ev)).slice(-30);
+  const keep = events.filter((e) => !["hurt", "log", "kill", "notice", "drop", "pickup", "pickup_blocked", "hit", "whiff", "dodge", "heal", "combo"].includes(e.ev)).slice(-30);
   return keep.map(({ at, ...e }) => e);
 }
 
@@ -250,7 +255,25 @@ export function summarise(events, obs, script) {
   if (hurts.length) {
     const low = Math.min(...hurts.map((h) => h.hp / h.hp_max));
     parts.push(`hit ${hurts.length}x, -${hurts.reduce((s, h) => s + h.damage, 0)} HP, lowest ${Math.round(low * 100)}%`);
+    const by = new Map();
+    for (const h of hurts) { const k = h.from ? `${h.from} ${h.move}` : h.move; const v = by.get(k) || { n: 0, d: 0 }; v.n++; v.d += h.damage; by.set(k, v); }
+    parts.push("hurt by: " + [...by].sort((a, b) => b[1].d - a[1].d).slice(0, 6).map(([k, v]) => `${k} -${v.d} (${v.n}x)`).join(", "));
   }
+  const dodges = c("dodge");
+  if (dodges.length) parts.push(`dodged ${dodges.length}x`);
+  const hits = c("hit"), whiffs = c("whiff"), heals = c("heal");
+  if (hits.length || whiffs.length) {
+    const mv = new Map();
+    const get = (k) => mv.get(k) || (mv.set(k, { hits: 0, dmg: 0, max: 0, crit: 0, whiff: 0 }), mv.get(k));
+    for (const h of hits) { const v = get(h.move); v.hits++; v.dmg += h.damage; v.max = Math.max(v.max, h.damage); if (h.crit) v.crit++; }
+    for (const w of whiffs) get(w.move).whiff++;
+    parts.push("dealt: " + [...mv].sort((a, b) => b[1].dmg - a[1].dmg).map(([k, v]) =>
+      `${k} ${v.hits} hits ${v.dmg} dmg (max ${v.max}${v.crit ? ", " + v.crit + " crit" : ""}${v.whiff ? ", " + v.whiff + " missed" : ""})`).join(", "));
+    const tg = new Map();
+    for (const h of hits) if (h.target) { const v = tg.get(h.target) || { d: 0, hp: 1 }; v.d += h.damage; v.hp = h.target_hp; tg.set(h.target, v); }
+    if (tg.size) parts.push("on: " + [...tg].sort((a, b) => b[1].d - a[1].d).slice(0, 5).map(([k, v]) => `${k} ${v.d} (now ${Math.round(v.hp * 100)}%)`).join(", "));
+  }
+  if (heals.length) parts.push(`healed +${heals.reduce((s, h) => s + h.amount, 0)} (${heals.length}x)`);
   if (drops.length || picks.length || gone.length) parts.push(`drops ${drops.length}, picked ${picks.length}, vanished ${gone.length}`);
   if (picks.length) parts.push("picked " + picks.map(item).join(", "));
   if (gone.length) parts.push("VANISHED unpicked: " + gone.map(item).join(", "));

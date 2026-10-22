@@ -38,7 +38,7 @@ await press("Stage1Level1");
 await sleep(2500);
 let s = await call("get_state");
 console.log("stage:", s.screen, s.stage?.id, "hero", s.hero?.x, s.hero?.hp, "enemies", s.enemies?.length, "floors", s.stage?.floors?.length);
-await call("pause", { on: true }); console.log("paused:", (await call("get_state")).paused);
+await call("pause", { on: true }); { const s0 = await call("get_state"); console.log("paused:", s0.paused, "hp in menu:", s0.hero?.hp, "/", s0.hero?.hp_max); }
 await call("pause", { on: false }); await sleep(500); console.log("resumed:", (await call("get_state")).paused);
 console.log("act:", JSON.stringify((await call("act", { hold: ["right"], seconds: 1 })).obs.hero.x));
 await call("script_run", { name: "clear_room" });
