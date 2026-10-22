@@ -90,6 +90,13 @@ tool("press_ui", "Press a control of the screen in front by its id (from list_ui
     return text({ ...r, ui: await bridge.request("ui_list") });
   });
 
+tool("back_ui", "Back out of the screen in front, as B / Esc does: closes a popup, a dialog or the menu (背包 / 技能 / 法宝 / 设置). " +
+  "In a stage without a menu use pause instead.", {},
+  async () => {
+    const r = await bridge.request("ui_back");
+    return text({ ...r, ui: await bridge.request("ui_list") });
+  });
+
 // ---------------------------------------------------------------- direct control
 
 async function act({ hold, press, seconds }) {
@@ -215,7 +222,7 @@ tool("set_speed", "Game speed 1..4 (physics runs proportionally faster, so the g
   { speed: z.number().min(1).max(4) },
   async ({ speed }) => text(await bridge.request("speed", { value: speed })));
 
-tool("pause", "Pause (opens the in-stage menu) or resume a stage.", { on: z.boolean().default(true) },
+tool("pause", "on: open the in-stage menu (pauses). off: close any open menu (in a stage or on the map) and resume.", { on: z.boolean().default(true) },
   async ({ on }) => text(await bridge.request("pause", { value: on })));
 
 // ---------------------------------------------------------------- goals

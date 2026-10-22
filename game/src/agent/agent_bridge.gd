@@ -139,6 +139,9 @@ func _handle(m: Dictionary) -> void:
 			r = observe()
 		"ui_list":
 			r = ui_list()
+		"ui_back":
+			err = await ui_back()
+			r = {"screen": screen_name()}
 		"ui_press":
 			err = await ui_press(String(m.get("target", "")))
 			r = {"screen": screen_name()}
@@ -206,8 +209,9 @@ func _pause(on: bool) -> Dictionary:
 	var ps := _play_screen()
 	if on and ps and not get_tree().paused:
 		ps.open_pause()
-	elif not on and ps and ps._menu:
-		ps._menu.close()
+	elif not on:
+		for m in get_tree().root.find_children("*", "TabMenu", true, false):
+			(m as TabMenu).close()
 	return {"paused": get_tree().paused}
 
 func _screenshot(scale: float) -> Dictionary:
@@ -240,9 +244,11 @@ func screen_name() -> String:
 	var m := _main()
 	if m == null:
 		return "loading"
-	var s = m._screen
-	if s == null:
+	if m._title.visible:
 		return "title"
+	var s = m._screen
+	if not is_instance_valid(s) or s.is_queued_for_deletion():
+		return "loading"   # (between two screens, under the fade)
 	if s is SelectRole:
 		return "select_role"
 	if s is StageMap:
@@ -401,6 +407,11 @@ func _ui_targets(scope: Node) -> Array[Control]:
 		if not scope.is_in_group(PadFocus.MODAL) and _in_modal(c):
 			continue
 		out.append(c)
+	if scope is TabMenu:   # its tabs and 返回 take no pad focus (LT / RT switch tabs, B closes): listed for the agent
+		for n in ["BtnBag", "BtnSkill", "BtnTreasure", "BtnSettings", "BtnBack"]:
+			var b: Control = scope._ui.piece(n)
+			if b.is_visible_in_tree():
+				out.append(b)
 	return out
 
 func _in_modal(c: Control) -> bool:
@@ -420,6 +431,8 @@ func _ui_id(scope: Node, c: Control) -> String:
 	return "/".join(parts)
 
 func _ui_text(c: Control) -> String:
+	if c.has_meta(&"agent_text"):
+		return String(c.get_meta(&"agent_text"))
 	if c is ItemIcon:
 		var it := _icon_item(c)
 		if it:
@@ -462,10 +475,26 @@ func ui_press(target: String) -> String:
 	if hit is BaseButton and hit.disabled:
 		return "disabled: " + target
 	PadFocus.pad_last = true
-	hit.grab_focus()
-	await get_tree().process_frame
-	await _tap_ui(&"ui_accept")
+	if hit.focus_mode == Control.FOCUS_NONE and hit is BaseButton:
+		(hit as BaseButton).pressed.emit()
+	else:
+		hit.grab_focus()
+		await get_tree().process_frame
+		await _tap_ui(&"ui_accept")
 	await get_tree().create_timer(0.3, true, false, true).timeout   # the press's fades
+	return ""
+
+## Back out of the screen in front, as B / Esc does: closes the open popup, menu or dialog. Does nothing in plain
+## gameplay (Esc there would open the menu: use pause for that).
+func ui_back() -> String:
+	var top := _top_layer()
+	if top == null or top is StageMap or top is MainMenu or top is SelectRole:
+		return "nothing to back out of here"
+	await _tap_ui(&"ui_cancel")
+	await get_tree().create_timer(0.35, true, false, true).timeout
+	if is_instance_valid(top) and not top.is_queued_for_deletion() and top == _top_layer():
+		await _tap_ui(&"pause")
+		await get_tree().create_timer(0.35, true, false, true).timeout
 	return ""
 
 func _tap_ui(a: StringName) -> void:

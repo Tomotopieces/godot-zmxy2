@@ -28,11 +28,18 @@ ui = await call("list_ui"); console.log("select ui:", ui.screen, ui.items.map((x
 await press("BtnBajie");
 for (let i = 0; i < 6; i++) { const s = await call("get_state"); if (s.screen !== "cartoon") break; await press("next"); }
 ui = await call("list_ui"); console.log("map ui:", ui.screen, ui.items.filter((x) => x.enabled).map((x) => x.id).join(" "));
+await press("BtnSkills");
+ui = await call("list_ui"); console.log("skills ui:", ui.screen, ui.items.filter((x) => (x.id.includes("Tabs/") || x.id.endsWith("BtnBack") || /Skill[12]\/Button$/.test(x.id))).map((x) => x.id.split("/").pop() + "=" + x.text).join(" | "));
+await press("BtnTreasure");
+console.log("back_ui:", (await call("back_ui")).screen);
+await press("BtnSkills"); await press("BtnBack"); console.log("after 返回:", (await call("get_state")).screen);
 await call("set_speed", { speed: 2 });
 await press("Stage1Level1");
 await sleep(2500);
 let s = await call("get_state");
 console.log("stage:", s.screen, s.stage?.id, "hero", s.hero?.x, s.hero?.hp, "enemies", s.enemies?.length, "floors", s.stage?.floors?.length);
+await call("pause", { on: true }); console.log("paused:", (await call("get_state")).paused);
+await call("pause", { on: false }); await sleep(500); console.log("resumed:", (await call("get_state")).paused);
 console.log("act:", JSON.stringify((await call("act", { hold: ["right"], seconds: 1 })).obs.hero.x));
 await call("script_run", { name: "clear_room" });
 for (let i = 0; i < 8; i++) {

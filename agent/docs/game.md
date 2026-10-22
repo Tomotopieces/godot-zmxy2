@@ -29,7 +29,9 @@ Skills are learned with souls (灵魂) in 技能 (map button, or the in-stage me
 - Title: 新的开始 (new game -> hero choice -> opening comic -> map), 继续游戏 (load a save), 游戏帮助, 退出游戏.
 - Map: the stages (Stage1Level1 … Stage4Level1 on the main path, unlocked in order; NiuMoGu = 6-1 牛魔谷,
   LuoXuanDiYu = 10-1 螺旋地狱), BtnSkills, BtnForge (炼丹炉), BtnShop (商城), BtnSave, BtnActivity, BtnBack.
-- In a stage: the menu (pause) has tabs 背包 / 技能 / 法宝 / 设置.
+- The menu (pause in a stage; C / V / B or BtnSkills on the map) has tabs BtnBag 背包 / BtnSkill 技能 / BtnTreasure 法宝 /
+  BtnSettings 设置 and BtnBack 返回 (or back_ui) to close it. 技能: an unlearned skill's icon learns it for souls; the
+  passive page (PassiveButton) has 升级 buttons.
 - 背包: three pages (装备 / 道具 / 时装). Press an item cell for its menu (装备 / 出售 / 使用 / 丢弃); press a worn slot
   to take it off. The tooltip of a cell is its name and quality.
 - 炼丹炉: 强化 (equipment + stones) and 合成 (three materials -> one item; e.g. three marks of the same kind of boss -> a 法宝).

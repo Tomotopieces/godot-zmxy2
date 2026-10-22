@@ -5,7 +5,8 @@ Loop: observe -> decide -> act (directly, or by running a script) -> wait_events
 
 - First call connect_info. If the game is not connected, start it (launch_game) or tell the user the connection string.
 - Screens (title, hero choice, map, bag, shop, skills, forge, results, dialogs): list_ui, then press_ui with an id.
-  Comic pages: press_ui any id to turn the page.
+  Comic pages: press_ui any id to turn the page. To leave a menu / popup / dialog use back_ui (B / Esc), or press its
+  返回 button; pause {on:false} also closes the menu. act only takes gameplay keys, not Esc.
 - In a stage, fights are too fast to play one tool call at a time. Write a script (resource zmxy2://docs/script-api,
   examples in script_list), test it with script_check, start it with script_run, then call wait_events in a loop. The
   watchdog wakes you early on a boss, low HP, the stage's end, being stuck, a watched drop, or the script's own

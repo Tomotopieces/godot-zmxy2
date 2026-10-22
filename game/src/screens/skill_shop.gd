@@ -50,6 +50,8 @@ func _refresh() -> void:
 	_ui.set_text("Value", str(GameState.souls))
 	for i in _active.size():
 		_active[i].disabled = GameState.has_skill(StringName(GameState.hero_data.learn_active[i]))
+		_active[i].set_meta(&"agent_text", "%s（%s，%d 灵魂）" % [(_table.get_node("Names").get_child(i) as Label).text,
+			"已学会" if _active[i].disabled else "未学", GameState.learn_cost(i)])   # (AgentBridge: an icon-only button)
 	for i in 5:
 		var lv: int = GameState.passives[i]
 		var stat := GameState.hero_data.learn_passive[i]
@@ -61,6 +63,7 @@ func _refresh() -> void:
 		_cell("NextEffects", i).text = "已满级" if maxed else fmt % roundi(GameState.hero_data.passive_value(stat, lv + 1) * scale)
 		_cell("Requirements", i).text = "-" if maxed else str(GameState.passive_cost(i))
 		_upgrades[i].visible = not maxed
+		_upgrades[i].set_meta(&"agent_text", "升级 %s（%d级，%s 灵魂）" % [_cell("Names", i).text, lv, _cell("Requirements", i).text])
 
 ## Row i of a passive-table column.
 func _cell(column: String, i: int) -> Label:
