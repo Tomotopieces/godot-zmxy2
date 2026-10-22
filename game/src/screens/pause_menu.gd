@@ -1,7 +1,7 @@
 class_name PauseMenu
 extends Control
 ## 设置, a page of the TabMenu (scenes/ui/set_menu.tscn): continue, sound / screen shake / pad rumble switches, back to
-## map, help, back to the title.
+## map, help, AI 接入 (the agent connection, AgentDialog), back to the title.
 
 signal to_map
 signal to_menu
@@ -24,6 +24,7 @@ func _on_button(b: String) -> void:
 		"BtnBackToMap": to_map.emit()
 		"BtnBackToTitle": to_menu.emit()
 		"BtnHelp": add_child(HelpPanel.new())
+		"BtnAgent": add_child(AgentDialog.new())
 		"BtnGameSound": Snd.set_muted(not Snd.muted)
 		"BtnScreenShake":
 			Feel.screen_shake = not Feel.screen_shake
@@ -40,6 +41,7 @@ func _sync() -> void:
 	_switch("BtnGameSound", "游戏声音", not Snd.muted)
 	_switch("BtnScreenShake", "画面震动", Feel.screen_shake)
 	_switch("BtnControllerShake", "手柄震动", Feel.pad_rumble)
+	_ui.set_text("BtnAgent", "AI 接入：" + ("已连接" if AgentBridge.connected() else ("等待连接" if AgentBridge.url != "" else "关")))
 
 func _switch(button: String, caption: String, on: bool) -> void:
 	_ui.set_text(button, "%s：%s" % [caption, "开" if on else "关"])

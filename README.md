@@ -16,6 +16,7 @@ Answers to the user: Simplified Chinese. Deleting files: Recycle Bin (`bash tool
 | `game/assets/` | textures and sounds: `puppets/<name>/` (`tex/`, `slots/` = equipment variants of the actor scenes), `levels/<stage>/tex/`, `ui/`, `items/`, `sounds/`, `shared/` (textures several things use) |
 | `game/data/` | gameplay numbers (`.tres` resources, `stages.json`; px and seconds) and `lighting/<stage>.json` (per-stage look) — edit them directly |
 | `tools/extract/*.js` | texture housekeeping: `dedupe.js`, `organize_shared.js`, `fix_scene_uids.js`. Texture names are `<flash library>_<symbol id>.png` |
+| `agent/` | `zmxy2-remake-mcp`: an MCP server through which any agent harness plays the game (see agent/README.md); the game side is `game/src/agent/` (`AgentBridge`, off unless given a connection string) |
 | `.claude/skills/stage-rework/` | how to rework a stage's scene and design its look |
 
 ## Run / test / export
@@ -68,6 +69,7 @@ Rim light / moon exist because 1-1…1-3 have a moon — they are not a general 
 
 ## Branches
 `main` — released remake (remake 0.1: the scene-based remake with the new stage looks; earlier releases were v1.0…v1.3.1).
+`agent` — AI 接入: the MCP server in `agent/` and `AgentBridge` in the game (exe and web alike).
 
 ## Fonts
 

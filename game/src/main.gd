@@ -14,6 +14,7 @@ func _ready() -> void:
 	add_child(_fade)
 	if OS.has_feature("web"):
 		add_child(WebHost.new())
+	AgentBridge.setup(self)   # AI 接入: off unless a connection string is given
 	if OS.is_debug_build():   # debug aids are not part of exported (release) builds
 		add_child(DebugConsole.new())   # ~ lists every item
 	_title.new_game.connect(func(): _fade.play(show_select_role))

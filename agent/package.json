@@ -1,0 +1,17 @@
+{
+  "name": "zmxy2-remake-mcp",
+  "version": "0.1.0",
+  "description": "MCP server that lets any MCP-capable agent play 造梦西游2 重制版 (zmxy2-remake)",
+  "type": "module",
+  "bin": { "zmxy2-remake-mcp": "src/index.js" },
+  "main": "src/index.js",
+  "engines": { "node": ">=20" },
+  "scripts": { "start": "node src/index.js", "check": "node test/check.js" },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.1",
+    "quickjs-emscripten": "0.32.0",
+    "ws": "8.22.0",
+    "zod": "3.25.76"
+  },
+  "license": "MIT"
+}

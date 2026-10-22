@@ -29,6 +29,7 @@ static func create(item: Item, cell: float) -> ItemIcon:
 	t.stretch_mode = TextureRect.STRETCH_SCALE if framed else TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	# the picture is drawn inside the margin: shrink the rect, then move it back to the cell's middle
 	t.set_meta(&"cell", cell)
+	t.set_meta(&"item", item)   # (AgentBridge names the icon after it)
 	t.custom_minimum_size = Vector2.ZERO
 	t.size = Vector2(cell - 2.0 * m, cell - 2.0 * m)
 	t.pivot_offset = t.size / 2.0

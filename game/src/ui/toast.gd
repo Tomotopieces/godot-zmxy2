@@ -36,6 +36,9 @@ func _init() -> void:
 
 func _show(t: String, end_y: float) -> void:
 	text = t
+	var agent := get_tree().root.get_node_or_null("Main/AgentBridge")   # (by path: the bridge's class reaches the screens, which use Toast)
+	if agent:
+		agent.notify_event({"ev": "notice", "text": t})
 	move_to_front()
 	modulate.a = 1.0
 	position = Vector2(0, START_Y)
