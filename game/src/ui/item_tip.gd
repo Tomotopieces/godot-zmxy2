@@ -140,6 +140,29 @@ static func _spaced(q: String) -> String:
 	return " ".join(q.split("")) if q.length() == 2 else q
 
 ## Integers as is; percentages with up to two decimals (AUtils.changeNumber).
+## The tooltip's contents as data (AgentBridge lists them with the bag cells): what the player reads in the box.
+static func describe(item: Item) -> Dictionary:
+	var d := GameState.item_data(item)
+	var o := {"name": d.display_name, "quality": d.quality, "type": AgentBridge.item_kind(d), "plus": item.plus,
+		"value": d.value}
+	if item.n > 1:
+		o["count"] = item.n
+	if Forge.is_treasure(item):
+		o["treasure"] = {"lv": item.lv, "growth": snappedf(item.growth, 0.1), "elements": Forge.element_text(item)}
+	if not item.id in NO_STATS:
+		var stats := {}
+		for s in STATS:
+			var v := float(item.stats.get(s[0], 0.0))
+			var extra := item.plus * float(d.strengthen.get(s[0], 0.0))
+			if is_zero_approx(v) and is_zero_approx(extra):
+				continue
+			stats[s[1]] = _num(v + extra, s[2]) + ("（含强化 +%s）" % _num(extra, s[2]) if not is_zero_approx(extra) else "")
+		if not stats.is_empty():
+			o["stats"] = stats
+	if d.desc != "":
+		o["desc"] = d.desc
+	return o
+
 static func _num(v: float, percent: bool, with_sign_unit := true) -> String:
 	if not percent:
 		return str(int(v))

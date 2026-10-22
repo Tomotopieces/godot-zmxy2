@@ -352,8 +352,14 @@ func _hero(h: Hero) -> Dictionary:
 		"rage": int(h.rage), "rage_max": h.data.rage_max, "transformed": h.transformed,
 		"invincible": h.invincible > 0.0 or h._lock_glow, "can_act": h.cooldown <= 0.0 and h.state == Hero.State.MOVE,
 		"level": GameState.level, "exp": GameState.exp, "exp_next": GameState.exp_to_next(),
-		"skills": skills, "buffs": GameState.buffs.keys(), "debuffs": dbf,
+		"stats": hero_stats(), "skills": skills, "buffs": GameState.buffs.keys(), "debuffs": dbf,
 		"treasure": GameState.item_data(GameState.worn[&"treasure"]).display_name if GameState.worn[&"treasure"] else ""}
+
+## The bag screen's left column: the hero's totals with the worn gear.
+func hero_stats() -> Dictionary:
+	return {"生命上限": GameState.max_hp(), "魔法上限": GameState.max_mp(), "攻击": GameState.attack_power(),
+		"防御": GameState.defense(), "暴击": "%d%%" % roundi(GameState.crit() * 100), "闪避": "%d%%" % roundi(GameState.miss() * 100),
+		"回血": GameState.hp_regen(), "回魔": GameState.mp_regen()}
 
 ## Skill slot i (the skill table's row) -> its key on the keyboard.
 func _skill_key(i: int) -> String:
@@ -393,9 +399,15 @@ func ui_list() -> Dictionary:
 		return {"screen": screen_name(), "items": items}
 	var f := get_viewport().gui_get_focus_owner()
 	for c in _ui_targets(scope):
-		items.append({"id": _ui_id(scope, c), "text": _ui_text(c), "enabled": not (c is BaseButton and c.disabled),
-			"focused": c == f})
+		var row := {"id": _ui_id(scope, c), "text": _ui_text(c), "enabled": not (c is BaseButton and c.disabled),
+			"focused": c == f}
+		var it := _icon_item(c) if c is ItemIcon else null
+		if it:
+			row["item"] = ItemTip.describe(it)   # the tooltip's numbers
+		items.append(row)
 	var o := {"screen": screen_name(), "items": items}
+	if GameState.hero_data and screen_name() in ["menu", "map"]:
+		o["hero_stats"] = hero_stats()
 	if _top_layer() is Cartoon:
 		o["hint"] = "comic: ui_press any id or 'next' turns the page"
 	return o

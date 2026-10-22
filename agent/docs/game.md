@@ -32,7 +32,9 @@ Skills are learned with souls (灵魂) in 技能 (map button, or the in-stage me
 - The menu (pause in a stage; C / V / B or BtnSkills on the map) has tabs BtnBag 背包 / BtnSkill 技能 / BtnTreasure 法宝 /
   BtnSettings 设置 and BtnBack 返回 (or back_ui) to close it. 技能: an unlearned skill's icon learns it for souls; the
   passive page (PassiveButton) has 升级 buttons.
-- 背包: three pages (装备 / 道具 / 时装). Press an item cell for its menu (装备 / 出售 / 使用 / 丢弃); press a worn slot
+- 背包: three pages (装备 / 道具 / 时装). In list_ui every item cell (bag and worn slots) carries `item`: name,
+  quality, type (e.g. 八戒武器 - only that hero can wear it), stats with strengthening, sell value, 法宝 level / growth /
+  elements; `hero_stats` gives the totals with the worn gear, to compare before and after a change. Press an item cell for its menu (装备 / 出售 / 使用 / 丢弃); press a worn slot
   to take it off. The tooltip of a cell is its name and quality.
 - 炼丹炉: 强化 (equipment + stones) and 合成 (three materials -> one item; e.g. three marks of the same kind of boss -> a 法宝).
 - Results: 下一关 / 重新挑战 / 返回地图. Saving happens automatically after a cleared stage when the game has a slot.

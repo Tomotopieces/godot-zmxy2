@@ -68,6 +68,7 @@ Only what the screen shows. World pixels: x to the right, y down (the floor is a
   t, screen: "title"|"select_role"|"map"|"stage"|"result"|"menu"|"dialog"|"cartoon"|"loading", speed, paused, souls, merit,
   hero: { role, x, y, vx, vy, facing: -1|1, on_floor, state: "move"|"attack"|"hurt"|"dead", action,
           hp, hp_max, mp, mp_max, rage, rage_max, transformed, invincible, can_act, level, exp, exp_next,
+          stats: { 生命上限, 魔法上限, 攻击, 防御, 暴击, 闪避, 回血, 回魔 },
           skills: { <key>: { name, learned, mp_cost, usable } }, buffs, debuffs, treasure },
   enemies: [{ uid, name, id, boss, x, y, box: [x, y, w, h], facing, hp /*0..1*/, action, hittable }],
   props:   [{ uid, name, id, x, y }],            // things to hit that are not enemies (10-1's dial and stones)
