@@ -85,9 +85,11 @@ tool("press_ui", "Press a control of the screen in front by its id (from list_ui
   "way: focus it, then A. On a comic page any id turns the page.",
   { id: z.string() },
   async ({ id }) => {
+    const before = runner.events.length;
     const r = await bridge.request("ui_press", { target: id });
     await sleep(250);
-    return text({ ...r, ui: await bridge.request("ui_list") });
+    const notices = runner.events.slice(before).filter((e) => e.ev === "notice").map((e) => e.text);
+    return text({ ...r, ...(notices.length ? { notices } : {}), ui: await bridge.request("ui_list") });
   });
 
 tool("back_ui", "Back out of the screen in front, as B / Esc does: closes a popup, a dialog or the menu (背包 / 技能 / 法宝 / 设置). " +
