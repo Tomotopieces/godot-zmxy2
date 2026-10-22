@@ -7,6 +7,12 @@ var item: Item
 var _life := 0.0
 var _keep := false
 var _taken := false
+
+signal expired   ## vanished without being picked up (AgentBridge reports it)
+
+## Seconds before it vanishes; -1 for boss loot, which stays.
+func expires_in() -> float:
+	return -1.0 if _keep else maxf(0.0, EquipmentCatalog.get_catalog().ground_life - _life)
 var _sprite: Sprite2D
 
 static func spawn(id: String, pos: Vector2) -> GroundItem:
@@ -44,6 +50,7 @@ func _physics_process(delta: float) -> void:
 		return
 	_life += delta
 	if (_life > EquipmentCatalog.get_catalog().ground_life and not _keep) or global_position.y > Hero.FALL_DEATH_Y:
+		expired.emit()
 		queue_free()
 		return
 	velocity.y += GameState.hero_data.gravity * delta

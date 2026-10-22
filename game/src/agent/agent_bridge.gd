@@ -316,8 +316,12 @@ func observe() -> Dictionary:
 				"vy": _r(n.velocity.y), "hostile": not (n.source is Hero)})
 		elif n is GroundItem and not n._taken:
 			var d := GameState.item_data(n.item)
-			pickups.append({"kind": "item", "name": d.display_name, "quality": d.quality,
-				"x": _r(n.global_position.x), "y": _r(n.global_position.y)})
+			var p := {"kind": "item", "name": d.display_name, "quality": d.quality, "type": item_kind(d),
+				"x": _r(n.global_position.x), "y": _r(n.global_position.y)}
+			var left: float = n.expires_in()
+			if left >= 0.0:
+				p["expires_in"] = _r(left)
+			pickups.append(p)
 		elif n is Potion and not n._used:
 			pickups.append({"kind": "potion", "name": ["小血瓶", "大血瓶", "小蓝瓶"][n.kind],
 				"x": _r(n.global_position.x), "y": _r(n.global_position.y)})
@@ -538,8 +542,19 @@ func _on_world_child(n: Node) -> void:
 	elif n is GroundItem:
 		var g := n as GroundItem
 		var d := GameState.item_data(g.item)
-		_send({"ev": "drop", "name": d.display_name, "quality": d.quality})
-		g.tree_exiting.connect(func(): if g._taken: _send({"ev": "pickup", "name": d.display_name, "quality": d.quality}))
+		var info := {"name": d.display_name, "quality": d.quality, "type": item_kind(d)}
+		var at := {"x": _r(g.global_position.x), "y": _r(g.global_position.y), "expires_in": _r(g.expires_in())}
+		_send(info.merged({"ev": "drop"}).merged(at))
+		g.expired.connect(func(): _send(info.merged({"ev": "drop_expired"})))
+		g.tree_exiting.connect(func(): if g._taken: _send(info.merged({"ev": "pickup"})))
+
+const TYPE_NAMES := {&"weapon": "武器", &"cloth": "防具", &"accessory": "饰品", &"treasure": "法宝", &"wing": "翅膀",
+	&"fashion": "时装", &"item": "道具"}
+
+## What kind of thing an item is, as a player says it: "八戒武器", "防具" (anyone's), "道具".
+static func item_kind(d: EquipmentData) -> String:
+	var t: String = TYPE_NAMES.get(d.type, String(d.type))
+	return t if d.type == &"item" else d.user + t
 
 ## On-screen notices (Toast, which finds the bridge by its path).
 func notify_event(ev: Dictionary) -> void:

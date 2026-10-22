@@ -72,7 +72,7 @@ Only what the screen shows. World pixels: x to the right, y down (the floor is a
   enemies: [{ uid, name, id, boss, x, y, box: [x, y, w, h], facing, hp /*0..1*/, action, hittable }],
   props:   [{ uid, name, id, x, y }],            // things to hit that are not enemies (10-1's dial and stones)
   shots:   [{ x, y, vx, vy, hostile }],
-  pickups: [{ kind: "item"|"potion", name, quality?, x, y }],
+  pickups: [{ kind: "item"|"potion", name, quality?, type?, x, y, expires_in? }],   // type e.g. "八戒武器", "防具", "道具"; expires_in = seconds left (absent: stays, boss loot)
   stage:   { id: "2-1", view_x, view_w, width, room, rooms, locked, door_open, door_x?, floors: [{ x1, x2, y, h, oneway }] }
 }
 ```
@@ -86,7 +86,8 @@ Only what the screen shows. World pixels: x to the right, y down (the floor is a
 ## Events (`onEvent`, and in `wait_events`)
 
 `stage_start {stage}` · `hurt {damage, hp, hp_max}` · `kill {name, boss}` · `boss_appear {name}` · `room_clear {room}` ·
-`drop {name, quality}` · `pickup {name, quality}` · `stage_clear {stage, ending?}` · `stage_fail` · `death` ·
+`drop {name, quality, type, x, y, expires_in}` · `pickup {name, quality, type}` · `drop_expired {name, quality, type}` (it vanished
+unpicked: dropped equipment lasts about 10 s, boss loot stays) · `stage_clear {stage, ending?}` · `stage_fail` · `death` ·
 `level_up {level}` · `notice {text}` (the yellow on-screen notices, e.g. "背包已满")
 
 ## Tips
@@ -94,5 +95,6 @@ Only what the screen shows. World pixels: x to the right, y down (the floor is a
 - Keep state in `ctx.memo` (where you were, what you tried); plain objects only.
 - Face before attacking: a hero only hits forward. Melee reach is about 100 px for 八戒 / 悟空's combo.
 - Back off when `shots` with `hostile` come close, or jump over them.
-- Pick up drops by walking over them (`pickups`); the bag has 25 cells per page.
+- Pick up drops by walking over them (`pickups`); most vanish after about 10 s (`expires_in`), so grab them between
+  fights rather than after the room. wait_events lists what vanished unpicked. The bag has 25 cells per page.
 - Prefer one script per kind of job (clear a room, fight a boss, collect drops) and switch with script_run.

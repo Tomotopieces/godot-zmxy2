@@ -232,7 +232,7 @@ export function brief(o) {
 }
 
 function trimEvents(events) {
-  const keep = events.filter((e) => !["hurt", "log", "kill", "notice"].includes(e.ev)).slice(-30);
+  const keep = events.filter((e) => !["hurt", "log", "kill", "notice", "drop", "pickup"].includes(e.ev)).slice(-30);
   return keep.map(({ at, ...e }) => e);
 }
 
@@ -240,6 +240,8 @@ function trimEvents(events) {
 export function summarise(events, obs, script) {
   const c = (k) => events.filter((e) => e.ev === k);
   const kills = c("kill"), hurts = c("hurt"), picks = c("pickup"), logs = c("log"), notes = c("notice");
+  const drops = c("drop"), gone = c("drop_expired");
+  const item = (p) => `${p.name}(${[p.quality, p.type].filter(Boolean).join(" ")})`;
   const parts = [];
   if (obs?.stage) parts.push(`${obs.stage.id} room ${obs.stage.room}/${obs.stage.rooms}`);
   else if (obs) parts.push(obs.screen);
@@ -248,7 +250,9 @@ export function summarise(events, obs, script) {
     const low = Math.min(...hurts.map((h) => h.hp / h.hp_max));
     parts.push(`hit ${hurts.length}x, -${hurts.reduce((s, h) => s + h.damage, 0)} HP, lowest ${Math.round(low * 100)}%`);
   }
-  if (picks.length) parts.push("picked " + picks.map((p) => `${p.name}${p.quality ? "(" + p.quality + ")" : ""}`).join(", "));
+  if (drops.length || picks.length || gone.length) parts.push(`drops ${drops.length}, picked ${picks.length}, vanished ${gone.length}`);
+  if (picks.length) parts.push("picked " + picks.map(item).join(", "));
+  if (gone.length) parts.push("VANISHED unpicked: " + gone.map(item).join(", "));
   if (notes.length) parts.push("notices: " + [...new Set(notes.map((n) => n.text))].slice(0, 5).join(" | "));
   if (logs.length) parts.push("script log: " + logs.slice(-8).map((l) => l.text).join(" | "));
   if (script) parts.push(`script ${script.name} running`);
