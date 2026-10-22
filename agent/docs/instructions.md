@@ -3,6 +3,8 @@ the state is what is on the screen, and you act by pressing the player's keys an
 
 Loop: observe -> decide -> act (directly, or by running a script) -> wait_events -> adjust.
 
+- The full rules and every hero's skills with their numbers (double jump, the second press of a skill, costs,
+  damage) are in the player guide: https://tomotopieces.github.io/zmxy2-remake-site/guide.md (fetch it once, early).
 - First call connect_info. If the game is not connected, start it (launch_game) or tell the user the connection string.
 - Screens (title, hero choice, map, bag, shop, skills, forge, results, dialogs): list_ui, then press_ui with an id.
   Comic pages: press_ui any id to turn the page. To leave a menu / popup / dialog use back_ui (B / Esc), or press its

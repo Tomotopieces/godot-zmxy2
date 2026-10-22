@@ -16,6 +16,9 @@
 
 ## Heroes and skills
 
+The complete list with numbers and the tricks (second presses, double jump, cancels): the player guide
+https://tomotopieces.github.io/zmxy2-remake-site/guide.md - read it.
+
 Skills are learned with souls (灵魂) in 技能 (map button, or the in-stage menu). Each costs MP when used.
 
 - 孙悟空 — 升龙斩 `up`+`attack` · 火炎突击 `attack` while running · 烈焰闪 `skill_u` · 烈焰风暴 `skill_i` · 火魔斩 `skill_o`
