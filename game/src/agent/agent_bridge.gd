@@ -546,6 +546,7 @@ func _on_world_child(n: Node) -> void:
 		var at := {"x": _r(g.global_position.x), "y": _r(g.global_position.y), "expires_in": _r(g.expires_in())}
 		_send(info.merged({"ev": "drop"}).merged(at))
 		g.expired.connect(func(): _send(info.merged({"ev": "drop_expired"})))
+		g.blocked.connect(func(why: String): _send(info.merged({"ev": "pickup_blocked", "reason": why})))
 		g.tree_exiting.connect(func(): if g._taken: _send(info.merged({"ev": "pickup"})))
 
 const TYPE_NAMES := {&"weapon": "武器", &"cloth": "防具", &"accessory": "饰品", &"treasure": "法宝", &"wing": "翅膀",

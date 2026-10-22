@@ -9,6 +9,8 @@ var _keep := false
 var _taken := false
 
 signal expired   ## vanished without being picked up (AgentBridge reports it)
+signal blocked(reason: String)   ## the hero touched it but could not take it (once per touch; AgentBridge reports it)
+var _blocked := false
 
 ## Seconds before it vanishes; -1 for boss loot, which stays.
 func expires_in() -> float:
@@ -56,7 +58,14 @@ func _physics_process(delta: float) -> void:
 	velocity.y += GameState.hero_data.gravity * delta
 	move_and_slide()
 	var h: Hero = Level.current.hero
-	if is_instance_valid(h) and h.touches($Pickup) and GameState.add_to_bag(item):
+	var touching := is_instance_valid(h) and h.touches($Pickup)
+	if touching and not GameState.can_add(item):
+		if not _blocked:
+			_blocked = true
+			blocked.emit(GameState.why_cannot_add(item))
+		return
+	_blocked = false
+	if touching and GameState.add_to_bag(item):
 		_taken = true
 		var tw := create_tween().set_parallel().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
 		tw.tween_property(self, "position:y", position.y - 100, 0.8)

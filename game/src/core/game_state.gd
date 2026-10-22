@@ -276,6 +276,16 @@ func can_add(item: Item) -> bool:
 		return false
 	return (d.stacks() and has_item(id)) or not tab_full(tab_of(item))
 
+const TAB_NAMES := {"equip": "装备", "item": "道具", "look": "时装"}
+
+## Why can_add(item) is false, as the player would say it.
+func why_cannot_add(item: Item) -> String:
+	var id := item.id
+	if id in EquipmentCatalog.get_catalog().unique and (has_item(id) or is_worn(id)):
+		return "已拥有（只能有一件）"
+	var tab := tab_of(item)
+	return "背包已满（%s页 %d/%d）" % [TAB_NAMES.get(tab, tab), tab_items(tab).size(), EquipmentCatalog.get_catalog().bag_size]
+
 ## force: no capacity check (items coming back from a forge slot).
 func add_to_bag(item: Item, force := false) -> bool:
 	if not force and not can_add(item):

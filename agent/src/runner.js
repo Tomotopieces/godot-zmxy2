@@ -8,7 +8,7 @@ export const WATCH_DEFAULTS = {
   stuck_sec: 20,          // hero has not moved and the room has not changed for this long
   boss: true,             // a boss appears
   stage_end: true,        // stage cleared / failed, hero died
-  drops: [],              // item names: wake when one of them drops
+  drops: [],              // item names: wake when one of them drops (a full bag that blocks a pickup always wakes)
   heartbeat_sec: 30,      // the longest wait_events waits
   max_wakes_per_min: 6,
 };
@@ -43,6 +43,7 @@ export class Runner {
       case "stage_fail": if (w.stage_end) this.wake(`stage failed: ${ev.stage}`); break;
       case "death": if (w.stage_end) this.wake("hero died"); break;
       case "drop": if (w.drops.includes(ev.name)) this.wake(`dropped: ${ev.name}`); break;
+      case "pickup_blocked": if (ev.reason.startsWith("背包已满")) this.wake(`cannot pick up ${ev.name}: ${ev.reason}`); break;
       case "disconnected": this.stopScript("game disconnected"); this.wake("game disconnected"); break;
       case "hurt":
         if (ev.hp_max > 0 && ev.hp / ev.hp_max < w.hp_below) {
@@ -232,7 +233,7 @@ export function brief(o) {
 }
 
 function trimEvents(events) {
-  const keep = events.filter((e) => !["hurt", "log", "kill", "notice", "drop", "pickup"].includes(e.ev)).slice(-30);
+  const keep = events.filter((e) => !["hurt", "log", "kill", "notice", "drop", "pickup", "pickup_blocked"].includes(e.ev)).slice(-30);
   return keep.map(({ at, ...e }) => e);
 }
 
@@ -240,7 +241,7 @@ function trimEvents(events) {
 export function summarise(events, obs, script) {
   const c = (k) => events.filter((e) => e.ev === k);
   const kills = c("kill"), hurts = c("hurt"), picks = c("pickup"), logs = c("log"), notes = c("notice");
-  const drops = c("drop"), gone = c("drop_expired");
+  const drops = c("drop"), gone = c("drop_expired"), blocked = c("pickup_blocked");
   const item = (p) => `${p.name}(${[p.quality, p.type].filter(Boolean).join(" ")})`;
   const parts = [];
   if (obs?.stage) parts.push(`${obs.stage.id} room ${obs.stage.room}/${obs.stage.rooms}`);
@@ -253,6 +254,7 @@ export function summarise(events, obs, script) {
   if (drops.length || picks.length || gone.length) parts.push(`drops ${drops.length}, picked ${picks.length}, vanished ${gone.length}`);
   if (picks.length) parts.push("picked " + picks.map(item).join(", "));
   if (gone.length) parts.push("VANISHED unpicked: " + gone.map(item).join(", "));
+  if (blocked.length) parts.push("could not pick up: " + blocked.map((b) => `${item(b)} - ${b.reason}`).join(", "));
   if (notes.length) parts.push("notices: " + [...new Set(notes.map((n) => n.text))].slice(0, 5).join(" | "));
   if (logs.length) parts.push("script log: " + logs.slice(-8).map((l) => l.text).join(" | "));
   if (script) parts.push(`script ${script.name} running`);

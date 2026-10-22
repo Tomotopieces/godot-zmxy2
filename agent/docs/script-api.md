@@ -86,7 +86,9 @@ Only what the screen shows. World pixels: x to the right, y down (the floor is a
 ## Events (`onEvent`, and in `wait_events`)
 
 `stage_start {stage}` · `hurt {damage, hp, hp_max}` · `kill {name, boss}` · `boss_appear {name}` · `room_clear {room}` ·
-`drop {name, quality, type, x, y, expires_in}` · `pickup {name, quality, type}` · `drop_expired {name, quality, type}` (it vanished
+`drop {name, quality, type, x, y, expires_in}` · `pickup {name, quality, type}` · `pickup_blocked {name, quality, type, reason}` (touched but not taken: "背包已满（装备页 25/25）" -
+sell or drop something; or "已拥有（只能有一件）"; reported once per touch, and a full bag wakes the agent) ·
+`drop_expired {name, quality, type}` (it vanished
 unpicked: dropped equipment lasts about 10 s, boss loot stays) · `stage_clear {stage, ending?}` · `stage_fail` · `death` ·
 `level_up {level}` · `notice {text}` (the yellow on-screen notices, e.g. "背包已满")
 
